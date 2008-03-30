@@ -15,11 +15,13 @@
 	float measuredWeight;
 	float trendWeight;
 	BOOL flagged;
+	NSString *note;
 
 	UILabel *dayLabel;
 	UILabel *measuredWeightLabel;
 	UILabel *trendWeightLabel;
 	UIButton *flaggedLabel;
+	UILabel *noteLabel;
 	
 }
 
@@ -27,6 +29,7 @@
 @property (nonatomic) float measuredWeight;
 @property (nonatomic) float trendWeight;
 @property (nonatomic) BOOL flagged;
+@property (nonatomic,retain) NSString *note;
 
 - (void)updateLabels;
 

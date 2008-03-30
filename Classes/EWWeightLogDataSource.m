@@ -124,12 +124,28 @@
 		cell.trendWeight = 182.0 + (20.0 * (0.5 - n));
 		cell.flagged = [indexPath row] % 3;
 	}
+	
+	if ([indexPath row] % 12 == 0) {
+		cell.note = @"This cell has a note.";
+	} else {
+		cell.note = nil;
+	}
+	
 	[cell updateLabels];
 
 	return cell;
 }
 
 #pragma mark UITableViewDelegate (Optional)
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if ([indexPath row] % 12 == 0) {
+		return 64;
+	} else {
+		return 44;
+	}
+}
 
 //- (void)tableView:(UITableView *)tableView willDisplayRowsAtIndexPaths:(NSArray *)indexPaths
 //- (void)tableView:(UITableView *)tableView willLoadVisibleCellsInRowAtIndexPaths:(NSArray *)rows

@@ -15,52 +15,58 @@
 @synthesize measuredWeight;
 @synthesize trendWeight;
 @synthesize flagged;
+@synthesize note;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
 		dayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		[dayLabel setTextAlignment:UITextAlignmentRight];
-		[dayLabel setFont:[UIFont systemFontOfSize:22]];
-		[dayLabel setBackgroundColor:[UIColor clearColor]];
+		dayLabel.textAlignment = UITextAlignmentRight;
+		dayLabel.font = [UIFont systemFontOfSize:24];
+		dayLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:dayLabel];
 		
 		measuredWeightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		[measuredWeightLabel setTextAlignment:UITextAlignmentCenter];
-		[measuredWeightLabel setFont:[UIFont boldSystemFontOfSize:24]];
+		measuredWeightLabel.textAlignment = UITextAlignmentRight;
+		measuredWeightLabel.font = [UIFont boldSystemFontOfSize:36];
 		measuredWeightLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:measuredWeightLabel];
 		
 		trendWeightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		[trendWeightLabel setTextAlignment:UITextAlignmentCenter];
-		[trendWeightLabel setFont:[UIFont systemFontOfSize:22]];
+		trendWeightLabel.textAlignment = UITextAlignmentLeft;
+		trendWeightLabel.font = [UIFont systemFontOfSize:24];
 		trendWeightLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:trendWeightLabel];
 		
 		flaggedLabel = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
 		[self addSubview:flaggedLabel];
+		
+		noteLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		noteLabel.textAlignment = UITextAlignmentCenter;
+		noteLabel.font = [UIFont italicSystemFontOfSize:12];
+		noteLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:noteLabel];
+		
     }
     return self;
 }
-
-// 300
-// 30 + 120 + 100 + 50
-// [25][188.3][-2.0][X]
 
 - (void)layoutSubviews 
 {
 	[super layoutSubviews];
     if (!self.editing) {
-		CGRect contentRect = [self contentRectForBounds:self.bounds];
-		dayLabel.frame = CGRectMake(0, contentRect.origin.y, 30, contentRect.size.height);
-		measuredWeightLabel.frame = CGRectMake(30, contentRect.origin.y, 120, contentRect.size.height);
-		trendWeightLabel.frame = CGRectMake(150, contentRect.origin.y, 100, contentRect.size.height);
-		flaggedLabel.frame = CGRectMake(250, contentRect.origin.y, 50, contentRect.size.height);
+		dayLabel.frame = CGRectInset(CGRectMake(0, 0, 44, 44), 4, 4);
+		measuredWeightLabel.frame = CGRectInset(CGRectMake(44, 0, 144, 44), 4, 4);
+		trendWeightLabel.frame = CGRectInset(CGRectMake(188, 0, 88, 44), 4, 4);
+		flaggedLabel.frame = CGRectInset(CGRectMake(276, 0, 44, 44), 4, 4);
+		noteLabel.frame = CGRectMake(0, 40, 320, 20);
 	}
 }
 
 - (void)dealloc
 {
+	[note release];
+	[noteLabel release];
 	[flaggedLabel release];
 	[trendWeightLabel release];
 	[measuredWeightLabel release];
@@ -84,7 +90,18 @@
 			[trendWeightLabel setTextColor:[UIColor greenColor]];
 		}
 	}
-	[flaggedLabel setTitle:(flagged ? @"On" : @"Off") forStates:UIControlStateNormal];
+	[flaggedLabel setTitle:(flagged ? @"X" : @" ") forStates:UIControlStateNormal];
+
+	CGRect frame = self.frame;
+	if (note) {
+		noteLabel.text = note;
+		frame.size.height = 64;
+		[noteLabel setHidden:NO];
+	} else {
+		frame.size.height = 44;
+		[noteLabel setHidden:YES];
+	}
+	self.frame = frame;
 }
 
 @end
