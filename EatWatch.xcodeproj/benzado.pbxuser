@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {504, 280}}";
+			sepNavSelRange = "{423, 0}";
+			sepNavVisRange = "{45, 386}";
+			sepNavWindowFrame = "{{84, 169}, {716, 541}}";
+		};
+	};
+	1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {685, 644}}";
+			sepNavSelRange = "{181, 0}";
+			sepNavVisRange = "{145, 1009}";
+			sepNavWindowFrame = "{{252, 86}, {744, 675}}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* EatWatch */ = {
+		activeExec = 0;
+		executables = (
+			BC56D0880D8C5F17008D939B /* EatWatch */,
+		);
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecture = i386;
+		activeBuildConfigurationName = Debug;
+		activeExecutable = BC56D0880D8C5F17008D939B /* EatWatch */;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* EatWatch */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* EatWatch */,
+		);
+		codeSenseManager = BC56D0920D8C5F30008D939B /* Code sense */;
+		executables = (
+			BC56D0880D8C5F17008D939B /* EatWatch */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					326,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					286,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 228515281;
+			PBXWorkspaceStateSaveDate = 228515281;
+		};
+		perUserProjectItems = {
+			BC8272E90D9EB41300A24663 /* PBXTextBookmark */ = BC8272E90D9EB41300A24663 /* PBXTextBookmark */;
+			BC8272EA0D9EB41300A24663 /* PBXTextBookmark */ = BC8272EA0D9EB41300A24663 /* PBXTextBookmark */;
+			BC8272EB0D9EB41300A24663 /* PBXTextBookmark */ = BC8272EB0D9EB41300A24663 /* PBXTextBookmark */;
+			BC82730F0D9EB51300A24663 /* PBXTextBookmark */ = BC82730F0D9EB51300A24663 /* PBXTextBookmark */;
+			BC8273100D9EB51300A24663 /* PBXTextBookmark */ = BC8273100D9EB51300A24663 /* PBXTextBookmark */;
+			BC8273120D9EB51300A24663 /* PBXTextBookmark */ = BC8273120D9EB51300A24663 /* PBXTextBookmark */;
+			BC8273130D9EB51300A24663 /* PBXTextBookmark */ = BC8273130D9EB51300A24663 /* PBXTextBookmark */;
+			BC8273A00D9EDDBB00A24663 /* PBXTextBookmark */ = BC8273A00D9EDDBB00A24663 /* PBXTextBookmark */;
+			BC8273A30D9EDDBB00A24663 /* PBXTextBookmark */ = BC8273A30D9EDDBB00A24663 /* PBXTextBookmark */;
+			BC9E99100D9EE1120047DCB8 /* PBXTextBookmark */ = BC9E99100D9EE1120047DCB8 /* PBXTextBookmark */;
+			BC9E99130D9EE1120047DCB8 /* PBXTextBookmark */ = BC9E99130D9EE1120047DCB8 /* PBXTextBookmark */;
+		};
+		sourceControlManager = BC56D0910D8C5F30008D939B /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	BC56D0880D8C5F17008D939B /* EatWatch */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = EatWatch;
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+	};
+	BC56D0910D8C5F30008D939B /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	BC56D0920D8C5F30008D939B /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {685, 547}}";
+			sepNavSelRange = "{408, 32}";
+			sepNavVisRange = "{0, 445}";
+			sepNavWindowFrame = "{{466, 103}, {744, 675}}";
+		};
+	};
+	BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {876, 1946}}";
+			sepNavSelRange = "{3271, 16}";
+			sepNavVisRange = "{2992, 865}";
+			sepNavWindowFrame = "{{448, 122}, {749, 576}}";
+		};
+	};
+	BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {642, 532}}";
+			sepNavSelRange = "{384, 0}";
+			sepNavVisRange = "{0, 591}";
+			sepNavWindowFrame = "{{565, 101}, {701, 660}}";
+		};
+	};
+	BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {504, 616}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 0}";
+			sepNavWindowFrame = "{{493, 23}, {701, 660}}";
+		};
+	};
+	BC8272E90D9EB41300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */;
+		name = "EatWatchAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 423;
+		rType = 0;
+		vrLen = 386;
+		vrLoc = 45;
+	};
+	BC8272EA0D9EB41300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */;
+		name = "LogTableViewCell.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 293;
+		vrLoc = 0;
+	};
+	BC8272EB0D9EB41300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */;
+		name = "EatWatchAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 423;
+		rType = 0;
+		vrLen = 386;
+		vrLoc = 45;
+	};
+	BC82730F0D9EB51300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */;
+		name = "LogTableViewCell.h: 12";
+		rLen = 15;
+		rLoc = 202;
+		rType = 0;
+		vrLen = 262;
+		vrLoc = 85;
+	};
+	BC8273100D9EB51300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+		name = "LogViewController.m: 52";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 564;
+		vrLoc = 932;
+	};
+	BC8273120D9EB51300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+		name = "LogViewController.m: 52";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 564;
+		vrLoc = 932;
+	};
+	BC8273130D9EB51300A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */;
+		name = "LogTableViewCell.h: 12";
+		rLen = 15;
+		rLoc = 202;
+		rType = 0;
+		vrLen = 262;
+		vrLoc = 85;
+	};
+	BC8273A00D9EDDBB00A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */;
+		name = "LogTableViewCell.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC8273A30D9EDDBB00A24663 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8273A40D9EDDBB00A24663 /* Monthlog.c */;
+		name = "Monthlog.c: 95";
+		rLen = 0;
+		rLoc = 4706;
+		rType = 0;
+		vrLen = 958;
+		vrLoc = 5462;
+	};
+	BC8273A40D9EDDBB00A24663 /* Monthlog.c */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.c;
+		name = Monthlog.c;
+		path = /Users/benzado/Downloads/eatwsrc/Src/Monthlog.c;
+		sourceTree = "<absolute>";
+	};
+	BC9E99100D9EE1120047DCB8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */;
+		name = "LogTableViewCell.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC9E99130D9EE1120047DCB8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9E99140D9EE1120047DCB8 /* Monthlog.c */;
+		name = "Monthlog.c: 95";
+		rLen = 0;
+		rLoc = 4706;
+		rType = 0;
+		vrLen = 958;
+		vrLoc = 5462;
+	};
+	BC9E99140D9EE1120047DCB8 /* Monthlog.c */ = {
+		isa = PBXFileReference;
+		name = Monthlog.c;
+		path = /Users/benzado/Downloads/eatwsrc/Src/Monthlog.c;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {696, 12488}}";
+			sepNavSelRange = "{4706, 0}";
+			sepNavVisRange = "{5462, 958}";
+			sepNavWindowFrame = "{{176, 15}, {677, 611}}";
+		};
+	};
+	BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {349, 434}}";
+			sepNavSelRange = "{287, 0}";
+			sepNavVisRange = "{0, 287}";
+			sepNavWindowFrame = "{{22, 148}, {408, 562}}";
+		};
+	};
+	BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {685, 547}}";
+			sepNavSelRange = "{204, 16}";
+			sepNavVisRange = "{0, 232}";
+		};
+	};
+	BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {816, 1078}}";
+			sepNavSelRange = "{1250, 0}";
+			sepNavVisRange = "{353, 1202}";
+			sepNavWindowFrame = "{{65, 55}, {744, 675}}";
+		};
+	};
+	BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 413}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 236}";
+			sepNavWindowFrame = "{{153, 106}, {716, 541}}";
+		};
+	};
+	BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {685, 742}}";
+			sepNavSelRange = "{321, 0}";
+			sepNavVisRange = "{148, 927}";
+			sepNavWindowFrame = "{{38, 211}, {716, 541}}";
+		};
+	};
+	BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 413}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 236}";
+		};
+	};
+	BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 742}}";
+			sepNavSelRange = "{321, 0}";
+			sepNavVisRange = "{220, 837}";
+			sepNavWindowFrame = "{{61, 190}, {716, 541}}";
+		};
+	};
+}
