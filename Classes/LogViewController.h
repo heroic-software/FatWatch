@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "EWDate.h"
+
 @class Database;
 @class LogEntryViewController;
 @class MonthData;
@@ -17,5 +19,5 @@
 	LogEntryViewController *logEntryViewController;
 }
 - (id)initWithDatabase:(Database *)db;
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(unsigned int)day;
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day;
 @end

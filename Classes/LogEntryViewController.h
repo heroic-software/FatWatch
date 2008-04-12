@@ -8,16 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+#import "EWDate.h"
+
 @class MonthData;
 
 @interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UITextFieldDelegate> {
 	MonthData *monthData;
-	unsigned day;
+	EWDay day;
 	UIPickerView *weightPickerView;
 	UITextField *noteField;
+	NSDateFormatter *titleFormatter;
 }
 @property (nonatomic,retain) MonthData *monthData;
-@property (nonatomic) unsigned day;
+@property (nonatomic) EWDay day;
 @property (nonatomic,retain) UIPickerView *weightPickerView;
 @property (nonatomic,retain) UITextField *noteField;
 @end

@@ -12,6 +12,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC56D0A30D8C6B96008D939B /* EWWeightLogDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
@@ -34,6 +35,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
+		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWWeightLogDataSource.h; sourceTree = "<group>"; };
 		BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightLogDataSource.m; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntryViewController.h; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */,
+				BC1F83B70DB150B800DA88E6 /* EWDate.h */,
+				BC1F83B80DB150B800DA88E6 /* EWDate.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */,
 			);
@@ -246,6 +251,7 @@
 				BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */,
 				BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */,
 				BC9BDEE20DA9D8610004E70C /* Database.m in Sources */,
+				BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

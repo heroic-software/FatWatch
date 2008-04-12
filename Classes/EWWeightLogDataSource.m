@@ -17,40 +17,24 @@
 
 @synthesize viewController;
 
-- (NSDate *)firstDateInMonthOfDate:(NSDate *)someDate
-{
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit
-											   fromDate:someDate];
-	return [calendar dateFromComponents:components];
-}
-
 - (id)initWithDatabase:(Database *)db {
 	if ([super init]) {
 		database = [db retain];
-
-		NSDate *oldDate = [database earliestDate];
-		beginDate = [[self firstDateInMonthOfDate:oldDate] retain];
-
-		endDate = [[NSDate alloc] init];
-		if ([beginDate compare:endDate] == NSOrderedDescending) {
-			[endDate release];
-			endDate = [beginDate retain];
-		}
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
 		
-		NSCalendar *calendar = [NSCalendar currentCalendar];
-		NSDateComponents *components = [calendar components:NSMonthCalendarUnit
-												   fromDate:beginDate
-													 toDate:endDate
-													options:0];
-		numberOfSections = 1 + components.month;
+		EWMonth earliestMonth = [database earliestMonth];
+		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
+		NSLog(@"Months from %d to %d", earliestMonth, currentMonth);
 		
-		components = [calendar components:NSDayCalendarUnit 
-								 fromDate:endDate];
+		numberOfSections = MAX(1, currentMonth - earliestMonth + 1);
+		
+		NSDateComponents *components;
+		
+		components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit 
+													 fromDate:[NSDate date]];
 		lastIndexPath = [NSIndexPath indexPathForRow:(components.day - 1)
 										   inSection:(numberOfSections - 1)];
 		[lastIndexPath retain];
@@ -61,8 +45,6 @@
 - (void)dealloc {
 	[lastIndexPath release];
 	[sectionTitleFormatter release];
-	[endDate release];
-	[beginDate release];
 	[database release];
 	[super dealloc];
 }
@@ -72,38 +54,34 @@
 	return lastIndexPath;
 }
 
-- (NSDate *)beginDateForSection:(NSInteger)section {
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateComponents *components = [[NSDateComponents alloc] init];
-	components.month = section;
-	//components.day = row;
-	NSDate *theDate = [calendar dateByAddingComponents:components toDate:beginDate options:0];
-	[components release];
-	return theDate;
+- (EWMonth)monthForSection:(NSInteger)section
+{
+	return [database earliestMonth] + section;
 }
 
 #pragma mark UITableViewDataSource (Required)
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
 	return numberOfSections;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
 	if (section == numberOfSections - 1) {
 		return [lastIndexPath row] + 1;
 	} else {
-		NSDate *theDate = [self beginDateForSection:section];
-		NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSDayCalendarUnit 
-														   inUnit:NSMonthCalendarUnit
-														  forDate:theDate];
-		return range.length;
+		EWMonth month = [self monthForSection:section];
+		return EWDaysInMonth(month);
 	}
 }
 
 #pragma mark UITableViewDataSource (Optional)
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	NSDate *theDate = [self beginDateForSection:section];
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	EWMonth month = [self monthForSection:section];
+	NSDate *theDate = NSDateFromEWMonthAndDay(month, 1);
 	return [sectionTitleFormatter stringFromDate:theDate];
 }
 
@@ -120,9 +98,9 @@
 		cell = [[[LogTableViewCell alloc] init] autorelease];
 	}
 		
-	MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[indexPath section]]];
+	MonthData *monthData = [database dataForMonth:[self monthForSection:[indexPath section]]];
 	
-	unsigned int day = 1 + [indexPath row];
+	EWDay day = 1 + [indexPath row];
 	
 	cell.day = day;
 	cell.measuredWeight = [monthData measuredWeightOnDay:day];
@@ -136,29 +114,13 @@
 
 #pragma mark UITableViewDelegate (Optional)
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[indexPath section]]];
-	unsigned int day = 1 + [indexPath row];
-
-	if ([monthData noteOnDay:day] != nil) {
-		return 64;
-	} else {
-		return 44;
-	}
-}
-
 - (void)tableView:(UITableView *)tableView selectionDidChangeToIndexPath:(NSIndexPath *)newIndexPath fromIndexPath:(NSIndexPath *)oldIndexPath
 {
 	if (newIndexPath) {
-		MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[newIndexPath section]]];
-		unsigned int day = 1 + [newIndexPath row];
+		MonthData *monthData = [database dataForMonth:[self monthForSection:[newIndexPath section]]];
+		EWDay day = 1 + [newIndexPath row];
 		[viewController presentLogEntryViewForMonthData:monthData onDay:day];
 	}
 }
-
-//- (void)tableView:(UITableView *)tableView willDisplayRowsAtIndexPaths:(NSArray *)indexPaths
-//- (void)tableView:(UITableView *)tableView willLoadVisibleCellsInRowAtIndexPaths:(NSArray *)rows
-//- (void)tableView:(UITableView *)tableView didLoadVisibleCellsInRowsAtIndexPaths:(NSArray *)rows nextPredictedRowsAtIndexPaths:(NSArray *)rows
 
 @end

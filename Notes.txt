@@ -1,15 +1,22 @@
 - redesign table cells: uniform height
 - add switch for flag
 
+Lower 5 bits for day; rest for month
+........ ........ ........ ...XXXXX
+
+reference month: 1/1/2000
+
+
+
+
 TabBar
-	Weigh-in | Log | Graph | Trends
+	Log | Graph | Trends
 
 Preferences
 	Weight Units: lbs, kg
 	Scale incremement: 0.1, 0.5, 1.0
 
 SQLite structure
-
 	date
 	weight
 	trend

@@ -78,14 +78,13 @@
 	[super dealloc];
 }
 
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(unsigned int)day
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day
 {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
 	}
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
-	//[self presentModalViewController:logEntryViewController animated:YES];
 	[[self navigationController] pushViewController:logEntryViewController animated:YES];
 }
 

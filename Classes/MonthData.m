@@ -10,8 +10,9 @@
 
 @implementation MonthData
 
-- (id)init {
+- (id)initWithMonth:(EWMonth)m {
 	if ([super init]) {
+		month = m;
 		measuredWeights = calloc(31, sizeof(float));
 		trendWeights = calloc(31, sizeof(float));
 		flags = calloc(31, sizeof(BOOL));
@@ -31,7 +32,7 @@
 	[super dealloc];
 }
 
-- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(unsigned)day
+- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(EWMonth)day
 {
 	int i = day - 1;
 	measuredWeights[i] = measured;
@@ -41,27 +42,27 @@
 	[notesArray replaceObjectAtIndex:i withObject:object];
 }
 
-- (NSString *)titleOnDay:(unsigned)day
+- (NSDate *)dateOnDay:(EWDay)day
 {
-	return [NSString stringWithFormat:@"The %dth", day];
+	return NSDateFromEWMonthAndDay(month, day);
 }
 
-- (float)measuredWeightOnDay:(unsigned)day
+- (float)measuredWeightOnDay:(EWDay)day
 {
 	return measuredWeights[day - 1];
 }
 
-- (float)trendWeightOnDay:(unsigned)day
+- (float)trendWeightOnDay:(EWDay)day
 {
 	return trendWeights[day - 1];
 }
 
-- (BOOL)isFlaggedOnDay:(unsigned)day
+- (BOOL)isFlaggedOnDay:(EWDay)day
 {
 	return flags[day - 1];
 }
 
-- (NSString *)noteOnDay:(unsigned)day
+- (NSString *)noteOnDay:(EWDay)day
 {
 	id note = [notesArray objectAtIndex:(day - 1)];
 	return (note == [NSNull null] ? nil : note);
@@ -70,7 +71,7 @@
 - (void)setMeasuredWeight:(float)weight 
 					 flag:(BOOL)flag
 					 note:(NSString *)note
-					onDay:(unsigned)day
+					onDay:(EWDay)day
 {
 	int i = day - 1;
 	measuredWeights[i] = weight;

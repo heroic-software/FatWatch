@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "EWDate.h"
+
 @interface MonthData : NSObject {
+	EWMonth month;
 	BOOL hydrated;
 	BOOL dirty;
 	unsigned int firstDay;
@@ -17,14 +20,15 @@
 	BOOL *flags;
 	NSMutableArray *notesArray;
 }
-- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(unsigned)day;
-- (NSString *)titleOnDay:(unsigned)day;
-- (float)measuredWeightOnDay:(unsigned)day;
-- (float)trendWeightOnDay:(unsigned)day;
-- (BOOL)isFlaggedOnDay:(unsigned)day;
-- (NSString *)noteOnDay:(unsigned)day;
+- (id)initWithMonth:(EWMonth)m;
+- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(EWDay)day;
+- (NSDate *)dateOnDay:(EWDay)day;
+- (float)measuredWeightOnDay:(EWDay)day;
+- (float)trendWeightOnDay:(EWDay)day;
+- (BOOL)isFlaggedOnDay:(EWDay)day;
+- (NSString *)noteOnDay:(EWDay)day;
 - (void)setMeasuredWeight:(float)weight 
 					 flag:(BOOL)flag
 					 note:(NSString *)note
-					onDay:(unsigned)day;
+					onDay:(EWDay)day;
 @end

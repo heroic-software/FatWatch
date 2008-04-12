@@ -20,8 +20,9 @@
 - (id)init
 {
 	if (self = [super init]) {
-		// Initialize your view controller.
-		self.title = @"LogEntryViewController";
+		titleFormatter = [[NSDateFormatter alloc] init];
+		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
+		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
 	}
 	return self;
 }
@@ -69,12 +70,14 @@
 
 - (void)dealloc
 {
+	[titleFormatter release];
 	[super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	self.title = [monthData titleOnDay:day];
+	NSDate *date = [monthData dateOnDay:day];
+	self.title = [titleFormatter stringFromDate:date];
 
 	float weight = [monthData measuredWeightOnDay:day];
 	int row = [self pickerRowForWeight:weight];

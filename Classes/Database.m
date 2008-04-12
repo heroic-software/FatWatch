@@ -13,7 +13,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 
 @implementation Database
 
-- (void)ensureDatabaseExists {
+- (void)ensureDatabaseExists
+{
     // First, test for existence.
     BOOL success;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -44,7 +45,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
     }
 }
 
-- (void)initializeDatabase {
+- (void)initializeDatabase
+{
 	// The database is stored in the application bundle. 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSAssert([paths count], @"Failed to find Documents directory.");
@@ -58,7 +60,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	}
 }
 
-- (id)init {
+- (id)init
+{
 	if ([super init]) {
 		monthCache = [[NSMutableDictionary alloc] init];
 		[self ensureDatabaseExists];
@@ -67,7 +70,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[monthCache release];
 	if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
@@ -75,10 +79,11 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	[super dealloc];
 }
 
-- (NSDate *)earliestDate {
-	unsigned dateValue;
+- (EWMonth)earliestMonth
+{
+	EWMonth dateValue;
 
-	const char *sql = "SELECT date FROM weight ORDER BY date LIMIT 1";
+	const char *sql = "SELECT month FROM weight ORDER BY month ASC LIMIT 1";
 	sqlite3_stmt *statement;
 	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
 		while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -87,42 +92,32 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	}
 	sqlite3_finalize(statement);
 	
-	return [NSDate dateWithTimeIntervalSinceReferenceDate:dateValue];
+	return dateValue;
 }
 
-- (MonthData *)monthDataForDate:(NSDate *)beginDate
+- (MonthData *)dataForMonth:(EWMonth)m
 {
-	MonthData *monthData = [monthCache objectForKey:beginDate];
+	NSNumber *monthKey = [NSNumber numberWithInt:m];
+	MonthData *monthData = [monthCache objectForKey:monthKey];
 	if (monthData != nil) {
 		return monthData;
 	}
-	
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSDateComponents *components = [[NSDateComponents alloc] init];
-	components.month = 1;
-	NSDate *endDate = [calendar dateByAddingComponents:components
-												toDate:beginDate
-											   options:0];
-	[components release];
-	
-	monthData = [[MonthData alloc] init];
-	[monthCache setObject:monthData forKey:beginDate];
+		
+	monthData = [[MonthData alloc] initWithMonth:m];
+	[monthCache setObject:monthData forKey:monthKey];
 	[monthData release];
 
-	const char *sql = "SELECT * FROM weight WHERE date >= ? AND date < ?";
+	const char *sql = "SELECT * FROM weight WHERE month = ?";
 	sqlite3_stmt *statement;
 	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-		sqlite3_bind_int(statement, 1, [beginDate timeIntervalSinceReferenceDate]);
-		sqlite3_bind_int(statement, 2, [endDate timeIntervalSinceReferenceDate]);
+		sqlite3_bind_int(statement, 1, m);
 		while (sqlite3_step(statement) == SQLITE_ROW) {
-			NSDate *rowDate = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:sqlite3_column_int(statement, 0)];
-			components = [calendar components:NSDayCalendarUnit fromDate:rowDate];
-			char *noteStr = (char *)sqlite3_column_text(statement, 4);
-			[monthData loadMeasuredWeight:sqlite3_column_double(statement, 1)
-							  trendWeight:sqlite3_column_double(statement, 2)
-								  flagged:(sqlite3_column_int(statement, 3) != 0)
+			char *noteStr = (char *)sqlite3_column_text(statement, 5);
+			[monthData loadMeasuredWeight:sqlite3_column_double(statement, 2)
+							  trendWeight:sqlite3_column_double(statement, 3)
+								  flagged:(sqlite3_column_int(statement, 4) != 0)
 									 note:(noteStr ? [NSString stringWithUTF8String:noteStr] : nil)
-								   forDay:[components day]];
+								   forDay:sqlite3_column_int(statement, 1)];
 		}
 	}
 	sqlite3_finalize(statement);

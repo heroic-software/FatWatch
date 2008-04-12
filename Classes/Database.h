@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "/usr/include/sqlite3.h"
+#import "EWDate.h"
 
 @class MonthData;
 
@@ -15,6 +16,6 @@
 	sqlite3 *database;
 	NSMutableDictionary *monthCache;
 }
-- (NSDate *)earliestDate;
-- (MonthData *)monthDataForDate:(NSDate *)beginDate;
+- (EWMonth)earliestMonth;
+- (MonthData *)dataForMonth:(EWMonth)m;
 @end
