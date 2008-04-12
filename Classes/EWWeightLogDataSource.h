@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
+@class LogViewController;
 
 @interface EWWeightLogDataSource : NSObject <UITableViewDelegate, UITableViewDataSource> {
+	Database *database;
 	NSDate *beginDate;
 	NSDate *endDate;
 	NSDateFormatter *sectionTitleFormatter;
 	NSUInteger numberOfSections;
 	NSIndexPath *lastIndexPath;
+	LogViewController *viewController;
 }
+@property (nonatomic,retain) LogViewController *viewController;
+- (id)initWithDatabase:(Database *)db;
 - (NSIndexPath *)lastIndexPath;
 @end

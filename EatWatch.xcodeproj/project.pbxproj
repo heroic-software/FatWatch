@@ -13,7 +13,12 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC56D0A30D8C6B96008D939B /* EWWeightLogDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */; };
+		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
+		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
+		BC9BDED10DA9D53F0004E70C /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDED00DA9D53F0004E70C /* WeightData.db */; };
+		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
+		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
@@ -31,8 +36,17 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWWeightLogDataSource.h; sourceTree = "<group>"; };
 		BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightLogDataSource.m; sourceTree = "<group>"; };
+		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntryViewController.h; sourceTree = "<group>"; };
+		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEntryViewController.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewCell.m; sourceTree = "<group>"; };
+		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
+		BC9BDE980DA9CB550004E70C /* MonthData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthData.m; sourceTree = "<group>"; };
+		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
+		BC9BDED00DA9D53F0004E70C /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
+		BC9BDEE00DA9D8610004E70C /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
+		BC9BDEE10DA9D8610004E70C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
+		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -50,6 +64,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */,
+				BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +74,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BC9BDEE00DA9D8610004E70C /* Database.h */,
+				BC9BDEE10DA9D8610004E70C /* Database.m */,
+				BC9BDE970DA9CB550004E70C /* MonthData.h */,
+				BC9BDE980DA9CB550004E70C /* MonthData.m */,
 				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
 				BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */,
@@ -71,6 +90,8 @@
 				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
 				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
 				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
+				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
+				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -78,6 +99,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -118,6 +140,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -126,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
+				BC9BDED00DA9D53F0004E70C /* WeightData.db */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -146,6 +170,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "EatWatch" */;
 			buildPhases = (
+				BC9BDEAE0DA9D16A0004E70C /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -181,10 +206,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC9BDED10DA9D53F0004E70C /* WeightData.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BC9BDEAE0DA9D16A0004E70C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/CreateEmptyDatabase.sql",
+			);
+			outputPaths = (
+				"$(SRCROOT)/WeightData.db",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DATABASE_FILE=$SRCROOT/WeightData.db\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SRCROOT/CreateEmptyDatabase.sql $DATABASE_FILE\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -198,6 +243,9 @@
 				BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */,
 				BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */,
 				BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */,
+				BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */,
+				BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */,
+				BC9BDEE20DA9D8610004E70C /* Database.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

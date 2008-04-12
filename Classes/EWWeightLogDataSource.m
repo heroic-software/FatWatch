@@ -8,8 +8,14 @@
 
 #import "EWWeightLogDataSource.h"
 #import "LogTableViewCell.h"
+#import "LogViewController.h"
+#import "LogEntryViewController.h"
+#import "MonthData.h"
+#import "Database.h"
 
 @implementation EWWeightLogDataSource
+
+@synthesize viewController;
 
 - (NSDate *)firstDateInMonthOfDate:(NSDate *)someDate
 {
@@ -19,27 +25,28 @@
 	return [calendar dateFromComponents:components];
 }
 
-- (id)init {
+- (id)initWithDatabase:(Database *)db {
 	if ([super init]) {
-		// right now we pick an arbitrary date in the past but eventually this
-		// will be the earliest date in our database
-		NSDate *oldDate = [[NSDate alloc] initWithTimeIntervalSinceNow:-(60 * 60 * 24 * 500)];
+		database = [db retain];
+
+		NSDate *oldDate = [database earliestDate];
 		beginDate = [[self firstDateInMonthOfDate:oldDate] retain];
-		[oldDate release];
 
 		endDate = [[NSDate alloc] init];
+		if ([beginDate compare:endDate] == NSOrderedDescending) {
+			[endDate release];
+			endDate = [beginDate retain];
+		}
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
 		
 		NSCalendar *calendar = [NSCalendar currentCalendar];
-		NSDateComponents *
-		
-		components = [calendar components:NSMonthCalendarUnit
-								 fromDate:beginDate
-								   toDate:endDate
-								  options:0];
+		NSDateComponents *components = [calendar components:NSMonthCalendarUnit
+												   fromDate:beginDate
+													 toDate:endDate
+													options:0];
 		numberOfSections = 1 + components.month;
 		
 		components = [calendar components:NSDayCalendarUnit 
@@ -56,6 +63,7 @@
 	[sectionTitleFormatter release];
 	[endDate release];
 	[beginDate release];
+	[database release];
 	[super dealloc];
 }
 
@@ -64,11 +72,11 @@
 	return lastIndexPath;
 }
 
-- (NSDate *)dateForRow:(NSInteger)row inSection:(NSInteger)section {
+- (NSDate *)beginDateForSection:(NSInteger)section {
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	NSDateComponents *components = [[NSDateComponents alloc] init];
 	components.month = section;
-	components.day = row;
+	//components.day = row;
 	NSDate *theDate = [calendar dateByAddingComponents:components toDate:beginDate options:0];
 	[components release];
 	return theDate;
@@ -84,7 +92,7 @@
 	if (section == numberOfSections - 1) {
 		return [lastIndexPath row] + 1;
 	} else {
-		NSDate *theDate = [self dateForRow:0 inSection:section];
+		NSDate *theDate = [self beginDateForSection:section];
 		NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSDayCalendarUnit 
 														   inUnit:NSMonthCalendarUnit
 														  forDate:theDate];
@@ -95,42 +103,32 @@
 #pragma mark UITableViewDataSource (Optional)
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	NSDate *theDate = [self dateForRow:0 inSection:section];
+	NSDate *theDate = [self beginDateForSection:section];
 	return [sectionTitleFormatter stringFromDate:theDate];
 }
 
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-		 cellForRowAtIndexPath:(NSIndexPath *)indexPath 
-			 withAvailableCell:(UITableViewCell *)availableCell {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	LogTableViewCell *cell = nil;
+	
+	id availableCell = [tableView dequeueReusableCellWithIdentifier:@"LogCell"];
 	if (availableCell != nil) {
 		cell = (LogTableViewCell *)availableCell;
 	} else {
-		CGRect frame = CGRectMake(0, 0, 300, 44);
-		cell = [[[LogTableViewCell alloc] initWithFrame:frame] autorelease];
+		cell = [[[LogTableViewCell alloc] init] autorelease];
 	}
+		
+	MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[indexPath section]]];
 	
-	float n = ((float)[indexPath row]) / 31.0f;
+	unsigned int day = 1 + [indexPath row];
 	
-	cell.day = [indexPath row] + 1;
-	if ([indexPath row] % 7 == 0) {
-		cell.measuredWeight = 0;
-		cell.trendWeight = 0;
-		cell.flagged = NO;
-	} else {
-		cell.measuredWeight = 182.0 + (10.0 * (0.5 - n));
-		cell.trendWeight = 182.0 + (20.0 * (0.5 - n));
-		cell.flagged = [indexPath row] % 3;
-	}
-	
-	if ([indexPath row] % 12 == 0) {
-		cell.note = @"This cell has a note.";
-	} else {
-		cell.note = nil;
-	}
-	
+	cell.day = day;
+	cell.measuredWeight = [monthData measuredWeightOnDay:day];
+	cell.trendWeight = [monthData trendWeightOnDay:day];
+	cell.flagged = [monthData isFlaggedOnDay:day];
+	cell.note = [monthData noteOnDay:day];
 	[cell updateLabels];
 
 	return cell;
@@ -140,10 +138,22 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ([indexPath row] % 12 == 0) {
+	MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[indexPath section]]];
+	unsigned int day = 1 + [indexPath row];
+
+	if ([monthData noteOnDay:day] != nil) {
 		return 64;
 	} else {
 		return 44;
+	}
+}
+
+- (void)tableView:(UITableView *)tableView selectionDidChangeToIndexPath:(NSIndexPath *)newIndexPath fromIndexPath:(NSIndexPath *)oldIndexPath
+{
+	if (newIndexPath) {
+		MonthData *monthData = [database monthDataForDate:[self beginDateForSection:[newIndexPath section]]];
+		unsigned int day = 1 + [newIndexPath row];
+		[viewController presentLogEntryViewForMonthData:monthData onDay:day];
 	}
 }
 

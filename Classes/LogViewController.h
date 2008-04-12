@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
+@class LogEntryViewController;
+@class MonthData;
 
 @interface LogViewController : UIViewController {
-
+	Database *database;
+	LogEntryViewController *logEntryViewController;
 }
-
+- (id)initWithDatabase:(Database *)db;
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(unsigned int)day;
 @end

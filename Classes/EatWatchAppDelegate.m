@@ -7,6 +7,8 @@
 //
 
 #import "EatWatchAppDelegate.h"
+
+#import "Database.h"
 #import "LogViewController.h"
 #import "TrendViewController.h"
 #import "GraphViewController.h"
@@ -17,23 +19,32 @@
 @synthesize tabBarController;
 
 - init {
-	if (self = [super init]) {
-		// Your initialization code here
+	if ([super init]) {
+		database = [[Database alloc] init];
 	}
 	return self;
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	LogViewController *logView = [[[LogViewController alloc] initWithDatabase:database] autorelease];
+	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
+	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
+
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:logView];
+	
 	self.tabBarController = [[UITabBarController alloc] init];
-	id item1 = [[[LogViewController alloc] init] autorelease];
-	id item2 = [[[GraphViewController alloc] init] autorelease];
-	id item3 = [[[TrendViewController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:item1, item2, item3, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:navController, graphView, trendView, nil];
+
+	[navController release];
 
 	// Create window
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 	[window addSubview:tabBarController.view];
     [window makeKeyAndVisible];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+	[database release];
 }
 
 - (void)dealloc {

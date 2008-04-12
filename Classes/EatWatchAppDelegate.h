@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
+
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
+	Database *database;
     UIWindow *window;
     UITabBarController *tabBarController;
 }

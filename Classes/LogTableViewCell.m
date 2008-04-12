@@ -17,8 +17,9 @@
 @synthesize flagged;
 @synthesize note;
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (id)init
+{
+    if (self = [super initWithFrame:CGRectZero reuseIdentifier:@"LogCell"]) {
         
 		dayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		dayLabel.textAlignment = UITextAlignmentRight;
@@ -39,16 +40,20 @@
 		[self addSubview:trendWeightLabel];
 		
 		flaggedLabel = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
-		[self addSubview:flaggedLabel];
+		//[self addSubview:flaggedLabel];
 		
 		noteLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		noteLabel.textAlignment = UITextAlignmentCenter;
 		noteLabel.font = [UIFont italicSystemFontOfSize:12];
 		noteLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:noteLabel];
-		
     }
     return self;
+}
+
+- (void)checked:(id)sender
+{
+	NSLog(@"Oh, yeah!");
 }
 
 - (void)layoutSubviews 
@@ -90,7 +95,8 @@
 			[trendWeightLabel setTextColor:[UIColor greenColor]];
 		}
 	}
-	[flaggedLabel setTitle:(flagged ? @"X" : @" ") forStates:UIControlStateNormal];
+	//[flaggedLabel setTitle:(flagged ? @"X" : @" ") forStates:UIControlStateNormal];
+	self.accessoryType = flagged ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 
 	CGRect frame = self.frame;
 	if (note) {
