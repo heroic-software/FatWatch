@@ -10,6 +10,8 @@
 
 #import "MonthData.h"
 
+const CGFloat kOFFSET_FOR_KEYBOARD = 100;
+
 @implementation LogEntryViewController
 
 @synthesize monthData;
@@ -23,20 +25,22 @@
 		titleFormatter = [[NSDateFormatter alloc] init];
 		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
+		
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.5f] forKey:@"ScaleIncrement"]];
+		scaleIncrement = [defs floatForKey:@"ScaleIncrement"]; 
 	}
 	return self;
 }
 
-#define INCREMENT 0.5f
-
 - (NSInteger)pickerRowForWeight:(float)weight
 {
-	return weight / INCREMENT;
+	return weight / scaleIncrement;
 }
 
 - (float)weightForPickerRow:(NSInteger)row
 {
-	return row * INCREMENT;
+	return row * scaleIncrement;
 }
 
 - (void)loadView
@@ -110,8 +114,6 @@
 	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview.
 	// Release anything that's not essential, such as cached data.
 }
-
-const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 
 - (void)makeRoomForKeyboard:(BOOL)shiftUp
 {
