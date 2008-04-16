@@ -8,6 +8,7 @@
 
 #import "LogTableViewCell.h"
 
+NSString *kLogCellReuseIdentifier = @"LogCell";
 
 @implementation LogTableViewCell
 
@@ -19,60 +20,44 @@
 
 - (id)init
 {
-    if (self = [super initWithFrame:CGRectZero reuseIdentifier:@"LogCell"]) {
-        
+    if (self = [super initWithFrame:CGRectMake(0, 0, 320, 44) reuseIdentifier:kLogCellReuseIdentifier]) {
+		self.backgroundColor = [UIColor orangeColor];
+		
 		dayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		dayLabel.frame = CGRectInset(CGRectMake(0, 0, 44, 44), 4, 0);
 		dayLabel.textAlignment = UITextAlignmentRight;
 		dayLabel.font = [UIFont systemFontOfSize:24];
 		dayLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:dayLabel];
 		
 		measuredWeightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		measuredWeightLabel.frame = CGRectInset(CGRectMake(44, 0, 144, 44), 4, 0);
 		measuredWeightLabel.textAlignment = UITextAlignmentRight;
 		measuredWeightLabel.font = [UIFont boldSystemFontOfSize:36];
 		measuredWeightLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:measuredWeightLabel];
 		
 		trendWeightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		trendWeightLabel.frame = CGRectInset(CGRectMake(188, 14, 88, 16), 4, 0);
 		trendWeightLabel.textAlignment = UITextAlignmentLeft;
-		trendWeightLabel.font = [UIFont systemFontOfSize:24];
+		trendWeightLabel.font = [UIFont systemFontOfSize:14];
 		trendWeightLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:trendWeightLabel];
-		
-		flaggedLabel = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
-		//[self addSubview:flaggedLabel];
-		
+				
 		noteLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		noteLabel.textAlignment = UITextAlignmentCenter;
-		noteLabel.font = [UIFont italicSystemFontOfSize:12];
+		noteLabel.frame = CGRectInset(CGRectMake(188, 30, 132, 14), 4, 0);
+		noteLabel.textAlignment = UITextAlignmentLeft;
+		noteLabel.font = [UIFont italicSystemFontOfSize:10];
 		noteLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:noteLabel];
     }
     return self;
 }
 
-- (void)checked:(id)sender
-{
-	NSLog(@"Oh, yeah!");
-}
-
-- (void)layoutSubviews 
-{
-	[super layoutSubviews];
-    if (!self.editing) {
-		dayLabel.frame = CGRectInset(CGRectMake(0, 0, 44, 44), 4, 4);
-		measuredWeightLabel.frame = CGRectInset(CGRectMake(44, 0, 144, 44), 4, 4);
-		trendWeightLabel.frame = CGRectInset(CGRectMake(188, 0, 88, 44), 4, 4);
-		flaggedLabel.frame = CGRectInset(CGRectMake(276, 0, 44, 44), 4, 4);
-		noteLabel.frame = CGRectMake(0, 40, 320, 20);
-	}
-}
-
 - (void)dealloc
 {
 	[note release];
 	[noteLabel release];
-	[flaggedLabel release];
 	[trendWeightLabel release];
 	[measuredWeightLabel release];
 	[dayLabel release];
@@ -82,12 +67,13 @@
 - (void)updateLabels
 {
 	[dayLabel setText:[NSString stringWithFormat:@"%d", day]];
+	
 	if (measuredWeight == 0) {
 		[measuredWeightLabel setText:@"—"];
 		[trendWeightLabel setText:@""];
 	} else {
 		[measuredWeightLabel setText:[NSString stringWithFormat:@"%.1f", measuredWeight]];
-		float weightDiff = trendWeight - measuredWeight;
+		float weightDiff = measuredWeight - trendWeight;
 		[trendWeightLabel setText:[NSString stringWithFormat:@"%+.1f", weightDiff]];
 		if (weightDiff > 0) {
 			[trendWeightLabel setTextColor:[UIColor redColor]];
@@ -95,19 +81,16 @@
 			[trendWeightLabel setTextColor:[UIColor greenColor]];
 		}
 	}
-	//[flaggedLabel setTitle:(flagged ? @"X" : @" ") forStates:UIControlStateNormal];
+	
 	self.accessoryType = flagged ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 
-	CGRect frame = self.frame;
 	if (note) {
 		noteLabel.text = note;
-		frame.size.height = 64;
 		[noteLabel setHidden:NO];
 	} else {
-		frame.size.height = 44;
+		noteLabel.text = @"";
 		[noteLabel setHidden:YES];
 	}
-	self.frame = frame;
 }
 
 @end

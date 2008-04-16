@@ -7,21 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "EWDate.h"
 
+@class Database;
+
 @interface MonthData : NSObject {
+	Database *database;
 	EWMonth month;
-	BOOL hydrated;
-	BOOL dirty;
-	unsigned int firstDay;
+	unsigned int dirtyBits;
 	float *measuredWeights;
 	float *trendWeights;
-	BOOL *flags;
+	unsigned int flagBits;
 	NSMutableArray *notesArray;
 }
-- (id)initWithMonth:(EWMonth)m;
-- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(EWDay)day;
++ (void)finalizeStatements;
+- (id)initWithDatabase:(Database *)db month:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
 - (float)trendWeightOnDay:(EWDay)day;
@@ -31,4 +31,5 @@
 					 flag:(BOOL)flag
 					 note:(NSString *)note
 					onDay:(EWDay)day;
+- (void)commitChanges;
 @end

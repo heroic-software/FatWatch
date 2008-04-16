@@ -6,20 +6,57 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
+#import "/usr/include/sqlite3.h"
 #import "MonthData.h"
+#import "Database.h"
+
+#define SetBitValueAtIndex(b, v, i) if (v) { b |= (1 << (i)); } else { b &= ~(1 << (i)); }
+
+static sqlite3_stmt *insert_stmt = nil;
+static sqlite3_stmt *data_for_month_stmt = nil;
 
 @implementation MonthData
 
-- (id)initWithMonth:(EWMonth)m {
++ (void)finalizeStatements
+{
+	if (insert_stmt) sqlite3_finalize(insert_stmt);
+	if (data_for_month_stmt) sqlite3_finalize(data_for_month_stmt);
+}
+
+- (id)initWithDatabase:(Database *)db month:(EWMonth)m
+{
 	if ([super init]) {
+		database = db;
 		month = m;
+		
 		measuredWeights = calloc(31, sizeof(float));
 		trendWeights = calloc(31, sizeof(float));
-		flags = calloc(31, sizeof(BOOL));
+		flagBits = 0;
 		notesArray = [[NSMutableArray alloc] initWithCapacity:31];
 		for (int i = 0; i < 31; i++) {
 			[notesArray addObject:[NSNull null]];
 		}
+		dirtyBits = 0;
+		
+		if (data_for_month_stmt == nil) {
+			data_for_month_stmt = [database prepareStatement:"SELECT * FROM weight WHERE month = ?"];
+		}
+		sqlite3_bind_int(data_for_month_stmt, 1, m);
+		while (sqlite3_step(data_for_month_stmt) == SQLITE_ROW) {
+			EWDay day = sqlite3_column_int(data_for_month_stmt, kDayColumnIndex);
+			int i = day - 1;
+			
+			measuredWeights[i] = sqlite3_column_double(data_for_month_stmt, kMeasuredValueColumnIndex);
+			trendWeights[i] = sqlite3_column_double(data_for_month_stmt, kTrendValueColumnIndex);
+			SetBitValueAtIndex(flagBits, (sqlite3_column_int(data_for_month_stmt, kFlagColumnIndex) != 0), i);
+
+			char *noteStr = (char *)sqlite3_column_text(data_for_month_stmt, kNoteColumnIndex);
+			if (noteStr) {
+				[notesArray replaceObjectAtIndex:i withObject:[NSString stringWithUTF8String:noteStr]];
+			}
+		}
+		sqlite3_reset(data_for_month_stmt);
+		
 	}
 	return self;
 }
@@ -27,19 +64,8 @@
 - (void)dealloc {
 	free(measuredWeights);
 	free(trendWeights);
-	free(flags);
 	[notesArray release];
 	[super dealloc];
-}
-
-- (void)loadMeasuredWeight:(float)measured trendWeight:(float)trend flagged:(BOOL)flag note:(NSString *)note forDay:(EWMonth)day
-{
-	int i = day - 1;
-	measuredWeights[i] = measured;
-	trendWeights[i] = trend;
-	flags[i] = flag;
-	id object = (note != nil) ? (id)note : (id)[NSNull null];
-	[notesArray replaceObjectAtIndex:i withObject:object];
 }
 
 - (NSDate *)dateOnDay:(EWDay)day
@@ -59,7 +85,8 @@
 
 - (BOOL)isFlaggedOnDay:(EWDay)day
 {
-	return flags[day - 1];
+	int i = day - 1;
+	return (flagBits & (1 << i)) != 0;
 }
 
 - (NSString *)noteOnDay:(EWDay)day
@@ -68,16 +95,97 @@
 	return (note == [NSNull null] ? nil : note);
 }
 
-- (void)setMeasuredWeight:(float)weight 
-					 flag:(BOOL)flag
-					 note:(NSString *)note
-					onDay:(EWDay)day
+// Finds the trend value for the first day with data preceding the given day.
+// If there is no earlier data, returns weight on the given day.
+- (float)inputTrendOnDay:(EWDay)day
+{
+	// First, search backwards through this month for a trend value.
+	
+	int i;
+	
+	for (i = (day - 1) - 1; i >= 0; i--) {
+		float trend = trendWeights[i];
+		if (trend != 0) return trend;
+	}
+	
+	// If none is found, find previous month with data.
+	
+	MonthData *earlierMonthData = [database dataForMonthBefore:month];
+	if (earlierMonthData) {
+		return [earlierMonthData inputTrendOnDay:31];
+	}
+	
+	return measuredWeights[day - 1];
+}
+
+- (void)updateTrendStartingOnDay:(EWDay)day inputTrend:(float)inputTrend
+{
+	int i;
+	float previousTrend = inputTrend;
+	for (i = (day - 1); i <= 31; i++) {
+		if (measuredWeights[i] != 0) {
+			trendWeights[i] = previousTrend + (0.1f * (measuredWeights[i] - previousTrend));
+			SetBitValueAtIndex(dirtyBits, 1, i);
+			previousTrend = trendWeights[i];
+		}
+	}
+	// TODO: convert to loop to avoid possible stack overflow
+	[[database dataForMonthAfter:month] updateTrendStartingOnDay:1 inputTrend:previousTrend];
+}
+
+- (void)setMeasuredWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day
 {
 	int i = day - 1;
 	measuredWeights[i] = weight;
-	flags[i] = flag;
+	SetBitValueAtIndex(flagBits, flag, i);
 	id object = (note != nil) ? (id)note : (id)[NSNull null];
 	[notesArray replaceObjectAtIndex:i withObject:object];
+	SetBitValueAtIndex(dirtyBits, 1, i);
+	
+	// find next earliest trend value
+	float previousTrend = [self inputTrendOnDay:day];
+	
+	// update this and future trend values
+	[self updateTrendStartingOnDay:day inputTrend:previousTrend];
+}
+
+- (void)commitChanges
+{
+	if (dirtyBits == 0) return;
+	
+	if (insert_stmt == nil) {
+		insert_stmt = [database prepareStatement:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
+	}
+	
+	int i = 0;
+	unsigned int bits = dirtyBits;
+	while (bits) {
+		if (bits & 1 != 0) {
+			EWDay day = i + 1;
+
+			NSLog(@"Saving data for %d/%d", month, day);
+			// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
+			sqlite3_bind_int(insert_stmt, kMonthColumnIndex + 1, month);
+			sqlite3_bind_int(insert_stmt, kDayColumnIndex + 1, day);
+			sqlite3_bind_double(insert_stmt, kMeasuredValueColumnIndex + 1, measuredWeights[i]);
+			sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+			sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);
+			id note = [notesArray objectAtIndex:i];
+			if (note != [NSNull null]) {
+				sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [note UTF8String], -1, SQLITE_STATIC);
+			} else {
+				sqlite3_bind_null(insert_stmt, kNoteColumnIndex + 1);
+			}
+			
+			int retcode = sqlite3_step(insert_stmt);
+			sqlite3_reset(insert_stmt);
+			NSAssert1(retcode == SQLITE_DONE, @"INSERT returned code %d", retcode);
+		}
+		i++;
+		bits >>= 1;
+	}
+	
+	dirtyBits = 0;
 }
 
 @end

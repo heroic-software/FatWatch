@@ -84,6 +84,9 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 	self.title = [titleFormatter stringFromDate:date];
 
 	float weight = [monthData measuredWeightOnDay:day];
+	if (weight == 0) {
+		weight = [monthData trendWeightOnDay:day];
+	}
 	int row = [self pickerRowForWeight:weight];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];

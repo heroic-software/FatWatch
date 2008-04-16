@@ -35,8 +35,26 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 #pragma mark End Workaround
     
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
-    success = [fileManager fileExistsAtPath:writableDBPath];
-    if (success) return;
+	
+    BOOL dbExists = [fileManager fileExistsAtPath:writableDBPath];
+	if (!dbExists) {
+		NSLog(@"Database file not found, creating a new database.");
+	}
+    
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	BOOL forceReset = [defs boolForKey:@"OnLaunchResetDatabase"];
+	if (forceReset && dbExists) {
+		NSLog(@"Database reset requested, creating a new database.");
+		success = [fileManager removeItemAtPath:writableDBPath error:&error];
+		if (!success) {
+			NSAssert1(0, @"Failed to delete existing database file with message '%@'.", [error localizedDescription]);
+		}
+	}
+	[defs removeObjectForKey:@"OnLaunchResetDatabase"];
+	
+	if (dbExists && !forceReset) return;
+	
+	NSLog(@"Can't find database, copying default into place.");
     // The writable database does not exist, so copy the default to the appropriate location.
     NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kWeightDatabaseName];
     success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
@@ -70,25 +88,43 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	return self;
 }
 
-- (void)dealloc
+- (void)close
 {
-	[monthCache release];
+	[self commitChanges];
+	[monthCache release]; monthCache = nil;
+	
+	[MonthData finalizeStatements];
+	
 	if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
+}
+
+- (void)dealloc
+{
 	[super dealloc];
+}
+
+- (sqlite3_stmt *)prepareStatement:(const char *)sql
+{
+	sqlite3_stmt *statement;
+	int retCode = sqlite3_prepare_v2(database, sql, -1, &statement, NULL);
+	NSAssert2(retCode == SQLITE_OK, @"Error: failed to prepare statement '%s' with message '%s'.", sql, sqlite3_errmsg(database));
+	return statement;
 }
 
 - (EWMonth)earliestMonth
 {
 	EWMonth dateValue;
 
-	const char *sql = "SELECT month FROM weight ORDER BY month ASC LIMIT 1";
-	sqlite3_stmt *statement;
-	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-		while (sqlite3_step(statement) == SQLITE_ROW) {
-			dateValue = sqlite3_column_int(statement, 0);
-		}
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT month FROM weight ORDER BY month ASC LIMIT 1"];
+	int retcode = sqlite3_step(statement);
+	if (retcode == SQLITE_ROW) {
+		dateValue = sqlite3_column_int(statement, 0);
+	} else if (retcode == SQLITE_DONE) {
+		dateValue = EWMonthFromDate([NSDate date]);
+	} else {
+		NSAssert1(0, @"SELECT returned code %d", retcode);
 	}
 	sqlite3_finalize(statement);
 	
@@ -103,26 +139,51 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 		return monthData;
 	}
 		
-	monthData = [[MonthData alloc] initWithMonth:m];
+	monthData = [[MonthData alloc] initWithDatabase:self month:m];
 	[monthCache setObject:monthData forKey:monthKey];
 	[monthData release];
 
-	const char *sql = "SELECT * FROM weight WHERE month = ?";
-	sqlite3_stmt *statement;
-	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-		sqlite3_bind_int(statement, 1, m);
-		while (sqlite3_step(statement) == SQLITE_ROW) {
-			char *noteStr = (char *)sqlite3_column_text(statement, 5);
-			[monthData loadMeasuredWeight:sqlite3_column_double(statement, 2)
-							  trendWeight:sqlite3_column_double(statement, 3)
-								  flagged:(sqlite3_column_int(statement, 4) != 0)
-									 note:(noteStr ? [NSString stringWithUTF8String:noteStr] : nil)
-								   forDay:sqlite3_column_int(statement, 1)];
-		}
+	return monthData;
+}
+
+- (MonthData *)dataForStatement:(sqlite3_stmt *)statement relativeToMonth:(EWMonth)m
+{
+	EWMonth otherMonth;
+	
+	sqlite3_bind_int(statement, 1, m);
+	int retcode = sqlite3_step(statement);
+	if (retcode == SQLITE_ROW) {
+		otherMonth = sqlite3_column_int(statement, 0);
+	} else if (retcode == SQLITE_DONE) {
+		sqlite3_finalize(statement);
+		return nil;
+	} else {
+		NSAssert1(0, @"Error: failed to execute statement with message '%s'.", sqlite3_errmsg(database));
 	}
 	sqlite3_finalize(statement);
 	
-	return monthData;
+	return [self dataForMonth:otherMonth];
+}
+
+- (MonthData *)dataForMonthBefore:(EWMonth)m
+{
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT month FROM weight WHERE month < ? ORDER BY month DESC LIMIT 1"];
+	MonthData *data = [self dataForStatement:statement relativeToMonth:m];
+	sqlite3_finalize(statement);
+	return data;
+}
+
+- (MonthData *)dataForMonthAfter:(EWMonth)m
+{
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT month FROM weight WHERE month > ? ORDER BY month ASC LIMIT 1"];
+	MonthData *data = [self dataForStatement:statement relativeToMonth:m];
+	sqlite3_finalize(statement);
+	return data;
+}
+
+- (void)commitChanges
+{
+	[[monthCache allValues] makeObjectsPerformSelector:@selector(commitChanges)];
 }
 
 @end

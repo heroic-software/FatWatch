@@ -41,10 +41,26 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<real>0.1</real>
+				<real>0.10000000000000001</real>
 				<real>0.5</real>
 				<real>1</real>
 			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Debug</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>OnLaunchResetDatabase</string>
+			<key>Title</key>
+			<string>Reset Database</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

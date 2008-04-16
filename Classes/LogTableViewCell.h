@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *kLogCellReuseIdentifier;
 
 @interface LogTableViewCell : UITableViewCell {
-	
+
 	unsigned day;
 	float measuredWeight;
 	float trendWeight;
@@ -20,9 +21,8 @@
 	UILabel *dayLabel;
 	UILabel *measuredWeightLabel;
 	UILabel *trendWeightLabel;
-	UIButton *flaggedLabel;
 	UILabel *noteLabel;
-	
+
 }
 
 @property (nonatomic) unsigned day;

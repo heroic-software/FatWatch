@@ -14,6 +14,7 @@
 
 @interface EWWeightLogDataSource : NSObject <UITableViewDelegate, UITableViewDataSource> {
 	Database *database;
+	EWMonth earliestMonth;
 	NSDateFormatter *sectionTitleFormatter;
 	NSUInteger numberOfSections;
 	NSIndexPath *lastIndexPath;

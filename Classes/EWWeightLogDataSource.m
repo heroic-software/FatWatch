@@ -25,9 +25,8 @@
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
 		
-		EWMonth earliestMonth = [database earliestMonth];
+		earliestMonth = [database earliestMonth];
 		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
-		NSLog(@"Months from %d to %d", earliestMonth, currentMonth);
 		
 		numberOfSections = MAX(1, currentMonth - earliestMonth + 1);
 		
@@ -56,7 +55,7 @@
 
 - (EWMonth)monthForSection:(NSInteger)section
 {
-	return [database earliestMonth] + section;
+	return earliestMonth + section;
 }
 
 #pragma mark UITableViewDataSource (Required)
@@ -91,7 +90,7 @@
 {
 	LogTableViewCell *cell = nil;
 	
-	id availableCell = [tableView dequeueReusableCellWithIdentifier:@"LogCell"];
+	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
 	if (availableCell != nil) {
 		cell = (LogTableViewCell *)availableCell;
 	} else {
@@ -120,6 +119,8 @@
 		MonthData *monthData = [database dataForMonth:[self monthForSection:[newIndexPath section]]];
 		EWDay day = 1 + [newIndexPath row];
 		[viewController presentLogEntryViewForMonthData:monthData onDay:day];
+	} else {
+		[database commitChanges];
 	}
 }
 

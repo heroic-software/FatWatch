@@ -1,11 +1,10 @@
-- redesign table cells: uniform height
+- settings
 - add switch for flag
 
-Lower 5 bits for day; rest for month
-........ ........ ........ ...XXXXX
 
-reference month: 1/1/2000
-
+Settings
+- Interval: 0.1, 0.5, 1.0
+- Units: lbs kg
 
 
 
