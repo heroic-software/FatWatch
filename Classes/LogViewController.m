@@ -67,6 +67,7 @@
 - (void)didReceiveMemoryWarning
 {
 	[super didReceiveMemoryWarning];
+	[[logEntryViewController navigationController] release];
 	[logEntryViewController release]; // maybe we need to check for use?
 	logEntryViewController = nil;
 }
@@ -82,10 +83,11 @@
 {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
+		[[UINavigationController alloc] initWithRootViewController:logEntryViewController];
 	}
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
-	[[self navigationController] pushViewController:logEntryViewController animated:YES];
+	[self presentModalViewController:[logEntryViewController navigationController] animated:YES];
 }
 
 @end

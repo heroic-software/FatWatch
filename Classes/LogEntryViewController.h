@@ -16,6 +16,7 @@
 	MonthData *monthData;
 	EWDay day;
 	UIPickerView *weightPickerView;
+	UISwitch *flagSwitch;
 	UITextField *noteField;
 	NSDateFormatter *titleFormatter;
 	float scaleIncrement;
@@ -23,5 +24,6 @@
 @property (nonatomic,retain) MonthData *monthData;
 @property (nonatomic) EWDay day;
 @property (nonatomic,retain) UIPickerView *weightPickerView;
+@property (nonatomic,retain) UISwitch *flagSwitch;
 @property (nonatomic,retain) UITextField *noteField;
 @end

@@ -293,8 +293,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
-								<string>1C37FBAC04509CD000000102</string>
-								<string>BC263C310DB56AF9007D03F4</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
@@ -325,7 +323,7 @@
 							<real>185</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>158 176 850 602 0 0 1280 778 </string>
+						<string>277 176 850 602 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -362,7 +360,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {621, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>158 176 850 602 0 0 1280 778 </string>
+								<string>277 176 850 602 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -384,7 +382,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {621, 556}}</string>
 								<key>RubberWindowFrame</key>
-								<string>158 176 850 602 0 0 1280 778 </string>
+								<string>277 176 850 602 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -522,8 +520,6 @@
 	</array>
 	<key>PerspectivesBarVisible</key>
 	<false/>
-	<key>PinnedNavigatorIdentifier</key>
-	<string>BC263D5F0DB5A6FB007D03F4</string>
 	<key>ShelfIsVisible</key>
 	<false/>
 	<key>SourceDescription</key>
@@ -531,7 +527,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>230008620.59804001</real>
+	<real>230020739.66508499</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -555,7 +551,7 @@
 		<string>/Users/benzado/Projects/EatWatch/EatWatch.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>158 176 850 602 0 0 1280 778 </string>
+	<string>277 176 850 602 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

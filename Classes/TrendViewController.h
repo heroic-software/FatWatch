@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
 
-@interface TrendViewController : UIViewController {
-
+@interface TrendViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	Database *database;
+	NSMutableArray *array;
 }
 
 @end

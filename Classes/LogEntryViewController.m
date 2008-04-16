@@ -10,13 +10,14 @@
 
 #import "MonthData.h"
 
-const CGFloat kOFFSET_FOR_KEYBOARD = 100;
+const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 
 @implementation LogEntryViewController
 
 @synthesize monthData;
 @synthesize day;
 @synthesize weightPickerView;
+@synthesize flagSwitch;
 @synthesize noteField;
 
 - (id)init
@@ -48,25 +49,43 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 	// Create a custom view hierarchy.
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	view.backgroundColor = [UIColor yellowColor];
+	view.backgroundColor = [UIColor whiteColor];
 	
-	self.weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+	self.weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
 	weightPickerView.delegate = self;
 	[view addSubview:weightPickerView];
 	[weightPickerView release];
 	
-	self.noteField = [[UITextField alloc] initWithFrame:CGRectMake(20, 240, 280, 30)];
+	UILabel *flagLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 216 + 16, 156, 27)];
+	flagLabel.text = @"Checked";
+	flagLabel.textAlignment = UITextAlignmentRight;
+	[view addSubview:flagLabel];
+	[flagLabel release];
+	
+	self.flagSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(160, 216 + 16, 94, 27)];
+	[view addSubview:flagSwitch];
+	
+	self.noteField = [[UITextField alloc] initWithFrame:CGRectMake(0, 300, 320, 40)];
 	noteField.placeholder = @"Note";
 	noteField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.borderStyle = UITextFieldBorderStyleBezel;
+	noteField.font = [UIFont systemFontOfSize:24];
+	noteField.adjustsFontSizeToFit = YES;
+	noteField.minimumFontSize = 12;
 	noteField.delegate = self;
 	[view addSubview:noteField];
 	[noteField release];
 	
-	// Flag Switch
-	// Clear Button
-	// Button for Numeric Entry?
+	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeNavigation];
+	[cancelButton setTitle:@"Cancel" forStates:UIControlStateNormal];
+	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+	self.navigationItem.customLeftView = cancelButton;
+	
+	UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeNavigationDone];
+	[saveButton setTitle:@"Save" forStates:UIControlStateNormal];
+	[saveButton addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+	self.navigationItem.customRightView = saveButton;
 	
 	self.view = view;
 	[view release];
@@ -78,6 +97,22 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 	[super dealloc];
 }
 
+- (void)cancelAction
+{
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)saveAction
+{
+	NSInteger row = [weightPickerView selectedRowInComponent:0];
+	float weight = [self weightForPickerRow:row];
+	[monthData setMeasuredWeight:weight 
+							flag:flagSwitch.on
+							note:noteField.text
+						   onDay:day];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	NSDate *date = [monthData dateOnDay:day];
@@ -85,11 +120,13 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 
 	float weight = [monthData measuredWeightOnDay:day];
 	if (weight == 0) {
-		weight = [monthData trendWeightOnDay:day];
+		weight = [monthData inputTrendOnDay:day];
 	}
 	int row = [self pickerRowForWeight:weight];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];
+	
+	flagSwitch.on = [monthData isFlaggedOnDay:day];
 	
 	noteField.text = [monthData noteOnDay:day];
 }
@@ -97,13 +134,6 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 100;
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[noteField resignFirstResponder];
-
-	NSInteger row = [weightPickerView selectedRowInComponent:0];
-	float weight = [self weightForPickerRow:row];
-	[monthData setMeasuredWeight:weight 
-							flag:NO
-							note:noteField.text
-						   onDay:day];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

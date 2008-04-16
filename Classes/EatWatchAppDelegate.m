@@ -30,14 +30,10 @@
 	
 	LogViewController *logView = [[[LogViewController alloc] initWithDatabase:database] autorelease];
 	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
-	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
+	TrendViewController *trendView = [[[TrendViewController alloc] initWithDatabase:database] autorelease];
 
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:logView];
-	
 	self.tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:navController, graphView, trendView, nil];
-
-	[navController release];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logView, graphView, trendView, nil];
 
 	// Create window
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

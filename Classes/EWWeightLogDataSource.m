@@ -27,14 +27,11 @@
 		
 		earliestMonth = [database earliestMonth];
 		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
+		EWDay currentDay = EWDayFromDate([NSDate date]);
 		
 		numberOfSections = MAX(1, currentMonth - earliestMonth + 1);
 		
-		NSDateComponents *components;
-		
-		components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit 
-													 fromDate:[NSDate date]];
-		lastIndexPath = [NSIndexPath indexPathForRow:(components.day - 1)
+		lastIndexPath = [NSIndexPath indexPathForRow:(currentDay - 1)
 										   inSection:(numberOfSections - 1)];
 		[lastIndexPath retain];
 	}

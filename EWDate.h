@@ -14,3 +14,4 @@ typedef NSInteger EWDay;
 NSUInteger EWDaysInMonth(EWMonth m);
 NSDate *NSDateFromEWMonthAndDay(EWMonth m, EWDay d);
 EWMonth EWMonthFromDate(NSDate *theDate);
+EWDay EWDayFromDate(NSDate *theDate);

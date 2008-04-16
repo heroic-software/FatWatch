@@ -24,6 +24,7 @@
 - (id)initWithDatabase:(Database *)db month:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
+- (float)inputTrendOnDay:(EWDay)day;
 - (float)trendWeightOnDay:(EWDay)day;
 - (BOOL)isFlaggedOnDay:(EWDay)day;
 - (NSString *)noteOnDay:(EWDay)day;

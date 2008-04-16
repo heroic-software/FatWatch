@@ -50,3 +50,11 @@ EWMonth EWMonthFromDate(NSDate *theDate)
 							  options:0];
 	return components.month;
 }
+
+EWDay EWDayFromDate(NSDate *theDate)
+{
+	NSDateComponents *components;
+	components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit 
+												 fromDate:theDate];
+	return components.day;
+}
