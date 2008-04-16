@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
 
 @interface GraphViewController : UIViewController {
-
+	Database *database;
 }
-
+- (id)initWithDatabase:(Database *)db;
 @end

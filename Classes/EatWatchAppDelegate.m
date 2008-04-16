@@ -29,7 +29,7 @@
 	NSLog(@"did finish launching");
 	
 	LogViewController *logView = [[[LogViewController alloc] initWithDatabase:database] autorelease];
-	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
+	GraphViewController *graphView = [[[GraphViewController alloc] initWithDatabase:database] autorelease];
 	TrendViewController *trendView = [[[TrendViewController alloc] initWithDatabase:database] autorelease];
 
 	self.tabBarController = [[UITabBarController alloc] init];

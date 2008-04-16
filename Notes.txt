@@ -1,24 +1,10 @@
+To Do:
 - entry view: clear button
-
-
-TabBar
-	Log | Graph | Trends
-
-Settings
-	Weight Units: lbs, kg
-	Scale incremement: 0.1, 0.5, 1.0
-
-SQLite structure
-	month
-	day
-	weight
-	trend
-	flag
-	note
-
-Eat Watch Palm:
-	unsigned short weight (2 fixed decimal places)
-	unsigned long trend (6 fixed decimal places)
+- background thread to update trend values asynchronously
+- can tableview use key-value observing to update, rather than reloading data?
+- automatically go to edit screen on launch if there is no data for today
+- Trend view: support unit switching
+- test "no data" startup
 
 Definitely Later Features:
 	Superimposed Diet Goal Line
