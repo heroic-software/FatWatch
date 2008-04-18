@@ -17,6 +17,7 @@
 @interface LogViewController : UIViewController {
 	Database *database;
 	LogEntryViewController *logEntryViewController;
+	BOOL firstLoad;
 }
 - (id)initWithDatabase:(Database *)db;
 - (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day;

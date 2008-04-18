@@ -9,7 +9,9 @@
 #import "LogViewController.h"
 #import "EWWeightLogDataSource.h"
 #import "LogEntryViewController.h"
-
+#import "Database.h"
+#import "EWDate.h"
+#import "MonthData.h"
 
 @implementation LogViewController
 
@@ -18,6 +20,7 @@
 	if (self = [super init]) {
 		self.title = @"Log";
 		database = [db retain];
+		firstLoad = YES;
 	}
 	return self;
 }
@@ -34,7 +37,7 @@
 	
 	tableView.delegate = tableSource;
 	tableView.dataSource = tableSource;
-	tableView.sectionIndexMinimumDisplayRowCount = NSIntegerMax;
+	tableView.sectionIndexMinimumDisplayRowCount = 2; //NSIntegerMax;
 	
 	self.view = tableView;
 	[tableView release];
@@ -44,18 +47,32 @@
 {
 	UITableView *tableView = (UITableView *)self.view;
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
-	[tableView deselectRowAtIndexPath:tableSelection animated:NO];
+	if (tableSelection) {
+		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
+	}
 
 	[tableView reloadData];
-	
-	/*
-	 // select last row
-	id dataSource = [tableView dataSource];
-	[tableView reloadData];
-	[tableView scrollToRowAtIndexPath:[dataSource lastIndexPath]
-					 atScrollPosition:UITableViewScrollPositionBottom 
-							 animated:NO];
-	 */
+	if (firstLoad) {
+		id dataSource = [tableView dataSource];
+		[tableView scrollToRowAtIndexPath:[dataSource lastIndexPath]
+						 atScrollPosition:UITableViewScrollPositionBottom 
+								 animated:NO];
+	}
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	if (firstLoad) {
+		firstLoad = NO;
+		UITableView *tableView = (UITableView *)self.view;
+		EWWeightLogDataSource *dataSource = (EWWeightLogDataSource *)[tableView dataSource];
+		NSIndexPath *lastPath = [dataSource lastIndexPath];
+		MonthData *data = [database dataForMonth:[dataSource monthForSection:[lastPath section]]];
+		EWDay day = ([lastPath row] + 1);
+		if ([data measuredWeightOnDay:day] == 0) {
+			[self presentLogEntryViewForMonthData:data onDay:day];
+		}
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -1,30 +1,45 @@
-To Do:
-- entry view: clear button
-- can tableview use key-value observing to update, rather than reloading data?
-- automatically go to edit screen on launch if there is no data for today
-- Trend view: support unit switching
-- test "no data" startup
-- don't allow selection on trend view
-- fix: touch events get weird after return from modal view
+Log View:
+- Scrolling is a little jerky.
+- Touch events get weird after return from modal view.
+
+Log Entry View:
+- The view should have separate View and Edit modes (like Phone contacts or Calendar events).  When you tap on an row with no weight measurement, you immediately go to Edit mode.
+- Add a button to clear the measurement for that day.
 - dismissing modal view while keyboard is up screws up view origin on iPhone
-- user needs quick way of getting to "Today" on log view and graph view
-- application icon
-- settings icon
 
-Ideas:
-- log view: tap "jump to" button, presented with a picker for all months, 
-	select a month and jump to it in the table view (could use same for graph)
-- listen on a port and broadcast a service, make desktop app that can connect and sync data with PIN confirmation
-- background thread to update trend values asynchronously
+Graph View:
+- Zooming?
 
-Definitely Later Features:
-	Superimposed Diet Goal Line
+Trend View:
+- Add an EnergyUnit preference and use it to display cal/day versus kJ/day.
+- Honor the ScaleUnit preference.  Perhaps this should be in the DB rather than the Preferences.
+- TEST: Don't show Trends if we don't have enough data to compute them.  i.e., hide the "Last six months" group if we only have a month's worth of data.
+- Don't allow row selection.
 
-Good news:
-	recomputing trends on edit is not slow for 2 years of data
-	
-Design decision:
-	lbs/kgs just affects the units assumed for the data, does not change values
-	changing it will not convert
-	- on start notice change and offer to convert data?
-	- on first launch recommend going to Settings
+General Problems:
+- There is no way to edit a row while leaving the weight value empty.  I often want to write a note for a day where I did not weigh myself.
+- Too much data manipulation is handled in the event handling thread.  There should be an asynchronous data processing thread; UI elements should handle a "not ready" state and be notified when they can be redrawn.
+- User needs quick way of getting to "Today" on log view and graph view.
+- Need an Application icon.
+- Need a Settings icon.
+- Settings localization doesn't work.
+
+First Launch:
+- What do we do when there is no data?  Most views are useless until we have two weight measurements.
+- Prompt user for ScaleUnit, store in database.
+
+Debug Settings:
+- OnLaunchRecomputeTrendValues: recompute trend values on startup.
+- OnLaunchConvertLbsToKgs
+- OnLaunchImportTestData
+
+Idea: Jump To Button:
+- User taps "Jump To", presented with a modal picker for all months and "Go" and "Cancel" buttons.  Can be used in the Log View and the Graph View.
+
+Idea: Sync:
+- Listen to a port and broadcast a service with Bonjour.
+- Provide a desktop app that detects iPhone and syncs.
+- Use a PIN confirmation like Bluetooth pairing.
+
+Idea: Superimposed Diet Goal Line:
+- Needs a new view to enter diet goal information

@@ -23,4 +23,5 @@
 @property (nonatomic,retain) LogViewController *viewController;
 - (id)initWithDatabase:(Database *)db;
 - (NSIndexPath *)lastIndexPath;
+- (EWMonth)monthForSection:(NSInteger)section;
 @end

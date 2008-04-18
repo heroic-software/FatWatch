@@ -210,41 +210,6 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	return data;
 }
 
-- (float)slopeForPastDays:(NSUInteger)dayCount
-{
-	EWMonth curMonth = EWMonthFromDate([NSDate date]);
-	EWDay curDay = EWDayFromDate([NSDate date]);
-	MonthData *data = [self dataForMonth:curMonth];
-	
-	double sumX = 0, sumY = 0, sumXsquared = 0, sumXY = 0;
-	double n = 0;
-	
-	float x;
-	for (x = 0; x < dayCount; x++) {
-		float y = [data measuredWeightOnDay:curDay];
-		
-		if (y > 0) {
-			sumX += x;
-			sumY += y;
-			sumXsquared += x * x;
-			sumXY += x * y;
-			n++;
-		}
-
-		curDay--;
-		if (curDay < 1) {
-			curMonth--;
-			curDay = EWDaysInMonth(curMonth);
-			data = [self dataForMonth:curMonth];
-		}
-	}
-		
-	double Sxx = sumXsquared - sumX * sumX / n;
-	double Sxy = sumXY - sumX * sumY / n;
-	
-	return Sxy / Sxx;
-}
-
 - (void)commitChanges
 {
 	[[monthCache allValues] makeObjectsPerformSelector:@selector(commitChanges)];

@@ -17,6 +17,7 @@
 {
 	if (self = [super init]) {
 		database = db;
+		firstLoad = YES;
 		
 		self.title = @"Graph";
 	}
@@ -52,6 +53,16 @@
 
 	self.view = scrollView;
 	[scrollView release];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	if (firstLoad) {
+		UIScrollView *view = (UIScrollView *)self.view;
+		CGRect vizRect = CGRectMake(view.contentSize.width - 1, 0, 1, 1);		
+		[view scrollRectToVisible:vizRect animated:NO];
+		firstLoad = NO;
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

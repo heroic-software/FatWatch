@@ -8,27 +8,46 @@
 
 #import "TrendViewController.h"
 #import "Database.h"
+#import "SlopeComputer.h"
+#import "MonthData.h"
 
 @implementation TrendViewController
-
-- (void)computeLabel:(NSString *)label days:(NSUInteger)dayCount
-{
-	float slope = [database slopeForPastDays:dayCount];
-	[array addObject:[NSArray arrayWithObjects:label,
-					  [NSString stringWithFormat:@"%+.2f lbs/week", (7.0f * slope)], 
-					  [NSString stringWithFormat:@"%+.2f cal/day", (3500.0f * slope)], 
-					  nil]];
-}
 
 - (void)recompute
 {
 	[array removeAllObjects];
-	[self computeLabel:@"Week" days:7];
-	[self computeLabel:@"Fortnight" days:14];
-	[self computeLabel:@"Month" days:30];
-	[self computeLabel:@"Quarter" days:90];
-	[self computeLabel:@"Six months" days:182];
-	[self computeLabel:@"Year" days:365];
+
+	NSString *labels[] = {@"Week", @"Fortnight", @"Month", @"Quarter", @"Six months", @"Year"};
+	int stops[] = {7, 14, 30, 90, 182, 365};
+	
+	SlopeComputer *computer = [[SlopeComputer alloc] init];
+	EWMonth curMonth = EWMonthFromDate([NSDate date]);
+	EWDay curDay = EWDayFromDate([NSDate date]);
+	MonthData *data = [database dataForMonth:curMonth];
+	EWMonth earliestMonth = [database earliestMonth];
+	
+	int i;
+	float x = 0;
+	for (i = 0; (i < 6) && (curMonth >= earliestMonth); i++) {
+		while ((x < stops[i]) && (curMonth >= earliestMonth)) {
+			float y = [data measuredWeightOnDay:curDay];
+			if (y > 0) [computer addPointAtX:x y:y];
+			x++;
+			curDay--;
+			if (curDay < 1) {
+				curMonth--;
+				curDay = EWDaysInMonth(curMonth);
+				data = [database dataForMonth:curMonth];
+			}
+		}
+		float slope = [computer computeSlope];
+		[array addObject:[NSArray arrayWithObjects:labels[i],
+						  [NSString stringWithFormat:@"%+.2f lbs/week", (7.0f * slope)], 
+						  [NSString stringWithFormat:@"%+.2f cal/day", (3500.0f * slope)], 
+						  nil]];
+	}
+	[computer release];
+	
 	UITableView *tableView = (UITableView *)self.view;
 	[tableView reloadData];
 }

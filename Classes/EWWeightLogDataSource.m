@@ -113,11 +113,10 @@
 - (void)tableView:(UITableView *)tableView selectionDidChangeToIndexPath:(NSIndexPath *)newIndexPath fromIndexPath:(NSIndexPath *)oldIndexPath
 {
 	if (newIndexPath) {
-		MonthData *monthData = [database dataForMonth:[self monthForSection:[newIndexPath section]]];
+		EWMonth month = [self monthForSection:[newIndexPath section]];
+		MonthData *monthData = [database dataForMonth:month];
 		EWDay day = 1 + [newIndexPath row];
 		[viewController presentLogEntryViewForMonthData:monthData onDay:day];
-	} else {
-		[database commitChanges];
 	}
 }
 

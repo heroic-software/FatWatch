@@ -69,28 +69,42 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	[dayLabel setText:[NSString stringWithFormat:@"%d", day]];
 	
 	if (measuredWeight == 0) {
-		[measuredWeightLabel setText:@"—"];
-		[trendWeightLabel setText:@""];
+		measuredWeightLabel.text = @"—";
+		trendWeightLabel.hidden = YES;
 	} else {
-		[measuredWeightLabel setText:[NSString stringWithFormat:@"%.1f", measuredWeight]];
+		measuredWeightLabel.text = [NSString stringWithFormat:@"%.1f", measuredWeight];
 		float weightDiff = measuredWeight - trendWeight;
-		[trendWeightLabel setText:[NSString stringWithFormat:@"%+.1f", weightDiff]];
-		if (weightDiff > 0) {
-			[trendWeightLabel setTextColor:[UIColor redColor]];
-		} else {
-			[trendWeightLabel setTextColor:[UIColor greenColor]];
-		}
+		trendWeightLabel.hidden = NO;
+		trendWeightLabel.text = [NSString stringWithFormat:@"%+.1f", weightDiff];
+		trendWeightLabel.textColor = (weightDiff > 0) ? [UIColor redColor] : [UIColor greenColor];
 	}
 	
-	self.accessoryType = flagged ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+	self.accessoryType = flagged ? UITableViewCellAccessoryCheckmark 
+								 : UITableViewCellAccessoryNone;
 
 	if (note) {
+		noteLabel.hidden = NO;
 		noteLabel.text = note;
-		[noteLabel setHidden:NO];
 	} else {
-		noteLabel.text = @"";
-		[noteLabel setHidden:YES];
+		noteLabel.hidden = YES;
 	}
 }
+
+/*
+ - (void)touchesChangedWithEvent:(UIEvent*)event
+{
+    UITouch *touch = [[event touchesForView:self] anyObject];
+	if (touch.phase == UITouchPhaseEnded) {
+		if (touch.info & UITouchInfoSwipedRight) {
+			flagged = ! flagged;
+			[self updateLabels];
+			[self setNeedsDisplay];
+			return;
+		}
+		NSLog(@"Touch: %@", touch);
+	}
+	[self.nextResponder touchesChangedWithEvent:event];
+}
+*/
 
 @end

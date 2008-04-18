@@ -25,10 +25,6 @@
 	
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 
-	// flip coordinate system
-	CGContextTranslateCTM(ctxt, 0, self.bounds.size.height);
-	CGContextScaleCTM(ctxt, 1.0, -1.0);
-	
 	CGFloat gray = (month % 2) ? 0.6f : 0.5f;
 	CGContextSetRGBFillColor(ctxt, gray, gray, gray, 1.0f);
 	CGContextFillRect(ctxt, bounds);
@@ -37,12 +33,21 @@
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
 	formatter.dateFormat = @"MMMM yyyy";
-	const char *text = [[formatter stringFromDate:date] UTF8String];
+	
+	[[UIColor blackColor] setFill];
+	[[formatter stringFromDate:date] drawAtPoint:CGPointMake(4, 2)
+										withFont:[UIFont systemFontOfSize:20]];
+	
+	//const char *text = [[formatter stringFromDate:date] UTF8String];
 	[formatter release];
 	
-	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
-	CGContextSetRGBFillColor(ctxt, 0, 0, 0, 1.0f);
-	CGContextShowTextAtPoint(ctxt, 4, 4, text, strlen(text));
+	// flip coordinate system
+	CGContextTranslateCTM(ctxt, 0, self.bounds.size.height);
+	CGContextScaleCTM(ctxt, 1.0, -1.0);
+	
+	//	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
+//	CGContextSetRGBFillColor(ctxt, 0, 0, 0, 1.0f);
+//	CGContextShowTextAtPoint(ctxt, 4, 4, text, strlen(text));
 	
 	CGPoint measuredPoints[31];
 	CGPoint trendPoints[31];

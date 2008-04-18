@@ -12,6 +12,7 @@
 
 @interface GraphViewController : UIViewController {
 	Database *database;
+	BOOL firstLoad;
 }
 - (id)initWithDatabase:(Database *)db;
 @end
