@@ -29,6 +29,8 @@
 - (MonthData *)dataForMonth:(EWMonth)m;
 - (MonthData *)dataForMonthBefore:(EWMonth)m;
 - (MonthData *)dataForMonthAfter:(EWMonth)m;
+- (float)minimumWeight;
+- (float)maximumWeight;
 - (float)slopeForPastDays:(NSUInteger)dayCount;
 - (void)commitChanges;
 @end

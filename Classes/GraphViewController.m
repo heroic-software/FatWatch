@@ -31,26 +31,25 @@
 	
 	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
 	
-	CGRect contentRect = CGRectMake(0, 0, 100 * monthCount, 500);
+	CGSize totalSize = CGSizeMake(0, 408);
 	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	scrollView.contentOffset = contentRect.origin;
-	scrollView.contentSize = contentRect.size;
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
 	
 	int i;
-	CGRect subviewFrame = CGRectMake(0, 0, 100, 500);
+	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
 	for (i = 0; i < monthCount; i++) {
-		GraphView *view = [[GraphView alloc] initWithDatabase:database month:(earliestMonth + i)];
+		EWMonth month = (earliestMonth + i);
+		subviewFrame.size.width = 5 * EWDaysInMonth(month);
+		GraphView *view = [[GraphView alloc] initWithDatabase:database month:month];
 		view.frame = subviewFrame;
-		view.backgroundColor = [UIColor colorWithRed:(i % 2)
-											   green:0
-												blue:(1 - (i % 2))
-											   alpha:1];
 		[scrollView addSubview:view];
 		[view release];
 		subviewFrame.origin.x += subviewFrame.size.width;
+		totalSize.width += subviewFrame.size.width;
 	}
 	
+	scrollView.contentSize = totalSize;
+
 	self.view = scrollView;
 	[scrollView release];
 }

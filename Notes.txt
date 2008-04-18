@@ -1,11 +1,30 @@
 To Do:
 - entry view: clear button
-- background thread to update trend values asynchronously
 - can tableview use key-value observing to update, rather than reloading data?
 - automatically go to edit screen on launch if there is no data for today
 - Trend view: support unit switching
 - test "no data" startup
+- don't allow selection on trend view
+- fix: touch events get weird after return from modal view
+- dismissing modal view while keyboard is up screws up view origin on iPhone
+- user needs quick way of getting to "Today" on log view and graph view
+- application icon
+- settings icon
+
+Ideas:
+- log view: tap "jump to" button, presented with a picker for all months, 
+	select a month and jump to it in the table view (could use same for graph)
+- listen on a port and broadcast a service, make desktop app that can connect and sync data with PIN confirmation
+- background thread to update trend values asynchronously
 
 Definitely Later Features:
 	Superimposed Diet Goal Line
+
+Good news:
+	recomputing trends on edit is not slow for 2 years of data
 	
+Design decision:
+	lbs/kgs just affects the units assumed for the data, does not change values
+	changing it will not convert
+	- on start notice change and offer to convert data?
+	- on first launch recommend going to Settings

@@ -117,7 +117,7 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 {
 	EWMonth dateValue;
 
-	sqlite3_stmt *statement = [self prepareStatement:"SELECT month FROM weight ORDER BY month ASC LIMIT 1"];
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT MIN(month) FROM weight"];
 	int retcode = sqlite3_step(statement);
 	if (retcode == SQLITE_ROW) {
 		dateValue = sqlite3_column_int(statement, 0);
@@ -129,6 +129,35 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	sqlite3_finalize(statement);
 	
 	return dateValue;
+}
+
+- (double)doubleValueFromStatement:(sqlite3_stmt *)statement
+{
+	int retcode = sqlite3_step(statement);
+	if (retcode == SQLITE_ROW) {
+		return sqlite3_column_double(statement, 0);
+	} else if (retcode == SQLITE_DONE) {
+		return 0;
+	} else {
+		NSAssert1(0, @"SELECT returned code %d", retcode);
+		return 0;
+	}
+}
+
+- (float)minimumWeight
+{
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT MIN(MIN(measuredValue),MIN(trendValue)) FROM weight"];
+	float weightValue = [self doubleValueFromStatement:statement];
+	sqlite3_finalize(statement);
+	return weightValue;
+}
+
+- (float)maximumWeight
+{
+	sqlite3_stmt *statement = [self prepareStatement:"SELECT MAX(MAX(measuredValue),MAX(trendValue)) FROM weight"];
+	float weightValue = [self doubleValueFromStatement:statement];
+	sqlite3_finalize(statement);
+	return weightValue;
 }
 
 - (MonthData *)dataForMonth:(EWMonth)m
