@@ -17,15 +17,27 @@
 #define kFlagColumnIndex 4
 #define kNoteColumnIndex 5
 
+typedef enum {
+	kWeightUnitPounds = 1,
+	kWeightUnitKilograms = 2
+} EWWeightUnit;
+
+typedef enum {
+	kEnergyUnitCalories = 1,
+	kEnergyUnitKilojoules = 2
+} EWEnergyUnit;
+
 @class MonthData;
 
 @interface Database : NSObject {
 	sqlite3 *database;
 	NSMutableDictionary *monthCache;
 }
-- (sqlite3_stmt *)prepareStatement:(const char *)sql;
+- (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (void)close;
 - (EWMonth)earliestMonth;
+- (EWWeightUnit)weightUnit;
+- (void)setWeightUnit:(EWWeightUnit)su;
 - (MonthData *)dataForMonth:(EWMonth)m;
 - (MonthData *)dataForMonthBefore:(EWMonth)m;
 - (MonthData *)dataForMonthAfter:(EWMonth)m;

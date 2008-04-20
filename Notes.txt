@@ -1,6 +1,10 @@
+Launch:
+- Compare WeightUnit in database vs defaults, offer to convert if mismatch.
+
 Log View:
 - Scrolling is a little jerky.
 - Touch events get weird after return from modal view.
+- Need a tab bar icon.
 
 Log Entry View:
 - The view should have separate View and Edit modes (like Phone contacts or Calendar events).  When you tap on an row with no weight measurement, you immediately go to Edit mode.
@@ -8,13 +12,13 @@ Log Entry View:
 - dismissing modal view while keyboard is up screws up view origin on iPhone
 
 Graph View:
+- Show placeholder view if less than 2 measurements.
 - Zooming?
+- Need a tab bar icon.
 
 Trend View:
-- Add an EnergyUnit preference and use it to display cal/day versus kJ/day.
-- Honor the ScaleUnit preference.  Perhaps this should be in the DB rather than the Preferences.
-- TEST: Don't show Trends if we don't have enough data to compute them.  i.e., hide the "Last six months" group if we only have a month's worth of data.
-- Don't allow row selection.
+- Show placeholder view if less than 2 measurements.
+- Need a tab bar icon.
 
 General Problems:
 - There is no way to edit a row while leaving the weight value empty.  I often want to write a note for a day where I did not weigh myself.
@@ -22,16 +26,15 @@ General Problems:
 - User needs quick way of getting to "Today" on log view and graph view.
 - Need an Application icon.
 - Need a Settings icon.
-- Settings localization doesn't work.
 
 First Launch:
-- What do we do when there is no data?  Most views are useless until we have two weight measurements.
-- Prompt user for ScaleUnit, store in database.
+- Prompt user for WeightUnit, store in database.
+- Prompt user for earliest month (?)
+- Show placeholders in Graph and Trend views until at least 2 data points.
 
 Debug Settings:
 - OnLaunchRecomputeTrendValues: recompute trend values on startup.
-- OnLaunchConvertLbsToKgs
-- OnLaunchImportTestData
+- OnLaunchVacuumDatabase
 
 Idea: Jump To Button:
 - User taps "Jump To", presented with a modal picker for all months and "Go" and "Cancel" buttons.  Can be used in the Log View and the Graph View.

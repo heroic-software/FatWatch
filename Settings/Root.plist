@@ -8,13 +8,33 @@
 			<key>DefaultValue</key>
 			<integer>1</integer>
 			<key>Key</key>
-			<string>ScaleUnit</string>
+			<string>EnergyUnit</string>
 			<key>Title</key>
-			<string>SCALE_UNIT</string>
+			<string>ENERGY_UNIT</string>
 			<key>Titles</key>
 			<array>
-				<string>POUNDS_ABBR</string>
-				<string>KILOGRAMS_ABBR</string>
+				<string>CALORIES</string>
+				<string>KILOJOULES</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Key</key>
+			<string>WeightUnit</string>
+			<key>Title</key>
+			<string>WEIGHT_UNIT</string>
+			<key>Titles</key>
+			<array>
+				<string>POUNDS</string>
+				<string>KILOGRAMS</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -48,23 +68,37 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Debug</string>
+			<string>On Launch</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 			<key>Key</key>
-			<string>OnLaunchResetDatabase</string>
+			<string>AutoWeighIn</string>
 			<key>Title</key>
-			<string>Reset Database</string>
+			<string>AUTO_WEIGH_IN</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Beta</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Debug</string>
+			<key>Title</key>
+			<string>Debug</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
-	<string>Root.strings</string>
+	<string>Root</string>
 	<key>Title</key>
 	<string>APPL_NAME</string>
 </dict>

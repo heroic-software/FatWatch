@@ -28,6 +28,7 @@
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
+		BCD44A1F0DBAFC880009A8EC /* Debug.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,7 @@
 			dstSubfolderSpec = 1;
 			files = (
 				BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */,
+				BCD44A1F0DBAFC880009A8EC /* Debug.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +93,7 @@
 		BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendViewController.h; sourceTree = "<group>"; };
 		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendViewController.m; sourceTree = "<group>"; };
+		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,7 @@
 			children = (
 				BC263C2B0DB56A69007D03F4 /* Root.plist */,
 				BC263C360DB56B9D007D03F4 /* Root.strings */,
+				BCD44A1D0DBAFC760009A8EC /* Debug.plist */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -282,7 +286,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DATABASE_FILE=$SRCROOT/WeightData.db\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SRCROOT/CreateEmptyDatabase.sql $DATABASE_FILE\n";
+			shellScript = "DATABASE_FILE=$SRCROOT/WeightData.db\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SRCROOT/CreateEmptyDatabase.sql $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

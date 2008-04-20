@@ -11,14 +11,36 @@
 #import "SlopeComputer.h"
 #import "MonthData.h"
 
+#define kCaloriesPerPound 3500
+#define kKilojoulesPerKilogram 7716
+
+#define kPoundsPerKilogram 0.45359237f
+
+#define kCaloriesPerKilogram (kCaloriesPerPound * kPoundsPerKilogram)
+#define kKilojoulesPerPound (kKilojoulesPerKilogram / kPoundsPerKilogram)
+
 @implementation TrendViewController
 
 - (void)recompute
 {
 	[array removeAllObjects];
 
-	NSString *labels[] = {@"Week", @"Fortnight", @"Month", @"Quarter", @"Six months", @"Year"};
+	NSString *labels[] = {@"Week", @"Fortnight", @"Month", @"Quarter", @"Six Months", @"Year"};
 	int stops[] = {7, 14, 30, 90, 182, 365};
+	
+	EWEnergyUnit energyUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"EnergyUnit"];
+	EWWeightUnit weightUnit = [database weightUnit];
+	printf("energy %d; weight %d;", energyUnit, weightUnit);
+	
+	NSString *weightUnitAbbr = (weightUnit == kWeightUnitPounds) ? @"lbs" : @"kgs";
+	NSString *energyUnitAbbr = (energyUnit == kEnergyUnitCalories) ? @"cal" : @"kJ";
+
+	float energyPerWeight;
+	if (weightUnit == kWeightUnitPounds) {
+		energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerPound : kKilojoulesPerPound;
+	} else {
+		energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerKilogram : kKilojoulesPerKilogram;
+	}
 	
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	EWMonth curMonth = EWMonthFromDate([NSDate date]);
@@ -40,11 +62,14 @@
 				data = [database dataForMonth:curMonth];
 			}
 		}
-		float slope = [computer computeSlope];
-		[array addObject:[NSArray arrayWithObjects:labels[i],
-						  [NSString stringWithFormat:@"%+.2f lbs/week", (7.0f * slope)], 
-						  [NSString stringWithFormat:@"%+.2f cal/day", (3500.0f * slope)], 
-						  nil]];
+		float weightPerDay = [computer computeSlope];
+		if (! isnan(weightPerDay)) {
+			[array addObject:[NSArray arrayWithObjects:
+							  [NSString stringWithFormat:@"Past %@", labels[i]],
+							  [NSString stringWithFormat:@"%+.2f %@/week", (7.0f * weightPerDay), weightUnitAbbr], 
+							  [NSString stringWithFormat:@"%+.2f %@/day", (energyPerWeight * weightPerDay), energyUnitAbbr], 
+							  nil]];
+		}
 	}
 	[computer release];
 	
@@ -136,6 +161,13 @@
 	
 	cell.text = [[array objectAtIndex:[indexPath section]] objectAtIndex:([indexPath row] + 1)];
 	return cell;
+}
+
+#pragma mark UITableViewDelegate (Optional)
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return nil; // table is for display only, don't allow selection
 }
 
 @end

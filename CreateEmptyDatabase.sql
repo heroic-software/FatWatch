@@ -1,3 +1,10 @@
+CREATE TABLE metadata (
+	name TEXT UNIQUE ON CONFLICT REPLACE,
+	value
+);
+-- WeightUnit: 1 = lbs, 2 = kgs
+-- EarliestMonth
+
 CREATE TABLE weight (
 	month INTEGER,
 	day INTEGER,
@@ -16,3 +23,5 @@ CREATE INDEX trendValue_index ON weight (trendValue);
 
 -- import test data
 .read TestData.sql
+INSERT INTO metadata VALUES ("WeightUnit", 1);
+INSERT INTO metadata SELECT "EarliestMonth", MIN(month) FROM weight;

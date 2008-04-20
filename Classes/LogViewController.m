@@ -25,10 +25,8 @@
 	return self;
 }
 
-
 - (void)loadView
 {
-	// Create a custom view hierarchy.
 	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 
@@ -64,6 +62,11 @@
 {
 	if (firstLoad) {
 		firstLoad = NO;
+		
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
+		if (! [defs boolForKey:@"AutoWeighIn"]) return;
+		
 		UITableView *tableView = (UITableView *)self.view;
 		EWWeightLogDataSource *dataSource = (EWWeightLogDataSource *)[tableView dataSource];
 		NSIndexPath *lastPath = [dataSource lastIndexPath];

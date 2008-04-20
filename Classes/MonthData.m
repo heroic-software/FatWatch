@@ -39,7 +39,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		dirtyBits = 0;
 		
 		if (data_for_month_stmt == nil) {
-			data_for_month_stmt = [database prepareStatement:"SELECT * FROM weight WHERE month = ?"];
+			data_for_month_stmt = [database statementFromSQL:"SELECT * FROM weight WHERE month = ?"];
 		}
 		sqlite3_bind_int(data_for_month_stmt, 1, m);
 		while (sqlite3_step(data_for_month_stmt) == SQLITE_ROW) {
@@ -154,7 +154,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (dirtyBits == 0) return;
 	
 	if (insert_stmt == nil) {
-		insert_stmt = [database prepareStatement:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
+		insert_stmt = [database statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
 	}
 	
 	int i = 0;
