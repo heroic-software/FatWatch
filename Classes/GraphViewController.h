@@ -13,6 +13,9 @@
 @interface GraphViewController : UIViewController {
 	Database *database;
 	BOOL firstLoad;
+	NSUInteger dbChangeCount;
+	UILabel *warningLabel;
+	UIScrollView *scrollView;
 }
 - (id)initWithDatabase:(Database *)db;
 @end

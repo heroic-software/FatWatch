@@ -27,14 +27,29 @@
 
 - (void)loadView
 {
+	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	[mainView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+	[mainView setAutoresizesSubviews:YES];
+	mainView.backgroundColor = [UIColor lightGrayColor];
+	self.view = mainView;
+
+	// View for when there's not enough data
+	
+	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 410)];
+	warningLabel.backgroundColor = [UIColor clearColor];
+	warningLabel.text = @"Not enough data to draw a graph. Try again tomorrow.";
+	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
+	warningLabel.numberOfLines = 0;
+	
+	// View for the graph
+
 	EWMonth earliestMonth = [database earliestMonth];
 	EWMonth currentMonth = EWMonthFromDate([NSDate date]);
-	
 	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
 	
-	CGSize totalSize = CGSizeMake(0, 408);
+	CGSize totalSize = CGSizeMake(0, 410);
 	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+	scrollView = [[UIScrollView alloc] initWithFrame:[mainView bounds]];
 	
 	int i;
 	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
@@ -50,18 +65,31 @@
 	}
 	
 	scrollView.contentSize = totalSize;
-
-	self.view = scrollView;
-	[scrollView release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	if (firstLoad) {
-		UIScrollView *view = (UIScrollView *)self.view;
-		CGRect vizRect = CGRectMake(view.contentSize.width - 1, 0, 1, 1);		
-		[view scrollRectToVisible:vizRect animated:NO];
-		firstLoad = NO;
+	if ([database changeCount] != dbChangeCount) {
+		if ([database weightCount] > 1) {
+			if ([scrollView superview] == nil) {
+				[warningLabel removeFromSuperview];
+				[self.view addSubview:scrollView];
+				[self.view setNeedsLayout];
+				if (firstLoad) {
+					CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
+					[scrollView scrollRectToVisible:rect animated:NO];
+					firstLoad = NO;
+				}
+			}
+			[[scrollView subviews] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+		} else {
+			if ([warningLabel superview] == nil) {
+				[scrollView removeFromSuperview];
+				[self.view addSubview:warningLabel];
+				[self.view setNeedsLayout];
+			}
+		}
+		dbChangeCount = [database changeCount];
 	}
 }
 
@@ -69,21 +97,22 @@
 {
 	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-	/*
-	 doesn't seem to matter since we're inside a tab view
-		(interfaceOrientation == UIInterfaceOrientationLandscapeLeft) ||
-		(interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-	 */
 }
 
 - (void)didReceiveMemoryWarning
 {
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview.
-	// Release anything that's not essential, such as cached data.
+	BOOL shouldReleaseSubviews = ([self.view superview] == nil);
+	[super didReceiveMemoryWarning];
+	if (shouldReleaseSubviews) {
+		[scrollView release]; scrollView = nil;
+		[warningLabel release]; warningLabel = nil;
+	}
 }
 
 - (void)dealloc
 {
+	[scrollView release];
+	[warningLabel release];
 	[super dealloc];
 }
 
