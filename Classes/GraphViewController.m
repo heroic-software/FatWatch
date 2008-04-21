@@ -35,7 +35,7 @@
 
 	// View for when there's not enough data
 	
-	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 410)];
+	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
 	warningLabel.backgroundColor = [UIColor clearColor];
 	warningLabel.text = @"Not enough data to draw a graph. Try again tomorrow.";
 	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -47,9 +47,11 @@
 	EWMonth currentMonth = EWMonthFromDate([NSDate date]);
 	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
 	
-	CGSize totalSize = CGSizeMake(0, 410);
+	CGSize totalSize = CGSizeMake(0, 411);
 	
-	scrollView = [[UIScrollView alloc] initWithFrame:[mainView bounds]];
+	scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
+	scrollView.alwaysBounceVertical = NO;
+	scrollView.directionalLockEnabled = YES;
 	
 	int i;
 	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
