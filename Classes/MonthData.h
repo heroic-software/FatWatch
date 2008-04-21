@@ -20,6 +20,9 @@
 	unsigned int flagBits;
 	NSMutableArray *notesArray;
 }
+
+@property (nonatomic,readonly) Database *database;
+
 + (void)finalizeStatements;
 - (id)initWithDatabase:(Database *)db month:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
@@ -33,4 +36,5 @@
 					 note:(NSString *)note
 					onDay:(EWDay)day;
 - (void)commitChanges;
+
 @end
