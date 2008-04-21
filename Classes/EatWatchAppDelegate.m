@@ -26,8 +26,6 @@
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	NSLog(@"did finish launching");
-	
 	LogViewController *logView = [[[LogViewController alloc] initWithDatabase:database] autorelease];
 	GraphViewController *graphView = [[[GraphViewController alloc] initWithDatabase:database] autorelease];
 	TrendViewController *trendView = [[[TrendViewController alloc] initWithDatabase:database] autorelease];
@@ -42,8 +40,6 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	NSLog(@"will terminate");
-	
 	[database close];
 	[database release];
 }
