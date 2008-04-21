@@ -36,6 +36,7 @@ typedef enum {
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (void)close;
 - (EWMonth)earliestMonth;
+- (NSUInteger)weightCount;
 - (EWWeightUnit)weightUnit;
 - (void)setWeightUnit:(EWWeightUnit)su;
 - (MonthData *)dataForMonth:(EWMonth)m;

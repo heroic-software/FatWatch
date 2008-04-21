@@ -118,17 +118,29 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	EWMonth dateValue;
 
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(month) FROM weight"];
-	int retcode = sqlite3_step(statement);
-	if (retcode == SQLITE_ROW) {
-		dateValue = sqlite3_column_int(statement, 0);
-	} else if (retcode == SQLITE_DONE) {
+	int code = sqlite3_step(statement);
+	NSAssert1(code == SQLITE_ROW, @"SELECT returned code %d", code);
+	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
 		dateValue = EWMonthFromDate([NSDate date]);
 	} else {
-		NSAssert1(0, @"SELECT returned code %d", retcode);
+		dateValue = sqlite3_column_int(statement, 0);
 	}
 	sqlite3_finalize(statement);
 	
 	return dateValue;
+}
+
+- (NSUInteger)weightCount
+{
+	NSUInteger count;
+	
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT COUNT(*) FROM weight WHERE measuredValue IS NOT NULL"];
+	int code = sqlite3_step(statement);
+	NSAssert1(code == SQLITE_ROW, @"SELECT returned code %d", code);
+	count = sqlite3_column_int(statement, 0);
+	sqlite3_finalize(statement);
+	
+	return count;
 }
 
 - (int)intValueForMetaName:(const char *)name
@@ -167,13 +179,11 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 - (double)doubleValueFromStatement:(sqlite3_stmt *)statement
 {
 	int retcode = sqlite3_step(statement);
-	if (retcode == SQLITE_ROW) {
-		return sqlite3_column_double(statement, 0);
-	} else if (retcode == SQLITE_DONE) {
+	NSAssert1(retcode == SQLITE_ROW, @"SELECT returned code %d", retcode);
+	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
 		return 0;
 	} else {
-		NSAssert1(0, @"SELECT returned code %d", retcode);
-		return 0;
+		return sqlite3_column_double(statement, 0);
 	}
 }
 
