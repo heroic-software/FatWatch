@@ -25,12 +25,14 @@
 {
 	[array removeAllObjects];
 
-	NSString *labels[] = {@"Week", @"Fortnight", @"Month", @"Quarter", @"Six Months", @"Year"};
+	NSString *labels[] = {@"Week", @"Two Weeks", @"Month", @"Quarter", @"Six Months", @"Year"};
 	int stops[] = {7, 14, 30, 90, 182, 365};
 	
-	EWEnergyUnit energyUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"EnergyUnit"];
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
+	EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
 	EWWeightUnit weightUnit = [database weightUnit];
-	printf("energy %d; weight %d;", energyUnit, weightUnit);
+	if (weightUnit == 0) weightUnit = kWeightUnitPounds;
 	
 	NSString *weightUnitAbbr = (weightUnit == kWeightUnitPounds) ? @"lbs" : @"kgs";
 	NSString *energyUnitAbbr = (energyUnit == kEnergyUnitCalories) ? @"cal" : @"kJ";
@@ -48,12 +50,16 @@
 	MonthData *data = [database dataForMonth:curMonth];
 	EWMonth earliestMonth = [database earliestMonth];
 	
+	int newValueCount = 0;
 	int i;
 	float x = 0;
 	for (i = 0; (i < 6) && (curMonth >= earliestMonth); i++) {
 		while ((x < stops[i]) && (curMonth >= earliestMonth)) {
 			float y = [data measuredWeightOnDay:curDay];
-			if (y > 0) [computer addPointAtX:x y:y];
+			if (y > 0) {
+				[computer addPointAtX:x y:y];
+				newValueCount++;
+			}
 			x++;
 			curDay--;
 			if (curDay < 1) {
@@ -63,28 +69,23 @@
 			}
 		}
 		float weightPerDay = [computer computeSlope];
-		if (! isnan(weightPerDay)) {
+		if (newValueCount > 1) {
 			[array addObject:[NSArray arrayWithObjects:
 							  [NSString stringWithFormat:@"Past %@", labels[i]],
 							  [NSString stringWithFormat:@"%+.2f %@/week", (7.0f * weightPerDay), weightUnitAbbr], 
 							  [NSString stringWithFormat:@"%+.2f %@/day", (energyPerWeight * weightPerDay), energyUnitAbbr], 
 							  nil]];
+			newValueCount = 0;
 		}
 	}
 	[computer release];
-	
-	UITableView *tableView = (UITableView *)self.view;
-	[tableView reloadData];
 }
 
 - (id)initWithDatabase:(Database *)db
 {
 	if (self = [super init]) {
-		// Initialize your view controller.
-		self.title = @"Trend";
-		
+		self.title = @"Trends";
 		database = db;
-		
 		array = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -92,21 +93,45 @@
 
 - (void)loadView
 {
-	// Create a custom view hierarchy.
-	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStyleGrouped];
-	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+	mainView.autoresizesSubviews = YES;
+	mainView.backgroundColor = [UIColor lightGrayColor];
+	self.view = mainView;
+	[mainView release];
 	
+	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 410)];
+	warningLabel.backgroundColor = [UIColor clearColor];
+	warningLabel.text = @"Not enough data to compute trends. Try again tomorrow.";
+	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
+	warningLabel.numberOfLines = 0;
+
+	tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	tableView.delegate = self;
 	tableView.dataSource = self;
 	tableView.sectionIndexMinimumDisplayRowCount = NSIntegerMax;
-	
-	self.view = tableView;
-	[tableView release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[self recompute];
+	if ([database changeCount] != dbChangeCount) {
+		if ([database weightCount] > 1) {
+			if ([tableView superview] == nil) {
+				[warningLabel removeFromSuperview];
+				[self.view addSubview:tableView];
+				tableView.frame = self.view.bounds;
+			}
+			[self recompute];
+			[tableView reloadData];
+		} else {
+			if ([warningLabel superview] == nil) {
+				[tableView removeFromSuperview];
+				[self.view addSubview:warningLabel];
+			}
+		}
+		dbChangeCount = [database changeCount];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -117,13 +142,19 @@
 
 - (void)didReceiveMemoryWarning
 {
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview.
-	// Release anything that's not essential, such as cached data.
+	BOOL shouldReleaseSubviews = ([self.view superview] == nil);
+	[super didReceiveMemoryWarning];
+	if (shouldReleaseSubviews) {
+		[warningLabel release]; warningLabel = nil;
+		[tableView release]; tableView = nil;
+	}
 }
 
 - (void)dealloc
 {
 	[array release];
+	[warningLabel release];
+	[tableView release];
 	[super dealloc];
 }
 
@@ -148,7 +179,7 @@
 
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)view cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell;
 	
@@ -165,7 +196,7 @@
 
 #pragma mark UITableViewDelegate (Optional)
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)view willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil; // table is for display only, don't allow selection
 }

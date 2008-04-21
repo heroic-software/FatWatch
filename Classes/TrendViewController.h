@@ -13,6 +13,9 @@
 @interface TrendViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	Database *database;
 	NSMutableArray *array;
+	NSUInteger dbChangeCount;
+	UILabel *warningLabel;
+	UITableView *tableView;
 }
 
 @end
