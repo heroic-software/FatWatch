@@ -7,30 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EWDate.h"
+
+@class MonthData;
 
 extern NSString *kLogCellReuseIdentifier;
 
 @interface LogTableViewCell : UITableViewCell {
-
-	unsigned day;
-	float measuredWeight;
-	float trendWeight;
-	BOOL flagged;
-	NSString *note;
-
 	UILabel *dayLabel;
 	UILabel *measuredWeightLabel;
 	UILabel *trendWeightLabel;
 	UILabel *noteLabel;
-
 }
-
-@property (nonatomic) unsigned day;
-@property (nonatomic) float measuredWeight;
-@property (nonatomic) float trendWeight;
-@property (nonatomic) BOOL flagged;
-@property (nonatomic,retain) NSString *note;
-
-- (void)updateLabels;
-
+- (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day;
 @end

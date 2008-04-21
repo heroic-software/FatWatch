@@ -19,7 +19,7 @@
 
 - (id)initWithDatabase:(Database *)db {
 	if ([super init]) {
-		database = [db retain];
+		database = db;
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
@@ -95,15 +95,8 @@
 	}
 		
 	MonthData *monthData = [database dataForMonth:[self monthForSection:[indexPath section]]];
-	
 	EWDay day = 1 + [indexPath row];
-	
-	cell.day = day;
-	cell.measuredWeight = [monthData measuredWeightOnDay:day];
-	cell.trendWeight = [monthData trendWeightOnDay:day];
-	cell.flagged = [monthData isFlaggedOnDay:day];
-	cell.note = [monthData noteOnDay:day];
-	[cell updateLabels];
+	[cell updateWithMonthData:monthData day:day];
 
 	return cell;
 }
