@@ -35,6 +35,6 @@
 					 flag:(BOOL)flag
 					 note:(NSString *)note
 					onDay:(EWDay)day;
-- (void)commitChanges;
+- (BOOL)commitChanges;
 
 @end

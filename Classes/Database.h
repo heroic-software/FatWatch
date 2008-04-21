@@ -31,8 +31,12 @@ typedef enum {
 
 @interface Database : NSObject {
 	sqlite3 *database;
+	NSUInteger changeCount;
 	NSMutableDictionary *monthCache;
 }
+
+@property (nonatomic,readonly) NSUInteger changeCount;
+
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (void)close;
 - (EWMonth)earliestMonth;
@@ -45,4 +49,5 @@ typedef enum {
 - (float)minimumWeight;
 - (float)maximumWeight;
 - (void)commitChanges;
+
 @end

@@ -151,9 +151,9 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	[self updateTrendStartingOnDay:day inputTrend:previousTrend];
 }
 
-- (void)commitChanges
+- (BOOL)commitChanges
 {
-	if (dirtyBits == 0) return;
+	if (dirtyBits == 0) return NO;
 	
 	if (insert_stmt == nil) {
 		insert_stmt = [database statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
@@ -193,6 +193,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	}
 	
 	dirtyBits = 0;
+	return YES;
 }
 
 @end

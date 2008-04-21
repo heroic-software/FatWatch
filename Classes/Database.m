@@ -13,6 +13,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 
 @implementation Database
 
+@synthesize changeCount;
+
 - (void)ensureDatabaseExists
 {
     // First, test for existence.
@@ -81,6 +83,7 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 - (id)init
 {
 	if ([super init]) {
+		changeCount = 1;
 		monthCache = [[NSMutableDictionary alloc] init];
 		[self ensureDatabaseExists];
 		[self initializeDatabase];
@@ -255,7 +258,9 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 
 - (void)commitChanges
 {
-	[[monthCache allValues] makeObjectsPerformSelector:@selector(commitChanges)];
+	for (MonthData *md in [monthCache allValues]) {
+		if ([md commitChanges]) changeCount++;
+	}
 }
 
 @end
