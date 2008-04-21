@@ -10,8 +10,6 @@
 
 #import "MonthData.h"
 
-const CGFloat kOFFSET_FOR_KEYBOARD = 216;
-
 @implementation LogEntryViewController
 
 @synthesize monthData;
@@ -106,6 +104,7 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
 						   onDay:day];
+	[[monthData database] commitChanges]; // TODO: should be in separate thread
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -115,6 +114,7 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
 						   onDay:day];
+	[[monthData database] commitChanges]; // TODO: should be in separate thread
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -169,7 +169,7 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-	return [self pickerRowForWeight:400.0f];
+	return [self pickerRowForWeight:500.0f];
 }
 
 - (CGSize)pickerView:(UIPickerView *)pickerView rowSizeForComponent:(NSInteger)component
