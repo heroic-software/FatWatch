@@ -167,8 +167,13 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 			// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
 			sqlite3_bind_int(insert_stmt, kMonthColumnIndex + 1, month);
 			sqlite3_bind_int(insert_stmt, kDayColumnIndex + 1, day);
-			sqlite3_bind_double(insert_stmt, kMeasuredValueColumnIndex + 1, measuredWeights[i]);
-			sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+			if (measuredWeights[i] == 0) {
+				sqlite3_bind_null(insert_stmt, kMeasuredValueColumnIndex + 1);
+				sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);
+			} else {
+				sqlite3_bind_double(insert_stmt, kMeasuredValueColumnIndex + 1, measuredWeights[i]);
+				sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+			}
 			sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);
 			id note = [notesArray objectAtIndex:i];
 			if (note != [NSNull null]) {

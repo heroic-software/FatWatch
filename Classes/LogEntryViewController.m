@@ -16,9 +16,6 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 
 @synthesize monthData;
 @synthesize day;
-@synthesize weightPickerView;
-@synthesize flagSwitch;
-@synthesize noteField;
 
 - (id)init
 {
@@ -46,37 +43,36 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 
 - (void)loadView
 {
-	// Create a custom view hierarchy.
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	view.backgroundColor = [UIColor whiteColor];
+	view.backgroundColor = [UIColor lightGrayColor];
 	
-	self.weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
-	weightPickerView.delegate = self;
-	[view addSubview:weightPickerView];
-	[weightPickerView release];
+	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeGlass];
+	[deleteButton setTitle:@"Save With No Weight" forStates:UIControlStateNormal];
+	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+	deleteButton.frame = CGRectMake(22, 22, 320-44, 44);
+	[view addSubview:deleteButton];
 	
-	UILabel *flagLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 216 + 16, 156, 27)];
-	flagLabel.text = @"Checked";
-	flagLabel.textAlignment = UITextAlignmentRight;
-	[view addSubview:flagLabel];
-	[flagLabel release];
+	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
+	flagControl.frame = CGRectMake(22, 88, 320-44, 44);
+	[view addSubview:flagControl];
+	[flagControl release];
 	
-	self.flagSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(160, 216 + 16, 94, 27)];
-	[view addSubview:flagSwitch];
-	
-	self.noteField = [[UITextField alloc] initWithFrame:CGRectMake(0, 300, 320, 40)];
+	noteField = [[UITextField alloc] initWithFrame:CGRectMake(22, 200-28-22, 320-44, 28)];
 	noteField.placeholder = @"Note";
-	noteField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.borderStyle = UITextFieldBorderStyleBezel;
-	noteField.font = [UIFont systemFontOfSize:24];
-	noteField.adjustsFontSizeToFit = YES;
-	noteField.minimumFontSize = 12;
+	noteField.returnKeyType = UIReturnKeyDone;
+	noteField.font = [UIFont systemFontOfSize:18];
+	noteField.backgroundColor = [UIColor whiteColor];
 	noteField.delegate = self;
 	[view addSubview:noteField];
 	[noteField release];
 	
+	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 216)];
+	weightPickerView.delegate = self;
+	[view addSubview:weightPickerView];
+	[weightPickerView release];
+		
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeNavigation];
 	[cancelButton setTitle:@"Cancel" forStates:UIControlStateNormal];
 	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
@@ -107,7 +103,16 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 	NSInteger row = [weightPickerView selectedRowInComponent:0];
 	float weight = [self weightForPickerRow:row];
 	[monthData setMeasuredWeight:weight 
-							flag:flagSwitch.on
+							flag:flagControl.selectedSegmentIndex
+							note:noteField.text
+						   onDay:day];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)deleteAction
+{
+	[monthData setMeasuredWeight:0 
+							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
 						   onDay:day];
 	[self dismissModalViewControllerAnimated:YES];
@@ -126,7 +131,7 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];
 	
-	flagSwitch.on = [monthData isFlaggedOnDay:day];
+	flagControl.selectedSegmentIndex = [monthData isFlaggedOnDay:day];
 	
 	noteField.text = [monthData noteOnDay:day];
 }
@@ -148,35 +153,11 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 	// Release anything that's not essential, such as cached data.
 }
 
-- (void)makeRoomForKeyboard:(BOOL)shiftUp
-{
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-	CGRect rect = self.view.frame;
-	if (shiftUp) {
-		rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-		rect.size.height += kOFFSET_FOR_KEYBOARD;
-	} else {
-		rect.origin.y += kOFFSET_FOR_KEYBOARD;
-		rect.size.height -= kOFFSET_FOR_KEYBOARD;
-	}
-	self.view.frame = rect;
-	[UIView commitAnimations];
-}
-
 #pragma mark UITextFieldDelegate (Optional)
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-	[self makeRoomForKeyboard:YES];
-	return YES;
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	[textField resignFirstResponder];
-	[self makeRoomForKeyboard:NO];
-	return YES;
+	return [textField resignFirstResponder];
 }
 
 #pragma mark UIPickerViewDelegate (Required)
@@ -193,12 +174,25 @@ const CGFloat kOFFSET_FOR_KEYBOARD = 216;
 
 - (CGSize)pickerView:(UIPickerView *)pickerView rowSizeForComponent:(NSInteger)component
 {
-	return CGSizeMake(200, 30);
+	return CGSizeMake(320-88, 0);
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-	return [NSString stringWithFormat:@"%.1f", [self weightForPickerRow:row]];
+	UILabel *label;
+	
+	if ([view isKindOfClass:[UILabel class]]) {
+		label = (UILabel *)view;
+	} else {
+		label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320-88, 44)];
+		label.textAlignment = UITextAlignmentCenter;
+		label.textColor = [UIColor blackColor];
+		label.backgroundColor = [UIColor clearColor];
+		label.font = [UIFont boldSystemFontOfSize:20];
+	}
+
+	label.text = [NSString stringWithFormat:@"%.1f", [self weightForPickerRow:row]];
+	return label;
 }
 
 @end
