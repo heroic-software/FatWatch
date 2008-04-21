@@ -19,7 +19,7 @@
 {
 	if (self = [super init]) {
 		self.title = @"Log";
-		database = [db retain];
+		database = db;
 		firstLoad = YES;
 	}
 	return self;
@@ -64,6 +64,27 @@
 		firstLoad = NO;
 		
 		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+
+		EWWeightUnit databaseWeightUnit = [database weightUnit];
+		EWWeightUnit defaultsWeightUnit = [defs integerForKey:@"WeightUnit"];
+		
+		if (databaseWeightUnit == 0) {
+			// This is a new data file.
+			if (defaultsWeightUnit == 0) {
+				// Prompt user to choose weight unit.
+				// [database setWeightUnit:newWeightUnit];
+				// [defs setInteger:newWeightUnit forKey:@"WeightUnit"];
+			} else {
+				// Go with whatever was in defaults.
+				// [database setWeightUnit:defaultsWeightUnit];
+			}
+		} else if (databaseWeightUnit != defaultsWeightUnit) {
+			// The weight units don't match.  Offer user:
+			// Convert: convert all values in database to new choice, then [database setWeightUnit:defaultsWeightUnit]
+			// Reinterpret: [database setWeightUnit:defaultsWeightUnit]
+			// Cancel: [defs setInteger:databaseWeightUnit forKey:@"WeightUnit"]
+		}
+		
 		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
 		if (! [defs boolForKey:@"AutoWeighIn"]) return;
 		
