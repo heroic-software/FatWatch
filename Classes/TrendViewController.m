@@ -100,7 +100,7 @@
 	self.view = mainView;
 	[mainView release];
 	
-	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 410)];
+	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
 	warningLabel.backgroundColor = [UIColor clearColor];
 	warningLabel.text = @"Not enough data to compute trends. Try again tomorrow.";
 	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
