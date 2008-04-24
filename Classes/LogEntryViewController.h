@@ -12,7 +12,7 @@
 
 @class MonthData;
 
-@interface LogEntryViewController : UIViewController <UIModalViewDelegate, UIPickerViewDelegate, UITextFieldDelegate> {
+@interface LogEntryViewController : UIViewController <UIActionSheetDelegate, UIPickerViewDelegate, UITextFieldDelegate> {
 	MonthData *monthData;
 	EWDay day;
 	BOOL weighIn;

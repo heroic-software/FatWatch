@@ -64,7 +64,7 @@
 	[noWeightView release];
 	
 	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeGlass];
-	[deleteButton setTitle:@"Clear Entry" forStates:UIControlStateNormal];
+	[deleteButton setTitle:@"Clear Entry" forState:UIControlStateNormal];
 	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
 	deleteButton.frame = CGRectMake(22, 22, 320-44, 44);
 	[noWeightView addSubview:deleteButton];
@@ -92,12 +92,12 @@
 	[view release];
 
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeNavigation];
-	[cancelButton setTitle:@"Cancel" forStates:UIControlStateNormal];
+	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
 	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.customLeftView = cancelButton;
 	
 	UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeNavigationDone];
-	[saveButton setTitle:@"Save" forStates:UIControlStateNormal];
+	[saveButton setTitle:@"Save" forState:UIControlStateNormal];
 	[saveButton addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.customRightView = saveButton;
 }
@@ -161,7 +161,7 @@
 	[actionSheet release];
 }
 
-- (void)modalView:(UIModalView *)modalView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex == 0) {
 		[monthData setMeasuredWeight:0 
