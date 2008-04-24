@@ -20,5 +20,5 @@
 	BOOL firstLoad;
 }
 - (id)initWithDatabase:(Database *)db;
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day;
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag;
 @end

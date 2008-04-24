@@ -109,7 +109,7 @@
 		EWMonth month = [self monthForSection:[newIndexPath section]];
 		MonthData *monthData = [database dataForMonth:month];
 		EWDay day = 1 + [newIndexPath row];
-		[viewController presentLogEntryViewForMonthData:monthData onDay:day];
+		[viewController presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
 	}
 }
 

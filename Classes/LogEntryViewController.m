@@ -14,6 +14,7 @@
 
 @synthesize monthData;
 @synthesize day;
+@synthesize weighIn;
 
 - (id)init
 {
@@ -45,32 +46,51 @@
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	view.backgroundColor = [UIColor lightGrayColor];
 	
+	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Weight", @"No Weight", nil]];
+	weightControl.frame = CGRectMake(11, 11, 320-22, 30);
+	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
+	[view addSubview:weightControl];
+	[weightControl release];
+	
+	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 52, 320, 216)];
+	weightPickerView.delegate = self;
+	[view addSubview:weightPickerView];
+	[weightPickerView release];
+	
+	noWeightView = [[UIView alloc] initWithFrame:CGRectMake(0, 52, 320, 88)];
+	noWeightView.backgroundColor = [UIColor darkGrayColor];
+ 	[view addSubview:noWeightView];
+	[noWeightView release];
+	
 	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeGlass];
-	[deleteButton setTitle:@"Save With No Weight" forStates:UIControlStateNormal];
+	[deleteButton setTitle:@"Clear Entry" forStates:UIControlStateNormal];
 	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
 	deleteButton.frame = CGRectMake(22, 22, 320-44, 44);
-	[view addSubview:deleteButton];
+	[noWeightView addSubview:deleteButton];
+
+	flagAndNoteView = [[UIView alloc] initWithFrame:CGRectZero]; // see toggleWeight
+	[view addSubview:flagAndNoteView];
+	[flagAndNoteView release];
 	
 	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
-	flagControl.frame = CGRectMake(22, 88, 320-44, 44);
-	[view addSubview:flagControl];
+	flagControl.frame = CGRectMake(11, 11, 320-22, 44);
+	[flagAndNoteView addSubview:flagControl];
 	[flagControl release];
 	
-	noteField = [[UITextField alloc] initWithFrame:CGRectMake(22, 200-28-22, 320-44, 28)];
+	noteField = [[UITextField alloc] initWithFrame:CGRectMake(11, 66, 320-22, 28)];
 	noteField.placeholder = @"Note";
 	noteField.borderStyle = UITextFieldBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.font = [UIFont systemFontOfSize:18];
 	noteField.backgroundColor = [UIColor whiteColor];
 	noteField.delegate = self;
-	[view addSubview:noteField];
+	[flagAndNoteView addSubview:noteField];
 	[noteField release];
 	
-	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 216)];
-	weightPickerView.delegate = self;
-	[view addSubview:weightPickerView];
-	[weightPickerView release];
-		
+	self.view = view;
+	[view release];
+
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeNavigation];
 	[cancelButton setTitle:@"Cancel" forStates:UIControlStateNormal];
 	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
@@ -80,15 +100,32 @@
 	[saveButton setTitle:@"Save" forStates:UIControlStateNormal];
 	[saveButton addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.customRightView = saveButton;
-	
-	self.view = view;
-	[view release];
 }
 
 - (void)dealloc
 {
 	[titleFormatter release];
 	[super dealloc];
+}
+
+- (void)toggleWeight
+{
+	if (weightControl.selectedSegmentIndex == 0) {
+		weightPickerView.alpha = 1.0;
+		noWeightView.alpha = 0.0;
+		flagAndNoteView.frame = CGRectMake(0, 52+216, 320, 88+28+22);
+	} else {
+		weightPickerView.alpha = 0.0;
+		noWeightView.alpha = 1.0;
+		flagAndNoteView.frame = CGRectMake(0, 52+88, 320, 88+28+22);
+	}
+}
+
+- (void)toggleWeightAction
+{
+	[UIView beginAnimations:@"toggleWeightAction" context:nil];
+	[self toggleWeight];
+	[UIView commitAnimations];
 }
 
 - (void)cancelAction
@@ -98,8 +135,13 @@
 
 - (void)saveAction
 {
-	NSInteger row = [weightPickerView selectedRowInComponent:0];
-	float weight = [self weightForPickerRow:row];
+	float weight;
+	if (weightControl.selectedSegmentIndex == 0) {
+		NSInteger row = [weightPickerView selectedRowInComponent:0];
+		weight = [self weightForPickerRow:row];
+	} else {
+		weight = 0;
+	}
 	[monthData setMeasuredWeight:weight 
 							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
@@ -110,20 +152,45 @@
 
 - (void)deleteAction
 {
-	[monthData setMeasuredWeight:0 
-							flag:flagControl.selectedSegmentIndex
-							note:noteField.text
-						   onDay:day];
-	[[monthData database] commitChanges]; // TODO: should be in separate thread
-	[self dismissModalViewControllerAnimated:YES];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self
+													cancelButtonTitle:@"Cancel"
+											   destructiveButtonTitle:@"Clear Entry"
+													otherButtonTitles:nil];
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+- (void)modalView:(UIModalView *)modalView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0) {
+		[monthData setMeasuredWeight:0 
+								flag:0
+								note:@""
+							   onDay:day];
+		[[monthData database] commitChanges]; // TODO: should be in separate thread
+		[self dismissModalViewControllerAnimated:YES];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center addObserver:self
+			   selector:@selector(keyboardWillShow:)
+				   name:UIKeyboardWillShowNotification
+				 object:nil];
+	[center addObserver:self
+			   selector:@selector(keyboardWillHide:)
+				   name:UIKeyboardWillHideNotification
+				 object:nil];
+	
 	NSDate *date = [monthData dateOnDay:day];
 	self.title = [titleFormatter stringFromDate:date];
 
 	float weight = [monthData measuredWeightOnDay:day];
+	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
+
 	if (weight == 0) {
 		weight = [monthData inputTrendOnDay:day];
 	}
@@ -134,23 +201,42 @@
 	flagControl.selectedSegmentIndex = [monthData isFlaggedOnDay:day];
 	
 	noteField.text = [monthData noteOnDay:day];
+
+	[self toggleWeight];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notice
+{
+//	NSValue *value = [notice object];
+//	CGRect keyboardRect = [value CGRectValue];
+	[UIView beginAnimations:@"keyboardWillShow" context:nil];
+	weightControl.alpha = 0;
+	weightPickerView.alpha = 0;
+	noWeightView.alpha = 0;
+	CGRect viewFrame = flagAndNoteView.frame;
+	viewFrame.origin.y = 0;
+	flagAndNoteView.frame = viewFrame;
+	[UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notice
+{
+	[UIView beginAnimations:@"keyboardWillHide" context:nil];
+	weightControl.alpha = 1.0;
+	[self toggleWeight];
+	[UIView commitAnimations];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[noteField resignFirstResponder];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)didReceiveMemoryWarning
-{
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview.
-	// Release anything that's not essential, such as cached data.
 }
 
 #pragma mark UITextFieldDelegate (Optional)

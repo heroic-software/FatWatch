@@ -5,27 +5,30 @@ Log View:
 - Scrolling is a little jerky.
 - Touch events get weird after return from modal view.
 - Need a tab bar icon.
+- Use proper plus/minus signs in the trend delta.
+- Descenders in note text are cropped sometimes.
 
 Log Entry View:
-- The view should have separate View and Edit modes (like Phone contacts or Calendar events).  When you tap on an row with no weight measurement, you immediately go to Edit mode.
-- Add a button to clear the measurement for that day.
-- dismissing modal view while keyboard is up screws up view origin on iPhone
+- Pick a reasonable default weight if day before earliest day in database.
+- "Save with no weight" does not update trend values properly.
+- Don't recalculate trend numbers if weight didn't change.
+- Display progress bar when updating trend values.
 
 Graph View:
-- Show placeholder view if less than 2 measurements.
 - Zooming?
 - Need a tab bar icon.
+- Redo design of drawing.
+- draw trend line across months
+- add a tickmark view on the side
 
 Trend View:
-- Show placeholder view if less than 2 measurements.
 - Need a tab bar icon.
 
 General Problems:
-- There is no way to edit a row while leaving the weight value empty.  I often want to write a note for a day where I did not weigh myself.
 - Too much data manipulation is handled in the event handling thread.  There should be an asynchronous data processing thread; UI elements should handle a "not ready" state and be notified when they can be redrawn.
 - User needs quick way of getting to "Today" on log view and graph view.
-- Need an Application icon.
-- Need a Settings icon.
+- Need an Application icon: 57x57
+- Need a Settings icon: 29x29
 
 First Launch:
 - Prompt user for WeightUnit, store in database.
@@ -46,3 +49,7 @@ Idea: Sync:
 
 Idea: Superimposed Diet Goal Line:
 - Needs a new view to enter diet goal information
+
+
+
+

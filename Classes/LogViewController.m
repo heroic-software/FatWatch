@@ -29,7 +29,7 @@
 {
 	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-
+	
 	EWWeightLogDataSource *tableSource = [[EWWeightLogDataSource alloc] initWithDatabase:database];
 	tableSource.viewController = self;
 	
@@ -94,7 +94,7 @@
 		MonthData *data = [database dataForMonth:[dataSource monthForSection:[lastPath section]]];
 		EWDay day = ([lastPath row] + 1);
 		if ([data measuredWeightOnDay:day] == 0) {
-			[self presentLogEntryViewForMonthData:data onDay:day];
+			[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
 		}
 	}
 }
@@ -120,7 +120,7 @@
 	[super dealloc];
 }
 
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag
 {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
@@ -128,6 +128,7 @@
 	}
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
+	logEntryViewController.weighIn = flag;
 	[self presentModalViewController:[logEntryViewController navigationController] animated:YES];
 }
 

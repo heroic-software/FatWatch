@@ -12,10 +12,14 @@
 
 @class MonthData;
 
-@interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UITextFieldDelegate> {
+@interface LogEntryViewController : UIViewController <UIModalViewDelegate, UIPickerViewDelegate, UITextFieldDelegate> {
 	MonthData *monthData;
 	EWDay day;
+	BOOL weighIn;
+	UISegmentedControl *weightControl;
 	UIPickerView *weightPickerView;
+	UIView *noWeightView;
+	UIView *flagAndNoteView;
 	UISegmentedControl *flagControl;
 	UITextField *noteField;
 	NSDateFormatter *titleFormatter;
@@ -23,4 +27,5 @@
 }
 @property (nonatomic,retain) MonthData *monthData;
 @property (nonatomic) EWDay day;
+@property (nonatomic,getter=isWeighIn) BOOL weighIn;
 @end
