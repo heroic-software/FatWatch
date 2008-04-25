@@ -7,13 +7,13 @@
 //
 
 #import "LogViewController.h"
-#import "EWWeightLogDataSource.h"
 #import "LogEntryViewController.h"
 #import "Database.h"
 #import "EWDate.h"
 #import "MonthData.h"
 #import "NewDatabaseViewController.h"
 #import "UnitConvertViewController.h"
+#import "LogTableViewCell.h"
 
 @implementation LogViewController
 
@@ -22,6 +22,20 @@
 	if (self = [super init]) {
 		self.title = @"Log";
 		firstLoad = YES;
+
+		sectionTitleFormatter = [[NSDateFormatter alloc] init];
+		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
+		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
+		
+		earliestMonth = [[Database sharedDatabase] earliestMonth];
+		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
+		EWDay currentDay = EWDayFromDate([NSDate date]);
+		
+		numberOfSections = MAX(1, currentMonth - earliestMonth + 1);
+		
+		lastIndexPath = [NSIndexPath indexPathForRow:(currentDay - 1)
+										   inSection:(numberOfSections - 1)];
+		[lastIndexPath retain];
 	}
 	return self;
 }
@@ -31,15 +45,17 @@
 	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	
-	EWWeightLogDataSource *tableSource = [[EWWeightLogDataSource alloc] init];
-	tableSource.viewController = self;
-	
-	tableView.delegate = tableSource;
-	tableView.dataSource = tableSource;
+	tableView.delegate = self;
+	tableView.dataSource = self;
 	tableView.sectionIndexMinimumDisplayRowCount = 2; //NSIntegerMax;
 	
 	self.view = tableView;
 	[tableView release];
+}
+
+- (EWMonth)monthForSection:(NSInteger)section
+{
+	return earliestMonth + section;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,8 +68,7 @@
 
 	[tableView reloadData];
 	if (firstLoad) {
-		id dataSource = [tableView dataSource];
-		[tableView scrollToRowAtIndexPath:[dataSource lastIndexPath]
+		[tableView scrollToRowAtIndexPath:lastIndexPath
 						 atScrollPosition:UITableViewScrollPositionBottom 
 								 animated:NO];
 	}
@@ -65,11 +80,8 @@
 	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
 	if (! [defs boolForKey:@"AutoWeighIn"]) return;
 	
-	UITableView *tableView = (UITableView *)self.view;
-	EWWeightLogDataSource *dataSource = (EWWeightLogDataSource *)[tableView dataSource];
-	NSIndexPath *lastPath = [dataSource lastIndexPath];
-	MonthData *data = [[Database sharedDatabase] dataForMonth:[dataSource monthForSection:[lastPath section]]];
-	EWDay day = ([lastPath row] + 1);
+	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
+	EWDay day = ([lastIndexPath row] + 1);
 	if ([data measuredWeightOnDay:day] == 0) {
 		[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
 	}
@@ -124,7 +136,6 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -138,6 +149,8 @@
 
 - (void)dealloc
 {
+	[lastIndexPath release];
+	[sectionTitleFormatter release];
 	[logEntryViewController release];
 	[super dealloc];
 }
@@ -152,6 +165,64 @@
 	logEntryViewController.day = day;
 	logEntryViewController.weighIn = flag;
 	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:YES];
+}
+
+#pragma mark UITableViewDataSource (Required)
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return numberOfSections;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	if (section == numberOfSections - 1) {
+		return [lastIndexPath row] + 1;
+	} else {
+		EWMonth month = [self monthForSection:section];
+		return EWDaysInMonth(month);
+	}
+}
+
+#pragma mark UITableViewDataSource (Optional)
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	EWMonth month = [self monthForSection:section];
+	NSDate *theDate = NSDateFromEWMonthAndDay(month, 1);
+	return [sectionTitleFormatter stringFromDate:theDate];
+}
+
+#pragma mark UITableViewDelegate (Required)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	LogTableViewCell *cell = nil;
+	
+	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
+	if (availableCell != nil) {
+		cell = (LogTableViewCell *)availableCell;
+	} else {
+		cell = [[[LogTableViewCell alloc] init] autorelease];
+	}
+	
+	MonthData *monthData = [[Database sharedDatabase] dataForMonth:[self monthForSection:[indexPath section]]];
+	EWDay day = 1 + [indexPath row];
+	[cell updateWithMonthData:monthData day:day];
+	
+	return cell;
+}
+
+#pragma mark UITableViewDelegate (Optional)
+
+- (void)tableView:(UITableView *)tableView selectionDidChangeToIndexPath:(NSIndexPath *)newIndexPath fromIndexPath:(NSIndexPath *)oldIndexPath
+{
+	if (newIndexPath) {
+		EWMonth month = [self monthForSection:[newIndexPath section]];
+		MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
+		EWDay day = 1 + [newIndexPath row];
+		[self presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
+	}
 }
 
 @end

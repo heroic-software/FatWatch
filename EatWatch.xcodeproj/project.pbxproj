@@ -20,7 +20,6 @@
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
-		BC56D0A30D8C6B96008D939B /* EWWeightLogDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
@@ -80,8 +79,6 @@
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
-		BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWWeightLogDataSource.h; sourceTree = "<group>"; };
-		BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightLogDataSource.m; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEntryViewController.m; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
@@ -129,8 +126,6 @@
 				BC9BDE980DA9CB550004E70C /* MonthData.m */,
 				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
-				BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */,
-				BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */,
 				1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */,
 				1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */,
 				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
@@ -313,7 +308,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* EatWatchAppDelegate.m in Sources */,
-				BC56D0A30D8C6B96008D939B /* EWWeightLogDataSource.m in Sources */,
 				BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */,
 				BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */,
 				BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */,

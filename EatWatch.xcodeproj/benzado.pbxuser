@@ -158,7 +158,7 @@
 			};
 			PBXConfiguration.PBXFileTableDataSource3.XCSCMDataSource = {
 				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
-				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_SCM_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					20,
@@ -468,6 +468,15 @@
 			BC0214090DC19CF300BA97BB /* PBXTextBookmark */ = BC0214090DC19CF300BA97BB /* PBXTextBookmark */;
 			BC02140B0DC19CF600BA97BB /* PBXTextBookmark */ = BC02140B0DC19CF600BA97BB /* PBXTextBookmark */;
 			BC02140E0DC19D2100BA97BB /* PBXTextBookmark */ = BC02140E0DC19D2100BA97BB /* PBXTextBookmark */;
+			BC02141B0DC19FB300BA97BB /* PBXTextBookmark */ = BC02141B0DC19FB300BA97BB /* PBXTextBookmark */;
+			BC02141C0DC19FE900BA97BB /* PBXTextBookmark */ = BC02141C0DC19FE900BA97BB /* PBXTextBookmark */;
+			BC02141D0DC19FE900BA97BB /* PBXTextBookmark */ = BC02141D0DC19FE900BA97BB /* PBXTextBookmark */;
+			BC0214290DC1A30C00BA97BB /* PBXTextBookmark */ = BC0214290DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC02142A0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142A0DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC02142B0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142B0DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC02142C0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142C0DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC02142D0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142D0DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC02142E0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142E0DC1A30C00BA97BB /* PBXTextBookmark */;
 			BC19732F0DC10AEC00145282 = BC19732F0DC10AEC00145282 /* PBXTextBookmark */;
 			BC5B9E9C0DC0F5C600493036 = BC5B9E9C0DC0F5C600493036 /* PBXTextBookmark */;
 			BC8870680DC12AE30000D230 = BC8870680DC12AE30000D230 /* PBXTextBookmark */;
@@ -687,7 +696,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 235";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1062;
 		vrLoc = 6024;
@@ -702,9 +711,9 @@
 	};
 	BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {847, 868}}";
+			sepNavIntBoundsRect = "{{0, 0}, {847, 896}}";
 			sepNavSelRange = "{231, 25}";
-			sepNavVisRange = "{151, 750}";
+			sepNavVisRange = "{151, 698}";
 			sepNavWindowFrame = "{{32, 82}, {857, 696}}";
 		};
 	};
@@ -731,7 +740,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 15";
 		rLen = 0;
-		rLoc = 345;
+		rLoc = 311;
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 0;
@@ -1053,7 +1062,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 108";
 		rLen = 13;
-		rLoc = 3295;
+		rLoc = 3566;
 		rType = 0;
 		vrLen = 855;
 		vrLoc = 2857;
@@ -1080,7 +1089,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 108";
 		rLen = 13;
-		rLoc = 3295;
+		rLoc = 3566;
 		rType = 0;
 		vrLen = 855;
 		vrLoc = 2857;
@@ -1640,7 +1649,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 103";
 		rLen = 0;
-		rLoc = 2986;
+		rLoc = 3257;
 		rType = 0;
 		vrLen = 1381;
 		vrLoc = 2599;
@@ -1666,7 +1675,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 17";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 277;
 		vrLoc = 143;
@@ -1694,7 +1703,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 17";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 277;
 		vrLoc = 143;
@@ -1778,7 +1787,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 17";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 315;
 		vrLoc = 143;
@@ -1798,7 +1807,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 17";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 315;
 		vrLoc = 143;
@@ -1818,7 +1827,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 17";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 315;
 		vrLoc = 143;
@@ -1908,7 +1917,7 @@
 		isa = PBXTextBookmark;
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		rLen = 1;
-		rLoc = 61;
+		rLoc = 76;
 		rType = 1;
 	};
 	BC0213220DC181EC00BA97BB /* PBXTextBookmark */ = {
@@ -1916,7 +1925,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 76";
 		rLen = 0;
-		rLoc = 2271;
+		rLoc = 2542;
 		rType = 0;
 		vrLen = 1370;
 		vrLoc = 1116;
@@ -2104,7 +2113,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 112";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 659;
 		vrLoc = 3275;
@@ -2272,7 +2281,7 @@
 		rLen = 0;
 		rLoc = 662;
 		rType = 0;
-		vrLen = 667;
+		vrLen = 662;
 		vrLoc = 0;
 	};
 	BC02137F0DC18C1300BA97BB /* PBXTextBookmark */ = {
@@ -2315,7 +2324,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 112";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 682;
 		vrLoc = 3275;
@@ -2333,7 +2342,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 112";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 682;
 		vrLoc = 3275;
@@ -2363,7 +2372,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 668;
 		vrLoc = 3199;
@@ -2383,7 +2392,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 141";
 		rLen = 0;
-		rLoc = 4410;
+		rLoc = 4698;
 		rType = 0;
 		vrLen = 681;
 		vrLoc = 4161;
@@ -2445,7 +2454,7 @@
 		rLen = 0;
 		rLoc = 539;
 		rType = 0;
-		vrLen = 593;
+		vrLen = 576;
 		vrLoc = 47;
 	};
 	BC0213A60DC193AE00BA97BB /* PBXTextBookmark */ = {
@@ -2510,7 +2519,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 141";
 		rLen = 0;
-		rLoc = 4410;
+		rLoc = 4698;
 		rType = 0;
 		vrLen = 681;
 		vrLoc = 4161;
@@ -2552,7 +2561,7 @@
 		rLen = 0;
 		rLoc = 313;
 		rType = 0;
-		vrLen = 624;
+		vrLen = 620;
 		vrLoc = 3;
 	};
 	BC0213B10DC193AE00BA97BB /* PBXTextBookmark */ = {
@@ -2592,7 +2601,7 @@
 		rLen = 0;
 		rLoc = 539;
 		rType = 0;
-		vrLen = 593;
+		vrLen = 576;
 		vrLoc = 47;
 	};
 	BC0213B50DC193AE00BA97BB /* PBXTextBookmark */ = {
@@ -2620,7 +2629,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 668;
 		vrLoc = 3199;
@@ -2638,7 +2647,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 668;
 		vrLoc = 3199;
@@ -2678,7 +2687,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 2843;
@@ -2706,7 +2715,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 2843;
@@ -2838,7 +2847,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 1112;
 		vrLoc = 2843;
@@ -2967,7 +2976,7 @@
 		rLen = 0;
 		rLoc = 539;
 		rType = 0;
-		vrLen = 596;
+		vrLen = 579;
 		vrLoc = 44;
 	};
 	BC0213F50DC19BD700BA97BB /* PBXTextBookmark */ = {
@@ -3055,7 +3064,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 1112;
 		vrLoc = 2843;
@@ -3073,7 +3082,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 111";
 		rLen = 0;
-		rLoc = 3522;
+		rLoc = 3793;
 		rType = 0;
 		vrLen = 1112;
 		vrLoc = 2843;
@@ -3166,6 +3175,94 @@
 		vrLen = 0;
 		vrLoc = 0;
 	};
+	BC02141B0DC19FB300BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC02141C0DC19FE900BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
+		name = "LogViewController.m: 111";
+		rLen = 0;
+		rLoc = 3793;
+		rType = 0;
+		vrLen = 1112;
+		vrLoc = 2843;
+	};
+	BC02141D0DC19FE900BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 518;
+		vrLoc = 7023;
+	};
+	BC0214290DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
+		name = "LogViewController.h: 14";
+		rLen = 0;
+		rLoc = 240;
+		rType = 0;
+		vrLen = 634;
+		vrLoc = 0;
+	};
+	BC02142A0DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: unused variable 'dataSource'";
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+		rLen = 1;
+		rLoc = 65;
+		rType = 1;
+	};
+	BC02142B0DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
+		name = "LogViewController.m: 16";
+		rLen = 0;
+		rLoc = 378;
+		rType = 0;
+		vrLen = 681;
+		vrLoc = 0;
+	};
+	BC02142C0DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
+		name = "LogViewController.h: 14";
+		rLen = 0;
+		rLoc = 240;
+		rType = 0;
+		vrLen = 634;
+		vrLoc = 0;
+	};
+	BC02142D0DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+		name = "LogViewController.m: 71";
+		rLen = 50;
+		rLoc = 1884;
+		rType = 0;
+		vrLen = 895;
+		vrLoc = 2020;
+	};
+	BC02142E0DC1A30C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 518;
+		vrLoc = 7023;
+	};
 	BC19732F0DC10AEC00145282 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
@@ -3202,7 +3299,7 @@
 	};
 	BC263C360DB56B9D007D03F4 /* Root.strings */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {596, 112}}";
+			sepNavIntBoundsRect = "{{0, 0}, {596, 98}}";
 			sepNavSelRange = "{403, 0}";
 			sepNavVisRange = "{0, 0}";
 			sepNavWindowFrame = "{{11, 67}, {676, 711}}";
@@ -3231,7 +3328,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 0;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -3268,18 +3365,30 @@
 		indexTemplatePath = "";
 	};
 	BC56D0A10D8C6B96008D939B /* EWWeightLogDataSource.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = EWWeightLogDataSource.h;
+		path = /Users/benzado/Projects/iPhone/EatWatch/Classes/EWWeightLogDataSource.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 350}}";
-			sepNavSelRange = "{195, 0}";
-			sepNavVisRange = "{44, 579}";
-			sepNavWindowFrame = "{{483, 93}, {744, 675}}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 547}}";
+			sepNavSelRange = "{266, 44}";
+			sepNavVisRange = "{0, 623}";
+			sepNavWindowFrame = "{{62, 103}, {744, 675}}";
 		};
 	};
 	BC56D0A20D8C6B96008D939B /* EWWeightLogDataSource.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = EWWeightLogDataSource.m;
+		path = /Users/benzado/Projects/iPhone/EatWatch/Classes/EWWeightLogDataSource.m;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {864, 1610}}";
-			sepNavSelRange = "{2911, 0}";
-			sepNavVisRange = "{2373, 692}";
+			sepNavSelRange = "{1248, 1811}";
+			sepNavVisRange = "{1793, 1272}";
 			sepNavWindowFrame = "{{194, 77}, {744, 675}}";
 		};
 	};
@@ -3375,7 +3484,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 106";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1822;
 		vrLoc = 2311;
@@ -3395,7 +3504,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 103";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1780;
 		vrLoc = 2484;
@@ -3415,7 +3524,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 105";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1873;
 		vrLoc = 2252;
@@ -3435,7 +3544,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 95";
 		rLen = 0;
-		rLoc = 2944;
+		rLoc = 3215;
 		rType = 0;
 		vrLen = 1923;
 		vrLoc = 2252;
@@ -3455,7 +3564,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1647;
 		vrLoc = 2107;
@@ -3492,7 +3601,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 103";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1837;
 		vrLoc = 2183;
@@ -3512,7 +3621,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1848;
 		vrLoc = 2183;
@@ -3532,7 +3641,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1634;
 		vrLoc = 2108;
@@ -3552,7 +3661,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 182";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1141;
 		vrLoc = 4700;
@@ -3582,7 +3691,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 103";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 2107;
@@ -3602,7 +3711,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1859;
 		vrLoc = 2310;
@@ -3622,7 +3731,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1856;
 		vrLoc = 2310;
@@ -3642,7 +3751,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1859;
 		vrLoc = 2310;
@@ -3662,7 +3771,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 99";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1606;
 		vrLoc = 2107;
@@ -3692,7 +3801,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 105";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1604;
 		vrLoc = 2107;
@@ -3732,7 +3841,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1604;
 		vrLoc = 2107;
@@ -3752,7 +3861,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 104";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1833;
 		vrLoc = 2250;
@@ -3782,7 +3891,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 105";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1679;
 		vrLoc = 2145;
@@ -3804,10 +3913,10 @@
 		path = /Users/benzado/Projects/iPhone/EatWatch/Classes/LogViewController.m;
 		sourceTree = "<group>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {946, 2114}}";
-			sepNavSelRange = "{3522, 0}";
-			sepNavVisRange = "{2843, 1112}";
-			sepNavWindowFrame = "{{199, 74}, {857, 696}}";
+			sepNavIntBoundsRect = "{{0, 0}, {946, 3206}}";
+			sepNavSelRange = "{1884, 50}";
+			sepNavVisRange = "{2020, 895}";
+			sepNavWindowFrame = "{{393, 82}, {857, 696}}";
 		};
 	};
 	BC8870C30DC12EC90000D230 /* PBXTextBookmark */ = {
@@ -3825,9 +3934,9 @@
 		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
 		name = "LogViewController.h: 23";
 		rLen = 18;
-		rLoc = 440;
+		rLoc = 609;
 		rType = 0;
-		vrLen = 482;
+		vrLen = 465;
 		vrLoc = 0;
 	};
 	BC8870C50DC12EC90000D230 /* PBXTextBookmark */ = {
@@ -3835,7 +3944,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1135;
 		vrLoc = 4785;
@@ -3845,7 +3954,7 @@
 		fRef = BC8870640DC12AC30000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1135;
 		vrLoc = 4785;
@@ -3855,9 +3964,9 @@
 		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
 		name = "LogViewController.h: 23";
 		rLen = 18;
-		rLoc = 440;
+		rLoc = 609;
 		rType = 0;
-		vrLen = 482;
+		vrLen = 465;
 		vrLoc = 0;
 	};
 	BC8870C80DC12EC90000D230 /* PBXTextBookmark */ = {
@@ -3865,7 +3974,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1456;
 		vrLoc = 1791;
@@ -3895,7 +4004,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1456;
 		vrLoc = 1791;
@@ -3925,7 +4034,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1456;
 		vrLoc = 1791;
@@ -3955,7 +4064,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 173";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1456;
 		vrLoc = 1791;
@@ -3995,7 +4104,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 107";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1706;
 		vrLoc = 2147;
@@ -4025,7 +4134,7 @@
 		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
 		name = "LogViewController.m: 107";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1557;
 		vrLoc = 2017;
@@ -4099,7 +4208,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 114";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 2843;
@@ -4129,7 +4238,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 114";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 2843;
@@ -4159,7 +4268,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 123";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1584;
 		vrLoc = 2861;
@@ -4210,7 +4319,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 123";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1733;
 		vrLoc = 1793;
@@ -4240,7 +4349,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 117";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1539;
 		vrLoc = 2841;
@@ -4280,7 +4389,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 118";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1574;
 		vrLoc = 2841;
@@ -4310,7 +4419,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 118";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1574;
 		vrLoc = 2841;
@@ -4340,7 +4449,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 121";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1599;
 		vrLoc = 2841;
@@ -4400,7 +4509,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 121";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1595;
 		vrLoc = 2841;
@@ -4450,7 +4559,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 121";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1710;
 		vrLoc = 2861;
@@ -4480,7 +4589,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 122";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1691;
 		vrLoc = 2861;
@@ -4510,7 +4619,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 124";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1693;
 		vrLoc = 2861;
@@ -4560,7 +4669,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 197";
 		rLen = 0;
-		rLoc = 5008;
+		rLoc = 7098;
 		rType = 0;
 		vrLen = 1142;
 		vrLoc = 5064;
@@ -4590,7 +4699,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 127";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1723;
 		vrLoc = 2804;
@@ -4640,9 +4749,9 @@
 		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
 		name = "LogViewController.h: 17";
 		rLen = 0;
-		rLoc = 290;
+		rLoc = 335;
 		rType = 0;
-		vrLen = 482;
+		vrLen = 465;
 		vrLoc = 0;
 	};
 	BC8871720DC13B510000D230 /* PBXTextBookmark */ = {
@@ -4650,7 +4759,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 15";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 997;
 		vrLoc = 0;
@@ -4660,7 +4769,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 16";
 		rLen = 0;
-		rLoc = 385;
+		rLoc = 380;
 		rType = 0;
 		vrLen = 1033;
 		vrLoc = 0;
@@ -4670,9 +4779,9 @@
 		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
 		name = "LogViewController.h: 17";
 		rLen = 0;
-		rLoc = 290;
+		rLoc = 335;
 		rType = 0;
-		vrLen = 482;
+		vrLen = 465;
 		vrLoc = 0;
 	};
 	BC8871750DC13B510000D230 /* PBXTextBookmark */ = {
@@ -4680,7 +4789,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 15";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 379;
 		rType = 0;
 		vrLen = 997;
 		vrLoc = 0;
@@ -4690,9 +4799,9 @@
 		fRef = BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */;
 		name = "LogViewController.h: 17";
 		rLen = 0;
-		rLoc = 290;
+		rLoc = 335;
 		rType = 0;
-		vrLen = 482;
+		vrLen = 465;
 		vrLoc = 0;
 	};
 	BC8871770DC13B510000D230 /* PBXTextBookmark */ = {
@@ -4700,7 +4809,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 128";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1610;
 		vrLoc = 2941;
@@ -4739,7 +4848,7 @@
 		isa = PBXTextBookmark;
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 0;
-		rLoc = 104;
+		rLoc = 116;
 		rType = 1;
 	};
 	BC8871820DC13BC60000D230 /* PBXTextBookmark */ = {
@@ -4747,7 +4856,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 126";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1648;
 		vrLoc = 2941;
@@ -4776,7 +4885,7 @@
 		isa = PBXTextBookmark;
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 0;
-		rLoc = 104;
+		rLoc = 116;
 		rType = 1;
 	};
 	BC88718C0DC13C0C0000D230 /* PBXTextBookmark */ = {
@@ -4784,7 +4893,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 124";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1650;
 		vrLoc = 2941;
@@ -4813,7 +4922,7 @@
 		isa = PBXTextBookmark;
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 0;
-		rLoc = 104;
+		rLoc = 116;
 		rType = 1;
 	};
 	BC8871930DC140040000D230 /* PBXTextBookmark */ = {
@@ -4821,7 +4930,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 128";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1418;
 		vrLoc = 2798;
@@ -4841,7 +4950,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 105";
 		rLen = 0;
-		rLoc = 2585;
+		rLoc = 2856;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 2999;
@@ -4851,7 +4960,7 @@
 		comments = "warning: passing argument 1 of 'isKindOfClass:' from incompatible pointer type";
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 1;
-		rLoc = 80;
+		rLoc = 92;
 		rType = 1;
 	};
 	BC8871980DC1406F0000D230 /* PBXTextBookmark */ = {
@@ -4859,7 +4968,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 43;
-		rLoc = 2395;
+		rLoc = 2666;
 		rType = 0;
 		vrLen = 265;
 		vrLoc = 2798;
@@ -4879,7 +4988,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 43;
-		rLoc = 2395;
+		rLoc = 2666;
 		rType = 0;
 		vrLen = 320;
 		vrLoc = 2798;
@@ -4909,7 +5018,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 136";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 2986;
@@ -4919,7 +5028,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 43;
-		rLoc = 2395;
+		rLoc = 2666;
 		rType = 0;
 		vrLen = 320;
 		vrLoc = 2798;
@@ -4949,7 +5058,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 137";
 		rLen = 0;
-		rLoc = 3211;
+		rLoc = 3482;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 3118;
@@ -4959,7 +5068,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 43;
-		rLoc = 2395;
+		rLoc = 2666;
 		rType = 0;
 		vrLen = 320;
 		vrLoc = 2798;
@@ -4979,7 +5088,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 101";
 		rLen = 43;
-		rLoc = 2395;
+		rLoc = 2666;
 		rType = 0;
 		vrLen = 320;
 		vrLoc = 2798;
@@ -5048,7 +5157,7 @@
 	};
 	BC9BDEE10DA9D8610004E70C /* Database.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 3290}}";
+			sepNavIntBoundsRect = "{{0, 0}, {795, 2632}}";
 			sepNavSelRange = "{7290, 0}";
 			sepNavVisRange = "{7023, 518}";
 			sepNavWindowFrame = "{{414, 77}, {726, 701}}";
@@ -5056,25 +5165,25 @@
 	};
 	BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {669, 826}}";
-			sepNavSelRange = "{247, 0}";
-			sepNavVisRange = "{0, 1374}";
+			sepNavIntBoundsRect = "{{0, 0}, {669, 798}}";
+			sepNavSelRange = "{1233, 0}";
+			sepNavVisRange = "{0, 1342}";
 			sepNavWindowFrame = "{{161, 110}, {728, 665}}";
 		};
 	};
 	BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 308}}";
-			sepNavSelRange = "{192, 6}";
-			sepNavVisRange = "{0, 465}";
+			sepNavIntBoundsRect = "{{0, 0}, {946, 382}}";
+			sepNavSelRange = "{240, 0}";
+			sepNavVisRange = "{0, 634}";
 			sepNavWindowFrame = "{{407, 118}, {677, 611}}";
 		};
 	};
 	BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {829, 2240}}";
-			sepNavSelRange = "{4243, 0}";
-			sepNavVisRange = "{4552, 503}";
+			sepNavIntBoundsRect = "{{0, 0}, {946, 3206}}";
+			sepNavSelRange = "{1884, 50}";
+			sepNavVisRange = "{2020, 895}";
 			sepNavWindowFrame = "{{199, 74}, {857, 696}}";
 		};
 	};
