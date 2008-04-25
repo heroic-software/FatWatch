@@ -84,72 +84,36 @@
 	return self;
 }
 
-- (void)loadView
+- (NSString *)message
 {
-	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-	mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	mainView.autoresizesSubviews = YES;
-	mainView.backgroundColor = [UIColor lightGrayColor];
-	self.view = mainView;
-	[mainView release];
-	
-	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
-	warningLabel.backgroundColor = [UIColor clearColor];
-	warningLabel.text = @"Not enough data to compute trends. Try again tomorrow.";
-	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
-	warningLabel.numberOfLines = 0;
+	return @"Not enough data to compute trends. Try again tomorrow.";
+}
 
-	tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+- (UIView *)loadDataView
+{
+	UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	tableView.delegate = self;
 	tableView.dataSource = self;
 	tableView.sectionIndexMinimumDisplayRowCount = NSIntegerMax;
+	return [tableView autorelease];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dataChanged
 {
-	Database *database = [Database sharedDatabase];
-	
-	if ([database changeCount] != dbChangeCount) {
-		if ([database weightCount] > 1) {
-			if ([tableView superview] == nil) {
-				[warningLabel removeFromSuperview];
-				[self.view addSubview:tableView];
-				tableView.frame = self.view.bounds;
-			}
-			[self recompute];
-			[tableView reloadData];
-		} else {
-			if ([warningLabel superview] == nil) {
-				[tableView removeFromSuperview];
-				[self.view addSubview:warningLabel];
-			}
-		}
-		dbChangeCount = [database changeCount];
-	}
+	[self recompute];
+	UITableView *tableView = (UITableView *)self.dataView;
+	[tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)didReceiveMemoryWarning
-{
-	BOOL shouldReleaseSubviews = ([self.view superview] == nil);
-	[super didReceiveMemoryWarning];
-	if (shouldReleaseSubviews) {
-		[warningLabel release]; warningLabel = nil;
-		[tableView release]; tableView = nil;
-	}
 }
 
 - (void)dealloc
 {
 	[array release];
-	[warningLabel release];
-	[tableView release];
 	[super dealloc];
 }
 
@@ -174,7 +138,7 @@
 
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)view cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell;
 	
@@ -191,7 +155,7 @@
 
 #pragma mark UITableViewDelegate (Optional)
 
-- (NSIndexPath *)tableView:(UITableView *)view willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil; // table is for display only, don't allow selection
 }

@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataViewController.h"
 
-@interface TrendViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TrendViewController : DataViewController <UITableViewDelegate, UITableViewDataSource> {
 	NSMutableArray *array;
-	NSUInteger dbChangeCount;
-	UILabel *warningLabel;
-	UITableView *tableView;
 }
 
 @end

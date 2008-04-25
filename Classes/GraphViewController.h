@@ -8,13 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class Database;
+#import "DataViewController.h"
 
-@interface GraphViewController : UIViewController {
+@interface GraphViewController : DataViewController {
 	BOOL firstLoad;
-	NSUInteger dbChangeCount;
-	UILabel *warningLabel;
-	UIScrollView *scrollView;
 }
-- (id)init;
 @end

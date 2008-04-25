@@ -14,6 +14,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
 		BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */; };
+		BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
@@ -71,6 +72,8 @@
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDatabaseViewController.m; sourceTree = "<group>"; };
 		BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitConvertViewController.h; sourceTree = "<group>"; };
 		BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitConvertViewController.m; sourceTree = "<group>"; };
+		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
+		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
 				BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */,
 				BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */,
+				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
+				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */,
 				BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */,
 				BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */,
+				BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

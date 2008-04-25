@@ -23,22 +23,14 @@
 }
 
 
-- (void)loadView
+- (NSString *)message
 {
-	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-	[mainView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-	[mainView setAutoresizesSubviews:YES];
-	mainView.backgroundColor = [UIColor lightGrayColor];
-	self.view = mainView;
+	return @"Not enough data to draw a graph. Try again tomorrow.";
+}
 
-	// View for when there's not enough data
-	
-	warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
-	warningLabel.backgroundColor = [UIColor clearColor];
-	warningLabel.text = @"Not enough data to draw a graph. Try again tomorrow.";
-	warningLabel.lineBreakMode = UILineBreakModeWordWrap;
-	warningLabel.numberOfLines = 0;
-	
+
+- (UIView *)loadDataView
+{
 	// View for the graph
 
 	EWMonth earliestMonth = [[Database sharedDatabase] earliestMonth];
@@ -47,7 +39,7 @@
 	
 	CGSize totalSize = CGSizeMake(0, 411);
 	
-	scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
 	scrollView.alwaysBounceVertical = NO;
 	scrollView.directionalLockEnabled = YES;
 	
@@ -65,58 +57,24 @@
 	}
 	
 	scrollView.contentSize = totalSize;
+	
+	return [scrollView autorelease];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dataChanged
 {
-	Database *database = [Database sharedDatabase];
-	
-	if ([database changeCount] != dbChangeCount) {
-		if ([database weightCount] > 1) {
-			if ([scrollView superview] == nil) {
-				[warningLabel removeFromSuperview];
-				[self.view addSubview:scrollView];
-				[self.view setNeedsLayout];
-				if (firstLoad) {
-					CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
-					[scrollView scrollRectToVisible:rect animated:NO];
-					firstLoad = NO;
-				}
-			}
-			[[scrollView subviews] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-		} else {
-			if ([warningLabel superview] == nil) {
-				[scrollView removeFromSuperview];
-				[self.view addSubview:warningLabel];
-				[self.view setNeedsLayout];
-			}
-		}
-		dbChangeCount = [database changeCount];
+	UIScrollView *scrollView = (UIScrollView *)self.dataView;
+	if (firstLoad) {
+		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
+		[scrollView scrollRectToVisible:rect animated:NO];
+		firstLoad = NO;
 	}
+	[[scrollView subviews] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-- (void)didReceiveMemoryWarning
-{
-	BOOL shouldReleaseSubviews = ([self.view superview] == nil);
-	[super didReceiveMemoryWarning];
-	if (shouldReleaseSubviews) {
-		[scrollView release]; scrollView = nil;
-		[warningLabel release]; warningLabel = nil;
-	}
-}
-
-- (void)dealloc
-{
-	[scrollView release];
-	[warningLabel release];
-	[super dealloc];
-}
-
 
 @end
