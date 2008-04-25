@@ -286,6 +286,7 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 - (void)flushCache
 {
 	[monthCache	removeAllObjects];
+	changeCount++;
 }
 
 @end
