@@ -12,8 +12,7 @@
 @class Database;
 
 @interface GraphView : UIView {
-	Database *database;
 	EWMonth month;
 }
-- (id)initWithDatabase:(Database *)db month:(EWMonth)m;
+- (id)initWithMonth:(EWMonth)m;
 @end

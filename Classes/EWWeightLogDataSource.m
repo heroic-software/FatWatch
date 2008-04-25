@@ -17,15 +17,14 @@
 
 @synthesize viewController;
 
-- (id)initWithDatabase:(Database *)db {
+- (id)init
+{
 	if ([super init]) {
-		database = db;
-
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
 		
-		earliestMonth = [database earliestMonth];
+		earliestMonth = [[Database sharedDatabase] earliestMonth];
 		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
 		EWDay currentDay = EWDayFromDate([NSDate date]);
 		
@@ -41,7 +40,6 @@
 - (void)dealloc {
 	[lastIndexPath release];
 	[sectionTitleFormatter release];
-	[database release];
 	[super dealloc];
 }
 
@@ -94,7 +92,7 @@
 		cell = [[[LogTableViewCell alloc] init] autorelease];
 	}
 		
-	MonthData *monthData = [database dataForMonth:[self monthForSection:[indexPath section]]];
+	MonthData *monthData = [[Database sharedDatabase] dataForMonth:[self monthForSection:[indexPath section]]];
 	EWDay day = 1 + [indexPath row];
 	[cell updateWithMonthData:monthData day:day];
 
@@ -107,7 +105,7 @@
 {
 	if (newIndexPath) {
 		EWMonth month = [self monthForSection:[newIndexPath section]];
-		MonthData *monthData = [database dataForMonth:month];
+		MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
 		EWDay day = 1 + [newIndexPath row];
 		[viewController presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
 	}

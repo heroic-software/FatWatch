@@ -17,18 +17,15 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 @implementation MonthData
 
-@synthesize database;
-
 + (void)finalizeStatements
 {
 	if (insert_stmt) sqlite3_finalize(insert_stmt);
 	if (data_for_month_stmt) sqlite3_finalize(data_for_month_stmt);
 }
 
-- (id)initWithDatabase:(Database *)db month:(EWMonth)m
+- (id)initWithMonth:(EWMonth)m
 {
 	if ([super init]) {
-		database = db;
 		month = m;
 		
 		measuredWeights = calloc(31, sizeof(float));
@@ -41,7 +38,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		dirtyBits = 0;
 		
 		if (data_for_month_stmt == nil) {
-			data_for_month_stmt = [database statementFromSQL:"SELECT * FROM weight WHERE month = ?"];
+			data_for_month_stmt = [[Database sharedDatabase] statementFromSQL:"SELECT * FROM weight WHERE month = ?"];
 		}
 		sqlite3_bind_int(data_for_month_stmt, 1, m);
 		while (sqlite3_step(data_for_month_stmt) == SQLITE_ROW) {
@@ -112,7 +109,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	
 	// If none is found, find previous month with data.
 	
-	MonthData *earlierMonthData = [database dataForMonthBefore:month];
+	MonthData *earlierMonthData = [[Database sharedDatabase] dataForMonthBefore:month];
 	if (earlierMonthData) {
 		return [earlierMonthData inputTrendOnDay:31];
 	}
@@ -132,7 +129,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		}
 	}
 	// TODO: convert to loop to avoid possible stack overflow
-	[[database dataForMonthAfter:month] updateTrendStartingOnDay:1 inputTrend:previousTrend];
+	[[[Database sharedDatabase] dataForMonthAfter:month] updateTrendStartingOnDay:1 inputTrend:previousTrend];
 }
 
 - (void)setMeasuredWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day
@@ -156,7 +153,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (dirtyBits == 0) return NO;
 	
 	if (insert_stmt == nil) {
-		insert_stmt = [database statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
+		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
 	}
 	
 	int i = 0;

@@ -13,7 +13,6 @@
 @class LogViewController;
 
 @interface EWWeightLogDataSource : NSObject <UITableViewDelegate, UITableViewDataSource> {
-	Database *database;
 	EWMonth earliestMonth;
 	NSDateFormatter *sectionTitleFormatter;
 	NSUInteger numberOfSections;
@@ -21,7 +20,6 @@
 	LogViewController *viewController;
 }
 @property (nonatomic,retain) LogViewController *viewController;
-- (id)initWithDatabase:(Database *)db;
 - (NSIndexPath *)lastIndexPath;
 - (EWMonth)monthForSection:(NSInteger)section;
 @end

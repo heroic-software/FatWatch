@@ -11,11 +11,10 @@
 
 @implementation UnitConvertViewController
 
-- (id)initWithDatabase:(Database *)db
+- (id)init
 {
 	if ([super initWithNibName:nil bundle:nil]) {
 		self.title = NSLocalizedString(@"New Database", @"NewDatabaseViewController title");
-		database = db;
 	}
 	return self;
 }
@@ -40,7 +39,7 @@
 	@"reinterpret the existing values as %2$@, "
 	@"or cancel the change to stay with %1$@ and leave your data untouched.";
 	
-	NSString *dataUnit = EWStringFromWeightUnit([database weightUnit]);
+	NSString *dataUnit = EWStringFromWeightUnit([[Database sharedDatabase] weightUnit]);
 	NSString *prefUnit = EWStringFromWeightUnit([[NSUserDefaults standardUserDefaults] integerForKey:@"WeightUnit"]);
 	
 	UILabel *helpLabel = [[UILabel alloc] initWithFrame:viewFrame];
@@ -78,6 +77,7 @@
 	} else {
 		factor = kPoundsPerKilogram;
 	}
+	Database *database = [Database sharedDatabase];
 	sqlite3_stmt *statement = [database statementFromSQL:"UPDATE weight SET measuredValue = measuredValue * ?, trendValue = trendValue * ?"];
 	sqlite3_bind_double(statement, 1, factor);
 	sqlite3_bind_double(statement, 2, factor);
@@ -92,13 +92,13 @@
 - (void)reinterpretAction
 {
 	EWWeightUnit defaultsWeightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"WeightUnit"];
-	[database setWeightUnit:defaultsWeightUnit];
+	[[Database sharedDatabase] setWeightUnit:defaultsWeightUnit];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelAction
 {
-	EWWeightUnit databaseWeightUnit = [database weightUnit];
+	EWWeightUnit databaseWeightUnit = [[Database sharedDatabase] weightUnit];
 	[[NSUserDefaults standardUserDefaults] setInteger:databaseWeightUnit forKey:@"WeightUnit"];
 	[self dismissModalViewControllerAnimated:YES];
 }

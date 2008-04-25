@@ -45,6 +45,8 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
 	NSMutableDictionary *monthCache;
 }
 
++ (Database *)sharedDatabase;
+
 @property (nonatomic,readonly) NSUInteger changeCount;
 
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;

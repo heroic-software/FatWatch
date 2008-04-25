@@ -18,17 +18,10 @@
 @synthesize window;
 @synthesize tabBarController;
 
-- init {
-	if ([super init]) {
-		database = [[Database alloc] init];
-	}
-	return self;
-}
-
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	LogViewController *logView = [[[LogViewController alloc] initWithDatabase:database] autorelease];
-	GraphViewController *graphView = [[[GraphViewController alloc] initWithDatabase:database] autorelease];
-	TrendViewController *trendView = [[[TrendViewController alloc] initWithDatabase:database] autorelease];
+	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
+	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
+	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
 
 	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers = [NSArray arrayWithObjects:logView, graphView, trendView, nil];
@@ -40,8 +33,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	[database close];
-	[database release];
+	[[Database sharedDatabase] close];
 }
 
 - (void)dealloc {

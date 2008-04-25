@@ -22,6 +22,16 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 
 @implementation Database
 
++ (Database *)sharedDatabase
+{
+	static Database *db = nil;
+	
+	if (db == nil) {
+		db = [[Database alloc] init];
+	}
+	return db;
+}
+
 @synthesize changeCount;
 
 - (void)ensureDatabaseExists
@@ -224,7 +234,7 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 		return monthData;
 	}
 		
-	monthData = [[MonthData alloc] initWithDatabase:self month:m];
+	monthData = [[MonthData alloc] initWithMonth:m];
 	[monthCache setObject:monthData forKey:monthKey];
 	[monthData release];
 

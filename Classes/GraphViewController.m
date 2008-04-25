@@ -13,12 +13,10 @@
 
 @implementation GraphViewController
 
-- (id)initWithDatabase:(Database *)db
+- (id)init
 {
 	if (self = [super init]) {
-		database = db;
 		firstLoad = YES;
-		
 		self.title = @"Graph";
 	}
 	return self;
@@ -43,7 +41,7 @@
 	
 	// View for the graph
 
-	EWMonth earliestMonth = [database earliestMonth];
+	EWMonth earliestMonth = [[Database sharedDatabase] earliestMonth];
 	EWMonth currentMonth = EWMonthFromDate([NSDate date]);
 	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
 	
@@ -58,7 +56,7 @@
 	for (i = 0; i < monthCount; i++) {
 		EWMonth month = (earliestMonth + i);
 		subviewFrame.size.width = 5 * EWDaysInMonth(month);
-		GraphView *view = [[GraphView alloc] initWithDatabase:database month:month];
+		GraphView *view = [[GraphView alloc] initWithMonth:month];
 		view.frame = subviewFrame;
 		[scrollView addSubview:view];
 		[view release];
@@ -71,6 +69,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	Database *database = [Database sharedDatabase];
+	
 	if ([database changeCount] != dbChangeCount) {
 		if ([database weightCount] > 1) {
 			if ([scrollView superview] == nil) {

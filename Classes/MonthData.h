@@ -12,7 +12,6 @@
 @class Database;
 
 @interface MonthData : NSObject {
-	Database *database;
 	EWMonth month;
 	unsigned int dirtyBits;
 	float *measuredWeights;
@@ -21,10 +20,8 @@
 	NSMutableArray *notesArray;
 }
 
-@property (nonatomic,readonly) Database *database;
-
 + (void)finalizeStatements;
-- (id)initWithDatabase:(Database *)db month:(EWMonth)m;
+- (id)initWithMonth:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;

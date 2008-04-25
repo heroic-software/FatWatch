@@ -11,11 +11,10 @@
 
 @implementation NewDatabaseViewController
 
-- (id)initWithDatabase:(Database *)db
+- (id)init
 {
 	if ([super initWithNibName:nil bundle:nil]) {
 		self.title = NSLocalizedString(@"New Database", @"NewDatabaseViewController title");
-		database = db;
 	}
 	return self;
 }
@@ -63,7 +62,7 @@
 	EWWeightUnit newWeightUnit = [button tag];
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 
-	[database setWeightUnit:newWeightUnit];
+	[[Database sharedDatabase] setWeightUnit:newWeightUnit];
 	[defs setInteger:newWeightUnit forKey:@"WeightUnit"];
 
 	if ([defs integerForKey:@"EnergyUnit"] == 0) {

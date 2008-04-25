@@ -11,7 +11,5 @@
 @class Database;
 
 @interface NewDatabaseViewController : UIViewController {
-	Database *database;
 }
-- (id)initWithDatabase:(Database *)db;
 @end

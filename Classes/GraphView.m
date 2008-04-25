@@ -12,9 +12,8 @@
 
 @implementation GraphView
 
-- (id)initWithDatabase:(Database *)db month:(EWMonth)m {
+- (id)initWithMonth:(EWMonth)m {
     if (self = [super initWithFrame:CGRectZero]) {
-		database = db;
         month = m;
     }
     return self;
@@ -54,6 +53,7 @@
 	BOOL flags[31];
 	NSUInteger pointCount = 0;
 	
+	Database *database = [Database sharedDatabase];
 	float minWeight = [database minimumWeight] - 10.0f;
 	float maxWeight = [database maximumWeight] + 10.0f;
 	

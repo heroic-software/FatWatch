@@ -7,7 +7,7 @@
 //
 
 #import "LogEntryViewController.h"
-
+#import "Database.h"
 #import "MonthData.h"
 
 @implementation LogEntryViewController
@@ -146,7 +146,7 @@
 							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
 						   onDay:day];
-	[[monthData database] commitChanges]; // TODO: should be in separate thread
+	[[Database sharedDatabase] commitChanges]; // TODO: should be in separate thread
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -168,7 +168,7 @@
 								flag:0
 								note:@""
 							   onDay:day];
-		[[monthData database] commitChanges]; // TODO: should be in separate thread
+		[[Database sharedDatabase] commitChanges]; // TODO: should be in separate thread
 		[self dismissModalViewControllerAnimated:YES];
 	}
 }

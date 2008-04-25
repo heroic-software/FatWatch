@@ -20,6 +20,8 @@
 	NSString *labels[] = {@"Week", @"Two Weeks", @"Month", @"Quarter", @"Six Months", @"Year"};
 	int stops[] = {7, 14, 30, 90, 182, 365};
 	
+	Database *database = [Database sharedDatabase];
+	
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
 	EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
@@ -60,7 +62,7 @@
 				data = [database dataForMonth:curMonth];
 			}
 		}
-		float weightPerDay = [computer computeSlope];
+		float weightPerDay = -[computer computeSlope];
 		if (newValueCount > 1) {
 			[array addObject:[NSArray arrayWithObjects:
 							  [NSString stringWithFormat:@"Past %@", labels[i]],
@@ -73,11 +75,10 @@
 	[computer release];
 }
 
-- (id)initWithDatabase:(Database *)db
+- (id)init
 {
 	if (self = [super init]) {
 		self.title = @"Trends";
-		database = db;
 		array = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -107,6 +108,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	Database *database = [Database sharedDatabase];
+	
 	if ([database changeCount] != dbChangeCount) {
 		if ([database weightCount] > 1) {
 			if ([tableView superview] == nil) {
