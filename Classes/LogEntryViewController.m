@@ -44,7 +44,7 @@
 {
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	view.backgroundColor = [UIColor lightGrayColor];
+	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
 	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Weight", @"No Weight", nil]];
 	weightControl.frame = CGRectMake(11, 11, 320-22, 30);
@@ -55,6 +55,7 @@
 	
 	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 52, 320, 216)];
 	weightPickerView.delegate = self;
+	weightPickerView.showsSelectionIndicator = YES;
 	[view addSubview:weightPickerView];
 	[weightPickerView release];
 	
@@ -207,8 +208,6 @@
 
 - (void)keyboardWillShow:(NSNotification *)notice
 {
-//	NSValue *value = [notice object];
-//	CGRect keyboardRect = [value CGRectValue];
 	[UIView beginAnimations:@"keyboardWillShow" context:nil];
 	weightControl.alpha = 0;
 	weightPickerView.alpha = 0;
@@ -235,7 +234,6 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -258,9 +256,9 @@
 	return [self pickerRowForWeight:500.0f];
 }
 
-- (CGSize)pickerView:(UIPickerView *)pickerView rowSizeForComponent:(NSInteger)component
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
-	return CGSizeMake(320-88, 0);
+	return 320-88;
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view

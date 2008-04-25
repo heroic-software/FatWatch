@@ -23,10 +23,10 @@
 		);
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeArchitecture = i386;
+		activeArchitecture = armv6;
 		activeBuildConfigurationName = Debug;
 		activeExecutable = BC56D0880D8C5F17008D939B /* EatWatch */;
-		activeSDKForArchive = iphonesimulator2.0;
+		activeSDKForArchive = iphoneos2.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* EatWatch */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* EatWatch */,
@@ -477,6 +477,41 @@
 			BC02142C0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142C0DC1A30C00BA97BB /* PBXTextBookmark */;
 			BC02142D0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142D0DC1A30C00BA97BB /* PBXTextBookmark */;
 			BC02142E0DC1A30C00BA97BB /* PBXTextBookmark */ = BC02142E0DC1A30C00BA97BB /* PBXTextBookmark */;
+			BC0214390DC1A4B200BA97BB /* PBXTextBookmark */ = BC0214390DC1A4B200BA97BB /* PBXTextBookmark */;
+			BC02143C0DC1A4B200BA97BB /* PBXTextBookmark */ = BC02143C0DC1A4B200BA97BB /* PBXTextBookmark */;
+			BC02143D0DC1A4B200BA97BB /* PBXTextBookmark */ = BC02143D0DC1A4B200BA97BB /* PBXTextBookmark */;
+			BC02143F0DC1A52300BA97BB /* PBXTextBookmark */ = BC02143F0DC1A52300BA97BB /* PBXTextBookmark */;
+			BC0214400DC1A52300BA97BB /* PBXTextBookmark */ = BC0214400DC1A52300BA97BB /* PBXTextBookmark */;
+			BC0214430DC1A53600BA97BB /* PBXTextBookmark */ = BC0214430DC1A53600BA97BB /* PBXTextBookmark */;
+			BC0214440DC1A53600BA97BB /* PBXTextBookmark */ = BC0214440DC1A53600BA97BB /* PBXTextBookmark */;
+			BC0214460DC1A55200BA97BB /* PBXTextBookmark */ = BC0214460DC1A55200BA97BB /* PBXTextBookmark */;
+			BC0214470DC1A55200BA97BB /* PBXTextBookmark */ = BC0214470DC1A55200BA97BB /* PBXTextBookmark */;
+			BC0214490DC1A60400BA97BB /* PBXTextBookmark */ = BC0214490DC1A60400BA97BB /* PBXTextBookmark */;
+			BC02144A0DC1A60400BA97BB /* PBXTextBookmark */ = BC02144A0DC1A60400BA97BB /* PBXTextBookmark */;
+			BC02144C0DC1A67600BA97BB /* PBXTextBookmark */ = BC02144C0DC1A67600BA97BB /* PBXTextBookmark */;
+			BC02144D0DC1A67600BA97BB /* PBXTextBookmark */ = BC02144D0DC1A67600BA97BB /* PBXTextBookmark */;
+			BC02144F0DC1A6C600BA97BB /* PBXTextBookmark */ = BC02144F0DC1A6C600BA97BB /* PBXTextBookmark */;
+			BC0214500DC1A6C600BA97BB /* PBXTextBookmark */ = BC0214500DC1A6C600BA97BB /* PBXTextBookmark */;
+			BC0214510DC1A6C600BA97BB /* PBXTextBookmark */ = BC0214510DC1A6C600BA97BB /* PBXTextBookmark */;
+			BC0214530DC1A78500BA97BB /* PBXTextBookmark */ = BC0214530DC1A78500BA97BB /* PBXTextBookmark */;
+			BC0214540DC1A78500BA97BB /* PBXTextBookmark */ = BC0214540DC1A78500BA97BB /* PBXTextBookmark */;
+			BC0214560DC1A84200BA97BB /* PBXTextBookmark */ = BC0214560DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214570DC1A84200BA97BB /* PBXTextBookmark */ = BC0214570DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214580DC1A84200BA97BB /* PBXTextBookmark */ = BC0214580DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214590DC1A84200BA97BB /* PBXTextBookmark */ = BC0214590DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145A0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145A0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145B0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145B0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145C0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145C0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145D0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145D0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145E0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145E0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC02145F0DC1A84200BA97BB /* PBXTextBookmark */ = BC02145F0DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214600DC1A84200BA97BB /* PBXTextBookmark */ = BC0214600DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214610DC1A84200BA97BB /* PBXTextBookmark */ = BC0214610DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214620DC1A84200BA97BB /* PBXTextBookmark */ = BC0214620DC1A84200BA97BB /* PBXTextBookmark */;
+			BC0214640DC1A84700BA97BB /* PBXTextBookmark */ = BC0214640DC1A84700BA97BB /* PBXTextBookmark */;
+			BC0214670DC1A93900BA97BB /* PBXTextBookmark */ = BC0214670DC1A93900BA97BB /* PBXTextBookmark */;
+			BC0214680DC1A93900BA97BB /* PBXTextBookmark */ = BC0214680DC1A93900BA97BB /* PBXTextBookmark */;
+			BC0214690DC1A94C00BA97BB /* PBXTextBookmark */ = BC0214690DC1A94C00BA97BB /* PBXTextBookmark */;
 			BC19732F0DC10AEC00145282 = BC19732F0DC10AEC00145282 /* PBXTextBookmark */;
 			BC5B9E9C0DC0F5C600493036 = BC5B9E9C0DC0F5C600493036 /* PBXTextBookmark */;
 			BC8870680DC12AE30000D230 = BC8870680DC12AE30000D230 /* PBXTextBookmark */;
@@ -711,9 +746,9 @@
 	};
 	BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {847, 896}}";
-			sepNavSelRange = "{231, 25}";
-			sepNavVisRange = "{151, 698}";
+			sepNavIntBoundsRect = "{{0, 0}, {798, 980}}";
+			sepNavSelRange = "{860, 0}";
+			sepNavVisRange = "{155, 1577}";
 			sepNavWindowFrame = "{{32, 82}, {857, 696}}";
 		};
 	};
@@ -780,7 +815,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 27";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 1095;
 		vrLoc = 48;
@@ -870,7 +905,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 24";
 		rLen = 0;
-		rLoc = 846;
+		rLoc = 861;
 		rType = 0;
 		vrLen = 1542;
 		vrLoc = 257;
@@ -890,7 +925,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 25";
 		rLen = 0;
-		rLoc = 846;
+		rLoc = 861;
 		rType = 0;
 		vrLen = 1635;
 		vrLoc = 215;
@@ -910,7 +945,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 45";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 1599;
 		vrLoc = 215;
@@ -991,7 +1026,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 64";
 		rLen = 0;
-		rLoc = 2431;
+		rLoc = 2446;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1032,7 +1067,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 13;
-		rLoc = 2071;
+		rLoc = 2086;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1071,7 +1106,7 @@
 		isa = PBXTextBookmark;
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		rLen = 13;
-		rLoc = 2071;
+		rLoc = 2086;
 		rType = 0;
 	};
 	BC0212470DC169A300BA97BB /* PBXTextBookmark */ = {
@@ -1099,7 +1134,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1727;
@@ -1137,7 +1172,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 13;
-		rLoc = 2071;
+		rLoc = 2086;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1191,7 +1226,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 0;
-		rLoc = 2043;
+		rLoc = 2058;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1231,7 +1266,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 0;
-		rLoc = 2043;
+		rLoc = 2058;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1271,7 +1306,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 0;
-		rLoc = 2043;
+		rLoc = 2058;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1301,7 +1336,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1727;
@@ -1338,7 +1373,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 13;
-		rLoc = 2071;
+		rLoc = 2086;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1358,7 +1393,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1727;
@@ -1388,7 +1423,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 13;
-		rLoc = 2071;
+		rLoc = 2086;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 941;
@@ -1408,7 +1443,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 645;
 		vrLoc = 1727;
@@ -1418,7 +1453,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1727;
@@ -1438,7 +1473,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 53";
 		rLen = 0;
-		rLoc = 1973;
+		rLoc = 1988;
 		rType = 0;
 		vrLen = 1528;
 		vrLoc = 941;
@@ -1475,7 +1510,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1505,7 +1540,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1525,7 +1560,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 617;
 		vrLoc = 1727;
@@ -1545,7 +1580,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1575,7 +1610,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 835;
@@ -1595,7 +1630,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 617;
 		vrLoc = 1727;
@@ -1605,7 +1640,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 617;
 		vrLoc = 1727;
@@ -1615,7 +1650,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 617;
 		vrLoc = 1727;
@@ -1665,8 +1700,8 @@
 	BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {858, 1498}}";
-			sepNavSelRange = "{3597, 8}";
-			sepNavVisRange = "{3062, 633}";
+			sepNavSelRange = "{898, 0}";
+			sepNavVisRange = "{424, 1003}";
 			sepNavWindowFrame = "{{468, 80}, {746, 698}}";
 		};
 	};
@@ -1733,7 +1768,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 64";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 586;
 		vrLoc = 1867;
@@ -1757,7 +1792,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 37";
 		rLen = 0;
-		rLoc = 1030;
+		rLoc = 1045;
 		rType = 0;
 		vrLen = 1490;
 		vrLoc = 468;
@@ -1777,7 +1812,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 40";
 		rLen = 0;
-		rLoc = 1206;
+		rLoc = 1221;
 		rType = 0;
 		vrLen = 1608;
 		vrLoc = 562;
@@ -1797,7 +1832,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 64";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 590;
 		vrLoc = 1867;
@@ -1817,7 +1852,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 64";
 		rLen = 0;
-		rLoc = 2101;
+		rLoc = 2116;
 		rType = 0;
 		vrLen = 590;
 		vrLoc = 1867;
@@ -1836,7 +1871,7 @@
 		isa = PBXTextBookmark;
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 	};
 	BC0213100DC180FB00BA97BB /* PBXTextBookmark */ = {
@@ -1844,7 +1879,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 42";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 907;
 		vrLoc = 715;
@@ -1878,7 +1913,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 71";
 		rLen = 0;
-		rLoc = 2457;
+		rLoc = 2472;
 		rType = 0;
 		vrLen = 1457;
 		vrLoc = 1071;
@@ -1898,7 +1933,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 34";
 		rLen = 0;
-		rLoc = 936;
+		rLoc = 951;
 		rType = 0;
 		vrLen = 1563;
 		vrLoc = 651;
@@ -1949,7 +1984,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 83";
 		rLen = 0;
-		rLoc = 3091;
+		rLoc = 3106;
 		rType = 0;
 		vrLen = 1282;
 		vrLoc = 1863;
@@ -2019,7 +2054,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 78";
 		rLen = 0;
-		rLoc = 2868;
+		rLoc = 2883;
 		rType = 0;
 		vrLen = 1360;
 		vrLoc = 1863;
@@ -2049,7 +2084,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 78";
 		rLen = 0;
-		rLoc = 2868;
+		rLoc = 2883;
 		rType = 0;
 		vrLen = 1302;
 		vrLoc = 1863;
@@ -2123,7 +2158,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 42";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 856;
 		vrLoc = 715;
@@ -2157,7 +2192,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 35";
 		rLen = 0;
-		rLoc = 911;
+		rLoc = 926;
 		rType = 0;
 		vrLen = 1696;
 		vrLoc = 632;
@@ -2177,7 +2212,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 51";
 		rLen = 0;
-		rLoc = 1703;
+		rLoc = 1718;
 		rType = 0;
 		vrLen = 1796;
 		vrLoc = 632;
@@ -2197,7 +2232,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 50";
 		rLen = 0;
-		rLoc = 1701;
+		rLoc = 1716;
 		rType = 0;
 		vrLen = 1756;
 		vrLoc = 632;
@@ -2217,7 +2252,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 48";
 		rLen = 0;
-		rLoc = 1543;
+		rLoc = 1558;
 		rType = 0;
 		vrLen = 1826;
 		vrLoc = 653;
@@ -2245,7 +2280,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 54";
 		rLen = 0;
-		rLoc = 1810;
+		rLoc = 1825;
 		rType = 0;
 		vrLen = 1497;
 		vrLoc = 631;
@@ -2255,7 +2290,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 63";
 		rLen = 65;
-		rLoc = 2259;
+		rLoc = 2274;
 		rType = 0;
 		vrLen = 1781;
 		vrLoc = 653;
@@ -2313,9 +2348,9 @@
 	};
 	BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {687, 1288}}";
-			sepNavSelRange = "{324, 40}";
-			sepNavVisRange = "{87, 857}";
+			sepNavIntBoundsRect = "{{0, 0}, {795, 980}}";
+			sepNavSelRange = "{886, 0}";
+			sepNavVisRange = "{404, 676}";
 			sepNavWindowFrame = "{{526, 80}, {746, 698}}";
 		};
 	};
@@ -2362,7 +2397,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 743;
 		vrLoc = 652;
@@ -2402,7 +2437,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 102";
 		rLen = 8;
-		rLoc = 3597;
+		rLoc = 3612;
 		rType = 0;
 		vrLen = 633;
 		vrLoc = 3062;
@@ -2412,7 +2447,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 38";
 		rLen = 8;
-		rLoc = 1112;
+		rLoc = 1127;
 		rType = 0;
 		vrLen = 1104;
 		vrLoc = 588;
@@ -2471,7 +2506,7 @@
 		isa = PBXTextBookmark;
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		rLen = 7;
-		rLoc = 5423;
+		rLoc = 5487;
 		rType = 0;
 	};
 	BC0213A80DC193AE00BA97BB /* PBXTextBookmark */ = {
@@ -2479,7 +2514,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 1109;
 		vrLoc = 652;
@@ -2489,7 +2524,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 57";
 		rLen = 0;
-		rLoc = 1846;
+		rLoc = 1861;
 		rType = 0;
 		vrLen = 1109;
 		vrLoc = 652;
@@ -2499,7 +2534,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 65";
 		rLen = 0;
-		rLoc = 2070;
+		rLoc = 2085;
 		rType = 0;
 		vrLen = 619;
 		vrLoc = 1869;
@@ -2529,7 +2564,7 @@
 		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
 		name = "UnitConvertViewController.m: 102";
 		rLen = 8;
-		rLoc = 3597;
+		rLoc = 3612;
 		rType = 0;
 		vrLen = 633;
 		vrLoc = 3062;
@@ -2539,7 +2574,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 38";
 		rLen = 8;
-		rLoc = 1112;
+		rLoc = 1127;
 		rType = 0;
 		vrLen = 1104;
 		vrLoc = 588;
@@ -2619,7 +2654,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 171";
 		rLen = 0;
-		rLoc = 5431;
+		rLoc = 5495;
 		rType = 0;
 		vrLen = 656;
 		vrLoc = 5106;
@@ -2639,7 +2674,7 @@
 		comments = "warning: no '+sharedDatabase' method found";
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		rLen = 1;
-		rLoc = 148;
+		rLoc = 149;
 		rType = 1;
 	};
 	BC0213BB0DC193D300BA97BB /* PBXTextBookmark */ = {
@@ -2769,7 +2804,7 @@
 		fRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */;
 		name = "DataViewController.m: 69";
 		rLen = 0;
-		rLoc = 1561;
+		rLoc = 1565;
 		rType = 0;
 		vrLen = 956;
 		vrLoc = 998;
@@ -2789,7 +2824,7 @@
 		fRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */;
 		name = "DataViewController.m: 69";
 		rLen = 0;
-		rLoc = 1561;
+		rLoc = 1565;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 998;
@@ -2817,7 +2852,7 @@
 		fRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */;
 		name = "DataViewController.m: 69";
 		rLen = 0;
-		rLoc = 1561;
+		rLoc = 1565;
 		rType = 0;
 		vrLen = 1130;
 		vrLoc = 730;
@@ -3263,6 +3298,350 @@
 		vrLen = 518;
 		vrLoc = 7023;
 	};
+	BC0214390DC1A4B200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC02143C0DC1A4B200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 261";
+		rLen = 10;
+		rLoc = 7815;
+		rType = 0;
+		vrLen = 1032;
+		vrLoc = 7488;
+	};
+	BC02143D0DC1A4B200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 274";
+		rLen = 0;
+		rLoc = 8217;
+		rType = 0;
+		vrLen = 983;
+		vrLoc = 7537;
+	};
+	BC02143F0DC1A52300BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
+		name = "LogViewController.m: 71";
+		rLen = 50;
+		rLoc = 1884;
+		rType = 0;
+		vrLen = 895;
+		vrLoc = 2020;
+	};
+	BC0214400DC1A52300BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 518;
+		vrLoc = 7023;
+	};
+	BC0214430DC1A53600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC0214440DC1A53600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 262";
+		rLen = 0;
+		rLoc = 7814;
+		rType = 0;
+		vrLen = 983;
+		vrLoc = 7537;
+	};
+	BC0214460DC1A55200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC0214470DC1A55200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 274";
+		rLen = 0;
+		rLoc = 8217;
+		rType = 0;
+		vrLen = 983;
+		vrLoc = 7537;
+	};
+	BC0214490DC1A60400BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC02144A0DC1A60400BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 211";
+		rLen = 0;
+		rLoc = 6610;
+		rType = 0;
+		vrLen = 1167;
+		vrLoc = 5813;
+	};
+	BC02144C0DC1A67600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC02144D0DC1A67600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 52";
+		rLen = 0;
+		rLoc = 1471;
+		rType = 0;
+		vrLen = 1851;
+		vrLoc = 935;
+	};
+	BC02144F0DC1A6C600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC0214500DC1A6C600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		rLen = 1;
+		rLoc = 124;
+		rType = 1;
+	};
+	BC0214510DC1A6C600BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 128";
+		rLen = 0;
+		rLoc = 4268;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 3853;
+	};
+	BC0214530DC1A78500BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC0214540DC1A78500BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 47";
+		rLen = 0;
+		rLoc = 1227;
+		rType = 0;
+		vrLen = 1858;
+		vrLoc = 935;
+	};
+	BC0214560DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
+		name = "LogViewController.m: 71";
+		rLen = 50;
+		rLoc = 1884;
+		rType = 0;
+		vrLen = 895;
+		vrLoc = 2020;
+	};
+	BC0214570DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 518;
+		vrLoc = 7023;
+	};
+	BC0214580DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
+		name = "UnitConvertViewController.m: 32";
+		rLen = 0;
+		rLoc = 898;
+		rType = 0;
+		vrLen = 1003;
+		vrLoc = 424;
+	};
+	BC0214590DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */;
+		name = "DataViewController.m: 45";
+		rLen = 0;
+		rLoc = 886;
+		rType = 0;
+		vrLen = 676;
+		vrLoc = 404;
+	};
+	BC02145A0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */;
+		name = "LogTableViewCell.m: 41";
+		rLen = 7;
+		rLoc = 1475;
+		rType = 0;
+		vrLen = 775;
+		vrLoc = 934;
+	};
+	BC02145B0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263E820DB6665E007D03F4 /* GraphView.m */;
+		name = "GraphView.m: 36";
+		rLen = 7;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 747;
+		vrLoc = 726;
+	};
+	BC02145C0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		rLen = 7;
+		rLoc = 8341;
+		rType = 0;
+	};
+	BC02145D0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 518;
+		vrLoc = 7023;
+	};
+	BC02145E0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */;
+		name = "UnitConvertViewController.m: 32";
+		rLen = 0;
+		rLoc = 898;
+		rType = 0;
+		vrLen = 1003;
+		vrLoc = 424;
+	};
+	BC02145F0DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */;
+		name = "DataViewController.m: 45";
+		rLen = 0;
+		rLoc = 886;
+		rType = 0;
+		vrLen = 676;
+		vrLoc = 404;
+	};
+	BC0214600DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */;
+		name = "LogTableViewCell.m: 41";
+		rLen = 7;
+		rLoc = 1475;
+		rType = 0;
+		vrLen = 775;
+		vrLoc = 934;
+	};
+	BC0214610DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263E820DB6665E007D03F4 /* GraphView.m */;
+		name = "GraphView.m: 36";
+		rLen = 7;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 747;
+		vrLoc = 726;
+	};
+	BC0214620DC1A84200BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 274";
+		rLen = 7;
+		rLoc = 8341;
+		rType = 0;
+		vrLen = 610;
+		vrLoc = 7910;
+	};
+	BC0214640DC1A84700BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC0214670DC1A93900BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC8870BD0DC12EBE0000D230 /* LogViewController.m */;
+		name = "LogViewController.m: 71";
+		rLen = 50;
+		rLoc = 1884;
+		rType = 0;
+		vrLen = 895;
+		vrLoc = 2020;
+	};
+	BC0214680DC1A93900BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 237";
+		rLen = 0;
+		rLoc = 7290;
+		rType = 0;
+		vrLen = 482;
+		vrLoc = 7023;
+	};
+	BC0214690DC1A94C00BA97BB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 16";
+		rLen = 0;
+		rLoc = 403;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
 	BC19732F0DC10AEC00145282 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
@@ -3299,7 +3678,7 @@
 	};
 	BC263C360DB56B9D007D03F4 /* Root.strings */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {596, 98}}";
+			sepNavIntBoundsRect = "{{0, 0}, {596, 112}}";
 			sepNavSelRange = "{403, 0}";
 			sepNavVisRange = "{0, 0}";
 			sepNavWindowFrame = "{{11, 67}, {676, 711}}";
@@ -3315,9 +3694,9 @@
 	};
 	BC263E820DB6665E007D03F4 /* GraphView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 1218}}";
-			sepNavSelRange = "{1846, 8}";
-			sepNavVisRange = "{1152, 822}";
+			sepNavIntBoundsRect = "{{0, 0}, {795, 1330}}";
+			sepNavSelRange = "{829, 7}";
+			sepNavVisRange = "{726, 747}";
 			sepNavWindowFrame = "{{496, 69}, {749, 691}}";
 		};
 	};
@@ -3328,7 +3707,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -3412,10 +3791,10 @@
 	};
 	BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {946, 2296}}";
-			sepNavSelRange = "{207, 0}";
-			sepNavVisRange = "{0, 786}";
-			sepNavWindowFrame = "{{232, 69}, {710, 709}}";
+			sepNavIntBoundsRect = "{{0, 0}, {828, 3458}}";
+			sepNavSelRange = "{8341, 7}";
+			sepNavVisRange = "{7910, 610}";
+			sepNavWindowFrame = "{{496, 69}, {710, 709}}";
 		};
 	};
 	BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {
@@ -3442,9 +3821,9 @@
 	};
 	BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {715, 1218}}";
-			sepNavSelRange = "{1496, 0}";
-			sepNavVisRange = "{1648, 1096}";
+			sepNavIntBoundsRect = "{{0, 0}, {795, 1218}}";
+			sepNavSelRange = "{1475, 7}";
+			sepNavVisRange = "{934, 775}";
 			sepNavWindowFrame = "{{328, 88}, {774, 636}}";
 		};
 	};
@@ -3573,7 +3952,7 @@
 		isa = PBXTextBookmark;
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 	};
 	BC8870890DC12C440000D230 /* PBXTextBookmark */ = {
@@ -3581,7 +3960,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 319;
 		vrLoc = 4846;
@@ -3671,7 +4050,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 319;
 		vrLoc = 4846;
@@ -3781,7 +4160,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -3811,7 +4190,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 160";
 		rLen = 0;
-		rLoc = 5160;
+		rLoc = 5224;
 		rType = 0;
 		vrLen = 1179;
 		vrLoc = 4519;
@@ -3831,7 +4210,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 160";
 		rLen = 0;
-		rLoc = 5160;
+		rLoc = 5224;
 		rType = 0;
 		vrLen = 1172;
 		vrLoc = 4519;
@@ -3871,7 +4250,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -3901,7 +4280,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -3984,7 +4363,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4014,7 +4393,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4044,7 +4423,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4074,7 +4453,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4084,7 +4463,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4114,7 +4493,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4144,7 +4523,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4154,7 +4533,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 292;
 		vrLoc = 4846;
@@ -4174,7 +4553,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 11;
-		rLoc = 4911;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 4561;
@@ -4184,7 +4563,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4218,7 +4597,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 292;
 		vrLoc = 4846;
@@ -4248,7 +4627,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4369,7 +4748,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4469,7 +4848,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4479,7 +4858,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4489,7 +4868,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4529,7 +4908,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 292;
 		vrLoc = 4846;
@@ -4539,7 +4918,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4639,7 +5018,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4649,7 +5028,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4729,7 +5108,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4819,7 +5198,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4829,7 +5208,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4866,7 +5245,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4903,7 +5282,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4978,7 +5357,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -4998,7 +5377,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -5038,7 +5417,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -5078,7 +5457,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -5098,7 +5477,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 155";
 		rLen = 13;
-		rLoc = 4927;
+		rLoc = 4991;
 		rType = 0;
 		vrLen = 318;
 		vrLoc = 4846;
@@ -5157,9 +5536,9 @@
 	};
 	BC9BDEE10DA9D8610004E70C /* Database.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 2632}}";
+			sepNavIntBoundsRect = "{{0, 0}, {795, 3570}}";
 			sepNavSelRange = "{7290, 0}";
-			sepNavVisRange = "{7023, 518}";
+			sepNavVisRange = "{7023, 482}";
 			sepNavWindowFrame = "{{414, 77}, {726, 701}}";
 		};
 	};

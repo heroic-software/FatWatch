@@ -42,7 +42,7 @@
 	[mainView release];
 	
 	messageView = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
-	messageView.backgroundColor = [UIColor clearColor];
+	messageView.backgroundColor = mainView.backgroundColor;
 	messageView.text = [self message];
 	messageView.lineBreakMode = UILineBreakModeWordWrap;
 	messageView.numberOfLines = 0;

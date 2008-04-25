@@ -29,7 +29,7 @@
 	UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22+4*(44+22))];
 	mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	mainView.autoresizesSubviews = YES;
-	mainView.backgroundColor = [UIColor lightGrayColor];
+	mainView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
 	CGRect viewFrame = CGRectMake(22, 22, 320-44, 44);
 	
