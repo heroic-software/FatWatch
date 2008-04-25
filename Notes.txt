@@ -3,7 +3,7 @@ Launch:
 
 Log View:
 - Scrolling is a little jerky.
-- Touch events get weird after return from modal view.
+- Touch events get weird after return from modal view --- maybe fixed by presenting modal views on the parent controller?
 - Need a tab bar icon.
 - Use proper plus/minus signs in the trend delta.
 - Descenders in note text are cropped sometimes.

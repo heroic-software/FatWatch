@@ -27,6 +27,16 @@ typedef enum {
 	kEnergyUnitKilojoules = 2
 } EWEnergyUnit;
 
+#define kCaloriesPerPound 3500
+#define kKilojoulesPerKilogram 7716
+
+#define kPoundsPerKilogram 0.45359237f
+
+#define kCaloriesPerKilogram (kCaloriesPerPound * kPoundsPerKilogram)
+#define kKilojoulesPerPound (kKilojoulesPerKilogram / kPoundsPerKilogram)
+
+NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
+									
 @class MonthData;
 
 @interface Database : NSObject {
@@ -49,5 +59,6 @@ typedef enum {
 - (float)minimumWeight;
 - (float)maximumWeight;
 - (void)commitChanges;
+- (void)flushCache;
 
 @end

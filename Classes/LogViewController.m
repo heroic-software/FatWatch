@@ -12,6 +12,8 @@
 #import "Database.h"
 #import "EWDate.h"
 #import "MonthData.h"
+#import "NewDatabaseViewController.h"
+#import "UnitConvertViewController.h"
 
 @implementation LogViewController
 
@@ -58,44 +60,66 @@
 	}
 }
 
+- (void)autoWeighInIfEnabled
+{
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
+	if (! [defs boolForKey:@"AutoWeighIn"]) return;
+	
+	UITableView *tableView = (UITableView *)self.view;
+	EWWeightLogDataSource *dataSource = (EWWeightLogDataSource *)[tableView dataSource];
+	NSIndexPath *lastPath = [dataSource lastIndexPath];
+	MonthData *data = [database dataForMonth:[dataSource monthForSection:[lastPath section]]];
+	EWDay day = ([lastPath row] + 1);
+	if ([data measuredWeightOnDay:day] == 0) {
+		[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
+	}
+}
+
+- (UIView *)findSubviewOfView:(UIView *)parent ofClass:(Class)viewClass
+{
+	for (UIView *subview in [parent subviews]) {
+		if ([subview isKindOfClass:viewClass]) {
+			return subview;
+		} else {
+			UIView *subsubview = [self findSubviewOfView:subview ofClass:viewClass];
+			if (subsubview) return subsubview;
+		}
+	}
+	return nil;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
 	if (firstLoad) {
-		firstLoad = NO;
-		
-		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-
 		EWWeightUnit databaseWeightUnit = [database weightUnit];
-		EWWeightUnit defaultsWeightUnit = [defs integerForKey:@"WeightUnit"];
+		EWWeightUnit defaultsWeightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"WeightUnit"];
 		
 		if (databaseWeightUnit == 0) {
 			// This is a new data file.
 			if (defaultsWeightUnit == 0) {
 				// Prompt user to choose weight unit.
-				// [database setWeightUnit:newWeightUnit];
-				// [defs setInteger:newWeightUnit forKey:@"WeightUnit"];
+				NewDatabaseViewController *newDbController = [[NewDatabaseViewController alloc] initWithDatabase:database];
+				[[self parentViewController] presentModalViewController:newDbController animated:YES];
+				[newDbController release];
+				return;
 			} else {
 				// Go with whatever was in defaults.
-				// [database setWeightUnit:defaultsWeightUnit];
+				[database setWeightUnit:defaultsWeightUnit];
 			}
+		} else if (defaultsWeightUnit == 0) {
+			// Have units in the database but not in defaults, go with the database.
+			[[NSUserDefaults standardUserDefaults] setInteger:databaseWeightUnit forKey:@"WeightUnit"];
 		} else if (databaseWeightUnit != defaultsWeightUnit) {
-			// The weight units don't match.  Offer user:
-			// Convert: convert all values in database to new choice, then [database setWeightUnit:defaultsWeightUnit]
-			// Reinterpret: [database setWeightUnit:defaultsWeightUnit]
-			// Cancel: [defs setInteger:databaseWeightUnit forKey:@"WeightUnit"]
+			// The weight units don't match.
+			UnitConvertViewController *unitConvertController = [[UnitConvertViewController alloc] initWithDatabase:database];
+			[[self parentViewController] presentModalViewController:unitConvertController animated:YES];
+			[unitConvertController release];
+			return;
 		}
-		
-		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
-		if (! [defs boolForKey:@"AutoWeighIn"]) return;
-		
-		UITableView *tableView = (UITableView *)self.view;
-		EWWeightLogDataSource *dataSource = (EWWeightLogDataSource *)[tableView dataSource];
-		NSIndexPath *lastPath = [dataSource lastIndexPath];
-		MonthData *data = [database dataForMonth:[dataSource monthForSection:[lastPath section]]];
-		EWDay day = ([lastPath row] + 1);
-		if ([data measuredWeightOnDay:day] == 0) {
-			[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
-		}
+		// Normal launch
+		firstLoad = NO;
+		[self autoWeighInIfEnabled];
 	}
 }
 
@@ -129,7 +153,7 @@
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
 	logEntryViewController.weighIn = flag;
-	[self presentModalViewController:[logEntryViewController navigationController] animated:YES];
+	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:YES];
 }
 
 @end

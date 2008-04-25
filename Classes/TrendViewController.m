@@ -11,14 +11,6 @@
 #import "SlopeComputer.h"
 #import "MonthData.h"
 
-#define kCaloriesPerPound 3500
-#define kKilojoulesPerKilogram 7716
-
-#define kPoundsPerKilogram 0.45359237f
-
-#define kCaloriesPerKilogram (kCaloriesPerPound * kPoundsPerKilogram)
-#define kKilojoulesPerPound (kKilojoulesPerKilogram / kPoundsPerKilogram)
-
 @implementation TrendViewController
 
 - (void)recompute
@@ -32,7 +24,7 @@
 	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
 	EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
 	EWWeightUnit weightUnit = [database weightUnit];
-	if (weightUnit == 0) weightUnit = kWeightUnitPounds;
+	NSAssert1(weightUnit != 0, @"Unknown weight unit in database: %d", weightUnit);
 	
 	NSString *weightUnitAbbr = (weightUnit == kWeightUnitPounds) ? @"lbs" : @"kgs";
 	NSString *energyUnitAbbr = (energyUnit == kEnergyUnitCalories) ? @"cal" : @"kJ";

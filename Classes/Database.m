@@ -11,6 +11,15 @@
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
 
+NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
+{
+	switch (weightUnit) {
+		case kWeightUnitPounds: return @"Pounds";
+		case kWeightUnitKilograms: return @"Kilograms";
+		default: return @"Unknown Weight Unit";
+	}
+}
+
 @implementation Database
 
 @synthesize changeCount;
@@ -172,10 +181,11 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 
 - (void)setWeightUnit:(EWWeightUnit)su
 {
-	sqlite3_stmt *statement = [self statementFromSQL:"INSERT INTO metadata (\"WeightUnit\", ?)"];
-	sqlite3_bind_int(statement, 0, su);
+	sqlite3_stmt *statement = [self statementFromSQL:"INSERT INTO metadata VALUES (?, ?)"];
+	sqlite3_bind_text(statement, 1, "WeightUnit", 10, SQLITE_STATIC);
+	sqlite3_bind_int(statement, 2, su);
 	int code = sqlite3_step(statement);
-	NSAssert1(code == SQLITE_DONE, @"Error: failed to execute statement with message '%s'.", sqlite3_errmsg(database));
+	NSAssert1(code == SQLITE_DONE, @"Error: failed to execute statement with message: %s", sqlite3_errmsg(database));
 	sqlite3_finalize(statement);
 }
 
@@ -261,6 +271,11 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 	for (MonthData *md in [monthCache allValues]) {
 		if ([md commitChanges]) changeCount++;
 	}
+}
+
+- (void)flushCache
+{
+	[monthCache	removeAllObjects];
 }
 
 @end
