@@ -8,6 +8,7 @@
 
 #import "EatWatchAppDelegate.h"
 
+#import "EWDate.h"
 #import "Database.h"
 #import "LogViewController.h"
 #import "TrendViewController.h"
@@ -19,6 +20,8 @@
 @synthesize tabBarController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	EWDateInit();
+	
 	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
 	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
 	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];

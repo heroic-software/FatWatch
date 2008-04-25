@@ -11,6 +11,9 @@
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
 
+static sqlite3_stmt *month_before_stmt = nil;
+static sqlite3_stmt *month_after_stmt = nil;
+
 NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 {
 	switch (weightUnit) {
@@ -116,6 +119,8 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	[monthCache release]; monthCache = nil;
 	
 	[MonthData finalizeStatements];
+	if (month_after_stmt) sqlite3_finalize(month_after_stmt);
+	if (month_before_stmt) sqlite3_finalize(month_before_stmt);
 	
 	if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
@@ -250,30 +255,30 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	if (retcode == SQLITE_ROW) {
 		otherMonth = sqlite3_column_int(statement, 0);
 	} else if (retcode == SQLITE_DONE) {
-		sqlite3_finalize(statement);
+		sqlite3_reset(statement);
 		return nil;
 	} else {
 		NSAssert1(0, @"Error: failed to execute statement with message '%s'.", sqlite3_errmsg(database));
 	}
-	sqlite3_finalize(statement);
+	sqlite3_reset(statement);
 	
 	return [self dataForMonth:otherMonth];
 }
 
 - (MonthData *)dataForMonthBefore:(EWMonth)m
 {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT month FROM weight WHERE month < ? ORDER BY month DESC LIMIT 1"];
-	MonthData *data = [self dataForStatement:statement relativeToMonth:m];
-	sqlite3_finalize(statement);
-	return data;
+	if (month_before_stmt == nil) {
+		month_before_stmt = [self statementFromSQL:"SELECT month FROM weight WHERE month < ? ORDER BY month DESC LIMIT 1"];
+	}
+	return [self dataForStatement:month_before_stmt relativeToMonth:m];
 }
 
 - (MonthData *)dataForMonthAfter:(EWMonth)m
 {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT month FROM weight WHERE month > ? ORDER BY month ASC LIMIT 1"];
-	MonthData *data = [self dataForStatement:statement relativeToMonth:m];
-	sqlite3_finalize(statement);
-	return data;
+	if (month_after_stmt == nil) {
+		month_after_stmt = [self statementFromSQL:"SELECT month FROM weight WHERE month > ? ORDER BY month ASC LIMIT 1"];
+	}
+	return [self dataForStatement:month_after_stmt relativeToMonth:m];
 }
 
 - (void)commitChanges
