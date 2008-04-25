@@ -10,7 +10,6 @@
 
 #import "EWDate.h"
 
-@class Database;
 @class LogEntryViewController;
 @class MonthData;
 

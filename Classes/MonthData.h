@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
 
-@class Database;
-
 @interface MonthData : NSObject {
 	EWMonth month;
 	unsigned int dirtyBits;

@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class Database;
-
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;

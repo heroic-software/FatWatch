@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
 
-@class Database;
 @class LogViewController;
 
 @interface EWWeightLogDataSource : NSObject <UITableViewDelegate, UITableViewDataSource> {

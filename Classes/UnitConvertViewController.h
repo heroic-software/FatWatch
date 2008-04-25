@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class Database;
-
 @interface UnitConvertViewController : UIViewController {
 }
 @end

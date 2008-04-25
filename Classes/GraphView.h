@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
 
-@class Database;
-
 @interface GraphView : UIView {
 	EWMonth month;
 }
