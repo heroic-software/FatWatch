@@ -55,7 +55,7 @@
 	int i;
 	for (i = 0; i < 3; i++) {
 		viewFrame.origin.y += viewFrame.size.height + 22;
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeGlass];
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[button setTitle:titles[i] forState:UIControlStateNormal];
 		[button addTarget:self action:actions[i] forControlEvents:UIControlEventTouchUpInside];
 		button.frame = viewFrame;

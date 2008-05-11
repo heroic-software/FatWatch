@@ -44,7 +44,7 @@
 	int i;
 	for (i = 0; i < 2; i++) {
 		viewFrame.origin.y += viewFrame.size.height + 22;
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeGlass];
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[button setTitle:EWStringFromWeightUnit(units[i]) forState:UIControlStateNormal];
 		[button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
 		button.tag = units[i];

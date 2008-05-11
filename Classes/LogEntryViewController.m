@@ -64,7 +64,7 @@
  	[view addSubview:noWeightView];
 	[noWeightView release];
 	
-	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeGlass];
+	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[deleteButton setTitle:@"Clear Entry" forState:UIControlStateNormal];
 	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
 	deleteButton.frame = CGRectMake(22, 22, 320-44, 44);
@@ -81,7 +81,7 @@
 	
 	noteField = [[UITextField alloc] initWithFrame:CGRectMake(11, 66, 320-22, 28)];
 	noteField.placeholder = @"Note";
-	noteField.borderStyle = UITextFieldBorderStyleBezel;
+	noteField.borderStyle = UITextBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.font = [UIFont systemFontOfSize:18];
 	noteField.backgroundColor = [UIColor whiteColor];
@@ -92,15 +92,12 @@
 	self.view = view;
 	[view release];
 
-	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeNavigation];
-	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
-	self.navigationItem.customLeftView = cancelButton;
-	
-	UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeNavigationDone];
-	[saveButton setTitle:@"Save" forState:UIControlStateNormal];
-	[saveButton addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-	self.navigationItem.customRightView = saveButton;
+	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+																						   target:self 
+																						   action:@selector(cancelAction)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+																							target:self 
+																							action:@selector(saveAction)] autorelease];
 }
 
 - (void)dealloc

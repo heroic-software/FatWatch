@@ -85,6 +85,8 @@
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlopeComputer.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewCell.m; sourceTree = "<group>"; };
+		BC871F190DC7BE5A009312BA /* MicroWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroWebServer.h; sourceTree = "<group>"; };
+		BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroWebServer.m; sourceTree = "<group>"; };
 		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
 		BC9BDE980DA9CB550004E70C /* MonthData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthData.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
@@ -146,6 +148,8 @@
 				BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */,
 				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
 				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
+				BC871F190DC7BE5A009312BA /* MicroWebServer.h */,
+				BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

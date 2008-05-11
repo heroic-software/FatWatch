@@ -215,14 +215,12 @@
 
 #pragma mark UITableViewDelegate (Optional)
 
-- (void)tableView:(UITableView *)tableView selectionDidChangeToIndexPath:(NSIndexPath *)newIndexPath fromIndexPath:(NSIndexPath *)oldIndexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (newIndexPath) {
-		EWMonth month = [self monthForSection:[newIndexPath section]];
-		MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
-		EWDay day = 1 + [newIndexPath row];
-		[self presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
-	}
+	EWMonth month = [self monthForSection:[indexPath section]];
+	MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
+	EWDay day = 1 + [indexPath row];
+	[self presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
 }
 
 @end
