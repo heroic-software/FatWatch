@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class GraphViewController;
+
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
+	GraphViewController *graphView;
 }
-
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) UITabBarController *tabBarController;
 
 @end

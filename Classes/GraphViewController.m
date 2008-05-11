@@ -37,9 +37,9 @@
 	EWMonth currentMonth = EWMonthFromDate([NSDate date]);
 	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
 	
-	CGSize totalSize = CGSizeMake(0, 411);
+	CGSize totalSize = CGSizeMake(0, 300);
 	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 411)];
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
 	scrollView.alwaysBounceVertical = NO;
 	scrollView.directionalLockEnabled = YES;
 	
@@ -61,6 +61,7 @@
 	return [scrollView autorelease];
 }
 
+
 - (void)dataChanged
 {
 	UIScrollView *scrollView = (UIScrollView *)self.dataView;
@@ -74,7 +75,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return NO;
 }
 
 @end

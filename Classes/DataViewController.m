@@ -41,11 +41,12 @@
 	self.view = mainView;
 	[mainView release];
 	
-	messageView = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320-40, 411)];
+	messageView = [[UILabel alloc] initWithFrame:CGRectZero];
 	messageView.backgroundColor = mainView.backgroundColor;
 	messageView.text = [self message];
 	messageView.lineBreakMode = UILineBreakModeWordWrap;
 	messageView.numberOfLines = 0;
+	messageView.textAlignment = UITextAlignmentCenter;
 	
 	dataView = [[self loadDataView] retain];
 }
@@ -66,6 +67,7 @@
 			if ([messageView superview] == nil) {
 				[dataView removeFromSuperview];
 				[self.view addSubview:messageView];
+				messageView.frame = CGRectInset(self.view.bounds, 20, 20);
 			}
 		}
 		dbChangeCount = [database changeCount];

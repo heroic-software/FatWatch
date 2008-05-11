@@ -16,7 +16,6 @@ Log Entry View:
 
 Graph View:
 - Zooming?
-- Need a tab bar icon.
 - Redo design of drawing.
 - draw trend line across months
 - add a tickmark view on the side
@@ -31,9 +30,7 @@ General Problems:
 - Need a Settings icon: 29x29
 
 First Launch:
-- Prompt user for WeightUnit, store in database.
 - Prompt user for earliest month (?)
-- Show placeholders in Graph and Trend views until at least 2 data points.
 
 Debug Settings:
 - OnLaunchRecomputeTrendValues: recompute trend values on startup.
@@ -49,7 +46,3 @@ Idea: Sync:
 
 Idea: Superimposed Diet Goal Line:
 - Needs a new view to enter diet goal information
-
-
-
-
