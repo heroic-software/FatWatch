@@ -47,7 +47,7 @@
 	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
 	for (i = 0; i < monthCount; i++) {
 		EWMonth month = (earliestMonth + i);
-		subviewFrame.size.width = 5 * EWDaysInMonth(month);
+		subviewFrame.size.width = 7 * EWDaysInMonth(month);
 		GraphView *view = [[GraphView alloc] initWithMonth:month];
 		view.frame = subviewFrame;
 		[scrollView addSubview:view];
