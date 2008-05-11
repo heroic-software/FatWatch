@@ -283,9 +283,21 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 
 - (void)commitChanges
 {
+	int code;
+	
+	sqlite3_stmt *begin_stmt = [self statementFromSQL:"BEGIN TRANSACTION"];
+	code = sqlite3_step(begin_stmt);
+	NSAssert1(code == SQLITE_DONE, @"Error: failed to begin transaction with message '%s'.", sqlite3_errmsg(database));
+	sqlite3_finalize(begin_stmt);
+	
 	for (MonthData *md in [monthCache allValues]) {
 		if ([md commitChanges]) changeCount++;
 	}
+
+	sqlite3_stmt *end_stmt = [self statementFromSQL:"COMMIT TRANSACTION"];
+	code = sqlite3_step(end_stmt);
+	NSAssert1(code == SQLITE_DONE, @"Error: failed to commit transaction with message '%s'.", sqlite3_errmsg(database));
+	sqlite3_finalize(end_stmt);
 }
 
 - (void)flushCache
