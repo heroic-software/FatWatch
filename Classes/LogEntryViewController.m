@@ -191,6 +191,14 @@
 
 	if (weight == 0) {
 		weight = [monthData inputTrendOnDay:day];
+		if (weight == 0) {
+			Database *db = [Database sharedDatabase];
+			
+			weight = [[db dataForMonth:[db earliestMonth]] inputTrendOnDay:31];
+			if (weight == 0) {
+				weight = 150.0f;
+			}
+		}
 	}
 	int row = [self pickerRowForWeight:weight];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
