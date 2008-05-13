@@ -144,13 +144,13 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 {
 	EWMonth dateValue;
 
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(month) FROM weight"];
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday) FROM weight"];
 	int code = sqlite3_step(statement);
 	NSAssert1(code == SQLITE_ROW, @"SELECT returned code %d", code);
 	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
 		dateValue = EWMonthFromDate([NSDate date]);
 	} else {
-		dateValue = sqlite3_column_int(statement, 0);
+		dateValue = EWMonthDayGetMonth(sqlite3_column_int(statement, 0));
 	}
 	sqlite3_finalize(statement);
 	
@@ -217,7 +217,7 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 
 - (float)minimumWeight
 {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(MIN(measuredValue),MIN(trendValue)) FROM weight"];
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(measuredValue) FROM weight"];
 	float weightValue = [self doubleValueFromStatement:statement];
 	sqlite3_finalize(statement);
 	return weightValue;
@@ -225,7 +225,7 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 
 - (float)maximumWeight
 {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MAX(MAX(measuredValue),MAX(trendValue)) FROM weight"];
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MAX(measuredValue) FROM weight"];
 	float weightValue = [self doubleValueFromStatement:statement];
 	sqlite3_finalize(statement);
 	return weightValue;
@@ -246,11 +246,10 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	return monthData;
 }
 
-- (MonthData *)dataForStatement:(sqlite3_stmt *)statement relativeToMonth:(EWMonth)m
+- (MonthData *)dataForStatement:(sqlite3_stmt *)statement
 {
 	EWMonth otherMonth;
 	
-	sqlite3_bind_int(statement, 1, m);
 	int retcode = sqlite3_step(statement);
 	if (retcode == SQLITE_ROW) {
 		otherMonth = sqlite3_column_int(statement, 0);
@@ -268,17 +267,19 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 - (MonthData *)dataForMonthBefore:(EWMonth)m
 {
 	if (month_before_stmt == nil) {
-		month_before_stmt = [self statementFromSQL:"SELECT month FROM weight WHERE month < ? ORDER BY month DESC LIMIT 1"];
+		month_before_stmt = [self statementFromSQL:"SELECT monthday FROM weight WHERE monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	}
-	return [self dataForStatement:month_before_stmt relativeToMonth:m];
+	sqlite3_bind_int(month_before_stmt, 1, EWMonthDayMake(m, 0));
+	return [self dataForStatement:month_before_stmt];
 }
 
 - (MonthData *)dataForMonthAfter:(EWMonth)m
 {
 	if (month_after_stmt == nil) {
-		month_after_stmt = [self statementFromSQL:"SELECT month FROM weight WHERE month > ? ORDER BY month ASC LIMIT 1"];
+		month_after_stmt = [self statementFromSQL:"SELECT monthday FROM weight WHERE monthday > ? ORDER BY monthday ASC LIMIT 1"];
 	}
-	return [self dataForStatement:month_after_stmt relativeToMonth:m];
+	sqlite3_bind_int(month_after_stmt, 1, EWMonthDayMake(m+1, 0));
+	return [self dataForStatement:month_after_stmt];
 }
 
 - (void)commitChanges

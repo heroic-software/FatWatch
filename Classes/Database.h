@@ -10,12 +10,11 @@
 #import "/usr/include/sqlite3.h"
 #import "EWDate.h"
 
-#define kMonthColumnIndex 0
-#define kDayColumnIndex 1
-#define kMeasuredValueColumnIndex 2
-#define kTrendValueColumnIndex 3
-#define kFlagColumnIndex 4
-#define kNoteColumnIndex 5
+#define kMonthDayColumnIndex 0
+#define kMeasuredValueColumnIndex 1
+#define kTrendValueColumnIndex 2
+#define kFlagColumnIndex 3
+#define kNoteColumnIndex 4
 
 typedef enum {
 	kWeightUnitPounds = 1,

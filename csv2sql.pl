@@ -15,13 +15,15 @@ while (my $line = <CSVFILE>) {
 		
 		$ewmonth = ($month - 1) + 12*($year - 2001);
 		
+		$monthday = ($ewmonth << 5) + $day;
+		
 		if (defined($previousTrend)) {
 			$trend = $previousTrend + (0.1 * ($weight - $previousTrend));
 		} else {
 			$trend = $weight;
 		}
 		
-		print SQLFILE "INSERT INTO weight VALUES ($ewmonth, $day, $weight, $trend, $flag, \"$note\");\n";
+		print SQLFILE "INSERT INTO weight VALUES ($monthday, $weight, $trend, $flag, \"$note\");\n";
 		$previousTrend = $trend;
 	} else {
 		print "Can't parse: $line";

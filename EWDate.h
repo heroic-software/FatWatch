@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define EWMonthDayMake(m,d) (((m) << 5) | (d))
+#define EWMonthDayGetMonth(md) ((md) >> 5)
+#define EWMonthDayGetDay(md) (0x1F & (md))
+
 typedef NSInteger EWMonth;
 typedef NSInteger EWDay;
 

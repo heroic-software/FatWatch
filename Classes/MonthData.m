@@ -38,11 +38,12 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		dirtyBits = 0;
 		
 		if (data_for_month_stmt == nil) {
-			data_for_month_stmt = [[Database sharedDatabase] statementFromSQL:"SELECT * FROM weight WHERE month = ?"];
+			data_for_month_stmt = [[Database sharedDatabase] statementFromSQL:"SELECT * FROM weight WHERE monthday > ? AND monthday < ?"];
 		}
-		sqlite3_bind_int(data_for_month_stmt, 1, m);
+		sqlite3_bind_int(data_for_month_stmt, 1, EWMonthDayMake(m, 0));
+		sqlite3_bind_int(data_for_month_stmt, 2, EWMonthDayMake(m+1, 0));
 		while (sqlite3_step(data_for_month_stmt) == SQLITE_ROW) {
-			EWDay day = sqlite3_column_int(data_for_month_stmt, kDayColumnIndex);
+			EWDay day = EWMonthDayGetDay(sqlite3_column_int(data_for_month_stmt, kMonthDayColumnIndex));
 			int i = day - 1;
 			
 			measuredWeights[i] = sqlite3_column_double(data_for_month_stmt, kMeasuredValueColumnIndex);
@@ -153,7 +154,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (dirtyBits == 0) return NO;
 	
 	if (insert_stmt == nil) {
-		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?,?)"];
+		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?)"];
 	}
 	
 	int i = 0;
@@ -162,10 +163,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		if (bits & 1 != 0) {
 			EWDay day = i + 1;
 
-			NSLog(@"Saving data for %d/%d", month, day);
 			// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
-			sqlite3_bind_int(insert_stmt, kMonthColumnIndex + 1, month);
-			sqlite3_bind_int(insert_stmt, kDayColumnIndex + 1, day);
+			sqlite3_bind_int(insert_stmt, kMonthDayColumnIndex + 1, EWMonthDayMake(month, day));
 			if (measuredWeights[i] == 0) {
 				sqlite3_bind_null(insert_stmt, kMeasuredValueColumnIndex + 1);
 				sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);

@@ -85,7 +85,7 @@
 		CATransition *animation = [CATransition animation];
 		[animation setType:kCATransitionFade];
 		[animation setDuration:duration];
-		[[self.view layer] addAnimation:animation forKey:@"RotationAnimation"];
+		[[self.view layer] addAnimation:animation forKey:kCATransition];
 	}
 }
 
