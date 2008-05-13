@@ -34,12 +34,11 @@
 
 - (void)loadView
 {
-	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	mainView.autoresizesSubviews = YES;
 	mainView.backgroundColor = [UIColor lightGrayColor];
-	self.view = mainView;
-	[mainView release];
+	self.view = [mainView autorelease];
 	
 	messageView = [[UILabel alloc] initWithFrame:CGRectZero];
 	messageView.backgroundColor = mainView.backgroundColor;
@@ -59,15 +58,15 @@
 		if ([database weightCount] > 1) {
 			if ([dataView superview] == nil) {
 				[messageView removeFromSuperview];
-				[self.view addSubview:dataView];
 				dataView.frame = self.view.bounds;
+				[self.view addSubview:dataView];
 			}
 			[self dataChanged];
 		} else {
 			if ([messageView superview] == nil) {
 				[dataView removeFromSuperview];
-				[self.view addSubview:messageView];
 				messageView.frame = CGRectInset(self.view.bounds, 20, 20);
+				[self.view addSubview:messageView];
 			}
 		}
 		dbChangeCount = [database changeCount];

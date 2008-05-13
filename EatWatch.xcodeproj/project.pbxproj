@@ -30,6 +30,8 @@
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
+		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
+		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCD44A1F0DBAFC880009A8EC /* Debug.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */; };
 /* End PBXBuildFile section */
 
@@ -67,24 +69,24 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDatabaseViewController.h; sourceTree = "<group>"; };
-		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDatabaseViewController.m; sourceTree = "<group>"; };
-		BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitConvertViewController.h; sourceTree = "<group>"; };
-		BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitConvertViewController.m; sourceTree = "<group>"; };
-		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
-		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
+		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
+		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
+		BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitConvertViewController.h; path = Classes/UnitConvertViewController.h; sourceTree = "<group>"; };
+		BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitConvertViewController.m; path = Classes/UnitConvertViewController.m; sourceTree = "<group>"; };
+		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataViewController.h; path = Classes/DataViewController.h; sourceTree = "<group>"; };
+		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataViewController.m; path = Classes/DataViewController.m; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
-		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
-		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
-		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEntryViewController.h; sourceTree = "<group>"; };
-		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEntryViewController.m; sourceTree = "<group>"; };
+		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
+		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
+		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
+		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlopeComputer.m; sourceTree = "<group>"; };
-		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogTableViewCell.h; sourceTree = "<group>"; };
-		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewCell.m; sourceTree = "<group>"; };
+		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
+		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
 		BC871F190DC7BE5A009312BA /* MicroWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MicroWebServer.h; sourceTree = "<group>"; };
 		BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroWebServer.m; sourceTree = "<group>"; };
 		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
@@ -95,12 +97,15 @@
 		BC9BDEE10DA9D8610004E70C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; wrapsLines = 1; };
-		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
-		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
-		BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
-		BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendViewController.h; sourceTree = "<group>"; };
-		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendViewController.m; sourceTree = "<group>"; };
+		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
+		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; };
+		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/GraphViewController.h; sourceTree = "<group>"; };
+		BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphViewController.m; path = Classes/GraphViewController.m; sourceTree = "<group>"; };
+		BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendViewController.h; path = Classes/TrendViewController.h; sourceTree = "<group>"; };
+		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendViewController.m; path = Classes/TrendViewController.m; sourceTree = "<group>"; };
+		BCABE03F0DD932A100DE580A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Classes/RootViewController.h; sourceTree = "<group>"; };
+		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
+		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +118,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */,
 				BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */,
+				BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,28 +132,10 @@
 				BC9BDEE10DA9D8610004E70C /* Database.m */,
 				BC9BDE970DA9CB550004E70C /* MonthData.h */,
 				BC9BDE980DA9CB550004E70C /* MonthData.m */,
-				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
-				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
 				1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */,
 				1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */,
-				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
-				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
-				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
-				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
-				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
-				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
-				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
-				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
-				BC263E810DB6665E007D03F4 /* GraphView.h */,
-				BC263E820DB6665E007D03F4 /* GraphView.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
-				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
-				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
-				BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */,
-				BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */,
-				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
-				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
 				BC871F190DC7BE5A009312BA /* MicroWebServer.h */,
 				BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */,
 			);
@@ -157,6 +145,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCC860660DD6C6360034EE2D /* QuartzCore.framework */,
 				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -183,6 +172,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BCABE0480DD9373B00DE580A /* View Controllers */,
+				BCABE0470DD9372000DE580A /* Views */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -232,6 +223,40 @@
 				BCD44A1D0DBAFC760009A8EC /* Debug.plist */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		BCABE0470DD9372000DE580A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
+				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
+				BC263E810DB6665E007D03F4 /* GraphView.h */,
+				BC263E820DB6665E007D03F4 /* GraphView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BCABE0480DD9373B00DE580A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BCABE03F0DD932A100DE580A /* RootViewController.h */,
+				BCABE0400DD932A100DE580A /* RootViewController.m */,
+				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
+				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
+				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
+				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
+				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
+				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
+				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
+				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
+				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
+				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
+				BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */,
+				BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */,
+				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
+				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +350,7 @@
 				BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */,
 				BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */,
 				BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */,
+				BCABE0410DD932A100DE580A /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

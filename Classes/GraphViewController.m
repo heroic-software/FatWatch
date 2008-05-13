@@ -40,6 +40,7 @@
 	CGSize totalSize = CGSizeMake(0, 300);
 	
 	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
+	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	scrollView.alwaysBounceVertical = NO;
 	scrollView.directionalLockEnabled = YES;
 	
@@ -75,7 +76,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return NO;
+	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 @end

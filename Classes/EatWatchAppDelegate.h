@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class GraphViewController;
+@class RootViewController;
 
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    UITabBarController *tabBarController;
-	GraphViewController *graphView;
+	RootViewController *rootViewController;
 }
 
 @end
