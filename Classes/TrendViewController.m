@@ -11,6 +11,11 @@
 #import "SlopeComputer.h"
 #import "MonthData.h"
 
+
+static NSNumberFormatter *weightFormatter = nil;
+static NSNumberFormatter *energyFormatter = nil;
+
+
 @implementation TrendViewController
 
 - (void)recompute
@@ -22,22 +27,46 @@
 	
 	Database *database = [Database sharedDatabase];
 	
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
-	EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
-	EWWeightUnit weightUnit = [database weightUnit];
-	NSAssert1(weightUnit != 0, @"Unknown weight unit in database: %d", weightUnit);
-	
-	NSString *weightUnitAbbr = (weightUnit == kWeightUnitPounds) ? @"lbs" : @"kgs";
-	NSString *energyUnitAbbr = (energyUnit == kEnergyUnitCalories) ? @"cal" : @"kJ";
+	if (weightFormatter == nil) {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
+		EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
+		EWWeightUnit weightUnit = [database weightUnit];
+		NSAssert1(weightUnit != 0, @"Unknown weight unit in database: %d", weightUnit);
+		
+		weightFormatter = [[NSNumberFormatter alloc] init];
+		[weightFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+		[weightFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+		[weightFormatter setPositivePrefix:@"+"];
+		[weightFormatter setNegativePrefix:@"−"];
+		[weightFormatter setPositiveSuffix:(weightUnit == kWeightUnitPounds) ? @" lbs/week" : @" kgs/week"];
+		[weightFormatter setNegativeSuffix:[weightFormatter positiveSuffix]];
+		[weightFormatter setMinimumIntegerDigits:1];
+		[weightFormatter setMinimumFractionDigits:2];
+		[weightFormatter setMaximumFractionDigits:2];
+		[weightFormatter setMultiplier:[NSNumber numberWithInt:7]];
+		
+		energyFormatter = [[NSNumberFormatter alloc] init];
+		[energyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+		[energyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+		[energyFormatter setPositivePrefix:@"+"];
+		[energyFormatter setNegativePrefix:@"−"];
+		[energyFormatter setPositiveSuffix:(energyUnit == kEnergyUnitCalories) ? @" cal/day" : @" kJ/day"];
+		[energyFormatter setNegativeSuffix:[energyFormatter positiveSuffix]];
+		[energyFormatter setMinimumIntegerDigits:1];
+		[energyFormatter setMinimumFractionDigits:2];
+		[energyFormatter setMaximumFractionDigits:2];
 
-	float energyPerWeight;
-	if (weightUnit == kWeightUnitPounds) {
-		energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerPound : kKilojoulesPerPound;
-	} else {
-		energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerKilogram : kKilojoulesPerKilogram;
+		float energyPerWeight;
+		if (weightUnit == kWeightUnitPounds) {
+			energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerPound : kKilojoulesPerPound;
+		} else {
+			energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerKilogram : kKilojoulesPerKilogram;
+		}
+		
+		[energyFormatter setMultiplier:[NSNumber numberWithFloat:energyPerWeight]];
 	}
-	
+
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	EWMonth curMonth = EWMonthFromDate([NSDate date]);
 	EWDay curDay = EWDayFromDate([NSDate date]);
@@ -66,8 +95,8 @@
 		if (newValueCount > 1) {
 			[array addObject:[NSArray arrayWithObjects:
 							  [NSString stringWithFormat:@"Past %@", labels[i]],
-							  [NSString stringWithFormat:@"%+.2f %@/week", (7.0f * weightPerDay), weightUnitAbbr], 
-							  [NSString stringWithFormat:@"%+.2f %@/day", (energyPerWeight * weightPerDay), energyUnitAbbr], 
+							  [weightFormatter stringFromNumber:[NSNumber numberWithFloat:weightPerDay]], 
+							  [energyFormatter stringFromNumber:[NSNumber numberWithFloat:weightPerDay]], 
 							  nil]];
 			newValueCount = 0;
 		}
