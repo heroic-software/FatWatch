@@ -17,6 +17,7 @@
 	EWDay day;
 	BOOL weighIn;
 	UISegmentedControl *weightControl;
+	UIView *weightContainerView;
 	UIPickerView *weightPickerView;
 	UIView *noWeightView;
 	UIView *flagAndNoteView;

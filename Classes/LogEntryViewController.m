@@ -6,18 +6,29 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "LogEntryViewController.h"
 #import "Database.h"
 #import "MonthData.h"
 
+#define kScreenWidth 320
+#define kWeightControlMargin 11
+#define kWeightControlHeight 30
+#define kWeightControlAreaHeight (kWeightControlMargin + kWeightControlHeight + kWeightControlMargin)
+#define kWeightPickerHeight 216
+#define kNoWeightViewHeight 88
+#define kWeightPickerComponentWidth 320-88
+
 @implementation LogEntryViewController
+
 
 @synthesize monthData;
 @synthesize day;
 @synthesize weighIn;
 
-- (id)init
-{
+
+- (id)init {
 	if (self = [super init]) {
 		titleFormatter = [[NSDateFormatter alloc] init];
 		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -30,62 +41,64 @@
 	return self;
 }
 
-- (NSInteger)pickerRowForWeight:(float)weight
-{
+
+- (NSInteger)pickerRowForWeight:(float)weight {
 	return weight / scaleIncrement;
 }
 
-- (float)weightForPickerRow:(NSInteger)row
-{
+
+- (float)weightForPickerRow:(NSInteger)row {
 	return row * scaleIncrement;
 }
 
-- (void)loadView
-{
+
+- (void)loadView {
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
-	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Weight", @"No Weight", nil]];
-	weightControl.frame = CGRectMake(11, 11, 320-22, 30);
+	weightContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+	[view addSubview:weightContainerView];
+
+	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Enter Weight", @"Leave Blank", nil]];
+	weightControl.frame = CGRectInset(CGRectMake(0, 0, kScreenWidth, kWeightControlAreaHeight), kWeightControlMargin, kWeightControlMargin);
 	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
-	[view addSubview:weightControl];
-	[weightControl release];
+	[weightContainerView addSubview:weightControl];
 	
-	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 52, 320, 216)];
+	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kWeightControlAreaHeight, kScreenWidth, kWeightPickerHeight)];
 	weightPickerView.delegate = self;
 	weightPickerView.showsSelectionIndicator = YES;
-	[view addSubview:weightPickerView];
-	[weightPickerView release];
 	
-	noWeightView = [[UIView alloc] initWithFrame:CGRectMake(0, 52, 320, 88)];
+	noWeightView = [[UIView alloc] initWithFrame:CGRectMake(0, kWeightControlAreaHeight, kScreenWidth, kNoWeightViewHeight)];
 	noWeightView.backgroundColor = [UIColor darkGrayColor];
- 	[view addSubview:noWeightView];
-	[noWeightView release];
-	
+
 	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[deleteButton setTitle:@"Clear Entry" forState:UIControlStateNormal];
+	[deleteButton setTitle:@"Clear Everything" forState:UIControlStateNormal];
 	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
-	deleteButton.frame = CGRectMake(22, 22, 320-44, 44);
+	deleteButton.frame = CGRectInset(noWeightView.bounds, 22, 22);
 	[noWeightView addSubview:deleteButton];
 
-	flagAndNoteView = [[UIView alloc] initWithFrame:CGRectZero]; // see toggleWeight
+	flagAndNoteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 148)]; // see toggleWeight
 	[view addSubview:flagAndNoteView];
 	[flagAndNoteView release];
 	
+	CGFloat margin = 16;
+	CGFloat height = (148 - (3 * margin)) / 2.0;
+	
 	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
-	flagControl.frame = CGRectMake(11, 11, 320-22, 44);
+	flagControl.frame = CGRectMake(margin, margin, 320 - 2*margin, height);
 	[flagAndNoteView addSubview:flagControl];
 	[flagControl release];
 	
-	noteField = [[UITextField alloc] initWithFrame:CGRectMake(11, 66, 320-22, 28)];
+	noteField = [[UITextField alloc] initWithFrame:CGRectMake(margin, margin + height + margin, 320 - 2*margin, height)];
 	noteField.placeholder = @"Note";
 	noteField.borderStyle = UITextBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
-	noteField.font = [UIFont systemFontOfSize:18];
 	noteField.backgroundColor = [UIColor whiteColor];
 	noteField.delegate = self;
+	noteField.adjustsFontSizeToFitWidth = YES;
+	noteField.minimumFontSize = 9;
 	[flagAndNoteView addSubview:noteField];
 	[noteField release];
 	
@@ -100,39 +113,61 @@
 																							action:@selector(saveAction)] autorelease];
 }
 
-- (void)dealloc
-{
+
+- (void)dealloc {
+	[weightPickerView release];
+	[noWeightView release];
 	[titleFormatter release];
 	[super dealloc];
 }
 
-- (void)toggleWeight
-{
+
+- (void)updateFlagAndNoteViewFrame {
+	CGRect frame = flagAndNoteView.frame;
+	frame.origin.y = CGRectGetMaxY(weightContainerView.frame);
+	flagAndNoteView.frame = frame;
+}
+
+
+- (void)toggleWeight {
 	if (weightControl.selectedSegmentIndex == 0) {
-		weightPickerView.alpha = 1.0;
-		noWeightView.alpha = 0.0;
-		flagAndNoteView.frame = CGRectMake(0, 52+216, 320, 88+28+22);
+		if ([weightPickerView superview] == nil) {
+			[noWeightView removeFromSuperview];
+			[weightContainerView addSubview:weightPickerView];
+			CGRect frame = weightContainerView.frame;
+			frame.size.height = CGRectGetMaxY(weightPickerView.frame);
+			weightContainerView.frame = frame;
+			[self updateFlagAndNoteViewFrame];
+		}
 	} else {
-		weightPickerView.alpha = 0.0;
-		noWeightView.alpha = 1.0;
-		flagAndNoteView.frame = CGRectMake(0, 52+88, 320, 88+28+22);
+		if ([noWeightView superview] == nil) {
+			[weightPickerView removeFromSuperview];
+			[weightContainerView addSubview:noWeightView];
+			CGRect frame = weightContainerView.frame;
+			frame.size.height = CGRectGetMaxY(noWeightView.frame);
+			weightContainerView.frame = frame;
+			[self updateFlagAndNoteViewFrame];
+		}
 	}
 }
 
-- (void)toggleWeightAction
-{
-	[UIView beginAnimations:@"toggleWeightAction" context:nil];
+
+- (void)toggleWeightAction {
+	[UIView beginAnimations:nil context:nil];
+	CATransition *animation = [CATransition animation];
+	[animation setType:kCATransitionFade];
 	[self toggleWeight];
+	[[weightContainerView layer] addAnimation:animation forKey:nil];
 	[UIView commitAnimations];
 }
 
-- (void)cancelAction
-{
+
+- (void)cancelAction {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)saveAction
-{
+
+- (void)saveAction {
 	float weight;
 	if (weightControl.selectedSegmentIndex == 0) {
 		NSInteger row = [weightPickerView selectedRowInComponent:0];
@@ -144,35 +179,35 @@
 							flag:flagControl.selectedSegmentIndex
 							note:noteField.text
 						   onDay:day];
-	[[Database sharedDatabase] commitChanges]; // TODO: should be in separate thread
+	[[Database sharedDatabase] commitChanges];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)deleteAction
-{
+
+- (void)deleteAction {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
 															 delegate:self
 													cancelButtonTitle:@"Cancel"
-											   destructiveButtonTitle:@"Clear Entry"
+											   destructiveButtonTitle:@"Clear Day"
 													otherButtonTitles:nil];
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[monthData setMeasuredWeight:0 
 								flag:0
 								note:@""
 							   onDay:day];
-		[[Database sharedDatabase] commitChanges]; // TODO: should be in separate thread
+		[[Database sharedDatabase] commitChanges];
 		[self dismissModalViewControllerAnimated:YES];
 	}
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+
+- (void)viewWillAppear:(BOOL)animated {
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self
 			   selector:@selector(keyboardWillShow:)
@@ -211,69 +246,77 @@
 	[self toggleWeight];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notice
-{
+
+- (void)keyboardWillShow:(NSNotification *)notice {
 	[UIView beginAnimations:@"keyboardWillShow" context:nil];
-	weightControl.alpha = 0;
-	weightPickerView.alpha = 0;
-	noWeightView.alpha = 0;
-	CGRect viewFrame = flagAndNoteView.frame;
-	viewFrame.origin.y = 0;
-	flagAndNoteView.frame = viewFrame;
+
+	CGRect wcFrame = weightContainerView.frame;
+	wcFrame.origin.y = -wcFrame.size.height;
+	weightContainerView.frame = wcFrame;
+	
+	[self updateFlagAndNoteViewFrame];
+	
 	[UIView commitAnimations];
 }
 
-- (void)keyboardWillHide:(NSNotification *)notice
-{
+
+- (void)keyboardWillHide:(NSNotification *)notice {
 	[UIView beginAnimations:@"keyboardWillHide" context:nil];
-	weightControl.alpha = 1.0;
-	[self toggleWeight];
+
+	CGRect wcFrame = weightContainerView.frame;
+	wcFrame.origin.y = 0;
+	weightContainerView.frame = wcFrame;
+
+	[self updateFlagAndNoteViewFrame];
+
 	[UIView commitAnimations];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+
+- (void)viewWillDisappear:(BOOL)animated {
 	[noteField resignFirstResponder];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return NO;
 }
 
+
 #pragma mark UITextFieldDelegate (Optional)
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	return [textField resignFirstResponder];
 }
 
+
 #pragma mark UIPickerViewDelegate (Required)
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
 	return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
 	return [self pickerRowForWeight:500.0f];
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-	return 320-88;
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+	return kWeightPickerComponentWidth;
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
 	UILabel *label;
 	
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320-88, 44)];
+		label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWeightPickerComponentWidth, 44)];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = [UIColor clearColor];
@@ -283,5 +326,6 @@
 	label.text = [NSString stringWithFormat:@"%.1f", [self weightForPickerRow:row]];
 	return label;
 }
+
 
 @end
