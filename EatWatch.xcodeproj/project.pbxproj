@@ -15,11 +15,13 @@
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
 		BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */; };
 		BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */; };
+		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
+		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
@@ -75,6 +77,7 @@
 		BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitConvertViewController.m; path = Classes/UnitConvertViewController.m; sourceTree = "<group>"; };
 		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataViewController.h; path = Classes/DataViewController.h; sourceTree = "<group>"; };
 		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataViewController.m; path = Classes/DataViewController.m; sourceTree = "<group>"; };
+		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
@@ -119,6 +122,7 @@
 				1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */,
 				BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */,
 				BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */,
+				BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +153,7 @@
 				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = "Linked Frameworks";
@@ -351,6 +356,7 @@
 				BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */,
 				BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */,
 				BCABE0410DD932A100DE580A /* RootViewController.m in Sources */,
+				BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
