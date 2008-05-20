@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>EatWatch on iPhone</title>
+		<script language="Javascript">
+			function onChange() {
+				var theForm = document.forms['import'];
+				theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
+			}
+		</script>
+	</head>
+	<body onload="onChange();">
+		<p>
+			You can transfer weight measurements to and from EatWatch through your web browser.
+			On your computer, measurements are stored in <a href="http://en.wikipedia.org/wiki/Comma-separated_values">comma separated values</a> format, which is supported by many other applications.
+			EatWatch expects each line of the file to contain the following values: date, measured weight, trend weight, flag value, note.  When importing, only the first two values are required and any values after the first five will be ignored.
+		</p>
+	
+		<h1>Export</h1>
+		
+		<p>
+			You can retrieve the weight data from your iPhone by clicking the following link.
+		</p>
+		
+		<p>
+			<a href="/export/weight.csv">Download Weight Data</a>
+		</p>
+	
+		<h1>Import</h1>
+		
+		<form name="import" method="POST" enctype="multipart/form-data" action="/import">
+			<!-- add a hidden field with some random data, check for it on submit; this will require somebody fetch the page before submitting the form -->
+			<p>
+				You can send data to your iPhone using this form.  First, select a data file.
+			</p>
+			<p>
+				<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
+			</p>
+			<p>
+				Existing data can be merged or replaced with the data from your file.
+			</p>
+			<dl>
+				<dt>
+					<input type="radio" name="how" value="merge" id="merge_button" checked/>
+					<label for="merge_button">Merge with existing data.</label>
+				</dt>
+				<dd>
+					If the file and the iPhone have different measurements for the same date, the measurement in the file will replace the measurement on the iPhone.  Otherwise, any existing measurements on your iPhone will be left alone.
+				</dd>
+				<dt>
+					<input type="radio" name="how" value="replace" id="replace_button"/>
+					<label for="replace_button">Replace existing data.</label>
+				</dt>
+				<dd>
+					All weight measurements on your iPhone will be deleted and the measurements in your file will take their place.
+				</dd>
+			</dl>
+			<div>
+				<input type="submit" name="sendbutton" value="Send to iPhone"/>
+			</div>
+		</form>
+	</body>
+</html>

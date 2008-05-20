@@ -1,12 +1,11 @@
 //
 //  MicroWebServer.h
-//  EatWatch
 //
 //  Created by Benjamin Ragheb on 4/29/08.
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 
 @interface MicroWebServer : NSObject {
@@ -36,9 +35,12 @@
 - (NSString *)requestMethod;
 - (NSURL *)requestURL;
 - (NSDictionary *)requestHeaders;
+- (NSString *)requestHeaderValueForName:(NSString *)headerName;
+- (NSData *)requestBodyData;
 - (void)setResponseStatus:(CFIndex)statusCode;
 - (void)setValue:(NSString *)value forResponseHeader:(NSString *)header;
-- (void)setResponseData:(NSData *)data;
+- (void)setResponseBodyString:(NSString *)string;
+- (void)setResponseBodyData:(NSData *)data;
 @end
 
 

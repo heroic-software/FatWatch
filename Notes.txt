@@ -1,36 +1,29 @@
-Launch:
-- Compare WeightUnit in database vs defaults, offer to convert if mismatch.
+Correctness:
+- Saving with no weight does not update trend values properly.
+- Update views after importing.
 
-Log View:
-- Scrolling is a little jerky.
-- Touch events get weird after return from modal view --- maybe fixed by presenting modal views on the parent controller?
-- Need a tab bar icon.
-- Use proper plus/minus signs in the trend delta.
-- Descenders in note text are cropped sometimes.
+Missing:
+- Application icon: 57x57
+- Settings icon: 29x29
+- Icon for Tab Bar: Log
+- Icon for Tab Bar: Trends
 
-Log Entry View:
-- Pick a reasonable default weight if day before earliest day in database.
-- "Save with no weight" does not update trend values properly.
-- Don't recalculate trend numbers if weight didn't change.
+Performance:
+- Don't update trend values if weight didn't change.
+
+Cosmetic:
+- Log view scrolling is a little jerky.
+- Log view: descenders in note text are cropped sometimes.
+- Graph view: extend trend line across months.
+- Graph view: add scale along Y axis (weight)
+
+Enhancement:
 - Display progress bar when updating trend values.
+- Graph view: support zooming
+- Show alert on device to confirm or cancel data upload.
 
-Graph View:
-- Zooming?
-- Redo design of drawing.
-- draw trend line across months
-- add a tickmark view on the side
-
-Trend View:
-- Need a tab bar icon.
-
-General Problems:
-- Too much data manipulation is handled in the event handling thread.  There should be an asynchronous data processing thread; UI elements should handle a "not ready" state and be notified when they can be redrawn.
+Usability:
 - User needs quick way of getting to "Today" on log view and graph view.
-- Need an Application icon: 57x57
-- Need a Settings icon: 29x29
-
-First Launch:
-- Prompt user for earliest month (?)
 
 Debug Settings:
 - OnLaunchRecomputeTrendValues: recompute trend values on startup.
@@ -38,11 +31,6 @@ Debug Settings:
 
 Idea: Jump To Button:
 - User taps "Jump To", presented with a modal picker for all months and "Go" and "Cancel" buttons.  Can be used in the Log View and the Graph View.
-
-Idea: Sync:
-- Listen to a port and broadcast a service with Bonjour.
-- Provide a desktop app that detects iPhone and syncs.
-- Use a PIN confirmation like Bluetooth pairing.
 
 Idea: Superimposed Diet Goal Line:
 - Needs a new view to enter diet goal information

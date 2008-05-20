@@ -8,7 +8,9 @@
 
 #import "MicroWebServer.h"
 
+#if TARGET_OS_IPHONE
 #import <CFNetwork/CFNetwork.h>
+#endif
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -217,31 +219,82 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (void)readStreamHasBytesAvailable {
-	
-	const CFIndex readBufferLength = 64;
-	
-	BOOL shouldClose = NO;
-	
+- (void)dealloc {
+	if (responseData) CFRelease(responseData);
+	if (responseMessage) CFRelease(responseMessage);
+	CFRelease(requestMessage);
+	CFRelease(writeStream);
+	CFRelease(readStream);
+	[super dealloc];
+}
+
+
+- (NSString *)description {
+	if (responseData) {
+		return [NSString stringWithFormat:@"MicroWebConnection: %d/%d response bytes remain", 
+				responseBytesRemaining, CFDataGetLength(responseData)];
+	} else {
+		return [NSString stringWithFormat:@"MicroWebConnection: reading"];
+	}
+}
+
+
+- (BOOL)readAvailableBytes {
+	const CFIndex bufferCapacity = 512;
+	UInt8 buffer[bufferCapacity];
+
 	do {
-		UInt8 buffer[readBufferLength];
-		CFIndex dataLength = CFReadStreamRead(readStream, buffer, readBufferLength);
+		CFIndex dataLength = CFReadStreamRead(readStream, buffer, bufferCapacity);
 		
 		if (dataLength > 0) {
 			Boolean didSucceed = CFHTTPMessageAppendBytes(requestMessage, buffer, dataLength);
-			if (! didSucceed) printf("error appending bytes\n");
+			if (! didSucceed) {
+				printf("error appending bytes\n");
+				return YES;
+			}
 		} else if (dataLength == 0) {
-			shouldClose = YES;
+			printf("end of read stream\n");
+			return YES;
 		} else {
 			printf("error\n");
+			return YES;
 		}
 	} while (CFReadStreamHasBytesAvailable(readStream));
+	
+	return NO;
+}
 
-	if (CFHTTPMessageIsHeaderComplete(requestMessage)) {
+
+- (BOOL)isRequestComplete {
+	if (! CFHTTPMessageIsHeaderComplete(requestMessage)) return NO;
+	
+	NSString *transferEncodingStr = [self requestHeaderValueForName:@"Transfer-Encoding"];
+	if (transferEncodingStr) {
+		printf("transfer-encoding: %s\n", [transferEncodingStr UTF8String]);
+	}
+	
+	NSString *contentLengthStr = [self requestHeaderValueForName:@"Content-Length"];
+	NSInteger contentLength = [contentLengthStr integerValue];
+	if (contentLength > 0) {
+		NSData *bodyData = [self requestBodyData];
+		printf("content length is %d and we got %d\n", contentLength, [bodyData length]);
+		return [bodyData length] >= contentLength;
+	}
+	
+	return YES; // for all we know, anyway
+}
+
+
+- (void)readStreamHasBytesAvailable {
+	BOOL shouldClose = [self readAvailableBytes];
+
+	if ([self isRequestComplete]) {
 		[[webServer delegate] handleWebConnection:self];
+		NSAssert(responseMessage != nil, @"delegate must call setResponseStatus:");
+		CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));
 		
 		responseData = CFHTTPMessageCopySerializedMessage(responseMessage);
-		CFRelease(responseMessage);
+		CFRelease(responseMessage); responseMessage = NULL;
 		
 		responseBytesRemaining = CFDataGetLength(responseData);
 		CFWriteStreamOpen(writeStream);
@@ -250,8 +303,26 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 	if (shouldClose) {
 		CFReadStreamClose(readStream);
-		CFRelease(readStream);
 	}
+}
+
+
+- (void)writeStreamCanAcceptBytes {
+	if (responseBytesRemaining == 0) {
+		CFWriteStreamClose(writeStream);
+		return;
+	}
+	
+	const UInt8 *buffer = CFDataGetBytePtr(responseData);
+	CFIndex bufferLength = CFDataGetLength(responseData);
+	
+	buffer += (bufferLength - responseBytesRemaining);
+	CFIndex bytesWritten = CFWriteStreamWrite(writeStream, buffer, responseBytesRemaining);
+	if (bytesWritten == -1) {
+		printf("error\n");
+		return;
+	}
+	responseBytesRemaining -= bytesWritten;
 }
 
 
@@ -273,6 +344,18 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
+- (NSString *)requestHeaderValueForName:(NSString *)headerName {
+	NSString *headerValue = (NSString *)CFHTTPMessageCopyHeaderFieldValue(requestMessage, (CFStringRef)headerName);
+	return [headerValue autorelease];
+}
+
+
+- (NSData *)requestBodyData {
+	NSData *data = (NSData *)CFHTTPMessageCopyBody(requestMessage);
+	return [data autorelease];
+}
+
+
 - (void)setResponseStatus:(CFIndex)statusCode {
 	responseMessage = CFHTTPMessageCreateResponse(kCFAllocatorDefault, statusCode, NULL, kCFHTTPVersion1_1);
 }
@@ -284,30 +367,16 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (void)setResponseData:(NSData *)data {
+- (void)setResponseBodyString:(NSString *)string {
+	NSAssert(responseMessage != nil, @"must set response status first");
+	[self setResponseBodyData:[string dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+
+- (void)setResponseBodyData:(NSData *)data {
 	NSAssert(responseMessage != nil, @"must set response status first");
 	CFHTTPMessageSetBody(responseMessage, (CFDataRef)data);
+	[self setValue:[NSString stringWithFormat:@"%d", [data length]] forResponseHeader:@"Content-Length"];
 }
-
-
-- (void)writeStreamCanAcceptBytes {
-	if (responseBytesRemaining == 0) {
-		CFWriteStreamClose(writeStream);
-		CFRelease(writeStream);
-		return;
-	}
-
-	const UInt8 *buffer = CFDataGetBytePtr(responseData);
-	CFIndex bufferLength = CFDataGetLength(responseData);
-
-	buffer += (bufferLength - responseBytesRemaining);
-	CFIndex bytesWritten = CFWriteStreamWrite(writeStream, buffer, responseBytesRemaining);
-	if (bytesWritten == -1) {
-		printf("error\n");
-		return;
-	}
-	responseBytesRemaining -= bytesWritten;
-}
-
 
 @end

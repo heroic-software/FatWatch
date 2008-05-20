@@ -17,7 +17,7 @@
 #import "GraphViewController.h"
 #import "RootViewController.h"
 #import "MicroWebServer.h"
-
+#import "WebServerDelegate.h"
 
 @implementation EatWatchAppDelegate
 
@@ -41,25 +41,15 @@
 	
 	MicroWebServer *webServer = [MicroWebServer sharedServer];
 	webServer.name = @"EatWatch";
-	webServer.delegate = self;
+	webServer.delegate = [[WebServerDelegate alloc] init];
 	[webServer start];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	[[MicroWebServer sharedServer] stop];
+	[[[MicroWebServer sharedServer] delegate] release];
 	[[Database sharedDatabase] close];
-}
-
-
-- (void)handleWebConnection:(MicroWebConnection *)connection {
-	NSString *text = [NSString stringWithFormat:@"You want to %@ the URL <%@> with headers %@\r\n",
-					  [connection requestMethod],
-					  [connection requestURL],
-					  [connection requestHeaders]];
-	[connection setResponseStatus:200];
-	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseData:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 
