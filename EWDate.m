@@ -8,43 +8,43 @@
 
 #import "EWDate.h"
 
+
 static NSCalendar *calendar = nil;
 static NSDate *refDate = nil;
+static NSDateComponents *components = nil;
 
-void EWDateInit()
-{
+
+void EWDateInit() {
 	calendar = [[NSCalendar currentCalendar] retain];
 	refDate = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:0];
+	components = [[NSDateComponents alloc] init];
 }
 
-NSUInteger EWDaysInMonth(EWMonth m)
-{
-	NSDateComponents *components = [[NSDateComponents alloc] init];
+
+NSUInteger EWDaysInMonth(EWMonth m) {
 	components.month = m;
+	components.day = 0;
 	NSDate *monthDate = [calendar dateByAddingComponents:components
 												  toDate:refDate
 												 options:0];
 	NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit
 								   inUnit:NSMonthCalendarUnit
 								  forDate:monthDate];
-	[components release];
 	return range.length;
 }
 
-NSDate *NSDateFromEWMonthAndDay(EWMonth m, EWDay d)
-{
-	NSDateComponents *components = [[NSDateComponents alloc] init];
+
+NSDate *NSDateFromEWMonthAndDay(EWMonth m, EWDay d) {
 	components.month = m;
 	components.day = d;
 	NSDate *theDate = [calendar dateByAddingComponents:components
 												toDate:refDate
 											   options:0];
-	[components release];
 	return theDate;
 }
 
-EWMonth EWMonthFromDate(NSDate *theDate)
-{
+
+EWMonth EWMonthFromDate(NSDate *theDate) {
 	NSDateComponents *components;
 	components = [calendar components:NSMonthCalendarUnit | NSDayCalendarUnit
 							 fromDate:refDate
@@ -53,8 +53,8 @@ EWMonth EWMonthFromDate(NSDate *theDate)
 	return components.month;
 }
 
-EWDay EWDayFromDate(NSDate *theDate)
-{
+
+EWDay EWDayFromDate(NSDate *theDate) {
 	NSDateComponents *components;
 	components = [calendar components:NSDayCalendarUnit fromDate:theDate];
 	return components.day;

@@ -6,7 +6,7 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #define EWMonthDayMake(m,d) (((m) << 5) | (d))
 #define EWMonthDayGetMonth(md) ((md) >> 5)
