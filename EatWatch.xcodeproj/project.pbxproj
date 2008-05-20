@@ -16,13 +16,16 @@
 		BC0212EC0DC1784F00BA97BB /* UnitConvertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */; };
 		BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
-		BC0CE4170DDBE10F00AB8899 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC0CE4160DDBE10F00AB8899 /* home.html */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
+		BC47221B0DE368170081F576 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
+		BC47222A0DE3692C0081F576 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
+		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
+		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
@@ -87,7 +90,7 @@
 		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataViewController.h; path = Classes/DataViewController.h; sourceTree = "<group>"; };
 		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataViewController.m; path = Classes/DataViewController.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		BC0CE4160DDBE10F00AB8899 /* home.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = home.html; sourceTree = "<group>"; };
+		BC0CE4160DDBE10F00AB8899 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
@@ -96,6 +99,9 @@
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
+		BC4722230DE368C80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importAccepted.html; sourceTree = "<group>"; };
+		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
+		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
@@ -240,9 +246,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC0CE4160DDBE10F00AB8899 /* home.html */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC9BDED00DA9D53F0004E70C /* WeightData.db */,
+				BC47221A0DE368170081F576 /* home.html */,
+				BC4722290DE3692C0081F576 /* importPending.html */,
+				BC47222B0DE3692C0081F576 /* importNoData.html */,
+				BC47222D0DE3692C0081F576 /* importAccepted.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -395,7 +404,10 @@
 			files = (
 				BC9BDED10DA9D53F0004E70C /* WeightData.db in Resources */,
 				BC263C370DB56B9D007D03F4 /* Root.strings in Resources */,
-				BC0CE4170DDBE10F00AB8899 /* home.html in Resources */,
+				BC47221B0DE368170081F576 /* home.html in Resources */,
+				BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */,
+				BC47222A0DE3692C0081F576 /* importPending.html in Resources */,
+				BC47222C0DE3692C0081F576 /* importNoData.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +492,41 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BC47221A0DE368170081F576 /* home.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC0CE4160DDBE10F00AB8899 /* English */,
+			);
+			name = home.html;
+			sourceTree = "<group>";
+		};
+		BC4722290DE3692C0081F576 /* importPending.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC4722250DE368E80081F576 /* English */,
+			);
+			name = importPending.html;
+			sourceTree = "<group>";
+		};
+		BC47222B0DE3692C0081F576 /* importNoData.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC4722270DE369010081F576 /* English */,
+			);
+			name = importNoData.html;
+			sourceTree = "<group>";
+		};
+		BC47222D0DE3692C0081F576 /* importAccepted.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC4722230DE368C80081F576 /* English */,
+			);
+			name = importAccepted.html;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {

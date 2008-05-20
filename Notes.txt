@@ -1,6 +1,8 @@
 Correctness:
 - Saving with no weight does not update trend values properly.
 - Update views after importing.
+- on weight updates, keep track of earliest weight changed date, then recompute trends in one go starting on that date
+- after import, log and graph view "earliest" dates need to be reset
 
 Missing:
 - Application icon: 57x57
@@ -10,12 +12,15 @@ Missing:
 
 Performance:
 - Don't update trend values if weight didn't change.
+- Switch to graph view is slow.
+- Run a HTML "compressor" on stored HTML files.
 
 Cosmetic:
 - Log view scrolling is a little jerky.
 - Log view: descenders in note text are cropped sometimes.
 - Graph view: extend trend line across months.
 - Graph view: add scale along Y axis (weight)
+- Graph view: not enough data warning is off-center
 
 Enhancement:
 - Display progress bar when updating trend values.
@@ -24,6 +29,7 @@ Enhancement:
 
 Usability:
 - User needs quick way of getting to "Today" on log view and graph view.
+- If you quit the app on the weight entry view during Auto Weight In, save the data.
 
 Debug Settings:
 - OnLaunchRecomputeTrendValues: recompute trend values on startup.

@@ -14,7 +14,82 @@
 #import "Database.h"
 #import "FormDataParser.h"
 
+
+#define HTTP_STATUS_OK 200
+#define HTTP_STATUS_NOT_FOUND 404
+
+@interface WebServerDelegate ()
+- (NSDateFormatter *)dateFormatter;
+- (void)handleExport:(MicroWebConnection *)connection;
+- (void)handleImport:(MicroWebConnection *)connection;
+- (void)performImport;
+- (void)sendResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection;
+@end
+
+
+
 @implementation WebServerDelegate
+
+
+- (void)handleWebConnection:(MicroWebConnection *)connection {
+	NSString *path = [[connection requestURL] path];
+	
+	printf("%s <%s>\n", [[connection requestMethod] UTF8String], [path UTF8String]);
+	
+	if ([path isEqualToString:@"/"]) {
+		UIDevice *device = [UIDevice currentDevice];
+		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
+							   [device localizedModel], @"__MODEL__",
+							   [device name], @"__NAME__",
+							   nil];
+		[self sendResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
+		return;
+	}
+	
+	if ([path hasPrefix:@"/export/"]) {
+		[self handleExport:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/import"]) {
+		[self handleImport:connection];
+		return;
+	}
+	
+	// handle robots.txt, favicon.ico
+	
+	[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
+	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyString:@"Not Found"];
+}
+
+
+- (void)sendResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html"];
+
+	if (path == nil) {
+		[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
+		[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
+		[connection setResponseBodyString:[NSString stringWithFormat:@"Resource '%@' Not Found", name]];
+		return;
+	}
+	
+	NSMutableString *text = [[NSMutableString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
+	for (NSString *key in [substitutions allKeys]) {
+		[text replaceOccurrencesOfString:key
+							  withString:[substitutions objectForKey:key]
+								 options:0
+								   range:NSMakeRange(0, [text length])];
+	}
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:@"text/html" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyData:[text dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[text release];
+}
+
 
 - (NSDateFormatter *)dateFormatter {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -50,7 +125,7 @@
 		md = [db dataForMonthAfter:md.month];
 	}
 	
-	[connection setResponseStatus:200];
+	[connection setResponseStatus:HTTP_STATUS_OK];
 	[connection setValue:@"text/csv" forResponseHeader:@"Content-Type"];
 	[connection setResponseBodyData:[writer data]];
 	[writer release];
@@ -59,90 +134,83 @@
 
 
 - (void)handleImport:(MicroWebConnection *)connection {
+	if (importData != nil) {
+		[self sendResourceNamed:@"importPending" withSubstitutions:nil toConnection:connection];
+		return;
+	}
+	
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
-	
-	NSData *filedata = [form dataForKey:@"filedata"];
-	NSString *how = [form stringForKey:@"how"];
-	
-	NSMutableString *text = [[NSMutableString alloc] init];
 
-	if ([how isEqualToString:@"replace"]) {
+	importData = [[form dataForKey:@"filedata"] retain];
+	importReplace = [[form stringForKey:@"how"] isEqualToString:@"replace"];
+	
+	if (importData == nil) {
+		[self sendResourceNamed:@"importNoData" withSubstitutions:nil toConnection:connection];
+		return;
+	}
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data Received" message:@"Data was received, do you want to store it in this phone?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+	[alert show];
+	[alert release];
+	
+	[self sendResourceNamed:@"importAccepted" withSubstitutions:nil toConnection:connection];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+		[self performImport];
+	}
+	[importData release];
+	importData = nil;
+}
+
+
+- (void)performImport {
+	if (importReplace) {
 		// delete everything
-		[text appendString:@"Existing records deleted.\r\n"];
 	}
 	
 	NSUInteger count = 0;
-
-	CSVReader *reader = [[CSVReader alloc] initWithData:filedata];
+	CSVReader *reader = [[CSVReader alloc] initWithData:importData];
+	
 	NSDateFormatter *formatter = [self dateFormatter];
 	const Database *db = [Database sharedDatabase];
-
+	
 	while ([reader nextRow]) {
 		NSString *dateString = [reader readString];
+		NSDate *date = [formatter dateFromString:dateString];
+		if (date == nil) continue;
+		
 		float measuredWeight = [reader readFloat];
 		[reader readFloat]; // skip trendWeight
 		BOOL flag = [reader readBoolean];
 		NSString *note = [reader readString];
 		
-		NSDate *date = [formatter dateFromString:dateString];
-		
-		EWMonth month = EWMonthFromDate(date);
-		EWDay day = EWDayFromDate(date);
-		MonthData *md = [db dataForMonth:month];
-		// inefficient, should wait until done to recompute trends
-		[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:day];
-		count++;
+		if (measuredWeight > 0 || note != nil || flag) {
+			EWMonth month = EWMonthFromDate(date);
+			EWDay day = EWDayFromDate(date);
+			MonthData *md = [db dataForMonth:month];
+			[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:day];
+			count++;
+		}
 	}
- 
+	
 	[reader release];
+	[db commitChanges];
 
-	[text appendFormat:@"Imported %d records.\r\n", count];
-
-	[form release];
+	NSString *msg;
 	
-	[connection setResponseStatus:200];
-	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyString:text];
-	[text release];
-	return;
+	if (count > 0) {
+		msg = [NSString stringWithFormat:@"%d records imported.", count];
+	} else {
+		msg = @"No records imported.  The file may not be in the correct format.";
+	}
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Complete" message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+	[alert show];
+	[alert release];
 }
 
-
-- (void)sendResourceNamed:(NSString *)name to:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html"];
-	if (path) {
-		[connection setResponseStatus:200];
-		[connection setValue:@"text/html" forResponseHeader:@"Content-Type"];
-		[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
-	}
-}
-
-
-- (void)handleWebConnection:(MicroWebConnection *)connection {
-	NSString *path = [[connection requestURL] path];
-	
-	printf("%s <%s>\n", [[connection requestMethod] UTF8String], [path UTF8String]);
-	
-	if ([path isEqualToString:@"/"]) {
-		[self sendResourceNamed:@"home" to:connection];
-		return;
-	}
-	
-	if ([path hasPrefix:@"/export/"]) {
-		[self handleExport:connection];
-		return;
-	}
-	
-	if ([path isEqualToString:@"/import"]) {
-		[self handleImport:connection];
-		return;
-	}
-	
-	// handle robots.txt
-	
-	[connection setResponseStatus:404];
-	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyString:@"Not Found"];
-}
 
 @end
