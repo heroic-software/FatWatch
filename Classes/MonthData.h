@@ -18,6 +18,8 @@
 	NSMutableArray *notesArray;
 }
 
+@property (nonatomic,readonly) EWMonth month;
+
 + (void)finalizeStatements;
 - (id)initWithMonth:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;

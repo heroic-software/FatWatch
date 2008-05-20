@@ -17,6 +17,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 @implementation MonthData
 
+@synthesize month;
+
 + (void)finalizeStatements
 {
 	if (insert_stmt) sqlite3_finalize(insert_stmt);
