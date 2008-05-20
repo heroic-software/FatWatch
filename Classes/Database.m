@@ -248,11 +248,11 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 
 - (MonthData *)dataForStatement:(sqlite3_stmt *)statement
 {
-	EWMonth otherMonth;
+	EWMonthDay monthday;
 	
 	int retcode = sqlite3_step(statement);
 	if (retcode == SQLITE_ROW) {
-		otherMonth = sqlite3_column_int(statement, 0);
+		monthday = sqlite3_column_int(statement, 0);
 	} else if (retcode == SQLITE_DONE) {
 		sqlite3_reset(statement);
 		return nil;
@@ -261,7 +261,7 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	}
 	sqlite3_reset(statement);
 	
-	return [self dataForMonth:otherMonth];
+	return [self dataForMonth:EWMonthDayGetMonth(monthday)];
 }
 
 - (MonthData *)dataForMonthBefore:(EWMonth)m

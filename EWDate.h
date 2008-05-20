@@ -12,6 +12,7 @@
 #define EWMonthDayGetMonth(md) ((md) >> 5)
 #define EWMonthDayGetDay(md) (0x1F & (md))
 
+typedef NSInteger EWMonthDay;
 typedef NSInteger EWMonth;
 typedef NSInteger EWDay;
 
