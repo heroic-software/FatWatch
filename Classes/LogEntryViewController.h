@@ -20,7 +20,6 @@
 	UIView *weightContainerView;
 	UIPickerView *weightPickerView;
 	UIView *noWeightView;
-	UIView *flagAndNoteView;
 	UISegmentedControl *flagControl;
 	UITextField *noteField;
 	NSDateFormatter *titleFormatter;

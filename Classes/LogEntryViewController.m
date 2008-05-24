@@ -12,13 +12,9 @@
 #import "Database.h"
 #import "MonthData.h"
 
-#define kScreenWidth 320
-#define kWeightControlMargin 11
-#define kWeightControlHeight 30
-#define kWeightControlAreaHeight (kWeightControlMargin + kWeightControlHeight + kWeightControlMargin)
-#define kWeightPickerHeight 216
-#define kNoWeightViewHeight 88
-#define kWeightPickerComponentWidth 320-88
+
+const CGFloat kWeightPickerComponentWidth = 320 - 88;
+
 
 @implementation LogEntryViewController
 
@@ -53,64 +49,78 @@
 
 
 - (void)loadView {
+	const CGFloat kScreenWidth = 320;
+	const CGFloat kWeightControlMargin = 11;
+	const CGFloat kWeightControlHeight = 30;
+	const CGFloat kWeightControlAreaHeight = (kWeightControlMargin + kWeightControlHeight + kWeightControlMargin);
+	const CGFloat kWeightPickerHeight = 216;
+	
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
-	weightContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
-	[view addSubview:weightContainerView];
-
+	CGFloat y = 0;
+	
 	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Enter Weight", @"Leave Blank", nil]];
-	weightControl.frame = CGRectInset(CGRectMake(0, 0, kScreenWidth, kWeightControlAreaHeight), kWeightControlMargin, kWeightControlMargin);
+	weightControl.frame = CGRectInset(CGRectMake(0, y, kScreenWidth, kWeightControlAreaHeight), kWeightControlMargin, kWeightControlMargin);
 	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
-	[weightContainerView addSubview:weightControl];
+	[view addSubview:weightControl];
+	[weightControl release];
 	
-	weightPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kWeightControlAreaHeight, kScreenWidth, kWeightPickerHeight)];
+	y = CGRectGetMaxY(weightControl.frame) + kWeightControlMargin;
+	
+	weightContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kWeightPickerHeight)];
+	[view addSubview:weightContainerView];
+	[weightContainerView release];
+	
+	weightPickerView = [[UIPickerView alloc] initWithFrame:weightContainerView.bounds];
 	weightPickerView.delegate = self;
 	weightPickerView.showsSelectionIndicator = YES;
 	
-	noWeightView = [[UIView alloc] initWithFrame:CGRectMake(0, kWeightControlAreaHeight, kScreenWidth, kNoWeightViewHeight)];
+	noWeightView = [[UIView alloc] initWithFrame:weightContainerView.bounds];
 	noWeightView.backgroundColor = [UIColor darkGrayColor];
-
-	UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[deleteButton setTitle:@"Clear Everything" forState:UIControlStateNormal];
-	[deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
-	deleteButton.frame = CGRectInset(noWeightView.bounds, 22, 22);
-	[noWeightView addSubview:deleteButton];
-
-	flagAndNoteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 148)]; // see toggleWeight
-	[view addSubview:flagAndNoteView];
-	[flagAndNoteView release];
 	
-	CGFloat margin = 16;
-	CGFloat height = (148 - (3 * margin)) / 2.0;
+	UILabel *noWeightLabel = [[UILabel alloc] initWithFrame:CGRectInset(noWeightView.bounds, 11, 0)];
+	noWeightLabel.text = @"There will be no weight saved on this date, but you can still apply a check or a note using the fields below.";
+	noWeightLabel.numberOfLines = 0;
+	noWeightLabel.backgroundColor = [UIColor clearColor];
+	noWeightLabel.textColor = [UIColor whiteColor];
+	[noWeightView addSubview:noWeightLabel];
+	[noWeightLabel release];
+	
+	const CGFloat margin = 16;
+	const CGFloat height = (148 - (3 * margin)) / 2.0;
+	
+	y = CGRectGetMaxY(weightContainerView.frame) + margin;
 	
 	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
-	flagControl.frame = CGRectMake(margin, margin, 320 - 2*margin, height);
-	[flagAndNoteView addSubview:flagControl];
+	flagControl.frame = CGRectMake(margin, y, 320 - 2*margin, height);
+	[view addSubview:flagControl];
 	[flagControl release];
 	
-	noteField = [[UITextField alloc] initWithFrame:CGRectMake(margin, margin + height + margin, 320 - 2*margin, height)];
+	y = CGRectGetMaxY(flagControl.frame) + margin;
+	
+	noteField = [[UITextField alloc] initWithFrame:CGRectMake(margin, y, 320 - 2*margin, height)];
 	noteField.placeholder = @"Note";
 	noteField.borderStyle = UITextBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.backgroundColor = [UIColor whiteColor];
 	noteField.delegate = self;
-	noteField.adjustsFontSizeToFitWidth = YES;
-	noteField.minimumFontSize = 9;
-	[flagAndNoteView addSubview:noteField];
+	[view addSubview:noteField];
 	[noteField release];
 	
 	self.view = view;
 	[view release];
 
-	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																						   target:self 
-																						   action:@selector(cancelAction)] autorelease];
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-																							target:self 
-																							action:@selector(saveAction)] autorelease];
+	self.navigationItem.leftBarButtonItem = 
+		[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+													   target:self 
+													   action:@selector(cancelAction)] autorelease];
+	self.navigationItem.rightBarButtonItem = 
+		[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+													   target:self 
+													   action:@selector(saveAction)] autorelease];
 }
 
 
@@ -122,43 +132,32 @@
 }
 
 
-- (void)updateFlagAndNoteViewFrame {
-	CGRect frame = flagAndNoteView.frame;
-	frame.origin.y = CGRectGetMaxY(weightContainerView.frame);
-	flagAndNoteView.frame = frame;
-}
-
-
 - (void)toggleWeight {
 	if (weightControl.selectedSegmentIndex == 0) {
 		if ([weightPickerView superview] == nil) {
 			[noWeightView removeFromSuperview];
 			[weightContainerView addSubview:weightPickerView];
-			CGRect frame = weightContainerView.frame;
-			frame.size.height = CGRectGetMaxY(weightPickerView.frame);
-			weightContainerView.frame = frame;
-			[self updateFlagAndNoteViewFrame];
 		}
 	} else {
 		if ([noWeightView superview] == nil) {
 			[weightPickerView removeFromSuperview];
 			[weightContainerView addSubview:noWeightView];
-			CGRect frame = weightContainerView.frame;
-			frame.size.height = CGRectGetMaxY(noWeightView.frame);
-			weightContainerView.frame = frame;
-			[self updateFlagAndNoteViewFrame];
 		}
 	}
 }
 
 
 - (void)toggleWeightAction {
-	[UIView beginAnimations:nil context:nil];
 	CATransition *animation = [CATransition animation];
 	[animation setType:kCATransitionFade];
+	[animation setDuration:0.3];
+	if (weightControl.selectedSegmentIndex == 0) {
+		[animation setSubtype:kCATransitionFromLeft];
+	} else {
+		[animation setSubtype:kCATransitionFromRight];
+	}
 	[self toggleWeight];
 	[[weightContainerView layer] addAnimation:animation forKey:nil];
-	[UIView commitAnimations];
 }
 
 
@@ -181,29 +180,6 @@
 						   onDay:day];
 	[[Database sharedDatabase] commitChanges];
 	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-- (void)deleteAction {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-															 delegate:self
-													cancelButtonTitle:@"Cancel"
-											   destructiveButtonTitle:@"Clear Day"
-													otherButtonTitles:nil];
-	[actionSheet showInView:self.view];
-	[actionSheet release];
-}
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		[monthData setMeasuredWeight:0 
-								flag:0
-								note:@""
-							   onDay:day];
-		[[Database sharedDatabase] commitChanges];
-		[self dismissModalViewControllerAnimated:YES];
-	}
 }
 
 
@@ -248,28 +224,33 @@
 
 
 - (void)keyboardWillShow:(NSNotification *)notice {
-	[UIView beginAnimations:@"keyboardWillShow" context:nil];
-
-	CGRect wcFrame = weightContainerView.frame;
-	wcFrame.origin.y = -wcFrame.size.height;
-	weightContainerView.frame = wcFrame;
+	NSValue *kbBoundsValue = [[notice userInfo] objectForKey:UIKeyboardBoundsUserInfoKey];
+	float kbHeight = CGRectGetHeight([kbBoundsValue CGRectValue]);
 	
-	[self updateFlagAndNoteViewFrame];
-	
-	[UIView commitAnimations];
+	UIView *view = self.view;
+	CGRect rect = view.bounds;
+	if (rect.origin.y < kbHeight) {
+		[UIView beginAnimations:@"keyboardWillShow" context:nil];
+		[UIView setAnimationDuration:0.3];
+		rect.origin.y = kbHeight;
+		view.bounds = rect;
+		weightContainerView.alpha = 0;
+		[UIView commitAnimations];
+	}
 }
 
 
 - (void)keyboardWillHide:(NSNotification *)notice {
-	[UIView beginAnimations:@"keyboardWillHide" context:nil];
-
-	CGRect wcFrame = weightContainerView.frame;
-	wcFrame.origin.y = 0;
-	weightContainerView.frame = wcFrame;
-
-	[self updateFlagAndNoteViewFrame];
-
-	[UIView commitAnimations];
+	UIView *view = self.view;
+	CGRect rect = view.bounds;
+	if (rect.origin.y > 0) {
+		[UIView beginAnimations:@"keyboardWillHide" context:nil];
+		[UIView setAnimationDuration:0.3];
+		rect.origin.y = 0;
+		view.bounds = rect;
+		weightContainerView.alpha = 1;
+		[UIView commitAnimations];
+	}
 }
 
 
