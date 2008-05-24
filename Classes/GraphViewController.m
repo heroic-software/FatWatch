@@ -29,25 +29,24 @@
 }
 
 
-- (UIView *)loadDataView
-{
-	// View for the graph
+- (void)removeGraphViews {
+	for (UIView *subview in [self.dataView subviews]) {
+		if ([subview isKindOfClass:[GraphView class]]) {
+			[subview removeFromSuperview];
+		}
+	}
+}
 
-	EWMonth earliestMonth = [[Database sharedDatabase] earliestMonth];
-	EWMonth currentMonth = EWMonthFromDate([NSDate date]);
-	NSUInteger monthCount = MAX(1, currentMonth - earliestMonth + 1);
-	
+
+- (void)addGraphViewsToView:(UIScrollView *)scrollView {
 	CGSize totalSize = CGSizeMake(0, 300);
-	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
-	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	scrollView.alwaysBounceVertical = NO;
-	scrollView.directionalLockEnabled = YES;
-	
+	Database *db = [Database sharedDatabase];
+	NSUInteger monthCount = MAX(1, db.latestMonth - db.earliestMonth + 1);
+
 	int i;
 	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
 	for (i = 0; i < monthCount; i++) {
-		EWMonth month = (earliestMonth + i);
+		EWMonth month = (db.earliestMonth + i);
 		subviewFrame.size.width = 7 * EWDaysInMonth(month);
 		GraphView *view = [[GraphView alloc] initWithMonth:month];
 		view.frame = subviewFrame;
@@ -58,6 +57,17 @@
 	}
 	
 	scrollView.contentSize = totalSize;
+}
+
+
+- (UIView *)loadDataView
+{
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
+	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	scrollView.alwaysBounceVertical = NO;
+	scrollView.directionalLockEnabled = YES;
+	
+	[self addGraphViewsToView:scrollView];
 	
 	return [scrollView autorelease];
 }
@@ -66,16 +76,17 @@
 - (void)dataChanged
 {
 	UIScrollView *scrollView = (UIScrollView *)self.dataView;
+	[self removeGraphViews];
+	[self addGraphViewsToView:scrollView];
 	if (firstLoad) {
 		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
 		[scrollView scrollRectToVisible:rect animated:NO];
 		firstLoad = NO;
 	}
-	[[scrollView subviews] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
