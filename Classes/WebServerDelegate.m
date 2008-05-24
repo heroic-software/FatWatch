@@ -106,8 +106,9 @@
 	NSDateFormatter *formatter = [self dateFormatter];
 	
 	Database *db = [Database sharedDatabase];
-	MonthData *md = [db dataForMonth:[db earliestMonth]];
-	while (md != nil) {
+	EWMonth month;
+	for (month = db.earliestMonth; month <= db.latestMonth; month += 1) {
+		MonthData *md = [db dataForMonth:month];
 		EWDay day;
 		for (day = 1; day <= 31; day++) {
 			float measuredWeight = [md measuredWeightOnDay:day];
@@ -122,7 +123,6 @@
 				[writer endRow];
 			}
 		}
-		md = [db dataForMonthAfter:md.month];
 	}
 	
 	[connection setResponseStatus:HTTP_STATUS_OK];

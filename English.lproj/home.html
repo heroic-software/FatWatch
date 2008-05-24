@@ -1,7 +1,8 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<title>EatWatch on __NAME__ (__MODEL__)</title>
-		<script language="Javascript">
+		<script language="Javascript" type="text/javascript">
 			function onChange() {
 				var theForm = document.forms['import'];
 				theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
@@ -41,7 +42,7 @@
 			</p>
 			<dl>
 				<dt>
-					<input type="radio" name="how" value="merge" id="merge_button" checked/>
+					<input type="radio" name="how" value="merge" id="merge_button" checked="true"/>
 					<label for="merge_button">Merge with existing data.</label>
 				</dt>
 				<dd>

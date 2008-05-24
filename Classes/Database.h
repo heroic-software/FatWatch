@@ -6,7 +6,7 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "/usr/include/sqlite3.h"
 #import "EWDate.h"
 
@@ -35,30 +35,35 @@ typedef enum {
 #define kKilojoulesPerPound (kKilojoulesPerKilogram / kPoundsPerKilogram)
 
 NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
-									
+void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
+
 @class MonthData;
 
 @interface Database : NSObject {
 	sqlite3 *database;
 	NSUInteger changeCount;
 	NSMutableDictionary *monthCache;
+	EWMonthDay earliestChangeMonthDay;
+	EWMonth earliestMonth, latestMonth;
 }
 
 + (Database *)sharedDatabase;
 
 @property (nonatomic,readonly) NSUInteger changeCount;
+@property (nonatomic,readonly) EWMonth earliestMonth; // from cache
+@property (nonatomic,readonly) EWMonth latestMonth; // from cache
 
-- (sqlite3_stmt *)statementFromSQL:(const char *)sql;
+- (void)openAtPath:(NSString *)path;
+- (void)open;
 - (void)close;
-- (EWMonth)earliestMonth;
-- (NSUInteger)weightCount;
+- (sqlite3_stmt *)statementFromSQL:(const char *)sql;
+- (NSUInteger)weightCount; // from DB
 - (EWWeightUnit)weightUnit;
 - (void)setWeightUnit:(EWWeightUnit)su;
+- (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (MonthData *)dataForMonth:(EWMonth)m;
-- (MonthData *)dataForMonthBefore:(EWMonth)m;
-- (MonthData *)dataForMonthAfter:(EWMonth)m;
-- (float)minimumWeight;
-- (float)maximumWeight;
+- (float)minimumWeight; // from DB
+- (float)maximumWeight; // from DB
 - (void)commitChanges;
 - (void)flushCache;
 

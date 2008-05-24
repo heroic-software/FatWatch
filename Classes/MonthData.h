@@ -6,15 +6,15 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "EWDate.h"
 
 @interface MonthData : NSObject {
 	EWMonth month;
-	unsigned int dirtyBits;
+	UInt32 dirtyBits;
 	float *measuredWeights;
 	float *trendWeights;
-	unsigned int flagBits;
+	UInt32 flagBits;
 	NSMutableArray *notesArray;
 }
 
@@ -25,6 +25,7 @@
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;
+- (float)lastTrendValueAfterUpdateStartingOnDay:(EWDay)day withInputTrend:(float)inputTrend;
 - (float)trendWeightOnDay:(EWDay)day;
 - (BOOL)isFlaggedOnDay:(EWDay)day;
 - (NSString *)noteOnDay:(EWDay)day;

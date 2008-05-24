@@ -14,8 +14,8 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 static sqlite3_stmt *month_before_stmt = nil;
 static sqlite3_stmt *month_after_stmt = nil;
 
-NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
-{
+
+NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit) {
 	switch (weightUnit) {
 		case kWeightUnitPounds: return @"Pounds";
 		case kWeightUnitKilograms: return @"Kilograms";
@@ -23,10 +23,23 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	}
 }
 
+
+void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
+	if (*stmt_ptr != NULL) {
+		sqlite3_finalize(*stmt_ptr);
+		*stmt_ptr = NULL;
+	}
+}
+
+
 @implementation Database
 
-+ (Database *)sharedDatabase
-{
+
+@synthesize changeCount;
+@synthesize earliestMonth;
+@synthesize latestMonth;
+
++ (Database *)sharedDatabase {
 	static Database *db = nil;
 	
 	if (db == nil) {
@@ -35,10 +48,24 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	return db;
 }
 
-@synthesize changeCount;
 
-- (void)ensureDatabaseExists
-{
+- (id)init {
+	if ([super init]) {
+		changeCount = 1;
+		monthCache = [[NSMutableDictionary alloc] init];
+	} 
+	return self;
+}
+
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"%d, %d, %@", 
+			changeCount, 
+			earliestChangeMonthDay, monthCache];
+}
+
+
+- (void)ensureDatabaseExists {
     // First, test for existence.
     BOOL success;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -87,78 +114,68 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
     }
 }
 
-- (void)initializeDatabase
-{
-	// The database is stored in the application bundle. 
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSAssert([paths count], @"Failed to find Documents directory.");
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
+
+- (void)openAtPath:(NSString *)path {
     // Open the database. The database was prepared outside the application.
     if (sqlite3_open([path UTF8String], &database) != SQLITE_OK) {
         // Even though the open failed, call close to properly clean up resources.
         sqlite3_close(database);
         NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
 	}
+
+	changeCount = 0;
+	earliestChangeMonthDay = 0;
+	
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM weight"];
+	int code = sqlite3_step(statement);
+	NSAssert1(code = SQLITE_ROW, @"SELECT returned code %d", code);
+	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
+		earliestMonth = EWMonthFromDate([NSDate date]);
+	} else {
+		earliestMonth = EWMonthDayGetMonth(sqlite3_column_int(statement, 0));
+	}
+	if (sqlite3_column_type(statement, 1) == SQLITE_NULL) {
+		latestMonth = EWMonthFromDate([NSDate date]);
+	} else {
+		latestMonth = EWMonthDayGetMonth(sqlite3_column_int(statement, 1));
+	}
+	sqlite3_finalize(statement);
 }
 
-- (id)init
-{
-	if ([super init]) {
-		changeCount = 1;
-		monthCache = [[NSMutableDictionary alloc] init];
-		[self ensureDatabaseExists];
-		[self initializeDatabase];
-	} 
-	return self;
+
+- (void)open {
+	[self ensureDatabaseExists];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSAssert([paths count] > 0, @"Failed to find Documents directory.");
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
+	[self openAtPath:path];
 }
 
-- (void)close
-{
+
+- (void)close {
 	[self commitChanges];
 	[monthCache release]; monthCache = nil;
 	
 	[MonthData finalizeStatements];
-	if (month_after_stmt) sqlite3_finalize(month_after_stmt);
-	if (month_before_stmt) sqlite3_finalize(month_before_stmt);
+	EWFinalizeStatement(&month_after_stmt);
+	EWFinalizeStatement(&month_before_stmt);
 	
 	if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
-- (sqlite3_stmt *)statementFromSQL:(const char *)sql
-{
+- (sqlite3_stmt *)statementFromSQL:(const char *)sql {
 	sqlite3_stmt *statement;
 	int retCode = sqlite3_prepare_v2(database, sql, -1, &statement, NULL);
 	NSAssert2(retCode == SQLITE_OK, @"Error: failed to prepare statement '%s' with message '%s'.", sql, sqlite3_errmsg(database));
 	return statement;
 }
 
-- (EWMonth)earliestMonth
-{
-	EWMonth dateValue;
 
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday) FROM weight"];
-	int code = sqlite3_step(statement);
-	NSAssert1(code == SQLITE_ROW, @"SELECT returned code %d", code);
-	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
-		dateValue = EWMonthFromDate([NSDate date]);
-	} else {
-		dateValue = EWMonthDayGetMonth(sqlite3_column_int(statement, 0));
-	}
-	sqlite3_finalize(statement);
-	
-	return dateValue;
-}
-
-- (NSUInteger)weightCount
-{
+- (NSUInteger)weightCount {
 	NSUInteger count;
 	
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT COUNT(*) FROM weight WHERE measuredValue IS NOT NULL"];
@@ -170,8 +187,8 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	return count;
 }
 
-- (int)intValueForMetaName:(const char *)name
-{
+
+- (int)intValueForMetaName:(const char *)name {
 	int value = 0;
 	
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT value FROM metadata WHERE name = ?"];
@@ -189,13 +206,13 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	return value;
 }
 
-- (EWWeightUnit)weightUnit
-{
+
+- (EWWeightUnit)weightUnit {
 	return [self intValueForMetaName:"WeightUnit"];
 }
 
-- (void)setWeightUnit:(EWWeightUnit)su
-{
+
+- (void)setWeightUnit:(EWWeightUnit)su {
 	sqlite3_stmt *statement = [self statementFromSQL:"INSERT INTO metadata VALUES (?, ?)"];
 	sqlite3_bind_text(statement, 1, "WeightUnit", 10, SQLITE_STATIC);
 	sqlite3_bind_int(statement, 2, su);
@@ -204,8 +221,15 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	sqlite3_finalize(statement);
 }
 
-- (double)doubleValueFromStatement:(sqlite3_stmt *)statement
-{
+
+- (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday {
+	if ((earliestChangeMonthDay == 0) || (monthday < earliestChangeMonthDay)) {
+		earliestChangeMonthDay = monthday;
+	}
+}
+
+
+- (double)doubleValueFromStatement:(sqlite3_stmt *)statement {
 	int retcode = sqlite3_step(statement);
 	NSAssert1(retcode == SQLITE_ROW, @"SELECT returned code %d", retcode);
 	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
@@ -215,24 +239,24 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	}
 }
 
-- (float)minimumWeight
-{
+
+- (float)minimumWeight {
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(measuredValue) FROM weight"];
 	float weightValue = [self doubleValueFromStatement:statement];
 	sqlite3_finalize(statement);
 	return weightValue;
 }
 
-- (float)maximumWeight
-{
+
+- (float)maximumWeight {
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MAX(measuredValue) FROM weight"];
 	float weightValue = [self doubleValueFromStatement:statement];
 	sqlite3_finalize(statement);
 	return weightValue;
 }
 
-- (MonthData *)dataForMonth:(EWMonth)m
-{
+
+- (MonthData *)dataForMonth:(EWMonth)m {
 	NSNumber *monthKey = [NSNumber numberWithInt:m];
 	MonthData *monthData = [monthCache objectForKey:monthKey];
 	if (monthData != nil) {
@@ -243,66 +267,51 @@ NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit)
 	[monthCache setObject:monthData forKey:monthKey];
 	[monthData release];
 
+	if (m < earliestMonth) earliestMonth = m;
+	if (m > latestMonth) latestMonth = m;
+
 	return monthData;
 }
 
-- (MonthData *)dataForStatement:(sqlite3_stmt *)statement
-{
-	EWMonthDay monthday;
-	
-	int retcode = sqlite3_step(statement);
-	if (retcode == SQLITE_ROW) {
-		monthday = sqlite3_column_int(statement, 0);
-	} else if (retcode == SQLITE_DONE) {
-		sqlite3_reset(statement);
-		return nil;
-	} else {
-		NSAssert1(0, @"Error: failed to execute statement with message '%s'.", sqlite3_errmsg(database));
+
+- (void)updateTrendValues {
+	NSLog(@"Earliest Change: %d", earliestChangeMonthDay);
+	if (earliestChangeMonthDay != 0) {
+		EWMonth month = EWMonthDayGetMonth(earliestChangeMonthDay);
+		EWDay day = EWMonthDayGetDay(earliestChangeMonthDay);
+		MonthData *data = [self dataForMonth:month];
+		float trend = [data inputTrendOnDay:day];
+		trend = [data lastTrendValueAfterUpdateStartingOnDay:day withInputTrend:trend];
+		month += 1;
+		while (month <= latestMonth) {
+			data = [self dataForMonth:month];
+			trend = [data lastTrendValueAfterUpdateStartingOnDay:1 withInputTrend:trend];
+			month += 1;
+		}
+		earliestChangeMonthDay = 0;
 	}
-	sqlite3_reset(statement);
-	
-	return [self dataForMonth:EWMonthDayGetMonth(monthday)];
 }
 
-- (MonthData *)dataForMonthBefore:(EWMonth)m
-{
-	if (month_before_stmt == nil) {
-		month_before_stmt = [self statementFromSQL:"SELECT monthday FROM weight WHERE monthday < ? ORDER BY monthday DESC LIMIT 1"];
-	}
-	sqlite3_bind_int(month_before_stmt, 1, EWMonthDayMake(m, 0));
-	return [self dataForStatement:month_before_stmt];
+
+- (void)executeSQL:(const char *)sql {
+	sqlite3_stmt *stmt = [self statementFromSQL:sql];
+	int code = sqlite3_step(stmt);
+	NSAssert2(code == SQLITE_DONE, @"Error: failed to execute '%s' with message '%s'.", sql, sqlite3_errmsg(database));
+	sqlite3_finalize(stmt);
 }
 
-- (MonthData *)dataForMonthAfter:(EWMonth)m
-{
-	if (month_after_stmt == nil) {
-		month_after_stmt = [self statementFromSQL:"SELECT monthday FROM weight WHERE monthday > ? ORDER BY monthday ASC LIMIT 1"];
-	}
-	sqlite3_bind_int(month_after_stmt, 1, EWMonthDayMake(m+1, 0));
-	return [self dataForStatement:month_after_stmt];
-}
 
-- (void)commitChanges
-{
-	int code;
-	
-	sqlite3_stmt *begin_stmt = [self statementFromSQL:"BEGIN TRANSACTION"];
-	code = sqlite3_step(begin_stmt);
-	NSAssert1(code == SQLITE_DONE, @"Error: failed to begin transaction with message '%s'.", sqlite3_errmsg(database));
-	sqlite3_finalize(begin_stmt);
-	
+- (void)commitChanges {
+	[self updateTrendValues];
+	[self executeSQL:"BEGIN TRANSACTION"];
 	for (MonthData *md in [monthCache allValues]) {
 		if ([md commitChanges]) changeCount++;
 	}
-
-	sqlite3_stmt *end_stmt = [self statementFromSQL:"COMMIT TRANSACTION"];
-	code = sqlite3_step(end_stmt);
-	NSAssert1(code == SQLITE_DONE, @"Error: failed to commit transaction with message '%s'.", sqlite3_errmsg(database));
-	sqlite3_finalize(end_stmt);
+	[self executeSQL:"COMMIT TRANSACTION"];
 }
 
-- (void)flushCache
-{
+
+- (void)flushCache {
 	[monthCache	removeAllObjects];
 	changeCount++;
 }

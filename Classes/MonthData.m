@@ -17,16 +17,17 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 @implementation MonthData
 
+
 @synthesize month;
 
-+ (void)finalizeStatements
-{
-	if (insert_stmt) sqlite3_finalize(insert_stmt);
-	if (data_for_month_stmt) sqlite3_finalize(data_for_month_stmt);
+
++ (void)finalizeStatements {
+	EWFinalizeStatement(&insert_stmt);
+	EWFinalizeStatement(&data_for_month_stmt);
 }
 
-- (id)initWithMonth:(EWMonth)m
-{
+
+- (id)initWithMonth:(EWMonth)m {
 	if ([super init]) {
 		month = m;
 		
@@ -63,6 +64,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	return self;
 }
 
+
 - (void)dealloc {
 	free(measuredWeights);
 	free(trendWeights);
@@ -70,39 +72,53 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	[super dealloc];
 }
 
-- (NSDate *)dateOnDay:(EWDay)day
-{
+
+- (NSString *)description {
+	NSMutableString *text = [NSMutableString string];
+	int i;
+	
+	[text appendFormat:@"month(%d) = {\n", month];
+	for (i = 0; i < 31; i++) {
+		if (measuredWeights[i] > 0) {
+			[text appendFormat:@"\t%d: %f, %f\n", (i+1), measuredWeights[i], trendWeights[i]];
+		}
+	}
+	[text appendFormat:@"}"];
+	
+	return text;
+}
+
+
+- (NSDate *)dateOnDay:(EWDay)day {
 	return NSDateFromEWMonthAndDay(month, day);
 }
 
-- (float)measuredWeightOnDay:(EWDay)day
-{
+
+- (float)measuredWeightOnDay:(EWDay)day {
 	return measuredWeights[day - 1];
 }
 
-- (float)trendWeightOnDay:(EWDay)day
-{
+
+- (float)trendWeightOnDay:(EWDay)day {
 	return trendWeights[day - 1];
 }
 
-- (BOOL)isFlaggedOnDay:(EWDay)day
-{
+
+- (BOOL)isFlaggedOnDay:(EWDay)day {
 	int i = day - 1;
 	return (flagBits & (1 << i)) != 0;
 }
 
-- (NSString *)noteOnDay:(EWDay)day
-{
+
+- (NSString *)noteOnDay:(EWDay)day {
 	id note = [notesArray objectAtIndex:(day - 1)];
 	return (note == [NSNull null] ? nil : note);
 }
 
-// Finds the trend value for the first day with data preceding the given day.
-// If there is no earlier data, returns weight on the given day.
-- (float)inputTrendOnDay:(EWDay)day
-{
+
+- (float)inputTrendOnDay:(EWDay)day {
+	// Finds the trend value for the first day with data preceding the given day.
 	// First, search backwards through this month for a trend value.
-	
 	int i;
 	
 	for (i = (day - 1) - 1; i >= 0; i--) {
@@ -111,48 +127,48 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	}
 	
 	// If none is found, find previous month with data.
-	
-	MonthData *earlierMonthData = [[Database sharedDatabase] dataForMonthBefore:month];
-	if (earlierMonthData) {
-		return [earlierMonthData inputTrendOnDay:31];
+	if (month > [[Database sharedDatabase] earliestMonth]) {
+		return [[[Database sharedDatabase] dataForMonth:(month - 1)] inputTrendOnDay:31];
 	}
 	
+	// If nothing else, just give the weight on the specified day.
 	return measuredWeights[day - 1];
 }
 
-- (void)updateTrendStartingOnDay:(EWDay)day inputTrend:(float)inputTrend
-{
-	int i;
+
+- (float)lastTrendValueAfterUpdateStartingOnDay:(EWDay)day withInputTrend:(float)inputTrend {
 	float previousTrend = inputTrend;
-	for (i = (day - 1); i <= 31; i++) {
-		if (measuredWeights[i] != 0) {
+	int i;
+	
+	for (i = (day - 1); i < 31; i++) {
+		if (measuredWeights[i] > 0) {
 			trendWeights[i] = previousTrend + (0.1f * (measuredWeights[i] - previousTrend));
 			SetBitValueAtIndex(dirtyBits, 1, i);
 			previousTrend = trendWeights[i];
 		}
 	}
-	// TODO: convert to loop to avoid possible stack overflow
-	[[[Database sharedDatabase] dataForMonthAfter:month] updateTrendStartingOnDay:1 inputTrend:previousTrend];
+	
+	return previousTrend;
 }
 
-- (void)setMeasuredWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day
-{
+
+- (void)setMeasuredWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day {
 	int i = day - 1;
+	
+	if (measuredWeights[i] != weight) {
+		[[Database sharedDatabase] didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
+	}
+	
 	measuredWeights[i] = weight;
+	trendWeights[i] = 0;
 	SetBitValueAtIndex(flagBits, flag, i);
 	id object = (note != nil) ? (id)note : (id)[NSNull null];
 	[notesArray replaceObjectAtIndex:i withObject:object];
 	SetBitValueAtIndex(dirtyBits, 1, i);
-	
-	// find next earliest trend value
-	float previousTrend = [self inputTrendOnDay:day];
-	
-	// update this and future trend values
-	[self updateTrendStartingOnDay:day inputTrend:previousTrend];
 }
 
-- (BOOL)commitChanges
-{
+
+- (BOOL)commitChanges {
 	if (dirtyBits == 0) return NO;
 	
 	if (insert_stmt == nil) {

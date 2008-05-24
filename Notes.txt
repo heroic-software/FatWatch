@@ -1,19 +1,9 @@
 Correctness:
-- Saving with no weight does not update trend values properly.
 - Update views after importing.
-- on weight updates, keep track of earliest weight changed date, then recompute trends in one go starting on that date
 - after import, log and graph view "earliest" dates need to be reset
 
-Missing:
-- Application icon: 57x57
-- Settings icon: 29x29
-- Icon for Tab Bar: Log
-- Icon for Tab Bar: Trends
-
 Performance:
-- Don't update trend values if weight didn't change.
 - Switch to graph view is slow.
-- Run a HTML "compressor" on stored HTML files.
 
 Cosmetic:
 - Log view scrolling is a little jerky.

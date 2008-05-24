@@ -22,6 +22,11 @@
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
+		BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
+		BC33840C0DE787D6001F1052 /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
+		BC33840D0DE787DA001F1052 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
+		BC3384220DE78864001F1052 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
+		BC3384250DE7887C001F1052 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC47221B0DE368170081F576 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
 		BC47222A0DE3692C0081F576 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
 		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
@@ -34,7 +39,6 @@
 		BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */; };
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
 		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
-		BC9BDED10DA9D53F0004E70C /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDED00DA9D53F0004E70C /* WeightData.db */; };
 		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
@@ -99,6 +103,7 @@
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
+		BC3384010DE78303001F1052 /* DatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseTest.m; path = Classes/DatabaseTest.m; sourceTree = "<group>"; };
 		BC4722230DE368C80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
@@ -119,7 +124,6 @@
 		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
 		BC9BDE980DA9CB550004E70C /* MonthData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthData.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
-		BC9BDED00DA9D53F0004E70C /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
 		BC9BDEE00DA9D8610004E70C /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		BC9BDEE10DA9D8610004E70C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -162,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */,
+				BC3384220DE78864001F1052 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
-				BC9BDED00DA9D53F0004E70C /* WeightData.db */,
 				BC47221A0DE368170081F576 /* home.html */,
 				BC4722290DE3692C0081F576 /* importPending.html */,
 				BC47222B0DE3692C0081F576 /* importNoData.html */,
@@ -281,6 +285,7 @@
 				BCEAD9E30DE219130017495E /* UnitTests-Info.plist */,
 				BCEADA020DE219E70017495E /* CSVReaderTest.h */,
 				BCEADA030DE219E70017495E /* CSVReaderTest.m */,
+				BC3384010DE78303001F1052 /* DatabaseTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 			buildPhases = (
 				BC9BDEAE0DA9D16A0004E70C /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
+				BC3384F30DE7C89A001F1052 /* ShellScript */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				BC263C330DB56AF9007D03F4 /* CopyFiles */,
@@ -402,7 +408,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC9BDED10DA9D53F0004E70C /* WeightData.db in Resources */,
 				BC263C370DB56B9D007D03F4 /* Root.strings in Resources */,
 				BC47221B0DE368170081F576 /* home.html in Resources */,
 				BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */,
@@ -421,6 +426,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BC3384F30DE7C89A001F1052 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo Tidying HTML\n\nHTML_TIDY_OPTS=\"-modify -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nfind ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME} -name \"*.html\" -print0 | xargs -0 tidy $HTML_TIDY_OPTS\n";
+			showEnvVarsInLog = 0;
+		};
 		BC9BDEAE0DA9D16A0004E70C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,11 +449,11 @@
 				"$(SRCROOT)/CreateEmptyDatabase.sql",
 			);
 			outputPaths = (
-				"$(SRCROOT)/WeightData.db",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/WeightData.db",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DATABASE_FILE=$SRCROOT/WeightData.db\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SRCROOT/CreateEmptyDatabase.sql $DATABASE_FILE\nexit $?\n";
+			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEAD9E00DE219120017495E /* ShellScript */ = {
@@ -488,6 +507,10 @@
 			files = (
 				BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */,
 				BCEADA3D0DE220640017495E /* CSVReader.m in Sources */,
+				BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */,
+				BC33840C0DE787D6001F1052 /* MonthData.m in Sources */,
+				BC33840D0DE787DA001F1052 /* Database.m in Sources */,
+				BC3384250DE7887C001F1052 /* EWDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

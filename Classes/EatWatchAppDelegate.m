@@ -23,6 +23,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	EWDateInit();
+	[[Database sharedDatabase] open];
 	
 	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
 	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
