@@ -149,7 +149,9 @@
 		return;
 	}
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data Received" message:@"Data was received, do you want to store it in this phone?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+	NSString *saveButtonTitle = importReplace ? @"Replace" : @"Merge";
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data Received" message:@"Data was received, do you want to store it in this phone?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:saveButtonTitle, nil];
 	[alert show];
 	[alert release];
 	
@@ -167,18 +169,20 @@
 
 
 - (void)performImport {
+	const Database *db = [Database sharedDatabase];
+
 	if (importReplace) {
-		// delete everything
+		[db deleteWeights];
 	}
 	
 	NSUInteger count = 0;
 	CSVReader *reader = [[CSVReader alloc] initWithData:importData];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
-	const Database *db = [Database sharedDatabase];
 	
 	while ([reader nextRow]) {
 		NSString *dateString = [reader readString];
+		if (dateString == nil) continue;
 		NSDate *date = [formatter dateFromString:dateString];
 		if (date == nil) continue;
 		

@@ -66,5 +66,6 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
 - (float)maximumWeight; // from DB
 - (void)commitChanges;
 - (void)flushCache;
+- (void)deleteWeights;
 
 @end

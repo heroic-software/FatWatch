@@ -52,7 +52,8 @@
 - (NSString *)stringForKey:(NSString *)key {
 	NSData *data = [dictionary objectForKey:key];
 	if (data) {
-		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		return [string autorelease];
 	}
 	return nil;
 }
@@ -134,7 +135,7 @@
 	while (true) {
 		NSUInteger partEndIndex = [boundary nextIndex];
 		if (partEndIndex == NSNotFound) break;
-		NSUInteger partLength = partEndIndex - partBeginIndex;
+		NSUInteger partLength = partEndIndex - partBeginIndex - 4; // avoid \r\n--
 		NSLog(@"Found part from %d to %d", partBeginIndex, partEndIndex);
 		[self parsePartData:[bodyData subdataWithRange:NSMakeRange(partBeginIndex, partLength)]];
 		partBeginIndex = partEndIndex + [boundaryData length] + 2;

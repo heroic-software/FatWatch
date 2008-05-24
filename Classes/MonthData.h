@@ -24,6 +24,7 @@
 - (id)initWithMonth:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
+- (EWDay)firstDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
 - (float)lastTrendValueAfterUpdateStartingOnDay:(EWDay)day withInputTrend:(float)inputTrend;
 - (float)trendWeightOnDay:(EWDay)day;

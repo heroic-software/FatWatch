@@ -374,6 +374,7 @@
 				BCEAD9DD0DE219120017495E /* Resources */,
 				BCEAD9DE0DE219120017495E /* Sources */,
 				BCEAD9DF0DE219120017495E /* Frameworks */,
+				BC33862F0DE7F6A4001F1052 /* ShellScript */,
 				BCEAD9E00DE219120017495E /* ShellScript */,
 			);
 			buildRules = (
@@ -440,6 +441,22 @@
 			shellScript = "echo Tidying HTML\n\nHTML_TIDY_OPTS=\"-modify -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nfind ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME} -name \"*.html\" -print0 | xargs -0 tidy $HTML_TIDY_OPTS\n";
 			showEnvVarsInLog = 0;
 		};
+		BC33862F0DE7F6A4001F1052 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/CreateEmptyDatabase.sql",
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/WeightData.db",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
+			showEnvVarsInLog = 0;
+		};
 		BC9BDEAE0DA9D16A0004E70C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -468,6 +485,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

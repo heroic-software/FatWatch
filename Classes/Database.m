@@ -155,7 +155,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (void)close {
 	[self commitChanges];
-	[monthCache release]; monthCache = nil;
+	[monthCache removeAllObjects];
 	
 	[MonthData finalizeStatements];
 	EWFinalizeStatement(&month_after_stmt);
@@ -164,6 +164,12 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
+}
+
+
+- (void)dealloc {
+	[monthCache release];
+	[super dealloc];
 }
 
 
@@ -279,14 +285,23 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	if (earliestChangeMonthDay != 0) {
 		EWMonth month = EWMonthDayGetMonth(earliestChangeMonthDay);
 		EWDay day = EWMonthDayGetDay(earliestChangeMonthDay);
-		MonthData *data = [self dataForMonth:month];
-		float trend = [data inputTrendOnDay:day];
-		trend = [data lastTrendValueAfterUpdateStartingOnDay:day withInputTrend:trend];
-		month += 1;
+		float trend = 0;
+		
 		while (month <= latestMonth) {
-			data = [self dataForMonth:month];
-			trend = [data lastTrendValueAfterUpdateStartingOnDay:1 withInputTrend:trend];
+			MonthData *data = [self dataForMonth:month];
+			trend = [data inputTrendOnDay:day];
+			if (trend > 0) break;
+			day = [data firstDayWithWeight];
+			if (day == 0) {
+				month += 1;
+				day = 1;
+			}
+		}
+		while (month <= latestMonth) {
+			MonthData *data = [self dataForMonth:month];
+			trend = [data lastTrendValueAfterUpdateStartingOnDay:day withInputTrend:trend];
 			month += 1;
+			day = 1;
 		}
 		earliestChangeMonthDay = 0;
 	}
@@ -314,6 +329,15 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 - (void)flushCache {
 	[monthCache	removeAllObjects];
 	changeCount++;
+}
+
+
+- (void)deleteWeights {
+	[self flushCache];
+	[self executeSQL:"DELETE FROM weight"];
+	earliestMonth = EWMonthFromDate([NSDate date]);
+	latestMonth = earliestMonth;
+	earliestChangeMonthDay = 0;
 }
 
 @end
