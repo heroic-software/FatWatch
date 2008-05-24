@@ -156,11 +156,10 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i = day - 1;
 	
 	if (measuredWeights[i] != weight) {
+		measuredWeights[i] = weight;
+		trendWeights[i] = 0;
 		[[Database sharedDatabase] didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
-	
-	measuredWeights[i] = weight;
-	trendWeights[i] = 0;
 	SetBitValueAtIndex(flagBits, flag, i);
 	id object = (note != nil) ? (id)note : (id)[NSNull null];
 	[notesArray replaceObjectAtIndex:i withObject:object];
