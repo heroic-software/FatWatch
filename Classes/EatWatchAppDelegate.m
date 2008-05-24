@@ -40,6 +40,12 @@
 	[window addSubview:rootViewController.view];
     [window makeKeyAndVisible];
 	
+	// defer web server startup to decrease app startup time
+	[self performSelector:@selector(startWebServer:) withObject:nil afterDelay:2];
+}
+
+
+- (void)startWebServer:(id)sender {
 	MicroWebServer *webServer = [MicroWebServer sharedServer];
 	webServer.name = @"EatWatch";
 	webServer.delegate = [[WebServerDelegate alloc] init];
@@ -48,8 +54,9 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	[[MicroWebServer sharedServer] stop];
-	[[[MicroWebServer sharedServer] delegate] release];
+	MicroWebServer *webServer = [MicroWebServer sharedServer];
+	[webServer stop];
+	[webServer.delegate release];
 	[[Database sharedDatabase] close];
 }
 

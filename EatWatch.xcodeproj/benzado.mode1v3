@@ -265,7 +265,7 @@
 						<key>_historyCapacity</key>
 						<integer>10</integer>
 						<key>bookmark</key>
-						<string>BC3386770DE803A5001F1052</string>
+						<string>BC3386970DE8070E001F1052</string>
 						<key>history</key>
 						<array>
 							<string>BC33866A0DE7FE23001F1052</string>
@@ -305,7 +305,7 @@
 						<key>_historyCapacity</key>
 						<integer>10</integer>
 						<key>bookmark</key>
-						<string>BC33867D0DE803A5001F1052</string>
+						<string>BC3386980DE8070E001F1052</string>
 						<key>history</key>
 						<array>
 							<string>BC33867A0DE803A5001F1052</string>
@@ -365,8 +365,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -464,7 +462,7 @@
 										<key>_historyCapacity</key>
 										<integer>10</integer>
 										<key>bookmark</key>
-										<string>BC3386740DE803A5001F1052</string>
+										<string>BC3386960DE8070E001F1052</string>
 										<key>history</key>
 										<array>
 											<string>BC3384C50DE7BF33001F1052</string>
@@ -501,6 +499,8 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -658,7 +658,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>233309093.37874699</real>
+	<real>233309966.701251</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -673,7 +673,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>BC33867E0DE803A5001F1052</string>
+		<string>BC3386990DE8070E001F1052</string>
 		<string>BC3383FB0DE7819C001F1052</string>
 		<string>BC3383FC0DE7819C001F1052</string>
 		<string>BC56D08F0D8C5F30008D939B</string>

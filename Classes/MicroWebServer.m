@@ -183,8 +183,12 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (void)stop {
 	[netService stop];
 	[netService release];
-	CFSocketInvalidate(listenSocket);
-	CFRelease(listenSocket);
+	netService = nil;
+	if (listenSocket != NULL) {
+		CFSocketInvalidate(listenSocket);
+		CFRelease(listenSocket);
+		listenSocket = NULL;
+	}
 }
 
 
