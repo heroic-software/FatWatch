@@ -12,6 +12,7 @@
 
 @interface DatabaseTest : SenTestCase
 {
+	NSUInteger changeCount;
 }
 @end
 
@@ -24,11 +25,17 @@
 }
 
 
+- (void)databaseDidChange:(NSNotification *)notice {
+	changeCount += 1;
+}
+
+
 - (void)commitDatabase {
-	NSUInteger ccBefore = [[Database sharedDatabase] changeCount];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
+	NSUInteger oldChangeCount = changeCount;
 	[[Database sharedDatabase] commitChanges];
-	NSUInteger ccAfter = [[Database sharedDatabase] changeCount];
-	STAssertTrue(ccBefore != ccAfter, @"change count must change");
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	STAssertTrue(oldChangeCount != changeCount, @"change count must change");
 }
 
 

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface DataViewController : UIViewController {
-	NSUInteger dbChangeCount;
 	UILabel *messageView;
 	UIView *dataView;
 }
 @property (nonatomic,readonly) UIView *dataView;
+- (void)dataChanged;
 @end

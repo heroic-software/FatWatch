@@ -192,10 +192,9 @@
 		NSString *note = [reader readString];
 		
 		if (measuredWeight > 0 || note != nil || flag) {
-			EWMonth month = EWMonthFromDate(date);
-			EWDay day = EWDayFromDate(date);
-			MonthData *md = [db dataForMonth:month];
-			[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:day];
+			EWMonthDay monthday = EWMonthDayFromDate(date);
+			MonthData *md = [db dataForMonth:EWMonthDayGetMonth(monthday)];
+			[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:EWMonthDayGetDay(monthday)];
 			count++;
 		}
 	}

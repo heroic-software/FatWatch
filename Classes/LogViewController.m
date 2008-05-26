@@ -15,10 +15,15 @@
 #import "UnitConvertViewController.h"
 #import "LogTableViewCell.h"
 
+
+@interface LogViewController ()
+- (void)databaseDidChange:(NSNotification *)notice;
+@end
+
+
 @implementation LogViewController
 
-- (id)init
-{
+- (id)init {
 	if (self = [super init]) {
 		self.title = @"Log";
 		firstLoad = YES;
@@ -26,22 +31,49 @@
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
-		
-		earliestMonth = [[Database sharedDatabase] earliestMonth];
-		EWMonth currentMonth = EWMonthFromDate([NSDate date]);
-		EWDay currentDay = EWDayFromDate([NSDate date]);
-		
-		numberOfSections = MAX(1, currentMonth - earliestMonth + 1);
-		
-		lastIndexPath = [NSIndexPath indexPathForRow:(currentDay - 1)
-										   inSection:(numberOfSections - 1)];
-		[lastIndexPath retain];
 	}
 	return self;
 }
 
-- (void)loadView
-{
+
+- (void)startObservingDatabase {
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+	[self databaseDidChange:nil];
+}
+
+
+- (void)stopObservingDatabase {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)databaseDidChange:(NSNotification *)notice {
+	EWMonthDay today = EWMonthDayFromDate([NSDate date]);
+	Database *db = [Database sharedDatabase];
+	
+	earliestMonth = db.earliestMonth;
+	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
+
+	NSUInteger row, section;
+	section = latestMonth - earliestMonth;
+	if (latestMonth == EWMonthDayGetMonth(today)) {
+		row = EWMonthDayGetDay(today) - 1;
+	} else {
+		row = EWDaysInMonth(latestMonth) - 1;
+	}
+	[lastIndexPath release];
+	lastIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
+	[lastIndexPath retain];
+	
+	UITableView *tableView = (UITableView *)self.view;
+	[tableView reloadData];
+}
+
+
+- (void)loadView {
 	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	
@@ -53,20 +85,21 @@
 	[tableView release];
 }
 
-- (EWMonth)monthForSection:(NSInteger)section
-{
+
+- (EWMonth)monthForSection:(NSInteger)section {
 	return earliestMonth + section;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self startObservingDatabase];
+	
 	UITableView *tableView = (UITableView *)self.view;
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
 	if (tableSelection) {
 		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
 	}
 
-	[tableView reloadData];
 	if (firstLoad) {
 		[tableView scrollToRowAtIndexPath:lastIndexPath
 						 atScrollPosition:UITableViewScrollPositionBottom 
@@ -74,8 +107,8 @@
 	}
 }
 
-- (void)autoWeighInIfEnabled
-{
+
+- (void)autoWeighInIfEnabled {
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
 	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
@@ -85,8 +118,8 @@
 	}
 }
 
-- (UIView *)findSubviewOfView:(UIView *)parent ofClass:(Class)viewClass
-{
+
+- (UIView *)findSubviewOfView:(UIView *)parent ofClass:(Class)viewClass {
 	for (UIView *subview in [parent subviews]) {
 		if ([subview isKindOfClass:viewClass]) {
 			return subview;
@@ -98,8 +131,8 @@
 	return nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+
+- (void)viewDidAppear:(BOOL)animated {
 	if (firstLoad) {
 		EWWeightUnit databaseWeightUnit = [[Database sharedDatabase] weightUnit];
 		EWWeightUnit defaultsWeightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"WeightUnit"];
@@ -132,29 +165,34 @@
 	}
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self stopObservingDatabase];
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+- (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	[[logEntryViewController navigationController] release];
 	[logEntryViewController release]; // maybe we need to check for use?
 	logEntryViewController = nil;
 }
 
-- (void)dealloc
-{
+
+- (void)dealloc {
 	[lastIndexPath release];
 	[sectionTitleFormatter release];
 	[logEntryViewController release];
 	[super dealloc];
 }
 
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag
-{
+
+- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
 		[[UINavigationController alloc] initWithRootViewController:logEntryViewController];
@@ -165,16 +203,16 @@
 	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:YES];
 }
 
+
 #pragma mark UITableViewDataSource (Required)
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-	return numberOfSections;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return latestMonth - earliestMonth + 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	if (section == numberOfSections - 1) {
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (section == [lastIndexPath section]) {
 		return [lastIndexPath row] + 1;
 	} else {
 		EWMonth month = [self monthForSection:section];
@@ -182,19 +220,19 @@
 	}
 }
 
+
 #pragma mark UITableViewDataSource (Optional)
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	EWMonth month = [self monthForSection:section];
-	NSDate *theDate = NSDateFromEWMonthAndDay(month, 1);
+	NSDate *theDate = EWDateFromMonthAndDay(month, 1);
 	return [sectionTitleFormatter stringFromDate:theDate];
 }
 
+
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	LogTableViewCell *cell = nil;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
@@ -211,10 +249,10 @@
 	return cell;
 }
 
+
 #pragma mark UITableViewDelegate (Optional)
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	EWMonth month = [self monthForSection:[indexPath section]];
 	MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
 	EWDay day = 1 + [indexPath row];

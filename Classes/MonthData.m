@@ -90,7 +90,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (NSDate *)dateOnDay:(EWDay)day {
-	return NSDateFromEWMonthAndDay(month, day);
+	return EWDateFromMonthAndDay(month, day);
 }
 
 

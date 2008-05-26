@@ -34,7 +34,7 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 }
 
 
-NSDate *NSDateFromEWMonthAndDay(EWMonth m, EWDay d) {
+NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 	components.month = m;
 	components.day = d;
 	NSDate *theDate = [calendar dateByAddingComponents:components
@@ -44,18 +44,8 @@ NSDate *NSDateFromEWMonthAndDay(EWMonth m, EWDay d) {
 }
 
 
-EWMonth EWMonthFromDate(NSDate *theDate) {
-	NSDateComponents *components;
-	components = [calendar components:NSMonthCalendarUnit | NSDayCalendarUnit
-							 fromDate:refDate
-							   toDate:theDate
-							  options:0];
-	return components.month;
-}
-
-
-EWDay EWDayFromDate(NSDate *theDate) {
-	NSDateComponents *components;
-	components = [calendar components:NSDayCalendarUnit fromDate:theDate];
-	return components.day;
+EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
+	NSDateComponents *monthComponents = [calendar components:NSMonthCalendarUnit | NSDayCalendarUnit fromDate:refDate toDate:theDate options:0];
+	NSDateComponents *dayComponents = [calendar components:NSDayCalendarUnit fromDate:theDate];
+	return EWMonthDayMake(monthComponents.month, dayComponents.day);
 }

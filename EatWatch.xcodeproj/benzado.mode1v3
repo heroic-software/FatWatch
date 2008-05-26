@@ -349,7 +349,7 @@
 							<real>196</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>305 182 983 596 0 0 1280 778 </string>
+						<string>237 176 983 596 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -360,14 +360,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>EatWatchAppDelegate.m</string>
+								<string>Defaults.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -375,27 +373,24 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>EatWatchAppDelegate.m</string>
+										<string>Defaults.plist</string>
 										<key>_historyCapacity</key>
 										<integer>10</integer>
 										<key>bookmark</key>
-										<string>BC65E9A80DEB3EC20008E677</string>
+										<string>BC65EA5B0DEB5A350008E677</string>
 										<key>history</key>
 										<array>
 											<string>BC3384C50DE7BF33001F1052</string>
-											<string>BC65E9940DEB3EC20008E677</string>
 											<string>BC65E9950DEB3EC20008E677</string>
 											<string>BC65E9960DEB3EC20008E677</string>
 											<string>BC65E9970DEB3EC20008E677</string>
-											<string>BC65E9980DEB3EC20008E677</string>
 											<string>BC65E9990DEB3EC20008E677</string>
-											<string>BC65E99A0DEB3EC20008E677</string>
+											<string>BC65E9AE0DEB42A60008E677</string>
+											<string>BC65E9AF0DEB42A60008E677</string>
 										</array>
 										<key>prevStack</key>
 										<array>
-											<string>BC33848A0DE7B502001F1052</string>
 											<string>BC3384CD0DE7BF33001F1052</string>
-											<string>BC65E99B0DEB3EC20008E677</string>
 											<string>BC65E99C0DEB3EC20008E677</string>
 											<string>BC65E99D0DEB3EC20008E677</string>
 											<string>BC65E99E0DEB3EC20008E677</string>
@@ -408,6 +403,7 @@
 											<string>BC65E9A50DEB3EC20008E677</string>
 											<string>BC65E9A60DEB3EC20008E677</string>
 											<string>BC65E9A70DEB3EC20008E677</string>
+											<string>BC65E9B00DEB42A60008E677</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -419,16 +415,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {743, 383}}</string>
+								<string>{{0, 0}, {743, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>305 182 983 596 0 0 1280 778 </string>
+								<string>237 176 983 596 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>383pt</string>
+							<string>0pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -439,14 +437,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 388}, {743, 167}}</string>
+								<string>{{0, 5}, {743, 550}}</string>
 								<key>RubberWindowFrame</key>
-								<string>305 182 983 596 0 0 1280 778 </string>
+								<string>237 176 983 596 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>167pt</string>
+							<string>550pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -586,7 +584,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>233520834.50949401</real>
+	<real>233527861.03177899</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -601,6 +599,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>BC65EA260DEB532C0008E677</string>
 		<string>BC65E9AA0DEB3EC20008E677</string>
 		<string>BC65E9AB0DEB3EC20008E677</string>
 		<string>BC56D08F0D8C5F30008D939B</string>
@@ -610,7 +609,7 @@
 		<string>/Users/benzado/Projects/iPhone/EatWatch/EatWatch.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>305 182 983 596 0 0 1280 778 </string>
+	<string>237 176 983 596 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -648,6 +647,8 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
@@ -844,6 +845,8 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -856,9 +859,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {1029, 351}}</string>
+										<string>{{0, 0}, {1029, 359}}</string>
 										<key>RubberWindowFrame</key>
-										<string>16 71 1029 651 0 0 1280 778 </string>
+										<string>213 98 1029 651 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXNavigatorGroup</string>
@@ -867,11 +870,9 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>351pt</string>
+							<string>359pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -882,14 +883,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 356}, {1029, 254}}</string>
+								<string>{{0, 364}, {1029, 246}}</string>
 								<key>RubberWindowFrame</key>
-								<string>16 71 1029 651 0 0 1280 778 </string>
+								<string>213 98 1029 651 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>254pt</string>
+							<string>246pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -913,7 +914,7 @@
 				<string>1CD0528E0623707200166675</string>
 			</array>
 			<key>WindowString</key>
-			<string>16 71 1029 651 0 0 1280 778 </string>
+			<string>213 98 1029 651 0 0 1280 778 </string>
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>

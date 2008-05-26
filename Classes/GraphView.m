@@ -35,7 +35,7 @@
 	CGContextStrokePath(ctxt);
 
 	// month and year label at the top
-	NSDate *date = NSDateFromEWMonthAndDay(month, 1);
+	NSDate *date = EWDateFromMonthAndDay(month, 1);
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
 	formatter.dateFormat = @"MMMM yyyy";

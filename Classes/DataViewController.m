@@ -13,27 +13,58 @@
 
 @synthesize dataView;
 
-- (id)init
-{
+- (id)init {
 	return [super initWithNibName:nil bundle:nil];
 }
 
-- (NSString *)message
-{
+
+- (NSString *)message {
 	return nil;
 }
 
-- (UIView *)loadDataView
-{
+
+- (UIView *)loadDataView {
 	return nil;
 }
 
-- (void)dataChanged
-{
+
+- (void)databaseDidChange:(NSNotification *)notice {
+	if ([[Database sharedDatabase] weightCount] > 1) {
+		[self dataChanged];
+		if ([dataView superview] == nil) {
+			[messageView removeFromSuperview];
+			dataView.frame = self.view.bounds;
+			[self.view addSubview:dataView];
+		}
+	} else {
+		if ([messageView superview] == nil) {
+			[dataView removeFromSuperview];
+			messageView.frame = CGRectInset(self.view.bounds, 20, 20);
+			[self.view addSubview:messageView];
+		}
+	}
 }
 
-- (void)loadView
-{
+
+- (void)startObservingDatabase {
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+	[self databaseDidChange:nil];
+}
+
+
+- (void)stopObservingDatabase {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)dataChanged {
+}
+
+
+- (void)loadView {
 	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	mainView.autoresizesSubviews = YES;
@@ -50,37 +81,33 @@
 	dataView = [[self loadDataView] retain];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	Database *database = [Database sharedDatabase];
-	
-	if ([database changeCount] != dbChangeCount) {
-		if ([database weightCount] > 1) {
-			if ([dataView superview] == nil) {
-				[messageView removeFromSuperview];
-				dataView.frame = self.view.bounds;
-				[self.view addSubview:dataView];
-			}
-			[self dataChanged];
-		} else {
-			if ([messageView superview] == nil) {
-				[dataView removeFromSuperview];
-				messageView.frame = CGRectInset(self.view.bounds, 20, 20);
-				[self.view addSubview:messageView];
-			}
-		}
-		dbChangeCount = [database changeCount];
-	}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self startObservingDatabase];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self stopObservingDatabase];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[messageView removeFromSuperview];
+	[dataView removeFromSuperview];
+}
+
+
 - (void)didReceiveMemoryWarning {
-	BOOL shouldReleaseSubviews = ([self.view superview] == nil);
 	[super didReceiveMemoryWarning];
-	if (shouldReleaseSubviews) {
+	if ([messageView superview] == nil) {
 		[messageView release]; messageView = nil;
+	}
+	if ([dataView superview] == nil) {
 		[dataView release]; dataView = nil;
 	}
 }
+
 
 - (void)dealloc {
 	[messageView release];

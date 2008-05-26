@@ -26,22 +26,23 @@ typedef enum {
 	kEnergyUnitKilojoules = 2
 } EWEnergyUnit;
 
-#define kCaloriesPerPound 3500
-#define kKilojoulesPerKilogram 7716
+static const float kCaloriesPerPound = 3500;
+static const float kKilojoulesPerKilogram = 7716;
 
 #define kPoundsPerKilogram 0.45359237f
 
-#define kCaloriesPerKilogram (kCaloriesPerPound * kPoundsPerKilogram)
-#define kKilojoulesPerPound (kKilojoulesPerKilogram / kPoundsPerKilogram)
+static const float kCaloriesPerKilogram = (3500 * kPoundsPerKilogram);
+static const float kKilojoulesPerPound = (7716 / kPoundsPerKilogram);
 
-NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
-void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
+extern NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
+extern void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
+
+extern NSString *EWDatabaseDidChangeNotification;
 
 @class MonthData;
 
 @interface Database : NSObject {
 	sqlite3 *database;
-	NSUInteger changeCount;
 	NSMutableDictionary *monthCache;
 	EWMonthDay earliestChangeMonthDay;
 	EWMonth earliestMonth, latestMonth;
@@ -49,7 +50,6 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
 
 + (Database *)sharedDatabase;
 
-@property (nonatomic,readonly) NSUInteger changeCount;
 @property (nonatomic,readonly) EWMonth earliestMonth; // from cache
 @property (nonatomic,readonly) EWMonth latestMonth; // from cache
 

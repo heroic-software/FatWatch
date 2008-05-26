@@ -66,8 +66,9 @@ static NSNumberFormatter *energyFormatter = nil;
 	}
 
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
-	EWMonth curMonth = EWMonthFromDate([NSDate date]);
-	EWDay curDay = EWDayFromDate([NSDate date]);
+	EWMonthDay curMonthDay = EWMonthDayFromDate([NSDate date]);
+	EWMonth curMonth = EWMonthDayGetMonth(curMonthDay);
+	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	MonthData *data = [database dataForMonth:curMonth];
 	EWMonth earliestMonth = [database earliestMonth];
 	

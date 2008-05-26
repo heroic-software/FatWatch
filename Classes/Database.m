@@ -9,6 +9,8 @@
 #import "Database.h"
 #import "MonthData.h"
 
+NSString *EWDatabaseDidChangeNotification = @"EWDatabaseDidChangeNotification";
+
 static NSString *kWeightDatabaseName = @"WeightData.db";
 
 static sqlite3_stmt *month_before_stmt = nil;
@@ -35,9 +37,9 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 @implementation Database
 
 
-@synthesize changeCount;
 @synthesize earliestMonth;
 @synthesize latestMonth;
+
 
 + (Database *)sharedDatabase {
 	static Database *db = nil;
@@ -51,17 +53,9 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (id)init {
 	if ([super init]) {
-		changeCount = 1;
 		monthCache = [[NSMutableDictionary alloc] init];
 	} 
 	return self;
-}
-
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"%d, %d, %@", 
-			changeCount, 
-			earliestChangeMonthDay, monthCache];
 }
 
 
@@ -123,19 +117,19 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
         NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
 	}
 
-	changeCount = 0;
 	earliestChangeMonthDay = 0;
+	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayFromDate([NSDate date]));
 	
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM weight"];
 	int code = sqlite3_step(statement);
 	NSAssert1(code = SQLITE_ROW, @"SELECT returned code %d", code);
 	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
-		earliestMonth = EWMonthFromDate([NSDate date]);
+		earliestMonth = currentMonth;
 	} else {
 		earliestMonth = EWMonthDayGetMonth(sqlite3_column_int(statement, 0));
 	}
 	if (sqlite3_column_type(statement, 1) == SQLITE_NULL) {
-		latestMonth = EWMonthFromDate([NSDate date]);
+		latestMonth = currentMonth;
 	} else {
 		latestMonth = EWMonthDayGetMonth(sqlite3_column_int(statement, 1));
 	}
@@ -317,25 +311,30 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 
 - (void)commitChanges {
+	int changeCount = 0;
+	
 	[self updateTrendValues];
 	[self executeSQL:"BEGIN TRANSACTION"];
 	for (MonthData *md in [monthCache allValues]) {
 		if ([md commitChanges]) changeCount++;
 	}
 	[self executeSQL:"COMMIT TRANSACTION"];
+	
+	if (changeCount > 0) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:EWDatabaseDidChangeNotification object:self];
+	}
 }
 
 
 - (void)flushCache {
 	[monthCache	removeAllObjects];
-	changeCount++;
 }
 
 
 - (void)deleteWeights {
 	[self flushCache];
 	[self executeSQL:"DELETE FROM weight"];
-	earliestMonth = EWMonthFromDate([NSDate date]);
+	earliestMonth = EWMonthDayGetMonth(EWMonthDayFromDate([NSDate date]));
 	latestMonth = earliestMonth;
 	earliestChangeMonthDay = 0;
 }

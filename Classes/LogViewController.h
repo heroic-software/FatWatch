@@ -16,9 +16,8 @@
 @interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	LogEntryViewController *logEntryViewController;
 	BOOL firstLoad;
-	EWMonth earliestMonth;
 	NSDateFormatter *sectionTitleFormatter;
-	NSUInteger numberOfSections;
+	EWMonth earliestMonth, latestMonth;
 	NSIndexPath *lastIndexPath;
 }
 - (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag;
