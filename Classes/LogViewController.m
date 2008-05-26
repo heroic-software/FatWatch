@@ -76,9 +76,7 @@
 
 - (void)autoWeighInIfEnabled
 {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"AutoWeighIn"]];
-	if (! [defs boolForKey:@"AutoWeighIn"]) return;
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
 	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
 	EWDay day = ([lastIndexPath row] + 1);

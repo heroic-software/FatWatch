@@ -21,7 +21,18 @@
 
 @implementation EatWatchAppDelegate
 
+- (void)registerDefaults {
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"];
+	NSAssert(path != nil, @"registration domain defaults plist is missing");
+	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
+	[dict release];
+}
+
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[self registerDefaults];
+	
 	EWDateInit();
 	[[Database sharedDatabase] open];
 	
@@ -40,8 +51,10 @@
 	[window addSubview:rootViewController.view];
     [window makeKeyAndVisible];
 	
-	// defer web server startup to decrease app startup time
-	[self performSelector:@selector(startWebServer:) withObject:nil afterDelay:2];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableWebSharing"]) {
+		// defer web server startup to decrease app startup time
+		[self performSelector:@selector(startWebServer:) withObject:nil afterDelay:2];
+	}
 }
 
 

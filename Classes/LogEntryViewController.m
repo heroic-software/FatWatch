@@ -29,10 +29,9 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		titleFormatter = [[NSDateFormatter alloc] init];
 		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
-		
-		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.5f] forKey:@"ScaleIncrement"]];
-		scaleIncrement = [defs floatForKey:@"ScaleIncrement"]; 
+
+		scaleIncrement = [[NSUserDefaults standardUserDefaults] floatForKey:@"ScaleIncrement"]; 
+		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
 }

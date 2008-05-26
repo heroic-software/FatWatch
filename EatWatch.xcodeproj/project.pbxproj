@@ -33,6 +33,7 @@
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
+		BC65E9690DEB3BF20008E677 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65E9680DEB3BF20008E677 /* Defaults.plist */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
@@ -109,6 +110,7 @@
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
+		BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlopeComputer.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
+				BC65E9680DEB3BF20008E677 /* Defaults.plist */,
 				BC47221A0DE368170081F576 /* home.html */,
 				BC4722290DE3692C0081F576 /* importPending.html */,
 				BC47222B0DE3692C0081F576 /* importNoData.html */,
@@ -414,6 +417,7 @@
 				BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */,
 				BC47222A0DE3692C0081F576 /* importPending.html in Resources */,
 				BC47222C0DE3692C0081F576 /* importNoData.html in Resources */,
+				BC65E9690DEB3BF20008E677 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

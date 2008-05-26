@@ -28,9 +28,7 @@ static NSNumberFormatter *energyFormatter = nil;
 	Database *database = [Database sharedDatabase];
 	
 	if (weightFormatter == nil) {
-		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-		[defs registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kEnergyUnitCalories] forKey:@"EnergyUnit"]];
-		EWEnergyUnit energyUnit = [defs integerForKey:@"EnergyUnit"];
+		EWEnergyUnit energyUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"EnergyUnit"];
 		EWWeightUnit weightUnit = [database weightUnit];
 		NSAssert1(weightUnit != 0, @"Unknown weight unit in database: %d", weightUnit);
 		

@@ -15,7 +15,6 @@ Cosmetic:
 Enhancement:
 - Display progress bar when updating trend values.
 - Graph view: support zooming
-- Show alert on device to confirm or cancel data upload.
 
 Usability:
 - User needs quick way of getting to "Today" on log view and graph view.

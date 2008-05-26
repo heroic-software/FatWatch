@@ -61,7 +61,7 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<real>0.10000000000000001</real>
+				<real>0.1</real>
 				<real>0.5</real>
 				<real>1</real>
 			</array>
@@ -79,6 +79,16 @@
 			<string>AutoWeighIn</string>
 			<key>Title</key>
 			<string>AUTO_WEIGH_IN</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>EnableWebSharing</string>
+			<key>Title</key>
+			<string>ENABLE_WEB_SHARING</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
