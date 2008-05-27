@@ -92,8 +92,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
-		BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnitConvertViewController.h; path = Classes/UnitConvertViewController.h; sourceTree = "<group>"; };
-		BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnitConvertViewController.m; path = Classes/UnitConvertViewController.m; sourceTree = "<group>"; };
 		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataViewController.h; path = Classes/DataViewController.h; sourceTree = "<group>"; };
 		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataViewController.m; path = Classes/DataViewController.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -329,8 +327,6 @@
 				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
-				BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */,
-				BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */,
 				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
 				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
 			);

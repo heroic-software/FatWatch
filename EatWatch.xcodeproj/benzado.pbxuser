@@ -728,20 +728,18 @@
 			sepNavWindowFrame = "{{409, 60}, {767, 718}}";
 		};
 	};
-	BC0212EA0DC1784F00BA97BB /* UnitConvertViewController.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 301}}";
-			sepNavSelRange = "{180, 0}";
-			sepNavVisRange = "{0, 245}";
-			sepNavWindowFrame = "{{15, 77}, {857, 696}}";
-		};
-	};
 	BC0212EB0DC1784F00BA97BB /* UnitConvertViewController.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = UnitConvertViewController.m;
+		path = /Users/benzado/Projects/iPhone/EatWatch/Classes/UnitConvertViewController.m;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {687, 1526}}";
+			sepNavIntBoundsRect = "{{0, 0}, {798, 1512}}";
 			sepNavSelRange = "{1172, 86}";
-			sepNavVisRange = "{0, 1356}";
-			sepNavWindowFrame = "{{201, 68}, {746, 698}}";
+			sepNavVisRange = "{48, 1456}";
+			sepNavWindowFrame = "{{15, 77}, {857, 696}}";
 		};
 	};
 	BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {
