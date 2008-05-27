@@ -13,7 +13,9 @@
 	NSMutableData *data;
 	NSInteger columnIndex;
 	NSCharacterSet *quotedCharSet;
+	NSNumberFormatter *floatFormatter;
 }
+@property (nonatomic,retain) NSNumberFormatter *floatFormatter;
 - (void)addString:(NSString *)value;
 - (void)addFloat:(float)value;
 - (void)addBoolean:(BOOL)value;

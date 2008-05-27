@@ -11,6 +11,10 @@
 
 @implementation CSVWriter
 
+
+@synthesize floatFormatter;
+
+
 - (id)init {
 	if ([super init]) {
 		data = [[NSMutableData alloc] init];
@@ -21,6 +25,7 @@
 
 
 - (void)dealloc {
+	[floatFormatter release];
 	[quotedCharSet release];
 	[data release];
 	[super dealloc];
@@ -53,7 +58,11 @@
 
 
 - (void)addFloat:(float)value {
-	[self addString:[NSString stringWithFormat:@"%f", value]];
+	if (floatFormatter) {
+		[self addString:[floatFormatter stringFromNumber:[NSNumber numberWithFloat:value]]];
+	} else {
+		[self addString:[NSString stringWithFormat:@"%f", value]];
+	}
 }
 
 

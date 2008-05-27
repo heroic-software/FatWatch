@@ -13,7 +13,7 @@
 #import "MicroWebServer.h"
 #import "Database.h"
 #import "FormDataParser.h"
-
+#import "WeightFormatter.h"
 
 #define HTTP_STATUS_OK 200
 #define HTTP_STATUS_NOT_FOUND 404
@@ -102,6 +102,7 @@
 
 - (void)handleExport:(MicroWebConnection *)connection {
 	CSVWriter *writer = [[CSVWriter alloc] init];
+	writer.floatFormatter = [WeightFormatter exportNumberFormatter];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
 	
@@ -183,6 +184,7 @@
 	
 	NSUInteger count = 0;
 	CSVReader *reader = [[CSVReader alloc] initWithData:importData];
+	reader.floatFormatter = [WeightFormatter exportNumberFormatter];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
 	

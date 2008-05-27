@@ -95,6 +95,21 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
++ (NSNumberFormatter *)exportNumberFormatter {
+	EWWeightUnit weightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	switch (weightUnit) {
+		case kWeightUnitKilograms:
+			[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
+			break;
+	}
+	return [formatter autorelease];
+}
+
+
 - (NSNumberFormatter *)newChangeFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];

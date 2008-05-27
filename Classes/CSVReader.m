@@ -24,6 +24,10 @@
 
 @implementation CSVReader
 
+
+@synthesize floatFormatter;
+
+
 - (id)initWithData:(NSData *)csvData {
 	if ([super init]) {
 		data = [csvData retain];
@@ -33,6 +37,7 @@
 
 
 - (void)dealloc {
+	[floatFormatter release];
 	[data release];
 	[super dealloc];
 }
@@ -191,7 +196,10 @@
 
 
 - (float)readFloat {
-	NSString *value = [self readString];
+	id value = [self readString];
+	if (floatFormatter) {
+		value = [floatFormatter numberFromString:value];
+	}
 	return [value floatValue];
 }
 

@@ -12,7 +12,9 @@
 @interface CSVReader : NSObject {
 	NSData *data;
 	NSUInteger dataIndex;
+	NSNumberFormatter *floatFormatter;
 }
+@property (nonatomic,retain) NSNumberFormatter *floatFormatter;
 - (id)initWithData:(NSData *)csvData;
 - (BOOL)nextRow;
 - (NSString *)readString;

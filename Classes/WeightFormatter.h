@@ -26,8 +26,9 @@
 
 + (float)scaleIncrement;
 
-+ (WeightFormatter *)sharedFormatter;
++ (NSNumberFormatter *)exportNumberFormatter;
 
++ (WeightFormatter *)sharedFormatter;
 - (NSString *)stringFromMeasuredWeight:(float)measuredWeight;
 - (NSString *)stringFromTrendDifference:(float)difference;
 - (NSString *)weightPerWeekStringFromWeightChange:(float)weightPerDay;
