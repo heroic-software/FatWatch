@@ -53,22 +53,34 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
-+ (void)setWeightUnit:(int)index {
++ (int)indexOfSelectedWeightUnit {
+	EWWeightUnit weightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	return weightUnit - 1;
+}
+
+
++ (void)selectWeightUnitAtIndex:(int)index {
 	EWWeightUnit weightUnit = index + 1;
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	
-	[defs setInteger:weightUnit forKey:kWeightUnitKey];
-	if ([defs integerForKey:kEnergyUnitKey] == 0) {
-		switch (weightUnit) {
-			case kWeightUnitStones:
-			case kWeightUnitPounds:
-				[defs setInteger:kEnergyUnitCalories forKey:kEnergyUnitKey]; 
-				break;
-			case kWeightUnitKilograms:
-				[defs setInteger:kEnergyUnitKilojoules forKey:kEnergyUnitKey]; 
-				break;
-		}
-	}
+	[[NSUserDefaults standardUserDefaults] setInteger:weightUnit forKey:kWeightUnitKey];
+}
+
+
++ (NSArray *)energyUnitNames {
+	NSString *calories = NSLocalizedString(@"CALORIES", nil);
+	NSString *kilojoules = NSLocalizedString(@"KILOJOULES", nil);
+	return [NSArray arrayWithObjects:calories, kilojoules, nil];
+}
+
+
++ (int)indexOfSelectedEnergyUnit {
+	EWEnergyUnit energyUnit = [[NSUserDefaults standardUserDefaults] integerForKey:kEnergyUnitKey];
+	return energyUnit - 1;
+}
+
+
++ (void)selectEnergyUnitAtIndex:(int)index {
+	EWEnergyUnit energyUnit = index + 1;
+	[[NSUserDefaults standardUserDefaults] setInteger:energyUnit forKey:kEnergyUnitKey];
 }
 
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewDatabaseViewController : UIViewController {
+@interface NewDatabaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 }
+- (void)dismissView;
 @end

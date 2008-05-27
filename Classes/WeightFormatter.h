@@ -15,12 +15,22 @@
 	NSNumberFormatter *energyFormatter;
 	NSString *stoneFormat;
 }
-+ (float)scaleIncrement;
+
 + (NSArray *)weightUnitNames;
-+ (void)setWeightUnit:(int)index;
++ (int)indexOfSelectedWeightUnit;
++ (void)selectWeightUnitAtIndex:(int)index;
+
++ (NSArray *)energyUnitNames;
++ (int)indexOfSelectedEnergyUnit;
++ (void)selectEnergyUnitAtIndex:(int)index;
+
++ (float)scaleIncrement;
+
 + (WeightFormatter *)sharedFormatter;
+
 - (NSString *)stringFromMeasuredWeight:(float)measuredWeight;
 - (NSString *)stringFromTrendDifference:(float)difference;
 - (NSString *)weightPerWeekStringFromWeightChange:(float)weightPerDay;
 - (NSString *)energyPerDayStringFromWeightChange:(float)weightPerDay;
+
 @end

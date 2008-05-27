@@ -575,6 +575,114 @@
 			BC65EC030DEBB6700008E677 /* PBXTextBookmark */ = BC65EC030DEBB6700008E677 /* PBXTextBookmark */;
 			BC65EC040DEBB6700008E677 /* PBXTextBookmark */ = BC65EC040DEBB6700008E677 /* PBXTextBookmark */;
 			BC65EC060DEBB7CA0008E677 /* PBXBookmark */ = BC65EC060DEBB7CA0008E677 /* PBXBookmark */;
+			BC65EC130DEBC04B0008E677 /* PBXTextBookmark */ = BC65EC130DEBC04B0008E677 /* PBXTextBookmark */;
+			BC65EC150DEBC0550008E677 /* PBXBookmark */ = BC65EC150DEBC0550008E677 /* PBXBookmark */;
+			BC65EC180DEBC0550008E677 /* PBXTextBookmark */ = BC65EC180DEBC0550008E677 /* PBXTextBookmark */;
+			BC65EC1D0DEBC0A10008E677 /* PBXTextBookmark */ = BC65EC1D0DEBC0A10008E677 /* PBXTextBookmark */;
+			BC65EC1F0DEBC0B70008E677 /* PBXBookmark */ = BC65EC1F0DEBC0B70008E677 /* PBXBookmark */;
+			BC65EC200DEBC0B70008E677 /* PBXTextBookmark */ = BC65EC200DEBC0B70008E677 /* PBXTextBookmark */;
+			BC65EC210DEBC0B70008E677 /* PBXTextBookmark */ = BC65EC210DEBC0B70008E677 /* PBXTextBookmark */;
+			BC65EC220DEBC0B70008E677 /* PBXTextBookmark */ = BC65EC220DEBC0B70008E677 /* PBXTextBookmark */;
+			BC65EC230DEBC0B70008E677 /* PBXTextBookmark */ = BC65EC230DEBC0B70008E677 /* PBXTextBookmark */;
+			BC65EC280DEBC0FA0008E677 /* PBXBookmark */ = BC65EC280DEBC0FA0008E677 /* PBXBookmark */;
+			BC65EC2B0DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC2B0DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC2C0DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC2C0DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC2D0DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC2D0DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC2E0DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC2E0DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC2F0DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC2F0DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC300DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC300DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC310DEBC0FA0008E677 /* PBXTextBookmark */ = BC65EC310DEBC0FA0008E677 /* PBXTextBookmark */;
+			BC65EC340DEBC14B0008E677 /* PBXBookmark */ = BC65EC340DEBC14B0008E677 /* PBXBookmark */;
+			BC65EC350DEBC14B0008E677 /* PBXTextBookmark */ = BC65EC350DEBC14B0008E677 /* PBXTextBookmark */;
+			BC65EC360DEBC14B0008E677 /* PBXTextBookmark */ = BC65EC360DEBC14B0008E677 /* PBXTextBookmark */;
+			BC65EC390DEBC36E0008E677 /* PBXBookmark */ = BC65EC390DEBC36E0008E677 /* PBXBookmark */;
+			BC65EC3A0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3A0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC3B0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3B0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC3C0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3C0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC3D0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3D0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC3E0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3E0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC3F0DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC3F0DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC400DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC400DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC410DEBC36E0008E677 /* PBXTextBookmark */ = BC65EC410DEBC36E0008E677 /* PBXTextBookmark */;
+			BC65EC430DEBC3820008E677 /* PBXTextBookmark */ = BC65EC430DEBC3820008E677 /* PBXTextBookmark */;
+			BC65EC450DEBC3960008E677 /* PBXBookmark */ = BC65EC450DEBC3960008E677 /* PBXBookmark */;
+			BC65EC460DEBC3960008E677 /* PBXTextBookmark */ = BC65EC460DEBC3960008E677 /* PBXTextBookmark */;
+			BC65EC470DEBC3960008E677 /* PBXTextBookmark */ = BC65EC470DEBC3960008E677 /* PBXTextBookmark */;
+			BC65EC490DEBC3E30008E677 /* PBXTextBookmark */ = BC65EC490DEBC3E30008E677 /* PBXTextBookmark */;
+			BC65EC4B0DEBC4DF0008E677 /* PBXBookmark */ = BC65EC4B0DEBC4DF0008E677 /* PBXBookmark */;
+			BC65EC4C0DEBC4DF0008E677 /* PBXTextBookmark */ = BC65EC4C0DEBC4DF0008E677 /* PBXTextBookmark */;
+			BC65EC4D0DEBC4DF0008E677 /* PBXTextBookmark */ = BC65EC4D0DEBC4DF0008E677 /* PBXTextBookmark */;
+			BC65EC500DEBC50E0008E677 /* PBXTextBookmark */ = BC65EC500DEBC50E0008E677 /* PBXTextBookmark */;
+			BC65EC520DEBC55C0008E677 /* PBXBookmark */ = BC65EC520DEBC55C0008E677 /* PBXBookmark */;
+			BC65EC530DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC530DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC540DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC540DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC550DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC550DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC560DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC560DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC570DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC570DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC580DEBC55C0008E677 /* PBXTextBookmark */ = BC65EC580DEBC55C0008E677 /* PBXTextBookmark */;
+			BC65EC5B0DEBC5740008E677 /* PBXBookmark */ = BC65EC5B0DEBC5740008E677 /* PBXBookmark */;
+			BC65EC5C0DEBC5740008E677 /* PBXTextBookmark */ = BC65EC5C0DEBC5740008E677 /* PBXTextBookmark */;
+			BC65EC5D0DEBC5740008E677 /* PBXTextBookmark */ = BC65EC5D0DEBC5740008E677 /* PBXTextBookmark */;
+			BC65EC600DEBC5890008E677 /* PBXBookmark */ = BC65EC600DEBC5890008E677 /* PBXBookmark */;
+			BC65EC610DEBC5890008E677 /* PBXTextBookmark */ = BC65EC610DEBC5890008E677 /* PBXTextBookmark */;
+			BC65EC620DEBC5890008E677 /* PBXTextBookmark */ = BC65EC620DEBC5890008E677 /* PBXTextBookmark */;
+			BC65EC680DEBC5BB0008E677 /* PBXBookmark */ = BC65EC680DEBC5BB0008E677 /* PBXBookmark */;
+			BC65EC6A0DEBC6050008E677 /* PBXBookmark */ = BC65EC6A0DEBC6050008E677 /* PBXBookmark */;
+			BC65EC6D0DEBC6050008E677 /* PBXTextBookmark */ = BC65EC6D0DEBC6050008E677 /* PBXTextBookmark */;
+			BC65EC6E0DEBC6050008E677 /* PBXTextBookmark */ = BC65EC6E0DEBC6050008E677 /* PBXTextBookmark */;
+			BC65EC6F0DEBC6050008E677 /* PBXTextBookmark */ = BC65EC6F0DEBC6050008E677 /* PBXTextBookmark */;
+			BC65EC720DEBC6570008E677 /* PBXTextBookmark */ = BC65EC720DEBC6570008E677 /* PBXTextBookmark */;
+			BC65EC730DEBC6590008E677 /* PBXBookmark */ = BC65EC730DEBC6590008E677 /* PBXBookmark */;
+			BC65EC740DEBC6590008E677 /* PBXTextBookmark */ = BC65EC740DEBC6590008E677 /* PBXTextBookmark */;
+			BC65EC750DEBC6590008E677 /* PBXTextBookmark */ = BC65EC750DEBC6590008E677 /* PBXTextBookmark */;
+			BC65EC790DEBC7700008E677 /* PBXBookmark */ = BC65EC790DEBC7700008E677 /* PBXBookmark */;
+			BC65EC7A0DEBC7700008E677 /* PBXTextBookmark */ = BC65EC7A0DEBC7700008E677 /* PBXTextBookmark */;
+			BC65EC7B0DEBC7700008E677 /* PBXTextBookmark */ = BC65EC7B0DEBC7700008E677 /* PBXTextBookmark */;
+			BC65EC7E0DEBC9550008E677 /* PBXBookmark */ = BC65EC7E0DEBC9550008E677 /* PBXBookmark */;
+			BC65EC7F0DEBC9550008E677 /* PBXTextBookmark */ = BC65EC7F0DEBC9550008E677 /* PBXTextBookmark */;
+			BC65EC800DEBC9550008E677 /* PBXTextBookmark */ = BC65EC800DEBC9550008E677 /* PBXTextBookmark */;
+			BC65EC830DEBC96F0008E677 /* PBXBookmark */ = BC65EC830DEBC96F0008E677 /* PBXBookmark */;
+			BC65EC840DEBC96F0008E677 /* PBXTextBookmark */ = BC65EC840DEBC96F0008E677 /* PBXTextBookmark */;
+			BC65EC850DEBC96F0008E677 /* PBXTextBookmark */ = BC65EC850DEBC96F0008E677 /* PBXTextBookmark */;
+			BC65EC880DEBCA330008E677 /* PBXBookmark */ = BC65EC880DEBCA330008E677 /* PBXBookmark */;
+			BC65EC890DEBCA330008E677 /* PBXTextBookmark */ = BC65EC890DEBCA330008E677 /* PBXTextBookmark */;
+			BC65EC8A0DEBCA330008E677 /* PBXTextBookmark */ = BC65EC8A0DEBCA330008E677 /* PBXTextBookmark */;
+			BC65EC8D0DEBCB4C0008E677 /* PBXBookmark */ = BC65EC8D0DEBCB4C0008E677 /* PBXBookmark */;
+			BC65EC8E0DEBCB4C0008E677 /* PBXTextBookmark */ = BC65EC8E0DEBCB4C0008E677 /* PBXTextBookmark */;
+			BC65EC8F0DEBCB4C0008E677 /* PBXTextBookmark */ = BC65EC8F0DEBCB4C0008E677 /* PBXTextBookmark */;
+			BC65EC920DEBCB620008E677 /* PBXBookmark */ = BC65EC920DEBCB620008E677 /* PBXBookmark */;
+			BC65EC930DEBCB620008E677 /* PBXTextBookmark */ = BC65EC930DEBCB620008E677 /* PBXTextBookmark */;
+			BC65EC940DEBCB620008E677 /* PBXTextBookmark */ = BC65EC940DEBCB620008E677 /* PBXTextBookmark */;
+			BC65EC970DEBCBFA0008E677 /* PBXBookmark */ = BC65EC970DEBCBFA0008E677 /* PBXBookmark */;
+			BC65EC980DEBCBFA0008E677 /* PBXTextBookmark */ = BC65EC980DEBCBFA0008E677 /* PBXTextBookmark */;
+			BC65EC990DEBCBFA0008E677 /* PBXTextBookmark */ = BC65EC990DEBCBFA0008E677 /* PBXTextBookmark */;
+			BC65EC9C0DEBCD450008E677 /* PBXBookmark */ = BC65EC9C0DEBCD450008E677 /* PBXBookmark */;
+			BC65EC9D0DEBCD450008E677 /* PBXTextBookmark */ = BC65EC9D0DEBCD450008E677 /* PBXTextBookmark */;
+			BC65EC9E0DEBCD450008E677 /* PBXTextBookmark */ = BC65EC9E0DEBCD450008E677 /* PBXTextBookmark */;
+			BC65ECA10DEBCE480008E677 /* PBXBookmark */ = BC65ECA10DEBCE480008E677 /* PBXBookmark */;
+			BC65ECA20DEBCE480008E677 /* PBXTextBookmark */ = BC65ECA20DEBCE480008E677 /* PBXTextBookmark */;
+			BC65ECA30DEBCE480008E677 /* PBXTextBookmark */ = BC65ECA30DEBCE480008E677 /* PBXTextBookmark */;
+			BC65ECA50DEBCEE00008E677 /* PBXBookmark */ = BC65ECA50DEBCEE00008E677 /* PBXBookmark */;
+			BC65ECA60DEBCEE00008E677 /* PBXTextBookmark */ = BC65ECA60DEBCEE00008E677 /* PBXTextBookmark */;
+			BC65ECA70DEBCEE00008E677 /* PBXTextBookmark */ = BC65ECA70DEBCEE00008E677 /* PBXTextBookmark */;
+			BC65ECA90DEBCF280008E677 /* PBXBookmark */ = BC65ECA90DEBCF280008E677 /* PBXBookmark */;
+			BC65ECAA0DEBCF280008E677 /* PBXTextBookmark */ = BC65ECAA0DEBCF280008E677 /* PBXTextBookmark */;
+			BC65ECAB0DEBCF280008E677 /* PBXTextBookmark */ = BC65ECAB0DEBCF280008E677 /* PBXTextBookmark */;
+			BC65ECAF0DEBCF9E0008E677 /* PBXBookmark */ = BC65ECAF0DEBCF9E0008E677 /* PBXBookmark */;
+			BC65ECB00DEBCF9E0008E677 /* PBXTextBookmark */ = BC65ECB00DEBCF9E0008E677 /* PBXTextBookmark */;
+			BC65ECB10DEBCF9E0008E677 /* PBXTextBookmark */ = BC65ECB10DEBCF9E0008E677 /* PBXTextBookmark */;
+			BC65ECB60DEBCFD10008E677 /* PBXBookmark */ = BC65ECB60DEBCFD10008E677 /* PBXBookmark */;
+			BC65ECB70DEBCFD10008E677 /* PBXTextBookmark */ = BC65ECB70DEBCFD10008E677 /* PBXTextBookmark */;
+			BC65ECB80DEBCFD10008E677 /* PBXTextBookmark */ = BC65ECB80DEBCFD10008E677 /* PBXTextBookmark */;
+			BC65ECBA0DEBD0180008E677 /* PBXBookmark */ = BC65ECBA0DEBD0180008E677 /* PBXBookmark */;
+			BC65ECBC0DEBD0390008E677 /* PBXBookmark */ = BC65ECBC0DEBD0390008E677 /* PBXBookmark */;
+			BC65ECBF0DEBD0390008E677 /* PBXTextBookmark */ = BC65ECBF0DEBD0390008E677 /* PBXTextBookmark */;
+			BC65ECC00DEBD0390008E677 /* PBXTextBookmark */ = BC65ECC00DEBD0390008E677 /* PBXTextBookmark */;
+			BC65ECC10DEBD0390008E677 /* PBXTextBookmark */ = BC65ECC10DEBD0390008E677 /* PBXTextBookmark */;
+			BC65ECC40DEBD06F0008E677 /* PBXBookmark */ = BC65ECC40DEBD06F0008E677 /* PBXBookmark */;
+			BC65ECC50DEBD06F0008E677 /* PBXTextBookmark */ = BC65ECC50DEBD06F0008E677 /* PBXTextBookmark */;
+			BC65ECC60DEBD06F0008E677 /* PBXTextBookmark */ = BC65ECC60DEBD06F0008E677 /* PBXTextBookmark */;
+			BC65ECC70DEBD06F0008E677 /* PBXTextBookmark */ = BC65ECC70DEBD06F0008E677 /* PBXTextBookmark */;
 		};
 		sourceControlManager = BC56D0910D8C5F30008D939B /* Source Control */;
 		userBuildSettings = {
@@ -598,17 +706,17 @@
 	};
 	BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {795, 301}}";
-			sepNavSelRange = "{180, 0}";
-			sepNavVisRange = "{0, 245}";
+			sepNavIntBoundsRect = "{{0, 0}, {645, 601}}";
+			sepNavSelRange = "{305, 0}";
+			sepNavVisRange = "{0, 311}";
 			sepNavWindowFrame = "{{15, 77}, {857, 696}}";
 		};
 	};
 	BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {645, 1176}}";
-			sepNavSelRange = "{1707, 0}";
-			sepNavVisRange = "{0, 1226}";
+			sepNavIntBoundsRect = "{{0, 0}, {708, 1904}}";
+			sepNavSelRange = "{1765, 27}";
+			sepNavVisRange = "{1313, 1237}";
 			sepNavWindowFrame = "{{60, 64}, {704, 714}}";
 		};
 	};
@@ -694,7 +802,7 @@
 	BC263C360DB56B9D007D03F4 /* Root.strings */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {617, 598}}";
-			sepNavSelRange = "{357, 0}";
+			sepNavSelRange = "{170, 0}";
 			sepNavVisRange = "{0, 470}";
 			sepNavWindowFrame = "{{419, 67}, {676, 711}}";
 		};
@@ -1021,7 +1129,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 79";
 		rLen = 0;
-		rLoc = 2786;
+		rLoc = 3187;
 		rType = 0;
 		vrLen = 744;
 		vrLoc = 1840;
@@ -1078,7 +1186,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 79";
 		rLen = 0;
-		rLoc = 2786;
+		rLoc = 3187;
 		rType = 0;
 		vrLen = 744;
 		vrLoc = 1840;
@@ -1178,7 +1286,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 121";
 		rLen = 0;
-		rLoc = 3526;
+		rLoc = 3518;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 3037;
@@ -1188,7 +1296,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 63";
 		rLen = 0;
-		rLoc = 1934;
+		rLoc = 3886;
 		rType = 0;
 		vrLen = 311;
 		vrLoc = 1684;
@@ -1215,7 +1323,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 121";
 		rLen = 0;
-		rLoc = 3526;
+		rLoc = 3518;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 3037;
@@ -1225,7 +1333,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 63";
 		rLen = 0;
-		rLoc = 1934;
+		rLoc = 3886;
 		rType = 0;
 		vrLen = 311;
 		vrLoc = 1684;
@@ -1646,7 +1754,7 @@
 		isa = PBXTextBookmark;
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 21;
-		rLoc = 5309;
+		rLoc = 5247;
 		rType = 0;
 	};
 	BC65E9D30DEB44CA0008E677 /* PBXTextBookmark */ = {
@@ -1654,7 +1762,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 188";
 		rLen = 21;
-		rLoc = 5309;
+		rLoc = 5247;
 		rType = 0;
 		vrLen = 783;
 		vrLoc = 5458;
@@ -1714,7 +1822,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 188";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 781;
 		vrLoc = 5458;
@@ -1724,7 +1832,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 188";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 781;
 		vrLoc = 5458;
@@ -1734,7 +1842,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 188";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 781;
 		vrLoc = 5458;
@@ -1744,7 +1852,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 188";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 781;
 		vrLoc = 5458;
@@ -1754,7 +1862,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 201";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 264;
 		vrLoc = 6080;
@@ -1764,7 +1872,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 207";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 201;
 		vrLoc = 6143;
@@ -1774,7 +1882,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 207";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 201;
 		vrLoc = 6143;
@@ -1784,7 +1892,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 207";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 201;
 		vrLoc = 6143;
@@ -1794,7 +1902,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 207";
 		rLen = 0;
-		rLoc = 5330;
+		rLoc = 5268;
 		rType = 0;
 		vrLen = 201;
 		vrLoc = 6143;
@@ -2136,7 +2244,7 @@
 		isa = PBXTextBookmark;
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		rLen = 23;
-		rLoc = 3812;
+		rLoc = 3748;
 		rType = 0;
 	};
 	BC65EA470DEB58330008E677 /* PBXTextBookmark */ = {
@@ -2154,7 +2262,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 180";
 		rLen = 23;
-		rLoc = 3812;
+		rLoc = 3748;
 		rType = 0;
 		vrLen = 423;
 		vrLoc = 4899;
@@ -2174,7 +2282,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 180";
 		rLen = 23;
-		rLoc = 3812;
+		rLoc = 3748;
 		rType = 0;
 		vrLen = 581;
 		vrLoc = 4899;
@@ -2189,7 +2297,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 180";
 		rLen = 23;
-		rLoc = 3812;
+		rLoc = 3748;
 		rType = 0;
 		vrLen = 581;
 		vrLoc = 4899;
@@ -2206,7 +2314,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 180";
 		rLen = 23;
-		rLoc = 3812;
+		rLoc = 3748;
 		rType = 0;
 		vrLen = 581;
 		vrLoc = 4899;
@@ -2266,15 +2374,16 @@
 	BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {734, 612}}";
-			sepNavSelRange = "{414, 0}";
-			sepNavVisRange = "{0, 785}";
+			sepNavSelRange = "{501, 108}";
+			sepNavVisRange = "{0, 943}";
+			sepNavWindowFrame = "{{273, 53}, {793, 725}}";
 		};
 	};
 	BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {734, 2800}}";
-			sepNavSelRange = "{2928, 0}";
-			sepNavVisRange = "{0, 1083}";
+			sepNavIntBoundsRect = "{{0, 0}, {734, 2310}}";
+			sepNavSelRange = "{1518, 0}";
+			sepNavVisRange = "{956, 1285}";
 			sepNavWindowFrame = "{{273, 53}, {793, 725}}";
 		};
 	};
@@ -2283,7 +2392,7 @@
 		comments = "error: 'weightDiff' undeclared (first use in this function)";
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		rLen = 1;
-		rLoc = 185;
+		rLoc = 197;
 		rType = 1;
 	};
 	BC65EA770DEB5FF10008E677 /* PBXBookmark */ = {
@@ -2296,7 +2405,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 53";
 		rLen = 0;
-		rLoc = 5374;
+		rLoc = 5744;
 		rType = 0;
 		vrLen = 896;
 		vrLoc = 289;
@@ -2341,7 +2450,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 24";
 		rLen = 0;
-		rLoc = 2427;
+		rLoc = 2797;
 		rType = 0;
 		vrLen = 938;
 		vrLoc = 208;
@@ -2356,7 +2465,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 24";
 		rLen = 0;
-		rLoc = 2427;
+		rLoc = 2797;
 		rType = 0;
 		vrLen = 936;
 		vrLoc = 208;
@@ -2371,7 +2480,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 49";
 		rLen = 0;
-		rLoc = 5233;
+		rLoc = 5603;
 		rType = 0;
 		vrLen = 933;
 		vrLoc = 365;
@@ -2386,7 +2495,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 51";
 		rLen = 0;
-		rLoc = 5233;
+		rLoc = 5603;
 		rType = 0;
 		vrLen = 981;
 		vrLoc = 365;
@@ -2401,7 +2510,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 51";
 		rLen = 0;
-		rLoc = 5233;
+		rLoc = 5603;
 		rType = 0;
 		vrLen = 979;
 		vrLoc = 365;
@@ -2416,7 +2525,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 51";
 		rLen = 0;
-		rLoc = 5233;
+		rLoc = 5603;
 		rType = 0;
 		vrLen = 980;
 		vrLoc = 367;
@@ -2431,7 +2540,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 34";
 		rLen = 0;
-		rLoc = 3171;
+		rLoc = 3541;
 		rType = 0;
 		vrLen = 1015;
 		vrLoc = 365;
@@ -2451,7 +2560,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 137";
 		rLen = 0;
-		rLoc = 3526;
+		rLoc = 3518;
 		rType = 0;
 		vrLen = 827;
 		vrLoc = 3305;
@@ -2478,7 +2587,7 @@
 		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
 		name = "LogViewController.m: 137";
 		rLen = 0;
-		rLoc = 3526;
+		rLoc = 3518;
 		rType = 0;
 		vrLen = 827;
 		vrLoc = 3305;
@@ -2503,7 +2612,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 48";
 		rLen = 0;
-		rLoc = 4862;
+		rLoc = 5232;
 		rType = 0;
 		vrLen = 1107;
 		vrLoc = 424;
@@ -2538,7 +2647,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 32";
 		rLen = 0;
-		rLoc = 2950;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 1150;
 		vrLoc = 403;
@@ -2548,7 +2657,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 32";
 		rLen = 0;
-		rLoc = 2950;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 1150;
 		vrLoc = 403;
@@ -2655,7 +2764,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 66";
 		rLen = 15;
-		rLoc = 4068;
+		rLoc = 4438;
 		rType = 0;
 		vrLen = 1871;
 		vrLoc = 1334;
@@ -2665,7 +2774,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 54";
 		rLen = 0;
-		rLoc = 4064;
+		rLoc = 4434;
 		rType = 0;
 		vrLen = 1050;
 		vrLoc = 445;
@@ -2685,7 +2794,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 115";
 		rLen = 67;
-		rLoc = 5382;
+		rLoc = 5752;
 		rType = 0;
 		vrLen = 1210;
 		vrLoc = 2568;
@@ -2695,7 +2804,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 22";
 		rLen = 0;
-		rLoc = 780;
+		rLoc = 938;
 		rType = 0;
 		vrLen = 590;
 		vrLoc = 0;
@@ -2705,7 +2814,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 120";
 		rLen = 70;
-		rLoc = 5550;
+		rLoc = 5920;
 		rType = 0;
 		vrLen = 1080;
 		vrLoc = 2955;
@@ -2715,7 +2824,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 23";
 		rLen = 0;
-		rLoc = 780;
+		rLoc = 938;
 		rType = 0;
 		vrLen = 660;
 		vrLoc = 0;
@@ -2725,7 +2834,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 66";
 		rLen = 15;
-		rLoc = 4068;
+		rLoc = 4438;
 		rType = 0;
 		vrLen = 1871;
 		vrLoc = 1334;
@@ -2745,7 +2854,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 76";
 		rLen = 0;
-		rLoc = 4709;
+		rLoc = 5079;
 		rType = 0;
 		vrLen = 1901;
 		vrLoc = 1152;
@@ -2887,7 +2996,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 56";
 		rLen = 0;
-		rLoc = 1796;
+		rLoc = 966;
 		rType = 0;
 		vrLen = 1424;
 		vrLoc = 561;
@@ -2902,7 +3011,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 30";
 		rLen = 0;
-		rLoc = 723;
+		rLoc = 966;
 		rType = 0;
 		vrLen = 1410;
 		vrLoc = 436;
@@ -2917,7 +3026,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 48";
 		rLen = 0;
-		rLoc = 1531;
+		rLoc = 966;
 		rType = 0;
 		vrLen = 1413;
 		vrLoc = 436;
@@ -3109,7 +3218,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 64";
 		rLen = 0;
-		rLoc = 2218;
+		rLoc = 4218;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 562;
@@ -3149,7 +3258,7 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 67";
 		rLen = 0;
-		rLoc = 2183;
+		rLoc = 4183;
 		rType = 0;
 		vrLen = 1631;
 		vrLoc = 615;
@@ -3246,9 +3355,9 @@
 		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
 		name = "NewDatabaseViewController.m: 70";
 		rLen = 0;
-		rLoc = 2058;
+		rLoc = 4010;
 		rType = 0;
-		vrLen = 1412;
+		vrLen = 1348;
 		vrLoc = 984;
 	};
 	BC65EB4C0DEB7D3D0008E677 /* PBXTextBookmark */ = {
@@ -3304,7 +3413,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 107";
 		rLen = 0;
-		rLoc = 4013;
+		rLoc = 4383;
 		rType = 0;
 		vrLen = 1810;
 		vrLoc = 1662;
@@ -3319,7 +3428,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 18";
 		rLen = 0;
-		rLoc = 415;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 782;
 		vrLoc = 0;
@@ -3349,7 +3458,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 18";
 		rLen = 0;
-		rLoc = 415;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 782;
 		vrLoc = 0;
@@ -3484,7 +3593,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 18";
 		rLen = 0;
-		rLoc = 414;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 0;
@@ -3514,7 +3623,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 18";
 		rLen = 0;
-		rLoc = 414;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 0;
@@ -3534,7 +3643,7 @@
 		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
 		name = "WeightFormatter.h: 18";
 		rLen = 0;
-		rLoc = 414;
+		rLoc = 392;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 0;
@@ -3636,7 +3745,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 115";
 		rLen = 0;
-		rLoc = 4013;
+		rLoc = 4383;
 		rType = 0;
 		vrLen = 1957;
 		vrLoc = 2182;
@@ -3670,7 +3779,7 @@
 		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
 		name = "WeightFormatter.m: 123";
 		rLen = 0;
-		rLoc = 3503;
+		rLoc = 3873;
 		rType = 0;
 		vrLen = 1066;
 		vrLoc = 827;
@@ -3682,10 +3791,10 @@
 	};
 	BC65EBB10DEBA5F90008E677 /* English */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {612, 588}}";
-			sepNavSelRange = "{1396, 0}";
-			sepNavVisRange = "{103, 1293}";
-			sepNavWindowFrame = "{{557, 51}, {671, 614}}";
+			sepNavIntBoundsRect = "{{0, 0}, {612, 700}}";
+			sepNavSelRange = "{236, 0}";
+			sepNavVisRange = "{305, 1374}";
+			sepNavWindowFrame = "{{610, 164}, {671, 614}}";
 		};
 	};
 	BC65EBBA0DEBA8FE0008E677 /* English */ = {
@@ -3789,7 +3898,7 @@
 		fRef = BC65EBB10DEBA5F90008E677 /* English */;
 		name = "Localizable.strings: 8";
 		rLen = 0;
-		rLoc = 1396;
+		rLoc = 1679;
 		rType = 0;
 		vrLen = 142;
 		vrLoc = 0;
@@ -3819,7 +3928,7 @@
 		fRef = BC65EBB10DEBA5F90008E677 /* English */;
 		name = "Localizable.strings: 8";
 		rLen = 0;
-		rLoc = 1396;
+		rLoc = 1679;
 		rType = 0;
 		vrLen = 142;
 		vrLoc = 0;
@@ -3909,7 +4018,7 @@
 		fRef = BC65EBB10DEBA5F90008E677 /* English */;
 		name = "Localizable.strings: 39";
 		rLen = 0;
-		rLoc = 1396;
+		rLoc = 1679;
 		rType = 0;
 		vrLen = 840;
 		vrLoc = 546;
@@ -3996,6 +4105,929 @@
 		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
 		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
 	};
+	BC65EC130DEBC04B0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: request for member 'delegate' in something not a structure or union";
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	BC65EC150DEBC0550008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC180DEBC0550008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 32";
+		rLen = 0;
+		rLoc = 642;
+		rType = 0;
+		vrLen = 967;
+		vrLoc = 277;
+	};
+	BC65EC1D0DEBC0A10008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */;
+		name = "EatWatchAppDelegate.m: 29";
+		rLen = 16;
+		rLoc = 817;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 236;
+	};
+	BC65EC1F0DEBC0B70008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC200DEBC0B70008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 65";
+		rLen = 0;
+		rLoc = 2036;
+		rType = 0;
+		vrLen = 1038;
+		vrLoc = 1220;
+	};
+	BC65EC210DEBC0B70008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		rLen = 0;
+		rLoc = 2147483713;
+		rType = 0;
+	};
+	BC65EC220DEBC0B70008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 65";
+		rLen = 0;
+		rLoc = 2036;
+		rType = 0;
+		vrLen = 1038;
+		vrLoc = 1220;
+	};
+	BC65EC230DEBC0B70008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		name = "NewDatabaseViewController.h: 11";
+		rLen = 0;
+		rLoc = 280;
+		rType = 0;
+		vrLen = 290;
+		vrLoc = 0;
+	};
+	BC65EC280DEBC0FA0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC2B0DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
+		name = "WeightFormatter.h: 23";
+		rLen = 44;
+		rLoc = 456;
+		rType = 0;
+		vrLen = 834;
+		vrLoc = 0;
+	};
+	BC65EC2C0DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		rLen = 0;
+		rLoc = 2147483850;
+		rType = 0;
+	};
+	BC65EC2D0DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
+		name = "WeightFormatter.h: 23";
+		rLen = 44;
+		rLoc = 456;
+		rType = 0;
+		vrLen = 834;
+		vrLoc = 0;
+	};
+	BC65EC2E0DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 62";
+		rLen = 0;
+		rLoc = 1551;
+		rType = 0;
+		vrLen = 1170;
+		vrLoc = 956;
+	};
+	BC65EC2F0DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		name = "NewDatabaseViewController.h: 11";
+		rLen = 0;
+		rLoc = 280;
+		rType = 0;
+		vrLen = 290;
+		vrLoc = 0;
+	};
+	BC65EC300DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		name = "NewDatabaseViewController.h: 11";
+		rLen = 0;
+		rLoc = 280;
+		rType = 0;
+		vrLen = 290;
+		vrLoc = 0;
+	};
+	BC65EC310DEBC0FA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 88";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1137;
+		vrLoc = 1260;
+	};
+	BC65EC340DEBC14B0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC350DEBC14B0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 97";
+		rLen = 0;
+		rLoc = 3860;
+		rType = 0;
+		vrLen = 1117;
+		vrLoc = 1369;
+	};
+	BC65EC360DEBC14B0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 62";
+		rLen = 0;
+		rLoc = 1551;
+		rType = 0;
+		vrLen = 1170;
+		vrLoc = 956;
+	};
+	BC65EC390DEBC36E0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC3A0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
+		name = "WeightFormatter.h: 23";
+		rLen = 108;
+		rLoc = 501;
+		rType = 0;
+		vrLen = 943;
+		vrLoc = 0;
+	};
+	BC65EC3B0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 79";
+		rLen = 0;
+		rLoc = 2243;
+		rType = 0;
+		vrLen = 1197;
+		vrLoc = 956;
+	};
+	BC65EC3C0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 62";
+		rLen = 0;
+		rLoc = 1551;
+		rType = 0;
+		vrLen = 1172;
+		vrLoc = 956;
+	};
+	BC65EC3D0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
+		name = "WeightFormatter.h: 29";
+		rLen = 0;
+		rLoc = 636;
+		rType = 0;
+		vrLen = 943;
+		vrLoc = 0;
+	};
+	BC65EC3E0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 79";
+		rLen = 0;
+		rLoc = 2243;
+		rType = 0;
+		vrLen = 1197;
+		vrLoc = 956;
+	};
+	BC65EC3F0DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */;
+		name = "WeightFormatter.h: 23";
+		rLen = 108;
+		rLoc = 501;
+		rType = 0;
+		vrLen = 943;
+		vrLoc = 0;
+	};
+	BC65EC400DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 85";
+		rLen = 0;
+		rLoc = 2243;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC410DEBC36E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 99";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1036;
+		vrLoc = 2253;
+	};
+	BC65EC430DEBC3820008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: 'NewDatabaseViewController' may not respond to '-dismissThisView'";
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		rLen = 1;
+		rLoc = 135;
+		rType = 1;
+	};
+	BC65EC450DEBC3960008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC460DEBC3960008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 99";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 986;
+		vrLoc = 2322;
+	};
+	BC65EC470DEBC3960008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 85";
+		rLen = 0;
+		rLoc = 2243;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC490DEBC3E30008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */;
+		name = "EatWatchAppDelegate.m: 29";
+		rLen = 16;
+		rLoc = 817;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 236;
+	};
+	BC65EC4B0DEBC4DF0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC4C0DEBC4DF0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 103";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 985;
+		vrLoc = 2335;
+	};
+	BC65EC4D0DEBC4DF0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC500DEBC50E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */;
+		name = "EatWatchAppDelegate.m: 29";
+		rLen = 16;
+		rLoc = 817;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 236;
+	};
+	BC65EC520DEBC55C0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC530DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		name = "NewDatabaseViewController.h: 13";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 311;
+		vrLoc = 0;
+	};
+	BC65EC540DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 16";
+		rLen = 25;
+		rLoc = 326;
+		rType = 0;
+		vrLen = 1049;
+		vrLoc = 0;
+	};
+	BC65EC550DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 16";
+		rLen = 25;
+		rLoc = 326;
+		rType = 0;
+		vrLen = 1049;
+		vrLoc = 0;
+	};
+	BC65EC560DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */;
+		name = "NewDatabaseViewController.h: 13";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 311;
+		vrLoc = 0;
+	};
+	BC65EC570DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 101";
+		rLen = 0;
+		rLoc = 3742;
+		rType = 0;
+		vrLen = 993;
+		vrLoc = 2333;
+	};
+	BC65EC580DEBC55C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC5B0DEBC5740008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC5C0DEBC5740008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 98";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1052;
+		vrLoc = 2333;
+	};
+	BC65EC5D0DEBC5740008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC600DEBC5890008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC610DEBC5890008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 103";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 1052;
+		vrLoc = 2333;
+	};
+	BC65EC620DEBC5890008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC680DEBC5BB0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+	};
+	BC65EC6A0DEBC6050008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC6D0DEBC6050008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */;
+		name = "LogViewController.m: 105";
+		rLen = 31;
+		rLoc = 3149;
+		rType = 0;
+		vrLen = 1009;
+		vrLoc = 2177;
+	};
+	BC65EC6E0DEBC6050008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC6F0DEBC6050008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 103";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 1052;
+		vrLoc = 2333;
+	};
+	BC65EC720DEBC6570008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */;
+		name = "EatWatchAppDelegate.m: 29";
+		rLen = 16;
+		rLoc = 817;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 236;
+	};
+	BC65EC730DEBC6590008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC740DEBC6590008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1285;
+		vrLoc = 956;
+	};
+	BC65EC750DEBC6590008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 103";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 1055;
+		vrLoc = 2333;
+	};
+	BC65EC790DEBC7700008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC7A0DEBC7700008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 66";
+		rLen = 0;
+		rLoc = 1587;
+		rType = 0;
+		vrLen = 1027;
+		vrLoc = 890;
+	};
+	BC65EC7B0DEBC7700008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC7E0DEBC9550008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC7F0DEBC9550008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 88";
+		rLen = 0;
+		rLoc = 2693;
+		rType = 0;
+		vrLen = 1102;
+		vrLoc = 1578;
+	};
+	BC65EC800DEBC9550008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC830DEBC96F0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC840DEBC96F0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 118";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1133;
+		vrLoc = 2350;
+	};
+	BC65EC850DEBC96F0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC880DEBCA330008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC890DEBCA330008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 123";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 1094;
+		vrLoc = 2200;
+	};
+	BC65EC8A0DEBCA330008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC8D0DEBCB4C0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC8E0DEBCB4C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 116";
+		rLen = 0;
+		rLoc = 3259;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 2382;
+	};
+	BC65EC8F0DEBCB4C0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC920DEBCB620008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC930DEBCB620008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 129";
+		rLen = 0;
+		rLoc = 3804;
+		rType = 0;
+		vrLen = 1232;
+		vrLoc = 2392;
+	};
+	BC65EC940DEBCB620008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC970DEBCBFA0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC980DEBCBFA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 126";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1182;
+		vrLoc = 2392;
+	};
+	BC65EC990DEBCBFA0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65EC9C0DEBCD450008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65EC9D0DEBCD450008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 120";
+		rLen = 0;
+		rLoc = 3590;
+		rType = 0;
+		vrLen = 1208;
+		vrLoc = 2382;
+	};
+	BC65EC9E0DEBCD450008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECA10DEBCE480008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECA20DEBCE480008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 138";
+		rLen = 0;
+		rLoc = 3734;
+		rType = 0;
+		vrLen = 1374;
+		vrLoc = 2526;
+	};
+	BC65ECA30DEBCE480008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECA50DEBCEE00008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECA60DEBCEE00008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 98";
+		rLen = 0;
+		rLoc = 2740;
+		rType = 0;
+		vrLen = 1473;
+		vrLoc = 1939;
+	};
+	BC65ECA70DEBCEE00008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1285;
+		vrLoc = 956;
+	};
+	BC65ECA90DEBCF280008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECAA0DEBCF280008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 89";
+		rLen = 0;
+		rLoc = 2623;
+		rType = 0;
+		vrLen = 1346;
+		vrLoc = 1438;
+	};
+	BC65ECAB0DEBCF280008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECAF0DEBCF9E0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECB00DEBCF9E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 89";
+		rLen = 0;
+		rLoc = 2623;
+		rType = 0;
+		vrLen = 1346;
+		vrLoc = 1438;
+	};
+	BC65ECB10DEBCF9E0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECB60DEBCFD10008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECB70DEBCFD10008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 72";
+		rLen = 0;
+		rLoc = 1674;
+		rType = 0;
+		vrLen = 1133;
+		vrLoc = 1313;
+	};
+	BC65ECB80DEBCFD10008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECBA0DEBD0180008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBB10DEBA5F90008E677 /* English */;
+	};
+	BC65ECBC0DEBD0390008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECBF0DEBD0390008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EBB10DEBA5F90008E677 /* English */;
+		name = "Localizable.strings: 35";
+		rLen = 0;
+		rLoc = 1270;
+		rType = 0;
+		vrLen = 1300;
+		vrLoc = 244;
+	};
+	BC65ECC00DEBD0390008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 75";
+		rLen = 27;
+		rLoc = 1765;
+		rType = 0;
+		vrLen = 1222;
+		vrLoc = 1313;
+	};
+	BC65ECC10DEBD0390008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
+	BC65ECC40DEBD06F0008E677 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+	};
+	BC65ECC50DEBD06F0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EBB10DEBA5F90008E677 /* English */;
+		name = "Localizable.strings: 10";
+		rLen = 0;
+		rLoc = 236;
+		rType = 0;
+		vrLen = 1374;
+		vrLoc = 305;
+	};
+	BC65ECC60DEBD06F0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */;
+		name = "NewDatabaseViewController.m: 75";
+		rLen = 27;
+		rLoc = 1765;
+		rType = 0;
+		vrLen = 1222;
+		vrLoc = 1313;
+	};
+	BC65ECC70DEBD06F0008E677 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */;
+		name = "WeightFormatter.m: 60";
+		rLen = 0;
+		rLoc = 1518;
+		rType = 0;
+		vrLen = 1199;
+		vrLoc = 956;
+	};
 	BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {706, 592}}";
@@ -4038,7 +5070,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 233551347.214694;
+		modificationTime = 233558127.330228;
 		state = 1;
 		symbolName = objc_exception_throw;
 	};
@@ -4161,9 +5193,9 @@
 	};
 	BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {663, 2800}}";
-			sepNavSelRange = "{515, 0}";
-			sepNavVisRange = "{303, 520}";
+			sepNavIntBoundsRect = "{{0, 0}, {630, 3276}}";
+			sepNavSelRange = "{3518, 0}";
+			sepNavVisRange = "{2110, 1077}";
 			sepNavWindowFrame = "{{88, 71}, {689, 707}}";
 		};
 	};

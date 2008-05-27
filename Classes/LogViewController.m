@@ -89,6 +89,17 @@
 }
 
 
+- (void)autoWeighInIfEnabled {
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
+	
+	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
+	EWDay day = ([lastIndexPath row] + 1);
+	if ([data measuredWeightOnDay:day] == 0) {
+		[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
+	}
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 	
@@ -99,20 +110,11 @@
 	}
 
 	if (firstLoad) {
+		firstLoad = NO;
 		[tableView scrollToRowAtIndexPath:lastIndexPath
 						 atScrollPosition:UITableViewScrollPositionBottom 
 								 animated:NO];
-	}
-}
-
-
-- (void)autoWeighInIfEnabled {
-	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
-	
-	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
-	EWDay day = ([lastIndexPath row] + 1);
-	if ([data measuredWeightOnDay:day] == 0) {
-		[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
+		[self autoWeighInIfEnabled];
 	}
 }
 
@@ -127,14 +129,6 @@
 		}
 	}
 	return nil;
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-	if (firstLoad) {
-		firstLoad = NO;
-		[self autoWeighInIfEnabled];
-	}
 }
 
 
@@ -172,7 +166,7 @@
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
 	logEntryViewController.weighIn = flag;
-	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:YES];
+	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:!flag];
 }
 
 
