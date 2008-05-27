@@ -148,10 +148,16 @@
 		[self sendResourceNamed:@"importNoData" withSubstitutions:nil toConnection:connection];
 		return;
 	}
+		
+	NSString *alertTitle = NSLocalizedString(@"PRE_IMPORT_TITLE", nil);
+	NSString *alertText = NSLocalizedString(@"PRE_IMPORT_TEXT", nil);
+	NSString *cancelTitle = NSLocalizedString(@"CANCEL_BUTTON", nil);
+	NSString *replaceTitle = NSLocalizedString(@"REPLACE_BUTTON", nil);
+	NSString *mergeTitle = NSLocalizedString(@"MERGE_BUTTON", nil);
 	
-	NSString *saveButtonTitle = importReplace ? @"Replace" : @"Merge";
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data Received" message:@"Data was received, do you want to store it in this phone?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:saveButtonTitle, nil];
+	NSString *saveButtonTitle = importReplace ? replaceTitle : mergeTitle;
+
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertText delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:saveButtonTitle, nil];
 	[alert show];
 	[alert release];
 	
@@ -205,12 +211,16 @@
 	NSString *msg;
 	
 	if (count > 0) {
-		msg = [NSString stringWithFormat:@"%d records imported.", count];
+		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_COUNT", nil);
+		msg = [NSString stringWithFormat:msgFormat, count];
 	} else {
-		msg = @"No records imported.  The file may not be in the correct format.";
+		msg = NSLocalizedString(@"POST_IMPORT_TEXT_NONE", nil);
 	}
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Import Complete" message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+	NSString *alertTitle = NSLocalizedString(@"POST_IMPORT_TITLE", nil);
+	NSString *okTitle = NSLocalizedString(@"OK_BUTTON", nil);
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:okTitle, nil];
 	[alert show];
 	[alert release];
 }

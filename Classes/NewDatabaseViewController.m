@@ -17,7 +17,7 @@
 
 - (id)init {
 	if ([super initWithNibName:nil bundle:nil]) {
-		self.title = NSLocalizedString(@"New Database", @"NewDatabaseViewController title");
+		self.title = NSLocalizedString(@"NEW_DATABASE_VIEW_TITLE", nil);
 	}
 	return self;
 }
@@ -51,7 +51,7 @@
 	UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(22, 22, 320-44, y-22)];
 	helpLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	helpLabel.contentMode = UIViewContentModeTop;
-	helpLabel.text = @"This is a new database.  Choose a weight unit.  You can change your mind in the Settings app.";
+	helpLabel.text = NSLocalizedString(@"NEW_DATABASE_TEXT", nil);
 	helpLabel.numberOfLines = 0;
 	[mainView addSubview:helpLabel];
 	[helpLabel release];

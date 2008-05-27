@@ -17,10 +17,13 @@
 
 - (void)recompute {
 	[array removeAllObjects];
-
-	NSString *labels[] = {@"Week", @"Two Weeks", @"Month", @"Quarter", @"Six Months", @"Year"};
-	int stops[] = {7, 14, 30, 90, 182, 365};
 	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"TrendSpans" ofType:@"plist"];
+	NSDictionary *spanDict = [NSDictionary dictionaryWithContentsOfFile:path];
+	NSArray *spanLengths = [spanDict objectForKey:@"SpanLengths"];
+	NSArray *spanTitles = [spanDict objectForKey:@"SpanTitles"];
+	NSUInteger spanCount = MIN([spanLengths count], [spanTitles count]);
+
 	Database *database = [Database sharedDatabase];
 	
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
@@ -32,11 +35,12 @@
 	WeightFormatter *formatter = [WeightFormatter sharedFormatter];
 
 	int newValueCount = 0;
-	int stopIndex;
+	int spanIndex;
 	float x = 0;
 	
-	for (stopIndex = 0; (stopIndex < 6) && (curMonth >= earliestMonth); stopIndex++) {
-		while ((x < stops[stopIndex]) && (curMonth >= earliestMonth)) {
+	for (spanIndex = 0; (spanIndex < spanCount) && (curMonth >= earliestMonth); spanIndex++) {
+		NSUInteger spanLength = [[spanLengths objectAtIndex:spanIndex] intValue];
+		while ((x < spanLength) && (curMonth >= earliestMonth)) {
 			if (data == nil) {
 				data = [database dataForMonth:curMonth];
 			}
@@ -56,7 +60,7 @@
 		float weightPerDay = -[computer computeSlope];
 		if (newValueCount > 1) {
 			[array addObject:[NSArray arrayWithObjects:
-							  [NSString stringWithFormat:@"Past %@", labels[stopIndex]],
+							  [spanTitles objectAtIndex:spanIndex],
 							  [formatter weightPerWeekStringFromWeightChange:(7.0f * weightPerDay)],
 							  [formatter energyPerDayStringFromWeightChange:weightPerDay],
 							  nil]];
@@ -69,7 +73,7 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.title = @"Trends";
+		self.title = NSLocalizedString(@"TRENDS_VIEW_TITLE", nil);
 		array = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -77,7 +81,7 @@
 
 
 - (NSString *)message {
-	return @"Not enough data to compute trends. Try again tomorrow.";
+	return NSLocalizedString(@"NO_DATA_FOR_TRENDS", nil);
 }
 
 

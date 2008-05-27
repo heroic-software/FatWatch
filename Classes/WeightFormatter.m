@@ -46,7 +46,10 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 
 + (NSArray *)weightUnitNames {
-	return [NSArray arrayWithObjects:@"Pounds", @"Kilograms", @"Stones", nil];
+	NSString *pounds = NSLocalizedString(@"POUNDS", nil);
+	NSString *kilograms = NSLocalizedString(@"KILOGRAMS", nil);
+	NSString *stones = NSLocalizedString(@"STONES", nil);
+	return [NSArray arrayWithObjects:pounds, kilograms, stones, nil];
 }
 
 
@@ -100,9 +103,9 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		
 		if (weightUnit == kWeightUnitStones) {
 			if (scaleIncrement < 1) {
-				stoneFormat = [@"%d st %0.1f" retain];
+				stoneFormat = [NSLocalizedString(@"STONE_FORMAT_1", nil) retain];
 			} else {
-				stoneFormat = [@"%d st %0.0f" retain];
+				stoneFormat = [NSLocalizedString(@"STONE_FORMAT_0", nil) retain];
 			}
 		} else {
 			measuredFormatter = [[NSNumberFormatter alloc] init];
@@ -120,36 +123,40 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		weightChangeFormatter = [self newChangeFormatter];
 		[weightChangeFormatter setMinimumFractionDigits:2];
 		[weightChangeFormatter setMaximumFractionDigits:2];
+
+		NSString *suffix = nil;
 		
 		switch (weightUnit) {
 			case kWeightUnitPounds:
 			case kWeightUnitStones:
-				[weightChangeFormatter setPositiveSuffix:@" lbs/week"];
+				suffix = NSLocalizedString(@"POUNDS_PER_WEEK_SUFFIX", nil);
 				break;
 			case kWeightUnitKilograms:
-				[weightChangeFormatter setPositiveSuffix:@" kgs/week"];
+				suffix = NSLocalizedString(@"KILOGRAMS_PER_WEEK_SUFFIX", nil);
 				NSNumber *n = [NSNumber numberWithFloat:kKilogramsPerPound];
 				[measuredFormatter setMultiplier:n];
 				[trendFormatter setMultiplier:n];
 				[weightChangeFormatter setMultiplier:n];
 				break;
 		}
-		[weightChangeFormatter setNegativeSuffix:[weightChangeFormatter positiveSuffix]];
+		[weightChangeFormatter setPositiveSuffix:suffix];
+		[weightChangeFormatter setNegativeSuffix:suffix];
 
 		energyFormatter = [self newChangeFormatter];
 		[energyFormatter setMinimumFractionDigits:2];
 		[energyFormatter setMaximumFractionDigits:2];
 		switch (energyUnit) {
 			case kEnergyUnitCalories:
-				[energyFormatter setPositiveSuffix:@" cal/day"];
+				suffix = NSLocalizedString(@"CALORIES_PER_DAY_SUFFIX", nil);
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 				break;
 			case kEnergyUnitKilojoules:
-				[energyFormatter setPositiveSuffix:@" kJ/day"];
+				suffix = NSLocalizedString(@"KILOJOULES_PER_DAY_SUFFIX", nil);
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 				break;
 		}
-		[energyFormatter setNegativeSuffix:[energyFormatter positiveSuffix]];
+		[energyFormatter setPositiveSuffix:suffix];
+		[energyFormatter setNegativeSuffix:suffix];
 	}
 	return self;
 }

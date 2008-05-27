@@ -23,12 +23,12 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.title = @"Log";
+		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
 		firstLoad = YES;
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
-		sectionTitleFormatter.dateFormat = @"MMMM yyyy";
+		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
 	}
 	return self;
 }

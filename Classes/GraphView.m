@@ -19,6 +19,7 @@
     return self;
 }
 
+
 - (void)drawRect:(CGRect)rect {
 	CGRect bounds = self.bounds;
 	
@@ -38,7 +39,7 @@
 	NSDate *date = EWDateFromMonthAndDay(month, 1);
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
-	formatter.dateFormat = @"MMMM yyyy";
+	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
 	[[UIColor blackColor] setFill];
 	[[formatter stringFromDate:date] drawAtPoint:CGPointMake(4, 2)
 										withFont:[UIFont systemFontOfSize:20]];
@@ -105,8 +106,8 @@
 	}
 }
 
-- (void)dealloc
-{
+
+- (void)dealloc {
 	[super dealloc];
 }
 

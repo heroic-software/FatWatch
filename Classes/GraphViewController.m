@@ -17,7 +17,7 @@
 {
 	if (self = [super init]) {
 		firstLoad = YES;
-		self.title = @"Graph";
+		self.title = NSLocalizedString(@"GRAPH_VIEW_TITLE", nil);
 	}
 	return self;
 }
@@ -25,7 +25,7 @@
 
 - (NSString *)message
 {
-	return @"Not enough data to draw a graph. Try again tomorrow.";
+	return NSLocalizedString(@"NO_DATA_FOR_GRAPH", nil);
 }
 
 

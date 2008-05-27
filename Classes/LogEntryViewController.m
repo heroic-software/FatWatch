@@ -61,7 +61,9 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	
 	CGFloat y = 0;
 	
-	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Enter Weight", @"Leave Blank", nil]];
+	NSString *showWeightTitle = NSLocalizedString(@"SHOW_WEIGHT_TITLE", nil);
+	NSString *hideWeightTitle = NSLocalizedString(@"HIDE_WEIGHT_TITLE", nil);
+	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:showWeightTitle, hideWeightTitle, nil]];
 	weightControl.frame = CGRectInset(CGRectMake(0, y, kScreenWidth, kWeightControlAreaHeight), kWeightControlMargin, kWeightControlMargin);
 	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
@@ -82,7 +84,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	noWeightView.backgroundColor = [UIColor darkGrayColor];
 	
 	UILabel *noWeightLabel = [[UILabel alloc] initWithFrame:CGRectInset(noWeightView.bounds, 11, 0)];
-	noWeightLabel.text = @"There will be no weight saved on this date, but you can still apply a check or a note using the fields below.";
+	noWeightLabel.text = NSLocalizedString(@"NO_WEIGHT_TEXT", nil);
 	noWeightLabel.numberOfLines = 0;
 	noWeightLabel.backgroundColor = [UIColor clearColor];
 	noWeightLabel.textColor = [UIColor whiteColor];
@@ -102,7 +104,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	y = CGRectGetMaxY(flagControl.frame) + margin;
 	
 	noteField = [[UITextField alloc] initWithFrame:CGRectMake(margin, y, 320 - 2*margin, height)];
-	noteField.placeholder = @"Note";
+	noteField.placeholder = NSLocalizedString(@"NOTE_FIELD_PLACEHOLDER", nil);
 	noteField.borderStyle = UITextBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
 	noteField.backgroundColor = [UIColor whiteColor];
