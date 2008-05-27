@@ -11,6 +11,7 @@
 #import "LogEntryViewController.h"
 #import "Database.h"
 #import "MonthData.h"
+#import "WeightFormatter.h"
 
 
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
@@ -30,7 +31,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
 
-		scaleIncrement = [[NSUserDefaults standardUserDefaults] floatForKey:@"ScaleIncrement"]; 
+		scaleIncrement = [WeightFormatter scaleIncrement];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
@@ -303,7 +304,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 
-	label.text = [NSString stringWithFormat:@"%.1f", [self weightForPickerRow:row]];
+	label.text = [[WeightFormatter sharedFormatter] stringFromMeasuredWeight:[self weightForPickerRow:row]];
 	return label;
 }
 

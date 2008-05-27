@@ -9,28 +9,19 @@
 #import "LogTableViewCell.h"
 #import "EWDate.h"
 #import "MonthData.h"
+#import "WeightFormatter.h"
 
 NSString *kLogCellReuseIdentifier = @"LogCell";
 
 static NSNumberFormatter *dayFormatter = nil;
-static NSNumberFormatter *measuredFormatter = nil;
-static NSNumberFormatter *trendFormatter = nil;
 
 @implementation LogTableViewCell
 
-- (id)init
-{
+- (id)init {
     if ([super initWithFrame:CGRectMake(0, 0, 320, 44) reuseIdentifier:kLogCellReuseIdentifier]) {
 		
 		if (dayFormatter == nil) {
 			dayFormatter = [[NSNumberFormatter alloc] init];
-			measuredFormatter = [[NSNumberFormatter alloc] init];
-			[measuredFormatter setMinimumFractionDigits:1];
-			trendFormatter = [[NSNumberFormatter alloc] init];
-			[trendFormatter setPositivePrefix:@"+"];
-			[trendFormatter setNegativePrefix:@"−"];
-			[trendFormatter setMinimumIntegerDigits:1];
-			[trendFormatter setMinimumFractionDigits:1];
 		}
 		
 		dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -61,8 +52,8 @@ static NSNumberFormatter *trendFormatter = nil;
     return self;
 }
 
-- (void)dealloc
-{
+
+- (void)dealloc {
 	[noteLabel release];
 	[trendWeightLabel release];
 	[measuredWeightLabel release];
@@ -70,8 +61,8 @@ static NSNumberFormatter *trendFormatter = nil;
     [super dealloc];
 }
 
-- (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day;
-{
+
+- (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day {
 	dayLabel.text = [dayFormatter stringFromNumber:[NSNumber numberWithInt:day]];
 	
 	float measuredWeight = [monthData measuredWeightOnDay:day];
@@ -79,11 +70,13 @@ static NSNumberFormatter *trendFormatter = nil;
 		measuredWeightLabel.hidden = YES;
 		trendWeightLabel.hidden = YES;
 	} else {
+		WeightFormatter *formatter = [WeightFormatter sharedFormatter];
+		
 		measuredWeightLabel.hidden = NO;
-		measuredWeightLabel.text = [measuredFormatter stringFromNumber:[NSNumber numberWithFloat:measuredWeight]];
+		measuredWeightLabel.text = [formatter stringFromMeasuredWeight:measuredWeight];
 		float weightDiff = measuredWeight - [monthData trendWeightOnDay:day];
 		trendWeightLabel.hidden = NO;
-		trendWeightLabel.text = [trendFormatter stringFromNumber:[NSNumber numberWithFloat:weightDiff]];
+		trendWeightLabel.text = [formatter stringFromTrendDifference:weightDiff];
 		trendWeightLabel.textColor = (weightDiff > 0) ? [UIColor redColor] : [UIColor greenColor];
 	}
 	

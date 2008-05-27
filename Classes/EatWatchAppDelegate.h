@@ -14,5 +14,5 @@
     UIWindow *window;
 	RootViewController *rootViewController;
 }
-
+- (void)setupRootView;
 @end

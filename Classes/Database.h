@@ -16,25 +16,6 @@
 #define kFlagColumnIndex 3
 #define kNoteColumnIndex 4
 
-typedef enum {
-	kWeightUnitPounds = 1,
-	kWeightUnitKilograms = 2
-} EWWeightUnit;
-
-typedef enum {
-	kEnergyUnitCalories = 1,
-	kEnergyUnitKilojoules = 2
-} EWEnergyUnit;
-
-static const float kCaloriesPerPound = 3500;
-static const float kKilojoulesPerKilogram = 7716;
-
-#define kPoundsPerKilogram 0.45359237f
-
-static const float kCaloriesPerKilogram = (3500 * kPoundsPerKilogram);
-static const float kKilojoulesPerPound = (7716 / kPoundsPerKilogram);
-
-extern NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit);
 extern void EWFinalizeStatement(sqlite3_stmt **stmt_ptr);
 
 extern NSString *EWDatabaseDidChangeNotification;
@@ -58,8 +39,6 @@ extern NSString *EWDatabaseDidChangeNotification;
 - (void)close;
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (NSUInteger)weightCount; // from DB
-- (EWWeightUnit)weightUnit;
-- (void)setWeightUnit:(EWWeightUnit)su;
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (MonthData *)dataForMonth:(EWMonth)m;
 - (float)minimumWeight; // from DB

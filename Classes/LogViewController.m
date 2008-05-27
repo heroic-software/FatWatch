@@ -11,8 +11,6 @@
 #import "Database.h"
 #import "EWDate.h"
 #import "MonthData.h"
-#import "NewDatabaseViewController.h"
-#import "UnitConvertViewController.h"
 #import "LogTableViewCell.h"
 
 
@@ -134,32 +132,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	if (firstLoad) {
-		EWWeightUnit databaseWeightUnit = [[Database sharedDatabase] weightUnit];
-		EWWeightUnit defaultsWeightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"WeightUnit"];
-		
-		if (databaseWeightUnit == 0) {
-			// This is a new data file.
-			if (defaultsWeightUnit == 0) {
-				// Prompt user to choose weight unit.
-				NewDatabaseViewController *newDbController = [[NewDatabaseViewController alloc] init];
-				[[self parentViewController] presentModalViewController:newDbController animated:YES];
-				[newDbController release];
-				return;
-			} else {
-				// Go with whatever was in defaults.
-				[[Database sharedDatabase] setWeightUnit:defaultsWeightUnit];
-			}
-		} else if (defaultsWeightUnit == 0) {
-			// Have units in the database but not in defaults, go with the database.
-			[[NSUserDefaults standardUserDefaults] setInteger:databaseWeightUnit forKey:@"WeightUnit"];
-		} else if (databaseWeightUnit != defaultsWeightUnit) {
-			// The weight units don't match.
-			UnitConvertViewController *unitConvertController = [[UnitConvertViewController alloc] init];
-			[[self parentViewController] presentModalViewController:unitConvertController animated:YES];
-			[unitConvertController release];
-			return;
-		}
-		// Normal launch
 		firstLoad = NO;
 		[self autoWeighInIfEnabled];
 	}

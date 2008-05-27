@@ -10,16 +10,12 @@
 #import "Database.h"
 #import "SlopeComputer.h"
 #import "MonthData.h"
-
-
-static NSNumberFormatter *weightFormatter = nil;
-static NSNumberFormatter *energyFormatter = nil;
+#import "WeightFormatter.h"
 
 
 @implementation TrendViewController
 
-- (void)recompute
-{
+- (void)recompute {
 	[array removeAllObjects];
 
 	NSString *labels[] = {@"Week", @"Two Weeks", @"Month", @"Quarter", @"Six Months", @"Year"};
@@ -27,56 +23,23 @@ static NSNumberFormatter *energyFormatter = nil;
 	
 	Database *database = [Database sharedDatabase];
 	
-	if (weightFormatter == nil) {
-		EWEnergyUnit energyUnit = [[NSUserDefaults standardUserDefaults] integerForKey:@"EnergyUnit"];
-		EWWeightUnit weightUnit = [database weightUnit];
-		NSAssert1(weightUnit != 0, @"Unknown weight unit in database: %d", weightUnit);
-		
-		weightFormatter = [[NSNumberFormatter alloc] init];
-		[weightFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-		[weightFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[weightFormatter setPositivePrefix:@"+"];
-		[weightFormatter setNegativePrefix:@"−"];
-		[weightFormatter setPositiveSuffix:(weightUnit == kWeightUnitPounds) ? @" lbs/week" : @" kgs/week"];
-		[weightFormatter setNegativeSuffix:[weightFormatter positiveSuffix]];
-		[weightFormatter setMinimumIntegerDigits:1];
-		[weightFormatter setMinimumFractionDigits:2];
-		[weightFormatter setMaximumFractionDigits:2];
-		[weightFormatter setMultiplier:[NSNumber numberWithInt:7]];
-		
-		energyFormatter = [[NSNumberFormatter alloc] init];
-		[energyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-		[energyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[energyFormatter setPositivePrefix:@"+"];
-		[energyFormatter setNegativePrefix:@"−"];
-		[energyFormatter setPositiveSuffix:(energyUnit == kEnergyUnitCalories) ? @" cal/day" : @" kJ/day"];
-		[energyFormatter setNegativeSuffix:[energyFormatter positiveSuffix]];
-		[energyFormatter setMinimumIntegerDigits:1];
-		[energyFormatter setMinimumFractionDigits:2];
-		[energyFormatter setMaximumFractionDigits:2];
-
-		float energyPerWeight;
-		if (weightUnit == kWeightUnitPounds) {
-			energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerPound : kKilojoulesPerPound;
-		} else {
-			energyPerWeight = (energyUnit == kEnergyUnitCalories) ? kCaloriesPerKilogram : kKilojoulesPerKilogram;
-		}
-		
-		[energyFormatter setMultiplier:[NSNumber numberWithFloat:energyPerWeight]];
-	}
-
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	EWMonthDay curMonthDay = EWMonthDayFromDate([NSDate date]);
 	EWMonth curMonth = EWMonthDayGetMonth(curMonthDay);
 	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	MonthData *data = [database dataForMonth:curMonth];
 	EWMonth earliestMonth = [database earliestMonth];
-	
+	WeightFormatter *formatter = [WeightFormatter sharedFormatter];
+
 	int newValueCount = 0;
-	int i;
+	int stopIndex;
 	float x = 0;
-	for (i = 0; (i < 6) && (curMonth >= earliestMonth); i++) {
-		while ((x < stops[i]) && (curMonth >= earliestMonth)) {
+	
+	for (stopIndex = 0; (stopIndex < 6) && (curMonth >= earliestMonth); stopIndex++) {
+		while ((x < stops[stopIndex]) && (curMonth >= earliestMonth)) {
+			if (data == nil) {
+				data = [database dataForMonth:curMonth];
+			}
 			float y = [data measuredWeightOnDay:curDay];
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
@@ -87,15 +50,15 @@ static NSNumberFormatter *energyFormatter = nil;
 			if (curDay < 1) {
 				curMonth--;
 				curDay = EWDaysInMonth(curMonth);
-				data = [database dataForMonth:curMonth];
+				data = nil;
 			}
 		}
 		float weightPerDay = -[computer computeSlope];
 		if (newValueCount > 1) {
 			[array addObject:[NSArray arrayWithObjects:
-							  [NSString stringWithFormat:@"Past %@", labels[i]],
-							  [weightFormatter stringFromNumber:[NSNumber numberWithFloat:weightPerDay]], 
-							  [energyFormatter stringFromNumber:[NSNumber numberWithFloat:weightPerDay]], 
+							  [NSString stringWithFormat:@"Past %@", labels[stopIndex]],
+							  [formatter weightPerWeekStringFromWeightChange:(7.0f * weightPerDay)],
+							  [formatter energyPerDayStringFromWeightChange:weightPerDay],
 							  nil]];
 			newValueCount = 0;
 		}
@@ -103,8 +66,8 @@ static NSNumberFormatter *energyFormatter = nil;
 	[computer release];
 }
 
-- (id)init
-{
+
+- (id)init {
 	if (self = [super init]) {
 		self.title = @"Trends";
 		array = [[NSMutableArray alloc] init];
@@ -112,13 +75,13 @@ static NSNumberFormatter *energyFormatter = nil;
 	return self;
 }
 
-- (NSString *)message
-{
+
+- (NSString *)message {
 	return @"Not enough data to compute trends. Try again tomorrow.";
 }
 
-- (UIView *)loadDataView
-{
+
+- (UIView *)loadDataView {
 	UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	tableView.delegate = self;
@@ -127,47 +90,47 @@ static NSNumberFormatter *energyFormatter = nil;
 	return [tableView autorelease];
 }
 
-- (void)dataChanged
-{
+
+- (void)dataChanged {
 	[self recompute];
 	UITableView *tableView = (UITableView *)self.dataView;
 	[tableView reloadData];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return NO;
 }
 
-- (void)dealloc
-{
+
+- (void)dealloc {
 	[array release];
 	[super dealloc];
 }
 
+
 #pragma mark UITableViewDataSource (Required)
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return [array count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 2;
 }
 
+
 #pragma mark UITableViewDataSource (Optional)
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	return [[array objectAtIndex:section] objectAtIndex:0];
 }
 
+
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:@"Foo"];
@@ -181,10 +144,10 @@ static NSNumberFormatter *energyFormatter = nil;
 	return cell;
 }
 
+
 #pragma mark UITableViewDelegate (Optional)
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	return nil; // table is for display only, don't allow selection
 }
 

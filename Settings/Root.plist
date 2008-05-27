@@ -35,6 +35,7 @@
 			<array>
 				<string>POUNDS</string>
 				<string>KILOGRAMS</string>
+				<string>STONES</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -42,6 +43,7 @@
 			<array>
 				<integer>1</integer>
 				<integer>2</integer>
+				<integer>3</integer>
 			</array>
 		</dict>
 		<dict>

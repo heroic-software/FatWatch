@@ -18,6 +18,7 @@
 #import "RootViewController.h"
 #import "MicroWebServer.h"
 #import "WebServerDelegate.h"
+#import "NewDatabaseViewController.h"
 
 @implementation EatWatchAppDelegate
 
@@ -36,25 +37,38 @@
 	EWDateInit();
 	[[Database sharedDatabase] open];
 	
-	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
-	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
-	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
-
-	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logView, trendView, nil];
-
-	rootViewController = [[RootViewController alloc] init];
-	rootViewController.portraitViewController = tabBarController;
-	rootViewController.landscapeViewController = graphView;
-	
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	[window addSubview:rootViewController.view];
+
+	if ([[Database sharedDatabase] weightCount] == 0) {
+		// This is a new data file.
+		// Prompt user to choose weight unit.
+		NewDatabaseViewController *newDbController = [[NewDatabaseViewController alloc] init];
+		[window addSubview:newDbController.view];
+	} else {
+		[self setupRootView];
+	}
     [window makeKeyAndVisible];
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableWebSharing"]) {
 		// defer web server startup to decrease app startup time
 		[self performSelector:@selector(startWebServer:) withObject:nil afterDelay:2];
 	}
+}
+
+
+- (void)setupRootView {
+	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
+	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
+	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
+	
+	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logView, trendView, nil];
+	
+	rootViewController = [[RootViewController alloc] init];
+	rootViewController.portraitViewController = tabBarController;
+	rootViewController.landscapeViewController = graphView;
+	
+	[window addSubview:rootViewController.view];
 }
 
 

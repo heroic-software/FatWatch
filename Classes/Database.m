@@ -17,15 +17,6 @@ static sqlite3_stmt *month_before_stmt = nil;
 static sqlite3_stmt *month_after_stmt = nil;
 
 
-NSString *EWStringFromWeightUnit(EWWeightUnit weightUnit) {
-	switch (weightUnit) {
-		case kWeightUnitPounds: return @"Pounds";
-		case kWeightUnitKilograms: return @"Kilograms";
-		default: return @"Unknown Weight Unit";
-	}
-}
-
-
 void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	if (*stmt_ptr != NULL) {
 		sqlite3_finalize(*stmt_ptr);
@@ -204,21 +195,6 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	sqlite3_finalize(statement);
 
 	return value;
-}
-
-
-- (EWWeightUnit)weightUnit {
-	return [self intValueForMetaName:"WeightUnit"];
-}
-
-
-- (void)setWeightUnit:(EWWeightUnit)su {
-	sqlite3_stmt *statement = [self statementFromSQL:"INSERT INTO metadata VALUES (?, ?)"];
-	sqlite3_bind_text(statement, 1, "WeightUnit", 10, SQLITE_STATIC);
-	sqlite3_bind_int(statement, 2, su);
-	int code = sqlite3_step(statement);
-	NSAssert1(code == SQLITE_DONE, @"Error: failed to execute statement with message: %s", sqlite3_errmsg(database));
-	sqlite3_finalize(statement);
 }
 
 

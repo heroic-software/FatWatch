@@ -6,72 +6,77 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "NewDatabaseViewController.h"
 #import "Database.h"
+#import "WeightFormatter.h"
+#import "EatWatchAppDelegate.h"
 
 @implementation NewDatabaseViewController
 
-- (id)init
-{
+- (id)init {
 	if ([super initWithNibName:nil bundle:nil]) {
 		self.title = NSLocalizedString(@"New Database", @"NewDatabaseViewController title");
 	}
 	return self;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return NO;
 }
 
-- (void)loadView 
-{
-	UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22+3*(44+22))];
+
+- (void)loadView {
+	UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
 	mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	mainView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
-	CGRect viewFrame = CGRectMake(22, 22, 320-44, 44);
+	NSArray *weightUnitNames = [WeightFormatter weightUnitNames];
+	int i;
+	
+	CGFloat y = CGRectGetMaxY(mainView.bounds) - 22;
 
-	UILabel *helpLabel = [[UILabel alloc] initWithFrame:viewFrame];
+	for (i = [weightUnitNames count] - 1; i >= 0; i--) {
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[button setTitle:[weightUnitNames objectAtIndex:i] forState:UIControlStateNormal];
+		[button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+		button.tag = i;
+		button.frame = CGRectMake(22, y-44, 320-44, 44);
+		[mainView addSubview:button];
+		y -= 66;
+	}
+	
+	UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(22, 22, 320-44, y-22)];
 	helpLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	helpLabel.contentMode = UIViewContentModeTop;
 	helpLabel.text = @"This is a new database.  Choose a weight unit.  You can change your mind in the Settings app.";
 	helpLabel.numberOfLines = 0;
 	[mainView addSubview:helpLabel];
 	[helpLabel release];
-	
-	EWWeightUnit units[] = { kWeightUnitPounds, kWeightUnitKilograms };
-	int i;
-	for (i = 0; i < 2; i++) {
-		viewFrame.origin.y += viewFrame.size.height + 22;
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[button setTitle:EWStringFromWeightUnit(units[i]) forState:UIControlStateNormal];
-		[button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-		button.tag = units[i];
-		button.frame = viewFrame;
-		button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-		[mainView addSubview:button];
-	}
 
 	self.view = mainView;
 	[mainView release];
 }
 
-- (void)buttonAction:(UIButton *)button
-{
-	EWWeightUnit newWeightUnit = [button tag];
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 
-	[[Database sharedDatabase] setWeightUnit:newWeightUnit];
-	[defs setInteger:newWeightUnit forKey:@"WeightUnit"];
+- (void)buttonAction:(UIButton *)button {
+	[WeightFormatter setWeightUnit:[button tag]];
+	EatWatchAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 
-	if ([defs integerForKey:@"EnergyUnit"] == 0) {
-		switch (newWeightUnit) {
-			case kWeightUnitPounds: [defs setInteger:kEnergyUnitCalories forKey:@"EnergyUnit"]; break;
-			case kWeightUnitKilograms: [defs setInteger:kEnergyUnitKilojoules forKey:@"EnergyUnit"]; break;
-		}
-	}
-	[self dismissModalViewControllerAnimated:YES];
+	UIView *window = self.view.superview;
+	
+	CATransition *animation = [CATransition animation];
+	[animation setType:kCATransitionFade];
+	[animation setDuration:0.3];
+	
+	[self.view removeFromSuperview];
+	[appDelegate setupRootView];
+
+	[[window layer] addAnimation:animation forKey:nil];
+	
+	[self autorelease];
 }
 
 @end
