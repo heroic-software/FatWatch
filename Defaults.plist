@@ -10,5 +10,7 @@
 	<real>0.5</real>
 	<key>EnergyUnit</key>
 	<integer>1</integer>
+	<key>WeightUnit</key>
+	<integer>1</integer>
 </dict>
 </plist>
