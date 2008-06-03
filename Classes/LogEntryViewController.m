@@ -78,6 +78,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	
 	weightPickerView = [[UIPickerView alloc] initWithFrame:weightContainerView.bounds];
 	weightPickerView.delegate = self;
+	weightPickerView.dataSource = self;
 	weightPickerView.showsSelectionIndicator = YES;
 	
 	noWeightView = [[UIView alloc] initWithFrame:weightContainerView.bounds];
