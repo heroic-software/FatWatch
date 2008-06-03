@@ -90,15 +90,6 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 @synthesize name;
 
 
-+ (MicroWebServer *)sharedServer {
-	static MicroWebServer *instance = nil;
-	if (instance == nil) {
-		instance = [[MicroWebServer alloc] init];
-	}
-	return instance;
-}
-
-
 - (CFSocketRef)createSocket {
 	
 	CFSocketContext context;

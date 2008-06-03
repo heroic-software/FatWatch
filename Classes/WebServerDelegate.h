@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MicroWebServer.h"
 
-@interface WebServerDelegate : NSObject {
+@interface WebServerDelegate : NSObject <MicroWebServerDelegate> {
 	NSData *importData;
 	BOOL importReplace;
 }

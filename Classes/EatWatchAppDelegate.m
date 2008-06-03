@@ -73,7 +73,7 @@
 
 
 - (void)startWebServer:(id)sender {
-	MicroWebServer *webServer = [MicroWebServer sharedServer];
+	webServer = [[MicroWebServer alloc] init];
 	webServer.name = @"EatWatch";
 	webServer.delegate = [[WebServerDelegate alloc] init];
 	[webServer start];
@@ -81,9 +81,9 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	MicroWebServer *webServer = [MicroWebServer sharedServer];
 	[webServer stop];
 	[webServer.delegate release];
+	[webServer release];
 	[[Database sharedDatabase] close];
 }
 

@@ -11,23 +11,22 @@
 #import <CFNetwork/CFNetwork.h>
 #endif
 
+@protocol MicroWebServerDelegate;
 
 @interface MicroWebServer : NSObject {
 	NSString *name;
 	CFSocketRef listenSocket;
 	NSNetService *netService;
-	id delegate;
+	id <MicroWebServerDelegate> delegate;
 }
 @property (nonatomic,retain) NSString *name;
-@property (nonatomic,assign) id delegate;
-+ (MicroWebServer *)sharedServer;
+@property (nonatomic,assign) id <MicroWebServerDelegate> delegate;
 - (void)start;
 - (void)stop;
 @end
 
 
-@interface MicroWebConnection : NSObject
-{
+@interface MicroWebConnection : NSObject {
 	MicroWebServer *webServer;
 	CFReadStreamRef readStream;
 	CFWriteStreamRef writeStream;
@@ -48,6 +47,7 @@
 @end
 
 
-@interface NSObject (MicroWebServerDelegate)
+@protocol MicroWebServerDelegate <NSObject>
+@required
 - (void)handleWebConnection:(MicroWebConnection *)connection;
 @end

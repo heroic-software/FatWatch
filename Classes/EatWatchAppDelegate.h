@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class RootViewController;
+@class MicroWebServer;
 
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
+	MicroWebServer *webServer;
     UIWindow *window;
 	RootViewController *rootViewController;
 }
