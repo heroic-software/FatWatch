@@ -25,8 +25,8 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = BC56D0880D8C5F17008D939B /* EatWatch */;
-		activeSDKPreference = macosx10.5;
-		activeTarget = BCEAD9E10DE219120017495E /* UnitTests */;
+		activeSDKPreference = iphonesimulator2.0;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* EatWatch */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* EatWatch */,
 		);
@@ -244,6 +244,34 @@
 			BCF31B220DF4DAA500ABEF70 /* PBXTextBookmark */ = BCF31B220DF4DAA500ABEF70 /* PBXTextBookmark */;
 			BCF31B240DF4DADB00ABEF70 /* PlistBookmark */ = BCF31B240DF4DADB00ABEF70 /* PlistBookmark */;
 			BCF31B250DF4DADB00ABEF70 /* PBXTextBookmark */ = BCF31B250DF4DADB00ABEF70 /* PBXTextBookmark */;
+			BCF31B460DF4DBE400ABEF70 /* PlistBookmark */ = BCF31B460DF4DBE400ABEF70 /* PlistBookmark */;
+			BCF31B470DF4DBE400ABEF70 /* PBXTextBookmark */ = BCF31B470DF4DBE400ABEF70 /* PBXTextBookmark */;
+			BCF31B480DF4DBE400ABEF70 /* PBXTextBookmark */ = BCF31B480DF4DBE400ABEF70 /* PBXTextBookmark */;
+			BCF31B5D0DF4DE9B00ABEF70 /* PlistBookmark */ = BCF31B5D0DF4DE9B00ABEF70 /* PlistBookmark */;
+			BCF31B5E0DF4DE9B00ABEF70 /* PBXTextBookmark */ = BCF31B5E0DF4DE9B00ABEF70 /* PBXTextBookmark */;
+			BCF31B640DF4DEAE00ABEF70 /* PBXTextBookmark */ = BCF31B640DF4DEAE00ABEF70 /* PBXTextBookmark */;
+			BCF31B660DF4DEB500ABEF70 /* PlistBookmark */ = BCF31B660DF4DEB500ABEF70 /* PlistBookmark */;
+			BCF31B670DF4DEB500ABEF70 /* PBXTextBookmark */ = BCF31B670DF4DEB500ABEF70 /* PBXTextBookmark */;
+			BCF31B690DF4E03500ABEF70 /* PlistBookmark */ = BCF31B690DF4E03500ABEF70 /* PlistBookmark */;
+			BCF31B6A0DF4E03500ABEF70 /* PBXTextBookmark */ = BCF31B6A0DF4E03500ABEF70 /* PBXTextBookmark */;
+			BCF31B6B0DF4E03900ABEF70 /* PBXTextBookmark */ = BCF31B6B0DF4E03900ABEF70 /* PBXTextBookmark */;
+			BCF31B6C0DF4E03E00ABEF70 /* PlistBookmark */ = BCF31B6C0DF4E03E00ABEF70 /* PlistBookmark */;
+			BCF31B6D0DF4E03E00ABEF70 /* PBXTextBookmark */ = BCF31B6D0DF4E03E00ABEF70 /* PBXTextBookmark */;
+			BCF31B6F0DF4E0D100ABEF70 /* PlistBookmark */ = BCF31B6F0DF4E0D100ABEF70 /* PlistBookmark */;
+			BCF31B700DF4E0D100ABEF70 /* PBXTextBookmark */ = BCF31B700DF4E0D100ABEF70 /* PBXTextBookmark */;
+			BCF31B720DF4E0FB00ABEF70 /* PlistBookmark */ = BCF31B720DF4E0FB00ABEF70 /* PlistBookmark */;
+			BCF31B730DF4E0FB00ABEF70 /* PBXTextBookmark */ = BCF31B730DF4E0FB00ABEF70 /* PBXTextBookmark */;
+			BCF31B7A0DF4E20100ABEF70 /* PlistBookmark */ = BCF31B7A0DF4E20100ABEF70 /* PlistBookmark */;
+			BCF31B7B0DF4E20100ABEF70 /* PBXTextBookmark */ = BCF31B7B0DF4E20100ABEF70 /* PBXTextBookmark */;
+			BCF31B7D0DF4E22E00ABEF70 /* PlistBookmark */ = BCF31B7D0DF4E22E00ABEF70 /* PlistBookmark */;
+			BCF31B7E0DF4E22E00ABEF70 /* PBXTextBookmark */ = BCF31B7E0DF4E22E00ABEF70 /* PBXTextBookmark */;
+			BCF31B800DF4E26000ABEF70 /* PlistBookmark */ = BCF31B800DF4E26000ABEF70 /* PlistBookmark */;
+			BCF31B810DF4E26000ABEF70 /* PBXTextBookmark */ = BCF31B810DF4E26000ABEF70 /* PBXTextBookmark */;
+			BCF31B830DF4E27700ABEF70 /* PlistBookmark */ = BCF31B830DF4E27700ABEF70 /* PlistBookmark */;
+			BCF31B840DF4E27700ABEF70 /* PBXTextBookmark */ = BCF31B840DF4E27700ABEF70 /* PBXTextBookmark */;
+			BCF31B860DF4E2E900ABEF70 /* PlistBookmark */ = BCF31B860DF4E2E900ABEF70 /* PlistBookmark */;
+			BCF31B870DF4E2E900ABEF70 /* PBXTextBookmark */ = BCF31B870DF4E2E900ABEF70 /* PBXTextBookmark */;
+			BCF31B8A0DF4E30000ABEF70 /* PlistBookmark */ = BCF31B8A0DF4E30000ABEF70 /* PlistBookmark */;
 		};
 		sourceControlManager = BC56D0910D8C5F30008D939B /* Source Control */;
 		userBuildSettings = {
@@ -487,10 +515,10 @@
 	};
 	BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {754, 4298}}";
-			sepNavSelRange = "{3783, 0}";
-			sepNavVisRange = "{2778, 1660}";
-			sepNavWindowFrame = "{{354, 82}, {813, 696}}";
+			sepNavIntBoundsRect = "{{0, 0}, {754, 4354}}";
+			sepNavSelRange = "{2853, 0}";
+			sepNavVisRange = "{496, 1508}";
+			sepNavWindowFrame = "{{369, 82}, {813, 696}}";
 		};
 	};
 	BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {
@@ -571,9 +599,9 @@
 	};
 	BC65EBB10DEBA5F90008E677 /* English */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {612, 700}}";
-			sepNavSelRange = "{236, 0}";
-			sepNavVisRange = "{305, 1374}";
+			sepNavIntBoundsRect = "{{0, 0}, {612, 714}}";
+			sepNavSelRange = "{459, 0}";
+			sepNavVisRange = "{124, 1182}";
 			sepNavWindowFrame = "{{610, 164}, {671, 614}}";
 		};
 	};
@@ -587,7 +615,7 @@
 		fRef = BC65EBB10DEBA5F90008E677 /* English */;
 		name = "Localizable.strings: 8";
 		rLen = 0;
-		rLoc = 1679;
+		rLoc = 1711;
 		rType = 0;
 		vrLen = 142;
 		vrLoc = 0;
@@ -602,7 +630,7 @@
 		fRef = BC65EBB10DEBA5F90008E677 /* English */;
 		name = "Localizable.strings: 8";
 		rLen = 0;
-		rLoc = 1679;
+		rLoc = 1711;
 		rType = 0;
 		vrLen = 142;
 		vrLoc = 0;
@@ -777,9 +805,9 @@
 	};
 	BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {630, 3276}}";
+			sepNavIntBoundsRect = "{{0, 0}, {630, 3360}}";
 			sepNavSelRange = "{3518, 0}";
-			sepNavVisRange = "{2110, 1077}";
+			sepNavVisRange = "{2080, 1107}";
 			sepNavWindowFrame = "{{88, 71}, {689, 707}}";
 		};
 	};
@@ -931,7 +959,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 81";
 		rLen = 0;
-		rLoc = 2594;
+		rLoc = 2570;
 		rType = 0;
 		vrLen = 1983;
 		vrLoc = 1534;
@@ -941,7 +969,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 81";
 		rLen = 0;
-		rLoc = 2594;
+		rLoc = 2570;
 		rType = 0;
 		vrLen = 1983;
 		vrLoc = 1534;
@@ -961,7 +989,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7962;
+		rLoc = 8372;
 		rType = 0;
 		vrLen = 889;
 		vrLoc = 7638;
@@ -992,7 +1020,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7962;
+		rLoc = 8372;
 		rType = 0;
 		vrLen = 980;
 		vrLoc = 7638;
@@ -1002,7 +1030,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7962;
+		rLoc = 8372;
 		rType = 0;
 		vrLen = 980;
 		vrLoc = 7638;
@@ -1047,7 +1075,7 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 109";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 4193;
 		rType = 0;
 		vrLen = 1660;
 		vrLoc = 2778;
@@ -1068,9 +1096,298 @@
 		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
 		name = "LogEntryViewController.m: 109";
 		rLen = 0;
-		rLoc = 3783;
+		rLoc = 4193;
 		rType = 0;
 		vrLen = 1660;
 		vrLoc = 2778;
+	};
+	BCF31B460DF4DBE400ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B470DF4DBE400ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 109";
+		rLen = 0;
+		rLoc = 4193;
+		rType = 0;
+		vrLen = 1660;
+		vrLoc = 2778;
+	};
+	BCF31B480DF4DBE400ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 96";
+		rLen = 0;
+		rLoc = 3132;
+		rType = 0;
+		vrLen = 1596;
+		vrLoc = 2644;
+	};
+	BCF31B5D0DF4DE9B00ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B5E0DF4DE9B00ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 109";
+		rLen = 0;
+		rLoc = 4243;
+		rType = 0;
+		vrLen = 1511;
+		vrLoc = 2900;
+	};
+	BCF31B640DF4DEAE00ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: 'margin' undeclared (first use in this function)";
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		rLen = 1;
+		rLoc = 114;
+		rType = 1;
+	};
+	BCF31B660DF4DEB500ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B670DF4DEB500ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 104";
+		rLen = 0;
+		rLoc = 3965;
+		rType = 0;
+		vrLen = 1462;
+		vrLoc = 2900;
+	};
+	BCF31B690DF4E03500ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B6A0DF4E03500ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 107";
+		rLen = 0;
+		rLoc = 3674;
+		rType = 0;
+		vrLen = 1689;
+		vrLoc = 2672;
+	};
+	BCF31B6B0DF4E03900ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: unused variable 'kWeightControlAreaHeight'";
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		rLen = 1;
+		rLoc = 55;
+		rType = 1;
+	};
+	BCF31B6C0DF4E03E00ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B6D0DF4E03E00ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 56";
+		rLen = 0;
+		rLoc = 1152;
+		rType = 0;
+		vrLen = 1405;
+		vrLoc = 792;
+	};
+	BCF31B6F0DF4E0D100ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B700DF4E0D100ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 103";
+		rLen = 0;
+		rLoc = 3553;
+		rType = 0;
+		vrLen = 1784;
+		vrLoc = 2537;
+	};
+	BCF31B720DF4E0FB00ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B730DF4E0FB00ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 104";
+		rLen = 0;
+		rLoc = 3553;
+		rType = 0;
+		vrLen = 1821;
+		vrLoc = 2537;
+	};
+	BCF31B7A0DF4E20100ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B7B0DF4E20100ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 104";
+		rLen = 0;
+		rLoc = 3553;
+		rType = 0;
+		vrLen = 1825;
+		vrLoc = 2537;
+	};
+	BCF31B7D0DF4E22E00ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B7E0DF4E22E00ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 104";
+		rLen = 0;
+		rLoc = 3553;
+		rType = 0;
+		vrLen = 1789;
+		vrLoc = 2537;
+	};
+	BCF31B800DF4E26000ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B810DF4E26000ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 57";
+		rLen = 0;
+		rLoc = 1266;
+		rType = 0;
+		vrLen = 1604;
+		vrLoc = 861;
+	};
+	BCF31B830DF4E27700ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B840DF4E27700ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 57";
+		rLen = 0;
+		rLoc = 1266;
+		rType = 0;
+		vrLen = 1604;
+		vrLoc = 861;
+	};
+	BCF31B860DF4E2E900ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BCF31B870DF4E2E900ABEF70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */;
+		name = "LogEntryViewController.m: 90";
+		rLen = 0;
+		rLoc = 2853;
+		rType = 0;
+		vrLen = 1357;
+		vrLoc = 496;
+	};
+	BCF31B8A0DF4E30000ABEF70 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC65EBBA0DEBA8FE0008E677 /* English */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/English.lproj/TrendSpans.plist;
+		rLen = 0;
+		rLoc = 2147483647;
 	};
 }

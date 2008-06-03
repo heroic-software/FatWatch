@@ -50,27 +50,30 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 - (void)loadView {
 	const CGFloat kScreenWidth = 320;
-	const CGFloat kWeightControlMargin = 11;
+	const CGFloat kMargin = 11;
+	const CGFloat kControlWidth = 320 - 2 * kMargin;
 	const CGFloat kWeightControlHeight = 30;
-	const CGFloat kWeightControlAreaHeight = (kWeightControlMargin + kWeightControlHeight + kWeightControlMargin);
 	const CGFloat kWeightPickerHeight = 216;
+	const CGFloat kLabelHeight = 30;
+	const CGFloat kFlagControlHeight = 36;
+	const CGFloat kNoteFieldHeight = 30;
 	
 	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
-	CGFloat y = 0;
+	CGFloat y = kMargin;
 	
 	NSString *showWeightTitle = NSLocalizedString(@"SHOW_WEIGHT_TITLE", nil);
 	NSString *hideWeightTitle = NSLocalizedString(@"HIDE_WEIGHT_TITLE", nil);
 	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:showWeightTitle, hideWeightTitle, nil]];
-	weightControl.frame = CGRectInset(CGRectMake(0, y, kScreenWidth, kWeightControlAreaHeight), kWeightControlMargin, kWeightControlMargin);
+	weightControl.frame = CGRectMake(kMargin, y, kControlWidth, kWeightControlHeight);
 	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
 	[view addSubview:weightControl];
 	[weightControl release];
 	
-	y = CGRectGetMaxY(weightControl.frame) + kWeightControlMargin;
+	y = CGRectGetMaxY(weightControl.frame) + kMargin;
 	
 	weightContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kWeightPickerHeight)];
 	[view addSubview:weightContainerView];
@@ -84,27 +87,34 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	noWeightView = [[UIView alloc] initWithFrame:weightContainerView.bounds];
 	noWeightView.backgroundColor = [UIColor darkGrayColor];
 	
-	UILabel *noWeightLabel = [[UILabel alloc] initWithFrame:CGRectInset(noWeightView.bounds, 11, 0)];
+	UILabel *noWeightLabel = [[UILabel alloc] initWithFrame:CGRectInset(noWeightView.bounds, kMargin, 0)];
 	noWeightLabel.text = NSLocalizedString(@"NO_WEIGHT_TEXT", nil);
 	noWeightLabel.numberOfLines = 0;
 	noWeightLabel.backgroundColor = [UIColor clearColor];
 	noWeightLabel.textColor = [UIColor whiteColor];
 	[noWeightView addSubview:noWeightLabel];
 	[noWeightLabel release];
+		
+	y = CGRectGetMaxY(weightContainerView.frame) + kMargin;
+
+	UILabel *flagAndNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, y, kControlWidth, kLabelHeight)];
+	flagAndNoteLabel.text = NSLocalizedString(@"CHECK_AND_NOTE", @"Check & Note");
+	flagAndNoteLabel.textAlignment = UITextAlignmentCenter;
+	flagAndNoteLabel.backgroundColor = [UIColor clearColor];
+	flagAndNoteLabel.textColor = [UIColor blackColor];
+	[view addSubview:flagAndNoteLabel];
+	[flagAndNoteLabel release];
 	
-	const CGFloat margin = 16;
-	const CGFloat height = (148 - (3 * margin)) / 2.0;
-	
-	y = CGRectGetMaxY(weightContainerView.frame) + margin;
+	y = CGRectGetMaxY(flagAndNoteLabel.frame) + kMargin;
 	
 	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
-	flagControl.frame = CGRectMake(margin, y, 320 - 2*margin, height);
+	flagControl.frame = CGRectMake(kMargin, y, 320 - 2*kMargin, kFlagControlHeight);
 	[view addSubview:flagControl];
 	[flagControl release];
 	
-	y = CGRectGetMaxY(flagControl.frame) + margin;
+	y = CGRectGetMaxY(flagControl.frame) + kMargin;
 	
-	noteField = [[UITextField alloc] initWithFrame:CGRectMake(margin, y, 320 - 2*margin, height)];
+	noteField = [[UITextField alloc] initWithFrame:CGRectMake(kMargin, y, kControlWidth, kNoteFieldHeight)];
 	noteField.placeholder = NSLocalizedString(@"NOTE_FIELD_PLACEHOLDER", nil);
 	noteField.borderStyle = UITextBorderStyleBezel;
 	noteField.returnKeyType = UIReturnKeyDone;
