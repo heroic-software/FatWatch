@@ -19,6 +19,9 @@
 	NSDateFormatter *sectionTitleFormatter;
 	EWMonth earliestMonth, latestMonth;
 	NSIndexPath *lastIndexPath;
+	EWMonthDay scrollDestination;
 }
+@property (nonatomic,readonly) NSDate *currentDate;
 - (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag;
+- (void)scrollToDate:(NSDate *)date;
 @end

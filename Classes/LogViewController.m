@@ -12,6 +12,7 @@
 #import "EWDate.h"
 #import "MonthData.h"
 #import "LogTableViewCell.h"
+#import "GoToDateViewController.h"
 
 
 @interface LogViewController ()
@@ -25,10 +26,13 @@
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
 		firstLoad = YES;
+		scrollDestination = EWMonthDayFromDate([NSDate date]);
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+		
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go To", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goToDateAction)] autorelease];
 	}
 	return self;
 }
@@ -72,13 +76,10 @@
 
 
 - (void)loadView {
-	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
+	UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	
 	tableView.delegate = self;
 	tableView.dataSource = self;
-	tableView.sectionIndexMinimumDisplayRowCount = 2; //NSIntegerMax;
-	
 	self.view = tableView;
 	[tableView release];
 }
@@ -86,6 +87,20 @@
 
 - (EWMonth)monthForSection:(NSInteger)section {
 	return earliestMonth + section;
+}
+
+
+- (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
+	return [NSIndexPath indexPathForRow:(EWMonthDayGetDay(monthday) - 1)
+							  inSection:(EWMonthDayGetMonth(monthday) - earliestMonth)];
+}
+
+
+- (NSDate *)currentDate {
+	UITableView *tableView = (UITableView *)self.view;
+	NSIndexPath *indexPath = [[tableView indexPathsForVisibleRows] lastObject];
+	return EWDateFromMonthAndDay([self monthForSection:[indexPath section]], 
+								 [indexPath row] + 1);
 }
 
 
@@ -109,11 +124,15 @@
 		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
 	}
 
+	if (scrollDestination != 0) {
+		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
+						 atScrollPosition:UITableViewScrollPositionBottom
+								 animated:animated];
+		scrollDestination = 0;
+	}
+	
 	if (firstLoad) {
 		firstLoad = NO;
-		[tableView scrollToRowAtIndexPath:lastIndexPath
-						 atScrollPosition:UITableViewScrollPositionBottom 
-								 animated:NO];
 		[self autoWeighInIfEnabled];
 	}
 }
@@ -138,7 +157,7 @@
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return NO;
+	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
@@ -158,6 +177,23 @@
 }
 
 
+- (void)goToDateAction {
+	GoToDateViewController *viewController = [[GoToDateViewController alloc] initWithDate:self.currentDate];
+	viewController.target = self;
+	viewController.action = @selector(scrollToDate:);
+	[self presentModalViewController:[viewController autorelease] animated:YES];
+}
+
+
+- (void)scrollToDate:(NSDate *)date {
+	scrollDestination = EWMonthDayFromDate(date);
+	if (earliestMonth > EWMonthDayGetMonth(scrollDestination)) {
+		[[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(scrollDestination)];
+		[self databaseDidChange:nil];
+	}
+}
+
+
 - (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
@@ -166,7 +202,7 @@
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
 	logEntryViewController.weighIn = flag;
-	[[self parentViewController] presentModalViewController:[logEntryViewController navigationController] animated:!flag];
+	[self presentModalViewController:[logEntryViewController navigationController] animated:!flag];
 }
 
 

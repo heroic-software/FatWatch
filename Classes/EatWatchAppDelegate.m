@@ -61,8 +61,10 @@
 	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
 	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
 	
+	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logView] autorelease];
+	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logView, trendView, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendView, nil];
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;
