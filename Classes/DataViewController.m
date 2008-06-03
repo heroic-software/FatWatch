@@ -28,8 +28,13 @@
 }
 
 
+- (BOOL)hasEnoughData {
+	return ([[Database sharedDatabase] weightCount] > 1);
+}
+
+
 - (void)databaseDidChange:(NSNotification *)notice {
-	if ([[Database sharedDatabase] weightCount] > 1) {
+	if ([self hasEnoughData]) {
 		[self dataChanged];
 		if ([dataView superview] == nil) {
 			[messageView removeFromSuperview];

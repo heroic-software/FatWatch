@@ -57,8 +57,8 @@
 				data = nil;
 			}
 		}
-		float weightPerDay = -[computer computeSlope];
 		if (newValueCount > 1) {
+			float weightPerDay = -[computer computeSlope];
 			[array addObject:[NSArray arrayWithObjects:
 							  [spanTitles objectAtIndex:spanIndex],
 							  [formatter weightPerWeekStringFromWeightChange:(7.0f * weightPerDay)],
@@ -90,13 +90,20 @@
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 	tableView.delegate = self;
 	tableView.dataSource = self;
-	tableView.sectionIndexMinimumDisplayRowCount = NSIntegerMax;
 	return [tableView autorelease];
 }
 
 
+- (BOOL)hasEnoughData {
+	if ([super hasEnoughData]) {
+		[self recompute];
+		return [array count] > 0;
+	}
+	return NO;
+}
+
+
 - (void)dataChanged {
-	[self recompute];
 	UITableView *tableView = (UITableView *)self.dataView;
 	[tableView reloadData];
 }

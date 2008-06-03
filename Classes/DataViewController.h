@@ -13,5 +13,8 @@
 	UIView *dataView;
 }
 @property (nonatomic,readonly) UIView *dataView;
+- (NSString *)message;
+- (UIView *)loadDataView;
+- (BOOL)hasEnoughData;
 - (void)dataChanged;
 @end
