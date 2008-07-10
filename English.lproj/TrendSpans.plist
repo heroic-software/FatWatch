@@ -6,7 +6,6 @@
 	<array>
 		<integer>7</integer>
 		<integer>14</integer>
-		<integer>21</integer>
 		<integer>30</integer>
 		<integer>90</integer>
 		<integer>182</integer>
@@ -16,7 +15,6 @@
 	<array>
 		<string>Past Week</string>
 		<string>Past Two Weeks</string>
-		<string>Past Three Weeks</string>
 		<string>Past Month</string>
 		<string>Past Quarter</string>
 		<string>Past Six Months</string>
