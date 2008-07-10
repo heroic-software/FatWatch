@@ -19,4 +19,5 @@
 - (id)initWithDate:(NSDate *)date;
 - (IBAction)goToDate:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)pickToday:(id)sender;
 @end

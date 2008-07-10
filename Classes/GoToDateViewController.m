@@ -31,7 +31,7 @@
 
 
 - (void)viewDidLoad {
-	datePicker.datePickerMode = UIDatePickerModeDate;
+	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	datePicker.maximumDate = [NSDate date];
 	datePicker.date = initialDate;
 }
@@ -45,6 +45,11 @@
 
 - (IBAction)cancel:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)pickToday:(id)sender {
+	[datePicker setDate:[NSDate date] animated:YES];
 }
 
 
