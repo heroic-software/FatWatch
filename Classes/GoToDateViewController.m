@@ -17,54 +17,10 @@
 
 
 - (id)initWithDate:(NSDate *)date {
-	if (self = [super initWithNibName:nil bundle:nil]) {
+	if (self = [super initWithNibName:@"GoToDateView" bundle:nil]) {
 		initialDate = [date retain];
 	}
 	return self;
-}
-
-
-- (void)loadView {
-	UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
-	
-	datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
-	datePicker.datePickerMode = UIDatePickerModeDate;
-	datePicker.maximumDate = [NSDate date];
-	datePicker.date = initialDate;
-	[view addSubview:datePicker];
-	[datePicker release];
-	
-	UIButton *goButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	goButton.frame = CGRectMake(0, 230, 320, 44);
-	[goButton setTitle:@"Go To Date" forState:UIControlStateNormal];
-	[goButton addTarget:self action:@selector(goAction) forControlEvents:UIControlEventTouchUpInside];
-	[view addSubview:goButton];
-
-	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	cancelButton.frame = CGRectMake(0, 300, 320, 44);
-	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-	[cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
-	[view addSubview:cancelButton];
-	
-	self.view = view;
-	[view release];
-}
-
-
-- (void)goAction {
-	[target performSelector:action withObject:datePicker.date];
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-- (void)cancelAction {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
@@ -72,5 +28,24 @@
 	[initialDate release];
 	[super dealloc];
 }
+
+
+- (void)viewDidLoad {
+	datePicker.datePickerMode = UIDatePickerModeDate;
+	datePicker.maximumDate = [NSDate date];
+	datePicker.date = initialDate;
+}
+
+
+- (IBAction)goToDate:(id)sender {
+	[target performSelector:action withObject:datePicker.date];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)cancel:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end

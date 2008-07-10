@@ -10,11 +10,13 @@
 
 @interface GoToDateViewController : UIViewController {
 	NSDate *initialDate;
-	UIDatePicker *datePicker;
+	IBOutlet UIDatePicker *datePicker;
 	id target;
 	SEL action;
 }
 @property (nonatomic,assign) id target;
 @property (nonatomic,assign) SEL action;
 - (id)initWithDate:(NSDate *)date;
+- (IBAction)goToDate:(id)sender;
+- (IBAction)cancel:(id)sender;
 @end

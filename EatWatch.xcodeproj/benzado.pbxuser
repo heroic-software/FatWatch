@@ -1013,16 +1013,16 @@
 	BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {672, 595}}";
-			sepNavSelRange = "{386, 0}";
-			sepNavVisRange = "{0, 428}";
+			sepNavSelRange = "{432, 64}";
+			sepNavVisRange = "{0, 501}";
 			sepNavWindowFrame = "{{15, 65}, {731, 708}}";
 		};
 	};
 	BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {672, 1078}}";
-			sepNavSelRange = "{779, 0}";
-			sepNavVisRange = "{151, 1373}";
+			sepNavSelRange = "{1967, 0}";
+			sepNavVisRange = "{655, 1307}";
 			sepNavWindowFrame = "{{32, 70}, {731, 708}}";
 		};
 	};
