@@ -91,7 +91,7 @@
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatWatchAppDelegate.m; sourceTree = "<group>"; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* EatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* FatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* EatWatch.app */,
+				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
 				BCEAD9E20DE219130017495E /* UnitTests.octest */,
 			);
 			name = Products;
@@ -373,9 +373,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* EatWatch */ = {
+		1D6058900D05DD3D006BFB54 /* FatWatch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "EatWatch" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */;
 			buildPhases = (
 				BC9BDEAE0DA9D16A0004E70C /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -389,9 +389,9 @@
 			);
 			dependencies = (
 			);
-			name = EatWatch;
+			name = FatWatch;
 			productName = EatWatch;
-			productReference = 1D6058910D05DD3D006BFB54 /* EatWatch.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BCEAD9E10DE219120017495E /* UnitTests */ = {
@@ -425,7 +425,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* EatWatch */,
+				1D6058900D05DD3D006BFB54 /* FatWatch */,
 				BCEAD9E10DE219120017495E /* UnitTests */,
 			);
 		};
@@ -648,7 +648,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
-				PRODUCT_NAME = EatWatch;
+				PRODUCT_NAME = FatWatch;
 			};
 			name = Debug;
 		};
@@ -662,7 +662,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
-				PRODUCT_NAME = EatWatch;
+				PRODUCT_NAME = FatWatch;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -753,7 +753,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "EatWatch" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,

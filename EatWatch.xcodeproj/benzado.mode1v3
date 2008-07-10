@@ -279,8 +279,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -319,13 +317,12 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
-								<string>BCABE0480DD9373B00DE580A</string>
-								<string>29B97317FDCFA39411CA2CEA</string>
-								<string>1C37FAAC04509CD000000102</string>
+								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>7</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -367,7 +364,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GoToDateViewController.h</string>
+								<string>Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -375,7 +372,48 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GoToDateViewController.h</string>
+										<string>Info.plist</string>
+										<key>_historyCapacity</key>
+										<integer>10</integer>
+										<key>bookmark</key>
+										<string>BC24A7E00E25FE0D0074FD4C</string>
+										<key>history</key>
+										<array>
+											<string>BC24A7700E25F0710074FD4C</string>
+											<string>BC24A78D0E25F2400074FD4C</string>
+											<string>BC24A79B0E25F4870074FD4C</string>
+											<string>BC24A79C0E25F4870074FD4C</string>
+											<string>BC24A79D0E25F4870074FD4C</string>
+											<string>BC24A7B20E25F6160074FD4C</string>
+											<string>BC24A7C40E25F9230074FD4C</string>
+											<string>BC24A7CB0E25FA660074FD4C</string>
+											<string>BC24A7DD0E25FE0D0074FD4C</string>
+											<string>BC24A7DE0E25FE0D0074FD4C</string>
+										</array>
+										<key>prevStack</key>
+										<array>
+											<string>BC24A7730E25F0710074FD4C</string>
+											<string>BC24A7750E25F0710074FD4C</string>
+											<string>BC24A7770E25F0710074FD4C</string>
+											<string>BC24A77A0E25F0710074FD4C</string>
+											<string>BC24A77B0E25F0710074FD4C</string>
+											<string>BC24A78F0E25F2400074FD4C</string>
+											<string>BC24A7900E25F2400074FD4C</string>
+											<string>BC24A79F0E25F4870074FD4C</string>
+											<string>BC24A7A00E25F4870074FD4C</string>
+											<string>BC24A7A10E25F4870074FD4C</string>
+											<string>BC24A7A70E25F5090074FD4C</string>
+											<string>BC24A7A80E25F5090074FD4C</string>
+											<string>BC24A7AD0E25F5650074FD4C</string>
+											<string>BC24A7AE0E25F5650074FD4C</string>
+											<string>BC24A7B40E25F6160074FD4C</string>
+											<string>BC24A7B50E25F6160074FD4C</string>
+											<string>BC24A7C60E25F9230074FD4C</string>
+											<string>BC24A7C70E25F9230074FD4C</string>
+											<string>BC24A7CD0E25FA660074FD4C</string>
+											<string>BC24A7CE0E25FA660074FD4C</string>
+											<string>BC24A7DF0E25FE0D0074FD4C</string>
+										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -386,16 +424,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {687, 0}}</string>
+								<string>{{0, 0}, {687, 314}}</string>
 								<key>RubberWindowFrame</key>
 								<string>133 168 983 596 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>0pt</string>
+							<string>314pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -406,14 +446,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 5}, {687, 550}}</string>
+								<string>{{0, 319}, {687, 236}}</string>
 								<key>RubberWindowFrame</key>
 								<string>133 168 983 596 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>550pt</string>
+							<string>236pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -567,7 +607,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>237366883.585428</real>
+	<real>237370893.51266801</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
