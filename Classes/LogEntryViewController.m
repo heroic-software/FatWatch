@@ -26,7 +26,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
 - (id)init {
-	if (self = [super init]) {
+	if (self = [super initWithNibName:@"LogEntryView" bundle:nil]) {
 		titleFormatter = [[NSDateFormatter alloc] init];
 		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -48,98 +48,14 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
-- (void)loadView {
-	const CGFloat kScreenWidth = 320;
-	const CGFloat kMargin = 11;
-	const CGFloat kControlWidth = 320 - 2 * kMargin;
-	const CGFloat kWeightControlHeight = 30;
-	const CGFloat kWeightPickerHeight = 216;
-	const CGFloat kLabelHeight = 30;
-	const CGFloat kFlagControlHeight = 36;
-	const CGFloat kNoteFieldHeight = 30;
-	
-	UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-	
-	CGFloat y = kMargin;
-	
-	NSString *showWeightTitle = NSLocalizedString(@"SHOW_WEIGHT_TITLE", nil);
-	NSString *hideWeightTitle = NSLocalizedString(@"HIDE_WEIGHT_TITLE", nil);
-	weightControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:showWeightTitle, hideWeightTitle, nil]];
-	weightControl.frame = CGRectMake(kMargin, y, kControlWidth, kWeightControlHeight);
-	weightControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	[weightControl addTarget:self action:@selector(toggleWeightAction) forControlEvents:UIControlEventValueChanged];
-	[view addSubview:weightControl];
-	[weightControl release];
-	
-	y = CGRectGetMaxY(weightControl.frame) + kMargin;
-	
-	weightContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kWeightPickerHeight)];
-	[view addSubview:weightContainerView];
-	[weightContainerView release];
-	
-	weightPickerView = [[UIPickerView alloc] initWithFrame:weightContainerView.bounds];
-	weightPickerView.delegate = self;
-	weightPickerView.dataSource = self;
-	weightPickerView.showsSelectionIndicator = YES;
-	
-	noWeightView = [[UIView alloc] initWithFrame:weightContainerView.bounds];
-	noWeightView.backgroundColor = [UIColor darkGrayColor];
-	
-	UILabel *noWeightLabel = [[UILabel alloc] initWithFrame:CGRectInset(noWeightView.bounds, kMargin, 0)];
-	noWeightLabel.text = NSLocalizedString(@"NO_WEIGHT_TEXT", nil);
-	noWeightLabel.numberOfLines = 0;
-	noWeightLabel.backgroundColor = [UIColor clearColor];
-	noWeightLabel.textColor = [UIColor whiteColor];
-	[noWeightView addSubview:noWeightLabel];
-	[noWeightLabel release];
-		
-	y = CGRectGetMaxY(weightContainerView.frame) + kMargin;
-
-	UILabel *flagAndNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, y, kControlWidth, kLabelHeight)];
-	flagAndNoteLabel.text = NSLocalizedString(@"CHECK_AND_NOTE", @"Check & Note");
-	flagAndNoteLabel.textAlignment = UITextAlignmentCenter;
-	flagAndNoteLabel.backgroundColor = [UIColor clearColor];
-	flagAndNoteLabel.textColor = [UIColor blackColor];
-	[view addSubview:flagAndNoteLabel];
-	[flagAndNoteLabel release];
-	
-	y = CGRectGetMaxY(flagAndNoteLabel.frame) + kMargin;
-	
-	flagControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"", @"✓", nil]];
-	flagControl.frame = CGRectMake(kMargin, y, 320 - 2*kMargin, kFlagControlHeight);
-	[view addSubview:flagControl];
-	[flagControl release];
-	
-	y = CGRectGetMaxY(flagControl.frame) + kMargin;
-	
-	noteField = [[UITextField alloc] initWithFrame:CGRectMake(kMargin, y, kControlWidth, kNoteFieldHeight)];
-	noteField.placeholder = NSLocalizedString(@"NOTE_FIELD_PLACEHOLDER", nil);
-	noteField.borderStyle = UITextBorderStyleBezel;
-	noteField.returnKeyType = UIReturnKeyDone;
-	noteField.backgroundColor = [UIColor whiteColor];
-	noteField.delegate = self;
-	[view addSubview:noteField];
-	[noteField release];
-	
-	self.view = view;
-	[view release];
-
-	self.navigationItem.leftBarButtonItem = 
-		[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-													   target:self 
-													   action:@selector(cancelAction)] autorelease];
-	self.navigationItem.rightBarButtonItem = 
-		[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-													   target:self 
-													   action:@selector(saveAction)] autorelease];
+- (void)viewDidLoad {
+	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+	self.navigationItem.leftBarButtonItem = cancelButton;
+	self.navigationItem.rightBarButtonItem = saveButton;
 }
 
 
 - (void)dealloc {
-	[weightPickerView release];
-	[noWeightView release];
 	[titleFormatter release];
 	[super dealloc];
 }
@@ -160,7 +76,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
-- (void)toggleWeightAction {
+- (void)toggleWeightAction:(id)sender {
 	CATransition *animation = [CATransition animation];
 	[animation setType:kCATransitionFade];
 	[animation setDuration:0.3];
@@ -174,12 +90,12 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
-- (void)cancelAction {
+- (IBAction)cancelAction:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 
-- (void)saveAction {
+- (IBAction)saveAction:(id)sender {
 	float weight;
 	if (weightControl.selectedSegmentIndex == 0) {
 		NSInteger row = [weightPickerView selectedRowInComponent:0];
@@ -270,11 +186,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 - (void)viewWillDisappear:(BOOL)animated {
 	[noteField resignFirstResponder];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return NO;
 }
 
 

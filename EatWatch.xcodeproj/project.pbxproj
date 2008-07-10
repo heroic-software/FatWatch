@@ -20,6 +20,7 @@
 		BC24A4980E2487830074FD4C /* Icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */; };
+		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
@@ -108,6 +109,7 @@
 		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		BC24A7490E25DAA70074FD4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GoToDateView.xib; sourceTree = "<group>"; };
+		BC24A7510E25DEA60074FD4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/LogEntryView.xib; sourceTree = "<group>"; };
 		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				BC47222B0DE3692C0081F576 /* importNoData.html */,
 				BC47222D0DE3692C0081F576 /* importAccepted.html */,
 				BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */,
+				BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
 				BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */,
+				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +575,14 @@
 				BC24A7490E25DAA70074FD4C /* English */,
 			);
 			name = GoToDateView.xib;
+			sourceTree = "<group>";
+		};
+		BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC24A7510E25DEA60074FD4C /* English */,
+			);
+			name = LogEntryView.xib;
 			sourceTree = "<group>";
 		};
 		BC47221A0DE368170081F576 /* home.html */ = {

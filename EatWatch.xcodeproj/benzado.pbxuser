@@ -114,7 +114,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					446,
+					424,
 					20,
 					48,
 					43,
@@ -552,6 +552,7 @@
 	};
 	BC24A7370E25D9140074FD4C = {
 		isa = PBXFileReference;
+		lastKnownFileType = folder;
 		sourceTree = "<group>";
 	};
 	BC263C2B0DB56A69007D03F4 /* Root.plist */ = {
@@ -625,7 +626,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 			"PBXLSLaunchAction-0" = {
 				PBXLSLaunchAction = 0;
@@ -677,17 +678,17 @@
 	};
 	BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {754, 583}}";
-			sepNavSelRange = "{565, 0}";
-			sepNavVisRange = "{0, 768}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 533}}";
+			sepNavSelRange = "{468, 0}";
+			sepNavVisRange = "{0, 1020}";
 			sepNavWindowFrame = "{{68, 82}, {813, 696}}";
 		};
 	};
 	BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {648, 4732}}";
-			sepNavSelRange = "{152, 34}";
-			sepNavVisRange = "{0, 294}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 3346}}";
+			sepNavSelRange = "{1215, 0}";
+			sepNavVisRange = "{4952, 1018}";
 			sepNavWindowFrame = "{{369, 82}, {813, 696}}";
 		};
 	};
@@ -714,9 +715,9 @@
 	};
 	BC65EBB10DEBA5F90008E677 /* English */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {648, 714}}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 742}}";
 			sepNavSelRange = "{705, 0}";
-			sepNavVisRange = "{366, 646}";
+			sepNavVisRange = "{0, 1298}";
 			sepNavWindowFrame = "{{449, 164}, {671, 614}}";
 		};
 	};
@@ -772,7 +773,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 237275252.534407;
+		modificationTime = 237364750.467991;
 		state = 1;
 		symbolName = objc_exception_throw;
 	};
@@ -1012,7 +1013,7 @@
 	};
 	BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {672, 595}}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 533}}";
 			sepNavSelRange = "{432, 64}";
 			sepNavVisRange = "{0, 501}";
 			sepNavWindowFrame = "{{15, 65}, {731, 708}}";
@@ -1020,9 +1021,9 @@
 	};
 	BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {672, 1078}}";
-			sepNavSelRange = "{1967, 0}";
-			sepNavVisRange = "{655, 1307}";
+			sepNavIntBoundsRect = "{{0, 0}, {626, 728}}";
+			sepNavSelRange = "{488, 0}";
+			sepNavVisRange = "{228, 647}";
 			sepNavWindowFrame = "{{32, 70}, {731, 708}}";
 		};
 	};

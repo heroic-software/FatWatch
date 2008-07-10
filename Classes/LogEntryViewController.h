@@ -16,16 +16,21 @@
 	MonthData *monthData;
 	EWDay day;
 	BOOL weighIn;
-	UISegmentedControl *weightControl;
-	UIView *weightContainerView;
-	UIPickerView *weightPickerView;
-	UIView *noWeightView;
-	UISegmentedControl *flagControl;
-	UITextField *noteField;
+	IBOutlet UIBarButtonItem *saveButton;
+	IBOutlet UIBarButtonItem *cancelButton;
+	IBOutlet UISegmentedControl *weightControl;
+	IBOutlet UIView *weightContainerView;
+	IBOutlet UIPickerView *weightPickerView;
+	IBOutlet UIView *noWeightView;
+	IBOutlet UISegmentedControl *flagControl;
+	IBOutlet UITextField *noteField;
 	NSDateFormatter *titleFormatter;
 	float scaleIncrement;
 }
 @property (nonatomic,retain) MonthData *monthData;
 @property (nonatomic) EWDay day;
 @property (nonatomic,getter=isWeighIn) BOOL weighIn;
+- (IBAction)toggleWeightAction:(id)sender;
+- (IBAction)cancelAction:(id)sender;
+- (IBAction)saveAction:(id)sender;
 @end
