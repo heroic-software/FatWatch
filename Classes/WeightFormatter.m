@@ -170,8 +170,8 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		[weightChangeFormatter setNegativeSuffix:suffix];
 
 		energyFormatter = [self newChangeFormatter];
-		[energyFormatter setMinimumFractionDigits:2];
-		[energyFormatter setMaximumFractionDigits:2];
+		[energyFormatter setMinimumFractionDigits:0];
+		[energyFormatter setMaximumFractionDigits:0];
 		switch (energyUnit) {
 			case kEnergyUnitCalories:
 				suffix = NSLocalizedString(@"CALORIES_PER_DAY_SUFFIX", nil);
