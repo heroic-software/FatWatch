@@ -44,7 +44,7 @@
 			if (data == nil) {
 				data = [database dataForMonth:curMonth];
 			}
-			float y = [data measuredWeightOnDay:curDay];
+			float y = [data trendWeightOnDay:curDay];
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
 				newValueCount++;
