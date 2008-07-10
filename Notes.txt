@@ -24,8 +24,9 @@ Debug Settings:
 - OnLaunchRecomputeTrendValues: recompute trend values on startup.
 - OnLaunchVacuumDatabase
 
-Idea: Jump To Button:
-- User taps "Jump To", presented with a modal picker for all months and "Go" and "Cancel" buttons.  Can be used in the Log View and the Graph View.
-
 Idea: Superimposed Diet Goal Line:
 - Needs a new view to enter diet goal information
+
+www.fatwatchapp.com
+
+FatWatch is diet agnostic: it believes that you may be following a diet, but either way it will do it's job just the same.
