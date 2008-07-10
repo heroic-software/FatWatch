@@ -76,7 +76,7 @@
 
 - (void)startWebServer:(id)sender {
 	webServer = [[MicroWebServer alloc] init];
-	webServer.name = @"EatWatch";
+	webServer.name = @"FatWatch";
 	webServer.delegate = [[WebServerDelegate alloc] init];
 	[webServer start];
 }
