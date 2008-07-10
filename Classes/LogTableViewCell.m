@@ -42,7 +42,7 @@ static NSNumberFormatter *dayFormatter = nil;
 		trendWeightLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:trendWeightLabel];
 				
-		noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 30, 242, 14)];
+		noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 29, 242, 14)];
 		noteLabel.textAlignment = UITextAlignmentCenter;
 		noteLabel.font = [UIFont systemFontOfSize:12];
 		noteLabel.textColor = [UIColor darkGrayColor];
