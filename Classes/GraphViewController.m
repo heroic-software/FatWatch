@@ -75,6 +75,7 @@
 
 - (void)dataChanged
 {
+	[self view]; // make sure view is loaded
 	UIScrollView *scrollView = (UIScrollView *)self.dataView;
 	[self removeGraphViews];
 	[self addGraphViewsToView:scrollView];
