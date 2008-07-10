@@ -8,8 +8,11 @@
 
 #import "MicroWebServer.h"
 
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <ifaddrs.h>
 
 
 @interface MicroWebConnection ()
@@ -88,6 +91,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 @synthesize delegate;
 @synthesize name;
+@synthesize running;
 
 
 - (CFSocketRef)createSocket {
@@ -144,18 +148,46 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (UInt16)portFromSocket:(CFSocketRef)socket {
+- (UInt16)port {
+	if (listenSocket == NULL) return 0;
 	struct sockaddr_in address;
-	CFDataRef addressData = CFSocketCopyAddress(socket);
+	CFDataRef addressData = CFSocketCopyAddress(listenSocket);
 	CFDataGetBytes(addressData, CFRangeMake(0, sizeof(address)), (UInt8 *)&address);
 	CFRelease(addressData);
 	return ntohs(address.sin_port);
 }
 
 
+- (NSURL *)url {
+	if (listenSocket == NULL) return nil;
+
+	int err;
+	struct ifaddrs *ifa = NULL, *ifp;
+	
+	err = getifaddrs(&ifp);
+	if (err < 0) return nil;
+	
+	for (ifa = ifp; ifa != NULL; ifa = ifa->ifa_next) {
+		if (ifa->ifa_addr == NULL) continue;
+		if (ifa->ifa_addr->sa_family != AF_INET) continue; // skip non-IP4
+		if (strncmp(ifa->ifa_name, "lo", 2) == 0) continue; // skip loopback addresses
+		struct sockaddr_in *address = (struct sockaddr_in *)ifa->ifa_addr;
+		char *host = inet_ntoa(address->sin_addr);
+		freeifaddrs(ifp);
+		return [NSURL URLWithString:[NSString stringWithFormat:@"http://%s:%d", host, self.port]];
+	}
+
+	freeifaddrs(ifp);
+	return nil;
+}
+
+
 - (void)start {
 	NSAssert(delegate != nil, @"must set delegate");
 	NSAssert([delegate respondsToSelector:@selector(handleWebConnection:)], @"delegate must implement handleWebConnection:");
+	
+	if (running) return; // ignore if already running
+	running = YES;
 	
 	listenSocket = [self createSocket];
 	if (listenSocket == NULL) {
@@ -165,13 +197,14 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	netService = [[NSNetService alloc] initWithDomain:@"" 
 												 type:@"_http._tcp."
 												 name:self.name
-												 port:[self portFromSocket:listenSocket]];
+												 port:self.port];
 	[netService setDelegate:self];
 	[netService publish];
 }
 
 
 - (void)stop {
+	if (!running) return; // ignore if already stopped
 	[netService stop];
 	[netService release];
 	netService = nil;
@@ -180,6 +213,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		CFRelease(listenSocket);
 		listenSocket = NULL;
 	}
+	running = NO;
 }
 
 

@@ -18,9 +18,13 @@
 	CFSocketRef listenSocket;
 	NSNetService *netService;
 	id <MicroWebServerDelegate> delegate;
+	BOOL running;
 }
 @property (nonatomic,retain) NSString *name;
 @property (nonatomic,assign) id <MicroWebServerDelegate> delegate;
+@property (nonatomic,readonly,getter=isRunning) BOOL running;
+@property (nonatomic,readonly) UInt16 port;
+@property (nonatomic,readonly) NSURL *url;
 - (void)start;
 - (void)stop;
 @end

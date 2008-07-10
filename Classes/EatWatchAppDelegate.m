@@ -16,9 +16,9 @@
 #import "TrendViewController.h"
 #import "GraphViewController.h"
 #import "RootViewController.h"
-#import "MicroWebServer.h"
-#import "WebServerDelegate.h"
 #import "NewDatabaseViewController.h"
+#import "MoreViewController.h"
+
 
 @implementation EatWatchAppDelegate
 
@@ -48,44 +48,29 @@
 		[self setupRootView];
 	}
     [window makeKeyAndVisible];
-	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableWebSharing"]) {
-		// defer web server startup to decrease app startup time
-		[self performSelector:@selector(startWebServer:) withObject:nil afterDelay:2];
-	}
 }
 
 
 - (void)setupRootView {
-	LogViewController *logView = [[[LogViewController alloc] init] autorelease];
-	TrendViewController *trendView = [[[TrendViewController alloc] init] autorelease];
-	GraphViewController *graphView = [[[GraphViewController alloc] init] autorelease];
+	LogViewController *logController = [[[LogViewController alloc] init] autorelease];
+	TrendViewController *trendController = [[[TrendViewController alloc] init] autorelease];
+	GraphViewController *graphController = [[[GraphViewController alloc] init] autorelease];
+	MoreViewController *moreController = [[[MoreViewController alloc] init] autorelease];
 	
-	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logView] autorelease];
+	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logController] autorelease];
 	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendView, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, moreController, nil];
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;
-	rootViewController.landscapeViewController = graphView;
+	rootViewController.landscapeViewController = graphController;
 	
 	[window addSubview:rootViewController.view];
 }
 
 
-- (void)startWebServer:(id)sender {
-	webServer = [[MicroWebServer alloc] init];
-	webServer.name = @"FatWatch";
-	webServer.delegate = [[WebServerDelegate alloc] init];
-	[webServer start];
-}
-
-
 - (void)applicationWillTerminate:(UIApplication *)application {
-	[webServer stop];
-	[webServer.delegate release];
-	[webServer release];
 	[[Database sharedDatabase] close];
 }
 
