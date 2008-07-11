@@ -21,7 +21,7 @@
 		webServerSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
 		[webServerSwitch addTarget:self action:@selector(toggleWebServerSwitch:) forControlEvents:UIControlEventValueChanged];
 		webServer = [[MicroWebServer alloc] init];
-		webServer.name = @"FatWatch";
+		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
 		webServer.delegate = [[WebServerDelegate alloc] init];
 	}
 	return self;

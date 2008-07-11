@@ -39,7 +39,6 @@
 	if ([path isEqualToString:@"/"]) {
 		UIDevice *device = [UIDevice currentDevice];
 		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
-							   [device localizedModel], @"__MODEL__",
 							   [device name], @"__NAME__",
 							   nil];
 		[self sendResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
