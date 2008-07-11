@@ -35,7 +35,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		trendWeights = calloc(31, sizeof(float));
 		flagBits = 0;
 		notesArray = [[NSMutableArray alloc] initWithCapacity:31];
-		for (int i = 0; i < 31; i++) {
+		int i;
+		for (i = 0; i < 31; i++) {
 			[notesArray addObject:[NSNull null]];
 		}
 		dirtyBits = 0;
