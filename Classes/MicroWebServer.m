@@ -293,16 +293,16 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (BOOL)isRequestComplete {
 	if (! CFHTTPMessageIsHeaderComplete(requestMessage)) return NO;
 	
-	NSString *transferEncodingStr = [self requestHeaderValueForName:@"Transfer-Encoding"];
-	if (transferEncodingStr) {
-		printf("transfer-encoding: %s\n", [transferEncodingStr UTF8String]);
-	}
+//	NSString *transferEncodingStr = [self requestHeaderValueForName:@"Transfer-Encoding"];
+//	if (transferEncodingStr) {
+//		printf("transfer-encoding: %s\n", [transferEncodingStr UTF8String]);
+//	}
 	
 	NSString *contentLengthStr = [self requestHeaderValueForName:@"Content-Length"];
 	NSInteger contentLength = [contentLengthStr integerValue];
 	if (contentLength > 0) {
 		NSData *bodyData = [self requestBodyData];
-		printf("content length is %d and we got %d\n", contentLength, [bodyData length]);
+//		printf("content length is %d and we got %d\n", contentLength, [bodyData length]);
 		return [bodyData length] >= contentLength;
 	}
 	
