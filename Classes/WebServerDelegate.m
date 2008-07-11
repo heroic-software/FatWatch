@@ -127,7 +127,8 @@
 	}
 	
 	[connection setResponseStatus:HTTP_STATUS_OK];
-	[connection setValue:@"text/csv" forResponseHeader:@"Content-Type"];
+	// text/csv is technically correct, but the user wants to download, not view, the file
+	[connection setValue:@"application/octet-stream" forResponseHeader:@"Content-Type"];
 	[connection setResponseBodyData:[writer data]];
 	[writer release];
 	return;
