@@ -294,6 +294,18 @@
 			BC5CB4180E27FB4C00A3B11C /* PBXTextBookmark */ = BC5CB4180E27FB4C00A3B11C /* PBXTextBookmark */;
 			BC5CB41B0E27FB4C00A3B11C /* PBXTextBookmark */ = BC5CB41B0E27FB4C00A3B11C /* PBXTextBookmark */;
 			BC5CB4220E27FDAB00A3B11C /* PBXTextBookmark */ = BC5CB4220E27FDAB00A3B11C /* PBXTextBookmark */;
+			BC5CB4250E27FE5400A3B11C /* PBXTextBookmark */ = BC5CB4250E27FE5400A3B11C /* PBXTextBookmark */;
+			BC5CB4260E27FE5400A3B11C /* PlistBookmark */ = BC5CB4260E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB4270E27FE5400A3B11C /* PlistBookmark */ = BC5CB4270E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB4280E27FE5400A3B11C /* PlistBookmark */ = BC5CB4280E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB4290E27FE5400A3B11C /* PBXTextBookmark */ = BC5CB4290E27FE5400A3B11C /* PBXTextBookmark */;
+			BC5CB42A0E27FE5400A3B11C /* PlistBookmark */ = BC5CB42A0E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB42B0E27FE5400A3B11C /* PlistBookmark */ = BC5CB42B0E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB42C0E27FE5400A3B11C /* PlistBookmark */ = BC5CB42C0E27FE5400A3B11C /* PlistBookmark */;
+			BC5CB42D0E27FED600A3B11C /* PlistBookmark */ = BC5CB42D0E27FED600A3B11C /* PlistBookmark */;
+			BC5CB42E0E27FED600A3B11C /* PBXTextBookmark */ = BC5CB42E0E27FED600A3B11C /* PBXTextBookmark */;
+			BC5CB42F0E27FED600A3B11C /* PlistBookmark */ = BC5CB42F0E27FED600A3B11C /* PlistBookmark */;
+			BC5CB4300E27FED600A3B11C /* PBXTextBookmark */ = BC5CB4300E27FED600A3B11C /* PBXTextBookmark */;
 			BCFB11550E26A1A20059D732 = BCFB11550E26A1A20059D732 /* PBXTextBookmark */;
 			BCFB11620E26A1A20059D732 = BCFB11620E26A1A20059D732 /* PBXTextBookmark */;
 			BCFB119B0E26AB100059D732 = BCFB119B0E26AB100059D732 /* PBXTextBookmark */;
@@ -1323,6 +1335,140 @@
 		vrLen = 873;
 		vrLoc = 643;
 	};
+	BC5CB4250E27FE5400A3B11C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 18";
+		rLen = 0;
+		rLoc = 428;
+		rType = 0;
+		vrLen = 428;
+		vrLoc = 0;
+	};
+	BC5CB4260E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Debug.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB4270E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC263C2B0DB56A69007D03F4 /* Root.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			StringsTable,
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Root.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB4280E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Debug.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB4290E27FE5400A3B11C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC263C360DB56B9D007D03F4 /* Root.strings */;
+		name = "Root.strings: 18";
+		rLen = 0;
+		rLoc = 428;
+		rType = 0;
+		vrLen = 428;
+		vrLoc = 0;
+	};
+	BC5CB42A0E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC263C2B0DB56A69007D03F4 /* Root.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			StringsTable,
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Root.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB42B0E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Debug.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB42C0E27FE5400A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BC263C2B0DB56A69007D03F4 /* Root.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			StringsTable,
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Root.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB42D0E27FED600A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			PreferenceSpecifiers,
+			1,
+			Key,
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Debug.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB42E0E27FED600A3B11C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		rLen = 8;
+		rLoc = 2480;
+		rType = 0;
+	};
+	BC5CB42F0E27FED600A3B11C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			PreferenceSpecifiers,
+			1,
+			Key,
+		);
+		name = /Users/benzado/Projects/iPhone/EatWatch/Settings/Debug.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	BC5CB4300E27FED600A3B11C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC9BDEE10DA9D8610004E70C /* Database.m */;
+		name = "Database.m: 89";
+		rLen = 0;
+		rLoc = 2504;
+		rType = 0;
+		vrLen = 972;
+		vrLoc = 2087;
+	};
 	BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {626, 532}}";
@@ -1498,9 +1644,9 @@
 	};
 	BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {648, 398}}";
-			sepNavSelRange = "{303, 0}";
-			sepNavVisRange = "{0, 303}";
+			sepNavIntBoundsRect = "{{0, 0}, {715, 408}}";
+			sepNavSelRange = "{345, 0}";
+			sepNavVisRange = "{0, 345}";
 			sepNavWindowFrame = "{{123, 134}, {600, 622}}";
 		};
 	};
@@ -1514,9 +1660,9 @@
 	};
 	BC9BDEE10DA9D8610004E70C /* Database.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {648, 4382}}";
-			sepNavSelRange = "{4737, 0}";
-			sepNavVisRange = "{3454, 1093}";
+			sepNavIntBoundsRect = "{{0, 0}, {663, 4144}}";
+			sepNavSelRange = "{2504, 0}";
+			sepNavVisRange = "{2087, 972}";
 			sepNavWindowFrame = "{{300, 81}, {722, 669}}";
 		};
 	};

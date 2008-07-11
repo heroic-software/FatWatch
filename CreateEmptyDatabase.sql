@@ -13,3 +13,5 @@ CREATE TABLE weight (
 
 -- index values for faster min/max computation
 CREATE INDEX measuredValue_index ON weight (measuredValue);
+
+INSERT INTO metadata VALUES ("dataversion", 1);

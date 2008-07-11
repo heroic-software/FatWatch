@@ -58,7 +58,6 @@
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
-		BCD44A1F0DBAFC880009A8EC /* Debug.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BCD44A1D0DBAFC760009A8EC /* Debug.plist */; };
 		BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
 		BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
 		BCEADA3D0DE220640017495E /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
@@ -76,7 +75,6 @@
 			files = (
 				BC24A4980E2487830074FD4C /* Icon.png in CopyFiles */,
 				BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */,
-				BCD44A1F0DBAFC880009A8EC /* Debug.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

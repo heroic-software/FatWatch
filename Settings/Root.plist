@@ -84,20 +84,6 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Beta</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>Debug</string>
-			<key>Title</key>
-			<string>Debug</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
