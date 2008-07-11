@@ -37,7 +37,7 @@
 
 
 /*
- 0/0: View Graph
+ 0/0: Weight Chart
  1/0: Import/Export
  2/-: "Support"
  2/0: www.fatwatchapp.com
@@ -62,9 +62,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
-		case 0: return @"More";
-		case 1: return @"Transfer";
-		case 2: return @"Support";
+		case 0: return NSLocalizedString(@"MORE_SECTION_TITLE", nil);
+		case 1: return NSLocalizedString(@"TRANSFER_SECTION_TITLE", nil);
+		case 2: return NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
 	}
 	return 0;
 }
@@ -74,12 +74,12 @@
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
 	switch (indexPath.section) {
 		case 0:
-			cell.text = @"Weight Graph";
+			cell.text = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
 			break;
 		case 1:
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
-				cell.text = @"Wi-Fi Import/Export";
+				cell.text = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
 				cell.accessoryView = webServerSwitch;
 			} else {
 				cell.text = [webServer.url description];
@@ -89,9 +89,9 @@
 			break;
 		case 2:
 			if (indexPath.row == 0) {
-				cell.text = @"www.fatwatchapp.com";
+				cell.text = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
 			} else {
-				cell.text = @"support@fatwatchapp.com";
+				cell.text = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
 			}
 			cell.textAlignment = UITextAlignmentCenter;
 			break;
@@ -104,14 +104,18 @@
 	switch (section) {
 		case 0: return nil;
 		case 1: return nil;
-		case 2: return @"FatWatch™ ©2008 Benjamin Ragheb";
+		case 2: return NSLocalizedString(@"COPYRIGHT", nil);
 	}
 	return nil;
 }
 
 
 - (void)showAlertTitle:(NSString *)title message:(NSString *)message {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(title, nil) 
+													message:NSLocalizedString(message, nil) 
+												   delegate:nil
+										  cancelButtonTitle:NSLocalizedString(@"OK_BUTTON", nil)
+										  otherButtonTitles:nil];
 	[alert show];
 	[alert autorelease];
 }
@@ -125,18 +129,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.section) {
 		case 0:
-			[self showAlertTitle:@"Weight Graph" message:@"Rotate iPhone at any time to see a graph of your weight."];
+			[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
 			break;
 		case 1:
 			if (indexPath.row == 1) {
-				[self showAlertTitle:@"Import/Export" message:@"Enter this address into your computer's web browser to transfer weight data to and from FatWatch."];
+				[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_ROW_MESSAGE"];
 			}
 			break;
 		case 2:
 			if (indexPath.row == 0) {
-				[self openURLWithString:@"http://www.fatwatchapp.com/"];
+				[self openURLWithString:NSLocalizedString(@"SUPPORT_WEBSITE_URL", nil)];
 			} else {
-				[self openURLWithString:@"mailto:support@fatwatchapp.com"];
+				[self openURLWithString:NSLocalizedString(@"SUPPORT_EMAIL_URL", nil)];
 			}
 			break;
 	}

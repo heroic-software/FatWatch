@@ -151,39 +151,44 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		[weightChangeFormatter setMinimumFractionDigits:2];
 		[weightChangeFormatter setMaximumFractionDigits:2];
 
-		NSString *suffix = nil;
+		NSString *changeSuffix = nil;
+		NSString *weightSuffix = nil;
 		
 		switch (weightUnit) {
 			case kWeightUnitPounds:
+				weightSuffix = NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil);
+				// fall
 			case kWeightUnitStones:
-				suffix = NSLocalizedString(@"POUNDS_PER_WEEK_SUFFIX", nil);
+				changeSuffix = NSLocalizedString(@"POUNDS_PER_WEEK_SUFFIX", nil);
 				break;
 			case kWeightUnitKilograms:
-				suffix = NSLocalizedString(@"KILOGRAMS_PER_WEEK_SUFFIX", nil);
+				weightSuffix = NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil);
+				changeSuffix = NSLocalizedString(@"KILOGRAMS_PER_WEEK_SUFFIX", nil);
 				NSNumber *n = [NSNumber numberWithFloat:kKilogramsPerPound];
 				[measuredFormatter setMultiplier:n];
 				[trendFormatter setMultiplier:n];
 				[weightChangeFormatter setMultiplier:n];
 				break;
 		}
-		[weightChangeFormatter setPositiveSuffix:suffix];
-		[weightChangeFormatter setNegativeSuffix:suffix];
+		[measuredFormatter setPositiveSuffix:weightSuffix];
+		[weightChangeFormatter setPositiveSuffix:changeSuffix];
+		[weightChangeFormatter setNegativeSuffix:changeSuffix];
 
 		energyFormatter = [self newChangeFormatter];
 		[energyFormatter setMinimumFractionDigits:0];
 		[energyFormatter setMaximumFractionDigits:0];
 		switch (energyUnit) {
 			case kEnergyUnitCalories:
-				suffix = NSLocalizedString(@"CALORIES_PER_DAY_SUFFIX", nil);
+				changeSuffix = NSLocalizedString(@"CALORIES_PER_DAY_SUFFIX", nil);
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 				break;
 			case kEnergyUnitKilojoules:
-				suffix = NSLocalizedString(@"KILOJOULES_PER_DAY_SUFFIX", nil);
+				changeSuffix = NSLocalizedString(@"KILOJOULES_PER_DAY_SUFFIX", nil);
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 				break;
 		}
-		[energyFormatter setPositiveSuffix:suffix];
-		[energyFormatter setNegativeSuffix:suffix];
+		[energyFormatter setPositiveSuffix:changeSuffix];
+		[energyFormatter setNegativeSuffix:changeSuffix];
 	}
 	return self;
 }

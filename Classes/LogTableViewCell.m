@@ -30,13 +30,13 @@ static NSNumberFormatter *dayFormatter = nil;
 		dayLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:dayLabel];
 		
-		measuredWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 14, 120, 16)];
+		measuredWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 0, 120, 44)];
 		measuredWeightLabel.textAlignment = UITextAlignmentRight;
 		measuredWeightLabel.font = [UIFont boldSystemFontOfSize:20];
 		measuredWeightLabel.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:measuredWeightLabel];
 		
-		trendWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(168, 14, 108, 16)];
+		trendWeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(168, 0, 108, 44)];
 		trendWeightLabel.textAlignment = UITextAlignmentLeft;
 		trendWeightLabel.font = [UIFont systemFontOfSize:20];
 		trendWeightLabel.backgroundColor = [UIColor clearColor];
