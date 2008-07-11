@@ -17,7 +17,7 @@
 
 
 - (id)initWithDate:(NSDate *)date {
-	if (self = [super initWithNibName:@"GoToDateView" bundle:nil]) {
+	if ([super initWithNibName:@"GoToDateView" bundle:nil]) {
 		initialDate = [date retain];
 	}
 	return self;
@@ -32,8 +32,14 @@
 
 - (void)viewDidLoad {
 	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+	datePicker.minimumDate = [NSDate distantPast];
 	datePicker.maximumDate = [NSDate date];
-	datePicker.date = initialDate;
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	// calling in viewWillAppear doesn't seem to work :-(
+	[datePicker setDate:initialDate animated:animated];
 }
 
 
