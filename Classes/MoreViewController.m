@@ -17,6 +17,7 @@
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"MORE_VIEW_TITLE", nil);
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconMore.png"];
 		webServerSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
 		[webServerSwitch addTarget:self action:@selector(toggleWebServerSwitch:) forControlEvents:UIControlEventValueChanged];
 		webServer = [[MicroWebServer alloc] init];
@@ -78,7 +79,7 @@
 		case 1:
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
-				cell.text = @"WiFi Import/Export";
+				cell.text = @"Wi-Fi Import/Export";
 				cell.accessoryView = webServerSwitch;
 			} else {
 				cell.text = [webServer.url description];

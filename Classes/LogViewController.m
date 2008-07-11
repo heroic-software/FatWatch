@@ -25,6 +25,7 @@
 - (id)init {
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
 		firstLoad = YES;
 		scrollDestination = EWMonthDayFromDate([NSDate date]);
 

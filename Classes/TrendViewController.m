@@ -74,6 +74,7 @@
 - (id)init {
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"TRENDS_VIEW_TITLE", nil);
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend.png"];
 		array = [[NSMutableArray alloc] init];
 	}
 	return self;

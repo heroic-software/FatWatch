@@ -35,6 +35,9 @@
 		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
+		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
+		BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */; };
+		BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65E9690DEB3BF20008E677 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65E9680DEB3BF20008E677 /* Defaults.plist */; };
 		BC65EA730DEB5DEB0008E677 /* WeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */; };
@@ -119,6 +122,9 @@
 		BC4722230DE368C80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
+		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconLog.png; path = Images/TabIconLog.png; sourceTree = "<group>"; };
+		BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconMore.png; path = Images/TabIconMore.png; sourceTree = "<group>"; };
+		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconTrend.png; path = Images/TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -274,6 +280,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
+				BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */,
+				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC65E9680DEB3BF20008E677 /* Defaults.plist */,
@@ -452,6 +461,9 @@
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
 				BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */,
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
+				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
+				BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */,
+				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
