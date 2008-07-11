@@ -279,6 +279,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -326,12 +328,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>61</integer>
 									<integer>47</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 326}, {274, 613}}</string>
+							<string>{{0, 624}, {274, 613}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -363,14 +366,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MoreViewController.m</string>
+								<string>LogEntryViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -378,14 +379,13 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MoreViewController.m</string>
+										<string>LogEntryViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>10</integer>
 										<key>bookmark</key>
-										<string>BC5CB3800E27E62A00A3B11C</string>
+										<string>BC5CB38C0E27EBDB00A3B11C</string>
 										<key>history</key>
 										<array>
-											<string>BCFB11CB0E26B7DD0059D732</string>
 											<string>BCFB11D00E26B86D0059D732</string>
 											<string>BCFB11D10E26B86D0059D732</string>
 											<string>BCFB11D20E26B86D0059D732</string>
@@ -394,12 +394,12 @@
 											<string>BC5CB3670E27E5C000A3B11C</string>
 											<string>BC5CB3680E27E5C000A3B11C</string>
 											<string>BC5CB3690E27E5C000A3B11C</string>
-											<string>BC5CB36A0E27E5C000A3B11C</string>
+											<string>BC5CB3890E27EBDB00A3B11C</string>
+											<string>BC5CB38A0E27EBDB00A3B11C</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>BCFB11550E26A1A20059D732</string>
-											<string>BCFB11620E26A1A20059D732</string>
 											<string>BCFB11D50E26B86D0059D732</string>
 											<string>BCFB11D60E26B86D0059D732</string>
 											<string>BCFB11D70E26B86D0059D732</string>
@@ -409,6 +409,7 @@
 											<string>BC5CB36C0E27E5C000A3B11C</string>
 											<string>BC5CB36D0E27E5C000A3B11C</string>
 											<string>BC5CB36E0E27E5C000A3B11C</string>
+											<string>BC5CB38B0E27EBDB00A3B11C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -601,7 +602,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>237495850.11260501</real>
+	<real>237497307.84747899</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
