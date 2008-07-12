@@ -130,7 +130,7 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 		trendFormatter = [[NSNumberFormatter alloc] init];
 		[trendFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-		[trendFormatter setFormat:NSLocalizedString(@"TREND_FORMAT", nil)];
+		[trendFormatter setPositiveFormat:NSLocalizedString(@"TREND_FORMAT", nil)];
 		
 		weightChangeFormatter = [[NSNumberFormatter alloc] init];
 		[weightChangeFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -138,15 +138,15 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		switch (weightUnit) {
 			case kWeightUnitPounds:
 				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
-				[weightChangeFormatter setFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
+				[weightChangeFormatter setPositiveFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
 				break;
 			case kWeightUnitStones:
 				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
-				[weightChangeFormatter setFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
+				[weightChangeFormatter setPositiveFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
 				break;
 			case kWeightUnitKilograms:
 				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil)];
-				[weightChangeFormatter setFormat:NSLocalizedString(@"KILOGRAMS_PER_WEEK_FORMAT", nil)];
+				[weightChangeFormatter setPositiveFormat:NSLocalizedString(@"KILOGRAMS_PER_WEEK_FORMAT", nil)];
 				// Kilogram Multiplier
 				NSNumber *n = [NSNumber numberWithFloat:kKilogramsPerPound];
 				[measuredFormatter setMultiplier:n];
@@ -159,11 +159,11 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 		[energyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		switch (energyUnit) {
 			case kEnergyUnitCalories:
-				[energyFormatter setFormat:NSLocalizedString(@"CALORIES_PER_DAY_FORMAT", nil)];
+				[energyFormatter setPositiveFormat:NSLocalizedString(@"CALORIES_PER_DAY_FORMAT", nil)];
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 				break;
 			case kEnergyUnitKilojoules:
-				[energyFormatter setFormat:NSLocalizedString(@"KILOJOULES_PER_DAY_FORMAT", nil)];
+				[energyFormatter setPositiveFormat:NSLocalizedString(@"KILOJOULES_PER_DAY_FORMAT", nil)];
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 				break;
 		}
