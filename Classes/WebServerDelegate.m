@@ -101,6 +101,12 @@
 - (void)handleExport:(MicroWebConnection *)connection {
 	CSVWriter *writer = [[CSVWriter alloc] init];
 	writer.floatFormatter = [WeightFormatter exportNumberFormatter];
+
+	[writer addString:@"Date"];
+	[writer addString:@"Weight"];
+	[writer addString:@"Flag"];
+	[writer addString:@"Comment"];
+	[writer endRow];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
 	
@@ -116,7 +122,6 @@
 			if (measuredWeight > 0 || note != nil || flag) {
 				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
 				[writer addFloat:measuredWeight];
-				[writer addFloat:[md trendWeightOnDay:day]];
 				[writer addBoolean:flag];
 				[writer addString:note];
 				[writer endRow];
@@ -181,20 +186,20 @@
 		[db deleteWeights];
 	}
 	
-	NSUInteger count = 0;
+	NSUInteger lineCount = 0, importCount = 0;
 	CSVReader *reader = [[CSVReader alloc] initWithData:importData];
 	reader.floatFormatter = [WeightFormatter exportNumberFormatter];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
 	
 	while ([reader nextRow]) {
+		lineCount += 1;
 		NSString *dateString = [reader readString];
 		if (dateString == nil) continue;
 		NSDate *date = [formatter dateFromString:dateString];
 		if (date == nil) continue;
 		
 		float measuredWeight = [reader readFloat];
-		[reader readFloat]; // skip trendWeight
 		BOOL flag = [reader readBoolean];
 		NSString *note = [reader readString];
 		
@@ -202,7 +207,7 @@
 			EWMonthDay monthday = EWMonthDayFromDate(date);
 			MonthData *md = [db dataForMonth:EWMonthDayGetMonth(monthday)];
 			[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:EWMonthDayGetDay(monthday)];
-			count++;
+			importCount += 1;
 		}
 	}
 	
@@ -211,11 +216,12 @@
 
 	NSString *msg;
 	
-	if (count > 0) {
+	if (importCount > 0) {
 		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_COUNT", nil);
-		msg = [NSString stringWithFormat:msgFormat, count];
+		msg = [NSString stringWithFormat:msgFormat, importCount, (lineCount - importCount)];
 	} else {
-		msg = NSLocalizedString(@"POST_IMPORT_TEXT_NONE", nil);
+		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_NONE", nil);
+		msg = [NSString stringWithFormat:msgFormat, lineCount];
 	}
 	
 	NSString *alertTitle = NSLocalizedString(@"POST_IMPORT_TITLE", nil);
