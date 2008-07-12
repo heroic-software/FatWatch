@@ -150,6 +150,7 @@
 		cell = (UITableViewCell *)availableCell;
 	} else {
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Foo"] autorelease];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone; // don't show selection
 	}
 	
 	cell.text = [[array objectAtIndex:[indexPath section]] objectAtIndex:([indexPath row] + 1)];
