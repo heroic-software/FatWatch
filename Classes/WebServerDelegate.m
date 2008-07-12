@@ -93,8 +93,7 @@
 - (NSDateFormatter *)dateFormatter {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-	[formatter setDateStyle:NSDateFormatterShortStyle];
-	[formatter setTimeStyle:NSDateFormatterNoStyle];
+	[formatter setDateFormat:@"y-MM-dd"];
 	return [formatter autorelease];
 }
 

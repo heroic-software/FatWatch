@@ -24,7 +24,6 @@
 	IBOutlet UIView *noWeightView;
 	IBOutlet UISegmentedControl *flagControl;
 	IBOutlet UITextField *noteField;
-	NSDateFormatter *titleFormatter;
 	float scaleIncrement;
 }
 @property (nonatomic,retain) MonthData *monthData;

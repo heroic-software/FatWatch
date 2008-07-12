@@ -27,10 +27,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 - (id)init {
 	if (self = [super initWithNibName:@"LogEntryView" bundle:nil]) {
-		titleFormatter = [[NSDateFormatter alloc] init];
-		[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
-		[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
-
 		scaleIncrement = [WeightFormatter scaleIncrement];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
@@ -52,12 +48,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	self.navigationItem.leftBarButtonItem = cancelButton;
 	self.navigationItem.rightBarButtonItem = saveButton;
-}
-
-
-- (void)dealloc {
-	[titleFormatter release];
-	[super dealloc];
 }
 
 
@@ -124,7 +114,11 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 				 object:nil];
 	
 	NSDate *date = [monthData dateOnDay:day];
+	NSDateFormatter *titleFormatter = [[NSDateFormatter alloc] init];
+	[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
+	[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
 	self.title = [titleFormatter stringFromDate:date];
+	[titleFormatter release];
 
 	float weight = [monthData measuredWeightOnDay:day];
 	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
