@@ -110,17 +110,6 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
-- (NSNumberFormatter *)newChangeFormatter {
-	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[formatter setPositivePrefix:@"+"];
-	[formatter setNegativePrefix:@"−"];
-	[formatter setMinimumIntegerDigits:1];
-	return formatter;
-}
-
-
 - (id)init {
 	if ([super init]) {
 		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
@@ -136,59 +125,48 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 			}
 		} else {
 			measuredFormatter = [[NSNumberFormatter alloc] init];
-			if (scaleIncrement < 1) {
-				[measuredFormatter setMinimumFractionDigits:1];
-			} else {
-				[measuredFormatter setMinimumFractionDigits:0];
-			}
+			[measuredFormatter setMinimumFractionDigits:(scaleIncrement < 1) ? 1 : 0];
 		}
 
-		trendFormatter = [self newChangeFormatter];
-		[trendFormatter setMinimumFractionDigits:1];
-		[trendFormatter setMaximumFractionDigits:2];
+		trendFormatter = [[NSNumberFormatter alloc] init];
+		[trendFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+		[trendFormatter setFormat:NSLocalizedString(@"TREND_FORMAT", nil)];
 		
-		weightChangeFormatter = [self newChangeFormatter];
-		[weightChangeFormatter setMinimumFractionDigits:2];
-		[weightChangeFormatter setMaximumFractionDigits:2];
+		weightChangeFormatter = [[NSNumberFormatter alloc] init];
+		[weightChangeFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 
-		NSString *changeSuffix = nil;
-		NSString *weightSuffix = nil;
-		
 		switch (weightUnit) {
 			case kWeightUnitPounds:
-				weightSuffix = NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil);
-				// fall
+				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
+				[weightChangeFormatter setFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
+				break;
 			case kWeightUnitStones:
-				changeSuffix = NSLocalizedString(@"POUNDS_PER_WEEK_SUFFIX", nil);
+				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
+				[weightChangeFormatter setFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
 				break;
 			case kWeightUnitKilograms:
-				weightSuffix = NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil);
-				changeSuffix = NSLocalizedString(@"KILOGRAMS_PER_WEEK_SUFFIX", nil);
+				[measuredFormatter setPositiveSuffix:NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil)];
+				[weightChangeFormatter setFormat:NSLocalizedString(@"KILOGRAMS_PER_WEEK_FORMAT", nil)];
+				// Kilogram Multiplier
 				NSNumber *n = [NSNumber numberWithFloat:kKilogramsPerPound];
 				[measuredFormatter setMultiplier:n];
 				[trendFormatter setMultiplier:n];
 				[weightChangeFormatter setMultiplier:n];
 				break;
 		}
-		[measuredFormatter setPositiveSuffix:weightSuffix];
-		[weightChangeFormatter setPositiveSuffix:changeSuffix];
-		[weightChangeFormatter setNegativeSuffix:changeSuffix];
 
-		energyFormatter = [self newChangeFormatter];
-		[energyFormatter setMinimumFractionDigits:0];
-		[energyFormatter setMaximumFractionDigits:0];
+		energyFormatter = [[NSNumberFormatter alloc] init];
+		[energyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		switch (energyUnit) {
 			case kEnergyUnitCalories:
-				changeSuffix = NSLocalizedString(@"CALORIES_PER_DAY_SUFFIX", nil);
+				[energyFormatter setFormat:NSLocalizedString(@"CALORIES_PER_DAY_FORMAT", nil)];
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 				break;
 			case kEnergyUnitKilojoules:
-				changeSuffix = NSLocalizedString(@"KILOJOULES_PER_DAY_SUFFIX", nil);
+				[energyFormatter setFormat:NSLocalizedString(@"KILOJOULES_PER_DAY_FORMAT", nil)];
 				[energyFormatter setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 				break;
 		}
-		[energyFormatter setPositiveSuffix:changeSuffix];
-		[energyFormatter setNegativeSuffix:changeSuffix];
 	}
 	return self;
 }
