@@ -130,7 +130,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 			
 			weight = [[db dataForMonth:[db earliestMonth]] inputTrendOnDay:31];
 			if (weight == 0) {
-				weight = 150.0f;
+				weight = 200.0f;
 			}
 		}
 	}
