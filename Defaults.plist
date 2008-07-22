@@ -5,7 +5,7 @@
 	<key>AutoWeighIn</key>
 	<true/>
 	<key>ScaleIncrement</key>
-	<real>0.5</real>
+	<real>0.1</real>
 	<key>EnergyUnit</key>
 	<integer>1</integer>
 	<key>WeightUnit</key>
