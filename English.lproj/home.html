@@ -12,9 +12,13 @@
 	<body onload="onChange();">
 		<h1>FatWatch on __NAME__</h1>
 		<p>
-			You can transfer weight measurements to and from FatWatch through your web browser.
-			On your computer, measurements are stored in <a href="http://en.wikipedia.org/wiki/Comma-separated_values">comma separated values</a> format, which is supported by many other applications.
-			FatWatch expects each line of the file to contain the following values: date, measured weight, trend weight, flag value, note.  When importing, only the first two values are required and any values after the first five will be ignored.
+			Wi-Fi Import/Export allows you to transfer weight measurements to and from FatWatch through your computer's web browser.  No special software is required.
+		</p>
+		<p>
+			FatWatch uses <a href="http://en.wikipedia.org/wiki/Comma-separated_values">comma separated values</a> (CSV) as its file format for import and export.  CSV files are supported by many common applications.
+		</p>
+		<p>
+			The columns used are Date, Weight, Checkmark, Note.  For the Checkmark column, 1 indicates a checkmark on that date, 0 indicates no check.  When importing only the first two columns (Date and Weight) are required.
 		</p>
 	
 		<h1>Export</h1>
