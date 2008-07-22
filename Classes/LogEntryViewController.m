@@ -102,6 +102,28 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
+- (float)chooseDefaultWeight {
+	// no weight on this day, so get the trend on this day, searching earlier months if needed
+	float weight = [monthData inputTrendOnDay:day];
+	if (weight > 0) return weight;
+	
+	// there is no weight earlier than this day, so search the future
+	Database *db = [Database sharedDatabase];
+	EWMonth searchMonth = monthData.month;
+	while (searchMonth <= db.latestMonth) {
+		MonthData *searchData = [db dataForMonth:searchMonth];
+		EWDay searchDay = [searchData firstDayWithWeight];
+		if (searchDay > 0) {
+			return [searchData measuredWeightOnDay:searchDay];
+		}
+		searchMonth += 1;
+	}
+	
+	// database is empty!
+	return 200.0f;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self
@@ -124,16 +146,9 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
 
 	if (weight == 0) {
-		weight = [monthData inputTrendOnDay:day];
-		if (weight == 0) {
-			Database *db = [Database sharedDatabase];
-			
-			weight = [[db dataForMonth:[db earliestMonth]] inputTrendOnDay:31];
-			if (weight == 0) {
-				weight = 200.0f;
-			}
-		}
+		weight = [self chooseDefaultWeight];
 	}
+	
 	int row = [self pickerRowForWeight:weight];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];
