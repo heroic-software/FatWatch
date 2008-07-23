@@ -18,6 +18,7 @@
 #import "RootViewController.h"
 #import "NewDatabaseViewController.h"
 #import "MoreViewController.h"
+#import "PasscodeEntryViewController.h"
 
 
 @implementation EatWatchAppDelegate
@@ -37,13 +38,17 @@
 	EWDateInit();
 	[[Database sharedDatabase] open];
 	
-    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
 	if ([[Database sharedDatabase] weightCount] == 0) {
 		// This is a new data file.
 		// Prompt user to choose weight unit.
 		NewDatabaseViewController *newDbController = [[NewDatabaseViewController alloc] init];
 		[window addSubview:newDbController.view];
+	} else if ([PasscodeEntryViewController authorizationRequired]) {
+		PasscodeEntryViewController *passcodeController = [[PasscodeEntryViewController alloc] init];
+		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
+		[window addSubview:passcodeController.view];
 	} else {
 		[self setupRootView];
 	}

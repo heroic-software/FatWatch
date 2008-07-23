@@ -9,6 +9,7 @@
 #import "MoreViewController.h"
 #import "MicroWebServer.h"
 #import "WebServerDelegate.h"
+#import "PasscodeEntryViewController.h"
 
 
 @implementation MoreViewController
@@ -18,17 +19,24 @@
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"MORE_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconMore.png"];
+		
 		webServerSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
 		[webServerSwitch addTarget:self action:@selector(toggleWebServerSwitch:) forControlEvents:UIControlEventValueChanged];
+		
 		webServer = [[MicroWebServer alloc] init];
 		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
 		webServer.delegate = [[WebServerDelegate alloc] init];
+		
+		passcodeSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+		[passcodeSwitch addTarget:self action:@selector(togglePasscodeSwitch:) forControlEvents:UIControlEventValueChanged];
+		passcodeSwitch.on = [PasscodeEntryViewController authorizationRequired];
 	}
 	return self;
 }
 
 
 - (void)dealloc {
+	[passcodeSwitch release];
 	[webServerSwitch release];
 	[webServer.delegate release];
 	[webServer release];
@@ -38,6 +46,7 @@
 
 /*
  0/0: Weight Chart
+ 0/1: Passcode
  1/0: Import/Export
  2/-: "Support"
  2/0: www.fatwatchapp.com
@@ -52,7 +61,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
-		case 0: return 1;
+		case 0: return 2;
 		case 1: return (webServer.running ? 2 : 1);
 		case 2: return 2;
 	}
@@ -74,7 +83,12 @@
 	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
 	switch (indexPath.section) {
 		case 0:
-			cell.text = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
+			if (indexPath.row == 0) {
+				cell.text = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
+			} else {
+				cell.text = @"Require Passcode";
+				cell.accessoryView = passcodeSwitch;
+			}
 			break;
 		case 1:
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -129,7 +143,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.section) {
 		case 0:
-			[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
+			if (indexPath.row == 0) {
+				[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
+			}
 			break;
 		case 1:
 			if (indexPath.row == 1) {
@@ -156,6 +172,16 @@
 	} else if (!webServerSwitch.on && webServer.running) {
 		[webServer stop];
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
+
+
+- (void)togglePasscodeSwitch:(id)sender {
+	if (passcodeSwitch.on) {
+		PasscodeEntryViewController *controller = [PasscodeEntryViewController controllerForSetCode];
+		[self presentModalViewController:controller animated:YES];
+	} else {
+		[PasscodeEntryViewController removePasscode];
 	}
 }
 

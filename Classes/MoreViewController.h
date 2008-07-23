@@ -16,6 +16,7 @@
 	UISwitch *webServerSwitch;
 	UILabel *webServerFooter;
 	MicroWebServer *webServer;
+	UISwitch *passcodeSwitch;
 }
 
 @end
