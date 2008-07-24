@@ -16,7 +16,15 @@ static NSDateComponents *components = nil;
 
 void EWDateInit() {
 	calendar = [[NSCalendar currentCalendar] retain];
-	refDate = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:0];
+	
+	// Create reference date relative to the current time zone
+	NSDateComponents *refComps = [[NSDateComponents alloc] init];
+	refComps.year = 2001;
+	refComps.month = 1;
+	refComps.day = 1;
+	refDate = [[calendar dateFromComponents:refComps] retain];
+	[refComps release];
+	
 	components = [[NSDateComponents alloc] init];
 }
 
@@ -36,7 +44,7 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 
 NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 	components.month = m;
-	components.day = d;
+	components.day = d - 1;
 	NSDate *theDate = [calendar dateByAddingComponents:components
 												toDate:refDate
 											   options:0];

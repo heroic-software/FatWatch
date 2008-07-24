@@ -6,8 +6,14 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "CSVReaderTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "CSVReader.h"
+
+
+@interface CSVReaderTest : SenTestCase {	
+}
+@end
+
 
 @implementation CSVReaderTest
 
