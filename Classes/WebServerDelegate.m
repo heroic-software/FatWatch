@@ -83,7 +83,7 @@
 	}
 	
 	[connection setResponseStatus:HTTP_STATUS_OK];
-	[connection setValue:@"text/html" forResponseHeader:@"Content-Type"];
+	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
 	[connection setResponseBodyData:[text dataUsingEncoding:NSUTF8StringEncoding]];
 	
 	[text release];
