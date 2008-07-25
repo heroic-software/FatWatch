@@ -99,7 +99,9 @@
 
 - (NSDate *)currentDate {
 	UITableView *tableView = (UITableView *)self.view;
-	NSIndexPath *indexPath = [[tableView indexPathsForVisibleRows] lastObject];
+	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
+	NSUInteger middleIndex = [indexPathArray count] / 2;
+	NSIndexPath *indexPath = [indexPathArray objectAtIndex:middleIndex];
 	return EWDateFromMonthAndDay([self monthForSection:[indexPath section]], 
 								 [indexPath row] + 1);
 }
@@ -127,7 +129,7 @@
 
 	if (scrollDestination != 0) {
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
-						 atScrollPosition:UITableViewScrollPositionBottom
+						 atScrollPosition:UITableViewScrollPositionMiddle
 								 animated:animated];
 		scrollDestination = 0;
 	}
