@@ -178,7 +178,7 @@
 
 - (void)togglePasscodeSwitch:(id)sender {
 	if (passcodeSwitch.on) {
-		PasscodeEntryViewController *controller = [PasscodeEntryViewController controllerForSetCode];
+		UIViewController *controller = [PasscodeEntryViewController controllerForSettingCode];
 		[self presentModalViewController:controller animated:YES];
 	} else {
 		[PasscodeEntryViewController removePasscode];

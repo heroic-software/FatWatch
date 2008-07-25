@@ -14,5 +14,5 @@
     UIWindow *window;
 	RootViewController *rootViewController;
 }
-- (void)setupRootView;
+- (void)removeLaunchView:(UIView *)launchView transitionType:(NSString *)type subType:(NSString *)subType;
 @end

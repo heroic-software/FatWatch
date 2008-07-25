@@ -141,19 +141,7 @@
 
 - (void)dismissView {
 	EatWatchAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-
-	UIView *window = self.view.superview;
-	
-	CATransition *animation = [CATransition animation];
-	[animation setType:kCATransitionPush];
-	[animation setSubtype:kCATransitionFromRight];
-	[animation setDuration:0.3];
-	
-	[self.view removeFromSuperview];
-	[appDelegate setupRootView];
-
-	[[window layer] addAnimation:animation forKey:nil];
-	
+	[appDelegate removeLaunchView:self.view transitionType:kCATransitionPush subType:kCATransitionFromRight];
 	[self autorelease];
 }
 

@@ -32,30 +32,6 @@
 }
 
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-	[self registerDefaults];
-	
-	EWDateInit();
-	[[Database sharedDatabase] open];
-	
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-	if ([[Database sharedDatabase] weightCount] == 0) {
-		// This is a new data file.
-		// Prompt user to choose weight unit.
-		NewDatabaseViewController *newDbController = [[NewDatabaseViewController alloc] init];
-		[window addSubview:newDbController.view];
-	} else if ([PasscodeEntryViewController authorizationRequired]) {
-		PasscodeEntryViewController *passcodeController = [[PasscodeEntryViewController alloc] init];
-		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
-		[window addSubview:passcodeController.view];
-	} else {
-		[self setupRootView];
-	}
-    [window makeKeyAndVisible];
-}
-
-
 - (void)setupRootView {
 	LogViewController *logController = [[[LogViewController alloc] init] autorelease];
 	TrendViewController *trendController = [[[TrendViewController alloc] init] autorelease];
@@ -72,6 +48,43 @@
 	rootViewController.landscapeViewController = graphController;
 	
 	[window addSubview:rootViewController.view];
+}
+
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[self registerDefaults];
+	
+	EWDateInit();
+	[[Database sharedDatabase] open];
+	
+	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+	if ([PasscodeEntryViewController authorizationRequired]) {
+		UIViewController *passcodeController = [PasscodeEntryViewController controllerForAuthorization];
+		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
+		[window addSubview:passcodeController.view];
+	} else if ([[Database sharedDatabase] weightCount] == 0) {
+		// This is a new data file.
+		// Prompt user to choose weight unit.
+		UIViewController *newDbController = [[NewDatabaseViewController alloc] init];
+		[window addSubview:newDbController.view];
+	} else {
+		[self setupRootView];
+	}
+    [window makeKeyAndVisible];
+}
+
+
+- (void)removeLaunchView:(UIView *)launchView transitionType:(NSString *)type subType:(NSString *)subType {
+	CATransition *animation = [CATransition animation];
+	[animation setType:type];
+	[animation setSubtype:subType];
+	[animation setDuration:0.3];
+	
+	[launchView removeFromSuperview];
+	[self setupRootView];
+	
+	[[window layer] addAnimation:animation forKey:nil];
 }
 
 

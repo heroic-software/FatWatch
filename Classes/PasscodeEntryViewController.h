@@ -18,13 +18,12 @@
 	IBOutlet UITextField *digit3Field;
 	IBOutlet UITextField *codeField;
 	UITextField *digitFields[4];
-	NSUInteger attemptsRemaining;
-	int mode;
-	NSString *newCode;
+	BOOL shouldDismissView;
 }
 + (BOOL)authorizationRequired;
 + (void)removePasscode;
-+ (PasscodeEntryViewController *)controllerForSetCode;
++ (PasscodeEntryViewController *)controllerForSettingCode;
++ (PasscodeEntryViewController *)controllerForAuthorization;
 - (IBAction)codeFieldEditingChanged:(id)sender;
 - (void)dismissView;
 @end
