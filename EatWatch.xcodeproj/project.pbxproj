@@ -41,6 +41,9 @@
 		BC51B8940E3ACACC00D3B4C1 /* BRTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */; };
 		BC51B89A0E3ACB9A00D3B4C1 /* BRTableButtonRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */; };
 		BC51B8E40E3AD5B300D3B4C1 /* BRTableSwitchRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */; };
+		BC51B9A20E3B023E00D3B4C1 /* GoalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */; };
+		BC51B9D20E3B08C500D3B4C1 /* BRTableValueRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */; };
+		BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
 		BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */; };
@@ -49,7 +52,6 @@
 		BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65E9690DEB3BF20008E677 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65E9680DEB3BF20008E677 /* Defaults.plist */; };
-		BC65EA730DEB5DEB0008E677 /* WeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */; };
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
@@ -68,6 +70,7 @@
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
+		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
 		BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
 		BCEADA3D0DE220640017495E /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
@@ -143,6 +146,12 @@
 		BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableButtonRow.m; sourceTree = "<group>"; };
 		BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSwitchRow.h; sourceTree = "<group>"; };
 		BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableSwitchRow.m; sourceTree = "<group>"; };
+		BC51B9A00E3B023E00D3B4C1 /* GoalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoalViewController.h; path = Classes/GoalViewController.h; sourceTree = "<group>"; };
+		BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoalViewController.m; path = Classes/GoalViewController.m; sourceTree = "<group>"; };
+		BC51B9D00E3B08C500D3B4C1 /* BRTableValueRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableValueRow.h; sourceTree = "<group>"; };
+		BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableValueRow.m; sourceTree = "<group>"; };
+		BC51B9D30E3B0C0200D3B4C1 /* BRTableDatePickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableDatePickerRow.h; sourceTree = "<group>"; };
+		BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableDatePickerRow.m; sourceTree = "<group>"; };
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconLog.png; path = Images/TabIconLog.png; sourceTree = "<group>"; };
 		BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconMore.png; path = Images/TabIconMore.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconTrend.png; path = Images/TabIconTrend.png; sourceTree = "<group>"; };
@@ -152,8 +161,6 @@
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatter.h; sourceTree = "<group>"; };
-		BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightFormatter.m; sourceTree = "<group>"; };
 		BC65EBB10DEBA5F90008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
@@ -189,6 +196,8 @@
 		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
+		BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightFormatters.m; sourceTree = "<group>"; };
 		BCEAD9E20DE219130017495E /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEAD9E30DE219130017495E /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -238,8 +247,8 @@
 				BC9BDE980DA9CB550004E70C /* MonthData.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
-				BC65EA710DEB5DEB0008E677 /* WeightFormatter.h */,
-				BC65EA720DEB5DEB0008E677 /* WeightFormatter.m */,
+				BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */,
+				BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -364,6 +373,10 @@
 				BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */,
 				BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */,
 				BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */,
+				BC51B9D00E3B08C500D3B4C1 /* BRTableValueRow.h */,
+				BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */,
+				BC51B9D30E3B0C0200D3B4C1 /* BRTableDatePickerRow.h */,
+				BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */,
 			);
 			path = BRTables;
 			sourceTree = "<group>";
@@ -401,6 +414,8 @@
 				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
 				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
 				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
+				BC51B9A00E3B023E00D3B4C1 /* GoalViewController.h */,
+				BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */,
 				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
 				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
@@ -622,7 +637,6 @@
 				BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */,
 				BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */,
 				BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */,
-				BC65EA730DEB5DEB0008E677 /* WeightFormatter.m in Sources */,
 				BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */,
 				BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */,
 				BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */,
@@ -631,6 +645,10 @@
 				BC51B8940E3ACACC00D3B4C1 /* BRTableViewController.m in Sources */,
 				BC51B89A0E3ACB9A00D3B4C1 /* BRTableButtonRow.m in Sources */,
 				BC51B8E40E3AD5B300D3B4C1 /* BRTableSwitchRow.m in Sources */,
+				BC51B9A20E3B023E00D3B4C1 /* GoalViewController.m in Sources */,
+				BC51B9D20E3B08C500D3B4C1 /* BRTableValueRow.m in Sources */,
+				BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */,
+				BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

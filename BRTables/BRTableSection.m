@@ -124,6 +124,7 @@
 	selectedIndex = index;
 	UITableViewCell *cell = [self cellForRowAtIndex:selectedIndex];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
+	[cell setSelected:NO animated:YES];
 	[super didSelectRowAtIndex:index];
 }
 

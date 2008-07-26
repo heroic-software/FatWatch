@@ -12,13 +12,17 @@
 
 #import "EWDate.h"
 #import "Database.h"
+
+#import "NewDatabaseViewController.h"
+#import "PasscodeEntryViewController.h"
+#import "RootViewController.h"
+
 #import "LogViewController.h"
 #import "TrendViewController.h"
-#import "GraphViewController.h"
-#import "RootViewController.h"
-#import "NewDatabaseViewController.h"
+#import "GoalViewController.h"
 #import "MoreViewController.h"
-#import "PasscodeEntryViewController.h"
+
+#import "GraphViewController.h"
 
 
 @implementation EatWatchAppDelegate
@@ -33,15 +37,16 @@
 
 
 - (void)setupRootView {
-	LogViewController *logController = [[[LogViewController alloc] init] autorelease];
-	TrendViewController *trendController = [[[TrendViewController alloc] init] autorelease];
-	GraphViewController *graphController = [[[GraphViewController alloc] init] autorelease];
-	MoreViewController *moreController = [[[MoreViewController alloc] init] autorelease];
-	
+	UIViewController *logController = [[[LogViewController alloc] init] autorelease];
+	UIViewController *trendController = [[[TrendViewController alloc] init] autorelease];
+	UIViewController *moreController = [[[MoreViewController alloc] init] autorelease];
+	UIViewController *goalController = [[[GoalViewController alloc] init] autorelease];
+	UIViewController *graphController = [[[GraphViewController alloc] init] autorelease];
+
 	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logController] autorelease];
 	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, moreController, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, goalController, moreController, nil];
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;

@@ -11,7 +11,7 @@
 #import "LogEntryViewController.h"
 #import "Database.h"
 #import "MonthData.h"
-#import "WeightFormatter.h"
+#import "WeightFormatters.h"
 
 
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
@@ -27,7 +27,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 - (id)init {
 	if (self = [super initWithNibName:@"LogEntryView" bundle:nil]) {
-		scaleIncrement = [WeightFormatter scaleIncrement];
+		scaleIncrement = [WeightFormatters scaleIncrement];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
@@ -237,7 +237,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 
-	label.text = [[WeightFormatter sharedFormatter] stringFromMeasuredWeight:[self weightForPickerRow:row]];
+	label.text = [WeightFormatters stringForWeight:[self weightForPickerRow:row]];
 	return label;
 }
 

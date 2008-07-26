@@ -10,7 +10,7 @@
 #import "Database.h"
 #import "SlopeComputer.h"
 #import "MonthData.h"
-#import "WeightFormatter.h"
+#import "WeightFormatters.h"
 
 
 @implementation TrendViewController
@@ -32,7 +32,6 @@
 	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	MonthData *data = [database dataForMonth:curMonth];
 	EWMonth earliestMonth = [database earliestMonth];
-	WeightFormatter *formatter = [WeightFormatter sharedFormatter];
 
 	int newValueCount = 0;
 	int spanIndex;
@@ -61,8 +60,8 @@
 			float weightPerDay = -[computer computeSlope];
 			[array addObject:[NSArray arrayWithObjects:
 							  [spanTitles objectAtIndex:spanIndex],
-							  [formatter weightPerWeekStringFromWeightChange:(7.0f * weightPerDay)],
-							  [formatter energyPerDayStringFromWeightChange:weightPerDay],
+							  [WeightFormatters weightStringForWeightPerDay:weightPerDay],
+							  [WeightFormatters energyStringForWeightPerDay:weightPerDay],
 							  nil]];
 			newValueCount = 0;
 		}

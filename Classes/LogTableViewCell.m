@@ -9,7 +9,7 @@
 #import "LogTableViewCell.h"
 #import "EWDate.h"
 #import "MonthData.h"
-#import "WeightFormatter.h"
+#import "WeightFormatters.h"
 
 
 NSString *kLogCellReuseIdentifier = @"LogCell";
@@ -63,11 +63,9 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
 	} else {
-		WeightFormatter *formatter = [WeightFormatter sharedFormatter];
-		
-		logContentView.scaleWeight = [formatter stringFromMeasuredWeight:measuredWeight];
+		logContentView.scaleWeight = [WeightFormatters stringForWeight:measuredWeight];
 		float weightDiff = measuredWeight - [monthData trendWeightOnDay:day];
-		logContentView.trendDelta = [formatter stringFromTrendDifference:weightDiff];
+		logContentView.trendDelta = [WeightFormatters stringForWeightChange:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
 	}
 	

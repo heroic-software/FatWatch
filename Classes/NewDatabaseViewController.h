@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRTableViewController.h"
 
-@interface NewDatabaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+
+@interface NewDatabaseViewController : BRTableViewController {
 }
-- (void)dismissView;
 @end

@@ -9,137 +9,62 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "NewDatabaseViewController.h"
-#import "Database.h"
-#import "WeightFormatter.h"
+#import "WeightFormatters.h"
 #import "EatWatchAppDelegate.h"
+#import "BRTableButtonRow.h"
+
 
 @implementation NewDatabaseViewController
 
+
+- (void)addSectionForStrings:(NSArray *)stringArray title:(NSString *)title {
+	BRTableRadioSection *section = [[BRTableRadioSection alloc] init];
+	section.headerTitle = title;
+	for (NSString *name in stringArray) {
+		[section addRow:[BRTableRow rowWithTitle:name] animated:NO];
+	}
+	section.selectedIndex = 0;
+	[self addSection:section animated:NO];
+}
+
+
 - (id)init {
-	if ([super initWithNibName:nil bundle:nil]) {
+	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"NEW_DATABASE_VIEW_TITLE", nil);
+		
+		[self addSectionForStrings:[WeightFormatters weightUnitNames] 
+							 title:NSLocalizedString(@"WEIGHT_UNIT", nil)];
+		[self addSectionForStrings:[WeightFormatters energyUnitNames] 
+							 title:NSLocalizedString(@"ENERGY_UNIT", nil)];
+		[self addSectionForStrings:[WeightFormatters scaleIncrementNames]
+							 title:NSLocalizedString(@"SCALE_INCREMENT", nil)];
+		
+		BRTableSection *buttonSection = [[BRTableSection alloc] init];
+		buttonSection.footerTitle = NSLocalizedString(@"NEW_DATABASE_DISMISS_FOOTER", nil);
+		
+		BRTableButtonRow *dismissRow = [[BRTableButtonRow alloc] init];
+		dismissRow.title = NSLocalizedString(@"NEW_DATABASE_DISMISS", nil);
+		dismissRow.target = self;
+		dismissRow.action = @selector(dismissView:);
+		[buttonSection addRow:dismissRow animated:NO];
+		
+		[self addSection:buttonSection animated:NO];
+		[buttonSection release];
 	}
 	return self;
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return NO;
-}
-
-
-- (void)loadView {
-	UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStyleGrouped];
-	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	tableView.delegate = self;
-	tableView.dataSource = self;
-	self.view = tableView;
-	[tableView release];
-}
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 3;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return [[WeightFormatter weightUnitNames] count];
-		case 1:
-			return [[WeightFormatter energyUnitNames] count];
-		case 2:
-			return 1;
-		default:
-			return 0;
-	}
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return NSLocalizedString(@"WEIGHT_UNIT", nil);
-		case 1:
-			return NSLocalizedString(@"ENERGY_UNIT", nil);
-		default:
-			return nil;
-	}
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	switch (section) {
-		case 2:
-			return NSLocalizedString(@"NEW_DATABASE_DISMISS_FOOTER", nil);
-		default:
-			return nil;
-	}
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil];
+- (void)dismissView:(BRTableButtonRow *)sender {
+	BRTableRadioSection *weightSection = (BRTableRadioSection *)[self sectionAtIndex:0];
+	[WeightFormatters selectWeightUnitAtIndex:weightSection.selectedIndex];
 	
-	switch ([indexPath section]) {
-		case 0:
-			cell.text = [[WeightFormatter weightUnitNames] objectAtIndex:[indexPath row]];
-			if ([indexPath row] == [WeightFormatter indexOfSelectedWeightUnit]) {
-				cell.accessoryType = UITableViewCellAccessoryCheckmark;
-			}
-			break;
-		case 1:
-			cell.text = [[WeightFormatter energyUnitNames] objectAtIndex:[indexPath row]];
-			if ([indexPath row] == [WeightFormatter indexOfSelectedEnergyUnit]) {
-				cell.accessoryType = UITableViewCellAccessoryCheckmark;
-			}
-			break;
-		case 2:
-			cell.text = NSLocalizedString(@"NEW_DATABASE_DISMISS", nil);
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			break;
-	}
+	BRTableRadioSection *energySection = (BRTableRadioSection *)[self sectionAtIndex:1];
+	[WeightFormatters selectEnergyUnitAtIndex:energySection.selectedIndex];
 	
-	return [cell autorelease];
-}
+	BRTableRadioSection *incrementSection = (BRTableRadioSection *)[self sectionAtIndex:2];
+	[WeightFormatters selectScaleIncrementAtIndex:incrementSection.selectedIndex];
 
-
-- (void)moveCheckmarkInTableView:(UITableView *)tableView toIndexPath:(NSIndexPath *)indexPath fromRow:(int)oldRow {
-	UITableViewCell *cell;
-
-	// uncheck old cell
-	cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:oldRow inSection:[indexPath section]]];
-	cell.accessoryType = UITableViewCellAccessoryNone;
-
-	// check new cell
-	cell = [tableView cellForRowAtIndexPath:indexPath];
-	cell.accessoryType = UITableViewCellAccessoryCheckmark;
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	switch ([indexPath section]) {
-		case 0:
-			[self moveCheckmarkInTableView:tableView toIndexPath:indexPath 
-								   fromRow:[WeightFormatter indexOfSelectedWeightUnit]];
-			[WeightFormatter selectWeightUnitAtIndex:[indexPath row]];
-			break;
-		case 1:
-			[self moveCheckmarkInTableView:tableView toIndexPath:indexPath 
-								   fromRow:[WeightFormatter indexOfSelectedEnergyUnit]];
-			[WeightFormatter selectEnergyUnitAtIndex:[indexPath row]];
-			break;
-		case 2:
-			[self dismissView];
-			break;
-	}
-}
-
-
-- (void)dismissView {
 	EatWatchAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchView:self.view transitionType:kCATransitionPush subType:kCATransitionFromRight];
 	[self autorelease];
