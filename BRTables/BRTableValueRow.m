@@ -52,7 +52,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	id value = [change objectForKey:NSKeyValueChangeNewKey];
-	[[self cell] setText:[self stringForValue:value]];
+	UITableViewCell *cell = [self cell];
+	cell.text = [self stringForValue:value];
+	cell.selected = YES;
 }
 
 

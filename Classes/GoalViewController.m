@@ -12,6 +12,7 @@
 #import "MonthData.h"
 #import "BRTableValueRow.h"
 #import "BRTableDatePickerRow.h"
+#import "BRTableNumberPickerRow.h"
 #import "WeightFormatters.h"
 
 
@@ -58,7 +59,6 @@
 	dateRow.title = NSLocalizedString(@"START_DATE", nil);
 	dateRow.object = self;
 	dateRow.key = @"startDate";
-	// min date
 	[section addRow:dateRow animated:NO];
 	[dateRow release];
 	
@@ -86,11 +86,14 @@
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
-	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
+	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
 	weightRow.object = self;
 	weightRow.key = @"goalWeight";
 	weightRow.formatter = [WeightFormatters weightFormatter];
+	weightRow.increment = [WeightFormatters scaleIncrement];
+	weightRow.minimumValue = 0;
+	weightRow.maximumValue = 500;
 	[goalSection addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -103,19 +106,25 @@
 	BRTableSection *planSection = [[BRTableSection alloc] init];
 	planSection.headerTitle = NSLocalizedString(@"PLAN_SECTION_TITLE", nil);
 	
-	BRTableValueRow *energyRow = [[BRTableValueRow alloc] init];
+	BRTableNumberPickerRow *energyRow = [[BRTableNumberPickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"ENERGY_CHANGE_TITLE", nil);
 	energyRow.object = self;
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
+	energyRow.minimumValue = -2;
+	energyRow.maximumValue = 2;
+	energyRow.increment = 1.0 / 350.0; // 10 cal/day = 1 lb/day / 3500 cal/lb
 	[planSection addRow:energyRow animated:NO];
 	[energyRow release];
 	
-	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
+	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"WEIGHT_CHANGE_TITLE", nil);
 	weightRow.object = self;
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
+	weightRow.minimumValue = energyRow.minimumValue;
+	weightRow.maximumValue = energyRow.maximumValue;
+	weightRow.increment = energyRow.increment;
 	[planSection addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -225,6 +234,24 @@
 
 
 #pragma mark View Crap
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	Database *db = [Database sharedDatabase];
+	
+	BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
+	EWMonth earliestMonth = [db earliestMonth];
+	EWDay earliestDay = [[db dataForMonth:earliestMonth] firstDayWithWeight];
+	startDateRow.minimumDate = EWDateFromMonthAndDay(earliestMonth, earliestDay);
+	startDateRow.maximumDate = [NSDate date];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	for (UITableViewCell *cell in [self.tableView visibleCells]) {
+		[cell setSelected:NO animated:animated];
+	}
+}
 
 
 - (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {

@@ -11,7 +11,9 @@
 
 
 @interface BRTableDatePickerRow : BRTableValueRow {
-
+	NSDate *minimumDate;
+	NSDate *maximumDate;
 }
-
+@property (nonatomic,retain) NSDate *minimumDate;
+@property (nonatomic,retain) NSDate *maximumDate;
 @end

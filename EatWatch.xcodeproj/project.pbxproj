@@ -71,6 +71,7 @@
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
+		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
 		BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
 		BCEADA3D0DE220640017495E /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
@@ -198,6 +199,8 @@
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
 		BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightFormatters.m; sourceTree = "<group>"; };
+		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
+		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
 		BCEAD9E20DE219130017495E /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEAD9E30DE219130017495E /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -377,6 +380,8 @@
 				BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */,
 				BC51B9D30E3B0C0200D3B4C1 /* BRTableDatePickerRow.h */,
 				BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */,
+				BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */,
+				BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */,
 			);
 			path = BRTables;
 			sourceTree = "<group>";
@@ -649,6 +654,7 @@
 				BC51B9D20E3B08C500D3B4C1 /* BRTableValueRow.m in Sources */,
 				BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */,
 				BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */,
+				BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

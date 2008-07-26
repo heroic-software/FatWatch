@@ -21,6 +21,9 @@
 @implementation BRTableDatePickerRow
 
 
+@synthesize minimumDate, maximumDate;
+
+
 - (id)init {
 	if ([super init]) {
 		NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -30,6 +33,13 @@
 		[df release];
 	}
 	return self;
+}
+
+
+- (void)dealloc {
+	[minimumDate release];
+	[maximumDate release];
+	[super dealloc];
 }
 
 
@@ -63,9 +73,9 @@
 
 
 - (void)loadView {
-	UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	view.backgroundColor = [UIColor grayColor];
+	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	
 	UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
 	datePicker.tag = 411;
@@ -73,17 +83,19 @@
 	[view addSubview:datePicker];
 	[datePicker release];
 	
-	UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[okButton setTitle:@"OK" forState:UIControlStateNormal];
-	[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
-	[okButton setFrame:CGRectMake(10, 300, 300, 44)];
-	[view addSubview:okButton];
-	
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
 	[cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
-	[cancelButton setFrame:CGRectMake(10, 350, 300, 44)];
+	[cancelButton setFrame:CGRectMake(10, 480-10-50-10-50, 300, 50)];
+	cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 	[view addSubview:cancelButton];
+	
+	UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[okButton setTitle:@"OK" forState:UIControlStateNormal];
+	[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
+	[okButton setFrame:CGRectMake(10, 480-10-50, 300, 50)];
+	okButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+	[view addSubview:okButton];
 	
 	self.view = view;
 	[view release];
@@ -93,6 +105,8 @@
 - (void)viewWillAppear:(BOOL)animated {
 	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
 	datePicker.date = [row.object valueForKey:row.key];
+	datePicker.minimumDate = row.minimumDate;
+	datePicker.maximumDate = row.maximumDate;
 }
 
 
