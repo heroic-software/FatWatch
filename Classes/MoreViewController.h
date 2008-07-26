@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRTableViewController.h"
 
 
 @class MicroWebServer;
 
 
-@interface MoreViewController : UITableViewController {
-	UISwitch *webServerSwitch;
-	UILabel *webServerFooter;
+@interface MoreViewController : BRTableViewController {
 	MicroWebServer *webServer;
-	UISwitch *passcodeSwitch;
 }
-
 @end

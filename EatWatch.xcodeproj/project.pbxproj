@@ -36,6 +36,11 @@
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC51B7CE0E3A9E6800D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
 		BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
+		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
+		BC51B8930E3ACACC00D3B4C1 /* BRTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */; };
+		BC51B8940E3ACACC00D3B4C1 /* BRTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */; };
+		BC51B89A0E3ACB9A00D3B4C1 /* BRTableButtonRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */; };
+		BC51B8E40E3AD5B300D3B4C1 /* BRTableSwitchRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
 		BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */; };
@@ -128,6 +133,16 @@
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
 		BC51B7CD0E3A9E6700D3B4C1 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Check.png; path = Images/Check.png; sourceTree = "<group>"; };
+		BC51B88C0E3ACACC00D3B4C1 /* BRTableRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableRow.h; sourceTree = "<group>"; };
+		BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableRow.m; sourceTree = "<group>"; };
+		BC51B88E0E3ACACC00D3B4C1 /* BRTableSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSection.h; sourceTree = "<group>"; };
+		BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableSection.m; sourceTree = "<group>"; };
+		BC51B8900E3ACACC00D3B4C1 /* BRTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableViewController.h; sourceTree = "<group>"; };
+		BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableViewController.m; sourceTree = "<group>"; };
+		BC51B8980E3ACB9A00D3B4C1 /* BRTableButtonRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableButtonRow.h; sourceTree = "<group>"; };
+		BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableButtonRow.m; sourceTree = "<group>"; };
+		BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSwitchRow.h; sourceTree = "<group>"; };
+		BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableSwitchRow.m; sourceTree = "<group>"; };
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconLog.png; path = Images/TabIconLog.png; sourceTree = "<group>"; };
 		BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconMore.png; path = Images/TabIconMore.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconTrend.png; path = Images/TabIconTrend.png; sourceTree = "<group>"; };
@@ -262,6 +277,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
 				BCABE0470DD9372000DE580A /* Views */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -333,6 +349,23 @@
 				BC24A4970E2487830074FD4C /* Icon.png */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		BC51B88B0E3ACACC00D3B4C1 /* BRTables */ = {
+			isa = PBXGroup;
+			children = (
+				BC51B8900E3ACACC00D3B4C1 /* BRTableViewController.h */,
+				BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */,
+				BC51B88E0E3ACACC00D3B4C1 /* BRTableSection.h */,
+				BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */,
+				BC51B88C0E3ACACC00D3B4C1 /* BRTableRow.h */,
+				BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */,
+				BC51B8980E3ACB9A00D3B4C1 /* BRTableButtonRow.h */,
+				BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */,
+				BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */,
+				BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */,
+			);
+			path = BRTables;
 			sourceTree = "<group>";
 		};
 		BC7B54E00DDE2C8800B316A1 /* Tests */ = {
@@ -593,6 +626,11 @@
 				BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */,
 				BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */,
 				BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */,
+				BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */,
+				BC51B8930E3ACACC00D3B4C1 /* BRTableSection.m in Sources */,
+				BC51B8940E3ACACC00D3B4C1 /* BRTableViewController.m in Sources */,
+				BC51B89A0E3ACB9A00D3B4C1 /* BRTableButtonRow.m in Sources */,
+				BC51B8E40E3AD5B300D3B4C1 /* BRTableSwitchRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

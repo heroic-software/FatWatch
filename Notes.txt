@@ -1,3 +1,34 @@
+Goal screen:
+
+Start
+	Date: [pick] [default: first day of data]
+	Weight: [retrieved from log]
+	
+Goal:
+	Date: [pick] [default: computed from others]
+	Weight: [pick] [default: -10 lbs]
+	
+Plan:
+	Energy: [pick] cal/day [default -500]
+	Weight: [pick] lbs/week [default -1]
+
+Progress:
+	Energy: cal/day (actual from start date to today)
+	Weight: lbs/week (actual from start date to today)
+	"X days to go"
+	"X lbs to go"
+
+	Clear Goal (button) [are you sure? prompt]
+
+
+change Start Date, update Goal Date
+change Goal Date, update Plan *
+change Goal Weight, update Goal Date
+change Plan *, update Goal Date
+
+Initially display only a "Set Goal" button, when pressed, display whole form with defaults.
+
+
 Correctness:
 - Update views after importing.
 - after import, log and graph view "earliest" dates need to be reset
@@ -6,9 +37,6 @@ Performance:
 - Switch to graph view is slow.
 
 Cosmetic:
-- Log view scrolling is a little jerky.
-- Log view: descenders in note text are cropped sometimes.
-- Graph view: extend trend line across months.
 - Graph view: add scale along Y axis (weight)
 - Graph view: not enough data warning is off-center
 
@@ -17,7 +45,6 @@ Enhancement:
 - Graph view: support zooming
 
 Usability:
-- User needs quick way of getting to "Today" on log view and graph view.
 - If you quit the app on the weight entry view during Auto Weight In, save the data.
 
 Debug Settings:

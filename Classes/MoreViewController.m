@@ -10,9 +10,74 @@
 #import "MicroWebServer.h"
 #import "WebServerDelegate.h"
 #import "PasscodeEntryViewController.h"
+#import "BRTableButtonRow.h"
+#import "BRTableSwitchRow.h"
 
 
 @implementation MoreViewController
+
+
+- (void)initMoreSection {
+	BRTableSection *moreSection = [[BRTableSection alloc] init];
+	moreSection.headerTitle = NSLocalizedString(@"MORE_SECTION_TITLE", nil);
+	
+	BRTableButtonRow *chartRow = [[BRTableButtonRow alloc] init];
+	chartRow.title = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
+	chartRow.target = self;
+	chartRow.action = @selector(showWeightChart:);
+	[moreSection addRow:chartRow animated:NO];
+	[chartRow release];
+	
+	BRTableSwitchRow *passcodeRow = [[BRTableSwitchRow alloc] init];
+	passcodeRow.title = NSLocalizedString(@"PASSCODE_ROW_TITLE", nil);
+	passcodeRow.object = self;
+	passcodeRow.key = @"passcodeEnabled";
+	[moreSection addRow:passcodeRow animated:NO];
+	[passcodeRow release];
+	
+	[self addSection:moreSection animated:NO];
+	[moreSection release];
+}
+
+
+- (void)initTransferSection {
+	BRTableSection *dataSection = [[BRTableSection alloc] init];
+	dataSection.headerTitle = NSLocalizedString(@"TRANSFER_SECTION_TITLE", nil);
+	
+	BRTableSwitchRow *webServerRow = [[BRTableSwitchRow alloc] init];
+	webServerRow.title = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
+	webServerRow.object = self;
+	webServerRow.key = @"webServerEnabled";
+	[dataSection addRow:webServerRow animated:NO];
+	[webServerRow release];
+	
+	[self addSection:dataSection animated:NO];
+	[dataSection release];
+}
+
+
+- (void)initSupportSection {
+	BRTableSection *supportSection = [[BRTableSection alloc] init];
+	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
+	supportSection.footerTitle = NSLocalizedString(@"COPYRIGHT", nil);
+	
+	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
+	webRow.title = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
+	webRow.titleAlignment = UITextAlignmentCenter;
+	webRow.object = [NSURL URLWithString:NSLocalizedString(@"SUPPORT_WEBSITE_URL", nil)];
+	[supportSection addRow:webRow animated:NO];
+	[webRow release];
+	
+	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
+	emailRow.title = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
+	emailRow.titleAlignment = UITextAlignmentCenter;
+	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"SUPPORT_EMAIL_URL", nil)];
+	[supportSection addRow:emailRow animated:NO];
+	[emailRow release];
+	
+	[self addSection:supportSection animated:NO];
+	[supportSection release];
+}
 
 
 - (id)init {
@@ -20,107 +85,62 @@
 		self.title = NSLocalizedString(@"MORE_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconMore.png"];
 		
-		webServerSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-		[webServerSwitch addTarget:self action:@selector(toggleWebServerSwitch:) forControlEvents:UIControlEventValueChanged];
-		
 		webServer = [[MicroWebServer alloc] init];
 		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
 		webServer.delegate = [[WebServerDelegate alloc] init];
-		
-		passcodeSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-		[passcodeSwitch addTarget:self action:@selector(togglePasscodeSwitch:) forControlEvents:UIControlEventValueChanged];
-		passcodeSwitch.on = [PasscodeEntryViewController authorizationRequired];
+
+		[self initMoreSection];
+		[self initTransferSection];
+		[self initSupportSection];
 	}
 	return self;
 }
 
 
 - (void)dealloc {
-	[passcodeSwitch release];
-	[webServerSwitch release];
 	[webServer.delegate release];
 	[webServer release];
 	[super dealloc];
 }
 
 
-/*
- 0/0: Weight Chart
- 0/1: Passcode
- 1/0: Import/Export
- 2/-: "Support"
- 2/0: www.fatwatchapp.com
- 2/1: support@fatwatchapp.com
- */
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 3;
+- (BOOL)passcodeEnabled {
+	return [PasscodeEntryViewController authorizationRequired];
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case 0: return 2;
-		case 1: return (webServer.running ? 2 : 1);
-		case 2: return 2;
-	}
-	return 0;
+- (void)setPasscodeEnabled:(BOOL)flag {
+	if (flag) {
+		UIViewController *controller = [PasscodeEntryViewController controllerForSettingCode];
+		[self presentModalViewController:controller animated:YES];
+	} else {
+		[PasscodeEntryViewController removePasscode];
+	}	
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	switch (section) {
-		case 0: return NSLocalizedString(@"MORE_SECTION_TITLE", nil);
-		case 1: return NSLocalizedString(@"TRANSFER_SECTION_TITLE", nil);
-		case 2: return NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
-	}
-	return 0;
+- (BOOL)webServerEnabled {
+	return webServer.running;
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
-	switch (indexPath.section) {
-		case 0:
-			if (indexPath.row == 0) {
-				cell.text = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
-			} else {
-				cell.text = @"Require Passcode";
-				cell.accessoryView = passcodeSwitch;
-			}
-			break;
-		case 1:
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			if (indexPath.row == 0) {
-				cell.text = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
-				cell.accessoryView = webServerSwitch;
-			} else {
-				cell.text = [webServer.url description];
-				cell.textColor = [UIColor blueColor];
-				cell.textAlignment = UITextAlignmentCenter;
-			}
-			break;
-		case 2:
-			if (indexPath.row == 0) {
-				cell.text = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
-			} else {
-				cell.text = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
-			}
-			cell.textAlignment = UITextAlignmentCenter;
-			break;
+- (void)setWebServerEnabled:(BOOL)flag {
+	BRTableSection *transferSection = [self sectionAtIndex:1];
+	
+	if (flag && !webServer.running) {
+		[webServer start];
+		BRTableButtonRow *addressRow = [[BRTableButtonRow alloc] init];
+		addressRow.title = [webServer.url description];
+		addressRow.target = self;
+		addressRow.action = @selector(showWebAddress:);
+		addressRow.titleColor = [UIColor blueColor];
+		addressRow.titleAlignment = UITextAlignmentCenter;
+		
+		[transferSection addRow:addressRow animated:YES];
+	} else if (!flag && webServer.running) {
+		[webServer stop];
+		[transferSection removeRowAtIndex:1 animated:YES];
 	}
-	return cell;
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	switch (section) {
-		case 0: return nil;
-		case 1: return nil;
-		case 2: return NSLocalizedString(@"COPYRIGHT", nil);
-	}
-	return nil;
 }
 
 
@@ -135,54 +155,18 @@
 }
 
 
+- (void)showWeightChart:(BRTableButtonRow *)sender {
+	[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
+}
+
+
+- (void)showWebAddress:(BRTableButtonRow *)sender {
+	[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_ROW_MESSAGE"];
+}
+
+
 - (void)openURLWithString:(NSString *)text {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:text]];
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	switch (indexPath.section) {
-		case 0:
-			if (indexPath.row == 0) {
-				[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
-			}
-			break;
-		case 1:
-			if (indexPath.row == 1) {
-				[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_ROW_MESSAGE"];
-			}
-			break;
-		case 2:
-			if (indexPath.row == 0) {
-				[self openURLWithString:NSLocalizedString(@"SUPPORT_WEBSITE_URL", nil)];
-			} else {
-				[self openURLWithString:NSLocalizedString(@"SUPPORT_EMAIL_URL", nil)];
-			}
-			break;
-	}
-	[[self.tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
-}
-
-
-- (void)toggleWebServerSwitch:(id)sender {
-	NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]];
-	if (webServerSwitch.on && !webServer.running) {
-		[webServer start];
-		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	} else if (!webServerSwitch.on && webServer.running) {
-		[webServer stop];
-		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	}
-}
-
-
-- (void)togglePasscodeSwitch:(id)sender {
-	if (passcodeSwitch.on) {
-		UIViewController *controller = [PasscodeEntryViewController controllerForSettingCode];
-		[self presentModalViewController:controller animated:YES];
-	} else {
-		[PasscodeEntryViewController removePasscode];
-	}
 }
 
 
