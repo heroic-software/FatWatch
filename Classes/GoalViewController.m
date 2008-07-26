@@ -59,6 +59,7 @@
 	dateRow.title = NSLocalizedString(@"START_DATE", nil);
 	dateRow.object = self;
 	dateRow.key = @"startDate";
+	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:dateRow animated:NO];
 	[dateRow release];
 	
@@ -83,6 +84,7 @@
 	dateRow.title = NSLocalizedString(@"GOAL_DATE", nil);
 	dateRow.object = self;
 	dateRow.key = @"endDate";
+	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
@@ -94,6 +96,7 @@
 	weightRow.increment = [WeightFormatters scaleIncrement];
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
+	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[goalSection addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -114,6 +117,7 @@
 	energyRow.minimumValue = -2;
 	energyRow.maximumValue = 2;
 	energyRow.increment = 1.0 / 350.0; // 10 cal/day = 1 lb/day / 3500 cal/lb
+	energyRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:energyRow animated:NO];
 	[energyRow release];
 	
@@ -125,6 +129,7 @@
 	weightRow.minimumValue = energyRow.minimumValue;
 	weightRow.maximumValue = energyRow.maximumValue;
 	weightRow.increment = energyRow.increment;
+	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:weightRow animated:NO];
 	[weightRow release];
 	

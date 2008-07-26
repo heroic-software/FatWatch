@@ -12,7 +12,7 @@
 @implementation BRTableValueRow
 
 
-@synthesize key, formatter;
+@synthesize key, formatter, accessoryType;
 
 
 - (void)dealloc {
@@ -47,6 +47,7 @@
 	[super configureCell:cell];
 	id value = [self.object valueForKey:self.key];
 	cell.text = [self stringForValue:value];
+	cell.accessoryType = accessoryType;
 }
 
 
@@ -55,6 +56,11 @@
 	UITableViewCell *cell = [self cell];
 	cell.text = [self stringForValue:value];
 	cell.selected = YES;
+}
+
+
+- (void)didSelect {
+	[[self cell] setSelected:NO];
 }
 
 
