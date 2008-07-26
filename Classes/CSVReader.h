@@ -13,9 +13,10 @@
 	NSData *data;
 	NSUInteger dataIndex;
 	NSNumberFormatter *floatFormatter;
+	NSStringEncoding dataEncoding;
 }
 @property (nonatomic,retain) NSNumberFormatter *floatFormatter;
-- (id)initWithData:(NSData *)csvData;
+- (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding;
 - (BOOL)nextRow;
 - (NSString *)readString;
 - (float)readFloat;

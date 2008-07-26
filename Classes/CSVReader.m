@@ -28,9 +28,10 @@
 @synthesize floatFormatter;
 
 
-- (id)initWithData:(NSData *)csvData {
+- (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding {
 	if ([super init]) {
 		data = [csvData retain];
+		dataEncoding = encoding;
 	}
 	return self;
 }
@@ -126,7 +127,7 @@
 
 - (NSString *)stringWithDataFromIndex:(NSUInteger)startIndex toIndex:(NSUInteger)endIndex {
 	NSData *subdata = [data subdataWithRange:NSMakeRange(startIndex, endIndex - startIndex + 1)];
-	NSString *text = [[NSString alloc] initWithData:subdata encoding:NSUTF8StringEncoding];
+	NSString *text = [[NSString alloc] initWithData:subdata encoding:dataEncoding];
 	return [text autorelease];
 }
 
