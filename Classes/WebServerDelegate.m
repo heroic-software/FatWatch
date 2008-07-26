@@ -148,6 +148,7 @@
 
 	importData = [[form dataForKey:@"filedata"] retain];
 	importReplace = [[form stringForKey:@"how"] isEqualToString:@"replace"];
+	importEncoding = [[form stringForKey:@"encoding"] intValue];
 	
 	if (importData == nil) {
 		[self sendResourceNamed:@"importNoData" withSubstitutions:nil toConnection:connection];
@@ -187,7 +188,7 @@
 	}
 	
 	NSUInteger lineCount = 0, importCount = 0;
-	CSVReader *reader = [[CSVReader alloc] initWithData:importData];
+	CSVReader *reader = [[CSVReader alloc] initWithData:importData encoding:importEncoding];
 	reader.floatFormatter = [WeightFormatter exportNumberFormatter];
 	
 	NSDateFormatter *formatter = [self dateFormatter];

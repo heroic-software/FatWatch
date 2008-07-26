@@ -279,8 +279,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -325,11 +323,12 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {258, 540}}</string>
+							<string>{{0, 0}, {258, 568}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -341,7 +340,7 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {275, 558}}</string>
+						<string>{{0, 0}, {275, 586}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>SCMStatusColumn</string>
@@ -350,7 +349,7 @@
 							<real>236</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>38 179 1017 599 0 0 1280 778 </string>
+						<string>111 129 944 627 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -361,18 +360,50 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string>WeightFormatter.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
+										<key>PBXProjectModuleLabel</key>
+										<string>WeightFormatter.m</string>
+										<key>_historyCapacity</key>
+										<integer>10</integer>
+										<key>bookmark</key>
+										<string>BC51B9800E3AF75500D3B4C1</string>
+										<key>history</key>
+										<array>
+											<string>BC51B94B0E3AEA5A00D3B4C1</string>
+											<string>BC51B94E0E3AEA5A00D3B4C1</string>
+											<string>BC51B94F0E3AEA5A00D3B4C1</string>
+											<string>BC51B9600E3AEEA700D3B4C1</string>
+											<string>BC51B96C0E3AF42900D3B4C1</string>
+											<string>BC51B9750E3AF69800D3B4C1</string>
+											<string>BC51B9760E3AF69800D3B4C1</string>
+											<string>BC51B97B0E3AF75500D3B4C1</string>
+											<string>BC51B97C0E3AF75500D3B4C1</string>
+											<string>BC51B97D0E3AF75500D3B4C1</string>
+										</array>
+										<key>prevStack</key>
+										<array>
+											<string>BC51B9520E3AEA5A00D3B4C1</string>
+											<string>BC51B9630E3AEEA700D3B4C1</string>
+											<string>BC51B9640E3AEEA700D3B4C1</string>
+											<string>BC51B96E0E3AF42900D3B4C1</string>
+											<string>BC51B9780E3AF69800D3B4C1</string>
+											<string>BC51B9790E3AF69800D3B4C1</string>
+											<string>BC51B97E0E3AF75500D3B4C1</string>
+											<string>BC51B97F0E3AF75500D3B4C1</string>
+										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -383,14 +414,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {737, 443}}</string>
+								<string>{{0, 0}, {664, 483}}</string>
 								<key>RubberWindowFrame</key>
-								<string>38 179 1017 599 0 0 1280 778 </string>
+								<string>111 129 944 627 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>443pt</string>
+							<string>483pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -403,18 +434,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 448}, {737, 110}}</string>
+								<string>{{0, 488}, {664, 98}}</string>
 								<key>RubberWindowFrame</key>
-								<string>38 179 1017 599 0 0 1280 778 </string>
+								<string>111 129 944 627 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>110pt</string>
+							<string>98pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>737pt</string>
+					<string>664pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -564,7 +595,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>238740757.98851901</real>
+	<real>238745429.41723299</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -588,7 +619,7 @@
 		<string>/Users/benzado/Projects/iPhone/EatWatch/EatWatch.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>38 179 1017 599 0 0 1280 778 </string>
+	<string>111 129 944 627 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

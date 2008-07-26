@@ -12,6 +12,7 @@
 @interface WebServerDelegate : NSObject <MicroWebServerDelegate> {
 	NSData *importData;
 	BOOL importReplace;
+	NSStringEncoding importEncoding;
 }
 
 @end

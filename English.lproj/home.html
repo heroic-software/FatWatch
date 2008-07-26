@@ -42,6 +42,24 @@
 				<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
 			</p>
 			<p>
+				If you need to, you can specify your file's encoding.  You might need to change this if your notes do not import correctly.  The default should be fine for most cases.
+			</p>
+			<p>
+				File encoding: <select name="encoding">
+					<option value="4" selected="true">Unicode (UTF-8)</option>
+					<option value="10">Unicode (UTF-16)</option>
+					<option value="30">Western (Mac OS Roman)</option>
+					<option value="12">Western (Windows Latin 1)</option>
+					<option value="5">Western (ISO Latin 1)</option>
+					<option value="9">Western (ISO Latin 2)</option>
+					<option value="15">Central European (Windows Latin 2)</option><!-- CP1250 -->
+					<option value="11">Cyrillic (Windows)</option><!-- CP1251 -->
+					<option value="13">Greek (Windows)</option><!-- CP1253 -->
+					<option value="14">Turkish (Windows)</option><!-- CP1254 -->
+					<option value="8">Japanese (Shift JIS)</option>
+				</select>
+			</p>
+			<p>
 				Existing data can be merged or replaced with the data from your file.
 			</p>
 			<dl>
@@ -50,14 +68,14 @@
 					<label for="merge_button">Merge with existing data.</label>
 				</dt>
 				<dd>
-					If the file and the iPhone have different measurements for the same date, the measurement in the file will replace the measurement on the iPhone.  Otherwise, any existing measurements on your iPhone will be left alone.
+					If the file and the iPhone have different weights for the same date, the weight in the file will replace the weight on the iPhone.  Otherwise, any existing weights on your iPhone will be left alone.
 				</dd>
 				<dt>
 					<input type="radio" name="how" value="replace" id="replace_button"/>
 					<label for="replace_button">Replace existing data.</label>
 				</dt>
 				<dd>
-					All weight measurements on your iPhone will be deleted and the measurements in your file will take their place.
+					All weights on your iPhone <strong>will be deleted</strong> and the weights in your file will take their place.
 				</dd>
 			</dl>
 			<div>
