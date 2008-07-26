@@ -57,3 +57,10 @@ EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
 	NSDateComponents *dayComponents = [calendar components:NSDayCalendarUnit fromDate:theDate];
 	return EWMonthDayMake(monthComponents.month, dayComponents.day);
 }
+
+
+BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d) {
+	NSDate *date = EWDateFromMonthAndDay(m, d);
+	NSDateComponents *comps = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+	return (comps.weekday == 1 || comps.weekday == 7);
+}

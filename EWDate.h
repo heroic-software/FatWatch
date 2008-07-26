@@ -23,3 +23,4 @@ EW_EXTERN void EWDateInit();
 EW_EXTERN NSUInteger EWDaysInMonth(EWMonth m);
 EW_EXTERN NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d);
 EW_EXTERN EWMonthDay EWMonthDayFromDate(NSDate *theDate);
+EW_EXTERN BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d);
