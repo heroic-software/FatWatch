@@ -99,7 +99,7 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 	EWWeightUnit weightUnit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setFormat:@"#.0"];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	switch (weightUnit) {
 		case kWeightUnitKilograms:
 			[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
