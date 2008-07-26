@@ -10,14 +10,12 @@
 #import "EWDate.h"
 
 @class MonthData;
+@class LogTableViewCellContentView;
 
 extern NSString *kLogCellReuseIdentifier;
 
 @interface LogTableViewCell : UITableViewCell {
-	UILabel *dayLabel;
-	UILabel *measuredWeightLabel;
-	UILabel *trendWeightLabel;
-	UILabel *noteLabel;
+	LogTableViewCellContentView *logContentView;
 }
 - (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day;
 @end
