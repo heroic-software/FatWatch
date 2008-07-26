@@ -12,6 +12,8 @@
 #import "MonthData.h"
 #import "BRTableValueRow.h"
 #import "BRTableDatePickerRow.h"
+#import "WeightFormatters.h"
+
 
 /*Goal screen:
  
@@ -50,9 +52,10 @@
 
 - (void)initStartSection {
 	BRTableSection *section = [[BRTableSection alloc] init];
-	section.headerTitle = @"Start";
+	section.headerTitle = NSLocalizedString(@"START_SECTION_TITLE", nil);
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
+	dateRow.title = NSLocalizedString(@"START_DATE", nil);
 	dateRow.object = self;
 	dateRow.key = @"startDate";
 	// min date
@@ -60,8 +63,10 @@
 	[dateRow release];
 	
 	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
+	weightRow.title = NSLocalizedString(@"START_WEIGHT", nil);
 	weightRow.object = self;
 	weightRow.key = @"startWeight";
+	weightRow.formatter = [WeightFormatters weightFormatter];
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -72,17 +77,20 @@
 
 - (void)initGoalSection {
 	BRTableSection *goalSection = [[BRTableSection alloc] init];
-	goalSection.headerTitle = @"Goal";
+	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_TITLE", nil);
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
+	dateRow.title = NSLocalizedString(@"GOAL_DATE", nil);
 	dateRow.object = self;
 	dateRow.key = @"endDate";
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
 	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
+	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
 	weightRow.object = self;
 	weightRow.key = @"goalWeight";
+	weightRow.formatter = [WeightFormatters weightFormatter];
 	[goalSection addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -93,17 +101,21 @@
 
 - (void)initPlanSection {
 	BRTableSection *planSection = [[BRTableSection alloc] init];
-	planSection.headerTitle = @"Plan";
+	planSection.headerTitle = NSLocalizedString(@"PLAN_SECTION_TITLE", nil);
 	
 	BRTableValueRow *energyRow = [[BRTableValueRow alloc] init];
+	energyRow.title = NSLocalizedString(@"ENERGY_CHANGE_TITLE", nil);
 	energyRow.object = self;
-	energyRow.key = @"planEnergyPerDay";
+	energyRow.key = @"weightChangePerDay";
+	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
 	[planSection addRow:energyRow animated:NO];
 	[energyRow release];
 	
 	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
+	weightRow.title = NSLocalizedString(@"WEIGHT_CHANGE_TITLE", nil);
 	weightRow.object = self;
-	weightRow.key = @"planWeightPerWeek";
+	weightRow.key = @"weightChangePerDay";
+	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
 	[planSection addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -116,7 +128,7 @@
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"GOAL_VIEW_TITLE", nil);
 
-		weightPerDay = -1.0 / 0.7;
+		weightChangePerDay = -1.0 / 7.0; // lb a week
 		self.startDate = [NSDate date];
 		
 		[self initStartSection];
@@ -127,30 +139,21 @@
 }
 
 
-- (void)setWeightPerDay:(float)value {
-	[self willChangeValueForKey:@"planEnergyPerDay"];
-	[self willChangeValueForKey:@"planWeightPerWeek"];
-	weightPerDay = value;
-	[self didChangeValueForKey:@"planWeightPerWeek"];
-	[self didChangeValueForKey:@"planEnergyPerDay"];
-}
-
-
 - (void)computeEndDate {
 	if (isComputing) return;
 	isComputing = YES;
-	NSTimeInterval seconds = (self.goalWeight - self.startWeight) / weightPerDay * 86400;
+	NSTimeInterval seconds = (self.goalWeight - self.startWeight) / weightChangePerDay * 86400;
 	self.endDate = [self.startDate addTimeInterval:seconds];
 	isComputing = NO;
 }
 
 
-- (void)computeWeightPerDay {
+- (void)computeWeightChangePerDay {
 	if (isComputing) return;
 	isComputing = YES;
 	float weight = self.goalWeight - self.startWeight;
 	NSTimeInterval seconds = [self.endDate timeIntervalSinceDate:self.startDate];
-	[self setWeightPerDay:(weight / (seconds / 86400.0))];
+	self.weightChangePerDay = (weight / (seconds / 86400.0));
 	isComputing = NO;
 }
 
@@ -195,7 +198,7 @@
 	[self willChangeValueForKey:@"endDate"];
 	endMonthDay = EWMonthDayFromDate(date);
 	[self didChangeValueForKey:@"endDate"];
-	[self computeWeightPerDay];
+	[self computeWeightChangePerDay];
 }
 
 
@@ -210,29 +213,29 @@
 }
 
 
-- (float)planEnergyPerDay {
-	return weightPerDay * 3500.0;
-}
+@synthesize weightChangePerDay;
 
 
-- (void)setPlanEnergyPerDay:(float)energyPerDay {
-	[self setWeightPerDay:(energyPerDay / 3500.0)];
+- (void)setWeightChangePerDay:(float)weightChange {
+	[self willChangeValueForKey:@"weightChangePerDay"];
+	weightChangePerDay = weightChange;
+	[self didChangeValueForKey:@"weightChangePerDay"];
 	[self computeEndDate];
 }
 
 
-- (float)planWeightPerWeek {
-	return weightPerDay * 7.0;
+#pragma mark View Crap
+
+
+- (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
+	controller.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:controller animated:YES];
 }
 
 
-- (void)setPlanWeightPerWeek:(float)weightPerWeek {
-	[self setWeightPerDay:(weightPerWeek / 7.0)];
-	[self computeEndDate];
+- (void)dismissViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
+	[self.navigationController popViewControllerAnimated:YES];
 }
-
-
-#pragma mark others
 
 
 @end

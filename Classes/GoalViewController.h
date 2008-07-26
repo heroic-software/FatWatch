@@ -16,13 +16,12 @@
 	float startWeight;
 	EWMonthDay endMonthDay;
 	float goalWeight;
-	float weightPerDay;
+	float weightChangePerDay;
 	BOOL isComputing;
 }
 @property (nonatomic,retain) NSDate *startDate;
 @property (nonatomic) float startWeight;
 @property (nonatomic,retain) NSDate *endDate;
 @property (nonatomic) float goalWeight;
-@property (nonatomic) float planEnergyPerDay;
-@property (nonatomic) float planWeightPerWeek;
+@property (nonatomic) float weightChangePerDay;
 @end

@@ -45,8 +45,10 @@
 
 	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logController] autorelease];
 	
+	UINavigationController *goalNavController = [[[UINavigationController alloc] initWithRootViewController:goalController] autorelease];
+	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, goalController, moreController, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, goalNavController, moreController, nil];
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;
