@@ -16,6 +16,7 @@ extern NSString *kLogCellReuseIdentifier;
 
 @interface LogTableViewCell : UITableViewCell {
 	LogTableViewCellContentView *logContentView;
+	BOOL highlightWeekends;
 }
 - (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day;
 @end

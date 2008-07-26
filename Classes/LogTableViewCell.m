@@ -34,14 +34,16 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 
 @implementation LogTableViewCell
 
+
 - (id)init {
     if ([super initWithFrame:CGRectMake(0, 0, 320, 44) reuseIdentifier:kLogCellReuseIdentifier]) {
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
 		logContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		logContentView.backgroundColor = [UIColor whiteColor];
 		logContentView.opaque = YES;
 		[self.contentView addSubview:logContentView];
 		[logContentView release];
+		
+		highlightWeekends = [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"];
 	}
 	return self;
 }
@@ -49,6 +51,12 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 
 - (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day {
 	logContentView.day = [[NSNumber numberWithInt:day] description];
+	
+	if (highlightWeekends && EWMonthAndDayIsWeekend(monthData.month, day)) {
+		logContentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+	} else {
+		logContentView.backgroundColor = [UIColor whiteColor];
+	}
 	
 	float measuredWeight = [monthData measuredWeightOnDay:day];
 	if (measuredWeight == 0) {
@@ -65,6 +73,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	
 	logContentView.checked = [monthData isFlaggedOnDay:day];
 	logContentView.note = [monthData noteOnDay:day];
+	
 	[logContentView setNeedsDisplay];
 }
 

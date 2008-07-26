@@ -70,7 +70,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>On Launch</string>
+			<string>ON_LAUNCH</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -81,6 +81,22 @@
 			<string>AutoWeighIn</string>
 			<key>Title</key>
 			<string>AUTO_WEIGH_IN</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>DISPLAY</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>HighlightWeekends</string>
+			<key>Title</key>
+			<string>HIGHLIGHT_WEEKENDS</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
