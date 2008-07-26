@@ -20,4 +20,6 @@
 - (void)removeAllSections;
 - (BRTableSection *)sectionAtIndex:(NSUInteger)index;
 - (NSUInteger)indexOfSection:(BRTableSection *)section;
+- (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row;
+- (void)dismissViewController:(UIViewController *)controller forRow:(BRTableRow *)row;
 @end

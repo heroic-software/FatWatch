@@ -8,6 +8,7 @@
 
 #import "BRTableDatePickerRow.h"
 #import "BRTableSection.h"
+#import "BRTableViewController.h"
 
 
 @interface BRDatePickerViewController : UIViewController {
@@ -34,7 +35,7 @@
 
 - (void)didSelect {
 	BRDatePickerViewController *controller = [[BRDatePickerViewController alloc] initWithRow:self];
-	[self.section.controller presentModalViewController:controller animated:YES];
+	[self.section.controller presentViewController:controller forRow:self];
 	[controller release];
 }
 
@@ -49,6 +50,7 @@
 - (id)initWithRow:(BRTableDatePickerRow *)aRow {
 	if ([super initWithNibName:nil bundle:nil]) {
 		row = [aRow retain];
+		self.title = row.title;
 	}
 	return self;
 }
@@ -97,12 +99,12 @@
 - (void)okAction:(id)sender {
 	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
 	[row.object setValue:datePicker.date forKey:row.key];
-	[self dismissModalViewControllerAnimated:YES];
+	[row.section.controller dismissViewController:self forRow:row];
 }
 
 
 - (void)cancelAction:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
+	[row.section.controller dismissViewController:self forRow:row];
 }
 
 

@@ -71,6 +71,16 @@
 }
 
 
+- (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
+	[self presentModalViewController:controller animated:YES];
+}
+
+
+- (void)dismissViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
+	[controller dismissModalViewControllerAnimated:YES];
+}
+
+
 #pragma mark UITableViewDataSource & UITableViewDelegate
 
 
