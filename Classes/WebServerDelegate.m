@@ -104,8 +104,8 @@
 
 	[writer addString:@"Date"];
 	[writer addString:@"Weight"];
-	[writer addString:@"Flag"];
-	[writer addString:@"Comment"];
+	[writer addString:@"Checkmark"];
+	[writer addString:@"Note"];
 	[writer endRow];
 	
 	NSDateFormatter *formatter = [self dateFormatter];
