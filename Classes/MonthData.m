@@ -128,6 +128,17 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
+- (EWDay)lastDayWithWeight {
+	int i;
+	
+	for (i = 30; i >= 0; i--) {
+		if (measuredWeights[i] > 0) return (i + 1);
+	}
+	
+	return 0;
+}
+
+
 - (float)inputTrendOnDay:(EWDay)day {
 	// Finds the trend value for the first day with data preceding the given day.
 	// First, search backwards through this month for a trend value.

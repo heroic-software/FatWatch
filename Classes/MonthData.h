@@ -25,6 +25,7 @@
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)measuredWeightOnDay:(EWDay)day;
 - (EWDay)firstDayWithWeight;
+- (EWDay)lastDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
 - (float)lastTrendValueAfterUpdateStartingOnDay:(EWDay)day withInputTrend:(float)inputTrend;
 - (float)trendWeightOnDay:(EWDay)day;
