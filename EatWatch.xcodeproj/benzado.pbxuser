@@ -114,7 +114,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					529,
+					474,
 					20,
 					48,
 					43,
@@ -439,6 +439,7 @@
 			BC51B93B0E3ADD3500D3B4C1 /* PBXTextBookmark */ = BC51B93B0E3ADD3500D3B4C1 /* PBXTextBookmark */;
 			BC51B93C0E3ADD3500D3B4C1 /* PBXTextBookmark */ = BC51B93C0E3ADD3500D3B4C1 /* PBXTextBookmark */;
 			BC51B93F0E3ADD6800D3B4C1 /* PBXTextBookmark */ = BC51B93F0E3ADD6800D3B4C1 /* PBXTextBookmark */;
+			BC51B9420E3AE51000D3B4C1 /* PBXTextBookmark */ = BC51B9420E3AE51000D3B4C1 /* PBXTextBookmark */;
 		};
 		sourceControlManager = BC56D0910D8C5F30008D939B /* Source Control */;
 		userBuildSettings = {
@@ -1608,7 +1609,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {731, 532}}";
 			sepNavSelRange = "{328, 0}";
-			sepNavVisRange = "{82, 871}";
+			sepNavVisRange = "{36, 917}";
 		};
 	};
 	BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */ = {
@@ -1643,7 +1644,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {668, 2534}}";
 			sepNavSelRange = "{2344, 0}";
-			sepNavVisRange = "{2109, 333}";
+			sepNavVisRange = "{2109, 428}";
 		};
 	};
 	BC51B8980E3ACB9A00D3B4C1 /* BRTableButtonRow.h */ = {
@@ -1655,9 +1656,9 @@
 	};
 	BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 686}}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 658}}";
 			sepNavSelRange = "{719, 0}";
-			sepNavVisRange = "{249, 744}";
+			sepNavVisRange = "{146, 805}";
 		};
 	};
 	BC51B89B0E3ACC6E00D3B4C1 /* PBXTextBookmark */ = {
@@ -1694,7 +1695,7 @@
 		path = /Users/benzado/Projects/iPhone/EatWatch/BRTables/BRTableRow.m;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 1246}}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 1288}}";
 			sepNavSelRange = "{655, 0}";
 			sepNavVisRange = "{271, 614}";
 		};
@@ -2276,9 +2277,9 @@
 		path = /Users/benzado/Projects/iPhone/EatWatch/Classes/MoreViewController.m;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 2450}}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 2268}}";
 			sepNavSelRange = "{2051, 0}";
-			sepNavVisRange = "{1394, 1281}";
+			sepNavVisRange = "{0, 1057}";
 		};
 	};
 	BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */ = {
@@ -2290,9 +2291,9 @@
 	};
 	BC51B8E30E3AD5B300D3B4C1 /* BRTableSwitchRow.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 658}}";
-			sepNavSelRange = "{946, 0}";
-			sepNavVisRange = "{42, 764}";
+			sepNavIntBoundsRect = "{{0, 0}, {759, 644}}";
+			sepNavSelRange = "{459, 2}";
+			sepNavVisRange = "{231, 520}";
 		};
 	};
 	BC51B8E60E3AD5E900D3B4C1 /* PBXTextBookmark */ = {
@@ -2961,6 +2962,16 @@
 		vrLen = 744;
 		vrLoc = 249;
 	};
+	BC51B9420E3AE51000D3B4C1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */;
+		name = "BRTableViewController.m: 99";
+		rLen = 0;
+		rLoc = 2344;
+		rType = 0;
+		vrLen = 428;
+		vrLoc = 2109;
+	};
 	BC56D0880D8C5F17008D939B /* FatWatch */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
@@ -3025,9 +3036,9 @@
 	};
 	BC5CB43A0E2807CE00A3B11C /* AppStore.txt */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 952}}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 966}}";
 			sepNavSelRange = "{1140, 0}";
-			sepNavVisRange = "{894, 983}";
+			sepNavVisRange = "{1176, 741}";
 			sepNavWindowFrame = "{{25, 74}, {573, 704}}";
 		};
 	};
@@ -3123,7 +3134,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 238737987.496976;
+		modificationTime = 238738866.983331;
 		state = 1;
 		symbolName = objc_exception_throw;
 	};
@@ -3252,9 +3263,9 @@
 	};
 	BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {731, 994}}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 1064}}";
 			sepNavSelRange = "{381, 0}";
-			sepNavVisRange = "{13, 792}";
+			sepNavVisRange = "{0, 806}";
 			sepNavWindowFrame = "{{9, 102}, {565, 676}}";
 		};
 	};
@@ -3349,9 +3360,9 @@
 	};
 	BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {894, 1890}}";
-			sepNavSelRange = "{1259, 0}";
-			sepNavVisRange = "{977, 695}";
+			sepNavIntBoundsRect = "{{0, 0}, {731, 2254}}";
+			sepNavSelRange = "{1062, 0}";
+			sepNavVisRange = "{891, 917}";
 			sepNavWindowFrame = "{{317, 227}, {799, 551}}";
 		};
 	};
