@@ -25,7 +25,9 @@
 - (void)handleExport:(MicroWebConnection *)connection;
 - (void)handleImport:(MicroWebConnection *)connection;
 - (void)performImport;
-- (void)sendResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection;
+- (void)sendNotFoundErrorToConnection:(MicroWebConnection *)connection;
+- (void)sendPNGResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection;
+- (void)sendHTMLResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection;
 @end
 
 
@@ -45,7 +47,7 @@
 							   [device name], @"__NAME__",
 							   version, @"__VERSION__",
 							   nil];
-		[self sendResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
+		[self sendHTMLResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
 		return;
 	}
 	
@@ -59,21 +61,43 @@
 		return;
 	}
 	
-	// handle robots.txt, favicon.ico
+	if ([path isEqualToString:@"/icon.png"]) {
+		[self sendPNGResourceNamed:@"Icon" toConnection:connection];
+		return;
+	}
 	
-	[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
-	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyString:@"Not Found"];
+	// handle robots.txt, favicon.ico
+	[self sendNotFoundErrorToConnection:connection];
 }
 
 
-- (void)sendResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection {
+
+- (void)sendNotFoundErrorToConnection:(MicroWebConnection *)connection {
+	[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
+	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyString:@"Resource Not Found"];
+}
+
+
+- (void)sendPNGResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
+	
+	if (path == nil) {
+		[self sendNotFoundErrorToConnection:connection];
+		return;
+	}
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
+}
+
+
+- (void)sendHTMLResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection {
 	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html"];
 
 	if (path == nil) {
-		[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
-		[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-		[connection setResponseBodyString:[NSString stringWithFormat:@"Resource '%@' Not Found", name]];
+		[self sendNotFoundErrorToConnection:connection];
 		return;
 	}
 	
@@ -144,7 +168,7 @@
 
 - (void)handleImport:(MicroWebConnection *)connection {
 	if (importData != nil) {
-		[self sendResourceNamed:@"importPending" withSubstitutions:nil toConnection:connection];
+		[self sendHTMLResourceNamed:@"importPending" withSubstitutions:nil toConnection:connection];
 		return;
 	}
 	
@@ -155,7 +179,7 @@
 	importEncoding = [[form stringForKey:@"encoding"] intValue];
 	
 	if (importData == nil) {
-		[self sendResourceNamed:@"importNoData" withSubstitutions:nil toConnection:connection];
+		[self sendHTMLResourceNamed:@"importNoData" withSubstitutions:nil toConnection:connection];
 		return;
 	}
 		
@@ -171,7 +195,7 @@
 	[alert show];
 	[alert release];
 	
-	[self sendResourceNamed:@"importAccepted" withSubstitutions:nil toConnection:connection];
+	[self sendHTMLResourceNamed:@"importAccepted" withSubstitutions:nil toConnection:connection];
 }
 
 
