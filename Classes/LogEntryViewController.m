@@ -230,7 +230,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWeightPickerComponentWidth, 44)];
+		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWeightPickerComponentWidth, 44)] autorelease];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = [UIColor clearColor];
