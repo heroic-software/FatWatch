@@ -81,7 +81,7 @@
 	[view addSubview:cancelButton];
 	
 	UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[okButton setTitle:@"OK" forState:UIControlStateNormal];
+	[okButton setTitle:[NSString stringWithFormat:@"Set %@", row.title] forState:UIControlStateNormal];
 	[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
 	[okButton setFrame:CGRectMake(10, 480-10-50, 300, 50)];
 	okButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;

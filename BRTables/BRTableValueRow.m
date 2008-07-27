@@ -16,7 +16,7 @@
 
 
 - (void)dealloc {
-	[self.object removeObserver:self forKeyPath:self.key];
+	if (section) [self.object removeObserver:self forKeyPath:self.key];
 	[key release];
 	[formatter release];
 	[super dealloc];
@@ -30,6 +30,7 @@
 
 
 - (void)willRemoveFromSection {
+	[super willRemoveFromSection];
 	[self.object removeObserver:self forKeyPath:self.key];
 }
 
