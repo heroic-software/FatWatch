@@ -59,7 +59,11 @@
 - (void)initSupportSection {
 	BRTableSection *supportSection = [[BRTableSection alloc] init];
 	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
-	supportSection.footerTitle = NSLocalizedString(@"COPYRIGHT", nil);
+
+	NSString *footerFormat = NSLocalizedString(@"COPYRIGHT", nil);
+	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	
+	supportSection.footerTitle = [NSString stringWithFormat:footerFormat, version];
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
 	webRow.title = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
@@ -68,10 +72,13 @@
 	[supportSection addRow:webRow animated:NO];
 	[webRow release];
 	
+	NSString *emailURLFormat = NSLocalizedString(@"SUPPORT_EMAIL_URL", nil);
+	NSString *emailURLString = [NSString stringWithFormat:emailURLFormat, version];
+	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
 	emailRow.titleAlignment = UITextAlignmentCenter;
-	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"SUPPORT_EMAIL_URL", nil)];
+	emailRow.object = [NSURL URLWithString:emailURLString];
 	[supportSection addRow:emailRow animated:NO];
 	[emailRow release];
 	
