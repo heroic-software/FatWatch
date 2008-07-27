@@ -8,6 +8,9 @@
 				theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
 			}
 		</script>
+		<style type="text/css">
+			.smallprint { font-size: smaller; }
+		</style>
 	</head>
 	<body onload="onChange();">
 		<h1>FatWatch on __NAME__</h1>
@@ -16,9 +19,7 @@
 		</p>
 		<p>
 			FatWatch uses comma separated values (CSV) as its file format for import and export.  CSV files are supported by many common applications.
-		</p>
-		<p>
-			The columns used are Date, Weight, Checkmark, Note.  For the Checkmark column, 1 indicates a checkmark on that date, 0 indicates no check.  When importing only the first two columns (Date and Weight) are required.
+			The columns used are <strong>Date, Weight, Checkmark, Note</strong>.  For the Checkmark column, 1 indicates a checkmark on that date, 0 indicates no check.  When importing only the first two columns (Date and Weight) are required.
 		</p>
 	
 		<h1>Export</h1>
@@ -80,5 +81,8 @@
 				<input type="submit" name="sendbutton" value="Send to iPhone"/>
 			</div>
 		</form>
+		<p class="smallprint">
+			FatWatch __VERSION__
+		</p>
 	</body>
 </html>

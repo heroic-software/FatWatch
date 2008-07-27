@@ -40,8 +40,10 @@
 	
 	if ([path isEqualToString:@"/"]) {
 		UIDevice *device = [UIDevice currentDevice];
+		NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
 							   [device name], @"__NAME__",
+							   version, @"__VERSION__",
 							   nil];
 		[self sendResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
 		return;
