@@ -48,7 +48,20 @@
  
  */
 
+static NSString *kGoalStartDateKey = @"GoalStartDate";
+static NSString *kGoalWeightKey = @"GoalWeight";
+static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
+
+
 @implementation GoalViewController
+
+
++ (void)deleteGoal {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs removeObjectForKey:kGoalStartDateKey];
+	[defs removeObjectForKey:kGoalWeightKey];
+	[defs removeObjectForKey:kGoalWeightChangePerDayKey];
+}
 
 
 - (void)initWarningSection {
@@ -185,15 +198,15 @@
 }
 
 
-- (void)loadGoals {
+- (void)loadGoal {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	
 	isComputing = YES;
-	id start = [defs objectForKey:@"GoalStartDate"];
+	id start = [defs objectForKey:kGoalStartDateKey];
 	if (start) {
 		self.startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[start doubleValue]];
-		self.goalWeight = [defs floatForKey:@"GoalWeight"];
-		self.weightChangePerDay = [defs floatForKey:@"GoalWeightChangePerDay"];
+		self.goalWeight = [defs floatForKey:kGoalWeightKey];
+		self.weightChangePerDay = [defs floatForKey:kGoalWeightChangePerDayKey];
 	} else {
 		self.startDate = [NSDate date];
 		self.goalWeight = self.startWeight - [WeightFormatters scaleIncrement];
@@ -215,7 +228,7 @@
 - (void)setStartDate:(NSDate *)date {
 	[self willChangeValueForKey:@"startDate"];
 	startMonthDay = EWMonthDayFromDate(date);
-	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:@"GoalStartDate"];
+	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:kGoalStartDateKey];
 	[self didChangeValueForKey:@"startDate"];
 
 	if ([self numberOfSections] > 1) {
@@ -259,7 +272,7 @@
 - (void)setGoalWeight:(float)weight {
 	[self willChangeValueForKey:@"goalWeight"];
 	goalWeight = weight;
-	[[NSUserDefaults standardUserDefaults] setFloat:goalWeight forKey:@"GoalWeight"];
+	[[NSUserDefaults standardUserDefaults] setFloat:goalWeight forKey:kGoalWeightKey];
 	[self didChangeValueForKey:@"goalWeight"];
 	[self computeEndDate];
 }
@@ -271,7 +284,7 @@
 - (void)setWeightChangePerDay:(float)weightChange {
 	[self willChangeValueForKey:@"weightChangePerDay"];
 	weightChangePerDay = weightChange;
-	[[NSUserDefaults standardUserDefaults] setFloat:weightChangePerDay forKey:@"GoalWeightChangePerDay"];
+	[[NSUserDefaults standardUserDefaults] setFloat:weightChangePerDay forKey:kGoalWeightChangePerDayKey];
 	[self didChangeValueForKey:@"weightChangePerDay"];
 	[self computeEndDate];
 }
@@ -296,7 +309,7 @@
 			[self initGoalSection];
 			[self initPlanSection];
 			[self.tableView reloadData];
-			[self loadGoals];
+			[self loadGoal];
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];

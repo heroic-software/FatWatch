@@ -19,6 +19,7 @@
 	float weightChangePerDay;
 	BOOL isComputing;
 }
++ (void)deleteGoal;
 @property (nonatomic,retain) NSDate *startDate;
 @property (nonatomic) float startWeight;
 @property (nonatomic,retain) NSDate *endDate;
