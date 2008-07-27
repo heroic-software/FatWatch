@@ -149,6 +149,7 @@
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"GOAL_VIEW_TITLE", nil);
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
 		[self initWarningSection];
 	}
 	return self;

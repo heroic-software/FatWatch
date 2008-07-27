@@ -25,6 +25,7 @@
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
+		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
 		BC33840C0DE787D6001F1052 /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
 		BC33840D0DE787DA001F1052 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
@@ -132,6 +133,7 @@
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
+		BC2806C70E3CF72600986341 /* TabIconGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconGoal.png; path = Images/TabIconGoal.png; sourceTree = "<group>"; };
 		BC3384010DE78303001F1052 /* DatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseTest.m; path = Classes/DatabaseTest.m; sourceTree = "<group>"; };
 		BC4722230DE368C80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
@@ -325,8 +327,9 @@
 				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
 				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
-				BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
+				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
+				BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC65E9680DEB3BF20008E677 /* Defaults.plist */,
@@ -540,6 +543,7 @@
 				BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */,
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,
 				BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */,
+				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

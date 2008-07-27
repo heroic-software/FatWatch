@@ -346,6 +346,16 @@
 			BC2806C30E3C48E400986341 /* PBXTextBookmark */ = BC2806C30E3C48E400986341 /* PBXTextBookmark */;
 			BC2806C40E3C494600986341 /* PBXTextBookmark */ = BC2806C40E3C494600986341 /* PBXTextBookmark */;
 			BC2806C50E3C494600986341 /* PBXTextBookmark */ = BC2806C50E3C494600986341 /* PBXTextBookmark */;
+			BC2806CA0E3CF76300986341 /* PBXTextBookmark */ = BC2806CA0E3CF76300986341 /* PBXTextBookmark */;
+			BC2806CB0E3CF76300986341 /* PBXBookmark */ = BC2806CB0E3CF76300986341 /* PBXBookmark */;
+			BC2806CC0E3CF76300986341 /* PBXBookmark */ = BC2806CC0E3CF76300986341 /* PBXBookmark */;
+			BC2806CD0E3CF76300986341 /* PBXTextBookmark */ = BC2806CD0E3CF76300986341 /* PBXTextBookmark */;
+			BC2806CE0E3CF76300986341 /* PBXTextBookmark */ = BC2806CE0E3CF76300986341 /* PBXTextBookmark */;
+			BC2806CF0E3CF76300986341 /* PBXTextBookmark */ = BC2806CF0E3CF76300986341 /* PBXTextBookmark */;
+			BC2806D00E3CF76300986341 /* PBXBookmark */ = BC2806D00E3CF76300986341 /* PBXBookmark */;
+			BC2806D10E3CF76300986341 /* PBXBookmark */ = BC2806D10E3CF76300986341 /* PBXBookmark */;
+			BC2806D20E3CF76300986341 /* PBXTextBookmark */ = BC2806D20E3CF76300986341 /* PBXTextBookmark */;
+			BC2806D30E3CF76300986341 /* PBXTextBookmark */ = BC2806D30E3CF76300986341 /* PBXTextBookmark */;
 			BC51B9FB0E3B0FA800D3B4C1 = BC51B9FB0E3B0FA800D3B4C1 /* PBXTextBookmark */;
 			BC51BB150E3B240400D3B4C1 = BC51BB150E3B240400D3B4C1 /* PBXTextBookmark */;
 			BCE21A170E3B9BBB00E94F6C = BCE21A170E3B9BBB00E94F6C /* PBXTextBookmark */;
@@ -549,7 +559,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 194";
 		rLen = 0;
-		rLoc = 7190;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 821;
 		vrLoc = 5434;
@@ -559,7 +569,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 222";
 		rLen = 0;
-		rLoc = 7947;
+		rLoc = 8014;
 		rType = 0;
 		vrLen = 918;
 		vrLoc = 5835;
@@ -579,7 +589,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 193";
 		rLen = 0;
-		rLoc = 7190;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 801;
 		vrLoc = 5454;
@@ -599,7 +609,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 194";
 		rLen = 0;
-		rLoc = 7190;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 821;
 		vrLoc = 5434;
@@ -619,7 +629,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 198";
 		rLen = 0;
-		rLoc = 7252;
+		rLoc = 7319;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 5606;
@@ -639,7 +649,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 206";
 		rLen = 0;
-		rLoc = 7252;
+		rLoc = 7319;
 		rType = 0;
 		vrLen = 1244;
 		vrLoc = 1931;
@@ -685,7 +695,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 206";
 		rLen = 0;
-		rLoc = 7252;
+		rLoc = 7319;
 		rType = 0;
 		vrLen = 1244;
 		vrLoc = 1931;
@@ -705,7 +715,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 206";
 		rLen = 0;
-		rLoc = 7252;
+		rLoc = 7319;
 		rType = 0;
 		vrLen = 1244;
 		vrLoc = 1931;
@@ -942,7 +952,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 206";
 		rLen = 0;
-		rLoc = 7252;
+		rLoc = 7319;
 		rType = 0;
 		vrLen = 1224;
 		vrLoc = 1951;
@@ -962,7 +972,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 260";
 		rLen = 0;
-		rLoc = 9220;
+		rLoc = 9287;
 		rType = 0;
 		vrLen = 1043;
 		vrLoc = 6614;
@@ -982,7 +992,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 202";
 		rLen = 0;
-		rLoc = 7217;
+		rLoc = 7284;
 		rType = 0;
 		vrLen = 688;
 		vrLoc = 5315;
@@ -1002,7 +1012,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 164";
 		rLen = 0;
-		rLoc = 5053;
+		rLoc = 5120;
 		rType = 0;
 		vrLen = 931;
 		vrLoc = 4678;
@@ -1012,7 +1022,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 163";
 		rLen = 0;
-		rLoc = 5053;
+		rLoc = 5120;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 4664;
@@ -1032,7 +1042,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 199";
 		rLen = 0;
-		rLoc = 6909;
+		rLoc = 6976;
 		rType = 0;
 		vrLen = 779;
 		vrLoc = 5546;
@@ -1052,7 +1062,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 201";
 		rLen = 0;
-		rLoc = 6909;
+		rLoc = 6976;
 		rType = 0;
 		vrLen = 818;
 		vrLoc = 5546;
@@ -1072,7 +1082,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 200";
 		rLen = 0;
-		rLoc = 6905;
+		rLoc = 6972;
 		rType = 0;
 		vrLen = 842;
 		vrLoc = 5546;
@@ -1102,7 +1112,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 200";
 		rLen = 0;
-		rLoc = 6905;
+		rLoc = 6972;
 		rType = 0;
 		vrLen = 1024;
 		vrLoc = 5289;
@@ -1192,7 +1202,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 266";
 		rLen = 37;
-		rLoc = 8184;
+		rLoc = 8251;
 		rType = 0;
 		vrLen = 751;
 		vrLoc = 6529;
@@ -1212,7 +1222,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 156";
 		rLen = 0;
-		rLoc = 4833;
+		rLoc = 4900;
 		rType = 0;
 		vrLen = 985;
 		vrLoc = 7197;
@@ -1242,7 +1252,7 @@
 		comments = "warning: 'GoalViewController' may not respond to '-computeEndDate'";
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		rLen = 0;
-		rLoc = 155;
+		rLoc = 156;
 		rType = 1;
 	};
 	BC2806830E3C419900986341 /* PBXTextBookmark */ = {
@@ -1260,7 +1270,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 205";
 		rLen = 0;
-		rLoc = 6340;
+		rLoc = 6407;
 		rType = 0;
 		vrLen = 452;
 		vrLoc = 5340;
@@ -1300,7 +1310,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 170";
 		rLen = 0;
-		rLoc = 4852;
+		rLoc = 4919;
 		rType = 0;
 		vrLen = 1046;
 		vrLoc = 4767;
@@ -1360,7 +1370,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 156";
 		rLen = 0;
-		rLoc = 4852;
+		rLoc = 4919;
 		rType = 0;
 		vrLen = 969;
 		vrLoc = 4753;
@@ -1777,7 +1787,7 @@
 		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
 		name = "GoalViewController.m: 235";
 		rLen = 0;
-		rLoc = 7217;
+		rLoc = 7284;
 		rType = 0;
 		vrLen = 991;
 		vrLoc = 6520;
@@ -1821,6 +1831,82 @@
 		rType = 0;
 		vrLen = 1511;
 		vrLoc = 3234;
+	};
+	BC2806CA0E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */;
+		name = "WeightFormatters.m: 70";
+		rLen = 0;
+		rLoc = 1685;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	BC2806CB0E3CF76300986341 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */;
+	};
+	BC2806CC0E3CF76300986341 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */;
+	};
+	BC2806CD0E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */;
+		name = "TrendViewController.m: 76";
+		rLen = 68;
+		rLoc = 2184;
+		rType = 0;
+		vrLen = 1023;
+		vrLoc = 1692;
+	};
+	BC2806CE0E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
+		name = "GoalViewController.m: 118";
+		rLen = 0;
+		rLoc = 3327;
+		rType = 0;
+		vrLen = 1509;
+		vrLoc = 3236;
+	};
+	BC2806CF0E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
+		name = "GoalViewController.m: 118";
+		rLen = 0;
+		rLoc = 3327;
+		rType = 0;
+		vrLen = 1509;
+		vrLoc = 3236;
+	};
+	BC2806D00E3CF76300986341 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */;
+	};
+	BC2806D10E3CF76300986341 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */;
+	};
+	BC2806D20E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */;
+		name = "TrendViewController.m: 76";
+		rLen = 68;
+		rLoc = 2184;
+		rType = 0;
+		vrLen = 1023;
+		vrLoc = 1692;
+	};
+	BC2806D30E3CF76300986341 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */;
+		name = "GoalViewController.m: 152";
+		rLen = 0;
+		rLoc = 4863;
+		rType = 0;
+		vrLen = 924;
+		vrLoc = 4604;
 	};
 	BC3384010DE78303001F1052 /* DatabaseTest.m */ = {
 		uiCtxt = {
@@ -1933,9 +2019,9 @@
 	};
 	BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {750, 4578}}";
-			sepNavSelRange = "{3327, 0}";
-			sepNavVisRange = "{3234, 1511}";
+			sepNavIntBoundsRect = "{{0, 0}, {750, 4480}}";
+			sepNavSelRange = "{4863, 0}";
+			sepNavVisRange = "{4604, 924}";
 			sepNavWindowFrame = "{{38, 56}, {771, 696}}";
 		};
 	};
@@ -2310,9 +2396,9 @@
 	};
 	BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {668, 2576}}";
-			sepNavSelRange = "{2930, 10}";
-			sepNavVisRange = "{2715, 326}";
+			sepNavIntBoundsRect = "{{0, 0}, {750, 2408}}";
+			sepNavSelRange = "{2184, 68}";
+			sepNavVisRange = "{1692, 1023}";
 			sepNavWindowFrame = "{{197, 51}, {755, 727}}";
 		};
 	};
@@ -2348,7 +2434,7 @@
 	};
 	BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {750, 3976}}";
+			sepNavIntBoundsRect = "{{0, 0}, {750, 3962}}";
 			sepNavSelRange = "{1685, 0}";
 			sepNavVisRange = "{0, 0}";
 			sepNavWindowFrame = "{{477, 82}, {771, 696}}";
