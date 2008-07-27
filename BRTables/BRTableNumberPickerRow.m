@@ -69,6 +69,8 @@
 	
 	UIPickerView *picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
 	picker.delegate = self;
+	picker.dataSource = self;
+	picker.showsSelectionIndicator = YES;
 	picker.tag = 411;
 	[view addSubview:picker];
 	[picker release];
@@ -142,9 +144,24 @@
 }
 
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)pickerRow forComponent:(NSInteger)component {
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)pickerRow forComponent:(NSInteger)component reusingView:(UIView *)view {
+	UILabel *label;
+	
+	if ([view isKindOfClass:[UILabel class]]) {
+		label = (UILabel *)view;
+	} else {
+		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 44)] autorelease];
+		label.textAlignment = UITextAlignmentCenter;
+		label.textColor = [UIColor blackColor];
+		label.backgroundColor = [UIColor clearColor];
+		label.font = [UIFont boldSystemFontOfSize:20];
+	}
+	
 	NSNumber *number = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
-	return [row.formatter stringForObjectValue:number];
-}			
+	label.text = [row.formatter stringForObjectValue:number];
+	
+	return label;
+}
+
 
 @end
