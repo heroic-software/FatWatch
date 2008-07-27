@@ -107,6 +107,16 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
++ (float)defaultWeightChange {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitKilograms) {
+		return -(0.5 / 7.0) / kKilogramsPerPound; // 0.5 kg/wk
+	} else {
+		return -1.0 / 7.0; // 1 lb a week
+	}
+}
+
+
 + (NSFormatter *)weightFormatter {
 	static NSFormatter *formatter = nil;
 	
@@ -181,6 +191,16 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
++ (float)energyChangePerDayIncrement {
+	EWEnergyUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kEnergyUnitKey];
+	if (unit == kEnergyUnitCalories) {
+		return 10.0 / kCaloriesPerPound; // 10 cal/day
+	} else {
+		return 50.0 / kKilojoulesPerPound; // 40 kJ/day
+	}
+}
+
+
 + (NSFormatter *)weightChangePerWeekFormatter {
 	static NSNumberFormatter *formatter;
 	
@@ -202,6 +222,16 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 + (NSString *)weightStringForWeightPerDay:(float)lbsPerDay {
 	return [[self weightChangePerWeekFormatter] stringForObjectValue:[NSNumber numberWithFloat:lbsPerDay]];
+}
+
+
++ (float)weightChangePerWeekIncrement {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitKilograms) {
+		return 0.01 / kKilogramsPerPound / 7.0; // 0.01 kgs/week / 7 day/week / X kg/lb
+	} else {
+		return 0.05 / 7.0; // 0.05 lbs/week / 7 days/week
+	}
 }
 
 

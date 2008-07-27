@@ -51,6 +51,14 @@
 @implementation GoalViewController
 
 
+- (void)initWarningSection {
+	BRTableSection *section = [[BRTableSection alloc] init];
+	section.footerTitle = NSLocalizedString(@"GOAL_NO_WEIGHT_WARNING", nil);
+	[self addSection:section animated:NO];
+	[section release];
+}
+
+
 - (void)initStartSection {
 	BRTableSection *section = [[BRTableSection alloc] init];
 	section.headerTitle = NSLocalizedString(@"START_SECTION_TITLE", nil);
@@ -114,9 +122,9 @@
 	energyRow.object = self;
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
-	energyRow.minimumValue = -2;
-	energyRow.maximumValue = 2;
-	energyRow.increment = 1.0 / 350.0; // 10 cal/day = 1 lb/day / 3500 cal/lb
+	energyRow.increment = [WeightFormatters energyChangePerDayIncrement];
+	energyRow.minimumValue = -1000 * energyRow.increment;
+	energyRow.maximumValue = 1000 * energyRow.increment;
 	energyRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:energyRow animated:NO];
 	[energyRow release];
@@ -126,9 +134,9 @@
 	weightRow.object = self;
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
-	weightRow.minimumValue = energyRow.minimumValue;
-	weightRow.maximumValue = energyRow.maximumValue;
-	weightRow.increment = energyRow.increment;
+	weightRow.increment = [WeightFormatters weightChangePerWeekIncrement];
+	weightRow.minimumValue = -1000 * weightRow.increment;
+	weightRow.maximumValue = 1000 * weightRow.increment;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:weightRow animated:NO];
 	[weightRow release];
@@ -141,13 +149,7 @@
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"GOAL_VIEW_TITLE", nil);
-
-		weightChangePerDay = -1.0 / 7.0; // lb a week
-		self.startDate = [NSDate date];
-		
-		[self initStartSection];
-		[self initGoalSection];
-		[self initPlanSection];
+		[self initWarningSection];
 	}
 	return self;
 }
@@ -156,7 +158,17 @@
 - (void)computeEndDate {
 	if (isComputing) return;
 	isComputing = YES;
-	NSTimeInterval seconds = (self.goalWeight - self.startWeight) / weightChangePerDay * 86400;
+	
+	float weightChange = (self.goalWeight - self.startWeight);
+	
+	// make sure sign of weightChange and weightChangePerDay match
+	if (weightChange > 0 && weightChangePerDay < 0) {
+		self.weightChangePerDay = -self.weightChangePerDay;
+	} else if (weightChange < 0 && weightChangePerDay > 0) {
+		self.weightChangePerDay = -self.weightChangePerDay;
+	}
+	
+	NSTimeInterval seconds = weightChange / weightChangePerDay * 86400;
 	self.endDate = [self.startDate addTimeInterval:seconds];
 	isComputing = NO;
 }
@@ -172,6 +184,25 @@
 }
 
 
+- (void)loadGoals {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	
+	isComputing = YES;
+	id start = [defs objectForKey:@"GoalStartDate"];
+	if (start) {
+		self.startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[start doubleValue]];
+		self.goalWeight = [defs floatForKey:@"GoalWeight"];
+		self.weightChangePerDay = [defs floatForKey:@"GoalWeightChangePerDay"];
+	} else {
+		self.startDate = [NSDate date];
+		self.goalWeight = self.startWeight - [WeightFormatters scaleIncrement];
+		self.weightChangePerDay = [WeightFormatters defaultWeightChange];
+	}
+	isComputing = NO;
+	[self computeEndDate];
+}
+
+
 #pragma mark Properties
 
 
@@ -183,18 +214,23 @@
 - (void)setStartDate:(NSDate *)date {
 	[self willChangeValueForKey:@"startDate"];
 	startMonthDay = EWMonthDayFromDate(date);
+	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:@"GoalStartDate"];
 	[self didChangeValueForKey:@"startDate"];
 
+	if ([self numberOfSections] > 1) {
+		BRTableDatePickerRow *endRow = (BRTableDatePickerRow *)[[self sectionAtIndex:1] rowAtIndex:0];
+		endRow.minimumDate = [date addTimeInterval:86400];
+	}
+	
 	MonthData *md = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(startMonthDay)];
 	float w = [md trendWeightOnDay:EWMonthDayGetDay(startMonthDay)];
 	if (w == 0) {
 		w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
 	}
+	
 	self.startWeight = w;
 	
-	if (self.goalWeight == 0) {
-		self.goalWeight = self.startWeight - 10;
-	} else {
+	if (w > 0) {
 		[self computeEndDate];
 	}
 }
@@ -222,6 +258,7 @@
 - (void)setGoalWeight:(float)weight {
 	[self willChangeValueForKey:@"goalWeight"];
 	goalWeight = weight;
+	[[NSUserDefaults standardUserDefaults] setFloat:goalWeight forKey:@"GoalWeight"];
 	[self didChangeValueForKey:@"goalWeight"];
 	[self computeEndDate];
 }
@@ -233,6 +270,7 @@
 - (void)setWeightChangePerDay:(float)weightChange {
 	[self willChangeValueForKey:@"weightChangePerDay"];
 	weightChangePerDay = weightChange;
+	[[NSUserDefaults standardUserDefaults] setFloat:weightChangePerDay forKey:@"GoalWeightChangePerDay"];
 	[self didChangeValueForKey:@"weightChangePerDay"];
 	[self computeEndDate];
 }
@@ -244,18 +282,36 @@
 - (void)viewWillAppear:(BOOL)animated {
 	Database *db = [Database sharedDatabase];
 	
-	BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
-	EWMonth earliestMonth = [db earliestMonth];
-	EWDay earliestDay = [[db dataForMonth:earliestMonth] firstDayWithWeight];
-	startDateRow.minimumDate = EWDateFromMonthAndDay(earliestMonth, earliestDay);
-	startDateRow.maximumDate = [NSDate date];
+	if ([db weightCount] == 0) {
+		if ([self numberOfSections] > 1) {
+			[self removeAllSections];
+			[self initWarningSection];
+			[self.tableView reloadData];
+		}
+	} else {
+		if ([self numberOfSections] < 3) {
+			[self removeAllSections];
+			[self initStartSection];
+			[self initGoalSection];
+			[self initPlanSection];
+			[self.tableView reloadData];
+			[self loadGoals];
+		}
+		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
+		EWMonth earliestMonth = [db earliestMonth];
+		EWDay earliestDay = [[db dataForMonth:earliestMonth] firstDayWithWeight];
+		startDateRow.minimumDate = EWDateFromMonthAndDay(earliestMonth, MAX(1, earliestDay));
+		startDateRow.maximumDate = [NSDate date];
+	}
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
+	[self.tableView beginUpdates];
 	for (UITableViewCell *cell in [self.tableView visibleCells]) {
 		[cell setSelected:NO animated:animated];
 	}
+	[self.tableView endUpdates];
 }
 
 

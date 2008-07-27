@@ -21,14 +21,22 @@
 + (void)selectScaleIncrementAtIndex:(NSUInteger)index;
 
 + (float)scaleIncrement;
++ (float)defaultWeightChange;
+
 + (NSFormatter *)weightFormatter;
 + (NSString *)stringForWeight:(float)weightLbs;
+
 + (NSFormatter *)weightChangeFormatter;
 + (NSString *)stringForWeightChange:(float)deltaLbs;
+
 + (NSFormatter *)energyChangePerDayFormatter;
 + (NSString *)energyStringForWeightPerDay:(float)lbsPerDay;
++ (float)energyChangePerDayIncrement;
+
 + (NSFormatter *)weightChangePerWeekFormatter;
 + (NSString *)weightStringForWeightPerDay:(float)lbsPerDay;
++ (float)weightChangePerWeekIncrement;
+
 + (NSNumberFormatter *)exportWeightFormatter;
 
 @end
