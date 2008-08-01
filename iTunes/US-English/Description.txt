@@ -1,0 +1,24 @@
+Application Description:
+
+
+FatWatch is a diet-agnostic tool for your iPhone or iPod touch that can help you lose, maintain, or even gain weight. Enter your weight once a day, and FatWatch will compensate for daily fluctuations by computing a trend line, to let you see if your weight is truly trending up or down.
+
+Using only your daily weight, FatWatch estimates your calorie surplus or deficit, allowing you to adjust your calorie intake as desired.
+
+Features:
+
+* Supported units: pounds, kilograms, and stones for weight and calories and kilojoules for energy.
+
+* Supports scale increments of 1.0, 0.5, or 0.1 (change via the iPhone Settings app).
+
+* Rotate FatWatch sideways to see a chart view of your weight progress.
+
+* Wi-Fi Import/Export allows you to import existing weight history into FatWatch, or export your data to use in another program.
+
+* Use notes and checkmarks to annotate your weight history.
+
+
+What's New In This Version:
+
+
+n/a
