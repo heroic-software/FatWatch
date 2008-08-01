@@ -9,16 +9,15 @@ Features:
 
 * Supported units: pounds, kilograms, and stones for weight and calories and kilojoules for energy.
 
-* Supports scale increments of 1.0, 0.5, or 0.1 (change via the iPhone Settings app).
+* Supports scale increments of 1.0, 0.5, or 0.1.
 
-* Rotate FatWatch sideways to see a chart view of your weight progress.
-
-* Wi-Fi Import/Export allows you to import existing weight history into FatWatch, or export your data to use in another program.
+* Wi-Fi Import/Export allows you to import existing weight history into FatWatch, or export for use in another program.
 
 * Use notes and checkmarks to annotate your weight history.
+
+* Rotate FatWatch sideways to see a chart view of your weight progress.
 
 
 What's New In This Version:
 
-
-n/a
+Most importantly, the date-related issues have been fixed in this version.  This version also introduces Passcode Protection, a new tab for setting a Goal weight, and optional Weekend Highlighting (enabled in the iPhone Settings app).  This version also includes improvements to Wi-Fi Import/Export and Log scrolling performance.

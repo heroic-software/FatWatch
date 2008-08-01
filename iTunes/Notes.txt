@@ -2,4 +2,4 @@ gm identify -format "%wx%h" foo.png
 => 320x480
 
 # remove status bar
-gm convert IMG_*.PNG -crop 320x460+0+20 img_*.tiff
+gm convert IMG_*.PNG -crop 320x460+0+20 -compress LZW img_*.tiff
