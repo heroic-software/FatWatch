@@ -7,7 +7,7 @@ FatWatch also estimates your daily calorie surplus or deficit (how much are you 
 
 Features:
 
-* Supports pounds, kilograms, and stones for weight and calories and kilojoules for energy.
+* Use pounds, kilograms, or stones for weight; calories or kilojoules for energy.
 
 * Supports scale increments of 1.0, 0.5, or 0.1.
 
