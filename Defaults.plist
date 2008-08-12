@@ -10,5 +10,7 @@
 	<integer>1</integer>
 	<key>WeightUnit</key>
 	<integer>1</integer>
+	<key>HighlightWeekends</key>
+	<false/>
 </dict>
 </plist>
