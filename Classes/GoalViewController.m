@@ -308,8 +308,8 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 			[self initStartSection];
 			[self initGoalSection];
 			[self initPlanSection];
-			[self.tableView reloadData];
 			[self loadGoal];
+			[self.tableView reloadData];
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];
