@@ -21,7 +21,8 @@
 #define HTTP_STATUS_NOT_FOUND 404
 
 @interface WebServerDelegate ()
-- (NSDateFormatter *)dateFormatter;
+- (NSDateFormatter *)isoDateFormatter;
+- (NSDateFormatter *)localDateFormatter;
 - (void)handleExport:(MicroWebConnection *)connection;
 - (void)handleImport:(MicroWebConnection *)connection;
 - (void)performImport;
@@ -118,10 +119,19 @@
 }
 
 
-- (NSDateFormatter *)dateFormatter {
+- (NSDateFormatter *)isoDateFormatter {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	[formatter setDateFormat:@"y-MM-dd"];
+	return [formatter autorelease];
+}
+
+
+- (NSDateFormatter *)localDateFormatter {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+	[formatter setDateStyle:NSDateFormatterShortStyle];
+	[formatter setTimeStyle:NSDateFormatterNoStyle];
 	return [formatter autorelease];
 }
 
@@ -136,7 +146,7 @@
 	[writer addString:@"Note"];
 	[writer endRow];
 	
-	NSDateFormatter *formatter = [self dateFormatter];
+	NSDateFormatter *formatter = [self isoDateFormatter];
 	
 	Database *db = [Database sharedDatabase];
 	EWMonth month;
@@ -220,15 +230,20 @@
 	CSVReader *reader = [[CSVReader alloc] initWithData:importData encoding:importEncoding];
 	reader.floatFormatter = [WeightFormatters exportWeightFormatter];
 	
-	NSDateFormatter *formatter = [self dateFormatter];
+	NSDateFormatter *isoDateFormatter = [self isoDateFormatter];
+	NSDateFormatter *localDateFormatter = [self localDateFormatter];
 	
 	while ([reader nextRow]) {
 		lineCount += 1;
 		NSString *dateString = [reader readString];
 		if (dateString == nil) continue;
-		NSDate *date = [formatter dateFromString:dateString];
-		if (date == nil) continue;
 		
+		NSDate *date = [isoDateFormatter dateFromString:dateString];
+		if (date == nil) {
+			date = [localDateFormatter dateFromString:dateString];
+		}
+		if (date == nil) continue;
+
 		float measuredWeight = [reader readFloat];
 		BOOL flag = [reader readBoolean];
 		NSString *note = [reader readString];
