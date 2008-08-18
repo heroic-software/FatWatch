@@ -90,6 +90,24 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
+- (MonthData *)previousMonthData {
+	Database *db = [Database sharedDatabase];
+	if (self.month > db.earliestMonth) {
+		return [db dataForMonth:(self.month - 1)];
+	}
+	return nil;
+}
+
+
+- (MonthData *)nextMonthData {
+	Database *db = [Database sharedDatabase];
+	if (self.month < db.latestMonth) {
+		return [db dataForMonth:(self.month + 1)];
+	}
+	return nil;
+}
+
+
 - (NSDate *)dateOnDay:(EWDay)day {
 	return EWDateFromMonthAndDay(month, day);
 }
@@ -150,8 +168,9 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	}
 	
 	// If none is found, find previous month with data.
-	if (month > [[Database sharedDatabase] earliestMonth]) {
-		float trend = [[[Database sharedDatabase] dataForMonth:(month - 1)] inputTrendOnDay:31];
+	MonthData *previousMonthData = self.previousMonthData;
+	if (previousMonthData) {
+		float trend = [previousMonthData inputTrendOnDay:31];
 		if (trend != 0) return trend;
 	}
 	

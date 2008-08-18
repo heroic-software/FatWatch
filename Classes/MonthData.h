@@ -19,6 +19,8 @@
 }
 
 @property (nonatomic,readonly) EWMonth month;
+@property (nonatomic,readonly) MonthData *previousMonthData;
+@property (nonatomic,readonly) MonthData *nextMonthData;
 
 + (void)finalizeStatements;
 - (id)initWithMonth:(EWMonth)m;
