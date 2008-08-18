@@ -151,7 +151,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	
 	// If none is found, find previous month with data.
 	if (month > [[Database sharedDatabase] earliestMonth]) {
-		return [[[Database sharedDatabase] dataForMonth:(month - 1)] inputTrendOnDay:31];
+		float trend = [[[Database sharedDatabase] dataForMonth:(month - 1)] inputTrendOnDay:31];
+		if (trend != 0) return trend;
 	}
 	
 	// If nothing else, just give the weight on the specified day.
