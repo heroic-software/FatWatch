@@ -87,6 +87,9 @@ enum {
 	CGSize totalSize = CGSizeMake(x, 300);
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
+	
+	lastMinIndex = 0;
+	lastMaxIndex = 0;
 }
 
 
@@ -119,11 +122,12 @@ enum {
 	[self clearGraphViewInfo];
 	[self prepareGraphViewInfo];
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
-	[self scrollViewDidScroll:scrollView];
 	if (firstLoad) {
 		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
 		[scrollView scrollRectToVisible:rect animated:NO];
 		firstLoad = NO;
+	} else {
+		[self scrollViewDidScroll:scrollView];
 	}
 }
 
@@ -183,15 +187,15 @@ enum {
 	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) return;
 	
 	int index;
-	
+
 	// move non-visible views into cache
-	for (index = lastMinIndex; index < minIndex; index++) {
+	for (index = minIndex - 1; index >= lastMinIndex; index--) {
 		[self moveViewToCache:(&info[index])];
 	}
-	for (index = maxIndex + 1; index < lastMaxIndex; index++) {
+	for (index = maxIndex + 1; index <= lastMaxIndex; index++) {
 		[self moveViewToCache:(&info[index])];
 	}
-	
+
 	for (index = minIndex; index <= maxIndex; index++) {
 		struct GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil) {
