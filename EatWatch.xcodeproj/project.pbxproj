@@ -56,6 +56,7 @@
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
+		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
 		BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */; };
@@ -160,7 +161,6 @@
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconTrend.png; path = Images/TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck0.png; path = Images/SegmentCheck0.png; sourceTree = "<group>"; };
 		BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck1.png; path = Images/SegmentCheck1.png; sourceTree = "<group>"; };
-		BC5CB43A0E2807CE00A3B11C /* AppStore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppStore.txt; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -168,6 +168,9 @@
 		BC65EBBA0DEBA8FE0008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlopeComputer.m; sourceTree = "<group>"; };
+		BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FatWatch-Changes.txt"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
+		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
 		BC871F190DC7BE5A009312BA /* MicroWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MicroWebServer.h; path = Classes/MicroWebServer.h; sourceTree = "<group>"; };
@@ -283,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
+				BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */,
 				BCEAD9E20DE219130017495E /* UnitTests.octest */,
 			);
 			name = Products;
@@ -303,7 +307,6 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
-				BC5CB43A0E2807CE00A3B11C /* AppStore.txt */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -407,6 +410,8 @@
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
 				BC263E810DB6665E007D03F4 /* GraphView.h */,
 				BC263E820DB6665E007D03F4 /* GraphView.m */,
+				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
+				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				BC263C330DB56AF9007D03F4 /* CopyFiles */,
 				BC263C650DB57671007D03F4 /* CopyFiles */,
+				BC78D9DB0E5142430094ECBD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -588,6 +594,21 @@
 			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
+		BC78D9DB0E5142430094ECBD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME)-Changes.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo Generating Changelog\nSVN_BIN=/usr/local/bin/svn\n# SVN_START_REV=`svn info $SVN_URL/tags/release-1.1 | grep \"^Last Changed Rev: \" | cut -c 19-`\nSVN_START_REV=150\n$SVN_BIN log -r ${SVN_START_REV}:HEAD > ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}-Changes.txt\n";
+			showEnvVarsInLog = 0;
+		};
 		BC9BDEAE0DA9D16A0004E70C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -659,6 +680,7 @@
 				BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */,
 				BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */,
 				BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */,
+				BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
