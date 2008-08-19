@@ -13,4 +13,5 @@
 	EWMonth month;
 }
 - (id)initWithMonth:(EWMonth)m;
+- (void)setMonth:(EWMonth)m;
 @end

@@ -14,10 +14,18 @@
 
 - (id)initWithMonth:(EWMonth)m {
     if (self = [super initWithFrame:CGRectZero]) {
+		NSLog(@"new graph view for month %d", m);
         month = m;
 		self.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+
+- (void)setMonth:(EWMonth)m {
+	NSLog(@"recycled graph view for month %d", m);
+	month = m;
+	[self setNeedsDisplay];
 }
 
 

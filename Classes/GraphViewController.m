@@ -25,6 +25,7 @@ enum {
 {
 	if (self = [super init]) {
 		firstLoad = YES;
+		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
 		self.title = NSLocalizedString(@"GRAPH_VIEW_TITLE", nil);
 	}
 	return self;
@@ -32,6 +33,7 @@ enum {
 
 
 - (void)dealloc {
+	[cachedGraphViews release];
 	[self clearGraphViewInfo];
 	[super dealloc];
 }
@@ -85,13 +87,6 @@ enum {
 	CGSize totalSize = CGSizeMake(x, 300);
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
-	NSLog(@"Scroll view info updated frame %@ bounds %@ content size %@ offset %@", 
-		  NSStringFromCGRect(scrollView.frame),
-		  NSStringFromCGRect(scrollView.bounds),
-		  NSStringFromCGSize(scrollView.contentSize),
-		  NSStringFromCGPoint(scrollView.contentOffset)
-		  );
-	
 }
 
 
@@ -175,15 +170,44 @@ enum {
 	CGFloat maxX = minX + CGRectGetWidth(scrollView.frame);
 	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
 	int maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
+	
 	int index;
+	
+	// move non-visible views into cache
+	for (index = minIndex - 1; index >= 0; index--) {
+		struct GraphViewInfo *ginfo = &info[index];
+		if (ginfo->view != nil) {
+			[cachedGraphViews addObject:ginfo->view];
+			[ginfo->view release];
+			ginfo->view = nil;
+		} else {
+			break; // assume if this index has no view, nothing past it does either
+		}
+	}
+	for (index = maxIndex + 1; index < infoCount; index++) {
+		struct GraphViewInfo *ginfo = &info[index];
+		if (ginfo->view != nil) {
+			[cachedGraphViews addObject:ginfo->view];
+			[ginfo->view release];
+			ginfo->view = nil;
+		} else {
+			break; // assume if this index has no view, nothing past it does either
+		}
+	}
+	
 	for (index = minIndex; index <= maxIndex; index++) {
 		struct GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil) {
-			ginfo->view = [[GraphView alloc] initWithMonth:ginfo->month];
+			GraphView *view = [cachedGraphViews lastObject];
+			if (view) {
+				[view setMonth:ginfo->month];
+				ginfo->view = [view retain];
+				[cachedGraphViews removeLastObject];
+			} else {
+				ginfo->view = [[GraphView alloc] initWithMonth:ginfo->month];
+				[scrollView addSubview:ginfo->view];
+			}
 			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, 300)];
-		}
-		if ([ginfo->view superview] == nil) {
-			[scrollView addSubview:ginfo->view];
 		}
 	}
 }

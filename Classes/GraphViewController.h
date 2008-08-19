@@ -23,5 +23,7 @@
 		GraphView *view;
 	} *info;
 	size_t infoCount;
+	NSMutableArray *cachedGraphViews;
 }
+- (void)clearGraphViewInfo;
 @end
