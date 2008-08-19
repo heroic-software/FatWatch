@@ -14,7 +14,7 @@
 #import "Database.h"
 #import "FormDataParser.h"
 #import "WeightFormatters.h"
-#import "GoalViewController.h"
+#import "EWGoal.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -223,7 +223,7 @@
 
 	if (importReplace) {
 		[db deleteWeights];
-		[GoalViewController deleteGoal];
+		[EWGoal deleteGoal];
 	}
 	
 	NSUInteger lineCount = 0, importCount = 0;

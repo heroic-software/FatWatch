@@ -71,6 +71,7 @@
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
+		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
@@ -200,6 +201,8 @@
 		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendViewController.m; path = Classes/TrendViewController.m; sourceTree = "<group>"; };
 		BCABE03F0DD932A100DE580A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Classes/RootViewController.h; sourceTree = "<group>"; };
 		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
+		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWGoal.h; sourceTree = "<group>"; };
+		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoal.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
 				BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */,
 				BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */,
+				BCB18CAF0E5A9DD70055F91E /* EWGoal.h */,
+				BCB18CB00E5A9DD70055F91E /* EWGoal.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -681,6 +686,7 @@
 				BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */,
 				BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */,
 				BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */,
+				BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 #import "BRTableDatePickerRow.h"
 #import "BRTableNumberPickerRow.h"
 #import "WeightFormatters.h"
+#import "EWGoal.h"
 
 
 /*Goal screen:
@@ -48,20 +49,8 @@
  
  */
 
-static NSString *kGoalStartDateKey = @"GoalStartDate";
-static NSString *kGoalWeightKey = @"GoalWeight";
-static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
-
 
 @implementation GoalViewController
-
-
-+ (void)deleteGoal {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs removeObjectForKey:kGoalStartDateKey];
-	[defs removeObjectForKey:kGoalWeightKey];
-	[defs removeObjectForKey:kGoalWeightChangePerDayKey];
-}
 
 
 - (void)initWarningSection {
@@ -199,14 +188,13 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (void)loadGoal {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	EWGoal *goal = [EWGoal sharedGoal];
 	
 	isComputing = YES;
-	id start = [defs objectForKey:kGoalStartDateKey];
-	if (start) {
-		self.startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[start doubleValue]];
-		self.goalWeight = [defs floatForKey:kGoalWeightKey];
-		self.weightChangePerDay = [defs floatForKey:kGoalWeightChangePerDayKey];
+	if ([goal isDefined]) {
+		self.startDate = goal.startDate;
+		self.goalWeight = goal.endWeight;
+		self.weightChangePerDay = goal.weightChangePerDay;
 	} else {
 		self.startDate = [NSDate date];
 		self.goalWeight = self.startWeight - [WeightFormatters scaleIncrement];
@@ -228,7 +216,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 - (void)setStartDate:(NSDate *)date {
 	[self willChangeValueForKey:@"startDate"];
 	startMonthDay = EWMonthDayFromDate(date);
-	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:kGoalStartDateKey];
+	[[EWGoal sharedGoal] setStartDate:date];
 	[self didChangeValueForKey:@"startDate"];
 
 	if ([self numberOfSections] > 1) {
@@ -272,7 +260,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 - (void)setGoalWeight:(float)weight {
 	[self willChangeValueForKey:@"goalWeight"];
 	goalWeight = weight;
-	[[NSUserDefaults standardUserDefaults] setFloat:goalWeight forKey:kGoalWeightKey];
+	[[EWGoal sharedGoal] setEndWeight:weight];
 	[self didChangeValueForKey:@"goalWeight"];
 	[self computeEndDate];
 }
@@ -284,7 +272,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 - (void)setWeightChangePerDay:(float)weightChange {
 	[self willChangeValueForKey:@"weightChangePerDay"];
 	weightChangePerDay = weightChange;
-	[[NSUserDefaults standardUserDefaults] setFloat:weightChangePerDay forKey:kGoalWeightChangePerDayKey];
+	[[EWGoal sharedGoal] setWeightChangePerDay:weightChange];
 	[self didChangeValueForKey:@"weightChangePerDay"];
 	[self computeEndDate];
 }
