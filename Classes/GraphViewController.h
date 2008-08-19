@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 
 #import "DataViewController.h"
+#import "EWDate.h"
 
-@interface GraphViewController : DataViewController {
+
+@class GraphView;
+
+@interface GraphViewController : DataViewController <UIScrollViewDelegate> {
 	BOOL firstLoad;
+	struct GraphViewInfo {
+		EWMonth month;
+		CGFloat offsetX;
+		CGFloat width;
+		GraphView *view;
+	} *info;
+	size_t infoCount;
 }
 @end

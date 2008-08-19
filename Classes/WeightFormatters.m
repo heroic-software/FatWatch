@@ -249,6 +249,30 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 
++ (NSNumberFormatter *)chartWeightFormatter {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	if (unit == kWeightUnitStones) {
+		[formatter setMultiplier:[NSNumber numberWithFloat:(1.0 / 14.0)]];
+	} else if (unit == kWeightUnitKilograms) {
+		[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
+	}
+	return [formatter autorelease];
+}
+
+
++ (float)chartWeightIncrement {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitStones) {
+		return 14;
+	} else if (unit == kWeightUnitKilograms) {
+		return 5 / kKilogramsPerPound;
+	} else {
+		return 5;
+	}
+}
+
+
 @end
 
 

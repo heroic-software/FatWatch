@@ -10,6 +10,14 @@
 #import "GraphView.h"
 #import "EWDate.h"
 #import "Database.h"
+#import "YAxisView.h"
+
+
+enum {
+	kScrollViewTag = 100,
+	kScaleViewTag,
+};
+
 
 @implementation GraphViewController
 
@@ -23,62 +31,100 @@
 }
 
 
+- (void)dealloc {
+	[self clearGraphViewInfo];
+	[super dealloc];
+}
+
+
 - (NSString *)message
 {
 	return NSLocalizedString(@"NO_DATA_FOR_GRAPH", nil);
 }
 
 
-- (void)removeGraphViews {
-	for (UIView *subview in [self.dataView subviews]) {
-		if ([subview isKindOfClass:[GraphView class]]) {
-			[subview removeFromSuperview];
+- (void)clearGraphViewInfo {
+	if (info == nil) return;
+	
+	int i;
+	for (i = 0; i < infoCount; i++) {
+		UIView *view = info[i].view;
+		if (view) {
+			[view removeFromSuperview];
+			[view release];
 		}
 	}
+	free(info);
+	infoCount = 0;
 }
 
 
-- (void)addGraphViewsToView:(UIScrollView *)scrollView {
-	CGSize totalSize = CGSizeMake(0, 300);
+- (void)prepareGraphViewInfo {
 	Database *db = [Database sharedDatabase];
-	NSUInteger monthCount = MAX(1, db.latestMonth - db.earliestMonth + 1);
 
+	infoCount = db.latestMonth - db.earliestMonth + 1;
+	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
+	info = malloc(infoCount * sizeof(struct GraphViewInfo));
+	NSAssert(info, @"could not allocate memory for GraphViewInfo");
+	
+	EWMonth m = db.earliestMonth;
+	CGFloat x = 0;
 	int i;
-	CGRect subviewFrame = CGRectMake(0, 0, 0, totalSize.height);
-	for (i = 0; i < monthCount; i++) {
-		EWMonth month = (db.earliestMonth + i);
-		subviewFrame.size.width = 7 * EWDaysInMonth(month);
-		GraphView *view = [[GraphView alloc] initWithMonth:month];
-		view.frame = subviewFrame;
-		[scrollView addSubview:view];
-		[view release];
-		subviewFrame.origin.x += subviewFrame.size.width;
-		totalSize.width += subviewFrame.size.width;
+	for (i = 0; i < infoCount; i++) {
+		CGFloat w = 7 * EWDaysInMonth(m);
+		
+		info[i].month = m;
+		info[i].offsetX = x;
+		info[i].width = w; 
+		info[i].view = nil;
+		
+		m += 1;
+		x += w;
 	}
 	
+	CGSize totalSize = CGSizeMake(x, 300);
+	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
+	NSLog(@"Scroll view info updated frame %@ bounds %@ content size %@ offset %@", 
+		  NSStringFromCGRect(scrollView.frame),
+		  NSStringFromCGRect(scrollView.bounds),
+		  NSStringFromCGSize(scrollView.contentSize),
+		  NSStringFromCGPoint(scrollView.contentOffset)
+		  );
+	
 }
 
 
 - (UIView *)loadDataView
 {
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
+	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	
+	YAxisView *axisView = [[YAxisView alloc] initWithFrame:CGRectMake(0, 0, 40, 300)];
+	axisView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
+	[view addSubview:axisView];
+	[axisView release];
+	
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(40, 0, 440, 300)];
+	scrollView.tag = kScrollViewTag;
 	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	scrollView.alwaysBounceVertical = NO;
 	scrollView.directionalLockEnabled = YES;
-	
-	[self addGraphViewsToView:scrollView];
-	
-	return [scrollView autorelease];
+	scrollView.delegate = self;
+	[view addSubview:scrollView];
+	[scrollView release];
+		
+	return [view autorelease];
 }
 
 
 - (void)dataChanged
 {
 	[self view]; // make sure view is loaded
-	UIScrollView *scrollView = (UIScrollView *)self.dataView;
-	[self removeGraphViews];
-	[self addGraphViewsToView:scrollView];
+	[self clearGraphViewInfo];
+	[self prepareGraphViewInfo];
+	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+	[self scrollViewDidScroll:scrollView];
 	if (firstLoad) {
 		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
 		[scrollView scrollRectToVisible:rect animated:NO];
@@ -90,5 +136,57 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
+
+
+#pragma mark UIScrollViewDelegate
+
+
+- (int)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
+	int leftIndex = 0;
+	int rightIndex = infoCount;
+	while (leftIndex < rightIndex) {
+		int index = (leftIndex + rightIndex) / 2;
+		CGFloat leftX = info[index].offsetX;
+		if (x >= leftX) {
+			if (index + 1 == infoCount) {
+				// x is to the right of the last view, we're done
+				return infoCount - 1;
+			} 
+			CGFloat rightX = info[index + 1].offsetX;
+			if (x < rightX) {
+				return index;
+			}
+			leftIndex = index + 1;
+		} else {
+			if (index == 0) {
+				// x is to the left of the first view, we're done
+				return 0;
+			}
+			rightIndex = index;
+		}
+	}
+	return 0;
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	NSParameterAssert(scrollView);
+	CGFloat minX = scrollView.contentOffset.x;
+	CGFloat maxX = minX + CGRectGetWidth(scrollView.frame);
+	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
+	int maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
+	int index;
+	for (index = minIndex; index <= maxIndex; index++) {
+		struct GraphViewInfo *ginfo = &info[index];
+		if (ginfo->view == nil) {
+			ginfo->view = [[GraphView alloc] initWithMonth:ginfo->month];
+			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, 300)];
+		}
+		if ([ginfo->view superview] == nil) {
+			[scrollView addSubview:ginfo->view];
+		}
+	}
+}
+
 
 @end

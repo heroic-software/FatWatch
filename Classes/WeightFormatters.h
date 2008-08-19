@@ -39,4 +39,7 @@
 
 + (NSNumberFormatter *)exportWeightFormatter;
 
++ (NSNumberFormatter *)chartWeightFormatter;
++ (float)chartWeightIncrement;
+
 @end
