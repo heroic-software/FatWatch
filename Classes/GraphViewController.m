@@ -164,6 +164,15 @@ enum {
 }
 
 
+- (void)moveViewToCache:(struct GraphViewInfo *)ginfo {
+	if (ginfo->view != nil) {
+		[cachedGraphViews addObject:ginfo->view];
+		[ginfo->view release];
+		ginfo->view = nil;
+	}
+}
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSParameterAssert(scrollView);
 	CGFloat minX = scrollView.contentOffset.x;
@@ -177,20 +186,10 @@ enum {
 	
 	// move non-visible views into cache
 	for (index = lastMinIndex; index < minIndex; index++) {
-		struct GraphViewInfo *ginfo = &info[index];
-		if (ginfo->view != nil) {
-			[cachedGraphViews addObject:ginfo->view];
-			[ginfo->view release];
-			ginfo->view = nil;
-		}
+		[self moveViewToCache:(&info[index])];
 	}
 	for (index = maxIndex + 1; index < lastMaxIndex; index++) {
-		struct GraphViewInfo *ginfo = &info[index];
-		if (ginfo->view != nil) {
-			[cachedGraphViews addObject:ginfo->view];
-			[ginfo->view release];
-			ginfo->view = nil;
-		}
+		[self moveViewToCache:(&info[index])];
 	}
 	
 	for (index = minIndex; index <= maxIndex; index++) {
@@ -203,7 +202,8 @@ enum {
 				[cachedGraphViews removeLastObject];
 			} else {
 				ginfo->view = [[GraphView alloc] initWithMonth:ginfo->month];
-				[scrollView addSubview:ginfo->view];
+				// insert subview at the back, so it doesn't overlap the scroll indicator
+				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
 			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, 300)];
 		}
