@@ -24,6 +24,7 @@
 	} *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
+	int lastMinIndex, lastMaxIndex;
 }
 - (void)clearGraphViewInfo;
 @end

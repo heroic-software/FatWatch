@@ -171,27 +171,25 @@ enum {
 	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
 	int maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
 	
+	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) return;
+	
 	int index;
 	
 	// move non-visible views into cache
-	for (index = minIndex - 1; index >= 0; index--) {
+	for (index = lastMinIndex; index < minIndex; index++) {
 		struct GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view != nil) {
 			[cachedGraphViews addObject:ginfo->view];
 			[ginfo->view release];
 			ginfo->view = nil;
-		} else {
-			break; // assume if this index has no view, nothing past it does either
 		}
 	}
-	for (index = maxIndex + 1; index < infoCount; index++) {
+	for (index = maxIndex + 1; index < lastMaxIndex; index++) {
 		struct GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view != nil) {
 			[cachedGraphViews addObject:ginfo->view];
 			[ginfo->view release];
 			ginfo->view = nil;
-		} else {
-			break; // assume if this index has no view, nothing past it does either
 		}
 	}
 	
@@ -210,6 +208,9 @@ enum {
 			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, 300)];
 		}
 	}
+
+	lastMinIndex = minIndex;
+	lastMaxIndex = maxIndex;
 }
 
 
