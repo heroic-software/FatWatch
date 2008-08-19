@@ -7,6 +7,9 @@
 //
 
 #import "EWGoal.h"
+#import "Database.h"
+#import "MonthData.h"
+
 
 static NSString *kGoalStartDateKey = @"GoalStartDate";
 static NSString *kGoalWeightKey = @"GoalWeight";
@@ -72,6 +75,30 @@ static EWGoal *sharedInstance = nil;
 
 - (void)setWeightChangePerDay:(float)delta {
 	[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
+}
+
+
+- (EWMonthDay)startMonthDay {
+	return EWMonthDayFromDate(self.startDate);
+}
+
+
+- (float)startWeight {
+	EWMonthDay startMonthDay = self.startMonthDay;
+	MonthData *md = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(startMonthDay)];
+	float w = [md trendWeightOnDay:EWMonthDayGetDay(startMonthDay)];
+	if (w == 0) {
+		w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
+	}
+	return w;
+}
+
+
+- (NSDate *)endDate {
+	float weightChange = (self.endWeight - self.startWeight);
+		
+	NSTimeInterval seconds = weightChange / self.weightChangePerDay * 86400;
+	return [self.startDate addTimeInterval:seconds];
 }
 
 

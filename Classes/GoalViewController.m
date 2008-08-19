@@ -224,11 +224,7 @@
 		endRow.minimumDate = [date addTimeInterval:86400];
 	}
 	
-	MonthData *md = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(startMonthDay)];
-	float w = [md trendWeightOnDay:EWMonthDayGetDay(startMonthDay)];
-	if (w == 0) {
-		w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
-	}
+	float w = [[EWGoal sharedGoal] startWeight];
 	
 	self.startWeight = w;
 	

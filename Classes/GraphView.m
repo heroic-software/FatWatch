@@ -9,6 +9,8 @@
 #import "GraphView.h"
 #import "Database.h"
 #import "MonthData.h"
+#import "EWGoal.h"
+
 
 @implementation GraphView
 
@@ -49,8 +51,10 @@
 	Database *database = [Database sharedDatabase];
 	const float minWeight = [database minimumWeight] - 10.0f;
 	const float maxWeight = [database maximumWeight] + 10.0f;
-	const float scaleX = (CGRectGetWidth(bounds) / EWDaysInMonth(month));
-	const float scaleY = (CGRectGetHeight(bounds) / (maxWeight - minWeight));
+	const CGFloat h = CGRectGetHeight(bounds);
+	const CGFloat w = CGRectGetWidth(bounds);
+	const float scaleX = (w / EWDaysInMonth(month));
+	const float scaleY = (h / (maxWeight - minWeight));
 
 	EWDay day;
 	NSUInteger dayCount = EWDaysInMonth(month);
@@ -74,6 +78,38 @@
 	
 	[self drawDate];
 
+	{
+		EWGoal *goal = [EWGoal sharedGoal];
+		EWMonthDay startMonthDay = goal.startMonthDay;
+		EWMonth startMonth = EWMonthDayGetMonth(startMonthDay);
+		if (month >= startMonth) {
+			CGPoint startPoint, endPoint;
+
+			NSDate *firstDate = EWDateFromMonthAndDay(month, 1);
+			float dayCount = [goal.startDate timeIntervalSinceDate:firstDate] / 86400;
+			startPoint.x = (0.5 + dayCount) * scaleX;
+			startPoint.y = h - ((goal.startWeight - minWeight) * scaleY);
+			
+			float totalDayCount = (goal.endWeight - goal.startWeight) / goal.weightChangePerDay;
+			endPoint.x = startPoint.x + (totalDayCount * scaleX);
+			endPoint.y = h - ((goal.endWeight - minWeight) * scaleY);
+			
+			CGContextSaveGState(ctxt);
+			CGContextSetLineWidth(ctxt, 3);
+			const CGFloat dashLengths[] = { 4, 4 };
+			CGContextSetLineDash(ctxt, 0, dashLengths, 2);
+			CGContextSetRGBStrokeColor(ctxt, 1.0, 0.0, 0.0, 1.0);
+			CGContextBeginPath(ctxt);
+			CGContextMoveToPoint(ctxt, startPoint.x, startPoint.y);
+			CGContextAddLineToPoint(ctxt, endPoint.x, endPoint.y);
+			if (endPoint.x < w) {
+				CGContextAddLineToPoint(ctxt, w, endPoint.y);
+			}
+			CGContextDrawPath(ctxt, kCGPathStroke);
+			CGContextRestoreGState(ctxt);
+		}
+	}
+
 	// 33 = 31 days + 1 day last month + 1 day next month
 	CGPoint measuredPoints[33];
 	CGPoint trendPoints[33];
@@ -92,7 +128,7 @@
 			float trend = [md trendWeightOnDay:day];
 			float x = (day - 0.5 - EWDaysInMonth(month - 1)) * scaleX;
 			float ty = (trend - minWeight) * scaleY;
-			trendPoints[pointCount] = CGPointMake(x, ty);
+			trendPoints[pointCount] = CGPointMake(x, h - ty);
 			pointCount++;
 			hasHead = YES;
 		}
@@ -107,8 +143,8 @@
 			float my = (measured - minWeight) * scaleY;
 			float ty = (trend - minWeight) * scaleY;
 			
-			measuredPoints[pointCount] = CGPointMake(x, my);
-			trendPoints[pointCount] = CGPointMake(x, ty);
+			measuredPoints[pointCount] = CGPointMake(x, h - my);
+			trendPoints[pointCount] = CGPointMake(x, h - ty);
 			flags[pointCount] = [md isFlaggedOnDay:day];
 			pointCount++;
 		}
@@ -121,15 +157,12 @@
 			float trend = [md trendWeightOnDay:day];
 			float x = (dayCount + day - 0.5) * scaleX;
 			float ty = (trend - minWeight) * scaleY;
-			trendPoints[pointCount] = CGPointMake(x, ty);
+			trendPoints[pointCount] = CGPointMake(x, h - ty);
 			pointCount++;
 			hasTail = YES;
 		}
 	}
 	
-	// flip coordinate system so that origin is on the bottom left
-	CGContextTranslateCTM(ctxt, 0, CGRectGetHeight(bounds));
-	CGContextScaleCTM(ctxt, 1.0, -1.0);
 	CGContextSetRGBStrokeColor(ctxt, 0, 0, 0, 1);
 
 	// draw trend line

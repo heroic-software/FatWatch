@@ -62,7 +62,7 @@
 	
 	CGContextSetGrayFillColor(ctxt, 0.0, 1.0);
 	CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
-	CGContextSetLineWidth(ctxt, 3);
+	CGContextSetLineWidth(ctxt, 1);
 	float w;
 	CGFloat x = CGRectGetWidth(bounds) / 2;
 	for (w = startWeight; w < endWeight; w += weightIncrement) {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EWDate.h"
 
 
 @interface EWGoal : NSObject {
@@ -19,4 +20,8 @@
 @property (nonatomic) float weightChangePerDay;
 
 @property (nonatomic,readonly,getter=isDefined) BOOL defined;
+
+@property (nonatomic,readonly) EWMonthDay startMonthDay;
+@property (nonatomic,readonly) float startWeight;
+@property (nonatomic,readonly) NSDate *endDate;
 @end
