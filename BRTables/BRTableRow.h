@@ -14,16 +14,18 @@
 
 @interface BRTableRow : NSObject {
 	BRTableSection *section;
-	NSString *title;
 	id object;
+	NSString *title;
 	UITextAlignment titleAlignment;
 	UIColor *titleColor;
+	UITableViewCellAccessoryType accessoryType;
 }
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
 @property (nonatomic,retain) NSString *title;
 @property (nonatomic) UITextAlignment titleAlignment;
 @property (nonatomic,retain) UIColor *titleColor;
+@property (nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (nonatomic,retain) id object;
 @property (nonatomic,readonly) BRTableSection *section;
 - (NSString *)reuseableCellIdentifier;

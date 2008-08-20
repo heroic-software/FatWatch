@@ -43,13 +43,23 @@
 }
 
 
+- (BRTableSection *)addNewSection {
+	BRTableSection *section = [[BRTableSection alloc] init];
+	[self addSection:section animated:NO];
+	[section release];
+	return section;
+}
+
+
 - (void)removeSectionsAtIndexes:(NSIndexSet *)indexSet animated:(BOOL)animated {
 	if (animated) {
 		[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 	}
 	NSUInteger index = [indexSet lastIndex];
 	while (index != NSNotFound) {
-		[[[sections objectAtIndex:index] retain] autorelease];
+		BRTableSection *section = [sections objectAtIndex:index];
+		[section willRemoveFromController];
+		[[section retain] autorelease];
 		[sections removeObjectAtIndex:index];
 		index = [indexSet indexLessThanIndex:index];
 	}
@@ -57,6 +67,7 @@
 
 
 - (void)removeAllSections {
+	[sections makeObjectsPerformSelector:@selector(willRemoveFromController)];
 	[sections removeAllObjects];
 }
 
@@ -72,12 +83,23 @@
 
 
 - (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
-	[self presentModalViewController:controller animated:YES];
+	if (self.navigationController) {
+		controller.hidesBottomBarWhenPushed = YES;
+		[self.navigationController pushViewController:controller animated:YES];
+	} else {
+		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+		[self presentModalViewController:nav animated:YES];
+		[nav release];
+	}
 }
 
 
 - (void)dismissViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
-	[controller dismissModalViewControllerAnimated:YES];
+	if (self.navigationController) {
+		[self.navigationController popViewControllerAnimated:YES];
+	} else {
+		[controller dismissModalViewControllerAnimated:YES];
+	}
 }
 
 
@@ -134,31 +156,6 @@
 	BRTableSection *section = [sections	objectAtIndex:sectionIndex];
 	return section.footerTitle;
 }
-
-
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (editingStyle == UITableViewCellEditingStyleDelete) {
-	}
-	if (editingStyle == UITableViewCellEditingStyleInsert) {
-	}
-}
-*/
-
-/*
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-/*
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-/*
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
 
 
 - (void)viewDidLoad {

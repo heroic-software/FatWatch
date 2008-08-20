@@ -21,18 +21,37 @@
 @implementation BRTableDatePickerRow
 
 
-@synthesize minimumDate, maximumDate;
+@synthesize minimumDate, maximumDate, datePickerMode;
 
 
 - (id)init {
 	if ([super init]) {
-		NSDateFormatter *df = [[NSDateFormatter alloc] init];
-		[df setDateStyle:NSDateFormatterLongStyle];
-		[df setTimeStyle:NSDateFormatterNoStyle];
-		self.formatter = df;
-		[df release];
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		self.datePickerMode = UIDatePickerModeDate;
 	}
 	return self;
+}
+
+
+- (NSFormatter *)formatter {
+	NSFormatter *f = [super formatter];
+	if (f == nil) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		if (self.datePickerMode == UIDatePickerModeDate) {
+			[df setDateStyle:NSDateFormatterLongStyle];
+			[df setTimeStyle:NSDateFormatterNoStyle];
+		} else if (self.datePickerMode == UIDatePickerModeTime) {
+			[df setDateStyle:NSDateFormatterNoStyle];
+			[df setTimeStyle:NSDateFormatterShortStyle];
+		} else if (self.datePickerMode == UIDatePickerModeDateAndTime) {
+			[df setDateStyle:NSDateFormatterLongStyle];
+			[df setTimeStyle:NSDateFormatterShortStyle];
+		}
+		self.formatter = df;
+		[df release];
+		return df;
+	}
+	return f;
 }
 
 
@@ -79,7 +98,7 @@
 	
 	UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
 	datePicker.tag = 411;
-	datePicker.datePickerMode = UIDatePickerModeDate;
+	datePicker.datePickerMode = row.datePickerMode;
 	[view addSubview:datePicker];
 	[datePicker release];
 	

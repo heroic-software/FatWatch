@@ -14,6 +14,11 @@
 @synthesize headerTitle, footerTitle, controller;
 
 
++ (BRTableSection *)section {
+	return [[[BRTableSection alloc] init] autorelease];
+}
+
+
 - (id)init {
 	if ([super init]) {
 		rows = [[NSMutableArray alloc] init];
@@ -32,6 +37,11 @@
 
 - (void)didAddToController:(BRTableViewController *)aController {
 	controller = aController;
+}
+
+
+- (void)willRemoveFromController {
+	controller = nil;
 }
 
 

@@ -18,10 +18,12 @@
 	BRTableViewController *controller;
 	NSString *headerTitle, *footerTitle;
 }
++ (BRTableSection *)section;
 @property (nonatomic,retain) NSString *headerTitle;
 @property (nonatomic,retain) NSString *footerTitle;
 @property (nonatomic,readonly) BRTableViewController *controller;
 - (void)didAddToController:(BRTableViewController *)aController;
+- (void)willRemoveFromController;
 - (NSUInteger)numberOfRows;
 - (BRTableRow *)rowAtIndex:(NSUInteger)index;
 - (void)addRow:(BRTableRow *)tableRow animated:(BOOL)animated;

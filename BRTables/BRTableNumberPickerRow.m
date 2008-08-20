@@ -29,6 +29,7 @@
 		self.minimumValue = 0;
 		self.maximumValue = 100;
 		self.increment = 1;
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	return self;
 }

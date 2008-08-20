@@ -12,32 +12,49 @@
 @implementation BRTableValueRow
 
 
-@synthesize key, formatter, accessoryType;
+@synthesize key, formatter, disabled;
 
 
 - (void)dealloc {
-	if (section) [self.object removeObserver:self forKeyPath:self.key];
+	self.object = nil;
 	[key release];
 	[formatter release];
 	[super dealloc];
 }
 
 
-- (void)didAddToSection:(BRTableSection *)aSection {
-	[super didAddToSection:aSection];
-	[self.object addObserver:self forKeyPath:self.key options:NSKeyValueObservingOptionNew context:NULL];
+- (void)setObject:(id)newObject {
+	if (self.object == newObject) return;
+	
+	id oldObject = self.object;
+	if (oldObject != nil && self.key != nil) {
+		[oldObject removeObserver:self forKeyPath:self.key];
+	}
+	[super setObject:newObject];
+	if (newObject != nil && self.key != nil) {
+		[newObject addObserver:self forKeyPath:self.key options:NSKeyValueObservingOptionNew context:NULL];
+	}
 }
 
 
-- (void)willRemoveFromSection {
-	[super willRemoveFromSection];
-	[self.object removeObserver:self forKeyPath:self.key];
+- (void)setKey:(NSString *)newKey {
+	if ([self.key isEqualToString:newKey]) return;
+
+	NSString *oldKey = self.key;
+	if (oldKey != nil && self.object != nil) {
+		[self.object removeObserver:self forKeyPath:oldKey];
+	}
+	key = [newKey copy];
+	[oldKey release];
+	if (newKey != nil && self.object != nil) {
+		[self.object addObserver:self forKeyPath:self.key options:NSKeyValueObservingOptionNew context:NULL];
+	}
 }
 
 
 - (NSString *)stringForValue:(id)value {
-	if (formatter) {
-		return [formatter stringForObjectValue:value];
+	if (self.formatter) {
+		return [self.formatter stringForObjectValue:value];
 	} else {
 		return [value description];
 	}
@@ -45,17 +62,23 @@
 
 
 - (void)configureCell:(UITableViewCell *)cell {
-	[super configureCell:cell];
 	id value = [self.object valueForKey:self.key];
-	cell.text = [self stringForValue:value];
+	if (value) {
+		cell.text = [self stringForValue:value];
+		cell.textColor = titleColor;
+	} else {
+		cell.text = title;
+		cell.textColor = [UIColor grayColor];
+	}
+	cell.textAlignment = titleAlignment;
 	cell.accessoryType = accessoryType;
 }
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	id value = [change objectForKey:NSKeyValueChangeNewKey];
+	// id value = [change objectForKey:NSKeyValueChangeNewKey];
 	UITableViewCell *cell = [self cell];
-	cell.text = [self stringForValue:value];
+	[self configureCell:cell];
 	cell.selected = YES;
 }
 

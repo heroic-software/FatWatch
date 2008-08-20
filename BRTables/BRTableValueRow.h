@@ -13,9 +13,9 @@
 @interface BRTableValueRow : BRTableRow {
 	NSString *key;
 	NSFormatter	*formatter;
-	UITableViewCellAccessoryType accessoryType;
+	BOOL disabled;
 }
 @property (nonatomic,retain) NSString *key;
 @property (nonatomic,retain) NSFormatter *formatter;
-@property (nonatomic) UITableViewCellAccessoryType accessoryType;
+@property (nonatomic) BOOL disabled;
 @end

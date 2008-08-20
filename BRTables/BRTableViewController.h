@@ -16,6 +16,7 @@
 }
 - (NSUInteger)numberOfSections;
 - (void)addSection:(BRTableSection *)tableSection animated:(BOOL)animated;
+- (BRTableSection *)addNewSection;
 - (void)removeSectionsAtIndexes:(NSIndexSet *)indexSet animated:(BOOL)animated;
 - (void)removeAllSections;
 - (BRTableSection *)sectionAtIndex:(NSUInteger)index;
