@@ -17,11 +17,9 @@
 	id target;
 	SEL action;
 	BOOL disabled;
-	UIImage *image;
 }
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction;
 @property (nonatomic,assign) id target;
 @property (nonatomic) SEL action;
 @property (nonatomic) BOOL disabled;
-@property (nonatomic,retain) UIImage *image;
 @end

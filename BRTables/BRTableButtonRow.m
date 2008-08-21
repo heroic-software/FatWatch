@@ -11,7 +11,7 @@
 
 @implementation BRTableButtonRow
 
-@synthesize target, action, disabled, image;
+@synthesize target, action, disabled;
 
 
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction {
@@ -31,7 +31,6 @@
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
 	cell.textColor = self.disabled ? [UIColor grayColor] : self.titleColor;
-	cell.image = self.image;
 }
 
 
