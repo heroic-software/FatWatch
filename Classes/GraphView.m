@@ -24,31 +24,77 @@
 
 
 - (void)setMonth:(EWMonth)m {
-	month = m;
-	[self setNeedsDisplay];
+	if (month != m) {
+		month = m;
+		[self setNeedsDisplay];
+	}
 }
 
 
 - (void)drawDate {
+	static NSDateFormatter *formatter = nil;
+	
+	if (formatter == nil) {
+		formatter = [[NSDateFormatter alloc] init];
+		formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+		formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	}
 	// month and year label at the top
 	NSDate *date = EWDateFromMonthAndDay(month, 1);
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
-	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
 	[[UIColor blackColor] setFill];
 	[[formatter stringFromDate:date] drawAtPoint:CGPointMake(4, 2) withFont:[UIFont systemFontOfSize:20]];
-	[formatter release];
+}
+
+
+- (void)drawGoalLineInContext:(CGContextRef)ctxt {
+	static const CGFloat kDashLengths[] = { 4, 4 };
+	static const int kDashLengthsCount = 2;
+
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (goal.defined) {
+		EWMonthDay startMonthDay = goal.startMonthDay;
+		EWMonth startMonth = EWMonthDayGetMonth(startMonthDay);
+		if (month >= startMonth) {
+			const CGRect bounds = self.bounds;
+			const CGFloat h = CGRectGetHeight(bounds);
+			const CGFloat w = CGRectGetWidth(bounds);
+
+			CGPoint startPoint, endPoint;
+			
+			NSDate *firstDate = EWDateFromMonthAndDay(month, 1);
+			
+			float startDayCount = [goal.startDate timeIntervalSinceDate:firstDate] / 86400;
+			startPoint.x = (0.5 + startDayCount) * p->scaleX;
+			startPoint.y = h - ((goal.startWeight - p->minWeight) * p->scaleY);
+
+			float endDayCount = [goal.endDate timeIntervalSinceDate:firstDate] / 86400;
+			endPoint.x = (0.5 + endDayCount) * p->scaleX;
+			endPoint.y = h - ((goal.endWeight - p->minWeight) * p->scaleY);
+			
+			CGContextSaveGState(ctxt);
+			CGContextSetLineWidth(ctxt, 3);
+			CGContextSetLineDash(ctxt, 0, kDashLengths, kDashLengthsCount);
+			CGContextSetRGBStrokeColor(ctxt, 1.0, 0.0, 0.0, 1.0);
+			CGContextBeginPath(ctxt);
+			CGContextMoveToPoint(ctxt, startPoint.x, startPoint.y);
+			CGContextAddLineToPoint(ctxt, endPoint.x, endPoint.y);
+			if (endPoint.x < w) {
+				CGContextAddLineToPoint(ctxt, w, endPoint.y);
+			}
+			CGContextDrawPath(ctxt, kCGPathStroke);
+			CGContextRestoreGState(ctxt);
+		}
+	}
 }
 
 
 - (void)drawRect:(CGRect)rect {
-	CGRect bounds = self.bounds;
-	
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 	
 	Database *database = [Database sharedDatabase];
+
+	const CGRect bounds = self.bounds;
 	const CGFloat h = CGRectGetHeight(bounds);
-	const CGFloat w = CGRectGetWidth(bounds);
 
 	EWDay day;
 	NSUInteger dayCount = EWDaysInMonth(month);
@@ -71,38 +117,7 @@
 	CGContextStrokePath(ctxt);
 	
 	[self drawDate];
-
-	EWGoal *goal = [EWGoal sharedGoal];
-	if (goal.defined) {
-		EWMonthDay startMonthDay = goal.startMonthDay;
-		EWMonth startMonth = EWMonthDayGetMonth(startMonthDay);
-		if (month >= startMonth) {
-			CGPoint startPoint, endPoint;
-
-			NSDate *firstDate = EWDateFromMonthAndDay(month, 1);
-			float dayCount = [goal.startDate timeIntervalSinceDate:firstDate] / 86400;
-			startPoint.x = (0.5 + dayCount) * p->scaleX;
-			startPoint.y = h - ((goal.startWeight - p->minWeight) * p->scaleY);
-			
-			float totalDayCount = (goal.endWeight - goal.startWeight) / goal.weightChangePerDay;
-			endPoint.x = startPoint.x + (totalDayCount * p->scaleX);
-			endPoint.y = h - ((goal.endWeight - p->minWeight) * p->scaleY);
-			
-			CGContextSaveGState(ctxt);
-			CGContextSetLineWidth(ctxt, 3);
-			const CGFloat dashLengths[] = { 4, 4 };
-			CGContextSetLineDash(ctxt, 0, dashLengths, 2);
-			CGContextSetRGBStrokeColor(ctxt, 1.0, 0.0, 0.0, 1.0);
-			CGContextBeginPath(ctxt);
-			CGContextMoveToPoint(ctxt, startPoint.x, startPoint.y);
-			CGContextAddLineToPoint(ctxt, endPoint.x, endPoint.y);
-			if (endPoint.x < w) {
-				CGContextAddLineToPoint(ctxt, w, endPoint.y);
-			}
-			CGContextDrawPath(ctxt, kCGPathStroke);
-			CGContextRestoreGState(ctxt);
-		}
-	}
+	[self drawGoalLineInContext:ctxt];
 
 	// 33 = 31 days + 1 day last month + 1 day next month
 	CGPoint measuredPoints[33];

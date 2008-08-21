@@ -14,14 +14,19 @@ static NSDate *refDate = nil;
 static NSDateComponents *components = nil;
 
 
+const NSInteger kReferenceYear = 2001;
+const NSInteger kReferenceMonth = 1;
+const NSInteger kReferenceDay = 1;
+
+
 void EWDateInit() {
 	calendar = [[NSCalendar currentCalendar] retain];
 	
 	// Create reference date relative to the current time zone
 	NSDateComponents *refComps = [[NSDateComponents alloc] init];
-	refComps.year = 2001;
-	refComps.month = 1;
-	refComps.day = 1;
+	refComps.year = kReferenceYear;
+	refComps.month = kReferenceMonth;
+	refComps.day = kReferenceDay;
 	refDate = [[calendar dateFromComponents:refComps] retain];
 	[refComps release];
 	
@@ -53,9 +58,9 @@ NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 
 
 EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
-	NSDateComponents *monthComponents = [calendar components:NSMonthCalendarUnit | NSDayCalendarUnit fromDate:refDate toDate:theDate options:0];
-	NSDateComponents *dayComponents = [calendar components:NSDayCalendarUnit fromDate:theDate];
-	return EWMonthDayMake(monthComponents.month, dayComponents.day);
+	NSDateComponents *dc = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:theDate];
+	EWMonth month = ((dc.year - kReferenceYear) * 12) + (dc.month - 1);
+	return EWMonthDayMake(month, dc.day);
 }
 
 

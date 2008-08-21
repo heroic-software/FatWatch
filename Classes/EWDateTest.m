@@ -65,7 +65,7 @@
 	NSDate *dateRef = [NSDate dateWithTimeIntervalSinceReferenceDate:5 * 3600];
 	NSDate *date = [dateRef addTimeInterval:ti];
 	EWMonthDay md1 = EWMonthDayFromDate(date);
-	NSLog(@"date = %@; md = %d", date, md1);
+	NSLog(@"date = %@ (%f); md = %d", date, [date timeIntervalSinceReferenceDate], md1);
 	STAssertEquals(EWMonthDayGetMonth(md1), m, @"month");
 	STAssertEquals(EWMonthDayGetDay(md1), d, @"day");
 }
@@ -77,6 +77,7 @@
 	[self assertTimeInterval:2*86400 convertsToMonth:0 day:3];
 	[self assertTimeInterval:30*86400 convertsToMonth:0 day:31];
 	[self assertTimeInterval:31*86400 convertsToMonth:1 day:1];
+	[self assertTimeInterval:241063666 convertsToMonth:91 day:22];
 }
 
 
