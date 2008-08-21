@@ -216,6 +216,7 @@
 		if ([[EWGoal sharedGoal] isDefined]) {
 			if ([self numberOfSections] != 4) {
 				[self removeAllSections];
+				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
 				[self addStartSection];
 				[self addGoalSection];
 				[self addPlanSection];
@@ -225,6 +226,7 @@
 		} else {
 			if ([self numberOfSections] != 2) {
 				[self removeAllSections];
+				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
 				[self addStartSection];
 				[self addNoGoalSection];
 				[self.tableView reloadData];
