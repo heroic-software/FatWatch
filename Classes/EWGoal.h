@@ -24,6 +24,7 @@
 
 @property (nonatomic,retain) NSDate *endDate;
 @property (nonatomic) float endWeight;
+@property (nonatomic,retain) NSNumber *endWeightNumber;
 
 @property (nonatomic) float weightChangePerDay;
 

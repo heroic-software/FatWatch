@@ -11,6 +11,6 @@
 #import "EWDate.h"
 
 
-@interface GoalViewController : BRTableViewController {
+@interface GoalViewController : BRTableViewController <UIActionSheetDelegate> {
 }
 @end

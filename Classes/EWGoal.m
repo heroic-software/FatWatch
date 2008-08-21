@@ -93,6 +93,21 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
+- (NSNumber *)endWeightNumber {
+	float w = self.endWeight;
+	if (w <= 0) {
+		return nil;
+	} else {
+		return [NSNumber numberWithFloat:w];
+	}
+}
+
+
+- (void)setEndWeightNumber:(NSNumber *)number {
+	self.endWeight = [number floatValue];
+}
+
+
 - (float)weightChangePerDay {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	NSNumber *number = [defs objectForKey:kGoalWeightChangePerDayKey];
