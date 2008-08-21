@@ -11,12 +11,16 @@
 #import "EWDate.h"
 #import "Database.h"
 #import "YAxisView.h"
-
+#import "EWGoal.h"
 
 enum {
 	kScrollViewTag = 100,
 	kScaleViewTag,
 };
+
+
+const CGFloat kGraphHeight = 300.0f;
+const CGFloat kDayWidth = 7.0f;
 
 
 @implementation GraphViewController
@@ -63,6 +67,12 @@ enum {
 
 - (void)prepareGraphViewInfo {
 	Database *db = [Database sharedDatabase];
+	
+	float goalWeight = [[EWGoal sharedGoal] endWeight];
+	parameters.minWeight = MIN([db minimumWeight], goalWeight) - 10.0f;
+	parameters.maxWeight = MAX([db maximumWeight], goalWeight) + 10.0f;
+	parameters.scaleX = kDayWidth;
+	parameters.scaleY = kGraphHeight / (parameters.maxWeight - parameters.minWeight);
 
 	infoCount = db.latestMonth - db.earliestMonth + 1;
 	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
@@ -73,7 +83,7 @@ enum {
 	CGFloat x = 0;
 	int i;
 	for (i = 0; i < infoCount; i++) {
-		CGFloat w = 7 * EWDaysInMonth(m);
+		CGFloat w = kDayWidth * EWDaysInMonth(m);
 		
 		info[i].month = m;
 		info[i].offsetX = x;
@@ -84,7 +94,7 @@ enum {
 		x += w;
 	}
 	
-	CGSize totalSize = CGSizeMake(x, 300);
+	CGSize totalSize = CGSizeMake(x, kGraphHeight);
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
 	
@@ -168,7 +178,8 @@ enum {
 }
 
 
-- (void)moveViewToCache:(struct GraphViewInfo *)ginfo {
+- (void)cacheViewAtIndex:(int)index {
+	struct GraphViewInfo *ginfo = &info[index];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
 		[ginfo->view release];
@@ -190,10 +201,10 @@ enum {
 
 	// move non-visible views into cache
 	for (index = minIndex - 1; index >= lastMinIndex; index--) {
-		[self moveViewToCache:(&info[index])];
+		[self cacheViewAtIndex:index];
 	}
 	for (index = maxIndex + 1; index <= lastMaxIndex; index++) {
-		[self moveViewToCache:(&info[index])];
+		[self cacheViewAtIndex:index];
 	}
 
 	for (index = minIndex; index <= maxIndex; index++) {
@@ -201,15 +212,15 @@ enum {
 		if (ginfo->view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];
 			if (view) {
-				[view setMonth:ginfo->month];
 				ginfo->view = [view retain];
 				[cachedGraphViews removeLastObject];
 			} else {
-				ginfo->view = [[GraphView alloc] initWithMonth:ginfo->month];
+				ginfo->view = [[GraphView alloc] initWithParameters:&parameters];
 				// insert subview at the back, so it doesn't overlap the scroll indicator
 				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
-			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, 300)];
+			[ginfo->view setMonth:ginfo->month];
+			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, kGraphHeight)];
 		}
 	}
 

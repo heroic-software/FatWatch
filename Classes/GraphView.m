@@ -14,10 +14,9 @@
 
 @implementation GraphView
 
-- (id)initWithMonth:(EWMonth)m {
+- (id)initWithParameters:(GraphViewParameters *)parameters {
     if (self = [super initWithFrame:CGRectZero]) {
-		NSLog(@"new graph view for month %d", m);
-        month = m;
+        p = parameters;
 		self.backgroundColor = [UIColor whiteColor];
     }
     return self;
@@ -25,7 +24,6 @@
 
 
 - (void)setMonth:(EWMonth)m {
-	NSLog(@"recycled graph view for month %d", m);
 	month = m;
 	[self setNeedsDisplay];
 }
@@ -49,12 +47,8 @@
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 	
 	Database *database = [Database sharedDatabase];
-	const float minWeight = [database minimumWeight] - 10.0f;
-	const float maxWeight = [database maximumWeight] + 10.0f;
 	const CGFloat h = CGRectGetHeight(bounds);
 	const CGFloat w = CGRectGetWidth(bounds);
-	const float scaleX = (w / EWDaysInMonth(month));
-	const float scaleY = (h / (maxWeight - minWeight));
 
 	EWDay day;
 	NSUInteger dayCount = EWDaysInMonth(month);
@@ -63,7 +57,7 @@
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
 		for (day = 1; day <= dayCount; day++) {
 			if (EWMonthAndDayIsWeekend(month, day)) {
-				CGRect dayRect = CGRectMake((day - 1) * scaleX, 0, scaleX, CGRectGetHeight(bounds));
+				CGRect dayRect = CGRectMake((day - 1) * p->scaleX, 0, p->scaleX, CGRectGetHeight(bounds));
 				CGContextSetGrayFillColor(ctxt, 0.9, 1.0);
 				CGContextFillRect(ctxt, dayRect);
 			}
@@ -78,8 +72,8 @@
 	
 	[self drawDate];
 
-	{
-		EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (goal.defined) {
 		EWMonthDay startMonthDay = goal.startMonthDay;
 		EWMonth startMonth = EWMonthDayGetMonth(startMonthDay);
 		if (month >= startMonth) {
@@ -87,12 +81,12 @@
 
 			NSDate *firstDate = EWDateFromMonthAndDay(month, 1);
 			float dayCount = [goal.startDate timeIntervalSinceDate:firstDate] / 86400;
-			startPoint.x = (0.5 + dayCount) * scaleX;
-			startPoint.y = h - ((goal.startWeight - minWeight) * scaleY);
+			startPoint.x = (0.5 + dayCount) * p->scaleX;
+			startPoint.y = h - ((goal.startWeight - p->minWeight) * p->scaleY);
 			
 			float totalDayCount = (goal.endWeight - goal.startWeight) / goal.weightChangePerDay;
-			endPoint.x = startPoint.x + (totalDayCount * scaleX);
-			endPoint.y = h - ((goal.endWeight - minWeight) * scaleY);
+			endPoint.x = startPoint.x + (totalDayCount * p->scaleX);
+			endPoint.y = h - ((goal.endWeight - p->minWeight) * p->scaleY);
 			
 			CGContextSaveGState(ctxt);
 			CGContextSetLineWidth(ctxt, 3);
@@ -126,8 +120,8 @@
 		day = [md lastDayWithWeight];
 		if (day > 0) {
 			float trend = [md trendWeightOnDay:day];
-			float x = (day - 0.5 - EWDaysInMonth(month - 1)) * scaleX;
-			float ty = (trend - minWeight) * scaleY;
+			float x = (day - 0.5 - EWDaysInMonth(month - 1)) * p->scaleX;
+			float ty = (trend - p->minWeight) * p->scaleY;
 			trendPoints[pointCount] = CGPointMake(x, h - ty);
 			pointCount++;
 			hasHead = YES;
@@ -139,9 +133,9 @@
 		float measured = [md measuredWeightOnDay:day];
 		if (measured > 0) {
 			float trend = [md trendWeightOnDay:day];
-			float x = (day - 0.5) * scaleX;
-			float my = (measured - minWeight) * scaleY;
-			float ty = (trend - minWeight) * scaleY;
+			float x = (day - 0.5) * p->scaleX;
+			float my = (measured - p->minWeight) * p->scaleY;
+			float ty = (trend - p->minWeight) * p->scaleY;
 			
 			measuredPoints[pointCount] = CGPointMake(x, h - my);
 			trendPoints[pointCount] = CGPointMake(x, h - ty);
@@ -155,8 +149,8 @@
 		day = [md firstDayWithWeight];
 		if (day > 0) {
 			float trend = [md trendWeightOnDay:day];
-			float x = (dayCount + day - 0.5) * scaleX;
-			float ty = (trend - minWeight) * scaleY;
+			float x = (dayCount + day - 0.5) * p->scaleX;
+			float ty = (trend - p->minWeight) * p->scaleY;
 			trendPoints[pointCount] = CGPointMake(x, h - ty);
 			pointCount++;
 			hasTail = YES;

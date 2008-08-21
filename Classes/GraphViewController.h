@@ -10,9 +10,8 @@
 
 #import "DataViewController.h"
 #import "EWDate.h"
+#import "GraphView.h"
 
-
-@class GraphView;
 
 @interface GraphViewController : DataViewController <UIScrollViewDelegate> {
 	BOOL firstLoad;
@@ -25,6 +24,7 @@
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
 	int lastMinIndex, lastMaxIndex;
+	GraphViewParameters parameters;
 }
 - (void)clearGraphViewInfo;
 @end
