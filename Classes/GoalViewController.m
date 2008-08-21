@@ -15,6 +15,7 @@
 #import "BRTableNumberPickerRow.h"
 #import "WeightFormatters.h"
 #import "EWGoal.h"
+#import "BRTableButtonRow.h"
 
 
 /*Goal screen:
@@ -67,7 +68,7 @@
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"START_DATE", nil);
-	dateRow.object = self;
+	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"startDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:dateRow animated:NO];
@@ -75,7 +76,7 @@
 	
 	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
 	weightRow.title = NSLocalizedString(@"START_WEIGHT", nil);
-	weightRow.object = self;
+	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"startWeight";
 	weightRow.formatter = [WeightFormatters weightFormatter];
 	[section addRow:weightRow animated:NO];
@@ -86,32 +87,56 @@
 }
 
 
+- (BRTableNumberPickerRow *)weightRow {
+	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
+	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
+	weightRow.object = [EWGoal sharedGoal];
+	weightRow.key = @"endWeight";
+	weightRow.formatter = [WeightFormatters weightFormatter];
+	weightRow.increment = [WeightFormatters scaleIncrement];
+	weightRow.minimumValue = 0;
+	weightRow.maximumValue = 500;
+	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	return [weightRow autorelease];
+}
+
+
 - (void)initGoalSection {
 	BRTableSection *goalSection = [[BRTableSection alloc] init];
 	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_TITLE", nil);
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"GOAL_DATE", nil);
-	dateRow.object = self;
+	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
-	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
-	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
-	weightRow.object = self;
-	weightRow.key = @"goalWeight";
-	weightRow.formatter = [WeightFormatters weightFormatter];
-	weightRow.increment = [WeightFormatters scaleIncrement];
-	weightRow.minimumValue = 0;
-	weightRow.maximumValue = 500;
-	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	[goalSection addRow:weightRow animated:NO];
-	[weightRow release];
+	[goalSection addRow:[self weightRow] animated:NO];
 	
 	[self addSection:goalSection animated:NO];
 	[goalSection release];
+}
+
+
+- (void)initNoGoalSection {
+	BRTableSection *goalSection = [[BRTableSection alloc] init];
+	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_TITLE", nil);
+	
+	BRTableButtonRow *buttonRow = [BRTableButtonRow rowWithTitle:@"Set Goal Weight" target:self action:@selector(initialGoalWeightAction:)];
+	buttonRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	[goalSection addRow:buttonRow animated:NO];
+	
+	[self addSection:goalSection animated:NO];
+	[goalSection release];
+}
+
+
+- (void)initialGoalWeightAction:(BRTableButtonRow *)sender {
+	BRTableRow *row = [self weightRow];
+	[row didAddToSection:[self sectionAtIndex:1]]; // lies!
+	[row didSelect];
 }
 
 
@@ -121,7 +146,7 @@
 	
 	BRTableNumberPickerRow *energyRow = [[BRTableNumberPickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"ENERGY_CHANGE_TITLE", nil);
-	energyRow.object = self;
+	energyRow.object = [EWGoal sharedGoal];
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
 	energyRow.increment = [WeightFormatters energyChangePerDayIncrement];
@@ -133,7 +158,7 @@
 	
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"WEIGHT_CHANGE_TITLE", nil);
-	weightRow.object = self;
+	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
 	weightRow.increment = [WeightFormatters weightChangePerWeekIncrement];
@@ -153,124 +178,21 @@
 		self.title = NSLocalizedString(@"GOAL_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
 		[self initWarningSection];
+		
+		[[EWGoal sharedGoal] addObserver:self forKeyPath:@"startDate" options:NSKeyValueObservingOptionNew context:NULL];
 	}
 	return self;
 }
 
 
-- (void)computeEndDate {
-	if (isComputing) return;
-	isComputing = YES;
-	
-	float weightChange = (self.goalWeight - self.startWeight);
-	
-	// make sure sign of weightChange and weightChangePerDay match
-	if (weightChange > 0 && weightChangePerDay < 0) {
-		self.weightChangePerDay = -self.weightChangePerDay;
-	} else if (weightChange < 0 && weightChangePerDay > 0) {
-		self.weightChangePerDay = -self.weightChangePerDay;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"startDate"]) {
+		if ([self numberOfSections] == 3) {
+			NSDate *newStartDate = [change objectForKey:NSKeyValueChangeNewKey];
+			BRTableDatePickerRow *endRow = (BRTableDatePickerRow *)[[self sectionAtIndex:1] rowAtIndex:0];
+			endRow.minimumDate = [newStartDate addTimeInterval:86400];
+		}
 	}
-	
-	NSTimeInterval seconds = weightChange / weightChangePerDay * 86400;
-	self.endDate = [self.startDate addTimeInterval:seconds];
-	isComputing = NO;
-}
-
-
-- (void)computeWeightChangePerDay {
-	if (isComputing) return;
-	isComputing = YES;
-	float weight = self.goalWeight - self.startWeight;
-	NSTimeInterval seconds = [self.endDate timeIntervalSinceDate:self.startDate];
-	self.weightChangePerDay = (weight / (seconds / 86400.0));
-	isComputing = NO;
-}
-
-
-- (void)loadGoal {
-	EWGoal *goal = [EWGoal sharedGoal];
-	
-	isComputing = YES;
-	if ([goal isDefined]) {
-		self.startDate = goal.startDate;
-		self.goalWeight = goal.endWeight;
-		self.weightChangePerDay = goal.weightChangePerDay;
-	} else {
-		self.startDate = [NSDate date];
-		self.goalWeight = self.startWeight - [WeightFormatters scaleIncrement];
-		self.weightChangePerDay = [WeightFormatters defaultWeightChange];
-	}
-	isComputing = NO;
-	[self computeEndDate];
-}
-
-
-#pragma mark Properties
-
-
-- (NSDate *)startDate {
-	return EWDateFromMonthDay(startMonthDay);
-}
-
-
-- (void)setStartDate:(NSDate *)date {
-	[self willChangeValueForKey:@"startDate"];
-	startMonthDay = EWMonthDayFromDate(date);
-	[[EWGoal sharedGoal] setStartDate:date];
-	[self didChangeValueForKey:@"startDate"];
-
-	if ([self numberOfSections] > 1) {
-		BRTableDatePickerRow *endRow = (BRTableDatePickerRow *)[[self sectionAtIndex:1] rowAtIndex:0];
-		endRow.minimumDate = [date addTimeInterval:86400];
-	}
-	
-	float w = [[EWGoal sharedGoal] startWeight];
-	
-	self.startWeight = w;
-	
-	if (w > 0) {
-		[self computeEndDate];
-	}
-}
-
-
-@synthesize startWeight;
-
-
-- (NSDate *)endDate {
-	return EWDateFromMonthDay(endMonthDay);
-}
-
-
-- (void)setEndDate:(NSDate *)date {
-	[self willChangeValueForKey:@"endDate"];
-	endMonthDay = EWMonthDayFromDate(date);
-	[self didChangeValueForKey:@"endDate"];
-	[self computeWeightChangePerDay];
-}
-
-
-@synthesize goalWeight;
-
-
-- (void)setGoalWeight:(float)weight {
-	[self willChangeValueForKey:@"goalWeight"];
-	goalWeight = weight;
-	[[EWGoal sharedGoal] setEndWeight:weight];
-	[self didChangeValueForKey:@"goalWeight"];
-	[self computeEndDate];
-}
-
-
-@synthesize weightChangePerDay;
-
-
-- (void)setWeightChangePerDay:(float)weightChange {
-	[self willChangeValueForKey:@"weightChangePerDay"];
-	weightChangePerDay = weightChange;
-	[[EWGoal sharedGoal] setWeightChangePerDay:weightChange];
-	[self didChangeValueForKey:@"weightChangePerDay"];
-	[self computeEndDate];
 }
 
 
@@ -280,20 +202,32 @@
 - (void)viewWillAppear:(BOOL)animated {
 	Database *db = [Database sharedDatabase];
 	
+	// not enough data: 1 section (message)
+	// no goal set: 2 sections (start and goal)
+	// goal set: 3 sections (start, goal, plan)
+	
 	if ([db weightCount] == 0) {
-		if ([self numberOfSections] > 1) {
+		if ([self numberOfSections] != 1) {
 			[self removeAllSections];
 			[self initWarningSection];
 			[self.tableView reloadData];
 		}
 	} else {
-		if ([self numberOfSections] < 3) {
-			[self removeAllSections];
-			[self initStartSection];
-			[self initGoalSection];
-			[self initPlanSection];
-			[self loadGoal];
-			[self.tableView reloadData];
+		if ([[EWGoal sharedGoal] isDefined]) {
+			if ([self numberOfSections] != 3) {
+				[self removeAllSections];
+				[self initStartSection];
+				[self initGoalSection];
+				[self initPlanSection];
+				[self.tableView reloadData];
+			}
+		} else {
+			if ([self numberOfSections] != 2) {
+				[self removeAllSections];
+				[self initStartSection];
+				[self initNoGoalSection];
+				[self.tableView reloadData];
+			}
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];
@@ -310,17 +244,6 @@
 		[cell setSelected:NO animated:animated];
 	}
 	[self.tableView endUpdates];
-}
-
-
-- (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
-	controller.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:controller animated:YES];
-}
-
-
-- (void)dismissViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
-	[self.navigationController popViewControllerAnimated:YES];
 }
 
 

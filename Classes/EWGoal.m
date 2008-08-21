@@ -9,14 +9,12 @@
 #import "EWGoal.h"
 #import "Database.h"
 #import "MonthData.h"
+#import "WeightFormatters.h"
 
 
 static NSString *kGoalStartDateKey = @"GoalStartDate";
 static NSString *kGoalWeightKey = @"GoalWeight";
 static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
-
-
-static EWGoal *sharedInstance = nil;
 
 
 @implementation EWGoal
@@ -27,8 +25,6 @@ static EWGoal *sharedInstance = nil;
 	[defs removeObjectForKey:kGoalStartDateKey];
 	[defs removeObjectForKey:kGoalWeightKey];
 	[defs removeObjectForKey:kGoalWeightChangePerDayKey];
-	[sharedInstance release];
-	sharedInstance = nil;
 }
 
 
@@ -44,17 +40,36 @@ static EWGoal *sharedInstance = nil;
 
 
 - (BOOL)isDefined {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:kGoalStartDateKey] != nil;
+	return [[NSUserDefaults standardUserDefaults] objectForKey:kGoalWeightKey] != nil;
 }
 
 
 - (NSDate *)startDate {
-	return [NSDate dateWithTimeIntervalSinceReferenceDate:[[NSUserDefaults standardUserDefaults] doubleForKey:kGoalStartDateKey]];
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	NSNumber *number = [defs objectForKey:kGoalStartDateKey];
+	if (number) {
+		return [NSDate dateWithTimeIntervalSinceReferenceDate:[number doubleValue]];
+	} else {
+		NSDate *date = [NSDate date];
+		self.startDate = date;
+		return date;
+	}
 }
 
 
 - (void)setStartDate:(NSDate *)date {
+	[self willChangeValueForKey:@"startDate"];
+	[self willChangeValueForKey:@"startWeight"];
+	[self willChangeValueForKey:@"endDate"];
 	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:kGoalStartDateKey];
+	[self didChangeValueForKey:@"startDate"];
+	[self didChangeValueForKey:@"startWeight"];
+	[self didChangeValueForKey:@"endDate"];
+}
+
+
+- (EWMonthDay)startMonthDay {
+	return EWMonthDayFromDate(self.startDate);
 }
 
 
@@ -64,22 +79,44 @@ static EWGoal *sharedInstance = nil;
 
 
 - (void)setEndWeight:(float)weight {
+	[self willChangeValueForKey:@"endWeight"];
+	[self willChangeValueForKey:@"endDate"];
 	[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
+	// make sure sign matches
+	float weightChange = weight - self.startWeight;
+	float delta = self.weightChangePerDay;
+	if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
+		self.weightChangePerDay = -delta;
+	}
+	[self didChangeValueForKey:@"endWeight"];
+	[self didChangeValueForKey:@"endDate"];
 }
 
 
 - (float)weightChangePerDay {
-	return [[NSUserDefaults standardUserDefaults] floatForKey:kGoalWeightChangePerDayKey];
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	NSNumber *number = [defs objectForKey:kGoalWeightChangePerDayKey];
+	if (number) {
+		return [number floatValue];
+	} else {
+		float delta = [WeightFormatters defaultWeightChange];
+		self.weightChangePerDay = delta;
+		return delta;
+	}
 }
 
 
 - (void)setWeightChangePerDay:(float)delta {
+	[self willChangeValueForKey:@"weightChangePerDay"];
+	[self willChangeValueForKey:@"endDate"];
+	// make sure sign matches
+	float weightChange = self.endWeight - self.startWeight;
+	if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
+		delta = -delta;
+	}
 	[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
-}
-
-
-- (EWMonthDay)startMonthDay {
-	return EWMonthDayFromDate(self.startDate);
+	[self didChangeValueForKey:@"weightChangePerDay"];
+	[self didChangeValueForKey:@"endDate"];
 }
 
 
@@ -96,9 +133,15 @@ static EWGoal *sharedInstance = nil;
 
 - (NSDate *)endDate {
 	float weightChange = (self.endWeight - self.startWeight);
-		
 	NSTimeInterval seconds = weightChange / self.weightChangePerDay * 86400;
 	return [self.startDate addTimeInterval:seconds];
+}
+
+
+- (void)setEndDate:(NSDate *)date {
+	float weightChange = self.endWeight - self.startWeight;
+	NSTimeInterval timeChange = [date timeIntervalSinceDate:self.startDate];
+	self.weightChangePerDay = (weightChange / (timeChange / 86400));
 }
 
 

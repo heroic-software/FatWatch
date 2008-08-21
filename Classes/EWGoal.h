@@ -13,15 +13,18 @@
 @interface EWGoal : NSObject {
 
 }
+
 + (void)deleteGoal;
 + (EWGoal *)sharedGoal;
+
 @property (nonatomic,retain) NSDate *startDate;
+@property (nonatomic,readonly) EWMonthDay startMonthDay;
+@property (nonatomic,readonly,getter=isDefined) BOOL defined;
+@property (nonatomic,readonly) float startWeight;
+
+@property (nonatomic,retain) NSDate *endDate;
 @property (nonatomic) float endWeight;
+
 @property (nonatomic) float weightChangePerDay;
 
-@property (nonatomic,readonly,getter=isDefined) BOOL defined;
-
-@property (nonatomic,readonly) EWMonthDay startMonthDay;
-@property (nonatomic,readonly) float startWeight;
-@property (nonatomic,readonly) NSDate *endDate;
 @end

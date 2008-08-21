@@ -12,16 +12,5 @@
 
 
 @interface GoalViewController : BRTableViewController {
-	EWMonthDay startMonthDay;
-	float startWeight;
-	EWMonthDay endMonthDay;
-	float goalWeight;
-	float weightChangePerDay;
-	BOOL isComputing;
 }
-@property (nonatomic,retain) NSDate *startDate;
-@property (nonatomic) float startWeight;
-@property (nonatomic,retain) NSDate *endDate;
-@property (nonatomic) float goalWeight;
-@property (nonatomic) float weightChangePerDay;
 @end
