@@ -18,4 +18,5 @@
 @property (nonatomic,retain) NSString *key;
 @property (nonatomic,retain) NSFormatter *formatter;
 @property (nonatomic) BOOL disabled;
+@property (nonatomic,retain) id value;
 @end

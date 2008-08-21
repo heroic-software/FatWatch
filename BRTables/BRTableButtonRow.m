@@ -11,7 +11,7 @@
 
 @implementation BRTableButtonRow
 
-@synthesize target, action, disabled;
+@synthesize target, action, disabled, image;
 
 
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction {
@@ -30,16 +30,17 @@
 
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
-	cell.textColor = disabled ? [UIColor grayColor] : titleColor;
+	cell.textColor = self.disabled ? [UIColor grayColor] : self.titleColor;
+	cell.image = self.image;
 }
 
 
 - (void)didSelect {
 	if (! disabled) {
-		if ((target == nil) && [object isKindOfClass:[NSURL class]]) {
-			[[UIApplication sharedApplication] openURL:object];
+		if ((self.target == nil) && [self.object isKindOfClass:[NSURL class]]) {
+			[[UIApplication sharedApplication] openURL:self.object];
 		} else {
-			[target performSelector:action withObject:self];
+			[self.target performSelector:self.action withObject:self];
 		}
 	}
 	[[self cell] setSelected:NO];

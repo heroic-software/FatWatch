@@ -123,7 +123,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
-	datePicker.date = [row.object valueForKey:row.key];
+	datePicker.date = row.value;
 	datePicker.minimumDate = row.minimumDate;
 	datePicker.maximumDate = row.maximumDate;
 }
@@ -131,7 +131,7 @@
 
 - (void)okAction:(id)sender {
 	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
-	[row.object setValue:datePicker.date forKey:row.key];
+	row.value = datePicker.date;
 	[row.section.controller dismissViewController:self forRow:row];
 }
 

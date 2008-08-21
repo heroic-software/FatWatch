@@ -21,7 +21,7 @@
 @implementation BRTableNumberPickerRow
 
 
-@synthesize minimumValue, maximumValue, increment;
+@synthesize minimumValue, maximumValue, increment, defaultValue;
 
 
 - (id)init {
@@ -111,8 +111,14 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	float value = [[row.object valueForKey:row.key] floatValue];
-	[[self pickerView] selectRow:[self pickerRowForValue:value] inComponent:0 animated:NO];
+	float f;
+	id value = row.value;
+	if (value) {
+		f = [value floatValue];
+	} else {
+		f = [row.defaultValue floatValue];
+	}
+	[[self pickerView] selectRow:[self pickerRowForValue:f] inComponent:0 animated:NO];
 }
 
 
@@ -121,8 +127,7 @@
 
 - (void)okAction:(id)sender {
 	NSInteger pickerRow = [[self pickerView] selectedRowInComponent:0];
-	NSNumber *number = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
-	[row.object setValue:number forKey:row.key];
+	row.value = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
 	[row.section.controller dismissViewController:self forRow:row];
 }
 

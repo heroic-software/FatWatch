@@ -52,6 +52,16 @@
 }
 
 
+- (id)value {
+	return [self.object valueForKey:self.key];
+}
+
+
+- (void)setValue:(id)newValue {
+	[self.object setValue:newValue forKey:self.key];
+}
+
+
 - (NSString *)stringForValue:(id)value {
 	if (self.formatter) {
 		return [self.formatter stringForObjectValue:value];
@@ -62,7 +72,7 @@
 
 
 - (void)configureCell:(UITableViewCell *)cell {
-	id value = [self.object valueForKey:self.key];
+	id value = self.value;
 	if (value) {
 		cell.text = [self stringForValue:value];
 		cell.textColor = titleColor;

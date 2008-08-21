@@ -38,8 +38,7 @@
 
 
 - (void)toggleSwitch:(UISwitch *)sender {
-	id value = [NSNumber numberWithBool:sender.on];
-	[self.object setValue:value forKey:self.key];
+	[self.object setValue:[NSNumber numberWithBool:sender.on] forKey:self.key];
 }
 
 
