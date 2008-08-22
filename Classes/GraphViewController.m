@@ -12,10 +12,12 @@
 #import "Database.h"
 #import "YAxisView.h"
 #import "EWGoal.h"
+#import "WeightFormatters.h"
+
 
 enum {
 	kScrollViewTag = 100,
-	kScaleViewTag,
+	kYAxisViewTag,
 };
 
 
@@ -73,7 +75,21 @@ const CGFloat kDayWidth = 7.0f;
 	parameters.maxWeight = MAX([db maximumWeight], goalWeight) + 10.0f;
 	parameters.scaleX = kDayWidth;
 	parameters.scaleY = kGraphHeight / (parameters.maxWeight - parameters.minWeight);
-
+	
+	float baseIncrement = [WeightFormatters chartWeightIncrement];
+	float gridIncrement = baseIncrement;
+	while (parameters.scaleY * gridIncrement < [UIFont systemFontSize]) {
+		gridIncrement += baseIncrement;
+	}
+	parameters.gridIncrementWeight = gridIncrement;
+	parameters.gridMinWeight = roundf(parameters.minWeight / gridIncrement) * gridIncrement;
+	parameters.gridMaxWeight = roundf(parameters.maxWeight / gridIncrement) * gridIncrement;
+	
+	CGAffineTransform t = CGAffineTransformMakeTranslation(0, kGraphHeight);
+	t = CGAffineTransformScale(t, parameters.scaleX, -parameters.scaleY);
+	t = CGAffineTransformTranslate(t, -0.5, -parameters.minWeight);
+	parameters.t = t;
+	
 	infoCount = db.latestMonth - db.earliestMonth + 1;
 	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
 	info = malloc(infoCount * sizeof(struct GraphViewInfo));
@@ -108,7 +124,9 @@ const CGFloat kDayWidth = 7.0f;
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
-	YAxisView *axisView = [[YAxisView alloc] initWithFrame:CGRectMake(0, 0, 40, 300)];
+	YAxisView *axisView = [[YAxisView alloc] initWithParameters:&parameters];
+	axisView.tag = kYAxisViewTag;
+	axisView.frame = CGRectMake(0, 0, 40, 300);
 	axisView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 	[view addSubview:axisView];
 	[axisView release];
@@ -131,6 +149,7 @@ const CGFloat kDayWidth = 7.0f;
 	[self view]; // make sure view is loaded
 	[self clearGraphViewInfo];
 	[self prepareGraphViewInfo];
+	[[self.dataView viewWithTag:kYAxisViewTag] setNeedsDisplay];
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	if (firstLoad) {
 		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);

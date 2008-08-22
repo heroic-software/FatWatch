@@ -15,6 +15,10 @@ typedef struct {
 	float maxWeight;
 	float scaleX;
 	float scaleY;
+	float gridMinWeight;
+	float gridMaxWeight;
+	float gridIncrementWeight;
+	CGAffineTransform t;
 } GraphViewParameters;
 
 

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GraphView.h"
 
 
 @interface YAxisView : UIView {
-
+	GraphViewParameters *p;
 }
 
 @end

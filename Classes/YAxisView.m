@@ -14,77 +14,50 @@
 @implementation YAxisView
 
 
-- (id)initWithFrame:(CGRect)frame {
-	if (self = [super initWithFrame:frame]) {
-		// Initialization code
-	}
-	return self;
+- (id)initWithParameters:(GraphViewParameters *)parameters {
+    if (self = [super initWithFrame:CGRectZero]) {
+        p = parameters;
+		self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
 }
 
 
 - (void)drawRect:(CGRect)rect {
-	CGRect bounds = self.bounds;
-	
-	Database *database = [Database sharedDatabase];
-	const float minWeight = [database minimumWeight] - 10.0f;
-	const float maxWeight = [database maximumWeight] + 10.0f;
-	const float scaleY = (CGRectGetHeight(bounds) / (maxWeight - minWeight));
-	
+	const CGRect bounds = self.bounds;
+	const CGFloat viewWidth = CGRectGetWidth(bounds);
+	const CGFloat tickWidth = 9;
+		
+	// vertical line at the right side
+	CGMutablePathRef tickPath = CGPathCreateMutable();
+	CGFloat barX = viewWidth - (tickWidth / 2);
+	CGPathMoveToPoint(tickPath, NULL, barX, CGRectGetMinY(bounds));
+	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
+
+	// draw labels
 	NSFormatter *formatter = [WeightFormatters chartWeightFormatter];
-	
-	float baseIncrement = [WeightFormatters chartWeightIncrement];
-
-	// need initial increment = 1, then secondary increment = 5
-	float weightIncrement = baseIncrement;
-
-	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-
-	CGFloat labelHeight = labelFont.pointSize;
-	while (scaleY * weightIncrement < labelHeight) {
-		weightIncrement += baseIncrement;
-	}
-	
-	const float startWeight = roundf(minWeight / weightIncrement) * weightIncrement;
-	const float endWeight = roundf(maxWeight / weightIncrement) * weightIncrement;
-	
-	CGContextRef ctxt = UIGraphicsGetCurrentContext();
-
-	// draw white background
-	CGContextSetGrayFillColor(ctxt, 1.0, 1.0);
-	CGContextFillRect(ctxt, bounds);
-	
-	// gray vertical line at the right size
-	CGContextMoveToPoint(ctxt, CGRectGetMaxX(bounds)-0.5, CGRectGetMinY(bounds));
-	CGContextAddLineToPoint(ctxt, CGRectGetMaxX(bounds)-0.5, CGRectGetMaxY(bounds));
-	CGContextSetGrayStrokeColor(ctxt, 0.7, 1.0);
-	CGContextSetLineWidth(ctxt, 1.0);
-	CGContextStrokePath(ctxt);
-	
-	CGContextSetGrayFillColor(ctxt, 0.0, 1.0);
-	CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
-	CGContextSetLineWidth(ctxt, 1);
+	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
+	[[UIColor blackColor] setFill];
 	float w;
-	CGFloat x = CGRectGetWidth(bounds) / 2;
-	for (w = startWeight; w < endWeight; w += weightIncrement) {
-		CGFloat y = scaleY * (maxWeight - w);
+	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += p->gridIncrementWeight) {
+		// draw tick label
 		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
 		CGSize labelSize = [label sizeWithFont:labelFont];
-		
-		CGPoint labelPoint = CGPointMake(x - (labelSize.width / 2), y - (labelSize.height / 2));
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+		CGPoint labelPoint = CGPointMake(viewWidth - labelSize.width - tickWidth, 
+										 point.y - (labelSize.height / 2));
 		[label drawAtPoint:labelPoint withFont:labelFont];
-		
-		CGContextMoveToPoint(ctxt, x + (labelSize.width / 2), y);
-		CGContextAddLineToPoint(ctxt, CGRectGetWidth(bounds), y);
-		CGContextStrokePath(ctxt);
+		// add tick line to path
+		CGPathMoveToPoint(tickPath, NULL, viewWidth - tickWidth, point.y);
+		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
-	// draw minor tick marks
+	CGContextRef ctxt = UIGraphicsGetCurrentContext();
+	CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
+	CGContextSetLineWidth(ctxt, 1);
+	CGContextAddPath(ctxt, tickPath);
+	CGContextStrokePath(ctxt);
+	CFRelease(tickPath);
 }
-
-
-- (void)dealloc {
-	[super dealloc];
-}
-
 
 @end
