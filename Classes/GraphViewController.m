@@ -71,19 +71,23 @@ const CGFloat kDayWidth = 7.0f;
 	Database *db = [Database sharedDatabase];
 	
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
-	parameters.minWeight = MIN([db minimumWeight], goalWeight) - 10.0f;
-	parameters.maxWeight = MAX([db maximumWeight], goalWeight) + 10.0f;
+	if (goalWeight > 0) {
+		parameters.minWeight = MIN([db minimumWeight], goalWeight) - 10.0f;
+		parameters.maxWeight = MAX([db maximumWeight], goalWeight) + 10.0f;
+	} else {
+		parameters.minWeight = [db minimumWeight] - 10.0f;
+		parameters.maxWeight = [db maximumWeight] + 10.0f;
+	}
 	parameters.scaleX = kDayWidth;
 	parameters.scaleY = kGraphHeight / (parameters.maxWeight - parameters.minWeight);
 	
-	float baseIncrement = [WeightFormatters chartWeightIncrement];
-	float gridIncrement = baseIncrement;
-	while (parameters.scaleY * gridIncrement < [UIFont systemFontSize]) {
-		gridIncrement += baseIncrement;
+	float increment = [WeightFormatters chartWeightIncrement];
+	while (parameters.scaleY * increment < [UIFont systemFontSize]) {
+		increment = [WeightFormatters chartWeightIncrementAfter:increment];
 	}
-	parameters.gridIncrementWeight = gridIncrement;
-	parameters.gridMinWeight = roundf(parameters.minWeight / gridIncrement) * gridIncrement;
-	parameters.gridMaxWeight = roundf(parameters.maxWeight / gridIncrement) * gridIncrement;
+	parameters.gridIncrementWeight = increment;
+	parameters.gridMinWeight = roundf(parameters.minWeight / increment) * increment;
+	parameters.gridMaxWeight = roundf(parameters.maxWeight / increment) * increment;
 	
 	CGAffineTransform t = CGAffineTransformMakeTranslation(0, kGraphHeight);
 	t = CGAffineTransformScale(t, parameters.scaleX, -parameters.scaleY);

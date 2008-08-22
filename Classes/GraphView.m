@@ -138,7 +138,7 @@
 - (CGPathRef)createMarksPathFromScalePoints:(CGPoint *)scalePoints trendPoints:(CGPoint *)trendPoints flags:(BOOL *)flags count:(NSUInteger)pointCount usingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
-	const CGFloat markRadius = 0.4 * p->scaleX;
+	const CGFloat markRadius = 0.45 * p->scaleX;
 	
 	NSInteger k;
 	for (k = 0; k < pointCount; k++) {
@@ -157,6 +157,13 @@
 				CGPathAddLineToPoint(path, NULL, scalePoint.x, y);
 			}
 
+			/*/
+			CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
+			CGPathCloseSubpath(path);
+			 /*/
 			CGRect markRect = CGRectMake(scalePoint.x - markRadius, scalePoint.y - markRadius, 2*markRadius, 2*markRadius);
 			CGPathAddEllipseInRect(path, NULL, markRect);
 		}
@@ -227,6 +234,11 @@
 	NSUInteger pointCount = [self computeScalePoints:scalePoints trendPoints:trendPoints flags:flags];
 	
 	if (pointCount > 0) {
+		CGContextSaveGState(ctxt);
+		
+		CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
+		CGContextSetShadow(ctxt, CGSizeMake(2, -1), 1.5);
+
 		// trend line
 
 		CGPathRef trendPath = [self createTrendPathFromPoints:trendPoints count:pointCount];
@@ -253,6 +265,7 @@
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
 		CFRelease(flaggedMarksPath);
 		
+		CGContextRestoreGState(ctxt);
 	}
 	
 	// goal line: sloped part
@@ -260,7 +273,7 @@
 	
 	CGPathRef goalPath = [self createGoalPath];
 	if (goalPath) {
-		static const CGFloat kDashLengths[] = { 3, 3 };
+		static const CGFloat kDashLengths[] = { 4, 2 };
 		static const int kDashLengthsCount = 2;
 
 		CGContextSetLineWidth(ctxt, 3);

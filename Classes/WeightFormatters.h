@@ -41,5 +41,6 @@
 
 + (NSNumberFormatter *)chartWeightFormatter;
 + (float)chartWeightIncrement;
++ (float)chartWeightIncrementAfter:(float)previousIncrement;
 
 @end

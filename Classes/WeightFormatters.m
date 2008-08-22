@@ -36,6 +36,9 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 @end
 
+@interface StoneChartFormatter : NSFormatter {
+}
+@end
 
 @implementation WeightFormatters
 
@@ -251,10 +254,11 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 + (NSNumberFormatter *)chartWeightFormatter {
 	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
-	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	if (unit == kWeightUnitStones) {
-		[formatter setMultiplier:[NSNumber numberWithFloat:(1.0 / 14.0)]];
-	} else if (unit == kWeightUnitKilograms) {
+		return [[[StoneChartFormatter alloc] init] autorelease];
+	} 
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	if (unit == kWeightUnitKilograms) {
 		[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
 	}
 	return [formatter autorelease];
@@ -263,12 +267,31 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 + (float)chartWeightIncrement {
 	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
-	if (unit == kWeightUnitStones) {
-		return 14;
-	} else if (unit == kWeightUnitKilograms) {
-		return 5 / kKilogramsPerPound;
+	if (unit == kWeightUnitKilograms) {
+		return 1 / kKilogramsPerPound;
 	} else {
+		return 1;
+	}
+}
+
+
++ (float)chartWeightIncrementAfter:(float)previousIncrement {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitKilograms) {
+		return previousIncrement + (1 / kKilogramsPerPound);
+	}
+	if (unit == kWeightUnitStones) {
+		if (previousIncrement == 1) {
+			return 7;
+		} else {
+			return previousIncrement + 7;
+		}
+	}
+	// kWeightUnitPounds
+	if (previousIncrement == 1) {
 		return 5;
+	} else {
+		return previousIncrement + 5;
 	}
 }
 
@@ -304,3 +327,18 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 }
 
 @end
+
+
+@implementation StoneChartFormatter
+
+- (NSString *)stringForObjectValue:(id)anObject {
+	int weightLbs = [anObject intValue];
+	if (weightLbs % 14 == 0) {
+		return [NSString stringWithFormat:@"%d", (weightLbs / 14)];
+	} else {
+		return @"";
+	}
+}
+
+@end
+

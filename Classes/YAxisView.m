@@ -26,11 +26,12 @@
 - (void)drawRect:(CGRect)rect {
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
-	const CGFloat tickWidth = 9;
+	const CGFloat tickWidth = 6.5;
+	const CGFloat minorTickWidth = 3.5;
 		
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
-	CGFloat barX = viewWidth - (tickWidth / 2);
+	CGFloat barX = viewWidth - 0.5;
 	CGPathMoveToPoint(tickPath, NULL, barX, CGRectGetMinY(bounds));
 	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
 
@@ -49,6 +50,13 @@
 		[label drawAtPoint:labelPoint withFont:labelFont];
 		// add tick line to path
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - tickWidth, point.y);
+		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
+	}
+	
+	// minor ticks
+	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += [WeightFormatters chartWeightIncrement]) {
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+		CGPathMoveToPoint(tickPath, NULL, viewWidth - minorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
