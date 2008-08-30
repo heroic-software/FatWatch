@@ -55,19 +55,21 @@
 			<string>SCALE_INCREMENT</string>
 			<key>Titles</key>
 			<array>
-				<string>0.1</string>
-				<string>0.2</string>
-				<string>0.5</string>
 				<string>1.0</string>
+				<string>0.5</string>
+				<string>0.2</string>
+				<string>0.1</string>
+				<string>0.05</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<real>0.1</real>
-				<real>0.2</real>
-				<real>0.5</real>
 				<real>1</real>
+				<real>0.5</real>
+				<real>0.2</real>
+				<real>0.1</real>
+				<real>0.05</real>
 			</array>
 		</dict>
 		<dict>

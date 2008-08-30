@@ -31,8 +31,12 @@ static NSString *kEnergyUnitKey = @"EnergyUnit";
 static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 
+static const float kDefaultScaleIncrements[] = { 0.1, 0.5, 1.0 };
+static const NSUInteger kDefaultScaleIncrementsCount = 3;
+
 @interface StoneWeightFormatter : NSFormatter {
 	NSString *formatString;
+	NSNumberFormatter *poundsFormatter;
 }
 @end
 
@@ -74,12 +78,25 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 
 + (NSArray *)scaleIncrementNames {
-	return [NSArray arrayWithObjects:@"0.1", @"0.5", @"1.0", nil];
+	NSString *incrementNames[kDefaultScaleIncrementsCount];
+	int i;
+	
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMinimumFractionDigits:1];
+	for (i = 0; i < kDefaultScaleIncrementsCount; i++) {
+		NSNumber *n = [NSNumber numberWithFloat:kDefaultScaleIncrements[i]];
+		incrementNames[i] = [formatter stringFromNumber:n];
+	}
+	[formatter release];
+	
+	return [NSArray arrayWithObjects:incrementNames count:kDefaultScaleIncrementsCount];
 }
 
 
 + (void)selectScaleIncrementAtIndex:(NSUInteger)index {
-	float increment = [[[self scaleIncrementNames] objectAtIndex:index] floatValue];
+	NSAssert(index >= 0 && index < kDefaultScaleIncrementsCount, @"index out of range");
+	float increment = kDefaultScaleIncrements[index];
 	[[NSUserDefaults standardUserDefaults] setFloat:increment forKey:kScaleIncrementKey];
 }
 
@@ -87,8 +104,9 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 #pragma mark Retrieving Defaults
 
 
-+ (float)rawScaleIncrement {
-	return [[NSUserDefaults standardUserDefaults] floatForKey:kScaleIncrementKey];
++ (NSUInteger)minimumFractionDigits {
+	float inc = [[NSUserDefaults standardUserDefaults] floatForKey:kScaleIncrementKey];
+	return ceilf(-log10f(inc));
 }
 
 
@@ -129,7 +147,9 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 			formatter = [[StoneWeightFormatter alloc] init];
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-			[nf setMinimumFractionDigits:([WeightFormatters rawScaleIncrement] < 1.0) ? 1 : 0];
+			
+			[nf setMinimumFractionDigits:[self minimumFractionDigits]];
+			
 			if (unit == kWeightUnitPounds) {
 				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
 			} else {
@@ -303,27 +323,27 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 
 - (id)init {
 	if ([super init]) {
-		if ([WeightFormatters rawScaleIncrement] < 1.0) {
-			formatString = [NSLocalizedString(@"STONE_FORMAT_1", nil) retain];
-		} else {
-			formatString = [NSLocalizedString(@"STONE_FORMAT_0", nil) retain];
-		}
+		formatString = [NSLocalizedString(@"STONE_FORMAT", nil) retain];
+		poundsFormatter = [[NSNumberFormatter alloc] init];
+		[poundsFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+		[poundsFormatter setMinimumFractionDigits:[WeightFormatters minimumFractionDigits]];
 	}
 	return self;
+}
+
+
+- (void)dealloc {
+	[formatString release];
+	[poundsFormatter release];
+	[super dealloc];
 }
 
 
 - (NSString *)stringForObjectValue:(id)anObject {
 	float weightLbs = [anObject floatValue];
 	int stones = weightLbs / 14;
-	float pounds = weightLbs - (14.0f * stones);
-	return [NSString stringWithFormat:formatString, stones, pounds];
-}
-	
-
-- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error {
-	NSNumberFormatter *nf = [[[NSNumberFormatter alloc] init] autorelease];
-	return [nf getObjectValue:anObject forString:string errorDescription:error];
+	NSNumber *pounds = [NSNumber numberWithFloat:(weightLbs - (14.0f * stones))];
+	return [NSString stringWithFormat:formatString, stones, [poundsFormatter stringFromNumber:pounds]];
 }
 
 @end

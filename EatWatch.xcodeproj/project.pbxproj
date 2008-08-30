@@ -16,7 +16,6 @@
 		BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
-		BC179B350E5D62F20045C6BD /* ClearButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC179B340E5D62F20045C6BD /* ClearButtonNormal.png */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
@@ -128,7 +127,6 @@
 		BC0CE4160DDBE10F00AB8899 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
-		BC179B340E5D62F20045C6BD /* ClearButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ClearButtonNormal.png; path = Images/ClearButtonNormal.png; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -335,7 +333,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC179B340E5D62F20045C6BD /* ClearButtonNormal.png */,
 				BC51B7CD0E3A9E6700D3B4C1 /* Check.png */,
 				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
 				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
@@ -561,7 +558,6 @@
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,
 				BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */,
 				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
-				BC179B350E5D62F20045C6BD /* ClearButtonNormal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
