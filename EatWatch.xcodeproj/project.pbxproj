@@ -18,13 +18,13 @@
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC179B350E5D62F20045C6BD /* ClearButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC179B340E5D62F20045C6BD /* ClearButtonNormal.png */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
-		BC24A4980E2487830074FD4C /* Icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
+		BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
-		BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
+		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C370DB56B9D007D03F4 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
-		BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
+		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
@@ -85,25 +85,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BC263C330DB56AF9007D03F4 /* CopyFiles */ = {
+		BC263C330DB56AF9007D03F4 /* Copy Files into Settings */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Settings.bundle;
 			dstSubfolderSpec = 1;
 			files = (
-				BC24A4980E2487830074FD4C /* Icon.png in CopyFiles */,
-				BC263C2F0DB56AE9007D03F4 /* Root.plist in CopyFiles */,
+				BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */,
+				BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */,
 			);
+			name = "Copy Files into Settings";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC263C650DB57671007D03F4 /* CopyFiles */ = {
+		BC263C650DB57671007D03F4 /* Copy Files into Settings:en */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Settings.bundle/en.lproj;
 			dstSubfolderSpec = 1;
 			files = (
-				BC263C380DB56BA5007D03F4 /* Root.strings in CopyFiles */,
+				BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */,
 			);
+			name = "Copy Files into Settings:en";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -479,14 +481,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */;
 			buildPhases = (
-				BC9BDEAE0DA9D16A0004E70C /* ShellScript */,
+				BC78D9DB0E5142430094ECBD /* Run Script (Changelog) */,
+				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
-				BC3384F30DE7C89A001F1052 /* ShellScript */,
+				BC3384F30DE7C89A001F1052 /* Run Script (Tidy HTML) */,
+				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
+				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
+				BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				BC263C330DB56AF9007D03F4 /* CopyFiles */,
-				BC263C650DB57671007D03F4 /* CopyFiles */,
-				BC78D9DB0E5142430094ECBD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -573,13 +576,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BC3384F30DE7C89A001F1052 /* ShellScript */ = {
+		BC3384F30DE7C89A001F1052 /* Run Script (Tidy HTML) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script (Tidy HTML)";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,13 +607,14 @@
 			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
-		BC78D9DB0E5142430094ECBD /* ShellScript */ = {
+		BC78D9DB0E5142430094ECBD /* Run Script (Changelog) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script (Changelog)";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME)-Changes.txt",
 			);
@@ -618,7 +623,7 @@
 			shellScript = "echo Generating Changelog\nSVN_BIN=/usr/local/bin/svn\n# SVN_START_REV=`svn info $SVN_URL/tags/release-1.1 | grep \"^Last Changed Rev: \" | cut -c 19-`\nSVN_START_REV=150\n$SVN_BIN log -r ${SVN_START_REV}:HEAD > ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}-Changes.txt\n";
 			showEnvVarsInLog = 0;
 		};
-		BC9BDEAE0DA9D16A0004E70C /* ShellScript */ = {
+		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -626,6 +631,7 @@
 			inputPaths = (
 				"$(SRCROOT)/CreateEmptyDatabase.sql",
 			);
+			name = "Run Script (Create DB)";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/WeightData.db",
 			);
@@ -646,6 +652,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Images/Icon.png",
+			);
+			name = "Run Script (cp Icon._png)";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Icon._png",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${SRCROOT}/Images/Icon.png ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Icon._png\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

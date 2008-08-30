@@ -81,7 +81,7 @@
 
 
 - (void)sendPNGResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"_png"];
 	
 	if (path == nil) {
 		[self sendNotFoundErrorToConnection:connection];
@@ -89,7 +89,7 @@
 	}
 	
 	[connection setResponseStatus:HTTP_STATUS_OK];
-	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[connection setValue:@"image/png" forResponseHeader:@"Content-Type"];
 	[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
 }
 
