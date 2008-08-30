@@ -60,8 +60,7 @@
 			float weightPerDay = -[computer computeSlope];
 			[array addObject:[NSArray arrayWithObjects:
 							  [spanTitles objectAtIndex:spanIndex],
-							  [WeightFormatters weightStringForWeightPerDay:weightPerDay],
-							  [WeightFormatters energyStringForWeightPerDay:weightPerDay],
+							  [NSNumber numberWithFloat:weightPerDay],
 							  nil]];
 			newValueCount = 0;
 		}
@@ -151,8 +150,15 @@
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Foo"] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone; // don't show selection
 	}
-	
-	cell.text = [[array objectAtIndex:[indexPath section]] objectAtIndex:([indexPath row] + 1)];
+
+	NSNumber *weightPerDayNumber = [[array objectAtIndex:indexPath.section] objectAtIndex:1];
+	float weightPerDay = [weightPerDayNumber floatValue];
+	if (indexPath.row == 0) {
+		cell.text = [WeightFormatters weightStringForWeightPerDay:weightPerDay];
+	} else {
+		cell.text = [WeightFormatters energyStringForWeightPerDay:weightPerDay];
+	}
+
 	return cell;
 }
 
