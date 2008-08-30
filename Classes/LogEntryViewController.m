@@ -35,7 +35,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
 - (NSInteger)pickerRowForWeight:(float)weight {
-	return weight / scaleIncrement;
+	return roundf(weight / scaleIncrement);
 }
 
 

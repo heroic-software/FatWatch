@@ -101,7 +101,7 @@
 
 
 - (NSInteger)pickerRowForValue:(float)value {
-	return (value - row.minimumValue) / row.increment;
+	return roundf((value - row.minimumValue) / row.increment);
 }
 
 
