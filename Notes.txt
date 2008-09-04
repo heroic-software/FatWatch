@@ -1,38 +1,6 @@
-Correctness:
-- Update views after importing.
-- after import, log and graph view "earliest" dates need to be reset
+Release Process:
 
-Performance:
-- Switch to graph view is slow.
-
-Cosmetic:
-- Graph view: add scale along Y axis (weight)
-- Graph view: not enough data warning is off-center
-
-Enhancement:
-- Display progress bar when updating trend values.
-- Graph view: support zooming
-
-Usability:
-- If you quit the app on the weight entry view during Auto Weight In, save the data.
-
-Debug Settings:
-- OnLaunchRecomputeTrendValues: recompute trend values on startup.
-- OnLaunchVacuumDatabase
-
-Idea: Superimposed Diet Goal Line:
-- Needs a new view to enter diet goal information
-
-www.fatwatchapp.com
-
-FatWatch is diet agnostic: it believes that you may be following a diet, but either way it will do it's job just the same.
-
-Other Apps
-
-iCalorie $4.99
-http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=284957504&mt=8
-
-Weight Tracker FREE
-http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=284756469&mt=8
-
-
+1. Tag the release
+svn copy file:///Volumes/benzado/Documents/Repositories/EatWatch/trunk file:///Volumes/benzado/Documents/Repositories/EatWatch/tags/release-1.2
+2. Update changelog generation script
+3. Bump version number in Info.plist
