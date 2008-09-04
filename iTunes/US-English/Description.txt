@@ -1,19 +1,19 @@
 Application Description:
 
 
-FatWatch is more than just a body weight tracker.  Enter your weight every day, and FatWatch will use an exponentially smoothed moving average to compute a trend line, letting you know at a glance whether your weight is trending up or down, regardless of its day-to-day fluctuations.
+FatWatch is more than just a body weight tracker.  Weigh yourself every day, and FatWatch will compute an exponentially smoothed moving average, letting you know instantly whether your weight is trending up or down, regardless of its day-to-day fluctuations.
 
-FatWatch also estimates your daily calorie surplus or deficit (how much are you eating compared to how much you are burning), giving you useful information for adjusting your diet and exercise plans.  FatWatch computes this using your weight alone, without the hassle of searching a food database every time you eat something.
+FatWatch also estimates your daily calorie surplus or deficit (how much are you eating compared to how much you are burning), giving you useful information for adjusting your diet and exercise plans.  FatWatch estimates using your weight alone, without the hassle of searching a food database every time you eat something.
 
 Features:
 
 * Use pounds, kilograms, or stones for weight; calories or kilojoules for energy.
 
-* Supports scale increments of 1.0, 0.5, or 0.1.
+* Supports scale increments of 1.0, 0.5, 0.2, 0.1, or 0.05.
 
 * Passcode Protection keeps your weight history private.
 
-* Wi-Fi Import/Export allows you to import existing weight history into FatWatch, or export for use in another program.
+* Wi-Fi Import/Export allows you to import existing weight history into FatWatch, or export a CSV file for use in another program.
 
 * Use notes and checkmarks to annotate your weight history.
 
@@ -22,4 +22,28 @@ Features:
 
 What's New In This Version:
 
-Most importantly, the date-related issues have been fixed in this version.  This version also introduces Passcode Protection, a new tab for setting a Goal weight, and optional Weekend Highlighting (enabled in the iPhone Settings app).  This version also includes improvements to Wi-Fi Import/Export and Log scrolling performance.
+* Chart improvements, including Y-axis labels, a goal line, and faster loading.
+* Settings include new scale increments of 0.05 and 0.2.
+* Wi-Fi Import/Export now accepts dates in both ISO format and localized short format.
+* Fixed an issue where FatWatch would freeze when deleting the first weight entry if the second entry fell in a later month.
+* Fixed an issue where the weight on the log entry view would not match the weight in the log.
+* Fixed a visual glitch that would occur when selecting the Goal view.
+
+If you are enjoying FatWatch, please take a moment to write a review in the iTunes App Store!
+
+Testing Information:
+
+CSV files containing sample data can be found at http://www.fatwatchapp.com/testing/
+
+
+Release Notes:
+
+- Chart: added labels along the Y-axis
+- Chart: loads faster
+- Chart: added line to indicate Goal, if set
+- Goal: table rows no longer flash on first view
+- Wi-Fi Import/Export: import now accepts dates in both ISO format and local short format
+- Wi-Fi Import/Export: fixed display of icon on web page
+- Fixed an issue where FatWatch would freeze when deleting the first weight entry if the second entry fell in a later month.
+- Fixed an issue where the weight on the log entry view would not match the weight in the log.
+- Settings: added new scale increment options 0.05 and 0.2
