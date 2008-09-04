@@ -23,7 +23,6 @@
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
-		BC263E830DB6665E007D03F4 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
 		BC33840C0DE787D6001F1052 /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
@@ -57,6 +56,8 @@
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
+		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
+		BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
 		BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */; };
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
@@ -175,6 +176,8 @@
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
+		BC82AE980E6FC77200E2A693 /* GraphDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphDrawingOperation.h; path = Classes/GraphDrawingOperation.h; sourceTree = "<group>"; };
+		BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphDrawingOperation.m; path = Classes/GraphDrawingOperation.m; sourceTree = "<group>"; };
 		BC871F190DC7BE5A009312BA /* MicroWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MicroWebServer.h; path = Classes/MicroWebServer.h; sourceTree = "<group>"; };
 		BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MicroWebServer.m; path = Classes/MicroWebServer.m; sourceTree = "<group>"; };
 		BC8B86070DDF920100045F01 /* CSVWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVWriter.h; path = Classes/CSVWriter.h; sourceTree = "<group>"; };
@@ -303,7 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
-				BCABE0470DD9372000DE580A /* Views */,
+				BCABE0470DD9372000DE580A /* Log */,
+				BC82AEA70E6FC7F900E2A693 /* Graph */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -411,17 +415,30 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		BCABE0470DD9372000DE580A /* Views */ = {
+		BC82AEA70E6FC7F900E2A693 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
-				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
-				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
+				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
+				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
 				BC263E810DB6665E007D03F4 /* GraphView.h */,
 				BC263E820DB6665E007D03F4 /* GraphView.m */,
+				BC82AE980E6FC77200E2A693 /* GraphDrawingOperation.h */,
+				BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */,
 				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
 				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
 			);
-			name = Views;
+			name = Graph;
+			sourceTree = "<group>";
+		};
+		BCABE0470DD9372000DE580A /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
+				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
+				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
+				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
+			);
+			name = Log;
 			sourceTree = "<group>";
 		};
 		BCABE0480DD9373B00DE580A /* View Controllers */ = {
@@ -429,16 +446,12 @@
 			children = (
 				BCABE03F0DD932A100DE580A /* RootViewController.h */,
 				BCABE0400DD932A100DE580A /* RootViewController.m */,
-				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
-				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
-				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
-				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
+				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
+				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
 				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
 				BC51B9A00E3B023E00D3B4C1 /* GoalViewController.h */,
 				BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */,
-				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
-				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
 				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
@@ -616,7 +629,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Generating Changelog\nSVN_BIN=/usr/local/bin/svn\n# SVN_START_REV=`svn info $SVN_URL/tags/release-1.1 | grep \"^Last Changed Rev: \" | cut -c 19-`\nSVN_START_REV=150\n$SVN_BIN log -r ${SVN_START_REV}:HEAD > ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}-Changes.txt\n";
+			shellScript = "echo Generating Changelog\nSVN_BIN=/usr/local/bin/svn\nSVN_START_REV=186\n$SVN_BIN log -r ${SVN_START_REV}:HEAD > ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}-Changes.txt\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {
@@ -684,7 +697,6 @@
 				BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */,
 				BC9BDEE20DA9D8610004E70C /* Database.m in Sources */,
 				BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */,
-				BC263E830DB6665E007D03F4 /* GraphView.m in Sources */,
 				BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */,
 				BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */,
 				BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */,
@@ -710,6 +722,8 @@
 				BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */,
 				BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */,
 				BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */,
+				BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */,
+				BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

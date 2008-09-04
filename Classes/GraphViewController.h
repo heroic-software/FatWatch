@@ -11,6 +11,7 @@
 #import "DataViewController.h"
 #import "EWDate.h"
 #import "GraphView.h"
+#import "GraphDrawingOperation.h"
 
 
 @interface GraphViewController : DataViewController <UIScrollViewDelegate> {
@@ -20,11 +21,14 @@
 		CGFloat offsetX;
 		CGFloat width;
 		GraphView *view;
+		UIImage *image;
+		BOOL drawing;
 	} *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
 	int lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
+	NSOperationQueue *queue;
 }
 - (void)clearGraphViewInfo;
 @end

@@ -10,22 +10,10 @@
 #import "EWDate.h"
 
 
-typedef struct {
-	float minWeight;
-	float maxWeight;
-	float scaleX;
-	float scaleY;
-	float gridMinWeight;
-	float gridMaxWeight;
-	float gridIncrementWeight;
-	CGAffineTransform t;
-} GraphViewParameters;
 
 
 @interface GraphView : UIView {
-	GraphViewParameters *p;
-	EWMonth month;
+	UIImage *image;
 }
-- (id)initWithParameters:(GraphViewParameters *)parameters;
-- (void)setMonth:(EWMonth)m;
+@property (nonatomic,retain) UIImage *image;
 @end

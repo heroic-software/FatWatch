@@ -7,6 +7,7 @@
 //
 
 #import "GraphViewController.h"
+#import "GraphDrawingOperation.h"
 #import "GraphView.h"
 #import "EWDate.h"
 #import "Database.h"
@@ -32,6 +33,7 @@ const CGFloat kDayWidth = 7.0f;
 	if (self = [super init]) {
 		firstLoad = YES;
 		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
+		queue = [[NSOperationQueue alloc] init];
 		self.title = NSLocalizedString(@"GRAPH_VIEW_TITLE", nil);
 	}
 	return self;
@@ -39,6 +41,7 @@ const CGFloat kDayWidth = 7.0f;
 
 
 - (void)dealloc {
+	[queue release];
 	[cachedGraphViews release];
 	[self clearGraphViewInfo];
 	[super dealloc];
@@ -60,6 +63,10 @@ const CGFloat kDayWidth = 7.0f;
 		if (view) {
 			[view removeFromSuperview];
 			[view release];
+		}
+		UIImage *image = info[i].image;
+		if (image) {
+			[image release];
 		}
 	}
 	free(info);
@@ -109,6 +116,8 @@ const CGFloat kDayWidth = 7.0f;
 		info[i].offsetX = x;
 		info[i].width = w; 
 		info[i].view = nil;
+		info[i].image = nil;
+		info[i].drawing = NO;
 		
 		m += 1;
 		x += w;
@@ -159,14 +168,26 @@ const CGFloat kDayWidth = 7.0f;
 		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
 		[scrollView scrollRectToVisible:rect animated:NO];
 		firstLoad = NO;
-	} else {
-		[self scrollViewDidScroll:scrollView];
-	}
+	} 
+	[self scrollViewDidScroll:scrollView];
 }
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	int index;
+	for (index = 0; index < infoCount; index++) {
+		struct GraphViewInfo *ginfo = &info[index];
+		if (ginfo->view == nil && ginfo->image != nil) {
+			[ginfo->image release];
+			ginfo->image = nil;
+		}
+	}
 }
 
 
@@ -211,6 +232,37 @@ const CGFloat kDayWidth = 7.0f;
 }
 
 
+- (void)updateViewAtIndex:(int)index {
+	struct GraphViewInfo *ginfo = &info[index];
+	if (ginfo->image) {
+		[ginfo->view setImage:ginfo->image];
+	} else if (! ginfo->drawing) {
+		[ginfo->view setImage:nil];
+		
+		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
+		operation.delegate = self;
+		operation.index = index;
+		operation.month = ginfo->month;
+		operation.p = &parameters;
+		operation.bounds = ginfo->view.bounds;
+		
+		[queue addOperation:operation];
+		ginfo->drawing = YES;
+	}
+}
+
+
+- (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
+	struct GraphViewInfo *ginfo = &info[operation.index];
+	ginfo->image = [operation.image retain];
+	ginfo->drawing = NO;
+	if (ginfo->view) {
+		[ginfo->view setImage:ginfo->image];
+	}
+	[operation release];
+}
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	NSParameterAssert(scrollView);
 	CGFloat minX = scrollView.contentOffset.x;
@@ -238,12 +290,12 @@ const CGFloat kDayWidth = 7.0f;
 				ginfo->view = [view retain];
 				[cachedGraphViews removeLastObject];
 			} else {
-				ginfo->view = [[GraphView alloc] initWithParameters:&parameters];
+				ginfo->view = [[GraphView alloc] init];
 				// insert subview at the back, so it doesn't overlap the scroll indicator
 				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
-			[ginfo->view setMonth:ginfo->month];
 			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, kGraphHeight)];
+			[self updateViewAtIndex:index];
 		}
 	}
 

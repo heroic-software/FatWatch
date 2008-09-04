@@ -23,16 +23,16 @@
 		);
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Distribution;
+		activeBuildConfigurationName = Debug;
 		activeExecutable = BC56D0880D8C5F17008D939B /* FatWatch */;
-		activeSDKPreference = iphoneos2.0;
+		activeSDKPreference = iphonesimulator2.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* FatWatch */;
 		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* FatWatch */,
 		);
 		breakpoints = (
 			BC871E850DC703D3009312BA /* objc_exception_throw */,
 			BCFCD7970E5A086500D74C53 /* LogEntryViewController.m:94 */,
-			BCEBA8550E692EE70078D7B5 /* WeightFormatters.m:151 */,
 		);
 		codeSenseManager = BC56D0920D8C5F30008D939B /* Code sense */;
 		executables = (
@@ -86,7 +86,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					312,
-					346,
+					417,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXErrorsWarningsDataSource_TypeID,
@@ -113,7 +113,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					379,
+					515,
 					20,
 					48,
 					43,
@@ -189,7 +189,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					363,
+					464,
 					60,
 					20,
 					48,
@@ -206,15 +206,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 242199728;
-			PBXWorkspaceStateSaveDate = 242199728;
-		};
-		perUserProjectItems = {
-			BCF386E20E6935D100816C14 = BCF386E20E6935D100816C14 /* PBXBookmark */;
-			BCF3870C0E6944A800816C14 = BCF3870C0E6944A800816C14 /* PBXTextBookmark */;
-			BCF3870D0E6944A800816C14 = BCF3870D0E6944A800816C14 /* PBXTextBookmark */;
-			BCF387100E6944A800816C14 = BCF387100E6944A800816C14 /* PBXTextBookmark */;
-			BCF387110E6944A800816C14 = BCF387110E6944A800816C14 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 242214999;
+			PBXWorkspaceStateSaveDate = 242214999;
 		};
 		sourceControlManager = BC56D0910D8C5F30008D939B /* Source Control */;
 		userBuildSettings = {
@@ -325,17 +318,17 @@
 	};
 	BC263E810DB6665E007D03F4 /* GraphView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {690, 510}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 555}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 515}}";
+			sepNavSelRange = "{264, 0}";
+			sepNavVisRange = "{0, 287}";
 			sepNavWindowFrame = "{{564, 271}, {703, 477}}";
 		};
 	};
 	BC263E820DB6665E007D03F4 /* GraphView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {690, 4270}}";
-			sepNavSelRange = "{558, 44}";
-			sepNavVisRange = "{388, 1031}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 1078}}";
+			sepNavSelRange = "{1554, 0}";
+			sepNavVisRange = "{645, 1074}";
 			sepNavWindowFrame = "{{161, 78}, {749, 691}}";
 		};
 	};
@@ -604,16 +597,16 @@
 	};
 	BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {682, 510}}";
-			sepNavSelRange = "{185, 0}";
-			sepNavVisRange = "{0, 252}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 538}}";
+			sepNavSelRange = "{317, 0}";
+			sepNavVisRange = "{0, 323}";
 		};
 	};
 	BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {682, 966}}";
-			sepNavSelRange = "{2286, 0}";
-			sepNavVisRange = "{447, 1616}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 1008}}";
+			sepNavSelRange = "{241, 58}";
+			sepNavVisRange = "{32, 607}";
 			sepNavWindowFrame = "{{15, 65}, {606, 708}}";
 		};
 	};
@@ -633,6 +626,20 @@
 			sepNavWindowFrame = "{{456, 79}, {769, 688}}";
 		};
 	};
+	BC82AE980E6FC77200E2A693 /* GraphDrawingOperation.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {717, 616}}";
+			sepNavSelRange = "{659, 0}";
+			sepNavVisRange = "{597, 309}";
+		};
+	};
+	BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {717, 4522}}";
+			sepNavSelRange = "{9511, 0}";
+			sepNavVisRange = "{8903, 729}";
+		};
+	};
 	BC871E850DC703D3009312BA /* objc_exception_throw */ = {
 		isa = PBXSymbolicBreakpoint;
 		actions = (
@@ -644,7 +651,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 241778745.9020299;
+		modificationTime = 242214624.011396;
 		state = 1;
 		symbolName = objc_exception_throw;
 	};
@@ -773,15 +780,15 @@
 	};
 	BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {682, 546}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 911}";
+			sepNavIntBoundsRect = "{{0, 0}, {682, 479}}";
+			sepNavSelRange = "{180, 0}";
+			sepNavVisRange = "{0, 256}";
 			sepNavWindowFrame = "{{9, 102}, {565, 676}}";
 		};
 	};
 	BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {631, 565}}";
+			sepNavIntBoundsRect = "{{0, 0}, {682, 487}}";
 			sepNavSelRange = "{510, 31}";
 			sepNavVisRange = "{0, 737}";
 			sepNavWindowFrame = "{{407, 118}, {677, 611}}";
@@ -797,17 +804,17 @@
 	};
 	BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {682, 510}}";
-			sepNavSelRange = "{567, 0}";
-			sepNavVisRange = "{0, 603}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 515}}";
+			sepNavSelRange = "{214, 0}";
+			sepNavVisRange = "{0, 697}";
 			sepNavWindowFrame = "{{153, 106}, {716, 541}}";
 		};
 	};
 	BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {682, 3724}}";
-			sepNavSelRange = "{1623, 0}";
-			sepNavVisRange = "{1059, 1457}";
+			sepNavIntBoundsRect = "{{0, 0}, {717, 4284}}";
+			sepNavSelRange = "{214, 0}";
+			sepNavVisRange = "{0, 469}";
 			sepNavWindowFrame = "{{509, 51}, {734, 693}}";
 		};
 	};
@@ -874,9 +881,9 @@
 	};
 	BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {759, 5222}}";
-			sepNavSelRange = "{9674, 0}";
-			sepNavVisRange = "{9090, 384}";
+			sepNavIntBoundsRect = "{{0, 0}, {682, 5320}}";
+			sepNavSelRange = "{2969, 0}";
+			sepNavVisRange = "{2942, 888}";
 			sepNavWindowFrame = "{{477, 82}, {771, 696}}";
 		};
 	};
@@ -921,23 +928,6 @@
 			sepNavWindowFrame = "{{317, 227}, {799, 551}}";
 		};
 	};
-	BCEBA8550E692EE70078D7B5 /* WeightFormatters.m:151 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */;
-		functionName = "+weightFormatter";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 151;
-		location = FatWatch;
-		modificationTime = 241778745.901695;
-		state = 1;
-	};
 	BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {626, 427}}";
@@ -954,15 +944,6 @@
 			sepNavWindowFrame = "{{32, 70}, {731, 708}}";
 		};
 	};
-	BCF386E20E6935D100816C14 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = BCF386E30E6935D100816C14;
-	};
-	BCF386E30E6935D100816C14 = {
-		isa = PBXFileReference;
-		lastKnownFileType = folder;
-		sourceTree = "<group>";
-	};
 	BCF387020E693F7100816C14 /* Test Plan.txt */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {547, 595}}";
@@ -970,46 +951,6 @@
 			sepNavVisRange = "{0, 487}";
 			sepNavWindowFrame = "{{641, 70}, {606, 708}}";
 		};
-	};
-	BCF3870C0E6944A800816C14 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */;
-		name = "Notes.txt: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 911;
-		vrLoc = 0;
-	};
-	BCF3870D0E6944A800816C14 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = BCF387020E693F7100816C14 /* Test Plan.txt */;
-		name = "Test Plan.txt: 1";
-		rLen = 0;
-		rLoc = 487;
-		rType = 0;
-		vrLen = 0;
-		vrLoc = 0;
-	};
-	BCF387100E6944A800816C14 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */;
-		name = "Notes.txt: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 911;
-		vrLoc = 0;
-	};
-	BCF387110E6944A800816C14 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = BCF387020E693F7100816C14 /* Test Plan.txt */;
-		name = "Test Plan.txt: 1";
-		rLen = 0;
-		rLoc = 487;
-		rType = 0;
-		vrLen = 0;
-		vrLoc = 0;
 	};
 	BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {
 		uiCtxt = {
@@ -1040,7 +981,7 @@
 		ignoreCount = 0;
 		lineNumber = 94;
 		location = FatWatch;
-		modificationTime = 241778745.901668;
+		modificationTime = 242214624.011332;
 		state = 2;
 	};
 }

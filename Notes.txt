@@ -1,6 +1,6 @@
 Release Process:
 
 1. Tag the release
-svn copy file:///Volumes/benzado/Documents/Repositories/EatWatch/trunk file:///Volumes/benzado/Documents/Repositories/EatWatch/tags/release-1.2
+svn copy file:///Volumes/benzado/Documents/Repositories/EatWatch/trunk file:///Volumes/benzado/Documents/Repositories/EatWatch/tags/release-1.?
 2. Update changelog generation script
 3. Bump version number in Info.plist
