@@ -1,0 +1,25 @@
+Preparation
+- delete FatWatch from iPhone
+- select Device | Release | FatWatch
+- Clean
+- Build & Run
+
+App Variables
+- Weight Unit: pounds, kilograms, stones
+- Energy Unit: calories, kilojoules
+- Scale Increment: 0.05, 0.1, 0.2, 0.5, 1.0
+- Database: empty, 1 weight, 2 weights, more weights
+- Passcode: Set / Not Set
+
+Entry Variables
+- Weight / No Weight
+- Check / No Check
+- Note / No Note
+
+Views
+- New Database View
+- Log View
+- Log Entry View
+- Go To Date View
+- Chart View
+- Settings
