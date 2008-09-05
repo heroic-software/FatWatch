@@ -17,15 +17,18 @@
 + (void)deleteGoal;
 + (EWGoal *)sharedGoal;
 
-@property (nonatomic,retain) NSDate *startDate;
-@property (nonatomic,readonly) EWMonthDay startMonthDay;
-@property (nonatomic,readonly,getter=isDefined) BOOL defined;
-@property (nonatomic,readonly) float startWeight;
+@property (retain) NSDate *startDate;
+@property (readonly) EWMonthDay startMonthDay;
+@property (readonly,getter=isDefined) BOOL defined;
+@property (readonly) float startWeight;
 
-@property (nonatomic,retain) NSDate *endDate;
-@property (nonatomic) float endWeight;
-@property (nonatomic,retain) NSNumber *endWeightNumber;
+@property (retain) NSDate *endDate;
+@property float endWeight;
+@property (retain) NSNumber *endWeightNumber;
 
-@property (nonatomic) float weightChangePerDay;
+@property float weightChangePerDay;
+
+- (float)weightOnDate:(NSDate *)date;
+- (NSDate *)endDateFromStartDate:(NSDate *)date atWeightChangePerDay:(float)weightChangePerDay;
 
 @end

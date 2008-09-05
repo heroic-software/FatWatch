@@ -95,10 +95,10 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 - (NSNumber *)endWeightNumber {
 	float w = self.endWeight;
-	if (w <= 0) {
-		return nil;
-	} else {
+	if (w > 0) {
 		return [NSNumber numberWithFloat:w];
+	} else {
+		return nil;
 	}
 }
 
@@ -135,8 +135,8 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
-- (float)startWeight {
-	EWMonthDay startMonthDay = self.startMonthDay;
+- (float)weightOnDate:(NSDate *)date {
+	EWMonthDay startMonthDay = EWMonthDayFromDate(date);
 	MonthData *md = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(startMonthDay)];
 	float w = [md trendWeightOnDay:EWMonthDayGetDay(startMonthDay)];
 	if (w == 0) {
@@ -146,10 +146,20 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
+- (float)startWeight {
+	return [self weightOnDate:self.startDate];
+}
+
+
+- (NSDate *)endDateFromStartDate:(NSDate *)date atWeightChangePerDay:(float)weightChangePerDay {
+	float totalWeightChange = (self.endWeight - [self weightOnDate:date]);
+	NSTimeInterval seconds = totalWeightChange / weightChangePerDay * 86400;
+	return [date addTimeInterval:seconds];
+}
+
+
 - (NSDate *)endDate {
-	float weightChange = (self.endWeight - self.startWeight);
-	NSTimeInterval seconds = weightChange / self.weightChangePerDay * 86400;
-	return [self.startDate addTimeInterval:seconds];
+	return [self endDateFromStartDate:self.startDate atWeightChangePerDay:self.weightChangePerDay];
 }
 
 
