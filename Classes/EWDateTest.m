@@ -19,14 +19,6 @@
 @implementation EWDateTest
 
 
-+ (void)initialize {
-	EWDateInit();
-}
-
-//EW_EXTERN NSUInteger EWDaysInMonth(EWMonth m);
-//EW_EXTERN NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d);
-//EW_EXTERN EWMonthDay EWMonthDayFromDate(NSDate *theDate);
-
 - (void)testEWDaysInMonth {
 	STAssertEquals(EWDaysInMonth(0), (NSUInteger)31, @"January 2000");
 	STAssertEquals(EWDaysInMonth(1), (NSUInteger)28, @"February 2000");

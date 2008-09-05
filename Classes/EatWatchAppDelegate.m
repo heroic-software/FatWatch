@@ -61,7 +61,6 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[self registerDefaults];
 	
-	EWDateInit();
 	[[Database sharedDatabase] open];
 	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
