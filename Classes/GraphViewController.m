@@ -234,17 +234,26 @@ const CGFloat kDayWidth = 7.0f;
 	struct GraphViewInfo *ginfo = &info[index];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
+		[ginfo->view setImage:nil];
 		[ginfo->view release];
 		ginfo->view = nil;
+
+		// if we haven't started rendering, don't bother
+		if (ginfo->operation != nil && ![ginfo->operation isExecuting]) {
+			[ginfo->operation cancel];
+			[ginfo->operation release];
+			ginfo->operation = nil;
+		}
 	}
 }
 
 
 - (void)updateViewAtIndex:(int)index {
 	struct GraphViewInfo *ginfo = &info[index];
-	if (ginfo->image) {
-		[ginfo->view setImage:ginfo->image];
-	} else if (ginfo->operation == nil) {
+
+	[ginfo->view setImage:ginfo->image];
+	
+	if (ginfo->image == nil && ginfo->operation == nil) {
 		[ginfo->view setImage:nil];
 		
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
