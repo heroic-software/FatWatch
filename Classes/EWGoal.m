@@ -80,6 +80,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 - (void)setEndWeight:(float)weight {
 	[self willChangeValueForKey:@"endWeight"];
+	[self willChangeValueForKey:@"endWeightNumber"];
 	[self willChangeValueForKey:@"endDate"];
 	[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
 	// make sure sign matches
@@ -89,6 +90,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		self.weightChangePerDay = -delta;
 	}
 	[self didChangeValueForKey:@"endWeight"];
+	[self didChangeValueForKey:@"endWeightNumber"];
 	[self didChangeValueForKey:@"endDate"];
 }
 
