@@ -7,10 +7,6 @@
 //
 
 #import "GraphView.h"
-#import "Database.h"
-#import "MonthData.h"
-#import "EWGoal.h"
-
 
 
 @implementation GraphView

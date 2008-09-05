@@ -22,7 +22,7 @@
 		CGFloat width;
 		GraphView *view;
 		UIImage *image;
-		BOOL drawing;
+		GraphDrawingOperation *operation;
 	} *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;

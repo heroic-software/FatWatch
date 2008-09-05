@@ -29,6 +29,12 @@ typedef struct {
 	GraphViewParameters *p;
 	CGRect bounds;
 	UIImage *image;
+	CGPoint scalePoints[31];
+	CGPoint trendPoints[31];
+	BOOL flags[31];
+	NSUInteger pointCount;
+	CGPoint headPoint;
+	CGPoint tailPoint;
 }
 @property (nonatomic,assign) id delegate;
 @property (nonatomic) int index;

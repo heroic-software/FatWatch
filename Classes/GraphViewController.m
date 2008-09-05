@@ -56,6 +56,7 @@ const CGFloat kDayWidth = 7.0f;
 
 - (void)clearGraphViewInfo {
 	if (info == nil) return;
+	[queue waitUntilAllOperationsAreFinished];
 	
 	int i;
 	for (i = 0; i < infoCount; i++) {
@@ -68,6 +69,11 @@ const CGFloat kDayWidth = 7.0f;
 		if (image) {
 			[image release];
 		}
+		GraphDrawingOperation *operation = info[i].operation;
+		if (operation) {
+			[operation cancel];
+			[operation release];
+		}
 	}
 	free(info);
 	infoCount = 0;
@@ -75,6 +81,8 @@ const CGFloat kDayWidth = 7.0f;
 
 
 - (void)prepareGraphViewInfo {
+	[queue waitUntilAllOperationsAreFinished];
+
 	Database *db = [Database sharedDatabase];
 	
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
@@ -117,7 +125,7 @@ const CGFloat kDayWidth = 7.0f;
 		info[i].width = w; 
 		info[i].view = nil;
 		info[i].image = nil;
-		info[i].drawing = NO;
+		info[i].operation = nil;
 		
 		m += 1;
 		x += w;
@@ -236,7 +244,7 @@ const CGFloat kDayWidth = 7.0f;
 	struct GraphViewInfo *ginfo = &info[index];
 	if (ginfo->image) {
 		[ginfo->view setImage:ginfo->image];
-	} else if (! ginfo->drawing) {
+	} else if (ginfo->operation == nil) {
 		[ginfo->view setImage:nil];
 		
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
@@ -246,8 +254,8 @@ const CGFloat kDayWidth = 7.0f;
 		operation.p = &parameters;
 		operation.bounds = ginfo->view.bounds;
 		
+		ginfo->operation = operation;
 		[queue addOperation:operation];
-		ginfo->drawing = YES;
 	}
 }
 
@@ -255,7 +263,7 @@ const CGFloat kDayWidth = 7.0f;
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
 	struct GraphViewInfo *ginfo = &info[operation.index];
 	ginfo->image = [operation.image retain];
-	ginfo->drawing = NO;
+	ginfo->operation = nil;
 	if (ginfo->view) {
 		[ginfo->view setImage:ginfo->image];
 	}

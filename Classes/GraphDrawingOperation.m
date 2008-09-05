@@ -23,6 +23,56 @@
 @synthesize image;
 
 
+#pragma mark Main Thread
+
+
+- (void)setMonth:(EWMonth)m {
+	month = m;
+	
+	Database *database = [Database sharedDatabase];
+
+	pointCount = 0;
+	
+	MonthData *md = [database dataForMonth:month];
+	NSUInteger dayCount = EWDaysInMonth(month);
+	EWDay day;
+	for (day = 1; day <= dayCount; day++) {
+		float measured = [md measuredWeightOnDay:day];
+		if (measured > 0) {
+			float trend = [md trendWeightOnDay:day];
+			scalePoints[pointCount] = CGPointMake(day, measured);
+			trendPoints[pointCount] = CGPointMake(day, trend);
+			flags[pointCount] = [md isFlaggedOnDay:day];
+			pointCount++;
+		}
+	}
+	
+	if (month > [database earliestMonth]) {
+		MonthData *md = [database dataForMonth:(month - 1)];
+		EWDay day = [md lastDayWithWeight];
+		if (day > 0) {
+			float trend = [md trendWeightOnDay:day];
+			NSInteger dayCount = EWDaysInMonth(month - 1);
+			headPoint.x = day - dayCount;
+			headPoint.y = trend;
+		}
+	}
+	
+	if (month < [database latestMonth]) {
+		MonthData *md = [database dataForMonth:(month + 1)];
+		EWDay day = [md firstDayWithWeight];
+		if (day > 0) {
+			float trend = [md trendWeightOnDay:day];
+			tailPoint.x = EWDaysInMonth(month) + day;
+			tailPoint.y = trend;
+		}
+	}
+}
+
+
+#pragma mark Secondary Thread
+
+
 - (CGPathRef)createWeekendsBackgroundPath {
 	CGMutablePathRef path = NULL;
 	
@@ -60,13 +110,10 @@
 
 
 - (void)drawMonthYearCaptionInContext:(CGContextRef)ctxt {
-	static NSDateFormatter *formatter = nil;
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
 	
-	if (formatter == nil) {
-		formatter = [[NSDateFormatter alloc] init];
-		formatter.formatterBehavior = NSDateFormatterBehavior10_4;
-		formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
-	}
 	// month and year label at the top
 	NSDate *date = EWDateFromMonthAndDay(month, 1);
 	
@@ -77,62 +124,30 @@
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
 	CGContextShowTextAtPoint(ctxt, 4, 22, [text bytes], [text length]);
+	
+	[formatter release];
 }
 
 
-- (NSUInteger)computeScalePoints:(CGPoint *)scalePoints trendPoints:(CGPoint *)trendPoints flags:(BOOL *)flags {
-	NSUInteger pointCount = 0;
-	
-	MonthData *md = [[Database sharedDatabase] dataForMonth:month];
-	NSUInteger dayCount = EWDaysInMonth(month);
-	EWDay day;
-	for (day = 1; day <= dayCount; day++) {
-		float measured = [md measuredWeightOnDay:day];
-		if (measured > 0) {
-			float trend = [md trendWeightOnDay:day];
-			scalePoints[pointCount] = CGPointMake(day, measured);
-			trendPoints[pointCount] = CGPointMake(day, trend);
-			flags[pointCount] = [md isFlaggedOnDay:day];
-			pointCount++;
-		}
-	}
-	
-	return pointCount;
-}
-
-
-- (CGPathRef)createTrendPathFromPoints:(CGPoint *)trendPoints count:(NSUInteger)pointCount {
+- (CGPathRef)createTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
-	
-	Database *database = [Database sharedDatabase];
-	
-	if (month > [database earliestMonth]) {
-		MonthData *md = [database dataForMonth:(month - 1)];
-		EWDay day = [md lastDayWithWeight];
-		if (day > 0) {
-			float trend = [md trendWeightOnDay:day];
-			NSInteger dayCount = EWDaysInMonth(month - 1);
-			CGPathMoveToPoint(path, &p->t, day - dayCount, trend);
-			CGPathAddLineToPoint(path, &p->t, trendPoints[0].x, trendPoints[0].y);
-		}
+		
+	if (headPoint.y > 0) {
+		CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
+		CGPathAddLineToPoint(path, &p->t, trendPoints[0].x, trendPoints[0].y);
 	}
 	
 	CGPathAddLines(path, &p->t, trendPoints, pointCount);
 	
-	if (month < [database latestMonth]) {
-		MonthData *md = [database dataForMonth:(month + 1)];
-		EWDay day = [md firstDayWithWeight];
-		if (day > 0) {
-			float trend = [md trendWeightOnDay:day];
-			CGPathAddLineToPoint(path, &p->t, EWDaysInMonth(month) + day, trend);
-		}
+	if (tailPoint.y > 0) {
+		CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
 	}
 	
 	return path;
 }
 
 
-- (CGPathRef)createMarksPathFromScalePoints:(CGPoint *)scalePoints trendPoints:(CGPoint *)trendPoints flags:(BOOL *)flags count:(NSUInteger)pointCount usingFlaggedPoints:(BOOL)filter {
+- (CGPathRef)createMarksPathUsingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	const CGFloat markRadius = 0.45 * p->scaleX;
@@ -249,12 +264,7 @@
 	// name of month and year
 	
 	[self drawMonthYearCaptionInContext:ctxt];
-	
-	CGPoint scalePoints[31];
-	CGPoint trendPoints[31];
-	BOOL flags[31];
-	NSUInteger pointCount = [self computeScalePoints:scalePoints trendPoints:trendPoints flags:flags];
-	
+		
 	if (pointCount > 0) {
 		CGContextSaveGState(ctxt);
 		
@@ -263,7 +273,7 @@
 		
 		// trend line
 		
-		CGPathRef trendPath = [self createTrendPathFromPoints:trendPoints count:pointCount];
+		CGPathRef trendPath = [self createTrendPath];
 		CGContextAddPath(ctxt, trendPath);
 		CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
 		CGContextSetLineWidth(ctxt, 3.0f);
@@ -275,13 +285,13 @@
 		
 		CGContextSetLineWidth(ctxt, 1.0f);
 		
-		CGPathRef unflaggedMarksPath = [self createMarksPathFromScalePoints:scalePoints trendPoints:trendPoints flags:flags count:pointCount usingFlaggedPoints:NO];
+		CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
 		CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
 		CGContextAddPath(ctxt, unflaggedMarksPath);
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
 		CFRelease(unflaggedMarksPath);
 		
-		CGPathRef flaggedMarksPath = [self createMarksPathFromScalePoints:scalePoints trendPoints:trendPoints flags:flags count:pointCount usingFlaggedPoints:YES];
+		CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
 		CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 0.0, 1.0); // yellow for flagged
 		CGContextAddPath(ctxt, flaggedMarksPath);
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
@@ -317,6 +327,8 @@
 	// Simulate iPhone's slow drawing
 	[NSThread sleepForTimeInterval:1];
 #endif
+	
+	if ([self isCancelled]) return;
 	
 	[delegate performSelectorOnMainThread:@selector(drawingOperationComplete:) withObject:self waitUntilDone:NO];
 }
