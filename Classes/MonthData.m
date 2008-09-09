@@ -170,10 +170,13 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	// If none is found, find previous month with data.
 	MonthData *previousMonthData = self.previousMonthData;
 	if (previousMonthData) {
-		float trend = [previousMonthData inputTrendOnDay:31];
+		float trend = [previousMonthData inputTrendOnDay:32];
 		if (trend != 0) return trend;
 	}
-	
+
+	// If day is 32, this is a recursive call, so return 0 to pop the stack.
+	if (day == 32) return 0;
+
 	// If nothing else, just give the weight on the specified day.
 	return measuredWeights[day - 1];
 }
