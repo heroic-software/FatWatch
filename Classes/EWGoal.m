@@ -40,31 +40,43 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (BOOL)isDefined {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:kGoalWeightKey] != nil;
+	BOOL b;
+	
+	@synchronized (self) {
+		b = [[NSUserDefaults standardUserDefaults] objectForKey:kGoalWeightKey] != nil;
+	}
+	return b;
 }
 
 
 - (NSDate *)startDate {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	NSNumber *number = [defs objectForKey:kGoalStartDateKey];
-	if (number) {
-		return [NSDate dateWithTimeIntervalSinceReferenceDate:[number doubleValue]];
-	} else {
-		NSDate *date = [NSDate date];
-		self.startDate = date;
-		return date;
+	NSDate *d;
+	
+	@synchronized (self) {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		NSNumber *number = [defs objectForKey:kGoalStartDateKey];
+		if (number) {
+			d = [NSDate dateWithTimeIntervalSinceReferenceDate:[number doubleValue]];
+		} else {
+			NSDate *date = [NSDate date];
+			self.startDate = date;
+			d = date;
+		}
 	}
+	return d;
 }
 
 
 - (void)setStartDate:(NSDate *)date {
-	[self willChangeValueForKey:@"startDate"];
-	[self willChangeValueForKey:@"startWeight"];
-	[self willChangeValueForKey:@"endDate"];
-	[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:kGoalStartDateKey];
-	[self didChangeValueForKey:@"startDate"];
-	[self didChangeValueForKey:@"startWeight"];
-	[self didChangeValueForKey:@"endDate"];
+	@synchronized (self) {
+		[self willChangeValueForKey:@"startDate"];
+		[self willChangeValueForKey:@"startWeight"];
+		[self willChangeValueForKey:@"endDate"];
+		[[NSUserDefaults standardUserDefaults] setDouble:[date timeIntervalSinceReferenceDate] forKey:kGoalStartDateKey];
+		[self didChangeValueForKey:@"startDate"];
+		[self didChangeValueForKey:@"startWeight"];
+		[self didChangeValueForKey:@"endDate"];
+	}
 }
 
 
@@ -74,24 +86,31 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (float)endWeight {
-	return [[NSUserDefaults standardUserDefaults] floatForKey:kGoalWeightKey];
+	float w;
+	
+	@synchronized (self) {
+		w = [[NSUserDefaults standardUserDefaults] floatForKey:kGoalWeightKey];
+	}
+	return w;
 }
 
 
 - (void)setEndWeight:(float)weight {
-	[self willChangeValueForKey:@"endWeight"];
-	[self willChangeValueForKey:@"endWeightNumber"];
-	[self willChangeValueForKey:@"endDate"];
-	[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
-	// make sure sign matches
-	float weightChange = weight - self.startWeight;
-	float delta = self.weightChangePerDay;
-	if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
-		self.weightChangePerDay = -delta;
+	@synchronized (self) {
+		[self willChangeValueForKey:@"endWeight"];
+		[self willChangeValueForKey:@"endWeightNumber"];
+		[self willChangeValueForKey:@"endDate"];
+		[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
+		// make sure sign matches
+		float weightChange = weight - self.startWeight;
+		float delta = self.weightChangePerDay;
+		if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
+			self.weightChangePerDay = -delta;
+		}
+		[self didChangeValueForKey:@"endWeight"];
+		[self didChangeValueForKey:@"endWeightNumber"];
+		[self didChangeValueForKey:@"endDate"];
 	}
-	[self didChangeValueForKey:@"endWeight"];
-	[self didChangeValueForKey:@"endWeightNumber"];
-	[self didChangeValueForKey:@"endDate"];
 }
 
 
@@ -111,29 +130,35 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (float)weightChangePerDay {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	NSNumber *number = [defs objectForKey:kGoalWeightChangePerDayKey];
-	if (number) {
-		return [number floatValue];
-	} else {
-		float delta = [WeightFormatters defaultWeightChange];
-		self.weightChangePerDay = delta;
-		return delta;
+	float delta;
+	
+	@synchronized (self) {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		NSNumber *number = [defs objectForKey:kGoalWeightChangePerDayKey];
+		if (number) {
+			delta = [number floatValue];
+		} else {
+			delta = [WeightFormatters defaultWeightChange];
+			self.weightChangePerDay = delta;
+		}
 	}
+	return delta;
 }
 
 
 - (void)setWeightChangePerDay:(float)delta {
-	[self willChangeValueForKey:@"weightChangePerDay"];
-	[self willChangeValueForKey:@"endDate"];
-	// make sure sign matches
-	float weightChange = self.endWeight - self.startWeight;
-	if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
-		delta = -delta;
+	@synchronized (self) {
+		[self willChangeValueForKey:@"weightChangePerDay"];
+		[self willChangeValueForKey:@"endDate"];
+		// make sure sign matches
+		float weightChange = self.endWeight - self.startWeight;
+		if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
+			delta = -delta;
+		}
+		[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
+		[self didChangeValueForKey:@"weightChangePerDay"];
+		[self didChangeValueForKey:@"endDate"];
 	}
-	[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
-	[self didChangeValueForKey:@"weightChangePerDay"];
-	[self didChangeValueForKey:@"endDate"];
 }
 
 
@@ -149,26 +174,43 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (float)startWeight {
-	return [self weightOnDate:self.startDate];
+	float w;
+	
+	@synchronized (self) {
+		w = [self weightOnDate:self.startDate];
+	}
+	return w;
 }
 
 
 - (NSDate *)endDateFromStartDate:(NSDate *)date atWeightChangePerDay:(float)weightChangePerDay {
-	float totalWeightChange = (self.endWeight - [self weightOnDate:date]);
-	NSTimeInterval seconds = totalWeightChange / weightChangePerDay * SecondsPerDay;
+	NSTimeInterval seconds;
+	
+	@synchronized (self) {
+		float totalWeightChange = (self.endWeight - [self weightOnDate:date]);
+		seconds = totalWeightChange / weightChangePerDay * SecondsPerDay;
+	}
 	return [date addTimeInterval:seconds];
 }
 
 
 - (NSDate *)endDate {
-	return [self endDateFromStartDate:self.startDate atWeightChangePerDay:self.weightChangePerDay];
+	NSDate *d;
+
+	@synchronized (self) {
+		d = [self endDateFromStartDate:self.startDate 
+				  atWeightChangePerDay:self.weightChangePerDay];
+	}
+	return d;
 }
 
 
 - (void)setEndDate:(NSDate *)date {
-	float weightChange = self.endWeight - self.startWeight;
-	NSTimeInterval timeChange = [date timeIntervalSinceDate:self.startDate];
-	self.weightChangePerDay = (weightChange / (timeChange / SecondsPerDay));
+	@synchronized (self) {
+		float weightChange = self.endWeight - self.startWeight;
+		NSTimeInterval timeChange = [date timeIntervalSinceDate:self.startDate];
+		self.weightChangePerDay = (weightChange / (timeChange / SecondsPerDay));
+	}
 }
 
 
