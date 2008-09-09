@@ -104,7 +104,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 #pragma mark Retrieving Defaults
 
 
-+ (NSUInteger)minimumFractionDigits {
++ (NSUInteger)fractionDigits {
 	float inc = [[NSUserDefaults standardUserDefaults] floatForKey:kScaleIncrementKey];
 	return ceilf(-log10f(inc));
 }
@@ -148,7 +148,8 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			
-			[nf setMinimumFractionDigits:[self minimumFractionDigits]];
+			[nf setMinimumFractionDigits:[self fractionDigits]];
+			[nf setMaximumFractionDigits:[self fractionDigits]];
 			
 			if (unit == kWeightUnitPounds) {
 				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
@@ -326,7 +327,8 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		formatString = [NSLocalizedString(@"STONE_FORMAT", nil) retain];
 		poundsFormatter = [[NSNumberFormatter alloc] init];
 		[poundsFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[poundsFormatter setMinimumFractionDigits:[WeightFormatters minimumFractionDigits]];
+		[poundsFormatter setMinimumFractionDigits:[WeightFormatters fractionDigits]];
+		[poundsFormatter setMaximumFractionDigits:[WeightFormatters fractionDigits]];
 	}
 	return self;
 }
