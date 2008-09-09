@@ -184,7 +184,7 @@
 		if ([self numberOfSections] == 4) {
 			NSDate *newStartDate = [change objectForKey:NSKeyValueChangeNewKey];
 			BRTableDatePickerRow *endRow = (id)[[self sectionAtIndex:1] rowAtIndex:0];
-			endRow.minimumDate = [newStartDate addTimeInterval:86400];
+			endRow.minimumDate = [newStartDate addTimeInterval:SecondsPerDay];
 		} else if ([self numberOfSections] == 2) {
 			BRTableSection *section = [self sectionAtIndex:1];
 			if ([section numberOfRows] > 0) {

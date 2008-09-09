@@ -197,10 +197,10 @@
 			NSDate *firstOfMonth = EWDateFromMonthAndDay(month, 1);
 			CGFloat x;
 			
-			x = [goal.startDate timeIntervalSinceDate:firstOfMonth] / 86400;
+			x = [goal.startDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay;
 			CGPathMoveToPoint(path, &p->t, x, goal.startWeight);
 			
-			x = [goal.endDate timeIntervalSinceDate:firstOfMonth] / 86400;
+			x = [goal.endDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay;
 			CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
 			
 			CGFloat dayCount = EWDaysInMonth(month);

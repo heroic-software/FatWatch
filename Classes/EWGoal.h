@@ -10,6 +10,9 @@
 #import "EWDate.h"
 
 
+#define SecondsPerDay 86400
+
+
 @interface EWGoal : NSObject {
 
 }
