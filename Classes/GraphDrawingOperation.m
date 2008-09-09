@@ -98,15 +98,27 @@
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
 		path = CGPathCreateMutable();
-		
-		// better algorithm: get weekday of first day, then increment by 2 and 5
 		CGFloat h = p->maxWeight - p->minWeight;
-		NSUInteger dayCount = EWDaysInMonth(month);
-		EWDay day;
-		for (day = 1; day <= dayCount; day++) {
-			if (EWMonthAndDayIsWeekend(month, day)) {
-				CGRect dayRect = CGRectMake(day - 0.5, p->minWeight, 1, h);
-				CGPathAddRect(path, &p->t, dayRect);
+		CGRect dayRect = CGRectMake(0, p->minWeight, 1, h);
+		
+		EWDay day = 1;
+		NSUInteger lastDay = EWDaysInMonth(month);
+		NSInteger wd = EWWeekdayFromMonthAndDay(month, 1);
+		
+		if (wd != 1 && wd != 7) {
+			day += (7 - wd);
+			wd = 7;
+		}
+		
+		while (day <= lastDay) {
+			dayRect.origin.x = day - 0.5;
+			CGPathAddRect(path, &p->t, dayRect);
+			if (wd == 1) {
+				day += 6;
+				wd = 7;
+			} else {
+				day += 1;
+				wd = 1;
 			}
 		}
 	}

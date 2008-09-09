@@ -74,3 +74,14 @@ BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d) {
 	[calendar release];
 	return (comps.weekday == 1 || comps.weekday == 7);
 }
+
+
+NSUInteger EWWeekdayFromMonthAndDay(EWMonth m, EWDay d) {
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	
+	NSDate *date = EWDateFromMonthAndDay(m, d);
+	NSDateComponents *comps = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+	
+	[calendar release];
+	return comps.weekday;
+}
