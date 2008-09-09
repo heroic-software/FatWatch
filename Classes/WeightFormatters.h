@@ -13,6 +13,10 @@
 
 }
 
++ (UIColor *)goodColor;
++ (UIColor *)warningColor;
++ (UIColor *)badColor;
+
 + (NSArray *)weightUnitNames;
 + (void)selectWeightUnitAtIndex:(NSUInteger)index;
 + (NSArray *)energyUnitNames;

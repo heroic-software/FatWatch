@@ -47,6 +47,24 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 @implementation WeightFormatters
 
 
+#pragma mark Colors
+
+
++ (UIColor *)goodColor {
+	return [UIColor colorWithRed:0 green:0.8 blue:0 alpha:1];
+}
+
+
++ (UIColor *)warningColor {
+	return [UIColor colorWithRed:0.6 green:0.6 blue:0 alpha:1];
+}
+
+
++ (UIColor *)badColor {
+	return [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+}
+
+
 #pragma mark Setting Defaults
 
 

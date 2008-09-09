@@ -112,9 +112,9 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 				  lineBreakMode:UILineBreakModeClip
 					  alignment:UITextAlignmentRight];
 		if (trendPositive) {
-			[[UIColor redColor] setFill];
+			[[WeightFormatters badColor] setFill];
 		} else {
-			[[UIColor greenColor] setFill];
+			[[WeightFormatters goodColor] setFill];
 		}
 		CGRect trendDeltaRect = CGRectMake(trendDeltaLeft, topMargin, cellWidth-trendDeltaLeft, numberRowHeight);
 		[trendDelta drawInRect:trendDeltaRect
