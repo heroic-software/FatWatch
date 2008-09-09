@@ -49,6 +49,19 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
+- (BOOL)isAttained {
+	BOOL b;
+	
+	@synchronized (self) {
+		float s = self.startWeight;
+		float e = self.endWeight;
+		float w = [self weightOnDate:[NSDate date]];
+		b = (s > e && e > w) || (s < e && e < w);
+	}
+	return b;
+}
+
+
 - (NSDate *)startDate {
 	NSDate *d;
 	

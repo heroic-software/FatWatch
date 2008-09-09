@@ -23,6 +23,7 @@
 @property (retain) NSDate *startDate;
 @property (readonly) EWMonthDay startMonthDay;
 @property (readonly,getter=isDefined) BOOL defined;
+@property (readonly,getter=isAttained) BOOL attained;
 @property (readonly) float startWeight;
 
 @property (retain) NSDate *endDate;
