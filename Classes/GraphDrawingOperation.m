@@ -23,6 +23,26 @@
 @synthesize image;
 
 
++ (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	
+	// month and year label at the top
+	NSDate *date = EWDateFromMonthAndDay(month, 1);
+	
+	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
+	
+	NSData *text = [[formatter stringFromDate:date] dataUsingEncoding:NSMacOSRomanStringEncoding];
+	
+	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
+	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
+	CGContextShowTextAtPoint(ctxt, 4, 22, [text bytes], [text length]);
+	
+	[formatter release];
+}
+
+
 #pragma mark Main Thread
 
 
@@ -109,26 +129,6 @@
 }
 
 
-- (void)drawMonthYearCaptionInContext:(CGContextRef)ctxt {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
-	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
-	
-	// month and year label at the top
-	NSDate *date = EWDateFromMonthAndDay(month, 1);
-	
-	CGContextSetGrayFillColor(ctxt, 0, 1);
-	
-	NSData *text = [[formatter stringFromDate:date] dataUsingEncoding:NSMacOSRomanStringEncoding];
-	
-	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
-	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
-	CGContextShowTextAtPoint(ctxt, 4, 22, [text bytes], [text length]);
-	
-	[formatter release];
-}
-
-
 - (CGPathRef)createTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
 		
@@ -150,37 +150,51 @@
 - (CGPathRef)createMarksPathUsingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
-	const CGFloat markRadius = 0.45 * p->scaleX;
+	const CGFloat markRadius = 0.5 * p->scaleX;
 	
 	NSInteger k;
 	for (k = 0; k < pointCount; k++) {
 		if (flags[k] == filter) {
 			CGPoint scalePoint = CGPointApplyAffineTransform(scalePoints[k], p->t);
-			CGPoint trendPoint = CGPointApplyAffineTransform(trendPoints[k], p->t);
 			
-			if (ABS(scalePoint.y - trendPoint.y) > markRadius) {
-				CGFloat y = scalePoint.y;
-				if (trendPoint.y < scalePoint.y) {
-					y -= markRadius;
-				} else {
-					y += markRadius;
-				}
-				CGPathMoveToPoint(path, NULL, trendPoint.x, trendPoint.y);
-				CGPathAddLineToPoint(path, NULL, scalePoint.x, y);
-			}
-			
-			/*/
-			 CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
-			 CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
-			 CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
-			 CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
-			 CGPathCloseSubpath(path);
-			 /*/
-			CGRect markRect = CGRectMake(scalePoint.x - markRadius, scalePoint.y - markRadius, 2*markRadius, 2*markRadius);
-			CGPathAddEllipseInRect(path, NULL, markRect);
+			// Rhombus
+			CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
+			CGPathCloseSubpath(path);
 		}
 	}
 	
+	return path;
+}
+
+
+- (CGPathRef)createErrorLinesPath {
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	const CGFloat markRadius = 0; //0.45 * p->scaleX;
+	
+	NSInteger k;
+	for (k = 0; k < pointCount; k++) {
+		CGPoint scalePoint = CGPointApplyAffineTransform(scalePoints[k], p->t);
+		CGPoint trendPoint = CGPointApplyAffineTransform(trendPoints[k], p->t);
+		
+		CGFloat y = 0;
+		
+		CGFloat variance = scalePoint.y - trendPoint.y;
+		if (variance > markRadius) {
+			y = scalePoint.y - markRadius;
+		} else if (variance < -markRadius) {
+			y = scalePoint.y + markRadius;
+		}
+		
+		if (y != 0) {
+			CGPathMoveToPoint(path, NULL, trendPoint.x, trendPoint.y);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x, y);
+		}
+	}
+		
 	return path;
 }
 
@@ -197,10 +211,10 @@
 			NSDate *firstOfMonth = EWDateFromMonthAndDay(month, 1);
 			CGFloat x;
 			
-			x = [goal.startDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay;
+			x = 1 + roundf([goal.startDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay);
 			CGPathMoveToPoint(path, &p->t, x, goal.startWeight);
 			
-			x = [goal.endDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay;
+			x = 1 + roundf([goal.endDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay);
 			CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
 			
 			CGFloat dayCount = EWDaysInMonth(month);
@@ -247,9 +261,9 @@
 	CGPathRef weekendsBackgroundPath = [self createWeekendsBackgroundPath];
 	if (weekendsBackgroundPath) {
 		CGContextAddPath(ctxt, weekendsBackgroundPath);
-		CGContextSetGrayFillColor(ctxt, 0.9, 1.0);
+		CGContextSetRGBFillColor(ctxt, 0.9,0.9,0.9, 1.0);
 		CGContextFillPath(ctxt);
-		CFRelease(weekendsBackgroundPath);
+		CGPathRelease(weekendsBackgroundPath);
 	}
 	
 	// vertical grid line to indicate start of month
@@ -257,45 +271,50 @@
 	
 	CGPathRef gridPath = [self createGridPath];
 	CGContextAddPath(ctxt, gridPath);
-	CGContextSetGrayStrokeColor(ctxt, 0.8, 1.0);
+	CGContextSetRGBStrokeColor(ctxt, 0.8,0.8,0.8, 1.0);
 	CGContextStrokePath(ctxt);
-	CFRelease(gridPath);
+	CGPathRelease(gridPath);
 	
 	// name of month and year
 	
-	[self drawMonthYearCaptionInContext:ctxt];
+	[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
 		
 	if (pointCount > 0) {
 		CGContextSaveGState(ctxt);
-		
-		CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
-		CGContextSetShadow(ctxt, CGSizeMake(2, -1), 1.5);
-		
+				
+		CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
+		CGContextSetLineWidth(ctxt, 2.0f);
+		CGPathRef errorLinesPath = [self createErrorLinesPath];
+		CGContextAddPath(ctxt, errorLinesPath);
+		CGContextStrokePath(ctxt);
+		CGPathRelease(errorLinesPath);
+
 		// trend line
 		
+		CGContextSetRGBStrokeColor(ctxt, 0.1,0.1,0.1, 1.0);
+		CGContextSetLineWidth(ctxt, 3.0f);
 		CGPathRef trendPath = [self createTrendPath];
 		CGContextAddPath(ctxt, trendPath);
-		CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
-		CGContextSetLineWidth(ctxt, 3.0f);
 		CGContextStrokePath(ctxt);
-		CFRelease(trendPath);
+		CGPathRelease(trendPath);
 		
 		// weight marks: colored centers (white or yellow)
 		// weight marks: outlines and error lines
+
+		CGContextSetLineWidth(ctxt, 1.5f);
+		CGContextSetRGBStrokeColor(ctxt, 0,0,0, 1.0);
 		
-		CGContextSetLineWidth(ctxt, 1.0f);
-		
-		CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
 		CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
+		CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
 		CGContextAddPath(ctxt, unflaggedMarksPath);
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
-		CFRelease(unflaggedMarksPath);
+		CGPathRelease(unflaggedMarksPath);
 		
+		CGContextSetRGBFillColor(ctxt, 0.219104295415, 0.30611123827, 0.496452277409, 1.0);
 		CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
-		CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 0.0, 1.0); // yellow for flagged
 		CGContextAddPath(ctxt, flaggedMarksPath);
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
-		CFRelease(flaggedMarksPath);
+		CGPathRelease(flaggedMarksPath);
 		
 		CGContextRestoreGState(ctxt);
 	}
@@ -305,14 +324,15 @@
 	
 	CGPathRef goalPath = [self createGoalPath];
 	if (goalPath) {
-		static const CGFloat kDashLengths[] = { 4, 2 };
+		static const CGFloat kDashLengths[] = { 6, 3 };
 		static const int kDashLengthsCount = 2;
 		
 		CGContextSetLineWidth(ctxt, 3);
 		CGContextSetLineDash(ctxt, 0, kDashLengths, kDashLengthsCount);
-		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.8, 0.0, 0.8);
+		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
 		CGContextAddPath(ctxt, goalPath);
 		CGContextStrokePath(ctxt);
+		CGPathRelease(goalPath);
 	}
 	
     CGImageRef imageRef = CGBitmapContextCreateImage(ctxt);
@@ -325,7 +345,7 @@
 
 #if TARGET_IPHONE_SIMULATOR
 	// Simulate iPhone's slow drawing
-	[NSThread sleepForTimeInterval:1];
+	[NSThread sleepForTimeInterval:0.5];
 #endif
 	
 	if ([self isCancelled]) return;

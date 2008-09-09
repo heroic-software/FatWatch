@@ -7,12 +7,13 @@
 //
 
 #import "GraphView.h"
+#import "GraphDrawingOperation.h"
 
 
 @implementation GraphView
 
 
-@synthesize image;
+@synthesize image, month;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -32,11 +33,16 @@
 }
 
 
+- (void)setMonth:(EWMonth)newMonth {
+	month = newMonth;
+	[self setNeedsDisplay];
+}
+
+
 void GraphViewDrawPattern(void *info, CGContextRef context) {
-	const CGFloat d = 7;
-	CGContextSetGrayFillColor(context, 0.6, 1.0);
-	CGContextSetGrayStrokeColor(context, 0.4, 1.0);
-	CGContextAddRect(context, CGRectMake(0.5, 0.5, d, d));
+	CGContextSetGrayFillColor(context, 0.9, 1.0);
+	CGContextSetGrayStrokeColor(context, 0.8, 1.0);
+	CGContextAddRect(context, CGRectMake(0.5, 0.5, kDayWidth, kDayWidth));
 	CGContextDrawPath(context, kCGPathFillStroke);
 }
 
@@ -52,18 +58,18 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			callbacks.version = 0;
 			callbacks.drawPattern = GraphViewDrawPattern;
 			callbacks.releaseInfo = NULL;
-			pattern = CGPatternCreate(NULL, CGRectMake(0, 0, 7, 7), CGAffineTransformIdentity, 7, 7, kCGPatternTilingConstantSpacing, TRUE, &callbacks);
+			pattern = CGPatternCreate(NULL, CGRectMake(0, 0, kDayWidth, kDayWidth), CGAffineTransformIdentity, kDayWidth, kDayWidth, kCGPatternTilingConstantSpacing, TRUE, &callbacks);
 		}
 		
 		CGContextRef ctxt = UIGraphicsGetCurrentContext();
-		CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
-		CGColorSpaceRef space = CGColorSpaceCreatePattern(baseSpace);
+		CGColorSpaceRef space = CGColorSpaceCreatePattern(NULL);
 		CGContextSetFillColorSpace(ctxt, space);
 		const CGFloat alpha[] = { 1.0 };
 		CGContextSetFillPattern(ctxt, pattern, alpha);
 		CGContextFillRect(ctxt, self.bounds);
 		CGColorSpaceRelease(space);
-		CGColorSpaceRelease(baseSpace);
+
+		[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
 	}
 }
 

@@ -22,6 +22,9 @@ typedef struct {
 } GraphViewParameters;
 
 
+#define kDayWidth 8.0f
+
+
 @interface GraphDrawingOperation : NSOperation {
 	id delegate;
 	int index;
@@ -36,6 +39,7 @@ typedef struct {
 	CGPoint headPoint;
 	CGPoint tailPoint;
 }
++ (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt;
 @property (nonatomic,assign) id delegate;
 @property (nonatomic) int index;
 @property (nonatomic) EWMonth month;

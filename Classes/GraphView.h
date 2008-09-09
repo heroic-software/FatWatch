@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "EWDate.h"
 
 @interface GraphView : UIView {
+	EWMonth month;
 	UIImage *image;
 }
 @property (nonatomic,retain) UIImage *image;
+@property (nonatomic) EWMonth month;
 @end

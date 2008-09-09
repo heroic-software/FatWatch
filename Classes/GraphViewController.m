@@ -23,7 +23,6 @@ enum {
 
 
 const CGFloat kGraphHeight = 300.0f;
-const CGFloat kDayWidth = 7.0f;
 
 
 @implementation GraphViewController
@@ -135,8 +134,8 @@ const CGFloat kDayWidth = 7.0f;
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
 	
-	lastMinIndex = -2;
-	lastMaxIndex = -1;
+	lastMinIndex = -1;
+	lastMaxIndex = 0;
 }
 
 
@@ -231,9 +230,11 @@ const CGFloat kDayWidth = 7.0f;
 
 
 - (void)cacheViewAtIndex:(int)index {
+	if (index < 0 || index >= infoCount) return;
 	struct GraphViewInfo *ginfo = &info[index];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
+		[ginfo->view setMonth:0];
 		[ginfo->view setImage:nil];
 		[ginfo->view release];
 		ginfo->view = nil;
@@ -251,6 +252,7 @@ const CGFloat kDayWidth = 7.0f;
 - (void)updateViewAtIndex:(int)index {
 	struct GraphViewInfo *ginfo = &info[index];
 
+	[ginfo->view setMonth:ginfo->month];
 	[ginfo->view setImage:ginfo->image];
 	
 	if (ginfo->image == nil && ginfo->operation == nil) {
@@ -287,7 +289,15 @@ const CGFloat kDayWidth = 7.0f;
 	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
 	int maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
 	
-	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) return;
+	// Stop now if the visible set of months hasn't changed.
+	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) {
+		// But, if this is the first time through, keep going.
+		if (lastMinIndex < 0) {
+			lastMinIndex = 0;
+		} else {
+			return;
+		}
+	}
 	
 	int index;
 
