@@ -38,6 +38,7 @@ extern NSString *EWDatabaseDidChangeNotification;
 - (void)open;
 - (void)close;
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
+- (void)executeSQL:(const char *)sql;
 - (NSUInteger)weightCount; // from DB
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (MonthData *)dataForMonth:(EWMonth)m;

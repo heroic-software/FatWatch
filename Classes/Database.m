@@ -108,6 +108,9 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
         NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
 	}
 
+	// Clean up cruft
+	//[self executeSQL:"DELETE FROM weight WHERE measuredValue IS NULL AND trendValue IS NULL AND flag=0 AND (note='' OR note IS NULL)"];
+	
 	earliestChangeMonthDay = 0;
 	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayFromDate([NSDate date]));
 	
@@ -163,6 +166,14 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	int retCode = sqlite3_prepare_v2(database, sql, -1, &statement, NULL);
 	NSAssert2(retCode == SQLITE_OK, @"Error: failed to prepare statement '%s' with message '%s'.", sql, sqlite3_errmsg(database));
 	return statement;
+}
+
+
+- (void)executeSQL:(const char *)sql {
+	sqlite3_stmt *stmt = [self statementFromSQL:sql];
+	int code = sqlite3_step(stmt);
+	NSAssert2(code == SQLITE_DONE, @"Error: failed to execute '%s' with message '%s'.", sql, sqlite3_errmsg(database));
+	sqlite3_finalize(stmt);
 }
 
 
@@ -275,14 +286,6 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 		}
 		earliestChangeMonthDay = 0;
 	}
-}
-
-
-- (void)executeSQL:(const char *)sql {
-	sqlite3_stmt *stmt = [self statementFromSQL:sql];
-	int code = sqlite3_step(stmt);
-	NSAssert2(code == SQLITE_DONE, @"Error: failed to execute '%s' with message '%s'.", sql, sqlite3_errmsg(database));
-	sqlite3_finalize(stmt);
 }
 
 
