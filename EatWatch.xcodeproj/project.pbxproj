@@ -169,8 +169,8 @@
 		BC65E9680DEB3BF20008E677 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		BC65EBB10DEBA5F90008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/TrendSpans.plist; sourceTree = "<group>"; };
-		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlopeComputer.h; sourceTree = "<group>"; };
-		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlopeComputer.m; sourceTree = "<group>"; };
+		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
+		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
 		BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FatWatch-Changes.txt"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
@@ -205,8 +205,8 @@
 		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendViewController.m; path = Classes/TrendViewController.m; sourceTree = "<group>"; };
 		BCABE03F0DD932A100DE580A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Classes/RootViewController.h; sourceTree = "<group>"; };
 		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
-		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWGoal.h; sourceTree = "<group>"; };
-		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoal.m; sourceTree = "<group>"; };
+		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWGoal.h; path = Classes/EWGoal.h; sourceTree = "<group>"; };
+		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWGoal.m; path = Classes/EWGoal.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
@@ -261,12 +261,8 @@
 				BC9BDEE10DA9D8610004E70C /* Database.m */,
 				BC9BDE970DA9CB550004E70C /* MonthData.h */,
 				BC9BDE980DA9CB550004E70C /* MonthData.m */,
-				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
-				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
 				BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */,
 				BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */,
-				BCB18CAF0E5A9DD70055F91E /* EWGoal.h */,
-				BCB18CB00E5A9DD70055F91E /* EWGoal.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -306,10 +302,13 @@
 			isa = PBXGroup;
 			children = (
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
-				BCABE0470DD9372000DE580A /* Log */,
-				BC82AEA70E6FC7F900E2A693 /* Graph */,
-				BCABE0480DD9373B00DE580A /* View Controllers */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				BCABE0480DD9373B00DE580A /* View Controllers */,
+				BCABE0470DD9372000DE580A /* Log */,
+				BCB3498F0E6FE8B6000DF454 /* Trends */,
+				BCB349900E6FE8C5000DF454 /* Goal */,
+				BCB349910E6FE8CE000DF454 /* More */,
+				BC82AEA70E6FC7F900E2A693 /* Chart */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				BCEADAD60DE29D1B0017495E /* Web */,
 				BC7B54E00DDE2C8800B316A1 /* Tests */,
@@ -415,7 +414,7 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		BC82AEA70E6FC7F900E2A693 /* Graph */ = {
+		BC82AEA70E6FC7F900E2A693 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
 				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
@@ -427,16 +426,20 @@
 				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
 				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
 			);
-			name = Graph;
+			name = Chart;
 			sourceTree = "<group>";
 		};
 		BCABE0470DD9372000DE580A /* Log */ = {
 			isa = PBXGroup;
 			children = (
+				BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */,
+				BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */,
 				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
 				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
 				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
+				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
+				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 			);
 			name = Log;
 			sourceTree = "<group>";
@@ -446,24 +449,45 @@
 			children = (
 				BCABE03F0DD932A100DE580A /* RootViewController.h */,
 				BCABE0400DD932A100DE580A /* RootViewController.m */,
-				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
-				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
-				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
-				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
-				BC51B9A00E3B023E00D3B4C1 /* GoalViewController.h */,
-				BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
 				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
 				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
-				BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */,
-				BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BCB3498F0E6FE8B6000DF454 /* Trends */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
+				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
+				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
+				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
+			);
+			name = Trends;
+			sourceTree = "<group>";
+		};
+		BCB349900E6FE8C5000DF454 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				BCB18CAF0E5A9DD70055F91E /* EWGoal.h */,
+				BCB18CB00E5A9DD70055F91E /* EWGoal.m */,
+				BC51B9A00E3B023E00D3B4C1 /* GoalViewController.h */,
+				BC51B9A10E3B023E00D3B4C1 /* GoalViewController.m */,
+			);
+			name = Goal;
+			sourceTree = "<group>";
+		};
+		BCB349910E6FE8CE000DF454 /* More */ = {
+			isa = PBXGroup;
+			children = (
 				BCFB10FE0E26828D0059D732 /* MoreViewController.h */,
 				BCFB10FF0E26828D0059D732 /* MoreViewController.m */,
 				BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */,
 				BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */,
 			);
-			name = "View Controllers";
+			name = More;
 			sourceTree = "<group>";
 		};
 		BCEADAD60DE29D1B0017495E /* Web */ = {
