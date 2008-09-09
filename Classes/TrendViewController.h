@@ -11,6 +11,7 @@
 
 @interface TrendViewController : DataViewController <UITableViewDelegate, UITableViewDataSource> {
 	NSMutableArray *array;
+	BOOL showEndDateAsDate;
 }
 
 @end
