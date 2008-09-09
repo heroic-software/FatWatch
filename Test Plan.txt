@@ -1,16 +1,115 @@
-Preparation
-- delete FatWatch from iPhone
-- select Device | Release | FatWatch
-- Clean
-- Build & Run
+Scripts:
+
+Delete FatWatch from device
+Clean
+Build "Distribution" configuration
+Build "Release" configuration and install on device
+
+Small - start with an empty database, add a few weights manually
+
+Launch
+# "New Database" view appears
+Select: stones, calories, 1.0
+Enter: 13st 0lb, check on, note "first"
+# Tapping "Done" makes keyboard disappear.
+# Tapping on note field does NOT clear contents.
+Tap "Save" button
+# Measurement appears in Log table.
+Tap "Trends" tab
+# Message warns that 2 measurements are needed for trends.
+Tap "Goal" tab
+# Goal table appears with no weight set.
+Tap "More" tab
+Tap "Weight Chart" row
+# Alert appears explaining how to view weight chart.
+Rotate iPhone to landscape (do not tap OK yet)
+# Message warns that 2 measurements are needed for chart.
+Tap "OK" button
+Rotate iPhone to portrait
+# Require Passcode is OFF.
+# Wi-Fi Import/Export is OFF.
+Tap "www.fatWatchapp.com" row
+# Safari opens to FatWatch Support page
+Launch FatWatch
+# Weigh-in view does NOT appear
+Tap "More" tab
+Tap "support@fatwatchapp.com" row
+# Mail opens to new email message
+# To: field is "support@fatwatchapp.com"
+# Subject: field is "FatWatch #.#" (version number)
+Launch FatWatch
+Tap today's row
+Tap "Leave Blank" segment
+Tap "Cancel" button
+# Today's row remains 13st, check ON, note "first"
+Tap today's row
+Tap "Leave Blank" segment
+Tap "Save" button
+# Today's row is blank except for check ON, note "first"
+Tap "Trends" tab
+# Message warns 2 measurements are needed for trends.
+Tap "Goal" tab
+# Message warns 1 measurement is needed for a goal.
+Tap "Log" tab
+
+	[0] = today
+	[1] = yesterday
+	[2] = two days ago
+
+Tap row [0]; Enter 13st, check ON; Tap "Save" button
+# Row [0] is 13st 0lb +0.0, check ON
+Tap row [2]; Enter 13st 1lb; Tap "Save" button
+# Row [2] is 13st 1lb +0.0, check OFF
+# Row [1] is blank
+# Row [0] is 13st 0lb -0.9, check ON
+Tap row [1]; Enter 13st 2lb; Tap "Save" button
+# Row [2] is 13st 1lb +0.0, check OFF
+# Row [1] is 13st 2lb +0.9, check OFF
+# Row [0] is 13st 0lb -1.0, check ON
+Rotate device to landscape
+# Chart	appears with 3 marks, only last is yellow
+Rotate device to portrait
+
+
+Medium - import ~3 months worth of weight history
+
+Go to Settings app
+Select kilograms, kilojoules, 0.1
+Verify conversions
+Import new aata
+
+Large - import ~10 years of weight history
+
+Go to Settings app
+Select pounds, calories, 0.5
+Verify conversions
+Import new aata
+
+
+
+
+
+
+Trends & Goal:
+./generate-trend-csv.pl 100 -0.1 > lose-to-100.csv
+
 
 App Variables
 - Weight Unit: pounds, kilograms, stones
 - Energy Unit: calories, kilojoules
 - Scale Increment: 0.05, 0.1, 0.2, 0.5, 1.0
-- Database: empty, 1 weight, 2 weights, more weights
+- Database:
+	empty
+	1 month: 1 weight
+	1 month: 2 weights
+	2 months (less than a full chart)
+	several years
 - Passcode: Set / Not Set
-
+- Goal:
+	undefined
+	set to lose weight
+	set to gain weight
+	
 Entry Variables
 - Weight / No Weight
 - Check / No Check

@@ -24,16 +24,10 @@
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
-		BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
-		BC33840C0DE787D6001F1052 /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
-		BC33840D0DE787DA001F1052 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
-		BC3384220DE78864001F1052 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
-		BC3384250DE7887C001F1052 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC47221B0DE368170081F576 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
 		BC47222A0DE3692C0081F576 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
 		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
-		BC51B7CE0E3A9E6800D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
 		BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
 		BC51B8930E3ACACC00D3B4C1 /* BRTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */; };
@@ -63,7 +57,6 @@
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
-		BC910BCA0E385C0F007B7941 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
 		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
 		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
@@ -75,12 +68,20 @@
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
-		BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
-		BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
-		BCEADA3D0DE220640017495E /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
 		BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
+		BCFE4C7A0E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE4C760E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m */; };
+		BCFE4C7B0E7617D00090B81B /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE4C770E7617D00090B81B /* GTMIPhoneUnitTestMain.m */; };
+		BCFE4C7C0E7617D00090B81B /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE4C790E7617D00090B81B /* GTMSenTestCase.m */; };
+		BCFE4C8E0E76191B0090B81B /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
+		BCFE4C8F0E76191E0090B81B /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
+		BCFE4C900E76191E0090B81B /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
+		BCFE4C9E0E7619D50090B81B /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
+		BCFE4C9F0E7619E00090B81B /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
+		BCFE4CA00E7619E10090B81B /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
+		BCFE4CA10E7619F70090B81B /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
+		BCFE4CA30E761A1B0090B81B /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -213,8 +214,6 @@
 		BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightFormatters.m; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
-		BCEAD9E20DE219130017495E /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCEAD9E30DE219130017495E /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVReaderTest.m; path = Classes/CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
@@ -224,6 +223,14 @@
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
+		BCFE4C570E7616E60090B81B /* Unit Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unit Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCFE4C590E7616E60090B81B /* Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Unit Tests-Info.plist"; sourceTree = "<group>"; };
+		BCFE4C750E7617D00090B81B /* GTMIPhoneUnitTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMIPhoneUnitTestDelegate.h; path = "../../google-code/google-toolbox-for-mac/UnitTesting/GTMIPhoneUnitTestDelegate.h"; sourceTree = SOURCE_ROOT; };
+		BCFE4C760E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMIPhoneUnitTestDelegate.m; path = "../../google-code/google-toolbox-for-mac/UnitTesting/GTMIPhoneUnitTestDelegate.m"; sourceTree = SOURCE_ROOT; };
+		BCFE4C770E7617D00090B81B /* GTMIPhoneUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMIPhoneUnitTestMain.m; path = "../../google-code/google-toolbox-for-mac/UnitTesting/GTMIPhoneUnitTestMain.m"; sourceTree = SOURCE_ROOT; };
+		BCFE4C780E7617D00090B81B /* GTMSenTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSenTestCase.h; path = "../../google-code/google-toolbox-for-mac/UnitTesting/GTMSenTestCase.h"; sourceTree = SOURCE_ROOT; };
+		BCFE4C790E7617D00090B81B /* GTMSenTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSenTestCase.m; path = "../../google-code/google-toolbox-for-mac/UnitTesting/GTMSenTestCase.m"; sourceTree = SOURCE_ROOT; };
+		BCFE4C7F0E7617FE0090B81B /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../../google-code/google-toolbox-for-mac/GTMDefines.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,12 +247,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCEAD9DF0DE219120017495E /* Frameworks */ = {
+		BCFE4C550E7616E60090B81B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCEAD9E80DE219710017495E /* SenTestingKit.framework in Frameworks */,
-				BC3384220DE78864001F1052 /* libsqlite3.0.dylib in Frameworks */,
+				BCFE4CA30E761A1B0090B81B /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +299,7 @@
 			children = (
 				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
 				BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */,
-				BCEAD9E20DE219130017495E /* UnitTests.octest */,
+				BCFE4C570E7616E60090B81B /* Unit Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,13 +317,14 @@
 				BC82AEA70E6FC7F900E2A693 /* Chart */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				BCEADAD60DE29D1B0017495E /* Web */,
-				BC7B54E00DDE2C8800B316A1 /* Tests */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				BC263C2A0DB56A3B007D03F4 /* Settings */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
+				BCFE4C680E76176E0090B81B /* Unit Testing */,
+				BC7B54E00DDE2C8800B316A1 /* Unit Tests */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -403,15 +410,14 @@
 			path = BRTables;
 			sourceTree = "<group>";
 		};
-		BC7B54E00DDE2C8800B316A1 /* Tests */ = {
+		BC7B54E00DDE2C8800B316A1 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BCEAD9E30DE219130017495E /* UnitTests-Info.plist */,
 				BCEADA030DE219E70017495E /* CSVReaderTest.m */,
 				BC3384010DE78303001F1052 /* DatabaseTest.m */,
 				BC910BC90E385C0F007B7941 /* EWDateTest.m */,
 			);
-			name = Tests;
+			name = "Unit Tests";
 			sourceTree = "<group>";
 		};
 		BC82AEA70E6FC7F900E2A693 /* Chart */ = {
@@ -509,6 +515,20 @@
 			name = Web;
 			sourceTree = "<group>";
 		};
+		BCFE4C680E76176E0090B81B /* Unit Testing */ = {
+			isa = PBXGroup;
+			children = (
+				BCFE4C590E7616E60090B81B /* Unit Tests-Info.plist */,
+				BCFE4C7F0E7617FE0090B81B /* GTMDefines.h */,
+				BCFE4C750E7617D00090B81B /* GTMIPhoneUnitTestDelegate.h */,
+				BCFE4C760E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m */,
+				BCFE4C770E7617D00090B81B /* GTMIPhoneUnitTestMain.m */,
+				BCFE4C780E7617D00090B81B /* GTMSenTestCase.h */,
+				BCFE4C790E7617D00090B81B /* GTMSenTestCase.m */,
+			);
+			name = "Unit Testing";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -535,24 +555,23 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BCEAD9E10DE219120017495E /* UnitTests */ = {
+		BCFE4C560E7616E60090B81B /* Unit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCEAD9E60DE219140017495E /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildConfigurationList = BCFE4C5D0E7616E70090B81B /* Build configuration list for PBXNativeTarget "Unit Tests" */;
 			buildPhases = (
-				BCEAD9DD0DE219120017495E /* Resources */,
-				BCEAD9DE0DE219120017495E /* Sources */,
-				BCEAD9DF0DE219120017495E /* Frameworks */,
-				BC33862F0DE7F6A4001F1052 /* ShellScript */,
-				BCEAD9E00DE219120017495E /* ShellScript */,
+				BCFE4C530E7616E60090B81B /* Resources */,
+				BCFE4C540E7616E60090B81B /* Sources */,
+				BCFE4C550E7616E60090B81B /* Frameworks */,
+				BCFE4C840E7618250090B81B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = UnitTests;
-			productName = CSVTest;
-			productReference = BCEAD9E20DE219130017495E /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			name = "Unit Tests";
+			productName = "Unit Tests";
+			productReference = BCFE4C570E7616E60090B81B /* Unit Tests.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -567,7 +586,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* FatWatch */,
-				BCEAD9E10DE219120017495E /* UnitTests */,
+				BCFE4C560E7616E60090B81B /* Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -598,11 +617,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCEAD9DD0DE219120017495E /* Resources */ = {
+		BCFE4C530E7616E60090B81B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC51B7CE0E3A9E6800D3B4C1 /* Check.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,22 +640,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo Tidying HTML\n\nHTML_TIDY_OPTS=\"-modify -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nfind ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME} -name \"*.html\" -print0 | xargs -0 tidy $HTML_TIDY_OPTS\n";
-			showEnvVarsInLog = 0;
-		};
-		BC33862F0DE7F6A4001F1052 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/CreateEmptyDatabase.sql",
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/WeightData.db",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
 		BC78D9DB0E5142430094ECBD /* Run Script (Changelog) */ = {
@@ -673,20 +675,6 @@
 			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 -init $SQL_FILE $DATABASE_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
-		BCEAD9E00DE219120017495E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-			showEnvVarsInLog = 0;
-		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -702,6 +690,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp ${SRCROOT}/Images/Icon.png ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Icon._png\n";
+			showEnvVarsInLog = 0;
+		};
+		BCFE4C840E7618250090B81B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH_TO_GTM=$HOME/Projects/google-code/google-toolbox-for-mac\n$PATH_TO_GTM/UnitTesting/RunIPhoneUnitTest.sh\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -751,17 +753,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCEAD9DE0DE219120017495E /* Sources */ = {
+		BCFE4C540E7616E60090B81B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCEADA040DE219E80017495E /* CSVReaderTest.m in Sources */,
-				BCEADA3D0DE220640017495E /* CSVReader.m in Sources */,
-				BC3384020DE78303001F1052 /* DatabaseTest.m in Sources */,
-				BC33840C0DE787D6001F1052 /* MonthData.m in Sources */,
-				BC33840D0DE787DA001F1052 /* Database.m in Sources */,
-				BC3384250DE7887C001F1052 /* EWDate.m in Sources */,
-				BC910BCA0E385C0F007B7941 /* EWDateTest.m in Sources */,
+				BCFE4C7A0E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m in Sources */,
+				BCFE4C7B0E7617D00090B81B /* GTMIPhoneUnitTestMain.m in Sources */,
+				BCFE4C7C0E7617D00090B81B /* GTMSenTestCase.m in Sources */,
+				BCFE4C8E0E76191B0090B81B /* CSVReaderTest.m in Sources */,
+				BCFE4C8F0E76191E0090B81B /* DatabaseTest.m in Sources */,
+				BCFE4C900E76191E0090B81B /* EWDateTest.m in Sources */,
+				BCFE4C9E0E7619D50090B81B /* CSVReader.m in Sources */,
+				BCFE4C9F0E7619E00090B81B /* Database.m in Sources */,
+				BCFE4CA00E7619E10090B81B /* MonthData.m in Sources */,
+				BCFE4CA10E7619F70090B81B /* EWDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,92 +897,75 @@
 			};
 			name = Distribution;
 		};
-		BCDCEB810E28150A00185857 /* Distribution */ = {
+		BCFE4C5A0E7616E70090B81B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386 ppc";
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
-			name = Distribution;
-		};
-		BCEAD9E40DE219140017495E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				ONLY_ACTIVE_ARCH = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 					"-framework",
-					SenTestingKit,
+					UIKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386 ppc";
-				WRAPPER_EXTENSION = octest;
+				PRODUCT_NAME = "Unit Tests";
+				SDKROOT = iphoneos2.1;
 			};
 			name = Debug;
 		};
-		BCEAD9E50DE219140017495E /* Release */ = {
+		BCFE4C5B0E7616E70090B81B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				ONLY_ACTIVE_ARCH = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 					"-framework",
-					SenTestingKit,
+					UIKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386 ppc";
-				WRAPPER_EXTENSION = octest;
+				PRODUCT_NAME = "Unit Tests";
+				SDKROOT = iphoneos2.1;
 				ZERO_LINK = NO;
 			};
 			name = Release;
+		};
+		BCFE4C5C0E7616E70090B81B /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				SDKROOT = iphoneos2.1;
+			};
+			name = Distribution;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1018,12 +1006,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCEAD9E60DE219140017495E /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+		BCFE4C5D0E7616E70090B81B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BCEAD9E40DE219140017495E /* Debug */,
-				BCEAD9E50DE219140017495E /* Release */,
-				BCDCEB810E28150A00185857 /* Distribution */,
+				BCFE4C5A0E7616E70090B81B /* Debug */,
+				BCFE4C5B0E7616E70090B81B /* Release */,
+				BCFE4C5C0E7616E70090B81B /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
