@@ -135,8 +135,8 @@ const CGFloat kDayWidth = 7.0f;
 	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
 	
-	lastMinIndex = 0;
-	lastMaxIndex = 0;
+	lastMinIndex = -2;
+	lastMaxIndex = -1;
 }
 
 
