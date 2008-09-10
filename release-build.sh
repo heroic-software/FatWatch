@@ -11,8 +11,8 @@ RAMDISK_SECTORS=$((2048 * $RAMDISK_SIZE_MB))
 RAMDISK_DEVICE=`hdiutil attach -nomount ram://$RAMDISK_SECTORS`
 echo "created ramdisk $RAMDISK_DEVICE"
 RAMDISK_PATH=`mktemp -d /tmp/ramdisk.XXXXXX`
-newfs $RAMDISK_DEVICE
-mount -t ufs $RAMDISK_DEVICE $RAMDISK_PATH
+newfs_hfs $RAMDISK_DEVICE
+mount -t hfs $RAMDISK_DEVICE $RAMDISK_PATH
 
 # BUILD
 
@@ -28,10 +28,9 @@ do_build() {
 			build \
 			OBJROOT=$RAMDISK_PATH/Build/Intermediate \
 			SYMROOT=$RAMDISK_PATH/Build/Products
-	cd $RAMDISK_PATH/Build/Products/$XCODE_CONFIGURATION-iphoneos
 	if [ -e $ZIP_FILE_PATH ]; then rm $ZIP_FILE_PATH; fi
-	zip -9 -r $ZIP_FILE_PATH $XCODE_TARGET.app
-	cd -
+	APP_PATH=$RAMDISK_PATH/Build/Products/$XCODE_CONFIGURATION-iphoneos/$XCODE_TARGET.app
+	ditto -c -k -v --keepParent --sequesterRsrc $APP_PATH $ZIP_FILE_PATH
 }
 
 do_build Distribution
