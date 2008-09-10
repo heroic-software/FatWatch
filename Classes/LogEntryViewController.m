@@ -108,15 +108,13 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	if (weight > 0) return weight;
 	
 	// there is no weight earlier than this day, so search the future
-	Database *db = [Database sharedDatabase];
-	EWMonth searchMonth = monthData.month;
-	while (searchMonth <= db.latestMonth) {
-		MonthData *searchData = [db dataForMonth:searchMonth];
+	MonthData *searchData = monthData;
+	while (searchData != nil) {
 		EWDay searchDay = [searchData firstDayWithWeight];
 		if (searchDay > 0) {
 			return [searchData measuredWeightOnDay:searchDay];
 		}
-		searchMonth += 1;
+		searchData = searchData.nextMonthData;
 	}
 	
 	// database is empty!
