@@ -1,8 +1,25 @@
 Release Notes
 
 1.3
+	Submitted September 10, 2008
+	
+- Chart: graph segments are drawn in a secondary thread for smoother scrolling
+- Fixed an issue where the chart would not draw if too little data was available.
+- Fixed an issue where trend calculation would ignore the last day of the month in some cases.
+- Chart: replaced circules with rhombuses, highlight color is now blue (same as check mark)
+- Trends: includes a "Since Goal Start" when enough information is available to calculate
 
-1.2
+1.2 - not released to public
+
+- Chart: added labels along the Y-axis
+- Chart: loads faster
+- Chart: added line to indicate Goal, if set
+- Goal: table rows no longer flash on first view
+- Wi-Fi Import/Export: import now accepts dates in both ISO format and local short format
+- Wi-Fi Import/Export: fixed display of icon on web page
+- Fixed an issue where FatWatch would freeze when deleting the first weight entry if the second entry fell in a later month.
+- Fixed an issue where the weight on the log entry view would not match the weight in the log.
+- Settings: added new scale increment options 0.05 and 0.2
 
 1.1
 

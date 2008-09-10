@@ -84,7 +84,7 @@ Tap Trends
 # Row 2 is -17 cal/day
 Tap Goal
 Set Goal Weight to 13st 7lb
-# Goal date is October 21, 2008
+# Goal date is ...
 Tap Trends
 # Goal section does not appear.
 Tap Goal
