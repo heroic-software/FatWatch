@@ -1,13 +1,22 @@
-Scripts:
+This is what you do to test FatWatch.
+# This is a statement to be verified.
 
-Delete FatWatch from device
-Clean
-Build "Distribution" configuration
-Build "Release" configuration and install on device
+PREPARATION
 
-Small - start with an empty database, add a few weights manually
+Close Project file.
+Run release-build.sh script
+# Generates FatWatch-Changes.txt
+# Generates FatWatch-Distribution.zip
+# Generates FatWatch-Release.zip
 
-Launch
+Delete FatWatch from device.
+Connect device to computer.
+Use Xcode Organizer to install FatWatch.
+Disconnect device.
+
+PART 1: SMALL DATA SET TEST
+
+Launch FatWatch
 # "New Database" view appears
 Select: stones, calories, 1.0
 Enter: 13st 0lb, check on, note "first"
@@ -69,9 +78,25 @@ Tap row [1]; Enter 13st 2lb; Tap "Save" button
 Rotate device to landscape
 # Chart	appears with 3 marks, only last is yellow
 Rotate device to portrait
+Tap Trends
+# Only Past Week section appears
+# Row 1 is -0.03 lbs/week
+# Row 2 is -17 cal/day
+Tap Goal
+Set Goal Weight to 13st 7lb
+# Goal date is October 21, 2008
+Tap Trends
+# Goal section does not appear.
+Tap Goal
+Set Start Date to [1] yesterday
+# Goal date is October 20, 2008
 
+
+* test Go To to create earlier months
 
 Medium - import ~3 months worth of weight history
+
+* test goal set, changed, attained, late, etc.
 
 Go to Settings app
 Select kilograms, kilojoules, 0.1
@@ -79,6 +104,10 @@ Verify conversions
 Import new aata
 
 Large - import ~10 years of weight history
+
+* set Passcode
+* test unit changes
+* test Go To
 
 Go to Settings app
 Select pounds, calories, 0.5
