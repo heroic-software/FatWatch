@@ -14,5 +14,6 @@
 	unsigned int count;
 }
 - (void)addPointAtX:(float)x y:(float)y;
-- (float)computeSlope;
+@property (nonatomic,readonly) unsigned int count;
+@property (nonatomic,readonly) float slope;
 @end

@@ -7,131 +7,12 @@
 //
 
 #import "TrendViewController.h"
-#import "Database.h"
-#import "SlopeComputer.h"
-#import "MonthData.h"
 #import "WeightFormatters.h"
 #import "EWGoal.h"
-
-/*
- Trends:
- 
- Since Goal Start
-weight change: 1.00 lbs/week
-energy change: -500 cal/day
-target date:
-on/behind/ahead:
- 
- goal in 48 days / goal by September 9, 2008
- moving away from goal
- on schedule / behind schedule / ahead of schedule
- on schedule / 3 days behind schedule / 3 days ahead of schedule
-*/ 
-
-@interface TrendSpan : NSObject {
-	NSString *title;
-	NSInteger length;
-	float weightPerDay;
-	BOOL visible;
-	BOOL goal;
-}
-@property (nonatomic,retain) NSString *title;
-@property (nonatomic) NSInteger length;
-@property (nonatomic) float weightPerDay;
-@property (nonatomic) BOOL visible;
-@property (nonatomic) BOOL goal;
-@property (nonatomic,readonly) NSDate *endDate;
-@end
-
+#import "TrendSpan.h"
 
 
 @implementation TrendViewController
-
-
-- (NSArray *)trendSpanArray {
-	NSMutableArray *spanArray = [NSMutableArray array];
-
-	EWGoal *goal = [EWGoal sharedGoal];
-	if (goal.defined) {
-		TrendSpan *span = [[TrendSpan alloc] init];
-		
-		NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:goal.startDate toDate:[NSDate date] options:0];
-		span.title = @"Since Goal Start";
-		span.length = [comps day];
-		span.goal = YES;
-		[spanArray addObject:span];
-		[span release];
-	}
-	
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"TrendSpans" ofType:@"plist"];
-	NSDictionary *spanDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	NSArray *spanLengths = [spanDict objectForKey:@"SpanLengths"];
-	NSArray *spanTitles = [spanDict objectForKey:@"SpanTitles"];
-	NSUInteger spanCount = MIN([spanLengths count], [spanTitles count]);
-
-	NSUInteger spanIndex;
-	for (spanIndex = 0; spanIndex < spanCount; spanIndex++) {
-		TrendSpan *span = [[TrendSpan alloc] init];
-		span.title = [spanTitles objectAtIndex:spanIndex];
-		span.length = [[spanLengths objectAtIndex:spanIndex] intValue];
-		[spanArray addObject:span];
-		[span release];
-	}
-	
-	return spanArray;
-}
-
-
-- (void)recompute {
-	[array setArray:[self trendSpanArray]];
-	
-	Database *database = [Database sharedDatabase];
-	
-	SlopeComputer *computer = [[SlopeComputer alloc] init];
-	EWMonthDay curMonthDay = EWMonthDayFromDate([NSDate date]);
-	EWMonth curMonth = EWMonthDayGetMonth(curMonthDay);
-	EWDay curDay = EWMonthDayGetDay(curMonthDay);
-	MonthData *data = [database dataForMonth:curMonth];
-	EWMonth earliestMonth = [database earliestMonth];
-
-	int newValueCount = 0;
-	float x = 0;
-	
-	NSArray *orderedSpanArray = [array sortedArrayUsingSelector:@selector(compare:)];
-	for (TrendSpan *span in orderedSpanArray) {
-		if (curMonth < earliestMonth) break;
-
-		while ((x < span.length) && (curMonth >= earliestMonth)) {
-			if (data == nil) {
-				data = [database dataForMonth:curMonth];
-			}
-			float y = [data trendWeightOnDay:curDay];
-			if (y > 0) {
-				[computer addPointAtX:x y:y];
-				newValueCount++;
-			}
-			x++;
-			curDay--;
-			if (curDay < 1) {
-				curMonth--;
-				curDay = EWDaysInMonth(curMonth);
-				data = nil;
-			}
-		}
-		if (newValueCount > 1 || span.goal) {
-			span.weightPerDay = -[computer computeSlope];
-			span.visible = YES;
-			newValueCount = 0;
-		}
-	}
-	[computer release];
-	
-	int index;
-	for (index = [array count] - 1; index >= 0; index--) {
-		TrendSpan *span = [array objectAtIndex:index];
-		if (! span.visible) [array removeObjectAtIndex:index];
-	}
-}
 
 
 - (id)init {
@@ -160,7 +41,7 @@ on/behind/ahead:
 
 - (BOOL)hasEnoughData {
 	if ([super hasEnoughData]) {
-		[self recompute];
+		[array setArray:[TrendSpan computeTrendSpans]];
 		return [array count] > 0;
 	}
 	return NO;
@@ -223,8 +104,14 @@ on/behind/ahead:
 			cell.text = [NSString stringWithFormat:@"goal on %@", [formatter stringFromDate:endDate]];
 			[formatter release];
 		} else {
-			NSTimeInterval t = [endDate timeIntervalSinceNow];
-			cell.text = [NSString stringWithFormat:@"goal in %0.0f days", round(t / SecondsPerDay)];
+			int dayCount = floor([endDate timeIntervalSinceNow] / SecondsPerDay);
+			if (dayCount > 0) {
+				cell.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
+			} else if (dayCount < 0) {
+				cell.text = [NSString stringWithFormat:@"goal %d days ago", -dayCount];
+			} else {
+				cell.text = @"goal today";
+			}
 		}
 		cell.textColor = [UIColor blackColor];
 	} else {
@@ -244,15 +131,15 @@ on/behind/ahead:
 	NSDate *endDate = span.endDate;
 	
 	NSTimeInterval t = [endDate timeIntervalSinceDate:goal.endDate];
-	int dayCount = round(t / SecondsPerDay);
-	if (t > SecondsPerDay) {
+	int dayCount = floor(t / SecondsPerDay);
+	if (dayCount > 0) {
 		if (dayCount == 1) {
 			cell.text = @"1 day behind schedule";
 		} else {
 			cell.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
 		}
 		cell.textColor = [WeightFormatters warningColor];
-	} else if (t < 0) {
+	} else if (dayCount < 0) {
 		if (dayCount == -1) {
 			cell.text = @"1 day ahead of schedule";
 		} else {
@@ -307,34 +194,5 @@ on/behind/ahead:
 	}
 }
 
-
-@end
-
-
-
-@implementation TrendSpan
-
-@synthesize title, length, weightPerDay, visible, goal;
-
-- (NSComparisonResult)compare:(TrendSpan *)otherSpan {
-	if (self.length < otherSpan.length) {
-		return NSOrderedAscending;
-	} else if (self.length > otherSpan.length) {
-		return NSOrderedDescending;
-	} else {
-		return NSOrderedSame;
-	}
-}
-
-
-- (NSDate *)endDate {
-	NSDate *nowDate = [NSDate date];
-	NSDate *endDate = [[EWGoal sharedGoal] endDateFromStartDate:nowDate atWeightChangePerDay:self.weightPerDay];
-	if ([endDate timeIntervalSinceDate:nowDate] < 0) {
-		return nil;
-	} else {
-		return endDate;
-	}
-}
 
 @end

@@ -212,14 +212,14 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
-- (NSDate *)endDateFromStartDate:(NSDate *)date atWeightChangePerDay:(float)weightChangePerDay {
+- (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay {
 	NSTimeInterval seconds;
 	
 	@synchronized (self) {
-		float totalWeightChange = (self.endWeight - [self weightOnDate:date]);
+		float totalWeightChange = (self.endWeight - self.startWeight);
 		seconds = totalWeightChange / weightChangePerDay * SecondsPerDay;
 	}
-	return [date addTimeInterval:seconds];
+	return [self.startDate addTimeInterval:seconds];
 }
 
 
@@ -227,8 +227,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	NSDate *d;
 
 	@synchronized (self) {
-		d = [self endDateFromStartDate:self.startDate 
-				  atWeightChangePerDay:self.weightChangePerDay];
+		d = [self endDateWithWeightChangePerDay:self.weightChangePerDay];
 	}
 	return d;
 }

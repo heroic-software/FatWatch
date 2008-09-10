@@ -11,6 +11,10 @@
 
 @implementation SlopeComputer
 
+
+@synthesize count;
+
+
 - (void)addPointAtX:(float)x y:(float)y
 {
 	sumX += x;
@@ -20,11 +24,13 @@
 	count++;
 }
 
-- (float)computeSlope
+
+- (float)slope
 {
 	double Sxx = sumXsquared - sumX * sumX / count;
 	double Sxy = sumXY - sumX * sumY / count;
 	return Sxy / Sxx;
 }
+
 
 @end

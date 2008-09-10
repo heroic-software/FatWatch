@@ -48,6 +48,8 @@
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
+		BC6FF1AE0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
+		BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
@@ -172,6 +174,8 @@
 		BC65EBBA0DEBA8FE0008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
+		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
+		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
 		BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FatWatch-Changes.txt"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 			children = (
 				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
 				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
+				BC6FF1AC0E774B3B000BABED /* TrendSpan.h */,
+				BC6FF1AD0E774B3B000BABED /* TrendSpan.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
 			);
@@ -750,6 +756,7 @@
 				BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */,
 				BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */,
 				BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */,
+				BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,6 +774,7 @@
 				BCFE4C9F0E7619E00090B81B /* Database.m in Sources */,
 				BCFE4CA00E7619E10090B81B /* MonthData.m in Sources */,
 				BCFE4CA10E7619F70090B81B /* EWDate.m in Sources */,
+				BC6FF1AE0E774B3C000BABED /* TrendSpan.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

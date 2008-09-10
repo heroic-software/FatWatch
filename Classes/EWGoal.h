@@ -33,6 +33,6 @@
 @property float weightChangePerDay;
 
 - (float)weightOnDate:(NSDate *)date;
-- (NSDate *)endDateFromStartDate:(NSDate *)date atWeightChangePerDay:(float)weightChangePerDay;
+- (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay;
 
 @end
