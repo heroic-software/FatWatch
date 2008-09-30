@@ -45,9 +45,13 @@
 		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
 		CGSize labelSize = [label sizeWithFont:labelFont];
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
-		CGPoint labelPoint = CGPointMake(viewWidth - labelSize.width - tickWidth, 
-										 point.y - (labelSize.height / 2));
-		[label drawAtPoint:labelPoint withFont:labelFont];
+		CGRect labelRect = CGRectMake(viewWidth - labelSize.width - tickWidth, 
+									  point.y - (labelSize.height / 2),
+									  labelSize.width,
+									  labelSize.height);
+		if (CGRectContainsRect(bounds, labelRect)) {
+			[label drawInRect:labelRect withFont:labelFont];
+		}
 		// add tick line to path
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - tickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
