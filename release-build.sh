@@ -7,16 +7,16 @@ create_ram_disk() {
 	local RAMDISK_SECTORS=$((2048 * $RAMDISK_SIZE_MB))
 	RAMDISK_DEVICE=`hdiutil attach -nomount ram://$RAMDISK_SECTORS`
 	RAMDISK_PATH=`mktemp -d /tmp/ramdisk.XXXXXX`
-	newfs_hfs $RAMDISK_DEVICE
+	newfs_hfs $RAMDISK_DEVICE # format as HFS+
 	mount -t hfs $RAMDISK_DEVICE $RAMDISK_PATH
-	df -h $RAMDISK_PATH
+	df -h $RAMDISK_PATH # report on disk usage
 }
 
 # Destroys the RAM disk created by create_ram_disk
 # parameters: none
 destroy_ram_disk() {
 	echo "Destroying $RAMDISK_DEVICE"
-	df -h $RAMDISK_PATH
+	df -h $RAMDISK_PATH # report on disk usage
 	umount -f $RAMDISK_DEVICE
 	hdiutil detach $RAMDISK_DEVICE
 	rmdir $RAMDISK_PATH
