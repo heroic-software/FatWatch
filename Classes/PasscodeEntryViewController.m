@@ -202,7 +202,9 @@ enum {
 
 - (void)dismissView {
 	if (! isAuthorized) {
-		[[UIApplication sharedApplication] performSelector:@selector(terminate)];
+		[codeField resignFirstResponder];
+		promptLabel.text = @"Authorization Failed";
+		smallLabel.hidden = YES;
 		return;
 	}
 	
