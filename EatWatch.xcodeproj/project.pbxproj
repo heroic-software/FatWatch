@@ -39,7 +39,6 @@
 		BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
-		BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */; };
 		BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */; };
 		BC5CB38F0E27EC0D00A3B11C /* SegmentCheck0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */; };
 		BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */; };
@@ -168,7 +167,6 @@
 		BC51B9D30E3B0C0200D3B4C1 /* BRTableDatePickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableDatePickerRow.h; sourceTree = "<group>"; };
 		BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableDatePickerRow.m; sourceTree = "<group>"; };
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconLog.png; path = Images/TabIconLog.png; sourceTree = "<group>"; };
-		BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconMore.png; path = Images/TabIconMore.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabIconTrend.png; path = Images/TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck0.png; path = Images/SegmentCheck0.png; sourceTree = "<group>"; };
 		BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck1.png; path = Images/SegmentCheck1.png; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
-				BC5CB37A0E27E5DA00A3B11C /* TabIconMore.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC65E9680DEB3BF20008E677 /* Defaults.plist */,
@@ -619,7 +616,6 @@
 				BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */,
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
 				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
-				BC5CB37D0E27E5DA00A3B11C /* TabIconMore.png in Resources */,
 				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
 				BC5CB38F0E27EC0D00A3B11C /* SegmentCheck0.png in Resources */,
 				BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */,

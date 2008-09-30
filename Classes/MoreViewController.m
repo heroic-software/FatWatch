@@ -90,7 +90,9 @@
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"MORE_VIEW_TITLE", nil);
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconMore.png"];
+		UITabBarItem *item = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0];
+		self.tabBarItem = item;
+		[item release];
 		
 		webServer = [[MicroWebServer alloc] init];
 		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
