@@ -133,6 +133,8 @@
 		BC0CE4160DDBE10F00AB8899 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
+		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
+		BC1DE01E0E91FC8E002684E7 /* release-build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "release-build.sh"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -329,6 +331,8 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
+				BC1DE01E0E91FC8E002684E7 /* release-build.sh */,
+				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
 				BCFE4C680E76176E0090B81B /* Unit Testing */,
 				BC7B54E00DDE2C8800B316A1 /* Unit Tests */,

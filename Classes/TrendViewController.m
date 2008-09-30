@@ -97,21 +97,20 @@
 	NSDate *endDate = span.endDate;
 	
 	if (endDate) {
-		if (showEndDateAsDate) {
+		int dayCount = floor([endDate timeIntervalSinceNow] / SecondsPerDay);
+		if (dayCount > 365) {
+			cell.text = @"goal in over a year";
+		} else if (showEndDateAsDate) {
 			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 			[formatter setDateStyle:NSDateFormatterLongStyle];
 			[formatter setTimeStyle:NSDateFormatterNoStyle];
-			cell.text = [NSString stringWithFormat:@"goal on %@", [formatter stringFromDate:endDate]];
+			NSString *dateStr = [formatter stringFromDate:endDate];
+			cell.text = [NSString stringWithFormat:@"goal on %@", dateStr];
 			[formatter release];
+		} else if (dayCount == 0) {
+			cell.text = @"goal today";
 		} else {
-			int dayCount = floor([endDate timeIntervalSinceNow] / SecondsPerDay);
-			if (dayCount > 0) {
-				cell.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
-			} else if (dayCount < 0) {
-				cell.text = [NSString stringWithFormat:@"goal %d days ago", -dayCount];
-			} else {
-				cell.text = @"goal today";
-			}
+			cell.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
 		}
 		cell.textColor = [UIColor blackColor];
 	} else {
@@ -133,14 +132,18 @@
 	NSTimeInterval t = [endDate timeIntervalSinceDate:goal.endDate];
 	int dayCount = floor(t / SecondsPerDay);
 	if (dayCount > 0) {
-		if (dayCount == 1) {
+		if (dayCount > 365) {
+			cell.text = @"more than a year behind schedule";
+		} else if (dayCount == 1) {
 			cell.text = @"1 day behind schedule";
 		} else {
 			cell.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
 		}
 		cell.textColor = [WeightFormatters warningColor];
 	} else if (dayCount < 0) {
-		if (dayCount == -1) {
+		if (dayCount < -365) {
+			cell.text = @"more than a year ahead of schedule";
+		} else if (dayCount == -1) {
 			cell.text = @"1 day ahead of schedule";
 		} else {
 			cell.text = [NSString stringWithFormat:@"%d days ahead of schedule", -dayCount];

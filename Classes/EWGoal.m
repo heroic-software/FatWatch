@@ -56,7 +56,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		float s = self.startWeight;
 		float e = self.endWeight;
 		float w = [self weightOnDate:[NSDate date]];
-		b = (s > e && e > w) || (s < e && e < w);
+		b = (s >= e && e >= w) || (s <= e && e <= w);
 	}
 	return b;
 }

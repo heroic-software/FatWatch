@@ -110,9 +110,13 @@
 
 
 - (NSDate *)endDate {
+	if (self.weightPerDay == 0) {
+		return nil;
+	}
+	
 	EWGoal *g = [EWGoal sharedGoal];
 	NSDate *endDate = [g endDateWithWeightChangePerDay:self.weightPerDay];
-	if ([endDate timeIntervalSinceDate:g.startDate] < 0) {
+	if ([endDate timeIntervalSinceNow] < 0) {
 		return nil;
 	} else {
 		return endDate;
