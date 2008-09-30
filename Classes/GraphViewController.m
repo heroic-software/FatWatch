@@ -23,6 +23,8 @@ enum {
 
 
 const CGFloat kGraphHeight = 300.0f;
+const CGFloat kGraphMarginTop = 32.0f;
+const CGFloat kGraphMarginBottom = 16.0f;
 
 
 @implementation GraphViewController
@@ -85,15 +87,19 @@ const CGFloat kGraphHeight = 300.0f;
 	Database *db = [Database sharedDatabase];
 	
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
+	float minWeight, maxWeight;
 	if (goalWeight > 0) {
-		parameters.minWeight = MIN([db minimumWeight], goalWeight) - 10.0f;
-		parameters.maxWeight = MAX([db maximumWeight], goalWeight) + 10.0f;
+		minWeight = MIN([db minimumWeight], goalWeight);
+		maxWeight = MAX([db maximumWeight], goalWeight);
 	} else {
-		parameters.minWeight = [db minimumWeight] - 10.0f;
-		parameters.maxWeight = [db maximumWeight] + 10.0f;
+		minWeight = [db minimumWeight];
+		maxWeight = [db maximumWeight];
 	}
+	
 	parameters.scaleX = kDayWidth;
-	parameters.scaleY = kGraphHeight / (parameters.maxWeight - parameters.minWeight);
+	parameters.scaleY = (kGraphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
+	parameters.minWeight = minWeight - (kGraphMarginBottom / parameters.scaleY);
+	parameters.maxWeight = maxWeight + (kGraphMarginTop / parameters.scaleY);
 	
 	float increment = [WeightFormatters chartWeightIncrement];
 	while (parameters.scaleY * increment < [UIFont systemFontSize]) {
