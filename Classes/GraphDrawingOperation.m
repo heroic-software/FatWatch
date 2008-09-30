@@ -162,12 +162,14 @@
 - (CGPathRef)createMarksPathUsingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
-	const CGFloat markRadius = 0.5 * p->scaleX;
+	const CGFloat markRadius = 0.5 * kDayWidth;
 	
 	NSInteger k;
 	for (k = 0; k < pointCount; k++) {
 		if (flags[k] == filter) {
 			CGPoint scalePoint = CGPointApplyAffineTransform(scalePoints[k], p->t);
+			scalePoint.x = roundf(scalePoint.x);
+			scalePoint.y = roundf(scalePoint.y);
 			
 			// Rhombus
 			CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
@@ -303,7 +305,7 @@
 
 		// trend line
 		
-		CGContextSetRGBStrokeColor(ctxt, 0.1,0.1,0.1, 1.0);
+		CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
 		CGContextSetLineWidth(ctxt, 3.0f);
 		CGPathRef trendPath = [self createTrendPath];
 		CGContextAddPath(ctxt, trendPath);
@@ -322,7 +324,7 @@
 		CGContextDrawPath(ctxt, kCGPathFillStroke);
 		CGPathRelease(unflaggedMarksPath);
 		
-		CGContextSetRGBFillColor(ctxt, 0.219104295415, 0.30611123827, 0.496452277409, 1.0);
+		CGContextSetRGBFillColor(ctxt, 0.2, 0.3, 0.8, 1.0);
 		CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
 		CGContextAddPath(ctxt, flaggedMarksPath);
 		CGContextDrawPath(ctxt, kCGPathFillStroke);

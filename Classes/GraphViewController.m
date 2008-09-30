@@ -86,6 +86,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 	Database *db = [Database sharedDatabase];
 	
+	infoCount = db.latestMonth - db.earliestMonth + 1;
+	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
+
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
 	float minWeight, maxWeight;
 	if (goalWeight > 0) {
@@ -96,7 +99,13 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		maxWeight = [db maximumWeight];
 	}
 	
-	parameters.scaleX = kDayWidth;
+	if (infoCount == 1) {
+		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / EWDaysInMonth(db.earliestMonth);
+	} else {
+		parameters.scaleX = kDayWidth;
+	}
+	
 	parameters.scaleY = (kGraphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
 	parameters.minWeight = minWeight - (kGraphMarginBottom / parameters.scaleY);
 	parameters.maxWeight = maxWeight + (kGraphMarginTop / parameters.scaleY);
@@ -114,8 +123,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	t = CGAffineTransformTranslate(t, -0.5, -parameters.minWeight);
 	parameters.t = t;
 	
-	infoCount = db.latestMonth - db.earliestMonth + 1;
-	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
 	info = malloc(infoCount * sizeof(struct GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
@@ -123,7 +130,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	CGFloat x = 0;
 	int i;
 	for (i = 0; i < infoCount; i++) {
-		CGFloat w = kDayWidth * EWDaysInMonth(m);
+		CGFloat w = parameters.scaleX * EWDaysInMonth(m);
 		
 		info[i].month = m;
 		info[i].offsetX = x;
