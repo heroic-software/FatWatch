@@ -59,6 +59,9 @@
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
+		BC9475C90E7F2CBA00929185 /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
+		BC9475CA0E7F2CC300929185 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
+		BC9475CC0E7F2CCB00929185 /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
 		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
@@ -758,6 +761,9 @@
 				BCFE4CA00E7619E10090B81B /* MonthData.m in Sources */,
 				BCFE4CA10E7619F70090B81B /* EWDate.m in Sources */,
 				BC6FF1AE0E774B3C000BABED /* TrendSpan.m in Sources */,
+				BC9475C90E7F2CBA00929185 /* EWGoal.m in Sources */,
+				BC9475CA0E7F2CC300929185 /* SlopeComputer.m in Sources */,
+				BC9475CC0E7F2CCB00929185 /* WeightFormatters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

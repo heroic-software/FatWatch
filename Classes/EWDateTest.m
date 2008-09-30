@@ -20,19 +20,27 @@
 
 
 - (void)testEWDaysInMonth {
-	STAssertEquals(EWDaysInMonth(0), (NSUInteger)31, @"January 2000");
-	STAssertEquals(EWDaysInMonth(1), (NSUInteger)28, @"February 2000");
-	STAssertEquals(EWDaysInMonth(2), (NSUInteger)31, @"March 2000");
-	STAssertEquals(EWDaysInMonth(3), (NSUInteger)30, @"April 2000");
-	STAssertEquals(EWDaysInMonth(4), (NSUInteger)31, @"May 2000");
-	STAssertEquals(EWDaysInMonth(5), (NSUInteger)30, @"June 2000");
-	STAssertEquals(EWDaysInMonth(6), (NSUInteger)31, @"July 2000");
-	STAssertEquals(EWDaysInMonth(7), (NSUInteger)31, @"August 2000");
-	STAssertEquals(EWDaysInMonth(8), (NSUInteger)30, @"September 2000");
-	STAssertEquals(EWDaysInMonth(9), (NSUInteger)31, @"October 2000");
-	STAssertEquals(EWDaysInMonth(10), (NSUInteger)30, @"November 2000");
-	STAssertEquals(EWDaysInMonth(11), (NSUInteger)31, @"December 2000");
-	STAssertEquals(EWDaysInMonth(12), (NSUInteger)31, @"January 2001");
+	STAssertEquals(EWDaysInMonth(-15), (NSUInteger)31, @"October 1999");
+	STAssertEquals(EWDaysInMonth(-3), (NSUInteger)31, @"October 2000");
+	STAssertEquals(EWDaysInMonth(-2), (NSUInteger)30, @"November 2000");
+	STAssertEquals(EWDaysInMonth(-1), (NSUInteger)31, @"December 2000");
+	STAssertEquals(EWDaysInMonth(0), (NSUInteger)31, @"January 2001");
+	STAssertEquals(EWDaysInMonth(1), (NSUInteger)28, @"February 2001");
+	STAssertEquals(EWDaysInMonth(2), (NSUInteger)31, @"March 2001");
+	STAssertEquals(EWDaysInMonth(3), (NSUInteger)30, @"April 2001");
+	STAssertEquals(EWDaysInMonth(4), (NSUInteger)31, @"May 2001");
+	STAssertEquals(EWDaysInMonth(5), (NSUInteger)30, @"June 2001");
+	STAssertEquals(EWDaysInMonth(6), (NSUInteger)31, @"July 2001");
+	STAssertEquals(EWDaysInMonth(7), (NSUInteger)31, @"August 2001");
+	STAssertEquals(EWDaysInMonth(8), (NSUInteger)30, @"September 2001");
+	STAssertEquals(EWDaysInMonth(9), (NSUInteger)31, @"October 2001");
+	STAssertEquals(EWDaysInMonth(10), (NSUInteger)30, @"November 2001");
+	STAssertEquals(EWDaysInMonth(11), (NSUInteger)31, @"December 2001");
+	STAssertEquals(EWDaysInMonth(12), (NSUInteger)31, @"January 2002");
+
+	STAssertEquals(EWDaysInMonth(13), (NSUInteger)28, @"February 2002");
+	STAssertEquals(EWDaysInMonth(25), (NSUInteger)28, @"February 2003");
+	STAssertEquals(EWDaysInMonth(37), (NSUInteger)29, @"February 2004");
 }
 
 

@@ -15,23 +15,27 @@ const NSInteger kReferenceDay = 1;
 
 
 NSUInteger EWDaysInMonth(EWMonth m) {
-	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	static NSUInteger dayCount[12] = {
+		31,  0, 31, // Jan Feb Mar
+		30, 31, 30, // Apr May Jun
+		31, 31, 30, // Jul Aug Sep
+		31, 30, 31  // Oct Nov Dec
+	};
+	
+	NSInteger m0 = (m % 12);
 
-	NSDate *refDateGMT = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
-	NSTimeInterval refDateOffset = -[[calendar timeZone] secondsFromGMTForDate:refDateGMT];
-	NSDate *refDate = [refDateGMT addTimeInterval:refDateOffset];
+	if (m0 < 0) m0 += 12;
 
-	NSDateComponents *components = [[NSDateComponents alloc] init];
-	components.month = m;
-	NSDate *monthDate = [calendar dateByAddingComponents:components
-												  toDate:refDate
-												 options:0];
-	NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit
-								   inUnit:NSMonthCalendarUnit
-								  forDate:monthDate];
-	[components release];
-	[calendar release];
-	return range.length;
+	if (m0 == 1) {
+		NSInteger year = (24012 + m) / 12; 	// 0 = 2001-01
+		if (((year % 4 == 0) && (year % 100) != 0) || ((year % 400) == 0)) {
+			return 29;
+		} else {
+			return 28;
+		}
+	} else {
+		return dayCount[m0];
+	}
 }
 
 
