@@ -1,22 +1,26 @@
 APPLICATION DESCRIPTION:
 
-FatWatch is more than just a body weight tracker.  Weigh-in every day, and FatWatch will compute an exponentially smoothed moving average, letting you know instantly whether your weight is trending up or down, regardless of day-to-day fluctuations.
+FatWatch is the most advanced weight tracker on the App Store.  Beyond recording your weight history, FatWatch computes a moving average, so you know which way your weight is trending regardless of day-to-day variations.
 
-FatWatch also estimates your daily calorie surplus or deficit (how much are you eating compared to how much you are burning), giving you useful information for adjusting your diet and exercise plans.  FatWatch estimates using your weight alone, without the hassle of searching a food database every time you eat something.
+FatWatch also estimates your daily energy surplus or deficit (how much extra you are eating or burning each day), allowing you to intelligently adjust your diet and exercise plans.  FatWatch performs this estimation using your weight alone, without the hassle of searching a food database each time you eat something.
 
-• Use pounds, kilograms, or stones for weight; calories or kilojoules for energy.
+FatWatch is the only iPhone weight tracker that allows easy transfer of your weight history to and from your computer without additional software or online service accounts.
 
-• Supports scale increments of 1.0, 0.5, 0.2, 0.1, or 0.05.
+• Choose pounds, kilograms, or stones for weight; calories or kilojoules for energy.
+
+• Scale increments of 1.0, 0.5, 0.2, 0.1, or 0.05.
 
 • Passcode Protection keeps your weight history private.
 
-• Wi-Fi Import/Export lets you import existing weight history from other programs (such as Eat Watch for Palm), or export a comma separated text file for use anywhere.
+• Wi-Fi Import/Export: import weight history from other sources (such as Eat Watch for Palm), or export a comma separated text file for use anywhere.
 
 • Use notes and checkmarks to annotate your weight history.
 
-• Rotate FatWatch sideways to see a chart of your weight over time.  No online signup is required.
+• Rotate FatWatch sideways to see a chart of your weight over time.
 
 • Uses statistical methods consistent with The Hacker's Diet, but applicable to any diet or exercise plan.
+
+• Scientific studies have demonstrated that people who weigh themselves daily are more successful at losing weight and maintaining their weight loss.
 
 
 WHAT'S NEW IN THIS VERSION:
@@ -25,15 +29,11 @@ WHAT'S NEW IN THIS VERSION:
 
 • Trends view: now includes a "Since Goal Start" section if a goal has been set and enough weight history is available.
 
-• Settings include new scale increments of 0.05 and 0.2.
+• Settings: new scale increments of 0.05 and 0.2.
 
-• Wi-Fi Import/Export now accepts dates in both ISO format and localized short format.
+• Wi-Fi Import/Export: now accepts dates in both ISO format and localized short format.
 
-• Fixed an issue where FatWatch would freeze when deleting the first weight entry if the second entry fell in a later month.
-
-• Fixed an issue where the weight on the log entry view would not match the weight in the log.
-
-• Fixed an issue where rows would flash when selecting the Goal view.
+• Various bug fixes.
 
 Thank you for supporting FatWatch.  If you are finding it useful, please take a moment to write a review in the iTunes App Store!
 
