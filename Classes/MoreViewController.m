@@ -60,10 +60,9 @@
 	BRTableSection *supportSection = [[BRTableSection alloc] init];
 	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
 
-	NSString *footerFormat = NSLocalizedString(@"COPYRIGHT", nil);
-	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 	
-	supportSection.footerTitle = [NSString stringWithFormat:footerFormat, version];
+	supportSection.footerTitle = [infoDictionary objectForKey:@"NSHumanReadableCopyright"];
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
 	webRow.title = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
@@ -73,7 +72,7 @@
 	[webRow release];
 	
 	NSString *emailURLFormat = NSLocalizedString(@"SUPPORT_EMAIL_URL", nil);
-	NSString *emailURLString = [NSString stringWithFormat:emailURLFormat, version];
+	NSString *emailURLString = [NSString stringWithFormat:emailURLFormat, [infoDictionary objectForKey:@"CFBundleShortVersionString"]];
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
