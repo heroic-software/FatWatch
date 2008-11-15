@@ -38,6 +38,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	NSString *formatString;
 	NSNumberFormatter *poundsFormatter;
 }
+- (void)setFractionDigits:(NSUInteger)digits;
 @end
 
 @interface StoneChartFormatter : NSFormatter {
@@ -146,6 +147,23 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
++ (float)goalWeightIncrement {
+	static float increment = 0;
+	
+	if (increment == 0) {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		EWWeightUnit unit = [defs integerForKey:kWeightUnitKey];
+		if (unit == kWeightUnitKilograms) {
+			increment = 1.0f / kKilogramsPerPound;
+		} else {
+			increment = 1.0f;
+		}
+	}
+	
+	return increment;
+}
+
+
 + (float)defaultWeightChange {
 	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 	if (unit == kWeightUnitKilograms) {
@@ -162,13 +180,38 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	if (formatter == nil) {
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitStones) {
-			formatter = [[StoneWeightFormatter alloc] init];
+			StoneWeightFormatter *sf = [[StoneWeightFormatter alloc] init];
+			[sf setFractionDigits:[self fractionDigits]];
+			formatter = sf;
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			
 			[nf setMinimumFractionDigits:[self fractionDigits]];
 			[nf setMaximumFractionDigits:[self fractionDigits]];
 			
+			if (unit == kWeightUnitPounds) {
+				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
+			} else {
+				[nf setPositiveSuffix:NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil)];
+				[nf setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
+			}
+			formatter = nf;
+		}
+	}
+	
+	return formatter;
+}
+
+
++ (NSFormatter *)goalWeightFormatter {
+	static NSFormatter *formatter = nil;
+	
+	if (formatter == nil) {
+		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+		if (unit == kWeightUnitStones) {
+			formatter = [[StoneWeightFormatter alloc] init];
+		} else {
+			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			if (unit == kWeightUnitPounds) {
 				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
 			} else {
@@ -305,12 +348,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (float)chartWeightIncrement {
-	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
-	if (unit == kWeightUnitKilograms) {
-		return 1 / kKilogramsPerPound;
-	} else {
-		return 1;
-	}
+	return [WeightFormatters goalWeightIncrement];
 }
 
 
@@ -345,10 +383,14 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		formatString = [NSLocalizedString(@"STONE_FORMAT", nil) retain];
 		poundsFormatter = [[NSNumberFormatter alloc] init];
 		[poundsFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[poundsFormatter setMinimumFractionDigits:[WeightFormatters fractionDigits]];
-		[poundsFormatter setMaximumFractionDigits:[WeightFormatters fractionDigits]];
 	}
 	return self;
+}
+
+
+- (void)setFractionDigits:(NSUInteger)digits {
+	[poundsFormatter setMinimumFractionDigits:digits];
+	[poundsFormatter setMaximumFractionDigits:digits];
 }
 
 

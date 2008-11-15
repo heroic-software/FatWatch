@@ -87,8 +87,8 @@
 	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"endWeightNumber";
-	weightRow.formatter = [WeightFormatters weightFormatter];
-	weightRow.increment = [WeightFormatters scaleIncrement];
+	weightRow.formatter = [WeightFormatters goalWeightFormatter];
+	weightRow.increment = [WeightFormatters goalWeightIncrement];
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

@@ -27,6 +27,9 @@
 + (float)scaleIncrement;
 + (float)defaultWeightChange;
 
++ (float)goalWeightIncrement;
++ (NSFormatter *)goalWeightFormatter;
+
 + (NSFormatter *)weightFormatter;
 + (NSString *)stringForWeight:(float)weightLbs;
 
