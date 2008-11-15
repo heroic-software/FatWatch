@@ -87,6 +87,7 @@
 		controller.hidesBottomBarWhenPushed = YES;
 		[self.navigationController pushViewController:controller animated:YES];
 	} else {
+		// TODO: replace this with a simple nav bar
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
 		[self presentModalViewController:nav animated:YES];
 		[nav release];

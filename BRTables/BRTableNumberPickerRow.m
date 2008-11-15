@@ -76,19 +76,29 @@
 	[view addSubview:picker];
 	[picker release];
 	
-	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-	[cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
-	[cancelButton setFrame:CGRectMake(10, 480-10-50-10-50, 300, 50)];
-	cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-	[view addSubview:cancelButton];
-	
-	UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[okButton setTitle:[NSString stringWithFormat:@"Set %@", row.title] forState:UIControlStateNormal];
-	[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
-	[okButton setFrame:CGRectMake(10, 480-10-50, 300, 50)];
-	okButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-	[view addSubview:okButton];
+	if (self.navigationController) {
+		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
+		self.navigationItem.leftBarButtonItem = cancelItem;
+		[cancelItem release];
+		
+		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(okAction:)];
+		self.navigationItem.rightBarButtonItem = doneItem;
+		[doneItem release];
+	} else {
+		UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+		[cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+		[cancelButton setFrame:CGRectMake(10, 480-10-50-10-50, 300, 50)];
+		cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+		[view addSubview:cancelButton];
+		
+		UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[okButton setTitle:[NSString stringWithFormat:@"Set %@", row.title] forState:UIControlStateNormal];
+		[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
+		[okButton setFrame:CGRectMake(10, 480-10-50, 300, 50)];
+		okButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+		[view addSubview:okButton];
+	}
 	
 	self.view = view;
 	[view release];
@@ -166,6 +176,14 @@
 	NSNumber *number = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
 	label.text = [row.formatter stringForObjectValue:number];
 	
+	if (row.textColorFormatter) {
+		label.textColor = [row.textColorFormatter colorForObjectValue:number];
+	}
+	
+	if (row.backgroundColorFormatter) {
+		label.backgroundColor = [row.backgroundColorFormatter colorForObjectValue:number];
+	}
+
 	return label;
 }
 

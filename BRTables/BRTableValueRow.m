@@ -13,6 +13,8 @@
 
 
 @synthesize key, formatter, disabled;
+@synthesize textColorFormatter;
+@synthesize backgroundColorFormatter;
 
 
 - (void)dealloc {
