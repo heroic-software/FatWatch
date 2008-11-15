@@ -88,6 +88,7 @@
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [WeightFormatters goalWeightFormatter];
+	weightRow.backgroundColorFormatter = [[[BMIBackgroundColorFormatter alloc] init] autorelease];
 	weightRow.increment = [WeightFormatters goalWeightIncrement];
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;

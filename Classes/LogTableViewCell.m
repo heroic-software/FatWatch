@@ -17,6 +17,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 
 @interface LogTableViewCellContentView : UIView {
 	NSString *day;
+	NSString *weekday;
 	NSString *scaleWeight;
 	NSString *trendDelta;
 	NSString *note;
@@ -24,6 +25,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	BOOL checked;
 }
 @property (nonatomic,retain) NSString *day;
+@property (nonatomic,retain) NSString *weekday;
 @property (nonatomic,retain) NSString *scaleWeight;
 @property (nonatomic,retain) NSString *trendDelta;
 @property (nonatomic,retain) NSString *note;
@@ -51,6 +53,11 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 
 - (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day {
 	logContentView.day = [[NSNumber numberWithInt:day] description];
+
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	[df setDateFormat:@"EEE"];
+	logContentView.weekday = [df stringFromDate:EWDateFromMonthAndDay(monthData.month, day)];
+	[df release];
 	
 	if (highlightWeekends && EWMonthAndDayIsWeekend(monthData.month, day)) {
 		logContentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
@@ -62,13 +69,16 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	if (measuredWeight == 0) {
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
+		logContentView.backgroundColor = [UIColor whiteColor];
 	} else {
 		logContentView.scaleWeight = [WeightFormatters stringForWeight:measuredWeight];
-		float weightDiff = measuredWeight - [monthData trendWeightOnDay:day];
+		float trendWeight = [monthData trendWeightOnDay:day];
+		float weightDiff = measuredWeight - trendWeight;
 		logContentView.trendDelta = [WeightFormatters stringForWeightChange:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
+		logContentView.backgroundColor = [WeightFormatters backgroundColorForWeight:measuredWeight];
 	}
-	
+
 	logContentView.checked = [monthData isFlaggedOnDay:day];
 	logContentView.note = [monthData noteOnDay:day];
 	
@@ -82,7 +92,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 @implementation LogTableViewCellContentView
 
 
-@synthesize day, scaleWeight, trendDelta, note, trendPositive, checked;
+@synthesize day, weekday, scaleWeight, trendDelta, note, trendPositive, checked;
 
 
 - (void)drawRect:(CGRect)rect {
@@ -103,6 +113,11 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 			   withFont:[UIFont systemFontOfSize:20]
 		  lineBreakMode:UILineBreakModeClip 
 			  alignment:UITextAlignmentRight];
+		CGRect weekdayRect = CGRectMake(0, noteY, dayRight, noteRowHeight);
+		[weekday drawInRect:weekdayRect
+				   withFont:[UIFont systemFontOfSize:12]
+			  lineBreakMode:UILineBreakModeClip
+				  alignment:UITextAlignmentRight];
 	}
 	
 	if (scaleWeight) {

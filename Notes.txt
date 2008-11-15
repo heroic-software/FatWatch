@@ -9,3 +9,18 @@ Ideas:
 
 Use method swizzling in singleton to avoid instance checks
 http://googlemac.blogspot.com/2006/11/synchronized-swimming-part-2.html
+
+BMI: by Screen
+
+Log
+	background color of table cell
+Weigh-in
+	background color of picker cell
+Trends
+	N/A: no absolute weight values displayed
+Goal
+	text color of table cell
+Goal Set
+	background color of picker cell
+More
+	add BMI switch, when ON, ask for height

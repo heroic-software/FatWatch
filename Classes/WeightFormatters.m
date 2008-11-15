@@ -45,6 +45,11 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 @end
 
+@interface InchHeightFormatter : NSFormatter {
+}
+@end
+
+
 @implementation WeightFormatters
 
 
@@ -372,6 +377,99 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	}
 }
 
+
++ (float)height {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	float height = [defs floatForKey:@"BMIHeight"];
+	return height;
+}
+
+
++ (float)bodyMassIndexForWeight:(float)weight {
+	float meters = [self height];
+	if (meters > 0) {
+		return (weight * kKilogramsPerPound) / (meters * meters);
+	} else {
+		return 0;
+	}
+}
+
+
++ (UIColor *)colorForBodyMassIndex:(float)BMI {
+	if (BMI < 18.5f) return [WeightFormatters badColor]; // Underweight
+	if (BMI < 25.0f) return [WeightFormatters goodColor]; // Normal
+	if (BMI < 30.0f) return [WeightFormatters warningColor]; // Overweight
+	return [WeightFormatters badColor]; // Obese
+}
+
+
++ (UIColor *)backgroundColorForWeight:(float)weight {
+	float BMI = [self bodyMassIndexForWeight:weight];
+	if (BMI > 0) {
+		UIColor *color = [self colorForBodyMassIndex:BMI];
+		return [color colorWithAlphaComponent:0.4f];
+	} else {
+		return [UIColor clearColor];
+	}
+}
+
+
++ (NSFormatter *)heightFormatter {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitKilograms) {
+		NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+		[nf setFormat:@"0.00 m"];
+		return [nf autorelease];
+	} else {
+		InchHeightFormatter *hf = [[InchHeightFormatter alloc] init];
+		return [hf autorelease];
+	}
+}
+
+
++ (float)heightIncrement {
+	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
+	if (unit == kWeightUnitKilograms) {
+		return 0.01;
+	} else {
+		return 0.0254;
+	}
+}
+
+
+@end
+
+
+@implementation InchHeightFormatter
+
+- (NSString *)stringForObjectValue:(id)anObject {
+	float meters = [anObject floatValue];
+	float feet, inches;
+	inches = modff(3.2808399f * meters, &feet);
+	return [NSString stringWithFormat:@"%1.0f\'%1.0f\"", feet, floorf(inches * 12.0f)];
+}
+
+@end
+
+
+
+@implementation BMITextColorFormatter 
+
+- (UIColor *)colorForObjectValue:(id)anObject {
+	float weight = [anObject floatValue];
+	float BMI = [WeightFormatters bodyMassIndexForWeight:weight];
+	return [WeightFormatters colorForBodyMassIndex:BMI];
+}
+
+@end
+
+
+@implementation BMIBackgroundColorFormatter
+
+- (UIColor *)colorForObjectValue:(id)anObject {
+	float weight = [anObject floatValue];
+	return [WeightFormatters backgroundColorForWeight:weight];
+}
 
 @end
 

@@ -12,6 +12,7 @@
 #import "PasscodeEntryViewController.h"
 #import "BRTableButtonRow.h"
 #import "BRTableSwitchRow.h"
+#import "HeightEntryViewController.h"
 
 
 @implementation MoreViewController
@@ -34,6 +35,13 @@
 	passcodeRow.key = @"passcodeEnabled";
 	[moreSection addRow:passcodeRow animated:NO];
 	[passcodeRow release];
+	
+	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
+	bmiRow.title = NSLocalizedString(@"BMI_ROW_TITLE", nil);
+	bmiRow.object = self;
+	bmiRow.key = @"bmiEnabled";
+	[moreSection addRow:bmiRow animated:NO];
+	[bmiRow release];
 	
 	[self addSection:moreSection animated:NO];
 	[moreSection release];
@@ -124,6 +132,21 @@
 	} else {
 		[PasscodeEntryViewController removePasscode];
 	}	
+}
+
+
+- (BOOL)bmiEnabled {
+	return [HeightEntryViewController isBMIEnabled];
+}
+
+
+- (void)setBmiEnabled:(BOOL)flag {
+	if (flag) {
+		UIViewController *controller = [HeightEntryViewController controller];
+		[self presentModalViewController:controller animated:YES];
+	} else {
+		[HeightEntryViewController disableBMI];
+	}
 }
 
 

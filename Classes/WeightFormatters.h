@@ -50,4 +50,19 @@
 + (float)chartWeightIncrement;
 + (float)chartWeightIncrementAfter:(float)previousIncrement;
 
++ (UIColor *)backgroundColorForWeight:(float)weight;
+
++ (NSFormatter *)heightFormatter;
++ (float)heightIncrement;
+
+@end
+
+#import "BRTableValueRow.h"
+
+@interface BMITextColorFormatter : NSObject <BRColorFormatter> {
+}
+@end
+
+@interface BMIBackgroundColorFormatter : NSObject <BRColorFormatter> {
+}
 @end

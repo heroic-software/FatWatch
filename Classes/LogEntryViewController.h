@@ -16,8 +16,6 @@
 	MonthData *monthData;
 	EWDay day;
 	BOOL weighIn;
-	IBOutlet UIBarButtonItem *saveButton;
-	IBOutlet UIBarButtonItem *cancelButton;
 	IBOutlet UISegmentedControl *weightControl;
 	IBOutlet UIView *weightContainerView;
 	IBOutlet UIPickerView *weightPickerView;

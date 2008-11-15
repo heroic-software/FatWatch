@@ -70,6 +70,8 @@
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
 		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
+		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
+		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
@@ -217,6 +219,9 @@
 		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
 		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWGoal.h; path = Classes/EWGoal.h; sourceTree = "<group>"; };
 		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWGoal.m; path = Classes/EWGoal.m; sourceTree = "<group>"; };
+		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
+		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
+		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeightEntryView.xib; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
@@ -320,6 +325,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
 				BCABE0470DD9372000DE580A /* Log */,
+				BCB36E090ECEDFAB00AAB7DF /* Weigh-in */,
 				BCB3498F0E6FE8B6000DF454 /* Trends */,
 				BCB349900E6FE8C5000DF454 /* Goal */,
 				BCB349910E6FE8CE000DF454 /* More */,
@@ -356,24 +362,13 @@
 			isa = PBXGroup;
 			children = (
 				BC2CBA860EC989DA002087B7 /* Entitlements.plist */,
-				BC51B7CD0E3A9E6700D3B4C1 /* Check.png */,
-				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
-				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC65E9680DEB3BF20008E677 /* Defaults.plist */,
-				BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */,
 				BC65EBB40DEBA6140008E677 /* Localizable.strings */,
-				BC47221A0DE368170081F576 /* home.html */,
-				BC4722290DE3692C0081F576 /* importPending.html */,
-				BC47222B0DE3692C0081F576 /* importNoData.html */,
-				BC47222D0DE3692C0081F576 /* importAccepted.html */,
-				BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */,
-				BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */,
-				BC9108E90E36901E007B7941 /* PasscodeView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -451,12 +446,12 @@
 			children = (
 				BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */,
 				BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */,
+				BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */,
 				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
 				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
 				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
-				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
-				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
+				BC51B7CD0E3A9E6700D3B4C1 /* Check.png */,
 			);
 			name = Log;
 			sourceTree = "<group>";
@@ -483,6 +478,7 @@
 				BC6FF1AD0E774B3B000BABED /* TrendSpan.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
+				BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */,
 			);
 			name = Trends;
 			sourceTree = "<group>";
@@ -505,8 +501,24 @@
 				BCFB10FF0E26828D0059D732 /* MoreViewController.m */,
 				BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */,
 				BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */,
+				BC9108E90E36901E007B7941 /* PasscodeView.xib */,
+				BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */,
+				BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */,
+				BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */,
 			);
 			name = More;
+			sourceTree = "<group>";
+		};
+		BCB36E090ECEDFAB00AAB7DF /* Weigh-in */ = {
+			isa = PBXGroup;
+			children = (
+				BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */,
+				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
+				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
+				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
+				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
+			);
+			name = "Weigh-in";
 			sourceTree = "<group>";
 		};
 		BCEADAD60DE29D1B0017495E /* Web */ = {
@@ -524,6 +536,10 @@
 				BC8B86080DDF920100045F01 /* CSVWriter.m */,
 				BC8B86120DDF9D5A00045F01 /* CSVReader.h */,
 				BC8B86130DDF9D5A00045F01 /* CSVReader.m */,
+				BC47221A0DE368170081F576 /* home.html */,
+				BC4722290DE3692C0081F576 /* importPending.html */,
+				BC47222B0DE3692C0081F576 /* importNoData.html */,
+				BC47222D0DE3692C0081F576 /* importAccepted.html */,
 			);
 			name = Web;
 			sourceTree = "<group>";
@@ -626,6 +642,7 @@
 				BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */,
 				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
 				BC2CBA870EC989DA002087B7 /* Entitlements.plist in Resources */,
+				BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +764,7 @@
 				BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */,
 				BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */,
 				BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */,
+				BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

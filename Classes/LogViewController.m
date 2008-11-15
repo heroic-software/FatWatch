@@ -166,7 +166,6 @@
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	[[logEntryViewController navigationController] release];
 	[logEntryViewController release]; // maybe we need to check for use?
 	logEntryViewController = nil;
 }
@@ -200,12 +199,12 @@
 - (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag {
 	if (logEntryViewController == nil) {
 		logEntryViewController = [[LogEntryViewController alloc] init];
-		[[UINavigationController alloc] initWithRootViewController:logEntryViewController];
+		[logEntryViewController view];
 	}
 	logEntryViewController.monthData = monthData;
 	logEntryViewController.day = day;
 	logEntryViewController.weighIn = flag;
-	[self presentModalViewController:[logEntryViewController navigationController] animated:!flag];
+	[self presentModalViewController:logEntryViewController animated:!flag];
 }
 
 

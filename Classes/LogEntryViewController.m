@@ -46,8 +46,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 - (void)viewDidLoad {
 	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-	self.navigationItem.leftBarButtonItem = cancelButton;
-	self.navigationItem.rightBarButtonItem = saveButton;
 }
 
 
@@ -234,8 +232,12 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
+	
+	float weight = [self weightForPickerRow:row];
 
-	label.text = [WeightFormatters stringForWeight:[self weightForPickerRow:row]];
+	label.text = [WeightFormatters stringForWeight:weight];
+	label.backgroundColor = [WeightFormatters backgroundColorForWeight:weight];
+
 	return label;
 }
 
