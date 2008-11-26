@@ -29,11 +29,18 @@
 
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
-	UISwitch *control = [[UISwitch alloc] init];
+	UISwitch *control;
+	
+	if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
+		control = (UISwitch *)cell.accessoryView;
+	} else {
+		control = [[UISwitch alloc] init];
+		[control addTarget:self action:@selector(toggleSwitch:) forControlEvents:UIControlEventValueChanged];
+		cell.accessoryView = control;
+		[control release];
+	}
+
 	control.on = [[self.object valueForKey:self.key] boolValue];
-	[control addTarget:self action:@selector(toggleSwitch:) forControlEvents:UIControlEventValueChanged];
-	cell.accessoryView = control;
-	[control release];
 }
 
 

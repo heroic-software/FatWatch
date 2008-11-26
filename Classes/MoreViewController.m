@@ -40,7 +40,7 @@
 	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
 	bmiRow.title = NSLocalizedString(@"BMI_ROW_TITLE", nil);
 	bmiRow.object = self;
-	bmiRow.key = @"BMIEnabled";
+	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
 	[bmiRow release];
 	
@@ -121,6 +121,11 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+	[self.tableView reloadData];
+}
+
+
 - (BOOL)passcodeEnabled {
 	return [PasscodeEntryViewController authorizationRequired];
 }
@@ -136,12 +141,12 @@
 }
 
 
-- (BOOL)isBMIEnabled {
+- (BOOL)displayBMI {
 	return [EWGoal isBMIEnabled];
 }
 
 
-- (void)setBMIEnabled:(BOOL)flag {
+- (void)setDisplayBMI:(BOOL)flag {
 	if (flag) {
 		UIViewController *controller = [HeightEntryViewController controller];
 		[self presentModalViewController:controller animated:YES];
