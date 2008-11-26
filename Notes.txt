@@ -1,3 +1,22 @@
+WHO BMI ranges
+http://www.who.int/bmi/index.jsp?introPage=intro_3.html
+
+      < 18.50	Underweight
+18.50 - 24.99	Normal
+25.00 - 29.99	Overweight
+30.00 <			Obese
+
+
+	  < 16.00	Underweight severe
+16.00 - 16.99	Underweight moderate
+17.00 - 18.49	Underweight mild
+18.50 - 24.99	Normal
+25.00 - 29.99	Overweight
+30.00 - 34.99	Obese I
+35.00 - 39.99	Obese II
+40.00 <			Obese III
+
+
 Release Process:
 
 1. Tag the release
