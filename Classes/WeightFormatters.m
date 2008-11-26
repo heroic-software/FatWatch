@@ -83,7 +83,12 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (void)selectWeightUnitAtIndex:(NSUInteger)index {
++ (NSUInteger)selectedWeightUnitIndex {
+	return [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey] - 1;
+}
+
+
++ (void)setSelectedWeightUnitIndex:(NSUInteger)index {
 	EWWeightUnit weightUnit = index + 1;
 	[[NSUserDefaults standardUserDefaults] setInteger:weightUnit forKey:kWeightUnitKey];
 }
@@ -96,7 +101,12 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (void)selectEnergyUnitAtIndex:(NSUInteger)index {
++ (NSUInteger)selectedEnergyUnitIndex {
+	return [[NSUserDefaults standardUserDefaults] integerForKey:kEnergyUnitKey] - 1;
+}
+
+
++ (void)setSelectedEnergyUnitIndex:(NSUInteger)index {
 	EWEnergyUnit energyUnit = index + 1;
 	[[NSUserDefaults standardUserDefaults] setInteger:energyUnit forKey:kEnergyUnitKey];
 }
@@ -119,7 +129,17 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (void)selectScaleIncrementAtIndex:(NSUInteger)index {
++ (NSUInteger)selectedScaleIncrementIndex {
+	float increment = [[NSUserDefaults standardUserDefaults] floatForKey:kScaleIncrementKey];
+	int i;
+	for (i = 0; i < kDefaultScaleIncrementsCount; i++) {
+		if (kDefaultScaleIncrements[i] == increment) return i;
+	}
+	return 0;
+}
+
+
++ (void)setSelectedScaleIncrementIndex:(NSUInteger)index {
 	NSAssert(index >= 0 && index < kDefaultScaleIncrementsCount, @"index out of range");
 	float increment = kDefaultScaleIncrements[index];
 	[[NSUserDefaults standardUserDefaults] setFloat:increment forKey:kScaleIncrementKey];

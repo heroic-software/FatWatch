@@ -18,11 +18,16 @@
 + (UIColor *)badColor;
 
 + (NSArray *)weightUnitNames;
-+ (void)selectWeightUnitAtIndex:(NSUInteger)index;
++ (NSUInteger)selectedWeightUnitIndex;
++ (void)setSelectedWeightUnitIndex:(NSUInteger)index;
+
 + (NSArray *)energyUnitNames;
-+ (void)selectEnergyUnitAtIndex:(NSUInteger)index;
++ (NSUInteger)selectedEnergyUnitIndex;
++ (void)setSelectedEnergyUnitIndex:(NSUInteger)index;
+
 + (NSArray *)scaleIncrementNames;
-+ (void)selectScaleIncrementAtIndex:(NSUInteger)index;
++ (NSUInteger)selectedScaleIncrementIndex;
++ (void)setSelectedScaleIncrementIndex:(NSUInteger)index;
 
 + (float)scaleIncrement;
 + (float)defaultWeightChange;

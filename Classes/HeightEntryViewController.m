@@ -58,7 +58,6 @@ const float kDefaultHeight = 1.70;
 
 
 - (IBAction)saveAction:(id)sender {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	NSInteger row = [pickerView selectedRowInComponent:0];
 	float height = [self valueForPickerRow:row];
 	[EWGoal setHeight:height];
