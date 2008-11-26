@@ -194,12 +194,15 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		printf("Failed to create socket!\n");
 		return;
 	}
-	netService = [[NSNetService alloc] initWithDomain:@"" 
-												 type:@"_http._tcp."
-												 name:self.name
-												 port:self.port];
-	[netService setDelegate:self];
-	[netService publish];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MWSPublishNetService"]) {
+		netService = [[NSNetService alloc] initWithDomain:@"" 
+													 type:@"_http._tcp."
+													 name:self.name
+													 port:self.port];
+		[netService setDelegate:self];
+		[netService publish];
+	}
 }
 
 

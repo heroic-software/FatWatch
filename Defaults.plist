@@ -12,5 +12,7 @@
 	<integer>1</integer>
 	<key>HighlightWeekends</key>
 	<false/>
+	<key>MWSPublishNetService</key>
+	<true/>
 </dict>
 </plist>
