@@ -145,7 +145,7 @@
 		UIViewController *controller = [HeightEntryViewController controller];
 		[self presentModalViewController:controller animated:YES];
 	} else {
-		[HeightEntryViewController disableBMI];
+		[HeightEntryViewController setBMIEnabled:NO];
 	}
 }
 

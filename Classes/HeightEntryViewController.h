@@ -15,7 +15,7 @@
 	float increment;
 }
 + (BOOL)isBMIEnabled;
-+ (void)disableBMI;
++ (void)setBMIEnabled:(BOOL)flag;
 + (UIViewController *)controller;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;

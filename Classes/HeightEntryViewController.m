@@ -19,12 +19,13 @@ const float kDefaultHeight = 1.70;
 
 + (BOOL)isBMIEnabled {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	return nil != [defs objectForKey:@"BMIHeight"];
+	return [defs boolForKey:@"BMIEnabled"];
 }
 
-+ (void)disableBMI {
+
++ (void)setBMIEnabled:(BOOL)flag {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs removeObjectForKey:@"BMIHeight"];
+	[defs setBool:flag forKey:@"BMIEnabled"];
 }
 
 
@@ -61,7 +62,9 @@ const float kDefaultHeight = 1.70;
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	NSInteger row = [self pickerRowForValue:kDefaultHeight];
+	float height = [[NSUserDefaults standardUserDefaults] floatForKey:@"BMIHeight"];
+	if (height == 0) height = kDefaultHeight;
+	NSInteger row = [self pickerRowForValue:height];
 	[pickerView selectRow:row inComponent:0 animated:NO];
 }
 
@@ -71,12 +74,13 @@ const float kDefaultHeight = 1.70;
 	NSInteger row = [pickerView selectedRowInComponent:0];
 	float height = [self valueForPickerRow:row];
 	[defs setFloat:height forKey:@"BMIHeight"];
+	[HeightEntryViewController setBMIEnabled:YES];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)cancelAction:(id)sender {
-	[HeightEntryViewController disableBMI];
+	[HeightEntryViewController setBMIEnabled:NO];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
