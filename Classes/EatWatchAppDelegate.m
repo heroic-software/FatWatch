@@ -12,6 +12,8 @@
 
 #import "EWDate.h"
 #import "Database.h"
+#import "MonthData.h"
+#import "LogEntryViewController.h"
 
 #import "NewDatabaseViewController.h"
 #import "PasscodeEntryViewController.h"
@@ -25,6 +27,9 @@
 #import "GraphViewController.h"
 
 
+NSString *kSelectedTabIndex = @"SelectedTabIndex";
+
+
 @implementation EatWatchAppDelegate
 
 - (void)registerDefaults {
@@ -33,6 +38,22 @@
 	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
 	[dict release];
+}
+
+
+- (void)autoWeighInIfEnabled {
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
+	
+	EWMonthDay today = EWMonthDayFromDate([NSDate date]);
+	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(today)];
+	EWDay day = EWMonthDayGetDay(today);
+	if ([data measuredWeightOnDay:day] == 0) {
+		LogEntryViewController *controller = [LogEntryViewController sharedController];
+		controller.monthData = data;
+		controller.day = day;
+		controller.weighIn = YES;
+		[rootViewController.portraitViewController presentModalViewController:controller animated:NO];
+	}
 }
 
 
@@ -49,12 +70,17 @@
 	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
 	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, goalNavController, moreController, nil];
+
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	tabBarController.selectedIndex = [defs integerForKey:kSelectedTabIndex];
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;
 	rootViewController.landscapeViewController = graphController;
 	
 	[window addSubview:rootViewController.view];
+	
+	[self autoWeighInIfEnabled];
 }
 
 
@@ -96,6 +122,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	[[Database sharedDatabase] close];
+	
+	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
 }
 
 
