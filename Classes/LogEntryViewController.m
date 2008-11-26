@@ -56,11 +56,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
-- (void)viewDidLoad {
-	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-}
-
-
 - (void)toggleWeight {
 	if (weightControl.selectedSegmentIndex == 0) {
 		if ([weightPickerView superview] == nil) {
