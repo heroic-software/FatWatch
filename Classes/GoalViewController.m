@@ -60,6 +60,13 @@
 }
 
 
+- (NSNumberFormatter *)makeBMIFormatter {
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setFormat:@"0.0 BMI"];
+	return [formatter autorelease];
+}
+
+
 - (void)addStartSection {
 	BRTableSection *section = [self addNewSection];
 	section.headerTitle = NSLocalizedString(@"START_SECTION_TITLE", nil);
@@ -79,10 +86,20 @@
 	weightRow.formatter = [WeightFormatters weightFormatter];
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
+	
+	if ([EWGoal isBMIEnabled]) {
+		BRTableValueRow *bmiRow = [[BRTableValueRow alloc] init];
+		bmiRow.title = NSLocalizedString(@"START_BMI", nil);
+		bmiRow.object = [EWGoal sharedGoal];
+		bmiRow.key = @"startBMI";
+		bmiRow.formatter = [self makeBMIFormatter];
+		[section addRow:bmiRow animated:NO];
+		[bmiRow release];
+	}
 }
 
 
-- (BRTableNumberPickerRow *)weightRow {
+- (void)addWeightRowsToSection:(BRTableSection *)section {
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
 	weightRow.object = [EWGoal sharedGoal];
@@ -94,7 +111,23 @@
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	weightRow.defaultValue = [NSNumber numberWithFloat:[[EWGoal sharedGoal] startWeight]];
-	return [weightRow autorelease];
+	[section addRow:weightRow animated:NO];
+	[weightRow release];
+	
+	if ([EWGoal isBMIEnabled]) {
+		BRTableNumberPickerRow *bmiRow = [[BRTableNumberPickerRow alloc] init];
+		bmiRow.title = NSLocalizedString(@"GOAL_BMI", nil);
+		bmiRow.object = [EWGoal sharedGoal];
+		bmiRow.key = @"endBMINumber";
+		bmiRow.minimumValue = 0;
+		bmiRow.maximumValue = 100;
+		bmiRow.increment = 0.1f;
+		bmiRow.formatter = [self makeBMIFormatter];
+		bmiRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		bmiRow.defaultValue = [NSNumber numberWithFloat:[[EWGoal sharedGoal] startBMI]];
+		[section addRow:bmiRow animated:NO];
+		[bmiRow release];
+	}
 }
 
 
@@ -110,7 +143,7 @@
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
-	[goalSection addRow:[self weightRow] animated:NO];
+	[self addWeightRowsToSection:goalSection];
 }
 
 
@@ -118,14 +151,7 @@
 	BRTableSection *goalSection = [self addNewSection];
 	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_TITLE", nil);
 	
-	[goalSection addRow:[self weightRow] animated:NO];
-}
-
-
-- (void)initialGoalWeightAction:(BRTableButtonRow *)sender {
-	BRTableRow *row = [self weightRow];
-	[row didAddToSection:[self sectionAtIndex:1]]; // lies!
-	[row didSelect];
+	[self addWeightRowsToSection:goalSection];
 }
 
 

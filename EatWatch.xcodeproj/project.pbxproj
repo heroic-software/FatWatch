@@ -183,7 +183,6 @@
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
 		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
 		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
-		BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FatWatch-Changes.txt"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -312,7 +311,6 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
-				BC78DA010E5147200094ECBD /* FatWatch-Changes.txt */,
 				BCFE4C570E7616E60090B81B /* Unit Tests.app */,
 			);
 			name = Products;

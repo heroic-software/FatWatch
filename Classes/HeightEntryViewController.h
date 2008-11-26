@@ -14,8 +14,6 @@
 	NSFormatter *formatter;
 	float increment;
 }
-+ (BOOL)isBMIEnabled;
-+ (void)setBMIEnabled:(BOOL)flag;
 + (UIViewController *)controller;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;

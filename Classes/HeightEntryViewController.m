@@ -8,25 +8,13 @@
 
 #import "HeightEntryViewController.h"
 #import "WeightFormatters.h"
-
+#import "EWGoal.h"
 
 const float kMinimumHeight = 0.01;
 const float kMaximumHeight = 3.00;
 const float kDefaultHeight = 1.70;
 
 @implementation HeightEntryViewController
-
-
-+ (BOOL)isBMIEnabled {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	return [defs boolForKey:@"BMIEnabled"];
-}
-
-
-+ (void)setBMIEnabled:(BOOL)flag {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs setBool:flag forKey:@"BMIEnabled"];
-}
 
 
 + (UIViewController *)controller {
@@ -73,14 +61,14 @@ const float kDefaultHeight = 1.70;
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	NSInteger row = [pickerView selectedRowInComponent:0];
 	float height = [self valueForPickerRow:row];
-	[defs setFloat:height forKey:@"BMIHeight"];
-	[HeightEntryViewController setBMIEnabled:YES];
+	[EWGoal setHeight:height];
+	[EWGoal setBMIEnabled:YES];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)cancelAction:(id)sender {
-	[HeightEntryViewController setBMIEnabled:NO];
+	[EWGoal setBMIEnabled:NO];
 	[self dismissModalViewControllerAnimated:YES];
 }
 

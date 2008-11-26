@@ -13,6 +13,7 @@
 #import "BRTableButtonRow.h"
 #import "BRTableSwitchRow.h"
 #import "HeightEntryViewController.h"
+#import "EWGoal.h"
 
 
 @implementation MoreViewController
@@ -39,7 +40,7 @@
 	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
 	bmiRow.title = NSLocalizedString(@"BMI_ROW_TITLE", nil);
 	bmiRow.object = self;
-	bmiRow.key = @"bmiEnabled";
+	bmiRow.key = @"BMIEnabled";
 	[moreSection addRow:bmiRow animated:NO];
 	[bmiRow release];
 	
@@ -135,17 +136,17 @@
 }
 
 
-- (BOOL)bmiEnabled {
-	return [HeightEntryViewController isBMIEnabled];
+- (BOOL)isBMIEnabled {
+	return [EWGoal isBMIEnabled];
 }
 
 
-- (void)setBmiEnabled:(BOOL)flag {
+- (void)setBMIEnabled:(BOOL)flag {
 	if (flag) {
 		UIViewController *controller = [HeightEntryViewController controller];
 		[self presentModalViewController:controller animated:YES];
 	} else {
-		[HeightEntryViewController setBMIEnabled:NO];
+		[EWGoal setBMIEnabled:NO];
 	}
 }
 

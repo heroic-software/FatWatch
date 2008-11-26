@@ -20,6 +20,30 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 @implementation EWGoal
 
 
++ (BOOL)isBMIEnabled {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	return [defs boolForKey:@"BMIEnabled"];
+}
+
+
++ (void)setBMIEnabled:(BOOL)flag {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs setBool:flag forKey:@"BMIEnabled"];
+}
+
+
++ (void)setHeight:(float)meters {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs setFloat:meters forKey:@"BMIHeight"];
+}
+
+
++ (float)height {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	return [defs floatForKey:@"BMIHeight"];
+}
+
+
 + (void)deleteGoal {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	[defs removeObjectForKey:kGoalStartDateKey];
@@ -113,6 +137,8 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		[self willChangeValueForKey:@"endWeight"];
 		[self willChangeValueForKey:@"endWeightNumber"];
 		[self willChangeValueForKey:@"endDate"];
+		[self willChangeValueForKey:@"endBMI"];
+		[self willChangeValueForKey:@"endBMINumber"];
 		[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
 		// make sure sign matches
 		float weightChange = weight - self.startWeight;
@@ -123,6 +149,8 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		[self didChangeValueForKey:@"endWeight"];
 		[self didChangeValueForKey:@"endWeightNumber"];
 		[self didChangeValueForKey:@"endDate"];
+		[self didChangeValueForKey:@"endBMI"];
+		[self didChangeValueForKey:@"endBMINumber"];
 	}
 }
 
@@ -139,6 +167,32 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 - (void)setEndWeightNumber:(NSNumber *)number {
 	self.endWeight = [number floatValue];
+}
+
+
+- (float)endBMI {
+	return [WeightFormatters bodyMassIndexForWeight:[self endWeight]];
+}
+
+
+- (void)setEndBMI:(float)bmi {
+	float w = [WeightFormatters weightForBodyMassIndex:bmi];
+	[self setEndWeight:w];
+}
+
+
+- (NSNumber *)endBMINumber {
+	float b = self.endBMI;
+	if (b > 0) {
+		return [NSNumber numberWithFloat:b];
+	} else {
+		return nil;
+	}
+}
+
+
+- (void)setEndBMINumber:(NSNumber *)number {
+	self.endBMI = [number floatValue];
 }
 
 
@@ -209,6 +263,11 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		w = [self weightOnDate:self.startDate];
 	}
 	return w;
+}
+
+
+- (float)startBMI {
+	return [WeightFormatters bodyMassIndexForWeight:[self startWeight]];
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "WeightFormatters.h"
+#import "EWGoal.h"
 
 
 typedef enum {
@@ -378,20 +379,19 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (float)height {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	float height = [defs floatForKey:@"BMIHeight"];
-	return height;
-}
-
-
 + (float)bodyMassIndexForWeight:(float)weight {
-	float meters = [self height];
+	float meters = [EWGoal height];
 	if (meters > 0) {
 		return (weight * kKilogramsPerPound) / (meters * meters);
 	} else {
 		return 0;
 	}
+}
+
+
++ (float)weightForBodyMassIndex:(float)bmi {
+	float meters = [EWGoal height];
+	return (bmi * (meters * meters)) / kKilogramsPerPound;
 }
 
 

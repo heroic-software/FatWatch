@@ -50,6 +50,9 @@
 + (float)chartWeightIncrement;
 + (float)chartWeightIncrementAfter:(float)previousIncrement;
 
++ (float)bodyMassIndexForWeight:(float)weight;
++ (float)weightForBodyMassIndex:(float)bmi;
+
 + (UIColor *)backgroundColorForWeight:(float)weight;
 
 + (NSFormatter *)heightFormatter;
