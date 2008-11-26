@@ -96,7 +96,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 			<key>Key</key>
 			<string>HighlightWeekends</string>
 			<key>Title</key>

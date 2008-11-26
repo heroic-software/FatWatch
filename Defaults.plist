@@ -11,7 +11,7 @@
 	<key>WeightUnit</key>
 	<integer>1</integer>
 	<key>HighlightWeekends</key>
-	<false/>
+	<true/>
 	<key>MWSPublishNetService</key>
 	<true/>
 </dict>
