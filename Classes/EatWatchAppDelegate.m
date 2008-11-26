@@ -63,13 +63,11 @@ NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	UIViewController *moreController = [[[MoreViewController alloc] init] autorelease];
 	UIViewController *goalController = [[[GoalViewController alloc] init] autorelease];
 	UIViewController *graphController = [[[GraphViewController alloc] init] autorelease];
-
-	UINavigationController *logNavController = [[[UINavigationController alloc] initWithRootViewController:logController] autorelease];
 	
 	UINavigationController *goalNavController = [[[UINavigationController alloc] initWithRootViewController:goalController] autorelease];
 	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logNavController, trendController, goalNavController, moreController, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:logController, trendController, goalNavController, moreController, nil];
 
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	tabBarController.selectedIndex = [defs integerForKey:kSelectedTabIndex];

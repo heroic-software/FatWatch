@@ -23,7 +23,7 @@
 @implementation LogViewController
 
 - (id)init {
-	if (self = [super init]) {
+	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
 		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
 		scrollDestination = EWMonthDayFromDate([NSDate date]);
@@ -31,8 +31,6 @@
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
-		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Go To", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goToDateAction)] autorelease];
 	}
 	return self;
 }
@@ -70,18 +68,7 @@
 	lastIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
 	[lastIndexPath retain];
 	
-	UITableView *tableView = (UITableView *)self.view;
 	[tableView reloadData];
-}
-
-
-- (void)loadView {
-	UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	tableView.delegate = self;
-	tableView.dataSource = self;
-	self.view = tableView;
-	[tableView release];
 }
 
 
@@ -97,7 +84,6 @@
 
 
 - (NSDate *)currentDate {
-	UITableView *tableView = (UITableView *)self.view;
 	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
 	NSUInteger middleIndex = [indexPathArray count] / 2;
 	NSIndexPath *indexPath = [indexPathArray objectAtIndex:middleIndex];
@@ -109,7 +95,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 	
-	UITableView *tableView = (UITableView *)self.view;
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
 	if (tableSelection) {
 		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
@@ -154,7 +139,7 @@
 }
 
 
-- (void)goToDateAction {
+- (IBAction)goToDateAction {
 	GoToDateViewController *viewController = [[GoToDateViewController alloc] initWithDate:self.currentDate];
 	viewController.target = self;
 	viewController.action = @selector(scrollToDate:);
@@ -199,7 +184,7 @@
 
 #pragma mark UITableViewDelegate (Required)
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	LogTableViewCell *cell = nil;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
