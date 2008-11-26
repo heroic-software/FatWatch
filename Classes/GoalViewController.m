@@ -242,7 +242,7 @@
 	} else {
 		BOOL needsUpdate = (([[EWGoal sharedGoal] isDefined] != isSetupForGoal) || 
 							([EWGoal isBMIEnabled] != isSetupForBMI) ||
-							[self numberOfSections] == 0);
+							[self numberOfSections] < 2);
 		
 		if (needsUpdate) {
 			if ([[EWGoal sharedGoal] isDefined]) {
