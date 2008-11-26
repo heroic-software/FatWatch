@@ -26,7 +26,6 @@
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
-		firstLoad = YES;
 		scrollDestination = EWMonthDayFromDate([NSDate date]);
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
@@ -107,17 +106,6 @@
 }
 
 
-- (void)autoWeighInIfEnabled {
-	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
-	
-	MonthData *data = [[Database sharedDatabase] dataForMonth:[self monthForSection:[lastIndexPath section]]];
-	EWDay day = ([lastIndexPath row] + 1);
-	if ([data measuredWeightOnDay:day] == 0) {
-		[self presentLogEntryViewForMonthData:data onDay:day weighIn:YES];
-	}
-}
-
-
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 	
@@ -132,11 +120,6 @@
 						 atScrollPosition:UITableViewScrollPositionMiddle
 								 animated:animated];
 		scrollDestination = 0;
-	}
-	
-	if (firstLoad) {
-		firstLoad = NO;
-		[self autoWeighInIfEnabled];
 	}
 }
 
@@ -164,17 +147,9 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	[logEntryViewController release]; // maybe we need to check for use?
-	logEntryViewController = nil;
-}
-
-
 - (void)dealloc {
 	[lastIndexPath release];
 	[sectionTitleFormatter release];
-	[logEntryViewController release];
 	[super dealloc];
 }
 
@@ -193,18 +168,6 @@
 		[[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(scrollDestination)];
 		[self databaseDidChange:nil];
 	}
-}
-
-
-- (void)presentLogEntryViewForMonthData:(MonthData *)monthData onDay:(EWDay)day weighIn:(BOOL)flag {
-	if (logEntryViewController == nil) {
-		logEntryViewController = [[LogEntryViewController alloc] init];
-		[logEntryViewController view];
-	}
-	logEntryViewController.monthData = monthData;
-	logEntryViewController.day = day;
-	logEntryViewController.weighIn = flag;
-	[self presentModalViewController:logEntryViewController animated:!flag];
 }
 
 
@@ -260,7 +223,11 @@
 	EWMonth month = [self monthForSection:[indexPath section]];
 	MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
 	EWDay day = 1 + [indexPath row];
-	[self presentLogEntryViewForMonthData:monthData onDay:day weighIn:NO];
+	LogEntryViewController *controller = [LogEntryViewController sharedController];
+	controller.monthData = monthData;
+	controller.day = day;
+	controller.weighIn = NO;
+	[self presentModalViewController:controller animated:YES];
 }
 
 @end

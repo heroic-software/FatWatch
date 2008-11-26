@@ -20,6 +20,18 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 @implementation LogEntryViewController
 
 
++ (LogEntryViewController *)sharedController {
+	static LogEntryViewController *controller = nil;
+	
+	if (controller == nil) {
+		controller = [[LogEntryViewController alloc] init];
+		[controller view];
+	}
+	
+	return controller;
+}
+
+
 @synthesize monthData;
 @synthesize day;
 @synthesize weighIn;

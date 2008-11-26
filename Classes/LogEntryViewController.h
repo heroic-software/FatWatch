@@ -24,6 +24,7 @@
 	IBOutlet UITextField *noteField;
 	float scaleIncrement;
 }
++ (LogEntryViewController *)sharedController;
 @property (nonatomic,retain) MonthData *monthData;
 @property (nonatomic) EWDay day;
 @property (nonatomic,getter=isWeighIn) BOOL weighIn;
