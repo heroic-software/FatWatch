@@ -12,5 +12,6 @@
 
 
 @interface GoalViewController : BRTableViewController <UIActionSheetDelegate> {
+	BOOL isSetupForGoal, isSetupForBMI;
 }
 @end

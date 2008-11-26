@@ -240,8 +240,12 @@
 			[self.tableView reloadData];
 		}
 	} else {
-		if ([[EWGoal sharedGoal] isDefined]) {
-			if ([self numberOfSections] != 4) {
+		BOOL needsUpdate = (([[EWGoal sharedGoal] isDefined] != isSetupForGoal) || 
+							([EWGoal isBMIEnabled] != isSetupForBMI) ||
+							[self numberOfSections] == 0);
+		
+		if (needsUpdate) {
+			if ([[EWGoal sharedGoal] isDefined]) {
 				[self removeAllSections];
 				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
 				[self addStartSection];
@@ -249,15 +253,15 @@
 				[self addPlanSection];
 				[self addClearSection];
 				[self.tableView reloadData];
-			}
-		} else {
-			if ([self numberOfSections] != 2) {
+			} else {
 				[self removeAllSections];
 				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
 				[self addStartSection];
 				[self addNoGoalSection];
 				[self.tableView reloadData];
 			}
+			isSetupForGoal = [[EWGoal sharedGoal] isDefined];
+			isSetupForBMI = [EWGoal isBMIEnabled];
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];
