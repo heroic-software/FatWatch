@@ -12,6 +12,7 @@
 #import "Database.h"
 #import "MonthData.h"
 #import "WeightFormatters.h"
+#import "BRTextView.h"
 
 
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
@@ -100,7 +101,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	}
 	[monthData setMeasuredWeight:weight 
 							flag:flagControl.selectedSegmentIndex
-							note:noteField.text
+							note:noteView.text
 						   onDay:day];
 	[[Database sharedDatabase] commitChanges];
 	[self dismissModalViewControllerAnimated:YES];
@@ -158,7 +159,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	
 	flagControl.selectedSegmentIndex = [monthData isFlaggedOnDay:day];
 	
-	noteField.text = [monthData noteOnDay:day];
+	noteView.text = [monthData noteOnDay:day];
 
 	[self toggleWeight];
 }
@@ -196,7 +197,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[noteField resignFirstResponder];
+	[noteView resignFirstResponder];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -206,6 +207,15 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	return [textField resignFirstResponder];
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+	if ([text length] > 0 && [text characterAtIndex:0] == '\n') {
+		[textView resignFirstResponder];
+		return NO;
+	}
+	return YES;
 }
 
 

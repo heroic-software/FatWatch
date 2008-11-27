@@ -10,6 +10,7 @@
 
 #import "EWDate.h"
 
+@class BRTextView;
 @class MonthData;
 
 @interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
@@ -21,7 +22,7 @@
 	IBOutlet UIPickerView *weightPickerView;
 	IBOutlet UIView *noWeightView;
 	IBOutlet UISegmentedControl *flagControl;
-	IBOutlet UITextField *noteField;
+	IBOutlet BRTextView *noteView;
 	float scaleIncrement;
 }
 + (LogEntryViewController *)sharedController;

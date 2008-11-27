@@ -30,6 +30,7 @@
 		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
+		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
 		BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
 		BC51B8930E3ACACC00D3B4C1 /* BRTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */; };
@@ -155,6 +156,8 @@
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
 		BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		BC4F26790EDE67900010B5BE /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRTextView.h; path = Classes/BRTextView.h; sourceTree = "<group>"; };
+		BC4F267A0EDE67900010B5BE /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRTextView.m; path = Classes/BRTextView.m; sourceTree = "<group>"; };
 		BC51B7CD0E3A9E6700D3B4C1 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Check.png; path = Images/Check.png; sourceTree = "<group>"; };
 		BC51B88C0E3ACACC00D3B4C1 /* BRTableRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableRow.h; sourceTree = "<group>"; };
 		BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableRow.m; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
 				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
+				BC4F26790EDE67900010B5BE /* BRTextView.h */,
+				BC4F267A0EDE67900010B5BE /* BRTextView.m */,
 			);
 			name = "Weigh-in";
 			sourceTree = "<group>";
@@ -767,6 +772,7 @@
 				BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */,
 				BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */,
 				BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */,
+				BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
