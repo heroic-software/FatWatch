@@ -23,6 +23,7 @@
 	IBOutlet UIView *noWeightView;
 	IBOutlet UISegmentedControl *flagControl;
 	IBOutlet BRTextView *noteView;
+	IBOutlet UIView *annotationContainerView;
 	float scaleIncrement;
 }
 + (LogEntryViewController *)sharedController;

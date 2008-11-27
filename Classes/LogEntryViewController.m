@@ -168,31 +168,24 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 - (void)keyboardWillShow:(NSNotification *)notice {
 	NSValue *kbBoundsValue = [[notice userInfo] objectForKey:UIKeyboardBoundsUserInfoKey];
 	float kbHeight = CGRectGetHeight([kbBoundsValue CGRectValue]);
+	float viewHeight = CGRectGetHeight(self.view.frame) - 44;
 	
-	UIView *view = self.view;
-	CGRect rect = view.bounds;
-	if (rect.origin.y < kbHeight) {
-		[UIView beginAnimations:@"keyboardWillShow" context:nil];
-		[UIView setAnimationDuration:0.3];
-		rect.origin.y = kbHeight;
-		view.bounds = rect;
-		weightContainerView.alpha = 0;
-		[UIView commitAnimations];
-	}
+	[UIView beginAnimations:@"keyboardWillShow" context:nil];
+	[UIView setAnimationDuration:0.3];
+	weightControl.alpha = 0;
+	weightContainerView.alpha = 0;
+	annotationContainerView.frame = CGRectMake(0, 44, 320, viewHeight - kbHeight);
+	[UIView commitAnimations];
 }
 
 
 - (void)keyboardWillHide:(NSNotification *)notice {
-	UIView *view = self.view;
-	CGRect rect = view.bounds;
-	if (rect.origin.y > 0) {
-		[UIView beginAnimations:@"keyboardWillHide" context:nil];
-		[UIView setAnimationDuration:0.3];
-		rect.origin.y = 0;
-		view.bounds = rect;
-		weightContainerView.alpha = 1;
-		[UIView commitAnimations];
-	}
+	[UIView beginAnimations:@"keyboardWillHide" context:nil];
+	[UIView setAnimationDuration:0.3];
+	weightControl.alpha = 1;
+	weightContainerView.alpha = 1;
+	annotationContainerView.frame = CGRectMake(0, 305, 320, 155);
+	[UIView commitAnimations];
 }
 
 
