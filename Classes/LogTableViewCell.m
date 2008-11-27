@@ -103,6 +103,8 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	const CGFloat trendDeltaLeft = 178;
 	const CGFloat noteY = 28;
 	const CGFloat noteRowHeight = 15;
+	const CGFloat noteLeft = dayRight + 4;
+	const CGFloat noteRight = noteLeft;
 	
 	CGFloat cellWidth = CGRectGetWidth(self.bounds);
 	
@@ -140,10 +142,10 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	
 	if (note) {
 		[[UIColor darkGrayColor] setFill];
-		CGRect noteRect = CGRectMake(0, noteY, cellWidth, noteRowHeight);
+		CGRect noteRect = CGRectMake(noteLeft, noteY, cellWidth-noteLeft-noteRight, noteRowHeight);
 		[note drawInRect:noteRect
 				withFont:[UIFont systemFontOfSize:12]
-		   lineBreakMode:UILineBreakModeClip
+		   lineBreakMode:UILineBreakModeTailTruncation
 			   alignment:UITextAlignmentCenter];
 	}
 	
