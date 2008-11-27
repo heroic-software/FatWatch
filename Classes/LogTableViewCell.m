@@ -69,14 +69,12 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	if (measuredWeight == 0) {
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
-		logContentView.backgroundColor = [UIColor whiteColor];
 	} else {
 		logContentView.scaleWeight = [WeightFormatters stringForWeight:measuredWeight];
 		float trendWeight = [monthData trendWeightOnDay:day];
 		float weightDiff = measuredWeight - trendWeight;
 		logContentView.trendDelta = [WeightFormatters stringForWeightChange:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
-		logContentView.backgroundColor = [WeightFormatters backgroundColorForWeight:measuredWeight];
 	}
 
 	logContentView.checked = [monthData isFlaggedOnDay:day];
