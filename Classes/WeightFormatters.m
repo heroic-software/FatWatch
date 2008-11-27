@@ -424,13 +424,14 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (UIColor *)backgroundColorForWeight:(float)weight {
-	float BMI = [self bodyMassIndexForWeight:weight];
-	if (BMI > 0) {
-		UIColor *color = [self colorForBodyMassIndex:BMI];
-		return [color colorWithAlphaComponent:0.4f];
-	} else {
-		return [UIColor clearColor];
+	if ([EWGoal isBMIEnabled]) {
+		float BMI = [self bodyMassIndexForWeight:weight];
+		if (BMI > 0) {
+			UIColor *color = [self colorForBodyMassIndex:BMI];
+			return [color colorWithAlphaComponent:0.4f];
+		}
 	}
+	return [UIColor clearColor];
 }
 
 
