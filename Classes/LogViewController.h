@@ -20,6 +20,8 @@
 	NSIndexPath *lastIndexPath;
 	EWMonthDay scrollDestination;
 }
++ (void)setCurrentMonthDay:(EWMonthDay)monthday;
++ (EWMonthDay)currentMonthDay;
 @property (nonatomic,readonly) NSDate *currentDate;
 - (void)scrollToDate:(NSDate *)date;
 - (IBAction)goToDateAction;

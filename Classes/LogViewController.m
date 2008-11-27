@@ -20,7 +20,20 @@
 @end
 
 
+EWMonthDay gCurrentMonthDay = 0; // for sync with chart
+
+
 @implementation LogViewController
+
++ (void)setCurrentMonthDay:(EWMonthDay)monthday {
+	gCurrentMonthDay = monthday;
+}
+
+
++ (EWMonthDay)currentMonthDay {
+	return gCurrentMonthDay;
+}
+
 
 - (id)init {
 	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
@@ -78,8 +91,17 @@
 
 
 - (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
-	return [NSIndexPath indexPathForRow:(EWMonthDayGetDay(monthday) - 1)
-							  inSection:(EWMonthDayGetMonth(monthday) - earliestMonth)];
+	NSInteger section = MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
+							[self numberOfSectionsInTableView:tableView] - 1);
+	NSInteger row = MIN((EWMonthDayGetDay(monthday) - 1), 
+						[self tableView:tableView numberOfRowsInSection:section] - 1);
+	return [NSIndexPath indexPathForRow:row inSection:section];
+}
+
+
+- (EWMonthDay)monthDayForIndexPath:(NSIndexPath *)indexPath {
+	return EWMonthDayMake([self monthForSection:indexPath.section], 
+						  indexPath.row + 1);
 }
 
 
@@ -105,6 +127,11 @@
 						 atScrollPosition:UITableViewScrollPositionMiddle
 								 animated:animated];
 		scrollDestination = 0;
+	} else {
+		EWMonthDay md = [LogViewController currentMonthDay];
+		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:md]
+						 atScrollPosition:UITableViewScrollPositionBottom
+								 animated:animated];
 	}
 }
 
@@ -124,6 +151,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[self stopObservingDatabase];
+	NSIndexPath *path = [[tableView indexPathsForVisibleRows] lastObject];
+	EWMonthDay md = [self monthDayForIndexPath:path];
+	[LogViewController setCurrentMonthDay:md];
 }
 
 

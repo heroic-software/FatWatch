@@ -15,7 +15,6 @@
 
 
 @interface GraphViewController : DataViewController <UIScrollViewDelegate> {
-	BOOL firstLoad;
 	struct GraphViewInfo {
 		EWMonth month;
 		CGFloat offsetX;
