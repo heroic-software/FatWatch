@@ -68,7 +68,6 @@ enum {
 	digitFields[1] = digit1Field;
 	digitFields[2] = digit2Field;
 	digitFields[3] = digit3Field;
-	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 
@@ -122,6 +121,10 @@ enum {
 }
 
 
+- (IBAction)cancelAction {
+}
+
+
 @end
 
 
@@ -134,8 +137,9 @@ enum {
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-	// This doesn't work in viewWillAppear:, for some reason.
+- (void)viewWillAppear:(BOOL)animated {
+	navBar.hidden = NO;
+	digitGroupView.frame = CGRectMake(0, 76, 320, 100);
 	[codeField becomeFirstResponder];
 }
 
@@ -163,6 +167,11 @@ enum {
 }
 
 
+- (IBAction)cancelAction {
+	[self dismissView];
+}
+
+
 @end
 
 
@@ -178,6 +187,8 @@ enum {
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	navBar.hidden = YES;
+	digitGroupView.frame = CGRectMake(0, 57, 320, 100);
 	[codeField becomeFirstResponder];
 }
 

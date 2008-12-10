@@ -10,6 +10,8 @@
 
 
 @interface PasscodeEntryViewController : UIViewController {
+	IBOutlet UINavigationBar *navBar;
+	IBOutlet UIView *digitGroupView;
 	IBOutlet UILabel *promptLabel;
 	IBOutlet UILabel *smallLabel;
 	IBOutlet UITextField *digit0Field;
@@ -26,4 +28,5 @@
 + (PasscodeEntryViewController *)controllerForAuthorization;
 - (IBAction)codeFieldEditingChanged:(id)sender;
 - (void)dismissView;
+- (IBAction)cancelAction;
 @end
