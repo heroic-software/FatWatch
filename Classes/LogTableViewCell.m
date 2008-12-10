@@ -23,6 +23,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 	NSString *note;
 	BOOL trendPositive;
 	BOOL checked;
+	float scaleWeightFloat;
 }
 @property (nonatomic,retain) NSString *day;
 @property (nonatomic,retain) NSString *weekday;
@@ -31,10 +32,19 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 @property (nonatomic,retain) NSString *note;
 @property (nonatomic) BOOL trendPositive;
 @property (nonatomic) BOOL checked;
+@property (nonatomic) float scaleWeightFloat;
 @end
 
 
+static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
+
+
 @implementation LogTableViewCell
+
+
++ (void)setAuxiliaryInfoType:(NSInteger)infoType {
+	gAuxiliaryInfoType = infoType;
+}
 
 
 - (id)init {
@@ -70,6 +80,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
 	} else {
+		logContentView.scaleWeightFloat = measuredWeight;
 		logContentView.scaleWeight = [WeightFormatters stringForWeight:measuredWeight];
 		float trendWeight = [monthData trendWeightOnDay:day];
 		float weightDiff = measuredWeight - trendWeight;
@@ -91,6 +102,7 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 
 
 @synthesize day, weekday, scaleWeight, trendDelta, note, trendPositive, checked;
+@synthesize scaleWeightFloat;
 
 
 - (void)drawRect:(CGRect)rect {
@@ -126,16 +138,26 @@ NSString *kLogCellReuseIdentifier = @"LogCell";
 					   withFont:[UIFont boldSystemFontOfSize:20]
 				  lineBreakMode:UILineBreakModeClip
 					  alignment:UITextAlignmentRight];
-		if (trendPositive) {
-			[[WeightFormatters badColor] setFill];
+		
+		NSString *auxInfoString;
+		UIColor *auxInfoColor;
+		CGRect auxInfoRect = CGRectMake(trendDeltaLeft, topMargin, cellWidth-trendDeltaLeft, numberRowHeight);
+		if (gAuxiliaryInfoType == kVarianceAuxiliaryInfoType) {
+			auxInfoColor = trendPositive ? [WeightFormatters badColor] : [WeightFormatters goodColor];
+			auxInfoString = trendDelta;
+		} else if (gAuxiliaryInfoType == kBMIAuxiliaryInfoType) {
+			float bmi = [WeightFormatters bodyMassIndexForWeight:scaleWeightFloat];
+			auxInfoColor = [WeightFormatters colorForBodyMassIndex:bmi];
+			auxInfoString = [NSString stringWithFormat:@"%.1f", bmi];
 		} else {
-			[[WeightFormatters goodColor] setFill];
+			auxInfoColor = [UIColor blackColor];
+			auxInfoString = @"???";
 		}
-		CGRect trendDeltaRect = CGRectMake(trendDeltaLeft, topMargin, cellWidth-trendDeltaLeft, numberRowHeight);
-		[trendDelta drawInRect:trendDeltaRect
-					  withFont:[UIFont systemFontOfSize:20]
-				 lineBreakMode:UILineBreakModeClip
-					 alignment:UITextAlignmentLeft];
+		[auxInfoColor setFill];
+		[auxInfoString drawInRect:auxInfoRect
+						 withFont:[UIFont systemFontOfSize:20]
+					lineBreakMode:UILineBreakModeClip
+						alignment:UITextAlignmentLeft];
 	}
 	
 	if (note) {

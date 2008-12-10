@@ -1,3 +1,27 @@
+New Export Process
+
+	Tap Export Button
+	Enter Email Address (if not known)
+	FatWatch uploads data to server
+	Server sends email with link (or attachment)
+
+New Import Process
+
+	Tap Import Button
+	Enter Email Address (if not known)
+	FatWatch pings server
+	Server sends email with link
+	Web page on server allows user to upload file
+	server parses file (CSV, TXT, XLS, Palm DB, etc.)
+	web page tells user to tap import again on device
+	FatWatch pings server, finds new import
+	Asks user to confirm or cancel the import
+
+	
+
+
+
+
 WHO BMI ranges
 http://www.who.int/bmi/index.jsp?introPage=intro_3.html
 

@@ -13,6 +13,7 @@
 #import "MonthData.h"
 #import "LogTableViewCell.h"
 #import "GoToDateViewController.h"
+#import "EWGoal.h"
 
 
 @interface LogViewController ()
@@ -117,6 +118,8 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 	
+	[auxControl setEnabled:[EWGoal isBMIEnabled] forSegmentAtIndex:kBMIAuxiliaryInfoType];
+	
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
 	if (tableSelection) {
 		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
@@ -182,6 +185,15 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	if (earliestMonth > EWMonthDayGetMonth(scrollDestination)) {
 		[[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(scrollDestination)];
 		[self databaseDidChange:nil];
+	}
+}
+
+
+- (IBAction)auxControlAction {
+	[LogTableViewCell setAuxiliaryInfoType:auxControl.selectedSegmentIndex];
+	for (UITableViewCell *cell in [tableView visibleCells]) {
+		UIView *contentView = [[cell.contentView subviews] lastObject];
+		[contentView setNeedsDisplay];
 	}
 }
 

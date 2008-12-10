@@ -59,6 +59,7 @@
 + (float)weightForBodyMassIndex:(float)bmi;
 
 + (UIColor *)backgroundColorForWeight:(float)weight;
++ (UIColor *)colorForBodyMassIndex:(float)BMI;
 
 + (NSFormatter *)heightFormatter;
 + (float)heightIncrement;
