@@ -62,7 +62,7 @@
 
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setFormat:@"0.0 BMI"];
+	[formatter setPositiveFormat:@"0.0 BMI"];
 	return [formatter autorelease];
 }
 

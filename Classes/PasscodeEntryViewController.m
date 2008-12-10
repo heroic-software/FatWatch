@@ -67,29 +67,28 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)viewDidLoad {
-	digitFields[0] = digit0Field;
-	digitFields[1] = digit1Field;
-	digitFields[2] = digit2Field;
-	digitFields[3] = digit3Field;
+	digitViews[0] = digit0View;
+	digitViews[1] = digit1View;
+	digitViews[2] = digit2View;
+	digitViews[3] = digit3View;
 }
 
 
-- (void)updateDigitFields {
+- (void)updateDigitViews {
 	int i;
+	UIImage *img0 = [UIImage imageNamed:@"Passcode0.png"];
+	UIImage *img1 = [UIImage imageNamed:@"Passcode1.png"];
+	
 	for (i = 0; i < 4; i++) {
-		UITextField *digitField = digitFields[i];
-		if ([codeField.text length] > i) {
-			digitField.text = @"X";
-		} else {
-			digitField.text = @"";
-		}
+		UIImageView *digitView = digitViews[i];
+		digitView.image = ([codeField.text length] > i) ? img1 : img0;
 	}
 }
 
 
 - (IBAction)codeFieldEditingChanged:(id)sender {
 	NSString *code = codeField.text;
-	[self updateDigitFields];
+	[self updateDigitViews];
 	if ([code length] == 4) {
 		BOOL dismissView = [self shouldDismissEnteredCode:code];
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -106,13 +105,8 @@ NSString *kPasscodeKey = @"Passcode";
 		[self dismissView];
 	} else {
 		codeField.text = @"";
-		[self updateDigitFields];
+		[self updateDigitViews];
 	}
-}
-
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	return (textField == codeField);
 }
 
 
@@ -147,7 +141,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 - (void)viewWillAppear:(BOOL)animated {
 	navBar.hidden = NO;
-	digitGroupView.frame = CGRectMake(0, 76, 320, 100);
+	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
 	[codeField becomeFirstResponder];
 }
 
@@ -202,7 +196,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 - (void)viewWillAppear:(BOOL)animated {
 	navBar.hidden = YES;
-	digitGroupView.frame = CGRectMake(0, 57, 320, 100);
+	digitGroupView.frame = CGRectMake(0, 69, 320, 79);
 	[codeField becomeFirstResponder];
 }
 

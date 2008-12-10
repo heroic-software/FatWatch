@@ -439,7 +439,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 	if (unit == kWeightUnitKilograms) {
 		NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-		[nf setFormat:@"0.00 m"];
+		[nf setPositiveFormat:@"0.00 m"];
 		return [nf autorelease];
 	} else {
 		InchHeightFormatter *hf = [[InchHeightFormatter alloc] init];

@@ -14,12 +14,12 @@
 	IBOutlet UIView *digitGroupView;
 	IBOutlet UILabel *promptLabel;
 	IBOutlet UILabel *smallLabel;
-	IBOutlet UITextField *digit0Field;
-	IBOutlet UITextField *digit1Field;
-	IBOutlet UITextField *digit2Field;
-	IBOutlet UITextField *digit3Field;
+	IBOutlet UIImageView *digit0View;
+	IBOutlet UIImageView *digit1View;
+	IBOutlet UIImageView *digit2View;
+	IBOutlet UIImageView *digit3View;
 	IBOutlet UITextField *codeField;
-	UITextField *digitFields[4];
+	UIImageView *digitViews[4];
 }
 + (BOOL)authorizationRequired;
 + (void)removePasscode;
