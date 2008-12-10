@@ -22,6 +22,9 @@ enum {
 };
 
 
+NSString *kPasscodeKey = @"Passcode";
+
+
 @interface SettingCodeController : PasscodeEntryViewController {
 	NSString *newCode;
 }
@@ -39,12 +42,12 @@ enum {
 
 
 + (BOOL)authorizationRequired {
-	return [[[NSUserDefaults standardUserDefaults] stringForKey:@"Passcode"] length] == 4;
+	return [[[NSUserDefaults standardUserDefaults] stringForKey:kPasscodeKey] length] == 4;
 }
 
 
 + (void)removePasscode {
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Passcode"];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kPasscodeKey];
 }
 
 
@@ -84,30 +87,22 @@ enum {
 }
 
 
-- (void)codeEntered:(NSString *)userCode {
-	NSAssert(NO, @"Must override.");
-}
-
-
-- (void)dismissView {
-	NSAssert(NO, @"Must override.");
-}
-
-
 - (IBAction)codeFieldEditingChanged:(id)sender {
 	NSString *code = codeField.text;
 	[self updateDigitFields];
 	if ([code length] == 4) {
-		[self codeEntered:code];
+		BOOL dismissView = [self shouldDismissEnteredCode:code];
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-		[self performSelector:@selector(messageDelayDidEnd:) withObject:nil afterDelay:0.8];
+		[self performSelector:@selector(messageDelayDidEnd:) 
+				   withObject:[NSNumber numberWithBool:dismissView]
+				   afterDelay:0.8];
 	}
 }
 
 
-- (void)messageDelayDidEnd:(id)sender {
+- (void)messageDelayDidEnd:(NSNumber *)shouldDismiss {
 	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-	if (shouldDismissView) {
+	if ([shouldDismiss boolValue]) {
 		[self dismissView];
 	} else {
 		codeField.text = @"";
@@ -121,7 +116,20 @@ enum {
 }
 
 
+#pragma mark Abstract Methods
+
+
+- (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
+	[self doesNotRecognizeSelector:_cmd];
+	return NO;
+}
+
+- (void)dismissView {
+	[self doesNotRecognizeSelector:_cmd];
+}
+
 - (IBAction)cancelAction {
+	[self doesNotRecognizeSelector:_cmd];
 }
 
 
@@ -144,21 +152,27 @@ enum {
 }
 
 
-- (void)codeEntered:(NSString *)userCode {
+- (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	if (newCode == nil) {
 		newCode = [userCode retain];
-		promptLabel.text = @"Re-enter your passcode";
-	} else {
-		if ([newCode isEqualToString:userCode]) {
-			[[NSUserDefaults standardUserDefaults] setObject:newCode forKey:@"Passcode"];
-			promptLabel.text = @"Passcode set";
-			smallLabel.hidden = YES;
-			shouldDismissView = YES;
-		} else {
-			smallLabel.hidden = NO;
-			smallLabel.text = @"Passcodes do not match. Try again.";
-		}
+		promptLabel.text = NSLocalizedString(@"PASSCODE_SET_2", nil);
+		smallLabel.hidden = YES;
+		return NO;
 	}
+	
+	if ([newCode isEqualToString:userCode]) {
+		[[NSUserDefaults standardUserDefaults] setObject:newCode forKey:kPasscodeKey];
+		promptLabel.text = NSLocalizedString(@"PASSCODE_SET_DONE", nil);
+		smallLabel.hidden = YES;
+		return YES;
+	}
+	
+	promptLabel.text = NSLocalizedString(@"PASSCODE_SET_1", nil);
+	smallLabel.hidden = NO;
+	smallLabel.text = NSLocalizedString(@"PASSCODE_NO_MATCH", nil);
+	[newCode release];
+	newCode = nil;
+	return NO;
 }
 
 
@@ -193,20 +207,19 @@ enum {
 }
 
 
-- (void)codeEntered:(NSString *)userCode {
-	NSString *secretCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"Passcode"];
+- (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
+	NSString *secretCode = [[NSUserDefaults standardUserDefaults] stringForKey:kPasscodeKey];
 	if ([secretCode isEqualToString:userCode]) {
-		promptLabel.text = @"Authorized";
+		promptLabel.text = NSLocalizedString(@"PASSCODE_AUTH_DONE", nil);
 		smallLabel.hidden = YES;
 		isAuthorized = YES;
-		shouldDismissView = YES;
+		return YES;
 	} else {
 		attemptsRemaining -= 1;
 		smallLabel.hidden = NO;
-		smallLabel.text = [NSString stringWithFormat:@"Incorrect. %d attempts remaining.", attemptsRemaining];
-		if (attemptsRemaining == 0) {
-			shouldDismissView = YES;
-		}
+		NSString *format = NSLocalizedString(@"PASSCODE_AUTH_WRONG", nil);
+		smallLabel.text = [NSString stringWithFormat:format, attemptsRemaining];
+		return (attemptsRemaining == 0);
 	}
 }
 
@@ -214,7 +227,8 @@ enum {
 - (void)dismissView {
 	if (! isAuthorized) {
 		[codeField resignFirstResponder];
-		promptLabel.text = @"Authorization Failed";
+		codeField.hidden = YES;
+		promptLabel.text = NSLocalizedString(@"PASSCODE_AUTH_FAIL", nil);
 		smallLabel.hidden = YES;
 		return;
 	}
