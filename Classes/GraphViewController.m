@@ -157,14 +157,16 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
+	const CGFloat axisViewWidth = 40;
+	
 	YAxisView *axisView = [[YAxisView alloc] initWithParameters:&parameters];
 	axisView.tag = kYAxisViewTag;
-	axisView.frame = CGRectMake(0, 0, 40, 300);
+	axisView.frame = CGRectMake(0, 0, axisViewWidth, 300);
 	axisView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 	[view addSubview:axisView];
 	[axisView release];
 	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(40, 0, 440, 300)];
+	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(axisViewWidth, 0, 480 - axisViewWidth, 300)];
 	scrollView.tag = kScrollViewTag;
 	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	scrollView.alwaysBounceVertical = NO;
