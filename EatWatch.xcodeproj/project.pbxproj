@@ -78,6 +78,7 @@
 		BCC943F90EEA634700D267A7 /* Roadmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCC943F80EEA634700D267A7 /* Roadmap.txt */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
+		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
@@ -234,6 +235,8 @@
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode0.png; path = Images/Passcode0.png; sourceTree = "<group>"; };
 		BCD8BE420EF081EC005639DD /* Passcode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode1.png; path = Images/Passcode1.png; sourceTree = "<group>"; };
+		BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMixedNumberFormatter.h; sourceTree = "<group>"; };
+		BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatter.m; sourceTree = "<group>"; };
 		BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightFormatters.h; sourceTree = "<group>"; };
 		BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightFormatters.m; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				BC9BDE980DA9CB550004E70C /* MonthData.m */,
 				BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */,
 				BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */,
+				BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */,
+				BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -785,6 +790,7 @@
 				BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */,
 				BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */,
 				BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */,
+				BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

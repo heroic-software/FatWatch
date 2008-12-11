@@ -8,6 +8,7 @@
 
 #import "WeightFormatters.h"
 #import "EWGoal.h"
+#import "BRMixedNumberFormatter.h"
 
 
 typedef enum {
@@ -35,20 +36,11 @@ static NSString *kScaleIncrementKey = @"ScaleIncrement";
 static const float kDefaultScaleIncrements[] = { 0.1, 0.5, 1.0 };
 static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
-@interface StoneWeightFormatter : NSFormatter {
-	NSString *formatString;
-	NSNumberFormatter *poundsFormatter;
-}
-- (void)setFractionDigits:(NSUInteger)digits;
-@end
 
 @interface StoneChartFormatter : NSFormatter {
 }
 @end
 
-@interface InchHeightFormatter : NSFormatter {
-}
-@end
 
 
 @implementation WeightFormatters
@@ -206,9 +198,9 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	if (formatter == nil) {
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitStones) {
-			StoneWeightFormatter *sf = [[StoneWeightFormatter alloc] init];
-			[sf setFractionDigits:[self fractionDigits]];
-			formatter = sf;
+			NSUInteger d = [self fractionDigits];
+			formatter = [BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:d];
+			[formatter retain];
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			
@@ -235,7 +227,8 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	if (formatter == nil) {
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitStones) {
-			formatter = [[StoneWeightFormatter alloc] init];
+			formatter = [BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:0];
+			[formatter retain];
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			if (unit == kWeightUnitPounds) {
@@ -442,8 +435,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		[nf setPositiveFormat:@"0.00 m"];
 		return [nf autorelease];
 	} else {
-		InchHeightFormatter *hf = [[InchHeightFormatter alloc] init];
-		return [hf autorelease];
+		return [BRMixedNumberFormatter metersAsFeetFormatter];
 	}
 }
 
@@ -457,18 +449,6 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	}
 }
 
-
-@end
-
-
-@implementation InchHeightFormatter
-
-- (NSString *)stringForObjectValue:(id)anObject {
-	float meters = [anObject floatValue];
-	float feet, inches;
-	inches = modff(3.2808399f * meters, &feet);
-	return [NSString stringWithFormat:@"%1.0f\'%1.0f\"", feet, floorf(inches * 12.0f)];
-}
 
 @end
 
@@ -494,40 +474,6 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 @end
 
-
-@implementation StoneWeightFormatter
-
-- (id)init {
-	if ([super init]) {
-		formatString = [NSLocalizedString(@"STONE_FORMAT", nil) retain];
-		poundsFormatter = [[NSNumberFormatter alloc] init];
-		[poundsFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	}
-	return self;
-}
-
-
-- (void)setFractionDigits:(NSUInteger)digits {
-	[poundsFormatter setMinimumFractionDigits:digits];
-	[poundsFormatter setMaximumFractionDigits:digits];
-}
-
-
-- (void)dealloc {
-	[formatString release];
-	[poundsFormatter release];
-	[super dealloc];
-}
-
-
-- (NSString *)stringForObjectValue:(id)anObject {
-	float weightLbs = [anObject floatValue];
-	int stones = weightLbs / 14;
-	NSNumber *pounds = [NSNumber numberWithFloat:(weightLbs - (14.0f * stones))];
-	return [NSString stringWithFormat:formatString, stones, [poundsFormatter stringFromNumber:pounds]];
-}
-
-@end
 
 
 @implementation StoneChartFormatter
