@@ -9,6 +9,7 @@
 #import "WeightFormatters.h"
 #import "EWGoal.h"
 #import "BRMixedNumberFormatter.h"
+#import "BRRangeColorFormatter.h"
 
 
 typedef enum {
@@ -450,30 +451,36 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-@end
-
-
-
-@implementation BMITextColorFormatter 
-
-- (UIColor *)colorForObjectValue:(id)anObject {
-	float weight = [anObject floatValue];
-	float BMI = [WeightFormatters bodyMassIndexForWeight:weight];
-	return [WeightFormatters colorForBodyMassIndex:BMI];
++ (NSArray *)foregroundColorPalette {
+	return [NSArray arrayWithObjects:[UIColor blueColor], [WeightFormatters goodColor], [WeightFormatters warningColor], [WeightFormatters badColor], nil];
 }
 
-@end
 
-
-@implementation BMIBackgroundColorFormatter
-
-- (UIColor *)colorForObjectValue:(id)anObject {
-	float weight = [anObject floatValue];
-	return [WeightFormatters backgroundColorForWeight:weight];
++ (NSArray *)backgroundColorPalette {
+	NSMutableArray *palette = [NSMutableArray arrayWithCapacity:4];
+	for (UIColor *color in [self foregroundColorPalette]) {
+		[palette addObject:[color colorWithAlphaComponent:0.4f]];
+	}
+	return palette;
 }
 
-@end
 
++ (id <BRColorFormatter>)BMIBackgroundColorFormatter {
+	float v[] = {18.5, 25, 30};
+	return [[[BRRangeColorFormatter alloc] initWithColors:[self backgroundColorPalette] forValues:v] autorelease];
+}
+
+
++ (id <BRColorFormatter>)weightBackgroundColorFormatter {
+	float v[3];
+	v[0] = [self weightForBodyMassIndex:18.5f];
+	v[1] = [self weightForBodyMassIndex:25.0f];
+	v[2] = [self weightForBodyMassIndex:30.0f];
+	return [[[BRRangeColorFormatter alloc] initWithColors:[self backgroundColorPalette] forValues:v] autorelease];
+}
+
+
+@end
 
 
 @implementation StoneChartFormatter

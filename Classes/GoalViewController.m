@@ -62,7 +62,7 @@
 
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setPositiveFormat:@"0.0 BMI"];
+	[formatter setPositiveFormat:NSLocalizedString(@"BMI_FORMAT", nil)];
 	return [formatter autorelease];
 }
 
@@ -105,7 +105,6 @@
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [WeightFormatters goalWeightFormatter];
-	weightRow.backgroundColorFormatter = [[[BMIBackgroundColorFormatter alloc] init] autorelease];
 	weightRow.increment = [WeightFormatters goalWeightIncrement];
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
@@ -115,6 +114,8 @@
 	[weightRow release];
 	
 	if ([EWGoal isBMIEnabled]) {
+		weightRow.backgroundColorFormatter = [WeightFormatters weightBackgroundColorFormatter];
+
 		BRTableNumberPickerRow *bmiRow = [[BRTableNumberPickerRow alloc] init];
 		bmiRow.title = NSLocalizedString(@"GOAL_BMI", nil);
 		bmiRow.object = [EWGoal sharedGoal];
@@ -123,6 +124,7 @@
 		bmiRow.maximumValue = 100;
 		bmiRow.increment = 0.1f;
 		bmiRow.formatter = [self makeBMIFormatter];
+		bmiRow.backgroundColorFormatter = [WeightFormatters BMIBackgroundColorFormatter];
 		bmiRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		bmiRow.defaultValue = [NSNumber numberWithFloat:[[EWGoal sharedGoal] startBMI]];
 		[section addRow:bmiRow animated:NO];

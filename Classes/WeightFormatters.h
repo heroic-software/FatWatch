@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRTableValueRow.h"
 
 
 @interface WeightFormatters : NSObject {
@@ -64,14 +65,7 @@
 + (NSFormatter *)heightFormatter;
 + (float)heightIncrement;
 
-@end
++ (id <BRColorFormatter>)BMIBackgroundColorFormatter;
++ (id <BRColorFormatter>)weightBackgroundColorFormatter;
 
-#import "BRTableValueRow.h"
-
-@interface BMITextColorFormatter : NSObject <BRColorFormatter> {
-}
-@end
-
-@interface BMIBackgroundColorFormatter : NSObject <BRColorFormatter> {
-}
 @end
