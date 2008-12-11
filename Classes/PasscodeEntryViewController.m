@@ -71,6 +71,7 @@ NSString *kPasscodeKey = @"Passcode";
 	digitViews[1] = digit1View;
 	digitViews[2] = digit2View;
 	digitViews[3] = digit3View;
+	codeField.hidden = YES;
 }
 
 
@@ -221,7 +222,6 @@ NSString *kPasscodeKey = @"Passcode";
 - (void)dismissView {
 	if (! isAuthorized) {
 		[codeField resignFirstResponder];
-		codeField.hidden = YES;
 		promptLabel.text = NSLocalizedString(@"PASSCODE_AUTH_FAIL", nil);
 		smallLabel.hidden = YES;
 		return;
