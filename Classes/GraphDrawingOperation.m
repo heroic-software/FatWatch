@@ -10,6 +10,7 @@
 #import "Database.h"
 #import "MonthData.h"
 #import "EWGoal.h"
+#import "WeightFormatters.h"
 
 
 @implementation GraphDrawingOperation
@@ -288,6 +289,15 @@
 	CGContextSetRGBStrokeColor(ctxt, 0.8,0.8,0.8, 1.0);
 	CGContextStrokePath(ctxt);
 	CGPathRelease(gridPath);
+
+	// shade based on BMI
+	
+	for (NSArray *region in p->regions) {
+		CGRect rect = [[region objectAtIndex:0] CGRectValue];
+		UIColor *color = [region objectAtIndex:1];
+		CGContextSetFillColorWithColor(ctxt, [color CGColor]);
+		CGContextFillRect(ctxt, CGRectApplyAffineTransform(rect, p->t));
+	}
 	
 	// name of month and year
 	

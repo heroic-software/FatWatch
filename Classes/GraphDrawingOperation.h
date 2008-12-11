@@ -19,6 +19,7 @@ typedef struct {
 	float gridMaxWeight;
 	float gridIncrementWeight;
 	CGAffineTransform t;
+	NSArray *regions;
 } GraphViewParameters;
 
 

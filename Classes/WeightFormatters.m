@@ -409,7 +409,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (UIColor *)colorForBodyMassIndex:(float)BMI {
-	if (BMI < 18.5f) return [WeightFormatters badColor]; // Underweight
+	if (BMI < 18.5f) return [UIColor blueColor]; // Underweight
 	if (BMI < 25.0f) return [WeightFormatters goodColor]; // Normal
 	if (BMI < 30.0f) return [WeightFormatters warningColor]; // Overweight
 	return [WeightFormatters badColor]; // Obese

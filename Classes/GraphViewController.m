@@ -78,6 +78,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	}
 	free(info);
 	infoCount = 0;
+	
+	[parameters.regions release];
+	parameters.regions = nil;
 }
 
 
@@ -109,6 +112,55 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	parameters.scaleY = (kGraphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
 	parameters.minWeight = minWeight - (kGraphMarginBottom / parameters.scaleY);
 	parameters.maxWeight = maxWeight + (kGraphMarginTop / parameters.scaleY);
+	
+	if ([EWGoal isBMIEnabled]) {
+		float w0 = [WeightFormatters weightForBodyMassIndex:18.5];
+		float w1 = [WeightFormatters weightForBodyMassIndex:25.0];
+		float w2 = [WeightFormatters weightForBodyMassIndex:30.0];
+		
+		CGFloat width = 32; // at most 31 days in a month
+
+		NSMutableArray *regions = [NSMutableArray arrayWithCapacity:4];
+
+		CGRect rect;
+		UIColor *color;
+		
+		CGRect wholeRect = CGRectMake(0, parameters.minWeight, width, parameters.maxWeight - parameters.minWeight);
+		
+		if (w0 > parameters.minWeight) {
+			rect = CGRectMake(0, parameters.minWeight, width, w0 - parameters.minWeight);
+			rect = CGRectIntersection(wholeRect, rect);
+			if (!CGRectIsEmpty(rect)) {
+				color = [WeightFormatters backgroundColorForWeight:parameters.minWeight];
+				[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+			}
+		}
+		
+		rect = CGRectMake(0, w0, width, w1 - w0);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [WeightFormatters backgroundColorForWeight:0.5f*(w0+w1)];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+		
+		rect = CGRectMake(0, w1, width, w2 - w1);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [WeightFormatters backgroundColorForWeight:0.5f*(w1+w2)];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+		
+		if (w2 < parameters.maxWeight) {
+			rect = CGRectMake(0, w2, width, parameters.maxWeight - w2);
+			rect = CGRectIntersection(wholeRect, rect);
+			if (!CGRectIsEmpty(rect)) {
+				color = [WeightFormatters backgroundColorForWeight:parameters.maxWeight];
+				[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+			}
+		}
+				
+		parameters.regions = [regions copy];
+	}
 	
 	float increment = [WeightFormatters chartWeightIncrement];
 	while (parameters.scaleY * increment < [UIFont systemFontSize]) {
