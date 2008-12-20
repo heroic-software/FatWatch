@@ -292,11 +292,30 @@
 
 	// shade based on BMI
 	
-	for (NSArray *region in p->regions) {
-		CGRect rect = [[region objectAtIndex:0] CGRectValue];
-		UIColor *color = [region objectAtIndex:1];
-		CGContextSetFillColorWithColor(ctxt, [color CGColor]);
-		CGContextFillRect(ctxt, CGRectApplyAffineTransform(rect, p->t));
+	if ([p->regions count] > 0) {
+		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+		CFMutableArrayRef colorArray = CFArrayCreateMutable(kCFAllocatorDefault, 2, &kCFTypeArrayCallBacks);
+		CGColorRef clearColor = [[UIColor clearColor] CGColor];
+		CFArraySetValueAtIndex(colorArray, 0, clearColor);
+		CGFloat gradientLocations[] = { 0, 1 };
+		
+		for (NSArray *region in p->regions) {
+			CGRect rect = [[region objectAtIndex:0] CGRectValue];
+			UIColor *color = [region objectAtIndex:1];
+			
+			CFArraySetValueAtIndex(colorArray, 1, [color CGColor]);
+
+			CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, colorArray, gradientLocations);
+			
+			CGPoint startPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMidY(rect)), p->t);
+			CGPoint endPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMaxY(rect)), p->t);
+			CGContextDrawLinearGradient(ctxt, gradient, startPoint, endPoint, 0);
+			
+			CGGradientRelease(gradient);
+		}
+		
+		CFRelease(colorArray);
+		CGColorSpaceRelease(colorSpace);
 	}
 	
 	// name of month and year
