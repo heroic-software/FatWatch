@@ -403,31 +403,35 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
-	EWMonthDay monthday = [LogViewController currentMonthDay];
-	int i = [self indexOfGraphViewInfoForMonth:EWMonthDayGetMonth(monthday)];
-	if (i + 1 == infoCount) {
-		CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
-		[scrollView scrollRectToVisible:rect animated:NO];
-	} else {
-		CGFloat dayX = parameters.scaleX * (EWMonthDayGetDay(monthday) - 1);
-		CGFloat x = info[i].offsetX + dayX;
-		CGFloat width = CGRectGetWidth(scrollView.bounds);
-		CGRect rect = CGRectMake(x - width, 0, width, 1);
-		[scrollView scrollRectToVisible:rect animated:NO];
+	if (info != nil) {
+		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		EWMonthDay monthday = [LogViewController currentMonthDay];
+		int i = [self indexOfGraphViewInfoForMonth:EWMonthDayGetMonth(monthday)];
+		if (i + 1 == infoCount) {
+			CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
+			[scrollView scrollRectToVisible:rect animated:NO];
+		} else {
+			CGFloat dayX = parameters.scaleX * (EWMonthDayGetDay(monthday) - 1);
+			CGFloat x = info[i].offsetX + dayX;
+			CGFloat width = CGRectGetWidth(scrollView.bounds);
+			CGRect rect = CGRectMake(x - width, 0, width, 1);
+			[scrollView scrollRectToVisible:rect animated:NO];
+		}
 	}
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
-	CGFloat minX = scrollView.contentOffset.x;
-	CGFloat x = minX + CGRectGetWidth(scrollView.bounds);
-	int i = [self indexOfGraphViewInfoAtOffsetX:x];
-	EWDay day = 1 + floorf((x - info[i].offsetX) / parameters.scaleX);
-	EWMonthDay monthday = EWMonthDayMake(info[i].month, day);
-	[LogViewController setCurrentMonthDay:monthday];
+	if (info != nil) {
+		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		CGFloat minX = scrollView.contentOffset.x;
+		CGFloat x = minX + CGRectGetWidth(scrollView.bounds);
+		int i = [self indexOfGraphViewInfoAtOffsetX:x];
+		EWDay day = 1 + floorf((x - info[i].offsetX) / parameters.scaleX);
+		EWMonthDay monthday = EWMonthDayMake(info[i].month, day);
+		[LogViewController setCurrentMonthDay:monthday];
+	}
 }
 
 @end
