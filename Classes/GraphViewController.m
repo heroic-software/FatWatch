@@ -94,25 +94,23 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 	float minWeight, maxWeight;
 	
-	switch ([db weightCount]) {
-		case 0:
-			minWeight = 140;
-			maxWeight = 160;
-			break;
-		case 1:
-			minWeight = [db minimumWeight] - 10;
-			maxWeight = [db maximumWeight] + 10;
-			break;
-		default:
-			minWeight = [db minimumWeight];
-			maxWeight = [db maximumWeight];
-			break;
+	if ([db weightCount] < 1) {
+		minWeight = 140;
+		maxWeight = 160;
+	} else {
+		minWeight = [db minimumWeight];
+		maxWeight = [db maximumWeight];
 	}
 	
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
 	if (goalWeight > 0) {
 		if (goalWeight < minWeight) minWeight = goalWeight;
 		if (goalWeight > maxWeight) maxWeight = goalWeight;
+	}
+	
+	if ((maxWeight - minWeight) < 1) {
+		minWeight -= 10;
+		maxWeight += 10;
 	}
 	
 	if (infoCount == 1) {
