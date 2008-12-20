@@ -14,7 +14,7 @@
 #import "GraphDrawingOperation.h"
 
 
-@interface GraphViewController : DataViewController <UIScrollViewDelegate> {
+@interface GraphViewController : UIViewController <UIScrollViewDelegate> {
 	struct GraphViewInfo {
 		EWMonth month;
 		CGFloat offsetX;

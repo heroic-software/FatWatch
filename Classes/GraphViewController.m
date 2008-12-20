@@ -92,18 +92,31 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	infoCount = db.latestMonth - db.earliestMonth + 1;
 	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
 
-	float goalWeight = [[EWGoal sharedGoal] endWeight];
 	float minWeight, maxWeight;
+	
+	switch ([db weightCount]) {
+		case 0:
+			minWeight = 140;
+			maxWeight = 160;
+			break;
+		case 1:
+			minWeight = [db minimumWeight] - 10;
+			maxWeight = [db maximumWeight] + 10;
+			break;
+		default:
+			minWeight = [db minimumWeight];
+			maxWeight = [db maximumWeight];
+			break;
+	}
+	
+	float goalWeight = [[EWGoal sharedGoal] endWeight];
 	if (goalWeight > 0) {
-		minWeight = MIN([db minimumWeight], goalWeight);
-		maxWeight = MAX([db maximumWeight], goalWeight);
-	} else {
-		minWeight = [db minimumWeight];
-		maxWeight = [db maximumWeight];
+		if (goalWeight < minWeight) minWeight = goalWeight;
+		if (goalWeight > maxWeight) maxWeight = goalWeight;
 	}
 	
 	if (infoCount == 1) {
-		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / EWDaysInMonth(db.earliestMonth);
 	} else {
 		parameters.scaleX = kDayWidth;
@@ -196,7 +209,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	}
 	
 	CGSize totalSize = CGSizeMake(x, kGraphHeight);
-	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+	UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 	scrollView.contentSize = totalSize;
 	
 	lastMinIndex = -1;
@@ -204,7 +217,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 }
 
 
-- (UIView *)loadDataView
+- (void)loadView
 {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -227,18 +240,32 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[view addSubview:scrollView];
 	[scrollView release];
 		
-	return [view autorelease];
+	self.view = view;
+	[view release];
 }
 
 
-- (void)dataChanged
-{
+- (void)databaseDidChange:(NSNotification *)notice {
 	[self view]; // make sure view is loaded
 	[self clearGraphViewInfo];
 	[self prepareGraphViewInfo];
-	[[self.dataView viewWithTag:kYAxisViewTag] setNeedsDisplay];
-	UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+	[[self.view viewWithTag:kYAxisViewTag] setNeedsDisplay];
+	UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 	[self scrollViewDidScroll:scrollView];
+}
+
+
+- (void)startObservingDatabase {
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+	[self databaseDidChange:nil];
+}
+
+
+- (void)stopObservingDatabase {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -402,9 +429,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+	[self startObservingDatabase];
 	if (info != nil) {
-		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		EWMonthDay monthday = [LogViewController currentMonthDay];
 		int i = [self indexOfGraphViewInfoForMonth:EWMonthDayGetMonth(monthday)];
 		if (i + 1 == infoCount) {
@@ -422,9 +449,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
+	[self stopObservingDatabase];
 	if (info != nil) {
-		UIScrollView *scrollView = (id)[self.dataView viewWithTag:kScrollViewTag];
+		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		CGFloat minX = scrollView.contentOffset.x;
 		CGFloat x = minX + CGRectGetWidth(scrollView.bounds);
 		int i = [self indexOfGraphViewInfoAtOffsetX:x];
