@@ -131,10 +131,10 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 								 animated:animated];
 		scrollDestination = 0;
 	} else {
-		EWMonthDay md = [LogViewController currentMonthDay];
-		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:md]
-						 atScrollPosition:UITableViewScrollPositionBottom
-								 animated:animated];
+//		EWMonthDay md = [LogViewController currentMonthDay];
+//		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:md]
+//						 atScrollPosition:UITableViewScrollPositionBottom
+//								 animated:animated];
 	}
 }
 

@@ -143,7 +143,6 @@
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
-		BC1DE01E0E91FC8E002684E7 /* release-build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "release-build.sh"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -355,7 +354,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
-				BC1DE01E0E91FC8E002684E7 /* release-build.sh */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
 				BCFE4C680E76176E0090B81B /* Unit Testing */,
@@ -906,7 +904,7 @@
 			};
 			name = Debug;
 		};
-		BC2CBA700EC988A8002087B7 /* Evaluation */ = {
+		BC2CBA700EC988A8002087B7 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -914,12 +912,12 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A6F6BE96-C722-4625-98FD-774FB9F0E9FE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FF9825CD-E8E9-4314-BCC7-DD0D11A5395B";
 				SDKROOT = iphoneos2.1;
 			};
-			name = Evaluation;
+			name = AdHoc;
 		};
-		BC2CBA710EC988A8002087B7 /* Evaluation */ = {
+		BC2CBA710EC988A8002087B7 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -931,9 +929,9 @@
 				PRODUCT_NAME = FatWatch;
 				WRAPPER_EXTENSION = app;
 			};
-			name = Evaluation;
+			name = AdHoc;
 		};
-		BC2CBA720EC988A8002087B7 /* Evaluation */ = {
+		BC2CBA720EC988A8002087B7 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -952,21 +950,21 @@
 				PRODUCT_NAME = "Unit Tests";
 				SDKROOT = iphoneos2.1;
 			};
-			name = Evaluation;
+			name = AdHoc;
 		};
-		BCDCEB7F0E28150A00185857 /* Distribution */ = {
+		BCDCEB7F0E28150A00185857 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_ID = DEVBUILD;
+				BUILD_NUMBER = 0000;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = DefaultProfileUuid;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EE480A3-9698-45DA-9D06-109F575D0FD5";
 				SDKROOT = iphoneos2.1;
 			};
-			name = Distribution;
+			name = AppStore;
 		};
-		BCDCEB800E28150A00185857 /* Distribution */ = {
+		BCDCEB800E28150A00185857 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -978,7 +976,7 @@
 				PRODUCT_NAME = FatWatch;
 				WRAPPER_EXTENSION = app;
 			};
-			name = Distribution;
+			name = AppStore;
 		};
 		BCFE4C5A0E7616E70090B81B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1004,7 +1002,7 @@
 			};
 			name = Debug;
 		};
-		BCFE4C5C0E7616E70090B81B /* Distribution */ = {
+		BCFE4C5C0E7616E70090B81B /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1023,7 +1021,7 @@
 				PRODUCT_NAME = "Unit Tests";
 				SDKROOT = iphoneos2.1;
 			};
-			name = Distribution;
+			name = AppStore;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1031,7 +1029,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_ID = DEVBUILD;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Benjamin Ragheb";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1048,31 +1046,31 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
-				BC2CBA710EC988A8002087B7 /* Evaluation */,
-				BCDCEB800E28150A00185857 /* Distribution */,
+				BC2CBA710EC988A8002087B7 /* AdHoc */,
+				BCDCEB800E28150A00185857 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = AppStore;
 		};
 		BCFE4C5D0E7616E70090B81B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCFE4C5A0E7616E70090B81B /* Debug */,
-				BC2CBA720EC988A8002087B7 /* Evaluation */,
-				BCFE4C5C0E7616E70090B81B /* Distribution */,
+				BC2CBA720EC988A8002087B7 /* AdHoc */,
+				BCFE4C5C0E7616E70090B81B /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = AppStore;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
-				BC2CBA700EC988A8002087B7 /* Evaluation */,
-				BCDCEB7F0E28150A00185857 /* Distribution */,
+				BC2CBA700EC988A8002087B7 /* AdHoc */,
+				BCDCEB7F0E28150A00185857 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = AppStore;
 		};
 /* End XCConfigurationList section */
 	};

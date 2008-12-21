@@ -1,25 +1,75 @@
 New Export Process
 
-	Tap Export Button
-	Enter Email Address (if not known)
-	FatWatch uploads data to server
-	Server sends email with link (or attachment)
+	user taps Export button
+	prompt for email address (pre-filled with last entered, if any)
+	device to server: HERE IS (data) FOR (email address)
+	server to device: OK
+	server sends email with link or attachment
+	
+	user follows link, user can:
+		download as CSV
+		send to Hacker's Diet Online
+		send to Weightbot
+		send to PhysicsDiet
+		download a chart?
+		
+	user taps Export button
+	device prompts for email address (pre-filled with last entered, if any)
+	device to server: START EXPORT FOR DEVICE UDID, EMAIL ADDRESS
+	server to device: SEND NEW DATA
+	-or-
+	server to device: I ALREADY HAVE DATA FOR THAT PAIR (sends checksums)
+	device to server: HERE IS NEW DATA
+	server sends email with link / attachment
 
 New Import Process
 
-	Tap Import Button
-	Enter Email Address (if not known)
-	FatWatch pings server
-	Server sends email with link
-	Web page on server allows user to upload file
-	server parses file (CSV, TXT, XLS, Palm DB, etc.)
-	web page tells user to tap import again on device
-	FatWatch pings server, finds new import
-	Asks user to confirm or cancel the import
-
+	user taps Import button
+	device to server: IMPORT AVAILABLE FOR DEVICE ID?
+	server to device: NO
+	device prompts user for email address (pre-filled with last entered, if any)
+	device to server: IMPORT AVAILABLE FOR EMAIL ADDRESS?
+	server to device: NO, I'LL INITIATE ONE
+	server sends email with link
 	
+	user follows link
+	server to user: upload a file? get data from other service? etc.
+	server processes file
+	server to user: Go tap import again
+	
+	user taps import button
+	device to server: IMPORTS AVAILABLE?
+	server to device: YES HAVE THIS (data)
+	device prompts: confirm or cancel?
+	device imports data
+	
+	if moving to another device...
+		device to server: IMPORT AVAILABLE FOR UUID?
+		server to device: NO
+		device to server: IMPORT AVAILABLE FOR EMAIL?
+		server to device: YES BUT YOU'LL NEED A CODE
+		server sends code to email:
+		device prompts for code (it's in your email)
+		device to server: HERE IS A CODE
+		server to device: OK HERE IS YOUR DATA
+		-or-
+		NO BEANS
 
+	Scenarios:
+		Backup data
+		Move data to another device
+		Export data to CSV file
+		Export data to Hacker's Diet Online
+		Import data from Hacker's Diet Online
+		Import data from PhysicsDiet
+		Export data to PhysicsDiet
+		Export data to show chart on blog
+		Import/Export Weightbot server
 
+	Server
+		emails (id, email_address)
+		devices (id, device_udid, device_name)
+		pairings (device_id, email_id, active?)
 
 
 WHO BMI ranges
