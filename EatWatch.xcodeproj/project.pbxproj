@@ -13,7 +13,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
-		BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02138D0DC18F3E00BA97BB /* DataViewController.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
@@ -136,8 +135,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
-		BC02138C0DC18F3E00BA97BB /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataViewController.h; path = Classes/DataViewController.h; sourceTree = "<group>"; };
-		BC02138D0DC18F3E00BA97BB /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataViewController.m; path = Classes/DataViewController.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -482,8 +479,6 @@
 				BCABE0400DD932A100DE580A /* RootViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
-				BC02138C0DC18F3E00BA97BB /* DataViewController.h */,
-				BC02138D0DC18F3E00BA97BB /* DataViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -765,7 +760,6 @@
 				BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */,
 				BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */,
 				BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */,
-				BC02138E0DC18F3E00BA97BB /* DataViewController.m in Sources */,
 				BCABE0410DD932A100DE580A /* RootViewController.m in Sources */,
 				BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */,
 				BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */,

@@ -10,13 +10,14 @@
 #import "WeightFormatters.h"
 #import "EWGoal.h"
 #import "TrendSpan.h"
+#import "Database.h"
 
 
 @implementation TrendViewController
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"TRENDS_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend.png"];
 		array = [[NSMutableArray alloc] init];
@@ -25,37 +26,9 @@
 }
 
 
-- (NSString *)message {
-	return NSLocalizedString(@"NO_DATA_FOR_TRENDS", nil);
-}
-
-
-- (UIView *)loadDataView {
-	UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-	tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-	tableView.delegate = self;
-	tableView.dataSource = self;
-	return [tableView autorelease];
-}
-
-
-- (BOOL)hasEnoughData {
-	if ([super hasEnoughData]) {
-		[array setArray:[TrendSpan computeTrendSpans]];
-		return [array count] > 0;
-	}
-	return NO;
-}
-
-
-- (void)dataChanged {
-	UITableView *tableView = (UITableView *)self.dataView;
-	[tableView reloadData];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return NO;
+- (void)databaseDidChange:(NSNotification *)notice {
+	[array setArray:[TrendSpan computeTrendSpans]];
+	[self.tableView reloadData];
 }
 
 
@@ -65,14 +38,39 @@
 }
 
 
+- (void)startObservingDatabase {
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+	[self databaseDidChange:nil];
+}
+
+
+- (void)stopObservingDatabase {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self startObservingDatabase];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self stopObservingDatabase];
+}
+
+
 #pragma mark UITableViewDataSource (Required)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [array count];
+	return MAX(1, [array count]);
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if ([array count] == 0) return 0;
 	TrendSpan *span = [array objectAtIndex:section];
 	if (span.goal) {
 		return (span.endDate != nil) ? 4 : 3;
@@ -85,8 +83,18 @@
 #pragma mark UITableViewDataSource (Optional)
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if ([array count] == 0) return nil;
 	TrendSpan *span = [array objectAtIndex:section];
 	return span.title;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	if ([array count] == 0) {
+		return NSLocalizedString(@"NO_DATA_FOR_TRENDS", nil);
+	} else {
+		return nil;
+	}
 }
 
 

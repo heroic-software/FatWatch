@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataViewController.h"
 
-@interface TrendViewController : DataViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TrendViewController : UITableViewController {
 	NSMutableArray *array;
 	BOOL showEndDateAsDate;
 }
