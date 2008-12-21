@@ -1,6 +1,10 @@
-- dataForMonth: use locking
-
-replace weightcount with isEmpty
+? replace weightcount with isEmpty
+- bug: BMI off, enable it, then view weigh-in screen (cells only colored on refresh)
+- bug: chart weekend highlights broken at end of the month
+- bug: chart head-tail connections
+- Chart drawing: draw headers correctly (don't assume 1 month)
+- Chart drawing: OPTIMIZE
+- Test: data import while viewing chart
 
 New Export Process
 

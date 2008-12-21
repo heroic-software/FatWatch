@@ -23,27 +23,33 @@ typedef struct {
 } GraphViewParameters;
 
 
+typedef struct {
+	CGPoint scale;
+	CGPoint trend;
+	BOOL flag;
+} GraphPoint;
+
+
 #define kDayWidth 8.0f
 
 
 @interface GraphDrawingOperation : NSOperation {
 	id delegate;
 	int index;
-	EWMonth month;
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
 	GraphViewParameters *p;
 	CGRect bounds;
 	UIImage *image;
-	CGPoint scalePoints[31];
-	CGPoint trendPoints[31];
-	BOOL flags[31];
-	NSUInteger pointCount;
-	CGPoint headPoint;
-	CGPoint tailPoint;
+	NSMutableData *pointData;
+	NSUInteger dayCount;
+//	CGPoint headPoint;
+//	CGPoint tailPoint;
 }
 + (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt;
+- (void)setMonth:(EWMonth)month;
 @property (nonatomic,assign) id delegate;
 @property (nonatomic) int index;
-@property (nonatomic) EWMonth month;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
 @property (nonatomic,readonly) UIImage *image;

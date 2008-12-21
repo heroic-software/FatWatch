@@ -345,9 +345,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
 		operation.delegate = self;
 		operation.index = index;
-		operation.month = ginfo->month;
 		operation.p = &parameters;
 		operation.bounds = ginfo->view.bounds;
+		[operation setMonth:ginfo->month];
 		
 		ginfo->operation = operation;
 		[queue addOperation:operation];

@@ -18,7 +18,6 @@
 
 @synthesize delegate;
 @synthesize index;
-@synthesize month;
 @synthesize p;
 @synthesize bounds;
 @synthesize image;
@@ -47,51 +46,54 @@
 #pragma mark Main Thread
 
 
-- (void)setMonth:(EWMonth)m {
-	month = m;
-	
-	Database *database = [Database sharedDatabase];
-
-	pointCount = 0;
-	
-	MonthData *md = [database dataForMonth:month];
-	NSUInteger dayCount = EWDaysInMonth(month);
-	EWDay day;
-	for (day = 1; day <= dayCount; day++) {
-		float scale = [md scaleWeightOnDay:day];
-		if (scale > 0) {
-			float trend = [md trendWeightOnDay:day];
-			scalePoints[pointCount] = CGPointMake(day, scale);
-			trendPoints[pointCount] = CGPointMake(day, trend);
-			flags[pointCount] = [md isFlaggedOnDay:day];
-			pointCount++;
-		}
-	}
-	
-	if (month > [database earliestMonth]) {
-		MonthData *md = [database dataForMonth:(month - 1)];
-		EWDay day = [md lastDayWithWeight];
-		if (day > 0) {
-			float trend = [md trendWeightOnDay:day];
-			NSInteger dayCount = EWDaysInMonth(month - 1);
-			headPoint.x = day - dayCount;
-			headPoint.y = trend;
-		}
-	}
-	
-	if (month < [database latestMonth]) {
-		MonthData *md = [database dataForMonth:(month + 1)];
-		EWDay day = [md firstDayWithWeight];
-		if (day > 0) {
-			float trend = [md trendWeightOnDay:day];
-			tailPoint.x = EWDaysInMonth(month) + day;
-			tailPoint.y = trend;
-		}
-	}
+- (void)setMonth:(EWMonth)month {
+	beginMonthDay = EWMonthDayMake(month, 1);
+	endMonthDay = EWMonthDayMake(month, EWDaysInMonth(month));
 }
 
 
 #pragma mark Secondary Thread
+
+
+EWMonthDay EWNextMonthDay(EWMonthDay md) {
+	EWMonth month = EWMonthDayGetMonth(md);
+	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
+		return md + 1;
+	} else {
+		return EWMonthDayMake(month + 1, 1);
+	}
+}
+
+
+- (void)computePoints {
+
+	Database *db = [Database sharedDatabase];
+
+	EWMonth month = EWMonthDayGetMonth(beginMonthDay);
+	MonthData *data = [db dataForMonth:month];
+	
+	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
+	
+	dayCount = 1;
+
+	EWMonthDay md;
+	for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
+		if (month != EWMonthDayGetMonth(md)) {
+			data = [db dataForMonth:month];
+		}
+		EWDay day = EWMonthDayGetDay(md);
+		float scale = [data scaleWeightOnDay:day];
+		if (scale > 0) {
+			float trend = [data trendWeightOnDay:day];
+			GraphPoint gp;
+			gp.scale = CGPointMake(dayCount, scale);
+			gp.trend = CGPointMake(dayCount, trend);
+			gp.flag = [data isFlaggedOnDay:day];
+			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
+		}
+		dayCount += 1;
+	}
+}
 
 
 - (CGPathRef)createWeekendsBackgroundPath {
@@ -100,27 +102,14 @@
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
 		path = CGPathCreateMutable();
 		CGFloat h = p->maxWeight - p->minWeight;
-		CGRect dayRect = CGRectMake(0, p->minWeight, 1, h);
+		CGRect dayRect = CGRectMake(-0.5, p->minWeight, 1, h);
 		
-		EWDay day = 1;
-		NSUInteger lastDay = EWDaysInMonth(month);
-		NSInteger wd = EWWeekdayFromMonthAndDay(month, 1);
-		
-		if (wd != 1 && wd != 7) {
-			day += (7 - wd);
-			wd = 7;
-		}
-		
-		while (day <= lastDay) {
-			dayRect.origin.x = day - 0.5;
-			CGPathAddRect(path, &p->t, dayRect);
-			if (wd == 1) {
-				day += 6;
-				wd = 7;
-			} else {
-				day += 1;
-				wd = 1;
+		EWMonthDay md;
+		for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
+			if (EWMonthAndDayIsWeekend(EWMonthDayGetMonth(md), EWMonthDayGetDay(md))) {
+				CGPathAddRect(path, &p->t, dayRect);
 			}
+			dayRect.origin.x += 1;
 		}
 	}
 	
@@ -129,7 +118,6 @@
 
 
 - (CGPathRef)createGridPath {
-	NSUInteger dayCount = EWDaysInMonth(month);
 	CGMutablePathRef gridPath = CGPathCreateMutable();
 	CGPathMoveToPoint(gridPath, NULL, 0.5, CGRectGetMinY(bounds));
 	CGPathAddLineToPoint(gridPath, NULL, 0.5, CGRectGetMaxY(bounds));
@@ -145,16 +133,24 @@
 - (CGPathRef)createTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
 		
-	if (headPoint.y > 0) {
-		CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
-		CGPathAddLineToPoint(path, &p->t, trendPoints[0].x, trendPoints[0].y);
+//	if (headPoint.y > 0) {
+//		CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
+//		CGPathAddLineToPoint(path, &p->t, trendPoints[0].x, trendPoints[0].y);
+//	}
+	
+	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
+	if (gpCount > 0) {
+		const GraphPoint *gp = [pointData bytes];
+		CGPathMoveToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+		int k;
+		for (k = 1; k < gpCount; k++) {
+			CGPathAddLineToPoint(path, &p->t, gp[k].trend.x, gp[k].trend.y);
+		}
 	}
 	
-	CGPathAddLines(path, &p->t, trendPoints, pointCount);
-	
-	if (tailPoint.y > 0) {
-		CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
-	}
+//	if (tailPoint.y > 0) {
+//		CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
+//	}
 	
 	return path;
 }
@@ -165,19 +161,23 @@
 	
 	const CGFloat markRadius = 0.5 * kDayWidth;
 	
-	NSInteger k;
-	for (k = 0; k < pointCount; k++) {
-		if (flags[k] == filter) {
-			CGPoint scalePoint = CGPointApplyAffineTransform(scalePoints[k], p->t);
-			scalePoint.x = roundf(scalePoint.x);
-			scalePoint.y = roundf(scalePoint.y);
-			
-			// Rhombus
-			CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
-			CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
-			CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
-			CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
-			CGPathCloseSubpath(path);
+	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
+	if (gpCount > 0) {
+		const GraphPoint *gp = [pointData bytes];
+		int k;
+		for (k = 0; k < gpCount; k++) {
+			if (gp[k].flag == filter) {
+				CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
+				scalePoint.x = roundf(scalePoint.x);
+				scalePoint.y = roundf(scalePoint.y);
+
+				// Rhombus
+				CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
+				CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
+				CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
+				CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
+				CGPathCloseSubpath(path);
+			}
 		}
 	}
 	
@@ -190,23 +190,27 @@
 	
 	const CGFloat markRadius = 0; //0.45 * p->scaleX;
 	
-	NSInteger k;
-	for (k = 0; k < pointCount; k++) {
-		CGPoint scalePoint = CGPointApplyAffineTransform(scalePoints[k], p->t);
-		CGPoint trendPoint = CGPointApplyAffineTransform(trendPoints[k], p->t);
-		
-		CGFloat y = 0;
-		
-		CGFloat variance = scalePoint.y - trendPoint.y;
-		if (variance > markRadius) {
-			y = scalePoint.y - markRadius;
-		} else if (variance < -markRadius) {
-			y = scalePoint.y + markRadius;
-		}
-		
-		if (y != 0) {
-			CGPathMoveToPoint(path, NULL, trendPoint.x, trendPoint.y);
-			CGPathAddLineToPoint(path, NULL, scalePoint.x, y);
+	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
+	if (gpCount > 0) {
+		const GraphPoint *gp = [pointData bytes];
+		int k;
+		for (k = 0; k < gpCount; k++) {
+			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
+			CGPoint trendPoint = CGPointApplyAffineTransform(gp[k].trend, p->t);
+			
+			CGFloat y = 0;
+			
+			CGFloat variance = scalePoint.y - trendPoint.y;
+			if (variance > markRadius) {
+				y = scalePoint.y - markRadius;
+			} else if (variance < -markRadius) {
+				y = scalePoint.y + markRadius;
+			}
+			
+			if (y != 0) {
+				CGPathMoveToPoint(path, NULL, trendPoint.x, trendPoint.y);
+				CGPathAddLineToPoint(path, NULL, scalePoint.x, y);
+			}
 		}
 	}
 		
@@ -221,18 +225,16 @@
 	if (goal.defined) {
 		path = CGPathCreateMutable();
 		
-		EWMonth startMonth = EWMonthDayGetMonth(goal.startMonthDay);
-		if (month >= startMonth) {
-			NSDate *firstOfMonth = EWDateFromMonthAndDay(month, 1);
+		if (goal.startMonthDay < endMonthDay) {
+			NSDate *firstOfGraph = EWDateFromMonthDay(beginMonthDay);
 			CGFloat x;
 			
-			x = 1 + roundf([goal.startDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay);
+			x = 1 + roundf([goal.startDate timeIntervalSinceDate:firstOfGraph] / SecondsPerDay);
 			CGPathMoveToPoint(path, &p->t, x, goal.startWeight);
 			
-			x = 1 + roundf([goal.endDate timeIntervalSinceDate:firstOfMonth] / SecondsPerDay);
+			x = 1 + roundf([goal.endDate timeIntervalSinceDate:firstOfGraph] / SecondsPerDay);
 			CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
 			
-			CGFloat dayCount = EWDaysInMonth(month);
 			if (x < dayCount) {
 				CGPathAddLineToPoint(path, &p->t, dayCount + 1, goal.endWeight);
 			}
@@ -269,6 +271,8 @@
 
 
 - (void)main {
+	[self computePoints];
+	
 	CGContextRef ctxt = [self createBitmapContext];
 	
 	// shaded background to show weekends
@@ -323,9 +327,10 @@
 	
 	// name of month and year
 	
-	[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
+	// TODO: draw at appropriate point
+	[GraphDrawingOperation drawCaptionForMonth:EWMonthDayGetMonth(beginMonthDay) inContext:ctxt];
 		
-	if (pointCount > 0) {
+	if ([pointData length] > 0) {
 		CGContextSaveGState(ctxt);
 				
 		CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
@@ -402,6 +407,7 @@
 
 - (void)dealloc {
 	[image release];
+	[pointData release];
 	[super dealloc];
 }
 
