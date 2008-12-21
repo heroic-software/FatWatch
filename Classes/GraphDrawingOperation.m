@@ -293,11 +293,14 @@
 	// shade based on BMI
 	
 	if ([p->regions count] > 0) {
+		static const CGFloat clearColorComponents[] = { 0, 0, 0, 0 };
+		static const CGFloat gradientLocations[] = { 0.4, 1 };
+
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CFMutableArrayRef colorArray = CFArrayCreateMutable(kCFAllocatorDefault, 2, &kCFTypeArrayCallBacks);
-		CGColorRef clearColor = [[UIColor clearColor] CGColor];
+		CGColorRef clearColor = CGColorCreate(colorSpace, clearColorComponents);
 		CFArraySetValueAtIndex(colorArray, 0, clearColor);
-		CGFloat gradientLocations[] = { 0, 1 };
+		CGColorRelease(clearColor);
 		
 		for (NSArray *region in p->regions) {
 			CGRect rect = [[region objectAtIndex:0] CGRectValue];
@@ -307,7 +310,7 @@
 
 			CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, colorArray, gradientLocations);
 			
-			CGPoint startPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMidY(rect)), p->t);
+			CGPoint startPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMinY(rect)), p->t);
 			CGPoint endPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMaxY(rect)), p->t);
 			CGContextDrawLinearGradient(ctxt, gradient, startPoint, endPoint, 0);
 			
