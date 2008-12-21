@@ -30,12 +30,10 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 @implementation GraphViewController
 
-- (id)init
-{
+- (id)init {
 	if (self = [super init]) {
 		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
 		queue = [[NSOperationQueue alloc] init];
-		self.title = NSLocalizedString(@"GRAPH_VIEW_TITLE", nil);
 	}
 	return self;
 }
@@ -46,12 +44,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[cachedGraphViews release];
 	[self clearGraphViewInfo];
 	[super dealloc];
-}
-
-
-- (NSString *)message
-{
-	return NSLocalizedString(@"NO_DATA_FOR_GRAPH", nil);
 }
 
 
