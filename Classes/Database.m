@@ -44,6 +44,8 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (id)init {
 	if ([super init]) {
+		monthCacheLock = [[NSLock alloc] init];
+		[monthCacheLock setName:@"monthCacheLock"];
 		monthCache = [[NSMutableDictionary alloc] init];
 	} 
 	return self;
@@ -143,7 +145,9 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (void)close {
 	[self commitChanges];
+	[monthCacheLock lock];
 	[monthCache removeAllObjects];
+	[monthCacheLock unlock];
 	
 	[MonthData finalizeStatements];
 	EWFinalizeStatement(&month_after_stmt);
@@ -157,6 +161,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (void)dealloc {
 	[monthCache release];
+	[monthCacheLock release];
 	[super dealloc];
 }
 
@@ -245,18 +250,19 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 - (MonthData *)dataForMonth:(EWMonth)m {
 	NSNumber *monthKey = [NSNumber numberWithInt:m];
+	[monthCacheLock lock];
 	MonthData *monthData = [monthCache objectForKey:monthKey];
-	if (monthData != nil) {
-		return monthData;
+	
+	if (monthData == nil) {
+		monthData = [[MonthData alloc] initWithMonth:m];
+		[monthCache setObject:monthData forKey:monthKey];
+		[monthData release];
+
+		if (m < earliestMonth) earliestMonth = m;
+		if (m > latestMonth) latestMonth = m;
 	}
-		
-	monthData = [[MonthData alloc] initWithMonth:m];
-	[monthCache setObject:monthData forKey:monthKey];
-	[monthData release];
 
-	if (m < earliestMonth) earliestMonth = m;
-	if (m > latestMonth) latestMonth = m;
-
+	[monthCacheLock unlock];
 	return monthData;
 }
 
@@ -294,9 +300,11 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	
 	[self updateTrendValues];
 	[self executeSQL:"BEGIN TRANSACTION"];
+	[monthCacheLock lock];
 	for (MonthData *md in [monthCache allValues]) {
 		if ([md commitChanges]) changeCount++;
 	}
+	[monthCacheLock unlock];
 	[self executeSQL:"COMMIT TRANSACTION"];
 	
 	if (changeCount > 0) {
@@ -306,7 +314,9 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 
 - (void)flushCache {
+	[monthCacheLock lock];
 	[monthCache	removeAllObjects];
+	[monthCacheLock unlock];
 }
 
 

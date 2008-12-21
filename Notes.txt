@@ -1,3 +1,7 @@
+- dataForMonth: use locking
+
+replace weightcount with isEmpty
+
 New Export Process
 
 	user taps Export button

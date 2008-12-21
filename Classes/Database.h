@@ -25,6 +25,7 @@ extern NSString *EWDatabaseDidChangeNotification;
 @interface Database : NSObject {
 	sqlite3 *database;
 	NSMutableDictionary *monthCache;
+	NSLock *monthCacheLock;
 	EWMonthDay earliestChangeMonthDay;
 	EWMonth earliestMonth, latestMonth;
 }
@@ -45,7 +46,6 @@ extern NSString *EWDatabaseDidChangeNotification;
 - (float)minimumWeight; // from DB
 - (float)maximumWeight; // from DB
 - (void)commitChanges;
-- (void)flushCache;
 - (void)deleteWeights;
 
 @end
