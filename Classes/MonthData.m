@@ -31,7 +31,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if ([super init]) {
 		month = m;
 		
-		measuredWeights = calloc(31, sizeof(float));
+		scaleWeights = calloc(31, sizeof(float));
 		trendWeights = calloc(31, sizeof(float));
 		flagBits = 0;
 		notesArray = [[NSMutableArray alloc] initWithCapacity:31];
@@ -50,7 +50,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 			EWDay day = EWMonthDayGetDay(sqlite3_column_int(data_for_month_stmt, kMonthDayColumnIndex));
 			int i = day - 1;
 			
-			measuredWeights[i] = sqlite3_column_double(data_for_month_stmt, kMeasuredValueColumnIndex);
+			scaleWeights[i] = sqlite3_column_double(data_for_month_stmt, kScaleValueColumnIndex);
 			trendWeights[i] = sqlite3_column_double(data_for_month_stmt, kTrendValueColumnIndex);
 			SetBitValueAtIndex(flagBits, (sqlite3_column_int(data_for_month_stmt, kFlagColumnIndex) != 0), i);
 
@@ -67,7 +67,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (void)dealloc {
-	free(measuredWeights);
+	free(scaleWeights);
 	free(trendWeights);
 	[notesArray release];
 	[super dealloc];
@@ -80,8 +80,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	
 	[text appendFormat:@"month(%d) = {\n", month];
 	for (i = 0; i < 31; i++) {
-		if (measuredWeights[i] > 0) {
-			[text appendFormat:@"\t%d: %f, %f\n", (i+1), measuredWeights[i], trendWeights[i]];
+		if (scaleWeights[i] > 0) {
+			[text appendFormat:@"\t%d: %f, %f\n", (i+1), scaleWeights[i], trendWeights[i]];
 		}
 	}
 	[text appendFormat:@"}"];
@@ -113,8 +113,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
-- (float)measuredWeightOnDay:(EWDay)day {
-	return measuredWeights[day - 1];
+- (float)scaleWeightOnDay:(EWDay)day {
+	return scaleWeights[day - 1];
 }
 
 
@@ -139,7 +139,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = 0; i < 31; i++) {
-		if (measuredWeights[i] > 0) return (i + 1);
+		if (scaleWeights[i] > 0) return (i + 1);
 	}
 	
 	return 0;
@@ -150,7 +150,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = 30; i >= 0; i--) {
-		if (measuredWeights[i] > 0) return (i + 1);
+		if (scaleWeights[i] > 0) return (i + 1);
 	}
 	
 	return 0;
@@ -178,7 +178,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (day == 32) return 0;
 
 	// If nothing else, just give the weight on the specified day.
-	return measuredWeights[day - 1];
+	return scaleWeights[day - 1];
 }
 
 
@@ -187,8 +187,8 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = (day - 1); i < 31; i++) {
-		if (measuredWeights[i] > 0) {
-			trendWeights[i] = previousTrend + (0.1f * (measuredWeights[i] - previousTrend));
+		if (scaleWeights[i] > 0) {
+			trendWeights[i] = previousTrend + (0.1f * (scaleWeights[i] - previousTrend));
 			SetBitValueAtIndex(dirtyBits, 1, i);
 			previousTrend = trendWeights[i];
 		}
@@ -198,11 +198,11 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
-- (void)setMeasuredWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day {
+- (void)setScaleWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day {
 	int i = day - 1;
 	
-	if (measuredWeights[i] != weight) {
-		measuredWeights[i] = weight;
+	if (scaleWeights[i] != weight) {
+		scaleWeights[i] = weight;
 		trendWeights[i] = 0;
 		[[Database sharedDatabase] didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
@@ -228,11 +228,11 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 			// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
 			sqlite3_bind_int(insert_stmt, kMonthDayColumnIndex + 1, EWMonthDayMake(month, day));
-			if (measuredWeights[i] == 0) {
-				sqlite3_bind_null(insert_stmt, kMeasuredValueColumnIndex + 1);
+			if (scaleWeights[i] == 0) {
+				sqlite3_bind_null(insert_stmt, kScaleValueColumnIndex + 1);
 				sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);
 			} else {
-				sqlite3_bind_double(insert_stmt, kMeasuredValueColumnIndex + 1, measuredWeights[i]);
+				sqlite3_bind_double(insert_stmt, kScaleValueColumnIndex + 1, scaleWeights[i]);
 				sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
 			}
 			sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);

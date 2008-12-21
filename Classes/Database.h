@@ -11,7 +11,7 @@
 #import "EWDate.h"
 
 #define kMonthDayColumnIndex 0
-#define kMeasuredValueColumnIndex 1
+#define kScaleValueColumnIndex 1
 #define kTrendValueColumnIndex 2
 #define kFlagColumnIndex 3
 #define kNoteColumnIndex 4

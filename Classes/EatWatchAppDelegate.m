@@ -47,7 +47,7 @@ NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	EWMonthDay today = EWMonthDayFromDate([NSDate date]);
 	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(today)];
 	EWDay day = EWMonthDayGetDay(today);
-	if ([data measuredWeightOnDay:day] == 0) {
+	if ([data scaleWeightOnDay:day] == 0) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
 		controller.monthData = data;
 		controller.day = day;

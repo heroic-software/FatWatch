@@ -22,7 +22,7 @@
 
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
 	MonthData *md = [[Database sharedDatabase] dataForMonth:month];
-	[md setMeasuredWeight:weight flag:NO note:nil onDay:day];
+	[md setScaleWeight:weight flag:NO note:nil onDay:day];
 }
 
 
@@ -77,7 +77,7 @@
 
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
 	MonthData *md = [[Database sharedDatabase] dataForMonth:month];
-	STAssertEquals(weight, [md measuredWeightOnDay:day], @"weight must match");
+	STAssertEquals(weight, [md scaleWeightOnDay:day], @"weight must match");
 	STAssertEqualsWithAccuracy(trend, [md trendWeightOnDay:day], 0.0001f, @"trend must match");
 }
 

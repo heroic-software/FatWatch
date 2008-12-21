@@ -154,12 +154,12 @@
 		MonthData *md = [db dataForMonth:month];
 		EWDay day;
 		for (day = 1; day <= 31; day++) {
-			float measuredWeight = [md measuredWeightOnDay:day];
+			float scaleWeight = [md scaleWeightOnDay:day];
 			NSString *note = [md noteOnDay:day];
 			BOOL flag = [md isFlaggedOnDay:day];
-			if (measuredWeight > 0 || note != nil || flag) {
+			if (scaleWeight > 0 || note != nil || flag) {
 				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
-				[writer addFloat:measuredWeight];
+				[writer addFloat:scaleWeight];
 				[writer addBoolean:flag];
 				[writer addString:note];
 				[writer endRow];
@@ -244,14 +244,14 @@
 		}
 		if (date == nil) continue;
 
-		float measuredWeight = [reader readFloat];
+		float scaleWeight = [reader readFloat];
 		BOOL flag = [reader readBoolean];
 		NSString *note = [reader readString];
 		
-		if (measuredWeight > 0 || note != nil || flag) {
+		if (scaleWeight > 0 || note != nil || flag) {
 			EWMonthDay monthday = EWMonthDayFromDate(date);
 			MonthData *md = [db dataForMonth:EWMonthDayGetMonth(monthday)];
-			[md setMeasuredWeight:measuredWeight flag:flag note:note onDay:EWMonthDayGetDay(monthday)];
+			[md setScaleWeight:scaleWeight flag:flag note:note onDay:EWMonthDayGetDay(monthday)];
 			importCount += 1;
 		}
 	}

@@ -245,7 +245,7 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	while (searchData != nil) {
 		EWDay searchDay = [searchData firstDayWithWeight];
 		if (searchDay > 0) {
-			return [searchData measuredWeightOnDay:searchDay];
+			return [searchData scaleWeightOnDay:searchDay];
 		}
 		searchData = searchData.nextMonthData;
 	}

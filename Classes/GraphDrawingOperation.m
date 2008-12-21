@@ -58,10 +58,10 @@
 	NSUInteger dayCount = EWDaysInMonth(month);
 	EWDay day;
 	for (day = 1; day <= dayCount; day++) {
-		float measured = [md measuredWeightOnDay:day];
-		if (measured > 0) {
+		float scale = [md scaleWeightOnDay:day];
+		if (scale > 0) {
 			float trend = [md trendWeightOnDay:day];
-			scalePoints[pointCount] = CGPointMake(day, measured);
+			scalePoints[pointCount] = CGPointMake(day, scale);
 			trendPoints[pointCount] = CGPointMake(day, trend);
 			flags[pointCount] = [md isFlaggedOnDay:day];
 			pointCount++;

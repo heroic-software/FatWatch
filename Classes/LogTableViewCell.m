@@ -75,15 +75,15 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		logContentView.backgroundColor = [UIColor whiteColor];
 	}
 	
-	float measuredWeight = [monthData measuredWeightOnDay:day];
-	if (measuredWeight == 0) {
+	float scaleWeight = [monthData scaleWeightOnDay:day];
+	if (scaleWeight == 0) {
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
 	} else {
-		logContentView.scaleWeightFloat = measuredWeight;
-		logContentView.scaleWeight = [WeightFormatters stringForWeight:measuredWeight];
+		logContentView.scaleWeightFloat = scaleWeight;
+		logContentView.scaleWeight = [WeightFormatters stringForWeight:scaleWeight];
 		float trendWeight = [monthData trendWeightOnDay:day];
-		float weightDiff = measuredWeight - trendWeight;
+		float weightDiff = scaleWeight - trendWeight;
 		logContentView.trendDelta = [WeightFormatters stringForWeightChange:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
 	}

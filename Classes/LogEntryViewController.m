@@ -99,7 +99,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	} else {
 		weight = 0;
 	}
-	[monthData setMeasuredWeight:weight 
+	[monthData setScaleWeight:weight 
 							flag:flagControl.selectedSegmentIndex
 							note:noteView.text
 						   onDay:day];
@@ -118,7 +118,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	while (searchData != nil) {
 		EWDay searchDay = [searchData firstDayWithWeight];
 		if (searchDay > 0) {
-			return [searchData measuredWeightOnDay:searchDay];
+			return [searchData scaleWeightOnDay:searchDay];
 		}
 		searchData = searchData.nextMonthData;
 	}
@@ -146,7 +146,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	self.title = [titleFormatter stringFromDate:date];
 	[titleFormatter release];
 
-	float weight = [monthData measuredWeightOnDay:day];
+	float weight = [monthData scaleWeightOnDay:day];
 	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
 
 	if (weight == 0) {

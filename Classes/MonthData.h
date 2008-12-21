@@ -12,7 +12,7 @@
 @interface MonthData : NSObject {
 	EWMonth month;
 	UInt32 dirtyBits;
-	float *measuredWeights;
+	float *scaleWeights;
 	float *trendWeights;
 	UInt32 flagBits;
 	NSMutableArray *notesArray;
@@ -25,7 +25,7 @@
 + (void)finalizeStatements;
 - (id)initWithMonth:(EWMonth)m;
 - (NSDate *)dateOnDay:(EWDay)day;
-- (float)measuredWeightOnDay:(EWDay)day;
+- (float)scaleWeightOnDay:(EWDay)day;
 - (EWDay)firstDayWithWeight;
 - (EWDay)lastDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
@@ -33,7 +33,7 @@
 - (float)trendWeightOnDay:(EWDay)day;
 - (BOOL)isFlaggedOnDay:(EWDay)day;
 - (NSString *)noteOnDay:(EWDay)day;
-- (void)setMeasuredWeight:(float)weight 
+- (void)setScaleWeight:(float)weight 
 					 flag:(BOOL)flag
 					 note:(NSString *)note
 					onDay:(EWDay)day;
