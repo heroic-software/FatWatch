@@ -14,16 +14,14 @@
 @implementation YAxisView
 
 
-- (id)initWithParameters:(GraphViewParameters *)parameters {
-    if (self = [super initWithFrame:CGRectZero]) {
-        p = parameters;
-		self.backgroundColor = [UIColor whiteColor];
-    }
-    return self;
+- (void)useParameters:(GraphViewParameters *)parameters {
+	p = parameters;
 }
 
 
 - (void)drawRect:(CGRect)rect {
+	NSAssert(p != NULL, @"Attempt to draw Y-axis view before parameters are set.");
+	
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
 	const CGFloat tickWidth = 6.5;
@@ -71,5 +69,6 @@
 	CGContextStrokePath(ctxt);
 	CFRelease(tickPath);
 }
+
 
 @end

@@ -17,13 +17,6 @@
 #import "LogViewController.h"
 
 
-enum {
-	kScrollViewTag = 100,
-	kYAxisViewTag,
-};
-
-
-const CGFloat kGraphHeight = 300.0f;
 const CGFloat kGraphMarginTop = 32.0f;
 const CGFloat kGraphMarginBottom = 16.0f;
 
@@ -31,7 +24,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 @implementation GraphViewController
 
 - (id)init {
-	if (self = [super init]) {
+	if ([super initWithNibName:@"GraphView" bundle:nil]) {
 		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
 		queue = [[NSOperationQueue alloc] init];
 	}
@@ -106,13 +99,14 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	}
 	
 	if (infoCount == 1) {
-		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / EWDaysInMonth(db.earliestMonth);
 	} else {
 		parameters.scaleX = kDayWidth;
 	}
 	
-	parameters.scaleY = (kGraphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
+	const CGFloat graphHeight = CGRectGetHeight(axisView.bounds);
+	
+	parameters.scaleY = (graphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
 	parameters.minWeight = minWeight - (kGraphMarginBottom / parameters.scaleY);
 	parameters.maxWeight = maxWeight + (kGraphMarginTop / parameters.scaleY);
 	
@@ -173,7 +167,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	parameters.gridMinWeight = roundf(parameters.minWeight / increment) * increment;
 	parameters.gridMaxWeight = roundf(parameters.maxWeight / increment) * increment;
 	
-	CGAffineTransform t = CGAffineTransformMakeTranslation(0, kGraphHeight);
+	CGAffineTransform t = CGAffineTransformMakeTranslation(0, graphHeight);
 	t = CGAffineTransformScale(t, parameters.scaleX, -parameters.scaleY);
 	t = CGAffineTransformTranslate(t, -0.5, -parameters.minWeight);
 	parameters.t = t;
@@ -198,8 +192,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		x += w;
 	}
 	
-	CGSize totalSize = CGSizeMake(x, kGraphHeight);
-	UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
+	CGSize totalSize = CGSizeMake(x, graphHeight);
 	scrollView.contentSize = totalSize;
 	
 	lastMinIndex = -1;
@@ -207,31 +200,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 }
 
 
-- (void)loadView
-{
-	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
-	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-	const CGFloat axisViewWidth = 40;
-	
-	YAxisView *axisView = [[YAxisView alloc] initWithParameters:&parameters];
-	axisView.tag = kYAxisViewTag;
-	axisView.frame = CGRectMake(0, 0, axisViewWidth, 300);
-	axisView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
-	[view addSubview:axisView];
-	[axisView release];
-	
-	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(axisViewWidth, 0, 480 - axisViewWidth, 300)];
-	scrollView.tag = kScrollViewTag;
-	scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	scrollView.alwaysBounceVertical = NO;
-	scrollView.directionalLockEnabled = YES;
-	scrollView.delegate = self;
-	[view addSubview:scrollView];
-	[scrollView release];
-		
-	self.view = view;
-	[view release];
+- (void)viewDidLoad {
+	[axisView useParameters:&parameters];
 }
 
 
@@ -239,8 +209,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[self view]; // make sure view is loaded
 	[self clearGraphViewInfo];
 	[self prepareGraphViewInfo];
-	[[self.view viewWithTag:kYAxisViewTag] setNeedsDisplay];
-	UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
+	[axisView setNeedsDisplay];
 	[self scrollViewDidScroll:scrollView];
 }
 
@@ -366,8 +335,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 }
 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	NSParameterAssert(scrollView);
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
 	CGFloat minX = scrollView.contentOffset.x;
 	CGFloat maxX = minX + CGRectGetWidth(scrollView.frame);
 	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
@@ -393,6 +361,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		[self cacheViewAtIndex:index];
 	}
 
+	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
+
 	for (index = minIndex; index <= maxIndex; index++) {
 		struct GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil) {
@@ -405,7 +375,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 				// insert subview at the back, so it doesn't overlap the scroll indicator
 				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
-			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, kGraphHeight)];
+			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, graphHeight)];
 			[self updateViewAtIndex:index];
 		}
 	}
@@ -421,7 +391,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 	if (info != nil) {
-		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		EWMonthDay monthday = [LogViewController currentMonthDay];
 		int i = [self indexOfGraphViewInfoForMonth:EWMonthDayGetMonth(monthday)];
 		if (i + 1 == infoCount) {
@@ -441,7 +410,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 - (void)viewWillDisappear:(BOOL)animated {
 	[self stopObservingDatabase];
 	if (info != nil) {
-		UIScrollView *scrollView = (id)[self.view viewWithTag:kScrollViewTag];
 		CGFloat minX = scrollView.contentOffset.x;
 		CGFloat x = minX + CGRectGetWidth(scrollView.bounds);
 		int i = [self indexOfGraphViewInfoAtOffsetX:x];
@@ -449,6 +417,10 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		EWMonthDay monthday = EWMonthDayMake(info[i].month, day);
 		[LogViewController setCurrentMonthDay:monthday];
 	}
+}
+
+
+- (IBAction)spanSelected:(UISegmentedControl *)sender {
 }
 
 @end

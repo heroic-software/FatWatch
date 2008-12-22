@@ -5,6 +5,7 @@
 - Chart drawing: draw headers correctly (don't assume 1 month)
 - Chart drawing: OPTIMIZE
 - Test: data import while viewing chart
+- add switch to disable BMI in graph
 
 New Export Process
 

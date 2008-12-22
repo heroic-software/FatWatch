@@ -12,8 +12,12 @@
 #import "GraphView.h"
 #import "GraphDrawingOperation.h"
 
+@class YAxisView;
 
 @interface GraphViewController : UIViewController <UIScrollViewDelegate> {
+	IBOutlet YAxisView *axisView;
+	IBOutlet UIScrollView *scrollView;
+	IBOutlet UISegmentedControl *spanControl;
 	struct GraphViewInfo {
 		EWMonth month;
 		CGFloat offsetX;
@@ -29,4 +33,5 @@
 	NSOperationQueue *queue;
 }
 - (void)clearGraphViewInfo;
+- (IBAction)spanSelected:(UISegmentedControl *)sender;
 @end

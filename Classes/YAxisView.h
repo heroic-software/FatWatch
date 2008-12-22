@@ -13,5 +13,5 @@
 @interface YAxisView : UIView {
 	GraphViewParameters *p;
 }
-- (id)initWithParameters:(GraphViewParameters *)parameters;
+- (void)useParameters:(GraphViewParameters *)parameters;
 @end

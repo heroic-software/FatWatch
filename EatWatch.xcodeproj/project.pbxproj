@@ -83,6 +83,7 @@
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
 		BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */; };
+		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 		BCFE4C7A0E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE4C760E7617D00090B81B /* GTMIPhoneUnitTestDelegate.m */; };
 		BCFE4C7B0E7617D00090B81B /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE4C770E7617D00090B81B /* GTMIPhoneUnitTestMain.m */; };
@@ -246,6 +247,7 @@
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
 		BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoToDateViewController.h; path = Classes/GoToDateViewController.h; sourceTree = "<group>"; };
 		BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoToDateViewController.m; path = Classes/GoToDateViewController.m; sourceTree = "<group>"; };
+		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */,
 				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
 				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
+				BCF329740EFF629500D31E49 /* GraphView.xib */,
 			);
 			name = Chart;
 			sourceTree = "<group>";
@@ -665,6 +668,7 @@
 				BCC943F90EEA634700D267A7 /* Roadmap.txt in Resources */,
 				BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */,
 				BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */,
+				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
