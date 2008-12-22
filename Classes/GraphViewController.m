@@ -17,6 +17,14 @@
 #import "LogViewController.h"
 
 
+enum {
+	kSpan30Days,
+	kSpan90Days,
+	kSpanYear,
+	kSpanAll,
+	kSpanScrolling
+};
+
 const CGFloat kGraphMarginTop = 32.0f;
 const CGFloat kGraphMarginBottom = 16.0f;
 
@@ -42,6 +50,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)clearGraphViewInfo {
 	if (info == nil) return;
+	[queue cancelAllOperations];
 	[queue waitUntilAllOperationsAreFinished];
 	
 	int i;
@@ -69,95 +78,127 @@ const CGFloat kGraphMarginBottom = 16.0f;
 }
 
 
+- (void)prepareBMIRegions {
+	if (! [EWGoal isBMIEnabled]) return;
+
+	float w0 = [WeightFormatters weightForBodyMassIndex:18.5];
+	float w1 = [WeightFormatters weightForBodyMassIndex:25.0];
+	float w2 = [WeightFormatters weightForBodyMassIndex:30.0];
+	
+	CGFloat width = 32; // at most 31 days in a month
+	
+	NSMutableArray *regions = [NSMutableArray arrayWithCapacity:4];
+	
+	CGRect rect;
+	UIColor *color;
+	
+	CGRect wholeRect = CGRectMake(0, parameters.minWeight, width, parameters.maxWeight - parameters.minWeight);
+	
+	if (w0 > parameters.minWeight) {
+		rect = CGRectMake(0, parameters.minWeight, width, w0 - parameters.minWeight);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [WeightFormatters backgroundColorForWeight:parameters.minWeight];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+	}
+	
+	rect = CGRectMake(0, w0, width, w1 - w0);
+	rect = CGRectIntersection(wholeRect, rect);
+	if (!CGRectIsEmpty(rect)) {
+		color = [WeightFormatters backgroundColorForWeight:0.5f*(w0+w1)];
+		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+	}
+	
+	rect = CGRectMake(0, w1, width, w2 - w1);
+	rect = CGRectIntersection(wholeRect, rect);
+	if (!CGRectIsEmpty(rect)) {
+		color = [WeightFormatters backgroundColorForWeight:0.5f*(w1+w2)];
+		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+	}
+	
+	if (w2 < parameters.maxWeight) {
+		rect = CGRectMake(0, w2, width, parameters.maxWeight - w2);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [WeightFormatters backgroundColorForWeight:parameters.maxWeight];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+	}
+	
+	parameters.regions = [regions copy];
+}
+
+
 - (void)prepareGraphViewInfo {
+	[queue cancelAllOperations];
 	[queue waitUntilAllOperationsAreFinished];
 
 	Database *db = [Database sharedDatabase];
-	
-	infoCount = db.latestMonth - db.earliestMonth + 1;
-	NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
-
 	float minWeight, maxWeight;
+	EWMonthDay beginMonthDay, endMonthDay;
 	
-	if ([db weightCount] < 1) {
-		minWeight = 140;
-		maxWeight = 160;
+	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
+		infoCount = db.latestMonth - db.earliestMonth + 1;
+		NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
+		if (infoCount == 1) {
+			parameters.scaleX = CGRectGetWidth(scrollView.bounds) / EWDaysInMonth(db.earliestMonth);
+		} else {
+			parameters.scaleX = kDayWidth;
+		}
+		beginMonthDay = 0;
+		endMonthDay = 0;
 	} else {
-		minWeight = [db minimumWeight];
-		maxWeight = [db maximumWeight];
+		infoCount = 1;
+
+		NSInteger spanIndex = spanControl.selectedSegmentIndex;
+		NSTimeInterval t;
+		
+		if (spanIndex == kSpan30Days) {
+			t = 30 * (60 * 60 * 24);
+		} else if (spanIndex == kSpan90Days) {
+			t = 90 * (60 * 60 * 24);
+		} else if (spanIndex == kSpanYear) {
+			t = 365 * (60 * 60 * 24);
+		} else {
+			NSDate *earlyDate = EWDateFromMonthAndDay(db.earliestMonth, 1);
+			t = -[earlyDate timeIntervalSinceNow];
+		}
+		
+		NSInteger numberOfDays = t / (60 * 60 * 24);
+		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / (numberOfDays + 1);
+		
+		endMonthDay = EWMonthDayFromDate([NSDate date]);
+		beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 	}
 	
+	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];
+
+	if (minWeight == 0 || maxWeight == 0) {
+		minWeight = 140;
+		maxWeight = 160;
+	}
+	
+	/*
 	float goalWeight = [[EWGoal sharedGoal] endWeight];
 	if (goalWeight > 0) {
 		if (goalWeight < minWeight) minWeight = goalWeight;
 		if (goalWeight > maxWeight) maxWeight = goalWeight;
 	}
+	*/
 	
-	if ((maxWeight - minWeight) < 1) {
-		minWeight -= 10;
-		maxWeight += 10;
+	if ((maxWeight - minWeight) < 0.01) {
+		minWeight -= 1;
+		maxWeight += 1;
 	}
 	
-	if (infoCount == 1) {
-		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / EWDaysInMonth(db.earliestMonth);
-	} else {
-		parameters.scaleX = kDayWidth;
-	}
-	
-	const CGFloat graphHeight = CGRectGetHeight(axisView.bounds);
+	const CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 	
 	parameters.scaleY = (graphHeight - (kGraphMarginTop + kGraphMarginBottom)) / (maxWeight - minWeight);
 	parameters.minWeight = minWeight - (kGraphMarginBottom / parameters.scaleY);
 	parameters.maxWeight = maxWeight + (kGraphMarginTop / parameters.scaleY);
-	
-	if ([EWGoal isBMIEnabled]) {
-		float w0 = [WeightFormatters weightForBodyMassIndex:18.5];
-		float w1 = [WeightFormatters weightForBodyMassIndex:25.0];
-		float w2 = [WeightFormatters weightForBodyMassIndex:30.0];
-		
-		CGFloat width = 32; // at most 31 days in a month
 
-		NSMutableArray *regions = [NSMutableArray arrayWithCapacity:4];
-
-		CGRect rect;
-		UIColor *color;
-		
-		CGRect wholeRect = CGRectMake(0, parameters.minWeight, width, parameters.maxWeight - parameters.minWeight);
-		
-		if (w0 > parameters.minWeight) {
-			rect = CGRectMake(0, parameters.minWeight, width, w0 - parameters.minWeight);
-			rect = CGRectIntersection(wholeRect, rect);
-			if (!CGRectIsEmpty(rect)) {
-				color = [WeightFormatters backgroundColorForWeight:parameters.minWeight];
-				[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
-			}
-		}
-		
-		rect = CGRectMake(0, w0, width, w1 - w0);
-		rect = CGRectIntersection(wholeRect, rect);
-		if (!CGRectIsEmpty(rect)) {
-			color = [WeightFormatters backgroundColorForWeight:0.5f*(w0+w1)];
-			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
-		}
-		
-		rect = CGRectMake(0, w1, width, w2 - w1);
-		rect = CGRectIntersection(wholeRect, rect);
-		if (!CGRectIsEmpty(rect)) {
-			color = [WeightFormatters backgroundColorForWeight:0.5f*(w1+w2)];
-			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
-		}
-		
-		if (w2 < parameters.maxWeight) {
-			rect = CGRectMake(0, w2, width, parameters.maxWeight - w2);
-			rect = CGRectIntersection(wholeRect, rect);
-			if (!CGRectIsEmpty(rect)) {
-				color = [WeightFormatters backgroundColorForWeight:parameters.maxWeight];
-				[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
-			}
-		}
-				
-		parameters.regions = [regions copy];
-	}
+	[self prepareBMIRegions];
 	
 	float increment = [WeightFormatters chartWeightIncrement];
 	while (parameters.scaleY * increment < [UIFont systemFontSize]) {
@@ -175,25 +216,39 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	info = malloc(infoCount * sizeof(struct GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
-	EWMonth m = db.earliestMonth;
-	CGFloat x = 0;
-	int i;
-	for (i = 0; i < infoCount; i++) {
-		CGFloat w = parameters.scaleX * EWDaysInMonth(m);
+	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
+		EWMonth m = db.earliestMonth;
+		CGFloat x = 0;
+		int i;
+		for (i = 0; i < infoCount; i++) {
+			NSInteger days = EWDaysInMonth(m);
+			CGFloat w = parameters.scaleX * days;
+			
+			info[i].beginMonthDay = EWMonthDayMake(m, 1);
+			info[i].endMonthDay = EWMonthDayMake(m, days);
+			info[i].offsetX = x;
+			info[i].width = w; 
+			info[i].view = nil;
+			info[i].image = nil;
+			info[i].operation = nil;
+			
+			m += 1;
+			x += w;
+		}
+
+		CGSize totalSize = CGSizeMake(x, graphHeight);
+		scrollView.contentSize = totalSize;
+	} else {
+		info[0].beginMonthDay = beginMonthDay;
+		info[0].endMonthDay = endMonthDay;
+		info[0].offsetX = 0;
+		info[0].width = CGRectGetWidth(scrollView.bounds);
+		info[0].view = nil;
+		info[0].image = nil;
+		info[0].operation = nil;
 		
-		info[i].month = m;
-		info[i].offsetX = x;
-		info[i].width = w; 
-		info[i].view = nil;
-		info[i].image = nil;
-		info[i].operation = nil;
-		
-		m += 1;
-		x += w;
+		scrollView.contentSize = scrollView.bounds.size;
 	}
-	
-	CGSize totalSize = CGSizeMake(x, graphHeight);
-	scrollView.contentSize = totalSize;
 	
 	lastMinIndex = -1;
 	lastMaxIndex = 0;
@@ -278,7 +333,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (int)indexOfGraphViewInfoForMonth:(EWMonth)month {
-	return month - info[0].month;
+	return month - EWMonthDayGetMonth(info[0].beginMonthDay);
 }
 
 
@@ -305,7 +360,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 - (void)updateViewAtIndex:(int)index {
 	struct GraphViewInfo *ginfo = &info[index];
 
-	[ginfo->view setMonth:ginfo->month];
+	[ginfo->view setMonth:EWMonthDayGetMonth(ginfo->beginMonthDay)];
 	[ginfo->view setImage:ginfo->image];
 	
 	if (ginfo->image == nil && ginfo->operation == nil) {
@@ -316,7 +371,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		operation.index = index;
 		operation.p = &parameters;
 		operation.bounds = ginfo->view.bounds;
-		[operation setMonth:ginfo->month];
+		operation.beginMonthDay = ginfo->beginMonthDay;
+		operation.endMonthDay = ginfo->endMonthDay;
 		
 		ginfo->operation = operation;
 		[queue addOperation:operation];
@@ -390,37 +446,16 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
-	if (info != nil) {
-		EWMonthDay monthday = [LogViewController currentMonthDay];
-		int i = [self indexOfGraphViewInfoForMonth:EWMonthDayGetMonth(monthday)];
-		if (i + 1 == infoCount) {
-			CGRect rect = CGRectMake(scrollView.contentSize.width - 1, 0, 1, 1);
-			[scrollView scrollRectToVisible:rect animated:NO];
-		} else {
-			CGFloat dayX = parameters.scaleX * (EWMonthDayGetDay(monthday) - 1);
-			CGFloat x = info[i].offsetX + dayX;
-			CGFloat width = CGRectGetWidth(scrollView.bounds);
-			CGRect rect = CGRectMake(x - width, 0, width, 1);
-			[scrollView scrollRectToVisible:rect animated:NO];
-		}
-	}
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[self stopObservingDatabase];
-	if (info != nil) {
-		CGFloat minX = scrollView.contentOffset.x;
-		CGFloat x = minX + CGRectGetWidth(scrollView.bounds);
-		int i = [self indexOfGraphViewInfoAtOffsetX:x];
-		EWDay day = 1 + floorf((x - info[i].offsetX) / parameters.scaleX);
-		EWMonthDay monthday = EWMonthDayMake(info[i].month, day);
-		[LogViewController setCurrentMonthDay:monthday];
-	}
 }
 
 
 - (IBAction)spanSelected:(UISegmentedControl *)sender {
+	[self databaseDidChange:nil];
 }
 
 @end

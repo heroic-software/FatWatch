@@ -47,7 +47,8 @@ typedef struct {
 //	CGPoint tailPoint;
 }
 + (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt;
-- (void)setMonth:(EWMonth)month;
+@property (nonatomic) EWMonthDay beginMonthDay;
+@property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,assign) id delegate;
 @property (nonatomic) int index;
 @property (nonatomic) GraphViewParameters *p;

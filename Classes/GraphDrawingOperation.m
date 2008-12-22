@@ -21,6 +21,8 @@
 @synthesize p;
 @synthesize bounds;
 @synthesize image;
+@synthesize beginMonthDay;
+@synthesize endMonthDay;
 
 
 + (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt {
@@ -46,10 +48,7 @@
 #pragma mark Main Thread
 
 
-- (void)setMonth:(EWMonth)month {
-	beginMonthDay = EWMonthDayMake(month, 1);
-	endMonthDay = EWMonthDayMake(month, EWDaysInMonth(month));
-}
+// Nothing any more
 
 
 #pragma mark Secondary Thread
@@ -79,6 +78,7 @@ EWMonthDay EWNextMonthDay(EWMonthDay md) {
 	EWMonthDay md;
 	for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
 		if (month != EWMonthDayGetMonth(md)) {
+			month = EWMonthDayGetMonth(md);
 			data = [db dataForMonth:month];
 		}
 		EWDay day = EWMonthDayGetDay(md);
@@ -102,7 +102,7 @@ EWMonthDay EWNextMonthDay(EWMonthDay md) {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
 		path = CGPathCreateMutable();
 		CGFloat h = p->maxWeight - p->minWeight;
-		CGRect dayRect = CGRectMake(-0.5, p->minWeight, 1, h);
+		CGRect dayRect = CGRectMake(0.5, p->minWeight, 1, h);
 		
 		EWMonthDay md;
 		for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
@@ -159,7 +159,7 @@ EWMonthDay EWNextMonthDay(EWMonthDay md) {
 - (CGPathRef)createMarksPathUsingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
-	const CGFloat markRadius = 0.5 * kDayWidth;
+	const CGFloat markRadius = 0.5 * MIN(kDayWidth, p->scaleX);
 	
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
@@ -332,13 +332,17 @@ EWMonthDay EWNextMonthDay(EWMonthDay md) {
 		
 	if ([pointData length] > 0) {
 		CGContextSaveGState(ctxt);
-				
-		CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
-		CGContextSetLineWidth(ctxt, 2.0f);
-		CGPathRef errorLinesPath = [self createErrorLinesPath];
-		CGContextAddPath(ctxt, errorLinesPath);
-		CGContextStrokePath(ctxt);
-		CGPathRelease(errorLinesPath);
+		
+		BOOL drawMarks = (p->scaleX > 3);
+		
+		if (drawMarks) {
+			CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
+			CGContextSetLineWidth(ctxt, 2.0f);
+			CGPathRef errorLinesPath = [self createErrorLinesPath];
+			CGContextAddPath(ctxt, errorLinesPath);
+			CGContextStrokePath(ctxt);
+			CGPathRelease(errorLinesPath);
+		}
 
 		// trend line
 		
@@ -352,20 +356,22 @@ EWMonthDay EWNextMonthDay(EWMonthDay md) {
 		// weight marks: colored centers (white or yellow)
 		// weight marks: outlines and error lines
 
-		CGContextSetLineWidth(ctxt, 1.5f);
-		CGContextSetRGBStrokeColor(ctxt, 0,0,0, 1.0);
-		
-		CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
-		CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
-		CGContextAddPath(ctxt, unflaggedMarksPath);
-		CGContextDrawPath(ctxt, kCGPathFillStroke);
-		CGPathRelease(unflaggedMarksPath);
-		
-		CGContextSetRGBFillColor(ctxt, 0.2, 0.3, 0.8, 1.0);
-		CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
-		CGContextAddPath(ctxt, flaggedMarksPath);
-		CGContextDrawPath(ctxt, kCGPathFillStroke);
-		CGPathRelease(flaggedMarksPath);
+		if (drawMarks) {
+			CGContextSetLineWidth(ctxt, 1.5f);
+			CGContextSetRGBStrokeColor(ctxt, 0,0,0, 1.0);
+			
+			CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
+			CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
+			CGContextAddPath(ctxt, unflaggedMarksPath);
+			CGContextDrawPath(ctxt, kCGPathFillStroke);
+			CGPathRelease(unflaggedMarksPath);
+			
+			CGContextSetRGBFillColor(ctxt, 0.2, 0.3, 0.8, 1.0);
+			CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
+			CGContextAddPath(ctxt, flaggedMarksPath);
+			CGContextDrawPath(ctxt, kCGPathFillStroke);
+			CGPathRelease(flaggedMarksPath);
+		}
 		
 		CGContextRestoreGState(ctxt);
 	}

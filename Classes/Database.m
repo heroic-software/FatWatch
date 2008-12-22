@@ -221,30 +221,36 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 }
 
 
-- (double)doubleValueFromStatement:(sqlite3_stmt *)statement {
+- (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay {
+	NSParameterAssert(minWeight);
+	NSParameterAssert(maxWeight);
+	
+	sqlite3_stmt *statement;
+
+	if (beginMonthDay == 0 || endMonthDay == 0) {
+		statement = [self statementFromSQL:"SELECT MIN(measuredValue),MAX(measuredValue) FROM weight"];
+	} else {
+		statement = [self statementFromSQL:"SELECT MIN(MIN(measuredValue),MIN(trendValue)), MAX(MAX(measuredValue),MAX(trendValue)) FROM weight WHERE monthday BETWEEN ? AND ?"];
+		sqlite3_bind_int(statement, 1, beginMonthDay);
+		sqlite3_bind_int(statement, 2, endMonthDay);
+	}
+
 	int retcode = sqlite3_step(statement);
 	NSAssert1(retcode == SQLITE_ROW, @"SELECT returned code %d", retcode);
+	
 	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
-		return 0;
+		*minWeight = 0;
 	} else {
-		return sqlite3_column_double(statement, 0);
+		*minWeight = sqlite3_column_double(statement, 0);
 	}
-}
-
-
-- (float)minimumWeight {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(measuredValue) FROM weight"];
-	float weightValue = [self doubleValueFromStatement:statement];
+	
+	if (sqlite3_column_type(statement, 1) == SQLITE_NULL) {
+		*maxWeight = 0;
+	} else {
+		*maxWeight = sqlite3_column_double(statement, 1);
+	}
+	
 	sqlite3_finalize(statement);
-	return weightValue;
-}
-
-
-- (float)maximumWeight {
-	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MAX(measuredValue) FROM weight"];
-	float weightValue = [self doubleValueFromStatement:statement];
-	sqlite3_finalize(statement);
-	return weightValue;
 }
 
 

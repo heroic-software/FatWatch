@@ -1,11 +1,20 @@
-? replace weightcount with isEmpty
-- bug: BMI off, enable it, then view weigh-in screen (cells only colored on refresh)
-- bug: chart weekend highlights broken at end of the month
-- bug: chart head-tail connections
-- Chart drawing: draw headers correctly (don't assume 1 month)
-- Chart drawing: OPTIMIZE
+? Replace [Database weightCount] with an isEmpty method?
+
+- Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
+
+- Regression: restore head-tail connections on chart
+- Regression: chart "Months" view should start on far right
+- Chart: draw headers correctly (don't assume one month)
+- Chart: flash scrolling indicators when on "Months" view
+
+- Chart: introduce sampling to "All Time" view?
+
 - Test: data import while viewing chart
-- add switch to disable BMI in graph
+- Chart: PROFILE & OPTIMIZE
+
+- Add switch to disable BMI in Chart
+- revisit scrolling synchronization (doesn't work)
+
 
 New Export Process
 

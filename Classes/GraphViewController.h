@@ -19,7 +19,8 @@
 	IBOutlet UIScrollView *scrollView;
 	IBOutlet UISegmentedControl *spanControl;
 	struct GraphViewInfo {
-		EWMonth month;
+		EWMonthDay beginMonthDay;
+		EWMonthDay endMonthDay;
 		CGFloat offsetX;
 		CGFloat width;
 		GraphView *view;
