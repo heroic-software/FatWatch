@@ -33,10 +33,8 @@
 - (float)trendWeightOnDay:(EWDay)day;
 - (BOOL)isFlaggedOnDay:(EWDay)day;
 - (NSString *)noteOnDay:(EWDay)day;
-- (void)setScaleWeight:(float)weight 
-					 flag:(BOOL)flag
-					 note:(NSString *)note
-					onDay:(EWDay)day;
+- (void)setScaleWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day;
+- (BOOL)hasDataOnDay:(EWDay)day;
 - (BOOL)commitChanges;
 
 @end

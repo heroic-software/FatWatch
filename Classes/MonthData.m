@@ -13,6 +13,7 @@
 #define SetBitValueAtIndex(b, v, i) if (v) { b |= (1 << (i)); } else { b &= ~(1 << (i)); }
 
 static sqlite3_stmt *insert_stmt = nil;
+static sqlite3_stmt *delete_stmt = nil;
 static sqlite3_stmt *data_for_month_stmt = nil;
 
 @implementation MonthData
@@ -23,6 +24,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 + (void)finalizeStatements {
 	EWFinalizeStatement(&insert_stmt);
+	EWFinalizeStatement(&delete_stmt);
 	EWFinalizeStatement(&data_for_month_stmt);
 }
 
@@ -213,11 +215,22 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
+- (BOOL)hasDataOnDay:(EWDay)day {
+	return ([self scaleWeightOnDay:day] > 0 || 
+			[self noteOnDay:day] != nil || 
+			[self isFlaggedOnDay:day]);
+}
+
+
 - (BOOL)commitChanges {
 	if (dirtyBits == 0) return NO;
 	
 	if (insert_stmt == nil) {
 		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?)"];
+	}
+	
+	if (delete_stmt == nil) {
+		delete_stmt = [[Database sharedDatabase] statementFromSQL:"DELETE FROM weight WHERE monthday=?"];
 	}
 	
 	int i = 0;
@@ -226,26 +239,33 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		if (bits & 1 != 0) {
 			EWDay day = i + 1;
 
-			// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
-			sqlite3_bind_int(insert_stmt, kMonthDayColumnIndex + 1, EWMonthDayMake(month, day));
-			if (scaleWeights[i] == 0) {
-				sqlite3_bind_null(insert_stmt, kScaleValueColumnIndex + 1);
-				sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);
+			if ([self hasDataOnDay:day]) {
+				// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
+				sqlite3_bind_int(insert_stmt, kMonthDayColumnIndex + 1, EWMonthDayMake(month, day));
+				if (scaleWeights[i] == 0) {
+					sqlite3_bind_null(insert_stmt, kScaleValueColumnIndex + 1);
+					sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);
+				} else {
+					sqlite3_bind_double(insert_stmt, kScaleValueColumnIndex + 1, scaleWeights[i]);
+					sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+				}
+				sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);
+				id note = [notesArray objectAtIndex:i];
+				if (note != [NSNull null]) {
+					sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [note UTF8String], -1, SQLITE_STATIC);
+				} else {
+					sqlite3_bind_null(insert_stmt, kNoteColumnIndex + 1);
+				}
+				
+				int retcode = sqlite3_step(insert_stmt);
+				sqlite3_reset(insert_stmt);
+				NSAssert1(retcode == SQLITE_DONE, @"INSERT returned code %d", retcode);
 			} else {
-				sqlite3_bind_double(insert_stmt, kScaleValueColumnIndex + 1, scaleWeights[i]);
-				sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+				sqlite3_bind_int(delete_stmt, 1, EWMonthDayMake(month, day));
+				int retcode = sqlite3_step(delete_stmt);
+				sqlite3_reset(delete_stmt);
+				NSAssert1(retcode == SQLITE_DONE, @"DELETE returned code %d", retcode);
 			}
-			sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);
-			id note = [notesArray objectAtIndex:i];
-			if (note != [NSNull null]) {
-				sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [note UTF8String], -1, SQLITE_STATIC);
-			} else {
-				sqlite3_bind_null(insert_stmt, kNoteColumnIndex + 1);
-			}
-			
-			int retcode = sqlite3_step(insert_stmt);
-			sqlite3_reset(insert_stmt);
-			NSAssert1(retcode == SQLITE_DONE, @"INSERT returned code %d", retcode);
 		}
 		i++;
 		bits >>= 1;

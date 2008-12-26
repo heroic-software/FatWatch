@@ -154,14 +154,11 @@
 		MonthData *md = [db dataForMonth:month];
 		EWDay day;
 		for (day = 1; day <= 31; day++) {
-			float scaleWeight = [md scaleWeightOnDay:day];
-			NSString *note = [md noteOnDay:day];
-			BOOL flag = [md isFlaggedOnDay:day];
-			if (scaleWeight > 0 || note != nil || flag) {
+			if ([md hasDataOnDay:day]) {
 				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
-				[writer addFloat:scaleWeight];
-				[writer addBoolean:flag];
-				[writer addString:note];
+				[writer addFloat:[md scaleWeightOnDay:day]];
+				[writer addBoolean:[md isFlaggedOnDay:day]];
+				[writer addString:[md noteOnDay:day]];
 				[writer endRow];
 			}
 		}
