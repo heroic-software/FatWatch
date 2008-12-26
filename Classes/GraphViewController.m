@@ -456,6 +456,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (IBAction)spanSelected:(UISegmentedControl *)sender {
 	[self databaseDidChange:nil];
+	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
+		[scrollView flashScrollIndicators];
+	}
 }
 
 @end
