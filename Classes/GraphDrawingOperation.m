@@ -54,16 +54,6 @@
 #pragma mark Secondary Thread
 
 
-EWMonthDay EWNextMonthDay(EWMonthDay md) {
-	EWMonth month = EWMonthDayGetMonth(md);
-	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
-		return md + 1;
-	} else {
-		return EWMonthDayMake(month + 1, 1);
-	}
-}
-
-
 - (void)computePoints {
 
 	Database *db = [Database sharedDatabase];

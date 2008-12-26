@@ -39,6 +39,16 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 }
 
 
+EWMonthDay EWNextMonthDay(EWMonthDay md) {
+	EWMonth month = EWMonthDayGetMonth(md);
+	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
+		return md + 1;
+	} else {
+		return EWMonthDayMake(month + 1, 1);
+	}
+}
+
+
 NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 
