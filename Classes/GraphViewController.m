@@ -161,6 +161,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		} else if (spanIndex == kSpanYear) {
 			t = 365 * (60 * 60 * 24);
 		} else {
+			// TODO: "earliest month with data"
 			NSDate *earlyDate = EWDateFromMonthAndDay(db.earliestMonth, 1);
 			t = -[earlyDate timeIntervalSinceNow];
 		}
@@ -342,7 +343,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	struct GraphViewInfo *ginfo = &info[index];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
-		[ginfo->view setMonth:0];
 		[ginfo->view setImage:nil];
 		[ginfo->view release];
 		ginfo->view = nil;
@@ -360,7 +360,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 - (void)updateViewAtIndex:(int)index {
 	struct GraphViewInfo *ginfo = &info[index];
 
-	[ginfo->view setMonth:EWMonthDayGetMonth(ginfo->beginMonthDay)];
+	[ginfo->view setBeginMonthDay:ginfo->beginMonthDay endMonthDay:ginfo->endMonthDay];
 	[ginfo->view setImage:ginfo->image];
 	
 	if (ginfo->image == nil && ginfo->operation == nil) {

@@ -10,9 +10,10 @@
 #import "EWDate.h"
 
 @interface GraphView : UIView {
-	EWMonth month;
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
 	UIImage *image;
 }
 @property (nonatomic,retain) UIImage *image;
-@property (nonatomic) EWMonth month;
+- (void)setBeginMonthDay:(EWMonthDay)mdBegin endMonthDay:(EWMonthDay)mdEnd;
 @end

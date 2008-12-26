@@ -13,7 +13,7 @@
 @implementation GraphView
 
 
-@synthesize image, month;
+@synthesize image;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -33,8 +33,9 @@
 }
 
 
-- (void)setMonth:(EWMonth)newMonth {
-	month = newMonth;
+- (void)setBeginMonthDay:(EWMonthDay)mdBegin endMonthDay:(EWMonthDay)mdEnd {
+	beginMonthDay = mdBegin;
+	endMonthDay = mdEnd;
 	[self setNeedsDisplay];
 }
 
@@ -69,7 +70,10 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGContextFillRect(ctxt, self.bounds);
 		CGColorSpaceRelease(space);
 
-		[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
+		EWMonth month = EWMonthDayGetMonth(beginMonthDay);
+		if (EWMonthDayGetDay(beginMonthDay) == 1 && EWMonthDayGetMonth(endMonthDay) == month) {
+			[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
+		}
 	}
 }
 

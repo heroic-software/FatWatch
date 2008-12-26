@@ -109,14 +109,64 @@
 
 - (CGPathRef)createGridPath {
 	CGMutablePathRef gridPath = CGPathCreateMutable();
-	CGPathMoveToPoint(gridPath, NULL, 0.5, CGRectGetMinY(bounds));
-	CGPathAddLineToPoint(gridPath, NULL, 0.5, CGRectGetMaxY(bounds));
+	// vertical lines
+
+	CGFloat x = 0.5;
+	EWMonthDay md = beginMonthDay;
+	
+	while (md <= endMonthDay) {
+		EWMonth month = EWMonthDayGetMonth(md);
+		EWDay day = EWMonthDayGetDay(md);
+		if (day == 1) {
+			CGPathMoveToPoint(gridPath, &p->t, x, CGRectGetMinY(bounds));
+			CGPathAddLineToPoint(gridPath, &p->t, x, CGRectGetMaxY(bounds));
+			x += EWDaysInMonth(month);
+		} else {
+			x += EWDaysInMonth(month) - day + 1;
+		}
+		md = EWMonthDayMake(month + 1, 1);
+	}
+	
+	// horizontal lines:
 	float w;
 	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += p->gridIncrementWeight) {
 		CGPathMoveToPoint(gridPath, &p->t, -0.5, w);
 		CGPathAddLineToPoint(gridPath, &p->t, dayCount + 1, w);
 	}
 	return gridPath;
+}
+
+
+- (void)drawCaptionsInContext:(CGContextRef)ctxt {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	
+	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
+	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
+	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
+
+	CGFloat x = 0.5;
+	EWMonthDay md = beginMonthDay;
+	
+	while (md <= endMonthDay) {
+		EWMonth month = EWMonthDayGetMonth(md);
+		EWDay day = EWMonthDayGetDay(md);
+		
+		NSDate *date = EWDateFromMonthAndDay(month, 1);
+		NSData *text = [[formatter stringFromDate:date] dataUsingEncoding:NSMacOSRomanStringEncoding];
+		CGRect clipRect = CGRectMake(x - day + 1, p->minWeight, EWDaysInMonth(month), (p->maxWeight - p->minWeight));
+		clipRect = CGRectApplyAffineTransform(clipRect, p->t);
+		CGContextSaveGState(ctxt);
+		CGContextClipToRect(ctxt, clipRect);
+		CGContextShowTextAtPoint(ctxt, clipRect.origin.x + 4, 22, [text bytes], [text length]);
+		CGContextRestoreGState(ctxt);
+
+		x += EWDaysInMonth(month) - day + 1;
+		md = EWMonthDayMake(month + 1, 1);
+	}
+
+	[formatter release];
 }
 
 
@@ -317,8 +367,7 @@
 	
 	// name of month and year
 	
-	// TODO: draw at appropriate point
-	[GraphDrawingOperation drawCaptionForMonth:EWMonthDayGetMonth(beginMonthDay) inContext:ctxt];
+	[self drawCaptionsInContext:ctxt];
 		
 	if ([pointData length] > 0) {
 		CGContextSaveGState(ctxt);
