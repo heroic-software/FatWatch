@@ -57,31 +57,50 @@
 - (void)computePoints {
 
 	Database *db = [Database sharedDatabase];
-
-	EWMonth month = EWMonthDayGetMonth(beginMonthDay);
-	MonthData *data = [db dataForMonth:month];
+	EWMonthDay mdStart, mdEnd;
+	
+	[db getEarliestMonthDay:&mdStart latestMonthDay:&mdEnd];
+	if (mdStart == 0 || mdEnd == 0) {
+		dayCount = 0;
+		return;
+	}
+	
+	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
+	
+	CGFloat x = 1;
+	
+	if (mdStart < beginMonthDay) {
+		// If we requested a start after actual data starts, start there.
+		mdStart = beginMonthDay;
+	} else {
+		// Otherwise, bump X to compensate.
+		x += EWDaysBetweenMonthDays(beginMonthDay, mdStart);
+	}
+	
+	if (endMonthDay < mdEnd) {
+		// If we requested an end before data ends, stop there.
+		mdEnd = endMonthDay;
+	}
 	
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	
-	dayCount = 1;
-
+	MonthData *data = nil;
 	EWMonthDay md;
-	for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
-		if (month != EWMonthDayGetMonth(md)) {
-			month = EWMonthDayGetMonth(md);
-			data = [db dataForMonth:month];
-		}
+	for (md = mdStart; md <= mdEnd; md = EWNextMonthDay(md)) {
 		EWDay day = EWMonthDayGetDay(md);
+		if (data == nil || day == 1) {
+			data = [db dataForMonth:EWMonthDayGetMonth(md)];
+		}
 		float scale = [data scaleWeightOnDay:day];
 		if (scale > 0) {
 			float trend = [data trendWeightOnDay:day];
 			GraphPoint gp;
-			gp.scale = CGPointMake(dayCount, scale);
-			gp.trend = CGPointMake(dayCount, trend);
+			gp.scale = CGPointMake(x, scale);
+			gp.trend = CGPointMake(x, trend);
 			gp.flag = [data isFlaggedOnDay:day];
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		}
-		dayCount += 1;
+		x += 1;
 	}
 }
 

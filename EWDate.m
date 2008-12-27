@@ -39,6 +39,14 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 }
 
 
+NSUInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB) {
+	const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+	NSDate *dateA = EWDateFromMonthDay(mdA);
+	NSDate *dateB = EWDateFromMonthDay(mdB);
+	return [dateB timeIntervalSinceDate:dateA] / kSecondsPerDay;
+}
+
+
 EWMonthDay EWNextMonthDay(EWMonthDay md) {
 	EWMonth month = EWMonthDayGetMonth(md);
 	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {

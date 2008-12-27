@@ -228,8 +228,10 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	sqlite3_stmt *statement;
 
 	if (beginMonthDay == 0 || endMonthDay == 0) {
+		// trendValue will always be within the measuredValue range over all time
 		statement = [self statementFromSQL:"SELECT MIN(measuredValue),MAX(measuredValue) FROM weight"];
 	} else {
+		// that might not be the case over a limited time frame, though
 		statement = [self statementFromSQL:"SELECT MIN(MIN(measuredValue),MIN(trendValue)), MAX(MAX(measuredValue),MAX(trendValue)) FROM weight WHERE monthday BETWEEN ? AND ?"];
 		sqlite3_bind_int(statement, 1, beginMonthDay);
 		sqlite3_bind_int(statement, 2, endMonthDay);
@@ -248,6 +250,30 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 		*maxWeight = 0;
 	} else {
 		*maxWeight = sqlite3_column_double(statement, 1);
+	}
+	
+	sqlite3_finalize(statement);
+}
+
+
+- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay {
+	NSParameterAssert(beginMonthDay);
+	NSParameterAssert(endMonthDay);
+	
+	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM weight"];
+	int retcode = sqlite3_step(statement);
+	NSAssert1(retcode == SQLITE_ROW, @"SELECT returned code %d", retcode);
+
+	if (sqlite3_column_type(statement, 0) == SQLITE_NULL) {
+		*beginMonthDay = 0;
+	} else {
+		*beginMonthDay = sqlite3_column_int(statement, 0);
+	}
+	
+	if (sqlite3_column_type(statement, 1) == SQLITE_NULL) {
+		*endMonthDay = 0;
+	} else {
+		*endMonthDay = sqlite3_column_int(statement, 1);
 	}
 	
 	sqlite3_finalize(statement);

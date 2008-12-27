@@ -44,6 +44,7 @@ extern NSString *EWDatabaseDidChangeNotification;
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (MonthData *)dataForMonth:(EWMonth)m;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
+- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;
 - (void)commitChanges;
 - (void)deleteWeights;
 

@@ -149,28 +149,35 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		beginMonthDay = 0;
 		endMonthDay = 0;
 	} else {
+		const NSTimeInterval kSecondsPerDay	= 60 * 60 * 24;
+
 		infoCount = 1;
 
 		NSInteger spanIndex = spanControl.selectedSegmentIndex;
-		NSTimeInterval t;
+		NSInteger numberOfDays;
 		
-		if (spanIndex == kSpan30Days) {
-			t = 30 * (60 * 60 * 24);
-		} else if (spanIndex == kSpan90Days) {
-			t = 90 * (60 * 60 * 24);
-		} else if (spanIndex == kSpanYear) {
-			t = 365 * (60 * 60 * 24);
+		if (spanIndex == kSpanAll) {
+			[db getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
+			if (beginMonthDay == 0 || endMonthDay == 0) {
+				beginMonthDay = EWMonthDayFromDate([NSDate date]);
+				endMonthDay = beginMonthDay;
+			}
+			numberOfDays = EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 		} else {
-			// TODO: "earliest month with data"
-			NSDate *earlyDate = EWDateFromMonthAndDay(db.earliestMonth, 1);
-			t = -[earlyDate timeIntervalSinceNow];
+			if (spanIndex == kSpan30Days) {
+				numberOfDays = 30;
+			} else if (spanIndex == kSpan90Days) {
+				numberOfDays = 90;
+			} else if (spanIndex == kSpanYear) {
+				numberOfDays = 365;
+			}
+			
+			NSTimeInterval t = numberOfDays * kSecondsPerDay;
+			endMonthDay = EWMonthDayFromDate([NSDate date]);
+			beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 		}
 		
-		NSInteger numberOfDays = t / (60 * 60 * 24);
 		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / (numberOfDays + 1);
-		
-		endMonthDay = EWMonthDayFromDate([NSDate date]);
-		beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 	}
 	
 	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];

@@ -4,8 +4,6 @@
 
 - Regression: restore head-tail connections on chart
 - Regression: chart "Months" view should start on far right
-- Chart: draw headers correctly (don't assume one month)
-- Chart: flash scrolling indicators when on "Months" view
 
 - Chart: introduce sampling to "All Time" view?
 
@@ -15,6 +13,10 @@
 - Add switch to disable BMI in Chart
 - revisit scrolling synchronization (doesn't work)
 
+- Bug: viewing chart creates empty MonthData objects;
+	maybe add a method to flush empties?
+
+- Replace toolbar with slimmer selection control (e.g., App Store)
 
 New Export Process
 
