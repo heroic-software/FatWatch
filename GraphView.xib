@@ -44,7 +44,7 @@
 							<object class="IBUISegmentedControl" id="20948166">
 								<reference key="NSNextResponder" ref="549168467"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{53, 7}, {374, 30}}</string>
+								<string key="NSFrame">{{21, 7}, {439, 30}}</string>
 								<reference key="NSSuperview" ref="549168467"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -53,11 +53,11 @@
 								<int key="IBSelectedSegmentIndex">0</int>
 								<object class="NSArray" key="IBSegmentTitles">
 									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>30 Days</string>
-									<string>90 Days</string>
-									<string>365 Days</string>
+									<string>Past Month</string>
+									<string>Past Quarter</string>
+									<string>Past Year</string>
 									<string>All Time</string>
-									<string>Months</string>
+									<string>Browse</string>
 								</object>
 								<object class="NSMutableArray" key="IBSegmentWidths">
 									<bool key="EncodedWithXMLCoder">YES</bool>
@@ -119,8 +119,11 @@
 						<string key="NSFrameSize">{40, 256}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">2</int>
-							<bytes key="NSRGB">MC42NTQ5MDE5OCAwLjcwOTgwMzk0IDAuNzgwMzkyMjMAA</bytes>
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="106734720">
+								<int key="NSID">2</int>
+							</object>
 						</object>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					</object>
@@ -141,9 +144,7 @@
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<reference key="NSCustomColorSpace" ref="106734720"/>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 			</object>
@@ -301,7 +302,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>GraphViewController</string>
 					<string>UIResponder</string>
-					<string>{{133, 112}, {480, 320}}</string>
+					<string>{{143, 355}, {480, 320}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
