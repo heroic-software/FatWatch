@@ -19,6 +19,7 @@
 	UITextAlignment titleAlignment;
 	UIColor *titleColor;
 	UITableViewCellAccessoryType accessoryType;
+	UIView *accessoryView;
 }
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
@@ -26,6 +27,7 @@
 @property (nonatomic) UITextAlignment titleAlignment;
 @property (nonatomic,retain) UIColor *titleColor;
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
+@property (nonatomic,retain) UIView *accessoryView;
 @property (nonatomic,retain) id object;
 @property (nonatomic,readonly) BRTableSection *section;
 - (NSString *)reuseableCellIdentifier;

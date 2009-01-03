@@ -82,8 +82,9 @@
 		cell.text = title;
 		cell.textColor = [UIColor grayColor];
 	}
-	cell.textAlignment = titleAlignment;
-	cell.accessoryType = accessoryType;
+	cell.textAlignment = self.titleAlignment;
+	cell.accessoryType = self.accessoryType;
+	cell.accessoryView = self.accessoryView;
 }
 
 

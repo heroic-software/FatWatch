@@ -12,6 +12,7 @@
 @implementation BRTableRow
 
 @synthesize title, titleAlignment, titleColor, object, section, accessoryType;
+@synthesize accessoryView;
 
 
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle {
@@ -63,6 +64,7 @@
 	}
 	cell.textAlignment = titleAlignment;
 	cell.textColor = titleColor;
+	cell.accessoryView = accessoryView;
 	cell.accessoryType = accessoryType;
 }
 
