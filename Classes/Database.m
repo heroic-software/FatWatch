@@ -286,7 +286,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	MonthData *monthData = [monthCache objectForKey:monthKey];
 	
 	if (monthData == nil) {
-		monthData = [[MonthData alloc] initWithMonth:m];
+		monthData = [[MonthData alloc] initWithMonth:m database:self];
 		[monthCache setObject:monthData forKey:monthKey];
 		[monthData release];
 

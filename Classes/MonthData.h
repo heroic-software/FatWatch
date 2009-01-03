@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "EWDate.h"
 
+@class Database;
 
 @interface MonthData : NSObject {
+	Database *db;
 	EWMonth month;
 	UInt32 dirtyBits;
 	struct DayData {
@@ -26,7 +28,7 @@
 @property (nonatomic,readonly) MonthData *nextMonthData;
 
 + (void)finalizeStatements;
-- (id)initWithMonth:(EWMonth)m;
+- (id)initWithMonth:(EWMonth)m database:(Database *)database;
 - (NSDate *)dateOnDay:(EWDay)day;
 - (float)scaleWeightOnDay:(EWDay)day;
 - (EWDay)firstDayWithWeight;

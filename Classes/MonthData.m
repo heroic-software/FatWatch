@@ -29,12 +29,13 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 }
 
 
-- (id)initWithMonth:(EWMonth)m {
+- (id)initWithMonth:(EWMonth)m database:(Database *)database {
 	if ([super init]) {
+		db = database;
 		month = m;
 				
 		if (data_for_month_stmt == nil) {
-			data_for_month_stmt = [[Database sharedDatabase] statementFromSQL:"SELECT * FROM weight WHERE monthday > ? AND monthday < ?"];
+			data_for_month_stmt = [db statementFromSQL:"SELECT * FROM weight WHERE monthday > ? AND monthday < ?"];
 		}
 		sqlite3_bind_int(data_for_month_stmt, 1, EWMonthDayMake(m, 0));
 		sqlite3_bind_int(data_for_month_stmt, 2, EWMonthDayMake(m+1, 0));
@@ -85,7 +86,6 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (MonthData *)previousMonthData {
-	Database *db = [Database sharedDatabase];
 	if (self.month > db.earliestMonth) {
 		return [db dataForMonth:(self.month - 1)];
 	}
@@ -94,7 +94,6 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (MonthData *)nextMonthData {
-	Database *db = [Database sharedDatabase];
 	if (self.month < db.latestMonth) {
 		return [db dataForMonth:(self.month + 1)];
 	}
@@ -202,7 +201,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (dd->scaleWeight != weight) {
 		dd->scaleWeight = weight;
 		dd->trendWeight = 0;
-		[[Database sharedDatabase] didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
+		[db didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
 	dd->flags = flag ? 1 : 0;
@@ -229,11 +228,11 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (dirtyBits == 0) return NO; // this fast check is why we bother with a bit field
 	
 	if (insert_stmt == nil) {
-		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?)"];
+		insert_stmt = [db statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?)"];
 	}
 	
 	if (delete_stmt == nil) {
-		delete_stmt = [[Database sharedDatabase] statementFromSQL:"DELETE FROM weight WHERE monthday=?"];
+		delete_stmt = [db statementFromSQL:"DELETE FROM weight WHERE monthday=?"];
 	}
 	
 	int i = 0;
