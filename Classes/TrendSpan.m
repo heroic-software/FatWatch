@@ -12,12 +12,26 @@
 #import "Database.h"
 #import "MonthData.h"
 #import "SlopeComputer.h"
+#import "WeightFormatters.h"
+
+
+enum {
+	kTrendSpanRowWeightChangeRate,
+	kTrendSpanRowEnergyChangeRate,
+//	kTrendSpanRowWeightChangeTotal,
+	kTrendSpanRowGoalDate,
+	kTrendSpanRowGoalPlan
+};
+
+
+const NSInteger kTrendSpanRowCount = 2;
 
 
 @implementation TrendSpan
 
 
-@synthesize title, length, weightPerDay, visible, goal;
+@synthesize title, length, weightPerDay, visible;
+@synthesize weightChange;
 
 
 + (NSMutableArray *)trendSpanArray {
@@ -25,12 +39,11 @@
 	
 	EWGoal *goal = [EWGoal sharedGoal];
 	if (goal.defined) {
-		TrendSpan *span = [[TrendSpan alloc] init];
+		TrendSpan *span = [[GoalTrendSpan alloc] init];
 		
 		NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:goal.startDate toDate:[NSDate date] options:0];
 		span.title = @"Since Goal Start";
 		span.length = [comps day];
-		span.goal = YES;
 		[spanArray addObject:span];
 		[span release];
 	}
@@ -64,12 +77,19 @@
 	
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(curMonthDay)];
+	
+	float weightNow = 0;
+	
 	NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
 	for (TrendSpan *span in sortedArray) {
+		float lastTrendWeight;
+		
 		while ((x < span.length) && (data != nil)) {
 			float y = [data trendWeightOnDay:curDay];
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
+				if (weightNow == 0) weightNow = y;
+				lastTrendWeight = y;
 			}
 			x += 1;
 			curDay--;
@@ -79,12 +99,15 @@
 			}
 		}
 		
-		span.weightPerDay = -computer.slope;
-		if (span.goal) {
+		if ([span isKindOfClass:[GoalTrendSpan class]]) {
 			span.visible = (computer.count > 1);
 		} else if (computer.count > previousCount) {
 			span.visible = YES;
 			previousCount = computer.count;
+		}
+		if (span.visible) {
+			span.weightPerDay = -computer.slope;
+			span.weightChange = weightNow - lastTrendWeight;
 		}
 	}
 	[computer release];
@@ -109,6 +132,42 @@
 }
 
 
+- (NSInteger)numberOfTableRows {
+	return kTrendSpanRowCount;
+}
+
+
+- (void)configureCell:(UITableViewCell *)cell forTableRow:(NSInteger)row {
+	switch (row) {
+		case kTrendSpanRowWeightChangeRate:
+			cell.text = [WeightFormatters weightStringForWeightPerDay:self.weightPerDay];
+			cell.textColor = [UIColor blackColor];
+			break;
+//		case kTrendSpanRowWeightChangeTotal: {
+//			cell.text = [WeightFormatters stringForWeightChange:self.weightChange];
+//			cell.textColor = [UIColor purpleColor];
+//			break;
+//		}
+		case kTrendSpanRowEnergyChangeRate:
+			cell.text = [WeightFormatters energyStringForWeightPerDay:self.weightPerDay];
+			cell.textColor = [UIColor blackColor];
+			break;
+	}
+}
+
+
+- (BOOL)shouldUpdateAfterDidSelectRow:(NSInteger)row {
+	return NO;
+}
+
+
+@end
+
+
+
+@implementation GoalTrendSpan
+
+
 - (NSDate *)endDate {
 	if (self.weightPerDay == 0) {
 		return nil;
@@ -121,6 +180,97 @@
 	} else {
 		return endDate;
 	}
+}
+
+
+- (void)updateGoalDateCell:(UITableViewCell *)cell {
+	NSDate *endDate = self.endDate;
+	
+	if (endDate) {
+		int dayCount = floor([endDate timeIntervalSinceNow] / SecondsPerDay);
+		if (dayCount > 365) {
+			cell.text = @"goal in over a year";
+		} else if (showEndDateAsDate) {
+			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+			[formatter setDateStyle:NSDateFormatterLongStyle];
+			[formatter setTimeStyle:NSDateFormatterNoStyle];
+			NSString *dateStr = [formatter stringFromDate:endDate];
+			cell.text = [NSString stringWithFormat:@"goal on %@", dateStr];
+			[formatter release];
+		} else if (dayCount == 0) {
+			cell.text = @"goal today";
+		} else {
+			cell.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
+		}
+		cell.textColor = [UIColor blackColor];
+	} else {
+		if ([[EWGoal sharedGoal] isAttained]) {
+			cell.text = @"goal attained";
+			cell.textColor = [WeightFormatters goodColor];
+		} else {
+			cell.text = @"moving away from goal";
+			cell.textColor = [WeightFormatters badColor];
+		}
+	}
+}
+
+
+- (void)updateGoalPlanCell:(UITableViewCell *)cell {
+	EWGoal *g = [EWGoal sharedGoal];
+	NSDate *endDate = self.endDate;
+	
+	NSTimeInterval t = [endDate timeIntervalSinceDate:g.endDate];
+	int dayCount = floor(t / SecondsPerDay);
+	if (dayCount > 0) {
+		if (dayCount > 365) {
+			cell.text = @"more than a year behind schedule";
+		} else if (dayCount == 1) {
+			cell.text = @"1 day behind schedule";
+		} else {
+			cell.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
+		}
+		cell.textColor = [WeightFormatters warningColor];
+	} else if (dayCount < 0) {
+		if (dayCount < -365) {
+			cell.text = @"more than a year ahead of schedule";
+		} else if (dayCount == -1) {
+			cell.text = @"1 day ahead of schedule";
+		} else {
+			cell.text = [NSString stringWithFormat:@"%d days ahead of schedule", -dayCount];
+		}
+		cell.textColor = [WeightFormatters goodColor];
+	} else {
+		cell.text = @"on schedule";
+		cell.textColor = [WeightFormatters goodColor];
+	}
+}
+
+
+- (NSInteger)numberOfTableRows {
+	return kTrendSpanRowCount + ((self.endDate != nil) ? 2 : 1);
+}
+
+
+- (void)configureCell:(UITableViewCell *)cell forTableRow:(NSInteger)row {
+	switch (row) {
+		case kTrendSpanRowGoalDate:
+			[self updateGoalDateCell:cell];
+			break;
+		case kTrendSpanRowGoalPlan:
+			[self updateGoalPlanCell:cell];
+			break;
+		default:
+			[super configureCell:cell forTableRow:row];
+	}
+}
+
+
+- (BOOL)shouldUpdateAfterDidSelectRow:(NSInteger)row {
+	if (row == kTrendSpanRowGoalDate) {
+		showEndDateAsDate = !showEndDateAsDate;
+		return YES;
+	}
+	return NO;
 }
 
 
