@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "EWDate.h"
 
+
 @interface MonthData : NSObject {
 	EWMonth month;
 	UInt32 dirtyBits;
-	float *scaleWeights;
-	float *trendWeights;
-	UInt32 flagBits;
-	NSMutableArray *notesArray;
+	struct DayData {
+		float scaleWeight;
+		float trendWeight;
+		NSString *note;
+		int flags;
+	} dayData[31];
 }
 
 @property (nonatomic,readonly) EWMonth month;

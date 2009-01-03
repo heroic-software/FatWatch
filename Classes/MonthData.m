@@ -32,17 +32,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 - (id)initWithMonth:(EWMonth)m {
 	if ([super init]) {
 		month = m;
-		
-		scaleWeights = calloc(31, sizeof(float));
-		trendWeights = calloc(31, sizeof(float));
-		flagBits = 0;
-		notesArray = [[NSMutableArray alloc] initWithCapacity:31];
-		int i;
-		for (i = 0; i < 31; i++) {
-			[notesArray addObject:[NSNull null]];
-		}
-		dirtyBits = 0;
-		
+				
 		if (data_for_month_stmt == nil) {
 			data_for_month_stmt = [[Database sharedDatabase] statementFromSQL:"SELECT * FROM weight WHERE monthday > ? AND monthday < ?"];
 		}
@@ -50,15 +40,15 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 		sqlite3_bind_int(data_for_month_stmt, 2, EWMonthDayMake(m+1, 0));
 		while (sqlite3_step(data_for_month_stmt) == SQLITE_ROW) {
 			EWDay day = EWMonthDayGetDay(sqlite3_column_int(data_for_month_stmt, kMonthDayColumnIndex));
-			int i = day - 1;
+			struct DayData *dd = &dayData[day - 1];
 			
-			scaleWeights[i] = sqlite3_column_double(data_for_month_stmt, kScaleValueColumnIndex);
-			trendWeights[i] = sqlite3_column_double(data_for_month_stmt, kTrendValueColumnIndex);
-			SetBitValueAtIndex(flagBits, (sqlite3_column_int(data_for_month_stmt, kFlagColumnIndex) != 0), i);
+			dd->scaleWeight = sqlite3_column_double(data_for_month_stmt, kScaleValueColumnIndex);
+			dd->trendWeight = sqlite3_column_double(data_for_month_stmt, kTrendValueColumnIndex);
+			dd->flags = sqlite3_column_int(data_for_month_stmt, kFlagColumnIndex);
 
 			char *noteStr = (char *)sqlite3_column_text(data_for_month_stmt, kNoteColumnIndex);
 			if (noteStr) {
-				[notesArray replaceObjectAtIndex:i withObject:[NSString stringWithUTF8String:noteStr]];
+				dd->note = [[NSString alloc] initWithUTF8String:noteStr];
 			}
 		}
 		sqlite3_reset(data_for_month_stmt);
@@ -69,9 +59,10 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (void)dealloc {
-	free(scaleWeights);
-	free(trendWeights);
-	[notesArray release];
+	int i;
+	for (i = 0; i < 31; i++) {
+		[dayData[i].note release];
+	}
 	[super dealloc];
 }
 
@@ -82,8 +73,9 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	
 	[text appendFormat:@"month(%d) = {\n", month];
 	for (i = 0; i < 31; i++) {
-		if (scaleWeights[i] > 0) {
-			[text appendFormat:@"\t%d: %f, %f\n", (i+1), scaleWeights[i], trendWeights[i]];
+		struct DayData *dd = &dayData[i];
+		if (dd->scaleWeight > 0) {
+			[text appendFormat:@"\t%d: %f, %f\n", (i+1), dd->scaleWeight, dd->trendWeight];
 		}
 	}
 	[text appendFormat:@"}"];
@@ -111,29 +103,32 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (NSDate *)dateOnDay:(EWDay)day {
+	NSParameterAssert(day >= 1 && day <= 31);
 	return EWDateFromMonthAndDay(month, day);
 }
 
 
 - (float)scaleWeightOnDay:(EWDay)day {
-	return scaleWeights[day - 1];
+	NSParameterAssert(day >= 1 && day <= 31);
+	return dayData[day - 1].scaleWeight;
 }
 
 
 - (float)trendWeightOnDay:(EWDay)day {
-	return trendWeights[day - 1];
+	NSParameterAssert(day >= 1 && day <= 31);
+	return dayData[day - 1].trendWeight;
 }
 
 
 - (BOOL)isFlaggedOnDay:(EWDay)day {
-	int i = day - 1;
-	return (flagBits & (1 << i)) != 0;
+	NSParameterAssert(day >= 1 && day <= 31);
+	return dayData[day - 1].flags != 0;
 }
 
 
 - (NSString *)noteOnDay:(EWDay)day {
-	id note = [notesArray objectAtIndex:(day - 1)];
-	return (note == [NSNull null] ? nil : note);
+	NSParameterAssert(day >= 1 && day <= 31);
+	return dayData[day - 1].note;
 }
 
 
@@ -141,7 +136,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = 0; i < 31; i++) {
-		if (scaleWeights[i] > 0) return (i + 1);
+		if (dayData[i].scaleWeight > 0) return (i + 1);
 	}
 	
 	return 0;
@@ -152,7 +147,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = 30; i >= 0; i--) {
-		if (scaleWeights[i] > 0) return (i + 1);
+		if (dayData[i].scaleWeight > 0) return (i + 1);
 	}
 	
 	return 0;
@@ -165,7 +160,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = (day - 1) - 1; i >= 0; i--) {
-		float trend = trendWeights[i];
+		float trend = dayData[i].trendWeight;
 		if (trend != 0) return trend;
 	}
 	
@@ -180,7 +175,7 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	if (day == 32) return 0;
 
 	// If nothing else, just give the weight on the specified day.
-	return scaleWeights[day - 1];
+	return dayData[day - 1].scaleWeight;
 }
 
 
@@ -189,10 +184,11 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 	int i;
 	
 	for (i = (day - 1); i < 31; i++) {
-		if (scaleWeights[i] > 0) {
-			trendWeights[i] = previousTrend + (0.1f * (scaleWeights[i] - previousTrend));
+		struct DayData *dd = &dayData[i];
+		if (dd->scaleWeight > 0) {
+			dd->trendWeight = previousTrend + (0.1f * (dd->scaleWeight - previousTrend));
 			SetBitValueAtIndex(dirtyBits, 1, i);
-			previousTrend = trendWeights[i];
+			previousTrend = dd->trendWeight;
 		}
 	}
 	
@@ -201,29 +197,36 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 
 
 - (void)setScaleWeight:(float)weight flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day {
-	int i = day - 1;
+	struct DayData *dd = &dayData[day - 1];
 	
-	if (scaleWeights[i] != weight) {
-		scaleWeights[i] = weight;
-		trendWeights[i] = 0;
+	if (dd->scaleWeight != weight) {
+		dd->scaleWeight = weight;
+		dd->trendWeight = 0;
 		[[Database sharedDatabase] didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
-	SetBitValueAtIndex(flagBits, flag, i);
-	id object = (note != nil) ? (id)note : (id)[NSNull null];
-	[notesArray replaceObjectAtIndex:i withObject:object];
-	SetBitValueAtIndex(dirtyBits, 1, i);
+	
+	dd->flags = flag ? 1 : 0;
+	
+	id oldNote = dd->note;
+	if ([note length] > 0) {
+		dd->note = [note copy];
+	} else {
+		dd->note = nil;
+	}
+	[oldNote release];
+	
+	SetBitValueAtIndex(dirtyBits, 1, day - 1);
 }
 
 
 - (BOOL)hasDataOnDay:(EWDay)day {
-	return ([self scaleWeightOnDay:day] > 0 || 
-			[self noteOnDay:day] != nil || 
-			[self isFlaggedOnDay:day]);
+	struct DayData *dd = &dayData[day - 1];
+	return (dd->scaleWeight > 0 || dd->note != nil || dd->flags != 0);
 }
 
 
 - (BOOL)commitChanges {
-	if (dirtyBits == 0) return NO;
+	if (dirtyBits == 0) return NO; // this fast check is why we bother with a bit field
 	
 	if (insert_stmt == nil) {
 		insert_stmt = [[Database sharedDatabase] statementFromSQL:"INSERT OR REPLACE INTO weight VALUES(?,?,?,?,?)"];
@@ -240,19 +243,23 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 			EWDay day = i + 1;
 
 			if ([self hasDataOnDay:day]) {
+				struct DayData *dd = &dayData[i];
+				
 				// we have to add 1 to offsets because columns are 0-based and bindings are 1-based
 				sqlite3_bind_int(insert_stmt, kMonthDayColumnIndex + 1, EWMonthDayMake(month, day));
-				if (scaleWeights[i] == 0) {
+		
+				if (dd->scaleWeight == 0) {
 					sqlite3_bind_null(insert_stmt, kScaleValueColumnIndex + 1);
 					sqlite3_bind_null(insert_stmt, kTrendValueColumnIndex + 1);
 				} else {
-					sqlite3_bind_double(insert_stmt, kScaleValueColumnIndex + 1, scaleWeights[i]);
-					sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, trendWeights[i]);
+					sqlite3_bind_double(insert_stmt, kScaleValueColumnIndex + 1, dd->scaleWeight);
+					sqlite3_bind_double(insert_stmt, kTrendValueColumnIndex + 1, dd->trendWeight);
 				}
-				sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, [self isFlaggedOnDay:day]);
-				id note = [notesArray objectAtIndex:i];
-				if (note != [NSNull null]) {
-					sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [note UTF8String], -1, SQLITE_STATIC);
+				
+				sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, dd->flags);
+				
+				if (dd->note != nil) {
+					sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [dd->note UTF8String], -1, SQLITE_STATIC);
 				} else {
 					sqlite3_bind_null(insert_stmt, kNoteColumnIndex + 1);
 				}
