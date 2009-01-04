@@ -53,6 +53,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+//	self.tableView.rowHeight = 38; // 44 is the default
 	[self startObservingDatabase];
 }
 
@@ -124,6 +125,10 @@
 		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 		[span configureCell:cell forTableRow:indexPath.row];
 	}
+	// auto-scroll section to top of view
+	[tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]
+					 atScrollPosition:UITableViewScrollPositionTop 
+							 animated:YES];
 }
 
 

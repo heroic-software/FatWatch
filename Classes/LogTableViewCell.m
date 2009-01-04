@@ -84,7 +84,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		logContentView.scaleWeight = [WeightFormatters stringForWeight:scaleWeight];
 		float trendWeight = [monthData trendWeightOnDay:day];
 		float weightDiff = scaleWeight - trendWeight;
-		logContentView.trendDelta = [WeightFormatters stringForWeightChange:weightDiff];
+		logContentView.trendDelta = [WeightFormatters stringForVariance:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
 	}
 

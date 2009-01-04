@@ -251,12 +251,12 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (NSFormatter *)weightChangeFormatter {
++ (NSFormatter *)varianceFormatter {
 	static NSNumberFormatter *formatter;
 	
 	if (formatter == nil) {
 		formatter = [[NSNumberFormatter alloc] init];
-		[formatter setPositiveFormat:NSLocalizedString(@"TREND_FORMAT", nil)];
+		[formatter setPositiveFormat:NSLocalizedString(@"VARIANCE_FORMAT", nil)];
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitKilograms) {
 			[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
@@ -267,8 +267,8 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 }
 
 
-+ (NSString *)stringForWeightChange:(float)deltaLbs {
-	return [[self weightChangeFormatter] stringForObjectValue:[NSNumber numberWithFloat:deltaLbs]];
++ (NSString *)stringForVariance:(float)deltaLbs {
+	return [[self varianceFormatter] stringForObjectValue:[NSNumber numberWithFloat:deltaLbs]];
 }
 
 

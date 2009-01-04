@@ -39,8 +39,7 @@
 + (NSFormatter *)weightFormatter;
 + (NSString *)stringForWeight:(float)weightLbs;
 
-+ (NSFormatter *)weightChangeFormatter;
-+ (NSString *)stringForWeightChange:(float)deltaLbs;
++ (NSString *)stringForVariance:(float)deltaLbs;
 
 + (NSFormatter *)energyChangePerDayFormatter;
 + (NSString *)energyStringForWeightPerDay:(float)lbsPerDay;

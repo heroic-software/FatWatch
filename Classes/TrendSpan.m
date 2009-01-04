@@ -15,16 +15,15 @@
 #import "WeightFormatters.h"
 
 
+const NSInteger kTrendSpanRowCount = 3;
 enum {
+	kTrendSpanRowWeightChangeTotal,
 	kTrendSpanRowWeightChangeRate,
 	kTrendSpanRowEnergyChangeRate,
-//	kTrendSpanRowWeightChangeTotal,
+	// the following are extra rows for the Goal span
 	kTrendSpanRowGoalDate,
 	kTrendSpanRowGoalPlan
 };
-
-
-const NSInteger kTrendSpanRowCount = 2;
 
 
 @implementation TrendSpan
@@ -78,7 +77,7 @@ const NSInteger kTrendSpanRowCount = 2;
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(curMonthDay)];
 	
-	float weightNow = 0;
+	float firstTrendWeight = 0;
 	
 	NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
 	for (TrendSpan *span in sortedArray) {
@@ -88,7 +87,7 @@ const NSInteger kTrendSpanRowCount = 2;
 			float y = [data trendWeightOnDay:curDay];
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
-				if (weightNow == 0) weightNow = y;
+				if (firstTrendWeight == 0) firstTrendWeight = y;
 				lastTrendWeight = y;
 			}
 			x += 1;
@@ -107,7 +106,7 @@ const NSInteger kTrendSpanRowCount = 2;
 		}
 		if (span.visible) {
 			span.weightPerDay = -computer.slope;
-			span.weightChange = weightNow - lastTrendWeight;
+			span.weightChange = firstTrendWeight - lastTrendWeight;
 		}
 	}
 	[computer release];
@@ -143,11 +142,17 @@ const NSInteger kTrendSpanRowCount = 2;
 			cell.text = [WeightFormatters weightStringForWeightPerDay:self.weightPerDay];
 			cell.textColor = [UIColor blackColor];
 			break;
-//		case kTrendSpanRowWeightChangeTotal: {
-//			cell.text = [WeightFormatters stringForWeightChange:self.weightChange];
-//			cell.textColor = [UIColor purpleColor];
-//			break;
-//		}
+		case kTrendSpanRowWeightChangeTotal: {
+			if (self.weightChange > 0) {
+				NSString *amount = [WeightFormatters stringForWeight:self.weightChange];
+				cell.text = [amount stringByAppendingString:NSLocalizedString(@"GAIN_SUFFIX", nil)];
+			} else {
+				NSString *amount = [WeightFormatters stringForWeight:-self.weightChange];
+				cell.text = [amount stringByAppendingString:NSLocalizedString(@"LOSS_SUFFIX", nil)];
+			}
+			cell.textColor = [UIColor blackColor];
+			break;
+		}
 		case kTrendSpanRowEnergyChangeRate:
 			cell.text = [WeightFormatters energyStringForWeightPerDay:self.weightPerDay];
 			cell.textColor = [UIColor blackColor];
