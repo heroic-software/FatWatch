@@ -29,7 +29,7 @@
 		<h1>Export</h1>
 		
 		<p>
-			You can retrieve the weight data from your iPhone by clicking the following link.
+			You can retrieve the weight data from your __MODEL__ by clicking the following link.
 		</p>
 		
 		<p>
@@ -40,7 +40,7 @@
 		
 		<form name="import" method="POST" enctype="multipart/form-data" action="/import">
 			<p>
-				You can send data to your iPhone using this form.  First, select a data file.
+				You can send data to your __MODEL__ using this form.  First, select a data file.
 			</p>
 			<p>
 				<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
@@ -71,18 +71,18 @@
 					<label for="merge_button">Merge with existing data.</label>
 				</dt>
 				<dd>
-					If the file and the iPhone have different weights for the same date, the weight in the file will replace the weight on the iPhone.  Otherwise, any existing weights on your iPhone will be left alone.
+					If the file and the __MODEL__ have different weights for the same date, the weight in the file will replace the weight on the __MODEL__.  Otherwise, any existing weights on your __MODEL__ will be left alone.
 				</dd>
 				<dt>
 					<input type="radio" name="how" value="replace" id="replace_button"/>
 					<label for="replace_button">Replace existing data.</label>
 				</dt>
 				<dd>
-					All weights on your iPhone <strong>will be deleted</strong> and the weights in your file will take their place.
+					All weights on your __MODEL__ <strong>will be deleted</strong> and the weights in your file will take their place.
 				</dd>
 			</dl>
 			<div>
-				<input type="submit" name="sendbutton" value="Send to iPhone"/>
+				<input type="submit" name="sendbutton" value="Send to __MODEL__"/>
 			</div>
 		</form>
 		<h1>Tips</h1>

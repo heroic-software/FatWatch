@@ -46,6 +46,7 @@
 		NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
 							   [device name], @"__NAME__",
+							   [device localizedModel], @"__MODEL__",
 							   version, @"__VERSION__",
 							   nil];
 		[self sendHTMLResourceNamed:@"home" withSubstitutions:subst toConnection:connection];
