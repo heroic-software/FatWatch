@@ -205,6 +205,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			
+			[nf setMinimumIntegerDigits:1];
 			[nf setMinimumFractionDigits:[self fractionDigits]];
 			[nf setMaximumFractionDigits:[self fractionDigits]];
 			
@@ -232,6 +233,9 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 			[formatter retain];
 		} else {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+			
+			[nf setMinimumIntegerDigits:1];
+
 			if (unit == kWeightUnitPounds) {
 				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
 			} else {
