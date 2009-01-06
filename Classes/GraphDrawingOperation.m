@@ -56,16 +56,15 @@
 
 - (void)computePoints {
 
+	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
+
 	Database *db = [Database sharedDatabase];
 	EWMonthDay mdStart, mdEnd;
 	
 	[db getEarliestMonthDay:&mdStart latestMonthDay:&mdEnd];
 	if (mdStart == 0 || mdEnd == 0) {
-		dayCount = 0;
 		return;
 	}
-	
-	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 	
 	CGFloat x = 1;
 	
@@ -186,6 +185,30 @@
 	}
 
 	[formatter release];
+}
+
+
+- (void)drawNoDataWarningInContext:(CGContextRef)ctxt {
+	const CGFloat fontSize = 30;
+	
+	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
+	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
+	CGContextSelectFont(ctxt, "Helvetica-Bold", fontSize, kCGEncodingMacRoman);
+	
+	NSData *text = [@"No Data" dataUsingEncoding:NSMacOSRomanStringEncoding];
+	
+	CGPoint leftPoint = CGContextGetTextPosition(ctxt);
+	CGContextSetTextDrawingMode(ctxt, kCGTextInvisible);
+	CGContextShowText(ctxt, [text bytes], [text length]);
+	CGPoint rightPoint = CGContextGetTextPosition(ctxt);
+	CGContextSetTextDrawingMode(ctxt, kCGTextFill);
+	
+	CGSize size = CGSizeMake(rightPoint.x - leftPoint.x, fontSize);
+	
+	CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+	center.x -= size.width / 2;
+	center.y += size.height / 2;
+	CGContextShowTextAtPoint(ctxt, center.x, center.y, [text bytes], [text length]);
 }
 
 
@@ -432,6 +455,8 @@
 		}
 		
 		CGContextRestoreGState(ctxt);
+	} else {
+		[self drawNoDataWarningInContext:ctxt];
 	}
 	
 	// goal line: sloped part
