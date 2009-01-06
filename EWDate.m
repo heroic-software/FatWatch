@@ -53,10 +53,11 @@ NSInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB) {
 
 
 EWMonthDay EWMonthDayNext(EWMonthDay md) {
-	EWMonth month = EWMonthDayGetMonth(md);
 	if (EWMonthDayGetDay(md) < 28) { // no month has fewer than 28 days
 		return md + 1;
-	} else if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
+	} 
+	EWMonth month = EWMonthDayGetMonth(md);
+	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
 		return md + 1;
 	} else {
 		return EWMonthDayMake(month + 1, 1);
