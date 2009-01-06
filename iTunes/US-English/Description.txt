@@ -1,10 +1,12 @@
-• Holiday Sale: purchase FatWatch at HALF the regular price for a limited time only! •
+• The half price sale will continue until the 1.4 update is complete. Afterward, FatWatch will return to its regular price of $9.99. •
 
 FatWatch is a tool for people who are serious about managing their weight. Beyond simply recording your weight history, FatWatch compares your daily weight to a moving average, to let you see the real trends behind the day-to-day shifts in your body weight.
 
 Using only your weight, FatWatch estimates and reports how many calories you are overeating or undereating, so you can intelligently adjust your diet and exercise plans. There is no need to fuss with an incomplete food database each time you eat something.
 
 FatWatch also allows easy transfer of your weight history to and from your computer over Wi-Fi. Send a chart to your trainer or your doctor. No additional software is required.
+
+NOTE: Although date and number formatting is localized, application text (for example, button labels) is in English.
 
 • Passcode Protection keeps your weight history private.
 
@@ -37,8 +39,3 @@ WHAT'S NEW IN THIS VERSION:
 • Various bug fixes.
 
 Thank you for supporting FatWatch.  If you are finding it useful, please take a moment to write a review in the iTunes App Store!
-
-
-TESTING INFORMATION:
-
-CSV files containing sample data can be found at http://www.fatwatchapp.com/testing/
