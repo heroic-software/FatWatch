@@ -104,6 +104,17 @@ EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
 }
 
 
+EWMonthDay EWMonthDayToday() {
+	static EWMonthDay today = 0;
+	
+	if (today == 0) {
+		today = EWMonthDayFromDate([NSDate date]);
+	}
+	
+	return today;
+}
+
+
 BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d) {
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 

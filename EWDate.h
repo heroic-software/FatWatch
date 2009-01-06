@@ -25,6 +25,7 @@ EW_EXTERN EWMonthDay EWMonthDayNext(EWMonthDay md);
 EW_EXTERN EWMonthDay EWMonthDayPrevious(EWMonthDay md);
 EW_EXTERN NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d);
 EW_EXTERN EWMonthDay EWMonthDayFromDate(NSDate *theDate);
+EW_EXTERN EWMonthDay EWMonthDayToday();
 EW_EXTERN BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d);
 EW_EXTERN NSUInteger EWWeekdayFromMonthAndDay(EWMonth m, EWDay d);
 

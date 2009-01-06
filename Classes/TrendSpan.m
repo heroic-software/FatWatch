@@ -69,7 +69,7 @@ enum {
 + (NSArray *)computeTrendSpans {
 	NSMutableArray *array = [self trendSpanArray];
 	
-	EWMonthDay curMonthDay = EWMonthDayFromDate([NSDate date]);
+	EWMonthDay curMonthDay = EWMonthDayToday();
 	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	int previousCount = 1;
 	float x = 0;

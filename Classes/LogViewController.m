@@ -40,7 +40,7 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
 		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
-		scrollDestination = EWMonthDayFromDate([NSDate date]);
+		scrollDestination = EWMonthDayToday();
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
@@ -65,7 +65,7 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (void)databaseDidChange:(NSNotification *)notice {
-	EWMonthDay today = EWMonthDayFromDate([NSDate date]);
+	EWMonthDay today = EWMonthDayToday();
 	Database *db = [Database sharedDatabase];
 	
 	earliestMonth = db.earliestMonth;

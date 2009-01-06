@@ -44,7 +44,7 @@ NSString *kSelectedTabIndex = @"SelectedTabIndex";
 - (void)autoWeighInIfEnabled {
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
-	EWMonthDay today = EWMonthDayFromDate([NSDate date]);
+	EWMonthDay today = EWMonthDayToday();
 	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(today)];
 	EWDay day = EWMonthDayGetDay(today);
 	if ([data scaleWeightOnDay:day] == 0) {

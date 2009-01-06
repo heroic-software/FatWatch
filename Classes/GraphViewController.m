@@ -159,7 +159,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		if (spanIndex == kSpanAll) {
 			[db getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
 			if (beginMonthDay == 0 || endMonthDay == 0) {
-				beginMonthDay = EWMonthDayFromDate([NSDate date]);
+				beginMonthDay = EWMonthDayToday();
 				endMonthDay = beginMonthDay;
 			}
 			numberOfDays = EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
@@ -173,7 +173,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 			}
 			
 			NSTimeInterval t = numberOfDays * kSecondsPerDay;
-			endMonthDay = EWMonthDayFromDate([NSDate date]);
+			endMonthDay = EWMonthDayToday();
 			beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 		}
 		

@@ -114,7 +114,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	//[self executeSQL:"DELETE FROM weight WHERE measuredValue IS NULL AND trendValue IS NULL AND flag=0 AND (note='' OR note IS NULL)"];
 	
 	earliestChangeMonthDay = 0;
-	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayFromDate([NSDate date]));
+	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayToday());
 	
 	sqlite3_stmt *statement = [self statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM weight"];
 	int code = sqlite3_step(statement);
@@ -397,7 +397,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 - (void)deleteWeights {
 	[self flushCache];
 	[self executeSQL:"DELETE FROM weight"];
-	earliestMonth = EWMonthDayGetMonth(EWMonthDayFromDate([NSDate date]));
+	earliestMonth = EWMonthDayGetMonth(EWMonthDayToday());
 	latestMonth = earliestMonth;
 	earliestChangeMonthDay = 0;
 }
