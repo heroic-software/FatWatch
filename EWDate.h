@@ -20,8 +20,9 @@ EW_INLINE EWMonth EWMonthDayGetMonth(EWMonthDay md) { return md >> 5; }
 EW_INLINE EWDay EWMonthDayGetDay(EWMonthDay md) { return 0x1F & md; }
 
 EW_EXTERN NSUInteger EWDaysInMonth(EWMonth m);
-EW_EXTERN NSUInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB);
-EW_EXTERN EWMonthDay EWNextMonthDay(EWMonthDay md);
+EW_EXTERN NSInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB);
+EW_EXTERN EWMonthDay EWMonthDayNext(EWMonthDay md);
+EW_EXTERN EWMonthDay EWMonthDayPrevious(EWMonthDay md);
 EW_EXTERN NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d);
 EW_EXTERN EWMonthDay EWMonthDayFromDate(NSDate *theDate);
 EW_EXTERN BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d);

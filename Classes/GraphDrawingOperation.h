@@ -43,8 +43,8 @@ typedef struct {
 	UIImage *image;
 	NSMutableData *pointData;
 	NSUInteger dayCount;
-//	CGPoint headPoint;
-//	CGPoint tailPoint;
+	CGPoint headPoint;
+	CGPoint tailPoint;
 }
 + (void)drawCaptionForMonth:(EWMonth)month inContext:(CGContextRef)ctxt;
 @property (nonatomic) EWMonthDay beginMonthDay;

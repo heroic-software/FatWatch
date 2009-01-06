@@ -39,20 +39,37 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 }
 
 
-NSUInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB) {
-	const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+NSInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB) {
+	if (EWMonthDayGetMonth(mdB) == EWMonthDayGetMonth(mdA)) {
+		return EWMonthDayGetDay(mdB) - EWMonthDayGetDay(mdA);
+	}
 	NSDate *dateA = EWDateFromMonthDay(mdA);
 	NSDate *dateB = EWDateFromMonthDay(mdB);
-	return [dateB timeIntervalSinceDate:dateA] / kSecondsPerDay;
+	const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+	// Because of daylight savings, the difference might be slightly more or 
+	// less than a full day, so we must round.
+	return round([dateB timeIntervalSinceDate:dateA] / kSecondsPerDay);
 }
 
 
-EWMonthDay EWNextMonthDay(EWMonthDay md) {
+EWMonthDay EWMonthDayNext(EWMonthDay md) {
 	EWMonth month = EWMonthDayGetMonth(md);
-	if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
+	if (EWMonthDayGetDay(md) < 28) { // no month has fewer than 28 days
+		return md + 1;
+	} else if (EWMonthDayGetDay(md) < EWDaysInMonth(month)) {
 		return md + 1;
 	} else {
 		return EWMonthDayMake(month + 1, 1);
+	}
+}
+
+
+EWMonthDay EWMonthDayPrevious(EWMonthDay md) {
+	if (EWMonthDayGetDay(md) == 1) {
+		EWMonth newMonth = EWMonthDayGetMonth(md) - 1;
+		return EWMonthDayMake(newMonth, EWDaysInMonth(newMonth));
+	} else {
+		return md - 1;
 	}
 }
 

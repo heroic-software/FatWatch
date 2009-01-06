@@ -59,33 +59,49 @@
 	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 
 	Database *db = [Database sharedDatabase];
-	EWMonthDay mdStart, mdEnd;
+	EWMonthDay mdStart, mdStop;
 	
-	[db getEarliestMonthDay:&mdStart latestMonthDay:&mdEnd];
-	if (mdStart == 0 || mdEnd == 0) {
-		return;
+	[db getEarliestMonthDay:&mdStart latestMonthDay:&mdStop];
+	if (mdStart == 0 || mdStop == 0) {
+		return; // no data, nothing to draw!
 	}
 	
-	CGFloat x = 1;
+	CGFloat x;
 	
 	if (mdStart < beginMonthDay) {
 		// If we requested a start after actual data starts, start there.
+		x = 1;
 		mdStart = beginMonthDay;
+		// Compute head point, because there is earlier data.
+		EWMonthDay mdHead = [db monthDayOfWeightBefore:mdStart];
+		if (mdHead != 0) {
+			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
+			headPoint.y = [db trendWeightOnMonthDay:mdHead];
+			NSLog(@"Head: %f = %f + [%@ - %@]", headPoint.x, x, EWDateFromMonthDay(mdStart), EWDateFromMonthDay(mdHead));
+		}
 	} else {
 		// Otherwise, bump X to compensate.
-		x += EWDaysBetweenMonthDays(beginMonthDay, mdStart);
+		x = 1 + EWDaysBetweenMonthDays(beginMonthDay, mdStart);
+		// don't need to compute headPoint because there is no earlier data
 	}
 	
-	if (endMonthDay < mdEnd) {
+	if (endMonthDay < mdStop) {
 		// If we requested an end before data ends, stop there.
-		mdEnd = endMonthDay;
+		mdStop = endMonthDay;
+		// Compute tail point, because there is later data.
+		EWMonthDay mdTail = [db monthDayOfWeightAfter:mdStop];
+		if (mdTail != 0) {
+			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
+			tailPoint.y = [db trendWeightOnMonthDay:mdTail];
+			NSLog(@"Tail: %f = %f + [%@ - %@]", tailPoint.x, x, EWDateFromMonthDay(mdStart), EWDateFromMonthDay(mdTail));
+		}
 	}
 	
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	
 	MonthData *data = nil;
 	EWMonthDay md;
-	for (md = mdStart; md <= mdEnd; md = EWNextMonthDay(md)) {
+	for (md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
 		EWDay day = EWMonthDayGetDay(md);
 		if (data == nil || day == 1) {
 			data = [db dataForMonth:EWMonthDayGetMonth(md)];
@@ -113,7 +129,7 @@
 		CGRect dayRect = CGRectMake(0.5, p->minWeight, 1, h);
 		
 		EWMonthDay md;
-		for (md = beginMonthDay; md <= endMonthDay; md = EWNextMonthDay(md)) {
+		for (md = beginMonthDay; md <= endMonthDay; md = EWMonthDayNext(md)) {
 			if (EWMonthAndDayIsWeekend(EWMonthDayGetMonth(md), EWMonthDayGetDay(md))) {
 				CGPathAddRect(path, &p->t, dayRect);
 			}
@@ -214,25 +230,27 @@
 
 - (CGPathRef)createTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
-		
-//	if (headPoint.y > 0) {
-//		CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
-//		CGPathAddLineToPoint(path, &p->t, trendPoints[0].x, trendPoints[0].y);
-//	}
 	
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
-		CGPathMoveToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+		
+		if (headPoint.y > 0) {
+			CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
+			CGPathAddLineToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+		} else {
+			CGPathMoveToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+		}
+		
 		int k;
 		for (k = 1; k < gpCount; k++) {
 			CGPathAddLineToPoint(path, &p->t, gp[k].trend.x, gp[k].trend.y);
 		}
+
+		if (tailPoint.y > 0) {
+			CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
+		}
 	}
-	
-//	if (tailPoint.y > 0) {
-//		CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
-//	}
 	
 	return path;
 }
@@ -490,7 +508,9 @@
 	
 	if ([self isCancelled]) return;
 	
-	[delegate performSelectorOnMainThread:@selector(drawingOperationComplete:) withObject:self waitUntilDone:NO];
+	[delegate performSelectorOnMainThread:@selector(drawingOperationComplete:) 
+							   withObject:self
+							waitUntilDone:NO];
 }
 
 

@@ -299,6 +299,48 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 }
 
 
+- (float)trendWeightOnMonthDay:(EWMonthDay)md {
+	MonthData *data = [self dataForMonth:EWMonthDayGetMonth(md)];
+	return [data trendWeightOnDay:EWMonthDayGetDay(md)];
+}
+
+
+// Searches for a monthday before the given monthday where weight was recorded.
+// Will cross at most one month boundary.
+- (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)mdStart {
+	EWMonth monthStop = EWMonthDayGetMonth(mdStart) - 2;
+	EWMonthDay md = EWMonthDayPrevious(mdStart);
+	MonthData *data = [self dataForMonth:EWMonthDayGetMonth(md)];
+	while (monthStop < EWMonthDayGetMonth(md)) {
+		if (EWMonthDayGetMonth(md) != data.month) {
+			data = [self dataForMonth:EWMonthDayGetMonth(md)];
+		}
+		if ([data scaleWeightOnDay:EWMonthDayGetDay(md)] > 0) {
+			return md;
+		}
+		md = EWMonthDayPrevious(md);
+	}
+	return 0;
+}
+
+
+- (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)mdStart {
+	EWMonth monthStop = EWMonthDayGetMonth(mdStart) + 2;
+	EWMonthDay md = EWMonthDayNext(mdStart);
+	MonthData *data = [self dataForMonth:EWMonthDayGetMonth(md)];
+	while (EWMonthDayGetMonth(md) < monthStop) {
+		if (EWMonthDayGetMonth(md) != data.month) {
+			data = [self dataForMonth:EWMonthDayGetMonth(md)];
+		}
+		if ([data scaleWeightOnDay:EWMonthDayGetDay(md)] > 0) {
+			return md;
+		}
+		md = EWMonthDayNext(md);
+	}
+	return 0;
+}
+
+
 - (void)updateTrendValues {
 	NSLog(@"Updating trend values after monthday %d", earliestChangeMonthDay);
 	if (earliestChangeMonthDay != 0) {
