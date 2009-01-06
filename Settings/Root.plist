@@ -73,8 +73,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>ON_LAUNCH</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -108,10 +106,10 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>ShadeBMIZones</string>
+			<string>HighlightBMIZones</string>
 			<key>Title</key>
-			<string>SHADE_BMI_ZONES</string>
-			<key>Tyle</key>
+			<string>HIGHLIGHT_BMI_ZONES</string>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>

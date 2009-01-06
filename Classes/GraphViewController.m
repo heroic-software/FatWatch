@@ -80,6 +80,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)prepareBMIRegions {
 	if (! [EWGoal isBMIEnabled]) return;
+	
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightBMIZones"]) return;
 
 	float w0 = [WeightFormatters weightForBodyMassIndex:18.5];
 	float w1 = [WeightFormatters weightForBodyMassIndex:25.0];
