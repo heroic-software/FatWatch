@@ -72,7 +72,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
 
 	NSUInteger row, section;
-	section = latestMonth - earliestMonth;
+	section = latestMonth - earliestMonth + 1;
 	if (latestMonth == EWMonthDayGetMonth(today)) {
 		row = EWMonthDayGetDay(today) - 1;
 	} else {
@@ -87,13 +87,13 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (EWMonth)monthForSection:(NSInteger)section {
-	return earliestMonth + section;
+	return earliestMonth + (section - 1);
 }
 
 
 - (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
-	NSInteger section = MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
-							[self numberOfSectionsInTableView:tableView] - 1);
+	NSInteger section = 1 + MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
+								[self numberOfSectionsInTableView:tableView] - 1);
 	NSInteger row = MIN((EWMonthDayGetDay(monthday) - 1), 
 						[self tableView:tableView numberOfRowsInSection:section] - 1);
 	return [NSIndexPath indexPathForRow:row inSection:section];
@@ -110,8 +110,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
 	NSUInteger middleIndex = [indexPathArray count] / 2;
 	NSIndexPath *indexPath = [indexPathArray objectAtIndex:middleIndex];
-	return EWDateFromMonthAndDay([self monthForSection:[indexPath section]], 
-								 [indexPath row] + 1);
+	return EWDateFromMonthAndDay([self monthForSection:indexPath.section], 
+								 indexPath.row + 1);
 }
 
 
@@ -120,21 +120,19 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	
 	[auxControl setEnabled:[EWGoal isBMIEnabled] forSegmentAtIndex:kBMIAuxiliaryInfoType];
 	
-	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
-	if (tableSelection) {
-		[tableView deselectRowAtIndexPath:tableSelection animated:NO];
-	}
-
 	if (scrollDestination != 0) {
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
 						 atScrollPosition:UITableViewScrollPositionMiddle
 								 animated:animated];
 		scrollDestination = 0;
-	} else {
-//		EWMonthDay md = [LogViewController currentMonthDay];
-//		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:md]
-//						 atScrollPosition:UITableViewScrollPositionBottom
-//								 animated:animated];
+	}
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
+	if (tableSelection) {
+		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
 	}
 }
 
@@ -204,12 +202,14 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 #pragma mark UITableViewDataSource (Required)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return latestMonth - earliestMonth + 1;
+	return 1 + (latestMonth - earliestMonth + 1);
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == [lastIndexPath section]) {
+	if (section == 0) {
+		return 1;
+	} else if (section == [lastIndexPath section]) {
 		return [lastIndexPath row] + 1;
 	} else {
 		EWMonth month = [self monthForSection:section];
@@ -221,6 +221,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 #pragma mark UITableViewDataSource (Optional)
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 0) return nil;
 	EWMonth month = [self monthForSection:section];
 	NSDate *theDate = EWDateFromMonthAndDay(month, 1);
 	return [sectionTitleFormatter stringFromDate:theDate];
@@ -230,6 +231,21 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 #pragma mark UITableViewDelegate (Required)
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0) {
+		UITableViewCell *helpCell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+		helpCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+		UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+		helpLabel.text = NSLocalizedString(@"LOG_HELP_CELL", nil);
+		helpLabel.textColor = [UIColor darkGrayColor];
+		helpLabel.textAlignment = UITextAlignmentCenter;
+		helpLabel.adjustsFontSizeToFitWidth = YES;
+		[helpCell.contentView addSubview:helpLabel];
+		[helpLabel release];
+		
+		return [helpCell autorelease];
+	}
+	
 	LogTableViewCell *cell = nil;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
@@ -239,8 +255,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		cell = [[[LogTableViewCell alloc] init] autorelease];
 	}
 	
-	MonthData *monthData = [[Database sharedDatabase] dataForMonth:[self monthForSection:[indexPath section]]];
-	EWDay day = 1 + [indexPath row];
+	MonthData *monthData = [[Database sharedDatabase] dataForMonth:[self monthForSection:indexPath.section]];
+	EWDay day = 1 + indexPath.row;
 	[cell updateWithMonthData:monthData day:day];
 	
 	return cell;
@@ -250,14 +266,17 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 #pragma mark UITableViewDelegate (Optional)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	EWMonth month = [self monthForSection:[indexPath section]];
+	if (indexPath.section == 0) return;
+	
+	EWMonth month = [self monthForSection:indexPath.section];
 	MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
-	EWDay day = 1 + [indexPath row];
+	EWDay day = 1 + indexPath.row;
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
 	controller.monthData = monthData;
 	controller.day = day;
 	controller.weighIn = NO;
 	[self presentModalViewController:controller animated:YES];
 }
+
 
 @end
