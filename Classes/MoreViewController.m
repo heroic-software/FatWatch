@@ -20,7 +20,7 @@
 
 
 - (void)initMoreSection {
-	BRTableSection *moreSection = [[BRTableSection alloc] init];
+	BRTableSection *moreSection = [self addNewSection];
 	moreSection.headerTitle = NSLocalizedString(@"MORE_SECTION_TITLE", nil);
 	
 	BRTableButtonRow *chartRow = [[BRTableButtonRow alloc] init];
@@ -43,14 +43,11 @@
 	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
 	[bmiRow release];
-	
-	[self addSection:moreSection animated:NO];
-	[moreSection release];
 }
 
 
 - (void)initTransferSection {
-	BRTableSection *dataSection = [[BRTableSection alloc] init];
+	BRTableSection *dataSection = [self addNewSection];
 	dataSection.headerTitle = NSLocalizedString(@"TRANSFER_SECTION_TITLE", nil);
 	
 	BRTableSwitchRow *webServerRow = [[BRTableSwitchRow alloc] init];
@@ -59,18 +56,14 @@
 	webServerRow.key = @"webServerEnabled";
 	[dataSection addRow:webServerRow animated:NO];
 	[webServerRow release];
-	
-	[self addSection:dataSection animated:NO];
-	[dataSection release];
 }
 
 
 - (void)initSupportSection {
-	BRTableSection *supportSection = [[BRTableSection alloc] init];
-	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
-
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-	
+
+	BRTableSection *supportSection = [self addNewSection];
+	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
 	supportSection.footerTitle = [infoDictionary objectForKey:@"NSHumanReadableCopyright"];
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
@@ -90,8 +83,12 @@
 	[supportSection addRow:emailRow animated:NO];
 	[emailRow release];
 	
-	[self addSection:supportSection animated:NO];
-	[supportSection release];
+	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
+	reviewRow.title = NSLocalizedString(@"WRITE_A_REVIEW", nil);
+	reviewRow.titleAlignment = UITextAlignmentCenter;
+	reviewRow.object = [NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=285580720&mt=8"];
+	[supportSection addRow:reviewRow animated:NO];
+	[reviewRow release];
 }
 
 
