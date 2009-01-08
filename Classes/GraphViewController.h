@@ -32,6 +32,7 @@
 	int lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
 	NSOperationQueue *queue;
+	CGPoint scrollingSpanSavedOffset;
 }
 - (void)clearGraphViewInfo;
 - (IBAction)spanSelected:(UISegmentedControl *)sender;

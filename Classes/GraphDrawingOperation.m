@@ -57,17 +57,18 @@
 - (void)computePoints {
 
 	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
-
-	Database *db = [Database sharedDatabase];
-	EWMonthDay mdStart, mdStop;
 	
-	[db getEarliestMonthDay:&mdStart latestMonthDay:&mdStop];
+	EWMonthDay mdStart = p->mdEarliest;
+	EWMonthDay mdStop = p->mdLatest;
+	
 	if (mdStart == 0 || mdStop == 0) {
 		return; // no data, nothing to draw!
 	}
 	
 	CGFloat x;
 	
+	Database *db = [Database sharedDatabase];
+
 	if (mdStart < beginMonthDay) {
 		// If we requested a start after actual data starts, start there.
 		x = 1;

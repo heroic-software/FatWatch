@@ -37,8 +37,7 @@
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-	// calling in viewWillAppear doesn't seem to work :-(
+- (void)viewWillAppear:(BOOL)animated {
 	[datePicker setDate:initialDate animated:animated];
 }
 

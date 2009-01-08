@@ -20,6 +20,8 @@ typedef struct {
 	float gridIncrementWeight;
 	CGAffineTransform t;
 	NSArray *regions;
+	EWMonthDay mdEarliest;
+	EWMonthDay mdLatest;
 } GraphViewParameters;
 
 

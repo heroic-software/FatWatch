@@ -21,7 +21,7 @@
 @end
 
 
-EWMonthDay gCurrentMonthDay = 0; // for sync with chart
+static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 @implementation LogViewController
@@ -154,9 +154,12 @@ EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[self stopObservingDatabase];
-	NSIndexPath *path = [[tableView indexPathsForVisibleRows] lastObject];
-	EWMonthDay md = [self monthDayForIndexPath:path];
-	[LogViewController setCurrentMonthDay:md];
+	NSArray *visibleRows = [tableView indexPathsForVisibleRows];
+	if ([visibleRows count] > 0) {
+		NSIndexPath *path = [visibleRows objectAtIndex:0];
+		EWMonthDay md = [self monthDayForIndexPath:path];
+		[LogViewController setCurrentMonthDay:md];
+	}
 }
 
 

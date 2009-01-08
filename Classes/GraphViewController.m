@@ -53,6 +53,11 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[queue cancelAllOperations];
 	[queue waitUntilAllOperationsAreFinished];
 	
+	if (infoCount > 1) {
+		// If we are switching away from the 'Browse' view, save the offset
+		scrollingSpanSavedOffset = scrollView.contentOffset;
+	}
+
 	int i;
 	for (i = 0; i < infoCount; i++) {
 		UIView *view = info[i].view;
@@ -129,6 +134,28 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	}
 	
 	parameters.regions = [regions copy];
+}
+
+
+#pragma mark Sync Scrolling
+
+
+- (void)syncScrollViewToLogView {
+	EWMonthDay md = [LogViewController currentMonthDay];
+	if (md == 0) {
+		[scrollView setContentOffset:scrollingSpanSavedOffset animated:NO];
+		return;
+	}
+	
+	EWMonth month = EWMonthDayGetMonth(md);
+	int i = month - EWMonthDayGetMonth(info[0].beginMonthDay);
+	CGFloat offsetDay = EWMonthDayGetDay(md) / EWDaysInMonth(month);
+
+	CGRect scrollRect = scrollView.bounds;
+	scrollRect.origin.x = info[i].offsetX + offsetDay;
+	[scrollView scrollRectToVisible:scrollRect animated:NO];
+	
+	[LogViewController setCurrentMonthDay:0];
 }
 
 
@@ -223,6 +250,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	t = CGAffineTransformTranslate(t, -0.5, -parameters.minWeight);
 	parameters.t = t;
 	
+	[db getEarliestMonthDay:&parameters.mdEarliest latestMonthDay:&parameters.mdLatest];
+	
 	info = malloc(infoCount * sizeof(struct GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
@@ -248,6 +277,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 		CGSize totalSize = CGSizeMake(x, graphHeight);
 		scrollView.contentSize = totalSize;
+		[self syncScrollViewToLogView];
 	} else {
 		info[0].beginMonthDay = beginMonthDay;
 		info[0].endMonthDay = endMonthDay;
@@ -258,6 +288,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		info[0].operation = nil;
 		
 		scrollView.contentSize = scrollView.bounds.size;
+		[scrollView setContentOffset:CGPointZero animated:NO];
 	}
 	
 	lastMinIndex = -1;
@@ -267,6 +298,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)viewDidLoad {
 	[axisView useParameters:&parameters];
+	spanControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"ChartSelectedSpanIndex"];
 }
 
 
@@ -450,9 +482,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 }
 
 
-#pragma mark Sync Scrolling
-
-
 - (void)viewWillAppear:(BOOL)animated {
 	[self startObservingDatabase];
 }
@@ -468,6 +497,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
 		[scrollView flashScrollIndicators];
 	}
+	[[NSUserDefaults standardUserDefaults] setInteger:spanControl.selectedSegmentIndex 
+											   forKey:@"ChartSelectedSpanIndex"];
 }
 
 @end
