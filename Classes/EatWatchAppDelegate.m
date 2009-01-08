@@ -98,6 +98,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	UINavigationController *goalNavController = [[[UINavigationController alloc] initWithRootViewController:goalController] autorelease];
 	
 	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+	tabBarController.delegate = self;
 	tabBarController.viewControllers = [NSArray arrayWithObjects:logController, trendController, goalNavController, moreController, nil];
 
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
@@ -110,30 +111,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	[window addSubview:rootViewController.view];
 	
 	[self autoWeighInIfEnabled];
-}
-
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-	[self registerDefaults];
-	Database *db = [Database sharedDatabase];
-	[db openAtPath:[self pathOfDatabase]];
-	[db upgradeIfNeeded];
-	
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-	if ([PasscodeEntryViewController authorizationRequired]) {
-		UIViewController *passcodeController = [PasscodeEntryViewController controllerForAuthorization];
-		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
-		[window addSubview:passcodeController.view];
-	} else if ([[Database sharedDatabase] weightCount] == 0) {
-		// This is a new data file.
-		// Prompt user to choose weight unit.
-		UIViewController *newDbController = [[NewDatabaseViewController alloc] init];
-		[window addSubview:newDbController.view];
-	} else {
-		[self setupRootView];
-	}
-    [window makeKeyAndVisible];
 }
 
 
@@ -150,19 +127,53 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-	[[Database sharedDatabase] close];
-	
-	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
-}
-
 
 - (void)dealloc {
     [window release];
     [rootViewController release];
     [super dealloc];
 }
+
+
+#pragma mark UIApplicationDelegate
+
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[self registerDefaults];
+	Database *db = [Database sharedDatabase];
+	[db openAtPath:[self pathOfDatabase]];
+	[db upgradeIfNeeded];
+	
+	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	
+	if ([PasscodeEntryViewController authorizationRequired]) {
+		UIViewController *passcodeController = [PasscodeEntryViewController controllerForAuthorization];
+		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
+		[window addSubview:passcodeController.view];
+	} else if ([[Database sharedDatabase] weightCount] == 0) {
+		// This is a new data file.
+		// Prompt user to choose weight unit.
+		UIViewController *newDbController = [[NewDatabaseViewController alloc] init];
+		[window addSubview:newDbController.view];
+	} else {
+		[self setupRootView];
+	}
+    [window makeKeyAndVisible];
+}
+
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+	[[Database sharedDatabase] close];
+}
+
+
+#pragma mark UITabBarControllerDelegate
+
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
+}
+
 
 @end

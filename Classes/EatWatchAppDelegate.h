@@ -10,7 +10,7 @@
 
 @class RootViewController;
 
-@interface EatWatchAppDelegate : NSObject <UIApplicationDelegate> {
+@interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	RootViewController *rootViewController;
 }

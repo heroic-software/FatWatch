@@ -70,7 +70,7 @@
 	BRTableRadioSection *incrementSection = (BRTableRadioSection *)[self sectionAtIndex:2];
 	[WeightFormatters setSelectedScaleIncrementIndex:incrementSection.selectedIndex];
 
-	EatWatchAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchView:self.view transitionType:kCATransitionPush subType:kCATransitionFromRight];
 	[self autorelease];
 }

@@ -227,7 +227,7 @@ NSString *kPasscodeKey = @"Passcode";
 		return;
 	}
 	
-	EatWatchAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchView:self.view transitionType:kCATransitionReveal subType:kCATransitionFromTop];
 	[self autorelease];
 }
