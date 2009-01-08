@@ -33,11 +33,7 @@
 - (void)viewDidLoad {
 	datePicker.minimumDate = [NSDate distantPast];
 	datePicker.maximumDate = [NSDate date];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	[datePicker setDate:initialDate animated:animated];
+	[datePicker setDate:initialDate animated:NO];
 }
 
 
