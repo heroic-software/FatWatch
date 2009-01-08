@@ -31,7 +31,6 @@
 
 
 - (void)viewDidLoad {
-	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	datePicker.minimumDate = [NSDate distantPast];
 	datePicker.maximumDate = [NSDate date];
 }
