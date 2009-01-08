@@ -62,6 +62,7 @@
 		BC9475C90E7F2CBA00929185 /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BC9475CA0E7F2CC300929185 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC9475CC0E7F2CCB00929185 /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
+		BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */; };
 		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
 		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
@@ -206,6 +207,8 @@
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; };
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWDateTest.m; path = Classes/EWDateTest.m; sourceTree = "<group>"; };
+		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRoundRectView.h; path = BRViews/BRRoundRectView.h; sourceTree = "<group>"; };
+		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRoundRectView.m; path = BRViews/BRRoundRectView.m; sourceTree = "<group>"; };
 		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
 		BC9BDE980DA9CB550004E70C /* MonthData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthData.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BC9A2E820F15B41B00A284E7 /* BRViews */,
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
@@ -456,6 +460,15 @@
 				BCF329740EFF629500D31E49 /* GraphView.xib */,
 			);
 			name = Chart;
+			sourceTree = "<group>";
+		};
+		BC9A2E820F15B41B00A284E7 /* BRViews */ = {
+			isa = PBXGroup;
+			children = (
+				BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */,
+				BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */,
+			);
+			name = BRViews;
 			sourceTree = "<group>";
 		};
 		BCABE0470DD9372000DE580A /* Log */ = {
@@ -810,6 +823,7 @@
 				BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */,
 				BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */,
 				BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */,
+				BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
