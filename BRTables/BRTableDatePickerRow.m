@@ -94,7 +94,7 @@
 - (void)loadView {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+	view.backgroundColor = [UIColor colorWithRed:0.158739604791 green:0.165285725185 blue:0.220828564889 alpha:1];
 	
 	UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
 	datePicker.tag = 411;
