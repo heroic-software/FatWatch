@@ -77,7 +77,6 @@
 		if (mdHead != 0) {
 			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
 			headPoint.y = [db trendWeightOnMonthDay:mdHead];
-			NSLog(@"Head: %f = %f + [%@ - %@]", headPoint.x, x, EWDateFromMonthDay(mdStart), EWDateFromMonthDay(mdHead));
 		}
 	} else {
 		// Otherwise, bump X to compensate.
@@ -93,7 +92,6 @@
 		if (mdTail != 0) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
 			tailPoint.y = [db trendWeightOnMonthDay:mdTail];
-			NSLog(@"Tail: %f = %f + [%@ - %@]", tailPoint.x, x, EWDateFromMonthDay(mdStart), EWDateFromMonthDay(mdTail));
 		}
 	}
 	
