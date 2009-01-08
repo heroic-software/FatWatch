@@ -36,7 +36,6 @@ extern NSString *EWDatabaseDidChangeNotification;
 @property (nonatomic,readonly) EWMonth latestMonth; // from cache
 
 - (void)openAtPath:(NSString *)path;
-- (void)open;
 - (void)close;
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (void)executeSQL:(const char *)sql;
@@ -50,5 +49,6 @@ extern NSString *EWDatabaseDidChangeNotification;
 - (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)md;
 - (void)commitChanges;
 - (void)deleteWeights;
+- (void)upgradeIfNeeded;
 
 @end

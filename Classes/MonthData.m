@@ -257,20 +257,20 @@ static sqlite3_stmt *data_for_month_stmt = nil;
 				
 				sqlite3_bind_int(insert_stmt, kFlagColumnIndex + 1, dd->flags);
 				
-				if (dd->note != nil) {
+				if ((dd->note != nil) && ([dd->note length] > 0)) {
 					sqlite3_bind_text(insert_stmt, kNoteColumnIndex + 1, [dd->note UTF8String], -1, SQLITE_STATIC);
 				} else {
 					sqlite3_bind_null(insert_stmt, kNoteColumnIndex + 1);
 				}
 				
-				int retcode = sqlite3_step(insert_stmt);
+				int r = sqlite3_step(insert_stmt);
 				sqlite3_reset(insert_stmt);
-				NSAssert1(retcode == SQLITE_DONE, @"INSERT returned code %d", retcode);
+				NSAssert1(r == SQLITE_DONE, @"INSERT failed: %s", sqlite3_errmsg(sqlite3_db_handle(insert_stmt)));
 			} else {
 				sqlite3_bind_int(delete_stmt, 1, EWMonthDayMake(month, day));
-				int retcode = sqlite3_step(delete_stmt);
+				int r = sqlite3_step(delete_stmt);
 				sqlite3_reset(delete_stmt);
-				NSAssert1(retcode == SQLITE_DONE, @"DELETE returned code %d", retcode);
+				NSAssert1(r == SQLITE_DONE, @"DELETE failed: %s", sqlite3_errmsg(sqlite3_db_handle(delete_stmt)));
 			}
 		}
 		i++;

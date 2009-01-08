@@ -27,10 +27,12 @@
 #import "GraphViewController.h"
 
 
-NSString *kSelectedTabIndex = @"SelectedTabIndex";
+static NSString *kWeightDatabaseName = @"WeightData.db";
+static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 @implementation EatWatchAppDelegate
+
 
 - (void)registerDefaults {
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"];
@@ -38,6 +40,35 @@ NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
 	[dict release];
+}
+
+
+- (NSString *)pathOfDatabase {
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSAssert([paths count], @"Failed to find Documents directory.");
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+
+	// Workaround for Beta issue where Documents directory is not created during install.
+    if (! [fileManager fileExistsAtPath:documentsDirectory]) {
+        BOOL success = [fileManager createDirectoryAtPath:documentsDirectory attributes:nil];
+		NSAssert(success, @"Failed to create Documents directory.");
+    }
+    
+    NSString *databasePath = [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
+	
+	if (! [fileManager fileExistsAtPath:databasePath]) {
+		NSLog(@"Database file not found, creating a new database.");
+		// The writable database does not exist, so copy the template to the appropriate location.
+		NSString *templatePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kWeightDatabaseName];
+		success = [fileManager copyItemAtPath:templatePath toPath:databasePath error:&error];
+		NSAssert1(success, @"Failed to create database: %@", [error localizedDescription]);
+	}
+
+	return databasePath;
 }
 
 
@@ -84,8 +115,9 @@ NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[self registerDefaults];
-	
-	[[Database sharedDatabase] open];
+	Database *db = [Database sharedDatabase];
+	[db openAtPath:[self pathOfDatabase]];
+	[db upgradeIfNeeded];
 	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
