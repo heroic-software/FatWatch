@@ -98,14 +98,6 @@
 		UITabBarItem *item = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0];
 		self.tabBarItem = item;
 		[item release];
-		
-		webServer = [[MicroWebServer alloc] init];
-		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
-		webServer.delegate = [[WebServerDelegate alloc] init];
-
-		[self initMoreSection];
-		[self initTransferSection];
-		[self initSupportSection];
 	}
 	return self;
 }
@@ -119,6 +111,15 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	if (webServer == nil) {
+		webServer = [[MicroWebServer alloc] init];
+		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
+		webServer.delegate = [[WebServerDelegate alloc] init];
+
+		[self initMoreSection];
+		[self initTransferSection];
+		[self initSupportSection];
+	}
 	[self.tableView reloadData];
 }
 
