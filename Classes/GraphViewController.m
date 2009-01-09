@@ -60,22 +60,14 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 	int i;
 	for (i = 0; i < infoCount; i++) {
-		UIView *view = info[i].view;
-		if (view) {
-			[view removeFromSuperview];
-			[view release];
-		}
-		UIImage *image = info[i].image;
-		if (image) {
-			[image release];
-		}
-		GraphDrawingOperation *operation = info[i].operation;
-		if (operation) {
-			[operation cancel];
-			[operation release];
-		}
+		GraphViewInfo *ginfo = &info[i];
+		[ginfo->view removeFromSuperview];
+		[ginfo->view release];
+		CGImageRelease(ginfo->imageRef);
+		[ginfo->operation cancel];
 	}
 	free(info);
+	info = NULL;
 	infoCount = 0;
 	
 	[parameters.regions release];
@@ -216,14 +208,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		maxWeight = 160;
 	}
 	
-	/*
-	float goalWeight = [[EWGoal sharedGoal] endWeight];
-	if (goalWeight > 0) {
-		if (goalWeight < minWeight) minWeight = goalWeight;
-		if (goalWeight > maxWeight) maxWeight = goalWeight;
-	}
-	*/
-	
 	if ((maxWeight - minWeight) < 0.01) {
 		minWeight -= 1;
 		maxWeight += 1;
@@ -252,7 +236,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	
 	[db getEarliestMonthDay:&parameters.mdEarliest latestMonthDay:&parameters.mdLatest];
 	
-	info = malloc(infoCount * sizeof(struct GraphViewInfo));
+	info = malloc(infoCount * sizeof(GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
@@ -268,15 +252,14 @@ const CGFloat kGraphMarginBottom = 16.0f;
 			info[i].offsetX = x;
 			info[i].width = w; 
 			info[i].view = nil;
-			info[i].image = nil;
+			info[i].imageRef = NULL;
 			info[i].operation = nil;
 			
 			m += 1;
 			x += w;
 		}
 
-		CGSize totalSize = CGSizeMake(x, graphHeight);
-		scrollView.contentSize = totalSize;
+		scrollView.contentSize = CGSizeMake(x, graphHeight);
 		[self syncScrollViewToLogView];
 	} else {
 		info[0].beginMonthDay = beginMonthDay;
@@ -284,7 +267,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		info[0].offsetX = 0;
 		info[0].width = CGRectGetWidth(scrollView.bounds);
 		info[0].view = nil;
-		info[0].image = nil;
+		info[0].imageRef = NULL;
 		info[0].operation = nil;
 		
 		scrollView.contentSize = scrollView.bounds.size;
@@ -334,16 +317,13 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[super didReceiveMemoryWarning];
 	int index;
 	for (index = 0; index < infoCount; index++) {
-		struct GraphViewInfo *ginfo = &info[index];
-		if (ginfo->view == nil && ginfo->image != nil) {
-			[ginfo->image release];
-			ginfo->image = nil;
+		GraphViewInfo *ginfo = &info[index];
+		if (ginfo->view == nil && ginfo->imageRef != NULL) {
+			CGImageRelease(ginfo->imageRef);
+			ginfo->imageRef = NULL;
 		}
 	}
 }
-
-
-#pragma mark UIScrollViewDelegate
 
 
 - (int)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
@@ -381,17 +361,15 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)cacheViewAtIndex:(int)index {
 	if (index < 0 || index >= infoCount) return;
-	struct GraphViewInfo *ginfo = &info[index];
+	GraphViewInfo *ginfo = &info[index];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
-		[ginfo->view setImage:nil];
 		[ginfo->view release];
 		ginfo->view = nil;
 
 		// if we haven't started rendering, don't bother
 		if (ginfo->operation != nil && ![ginfo->operation isExecuting]) {
 			[ginfo->operation cancel];
-			[ginfo->operation release];
 			ginfo->operation = nil;
 		}
 	}
@@ -399,14 +377,13 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (void)updateViewAtIndex:(int)index {
-	struct GraphViewInfo *ginfo = &info[index];
+	GraphViewInfo *ginfo = &info[index];
 
-	[ginfo->view setBeginMonthDay:ginfo->beginMonthDay endMonthDay:ginfo->endMonthDay];
-	[ginfo->view setImage:ginfo->image];
+	[ginfo->view setMonth:(infoCount > 1) ? EWMonthDayGetMonth(ginfo->beginMonthDay) : EWMonthNone];
+	[ginfo->view setImage:ginfo->imageRef];
+	[ginfo->view setNeedsDisplay];
 	
-	if (ginfo->image == nil && ginfo->operation == nil) {
-		[ginfo->view setImage:nil];
-		
+	if (ginfo->imageRef == NULL && ginfo->operation == nil) {
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
 		operation.delegate = self;
 		operation.index = index;
@@ -417,19 +394,46 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		
 		ginfo->operation = operation;
 		[queue addOperation:operation];
+		[operation release];
 	}
 }
 
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
-	struct GraphViewInfo *ginfo = &info[operation.index];
-	ginfo->image = [operation.image retain];
-	ginfo->operation = nil;
-	if (ginfo->view) {
-		[ginfo->view setImage:ginfo->image];
+	GraphViewInfo *ginfo = &info[operation.index];
+	if (ginfo->operation == operation && ![operation isCancelled]) {
+		CGImageRelease(ginfo->imageRef);
+		ginfo->imageRef = CGImageRetain(operation.imageRef);
+		if (ginfo->view) {
+			[ginfo->view setImage:ginfo->imageRef];
+			[ginfo->view setNeedsDisplay];
+		}
+		ginfo->operation = nil;
 	}
-	[operation release];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self startObservingDatabase];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self stopObservingDatabase];
+}
+
+
+- (IBAction)spanSelected:(UISegmentedControl *)sender {
+	[self databaseDidChange:nil];
+	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
+		[scrollView flashScrollIndicators];
+	}
+	[[NSUserDefaults standardUserDefaults] setInteger:spanControl.selectedSegmentIndex 
+											   forKey:@"ChartSelectedSpanIndex"];
+}
+
+
+#pragma mark UIScrollViewDelegate
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
@@ -461,7 +465,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 
 	for (index = minIndex; index <= maxIndex; index++) {
-		struct GraphViewInfo *ginfo = &info[index];
+		GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];
 			if (view) {
@@ -481,24 +485,5 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	lastMaxIndex = maxIndex;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated {
-	[self startObservingDatabase];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[self stopObservingDatabase];
-}
-
-
-- (IBAction)spanSelected:(UISegmentedControl *)sender {
-	[self databaseDidChange:nil];
-	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
-		[scrollView flashScrollIndicators];
-	}
-	[[NSUserDefaults standardUserDefaults] setInteger:spanControl.selectedSegmentIndex 
-											   forKey:@"ChartSelectedSpanIndex"];
-}
 
 @end

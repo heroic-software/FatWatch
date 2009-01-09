@@ -14,19 +14,23 @@
 
 @class YAxisView;
 
+
+typedef struct {
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
+	CGFloat offsetX;
+	CGFloat width;
+	GraphView *view;
+	CGImageRef imageRef;
+	GraphDrawingOperation *operation;
+} GraphViewInfo;
+
+
 @interface GraphViewController : UIViewController <UIScrollViewDelegate> {
 	IBOutlet YAxisView *axisView;
 	IBOutlet UIScrollView *scrollView;
 	IBOutlet UISegmentedControl *spanControl;
-	struct GraphViewInfo {
-		EWMonthDay beginMonthDay;
-		EWMonthDay endMonthDay;
-		CGFloat offsetX;
-		CGFloat width;
-		GraphView *view;
-		UIImage *image;
-		GraphDrawingOperation *operation;
-	} *info;
+	GraphViewInfo *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
 	int lastMinIndex, lastMaxIndex;

@@ -14,6 +14,7 @@
 
 
 @synthesize image;
+@synthesize month;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -21,22 +22,6 @@
 		self.backgroundColor = [UIColor whiteColor];
 	}
 	return self;
-}
-
-
-- (void)setImage:(UIImage *)newImage {
-	if (image != newImage) {
-		[image release];
-		image = [newImage retain];
-		[self setNeedsDisplay];
-	}
-}
-
-
-- (void)setBeginMonthDay:(EWMonthDay)mdBegin endMonthDay:(EWMonthDay)mdEnd {
-	beginMonthDay = mdBegin;
-	endMonthDay = mdEnd;
-	[self setNeedsDisplay];
 }
 
 
@@ -48,9 +33,22 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 }
 
 
+- (void)setImage:(CGImageRef)newImage {
+	if (image != newImage) {
+		CGImageRetain(newImage);
+		CGImageRelease(image);
+		image = newImage;
+	}
+}
+
+
 - (void)drawRect:(CGRect)rect {
-	if (image) {
-		[image drawAtPoint:CGPointZero];
+	if (image != NULL) {
+		CGRect bounds = self.bounds;
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextTranslateCTM(context, 0, CGRectGetHeight(bounds));
+		CGContextScaleCTM(context, 1, -1);
+		CGContextDrawImage(context, bounds, image);
 	} else {
 		static CGPatternRef pattern = NULL;
 		
@@ -70,11 +68,16 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGContextFillRect(ctxt, self.bounds);
 		CGColorSpaceRelease(space);
 
-		EWMonth month = EWMonthDayGetMonth(beginMonthDay);
-		if (EWMonthDayGetDay(beginMonthDay) == 1 && EWMonthDayGetMonth(endMonthDay) == month) {
+		if (month != EWMonthNone) {
 			[GraphDrawingOperation drawCaptionForMonth:month inContext:ctxt];
 		}
 	}
+}
+
+
+- (void)dealloc {
+	CGImageRelease(image);
+	[super dealloc];
 }
 
 

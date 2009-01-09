@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
 
+#define EWMonthNone NSIntegerMin
+
 @interface GraphView : UIView {
-	EWMonthDay beginMonthDay;
-	EWMonthDay endMonthDay;
-	UIImage *image;
+	EWMonth month;
+	CGImageRef image;
 }
-@property (nonatomic,retain) UIImage *image;
-- (void)setBeginMonthDay:(EWMonthDay)mdBegin endMonthDay:(EWMonthDay)mdEnd;
+@property (nonatomic) CGImageRef image;
+@property (nonatomic) EWMonth month;
 @end

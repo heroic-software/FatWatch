@@ -42,7 +42,7 @@ typedef struct {
 	EWMonthDay endMonthDay;
 	GraphViewParameters *p;
 	CGRect bounds;
-	UIImage *image;
+	CGImageRef imageRef;
 	NSMutableData *pointData;
 	NSUInteger dayCount;
 	CGPoint headPoint;
@@ -55,7 +55,7 @@ typedef struct {
 @property (nonatomic) int index;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
-@property (nonatomic,readonly) UIImage *image;
+@property (nonatomic,readonly) CGImageRef imageRef;
 @end
 
 

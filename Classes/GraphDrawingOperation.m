@@ -20,7 +20,7 @@
 @synthesize index;
 @synthesize p;
 @synthesize bounds;
-@synthesize image;
+@synthesize imageRef;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
 
@@ -492,9 +492,7 @@
 		CGPathRelease(goalPath);
 	}
 	
-    CGImageRef imageRef = CGBitmapContextCreateImage(ctxt);
-	image = [[UIImage alloc] initWithCGImage:imageRef];
-	CGImageRelease(imageRef);
+    imageRef = CGBitmapContextCreateImage(ctxt);
 
 	void *bitmapData = CGBitmapContextGetData(ctxt); 
     CGContextRelease(ctxt);
@@ -505,8 +503,6 @@
 	[NSThread sleepForTimeInterval:0.5];
 #endif
 	
-	if ([self isCancelled]) return;
-	
 	[delegate performSelectorOnMainThread:@selector(drawingOperationComplete:) 
 							   withObject:self
 							waitUntilDone:NO];
@@ -514,7 +510,7 @@
 
 
 - (void)dealloc {
-	[image release];
+	CGImageRelease(imageRef);
 	[pointData release];
 	[super dealloc];
 }
