@@ -102,16 +102,6 @@
 		BCFE4CA30E761A1B0090B81B /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		BC3B21530F17E67F00E9CEE2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BCFE4C560E7616E60090B81B;
-			remoteInfo = "Unit Tests";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		BC263C330DB56AF9007D03F4 /* Copy Files into Settings */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -627,7 +617,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				BC3B21540F17E67F00E9CEE2 /* PBXTargetDependency */,
 			);
 			name = FatWatch;
 			productName = EatWatch;
@@ -871,14 +860,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		BC3B21540F17E67F00E9CEE2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BCFE4C560E7616E60090B81B /* Unit Tests */;
-			targetProxy = BC3B21530F17E67F00E9CEE2 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */ = {
 			isa = PBXVariantGroup;
@@ -966,11 +947,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_ID = DEVBUILD;
+				BUILD_NUMBER = 0000;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FF9825CD-E8E9-4314-BCC7-DD0D11A5395B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD269AEC-3E91-4F92-9D54-A6D313E9BB68";
 				SDKROOT = iphoneos2.1;
 			};
 			name = AdHoc;
@@ -1086,7 +1067,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_ID = DEVBUILD;
+				BUILD_NUMBER = 0000;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
