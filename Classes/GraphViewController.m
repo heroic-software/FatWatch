@@ -65,6 +65,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		[ginfo->view release];
 		CGImageRelease(ginfo->imageRef);
 		[ginfo->operation cancel];
+		[ginfo->operation release];
 	}
 	free(info);
 	info = NULL;
@@ -370,6 +371,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		// if we haven't started rendering, don't bother
 		if (ginfo->operation != nil && ![ginfo->operation isExecuting]) {
 			[ginfo->operation cancel];
+			[ginfo->operation release];
 			ginfo->operation = nil;
 		}
 	}
@@ -394,7 +396,6 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		
 		ginfo->operation = operation;
 		[queue addOperation:operation];
-		[operation release];
 	}
 }
 
@@ -408,6 +409,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 			[ginfo->view setImage:ginfo->imageRef];
 			[ginfo->view setNeedsDisplay];
 		}
+		[ginfo->operation release];
 		ginfo->operation = nil;
 	}
 }
@@ -420,6 +422,11 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[self stopObservingDatabase];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[self clearGraphViewInfo];
 }
 
 
