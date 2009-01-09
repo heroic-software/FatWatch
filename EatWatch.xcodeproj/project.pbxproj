@@ -57,6 +57,7 @@
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
 		BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */; };
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
+		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
 		BC9475C90E7F2CBA00929185 /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
@@ -203,6 +204,7 @@
 		BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServerDelegate.m; path = Classes/WebServerDelegate.m; sourceTree = "<group>"; };
 		BC8B86120DDF9D5A00045F01 /* CSVReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVReader.h; path = Classes/CSVReader.h; sourceTree = "<group>"; };
 		BC8B86130DDF9D5A00045F01 /* CSVReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVReader.m; path = Classes/CSVReader.m; sourceTree = "<group>"; };
+		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
+				BC909D660F16F8CC0090472C /* Default.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC65EBB40DEBA6140008E677 /* Localizable.strings */,
@@ -681,6 +684,7 @@
 				BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */,
 				BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */,
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
+				BC909D670F16F8CC0090472C /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
