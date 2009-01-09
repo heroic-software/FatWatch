@@ -16,7 +16,7 @@ const NSInteger kReferenceDay = 1;
 
 NSUInteger EWDaysInMonth(EWMonth m) {
 	static NSUInteger dayCount[12] = {
-		31,  0, 31, // Jan Feb Mar
+		31, 28, 31, // Jan Feb Mar
 		30, 31, 30, // Apr May Jun
 		31, 31, 30, // Jul Aug Sep
 		31, 30, 31  // Oct Nov Dec
@@ -25,17 +25,15 @@ NSUInteger EWDaysInMonth(EWMonth m) {
 	NSInteger m0 = (m % 12);
 
 	if (m0 < 0) m0 += 12;
-
+	
 	if (m0 == 1) {
 		NSInteger year = (24012 + m) / 12; 	// 0 = 2001-01
 		if (((year % 4 == 0) && (year % 100) != 0) || ((year % 400) == 0)) {
 			return 29;
-		} else {
-			return 28;
 		}
-	} else {
-		return dayCount[m0];
 	}
+	
+	return dayCount[m0];
 }
 
 
@@ -117,13 +115,8 @@ EWMonthDay EWMonthDayToday() {
 
 
 BOOL EWMonthAndDayIsWeekend(EWMonth m, EWDay d) {
-	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-
-	NSDate *date = EWDateFromMonthAndDay(m, d);
-	NSDateComponents *comps = [calendar components:NSWeekdayCalendarUnit fromDate:date];
-
-	[calendar release];
-	return (comps.weekday == 1 || comps.weekday == 7);
+	NSUInteger weekday = EWWeekdayFromMonthAndDay(m, d);
+	return (weekday == 1 || weekday == 7);
 }
 
 

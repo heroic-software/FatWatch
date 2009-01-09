@@ -13,6 +13,7 @@
 
 @interface DatabaseTest : SenTestCase
 {
+	Database *testdb;
 	NSUInteger changeCount;
 }
 @end
@@ -21,7 +22,7 @@
 @implementation DatabaseTest
 
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
-	MonthData *md = [[Database sharedDatabase] dataForMonth:month];
+	MonthData *md = [testdb dataForMonth:month];
 	[md setScaleWeight:weight flag:NO note:nil onDay:day];
 }
 
@@ -34,24 +35,21 @@
 - (void)commitDatabase {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	NSUInteger oldChangeCount = changeCount;
-	[[Database sharedDatabase] commitChanges];
+	[testdb commitChanges];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	STAssertTrue(oldChangeCount != changeCount, @"change count must change");
 }
 
 
 - (void)openDatabase {
-	NSString *srcPath = @"/Build/Products/Debug/UnitTests.octest/WeightData.db";
-	//[[NSBundle mainBundle] pathForResource:@"WeightData" ofType:@"db"];
-	NSLog(@"source database: %@", srcPath);
-	NSString *dstPath = @"test.db";
-	[[NSFileManager defaultManager] removeItemAtPath:dstPath error:nil];
-	BOOL didCopy = [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:dstPath error:nil];
-	STAssertTrue(didCopy, @"must copy");
+	testdb = [[Database alloc] init];
+
+	NSString *initSQL = [[NSString alloc] initWithContentsOfFile:@"CreateEmptyDatabase.sql"];
+	STAssertTrue([initSQL length] > 0, @"Initial SQL source must not be empty");
+	[testdb openInMemoryWithSQL:[initSQL UTF8String]];
+	[initSQL release];
 	
-	Database *db = [Database sharedDatabase];
-	[db openAtPath:dstPath];
-	STAssertEquals((NSUInteger)0, [db weightCount], @"should be empty");
+	STAssertEquals((NSUInteger)0, [testdb weightCount], @"should be empty");
 
 	// set up 10 weights
 	[self setWeight:100 onDay:15 inMonth:0];
@@ -69,14 +67,14 @@
 
 
 - (void)closeDatabase {
-	[[Database sharedDatabase] close];
-	BOOL didDelete = [[NSFileManager defaultManager] removeItemAtPath:@"test.db" error:nil];
-	STAssertTrue(didDelete, @"must delete");
+	[testdb close];
+	[testdb release];
+	testdb = nil;
 }
 
 
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
-	MonthData *md = [[Database sharedDatabase] dataForMonth:month];
+	MonthData *md = [testdb dataForMonth:month];
 	STAssertEquals(weight, [md scaleWeightOnDay:day], @"weight must match");
 	STAssertEqualsWithAccuracy(trend, [md trendWeightOnDay:day], 0.0001f, @"trend must match");
 }
@@ -85,8 +83,8 @@
 - (void)testDatabase {
 	[self openDatabase];
 	// verify trends
-	STAssertEquals(0.0f, [[[Database sharedDatabase] dataForMonth:0] inputTrendOnDay:14], @"before first trend");
-	STAssertEquals(100.0f, [[[Database sharedDatabase] dataForMonth:0] inputTrendOnDay:15], @"first trend");
+	STAssertEquals(0.0f, [[testdb dataForMonth:0] inputTrendOnDay:14], @"before first trend");
+	STAssertEquals(100.0f, [[testdb dataForMonth:0] inputTrendOnDay:15], @"first trend");
 	[self assertWeight:100 andTrend:100.0000 onDay:15 inMonth:0];
 	[self assertWeight:200 andTrend:110.0000 onDay:18 inMonth:0];
 	[self assertWeight:100 andTrend:109.0000 onDay: 6 inMonth:3];
@@ -97,7 +95,7 @@
 	[self assertWeight:200 andTrend:129.9754 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)10, [[Database sharedDatabase] weightCount], @"10 items");
+	STAssertEquals((NSUInteger)10, [testdb weightCount], @"10 items");
 	[self closeDatabase];
 }
 
@@ -117,7 +115,7 @@
 	[self assertWeight:200 andTrend:123.1949 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:120.8754 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:128.7879 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)9, [[Database sharedDatabase] weightCount], @"9 weights");
+	STAssertEquals((NSUInteger)9, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 
@@ -138,7 +136,7 @@
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
 	[self assertWeight:100 andTrend:130.8520 onDay:11 inMonth:9];
-	STAssertEquals((NSUInteger)11, [[Database sharedDatabase] weightCount], @"11 weights");
+	STAssertEquals((NSUInteger)11, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -159,7 +157,7 @@
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:165.7199 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:169.1479 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)11, [[Database sharedDatabase] weightCount], @"11 weights");
+	STAssertEquals((NSUInteger)11, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -179,7 +177,7 @@
 	[self assertWeight:200 andTrend:177.8050 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:170.0245 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)9, [[Database sharedDatabase] weightCount], @"9 weights");
+	STAssertEquals((NSUInteger)9, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 

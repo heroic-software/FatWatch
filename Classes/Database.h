@@ -36,6 +36,7 @@ extern NSString *EWDatabaseDidChangeNotification;
 @property (nonatomic,readonly) EWMonth latestMonth; // from cache
 
 - (void)openAtPath:(NSString *)path;
+- (void)openInMemoryWithSQL:(const char *)sql; // for testing
 - (void)close;
 - (sqlite3_stmt *)statementFromSQL:(const char *)sql;
 - (void)executeSQL:(const char *)sql;

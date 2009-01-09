@@ -24,6 +24,9 @@
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC2CBA870EC989DA002087B7 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC2CBA860EC989DA002087B7 /* Entitlements.plist */; };
+		BC3B21370F17E53B00E9CEE2 /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
+		BC3B21380F17E54100E9CEE2 /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
+		BC3B21590F17E76600E9CEE2 /* CreateEmptyDatabase.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */; };
 		BC47221B0DE368170081F576 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
 		BC47222A0DE3692C0081F576 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
 		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
@@ -98,6 +101,16 @@
 		BCFE4CA10E7619F70090B81B /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BCFE4CA30E761A1B0090B81B /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC3B21530F17E67F00E9CEE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCFE4C560E7616E60090B81B;
+			remoteInfo = "Unit Tests";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		BC263C330DB56AF9007D03F4 /* Copy Files into Settings */ = {
@@ -601,9 +614,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */;
 			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
 				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
 				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
-				1D60588D0D05DD3D006BFB54 /* Resources */,
 				BC3384F30DE7C89A001F1052 /* Run Script (Tidy HTML) */,
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
 				BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */,
@@ -614,6 +627,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				BC3B21540F17E67F00E9CEE2 /* PBXTargetDependency */,
 			);
 			name = FatWatch;
 			productName = EatWatch;
@@ -692,6 +706,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC3B21590F17E76600E9CEE2 /* CreateEmptyDatabase.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,10 +864,20 @@
 				BC9475C90E7F2CBA00929185 /* EWGoal.m in Sources */,
 				BC9475CA0E7F2CC300929185 /* SlopeComputer.m in Sources */,
 				BC9475CC0E7F2CCB00929185 /* WeightFormatters.m in Sources */,
+				BC3B21370F17E53B00E9CEE2 /* BRMixedNumberFormatter.m in Sources */,
+				BC3B21380F17E54100E9CEE2 /* BRRangeColorFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC3B21540F17E67F00E9CEE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCFE4C560E7616E60090B81B /* Unit Tests */;
+			targetProxy = BC3B21530F17E67F00E9CEE2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */ = {

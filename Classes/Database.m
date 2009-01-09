@@ -52,17 +52,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 }
 
 
-- (void)openAtPath:(NSString *)path {
-    // Open the database. The database was prepared outside the application.
-    if (sqlite3_open([path UTF8String], &database) != SQLITE_OK) {
-        // Even though the open failed, call close to properly clean up resources.
-        sqlite3_close(database);
-        NSAssert1(0, @"Failed to open database: %s", sqlite3_errmsg(database));
-	}
-
-	// Clean up cruft
-	//[self executeSQL:"DELETE FROM weight WHERE measuredValue IS NULL AND trendValue IS NULL AND flag=0 AND (note='' OR note IS NULL)"];
-	
+- (void)didOpen {
 	earliestChangeMonthDay = 0;
 	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayToday());
 	
@@ -80,6 +70,26 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 		latestMonth = EWMonthDayGetMonth(sqlite3_column_int(statement, 1));
 	}
 	sqlite3_finalize(statement);
+}
+
+
+- (void)openAtPath:(NSString *)path {
+    // Open the database. The database was prepared outside the application.
+    if (sqlite3_open([path UTF8String], &database) != SQLITE_OK) {
+        // Even though the open failed, call close to properly clean up resources.
+        sqlite3_close(database);
+        NSAssert1(0, @"Failed to open database: %s", sqlite3_errmsg(database));
+	}
+	[self didOpen];
+}
+
+
+- (void)openInMemoryWithSQL:(const char *)sql {
+	int r = sqlite3_open(":memory:", &database);
+	NSAssert1(r == SQLITE_OK, @"Failed to open in-memory database: %s", sqlite3_errmsg(database));
+	
+	[self executeSQL:sql];
+	[self didOpen];
 }
 
 
@@ -114,10 +124,10 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 
 - (void)executeSQL:(const char *)sql {
-	sqlite3_stmt *stmt = [self statementFromSQL:sql];
-	int r = sqlite3_step(stmt);
-	NSAssert2(r == SQLITE_DONE, @"Failed to execute '%s': %s", sql, sqlite3_errmsg(database));
-	sqlite3_finalize(stmt);
+	char *errmsg;
+	int r = sqlite3_exec(database, sql, NULL, NULL, &errmsg);
+	NSAssert2(r == SQLITE_OK, @"Failed to execute '%s': %s", sql, errmsg);
+	if (errmsg != NULL) sqlite3_free(errmsg);
 }
 
 
