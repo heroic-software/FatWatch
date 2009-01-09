@@ -206,11 +206,12 @@
 - (void)drawNoDataWarningInContext:(CGContextRef)ctxt {
 	const CGFloat fontSize = 30;
 	
-	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
+	CGContextSetGrayFillColor(ctxt, 0.3, 1);
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica-Bold", fontSize, kCGEncodingMacRoman);
 	
-	NSData *text = [@"No Data" dataUsingEncoding:NSMacOSRomanStringEncoding];
+	NSString *warningString = NSLocalizedString(@"CHART_NO_DATA", nil);
+	NSData *text = [warningString dataUsingEncoding:NSMacOSRomanStringEncoding];
 	
 	CGPoint leftPoint = CGContextGetTextPosition(ctxt);
 	CGContextSetTextDrawingMode(ctxt, kCGTextInvisible);
@@ -472,7 +473,7 @@
 		}
 		
 		CGContextRestoreGState(ctxt);
-	} else {
+	} else if (p->shouldDrawNoDataWarning) {
 		[self drawNoDataWarningInContext:ctxt];
 	}
 	

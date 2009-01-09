@@ -168,6 +168,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		} else {
 			parameters.scaleX = kDayWidth;
 		}
+
 		beginMonthDay = 0;
 		endMonthDay = 0;
 	} else {
@@ -202,6 +203,8 @@ const CGFloat kGraphMarginBottom = 16.0f;
 		parameters.scaleX = CGRectGetWidth(scrollView.bounds) / (numberOfDays + 1);
 	}
 	
+	parameters.shouldDrawNoDataWarning = (infoCount == 1);
+
 	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];
 
 	if (minWeight == 0 || maxWeight == 0) {

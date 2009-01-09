@@ -22,6 +22,7 @@ typedef struct {
 	NSArray *regions;
 	EWMonthDay mdEarliest;
 	EWMonthDay mdLatest;
+	BOOL shouldDrawNoDataWarning;
 } GraphViewParameters;
 
 
