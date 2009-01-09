@@ -120,6 +120,12 @@ enum {
 }
 
 
+- (void)dealloc {
+	[title release];
+	[super dealloc];
+}
+
+
 - (NSComparisonResult)compare:(TrendSpan *)otherSpan {
 	if (self.length < otherSpan.length) {
 		return NSOrderedAscending;
