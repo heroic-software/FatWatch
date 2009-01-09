@@ -125,14 +125,18 @@
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
 		path = CGPathCreateMutable();
 		CGFloat h = p->maxWeight - p->minWeight;
-		CGRect dayRect = CGRectMake(0.5, p->minWeight, 1, h);
 		
-		EWMonthDay md;
-		for (md = beginMonthDay; md <= endMonthDay; md = EWMonthDayNext(md)) {
-			if (EWMonthAndDayIsWeekend(EWMonthDayGetMonth(md), EWMonthDayGetDay(md))) {
-				CGPathAddRect(path, &p->t, dayRect);
-			}
-			dayRect.origin.x += 1;
+		NSUInteger wd = EWWeekdayFromMonthAndDay(EWMonthDayGetMonth(beginMonthDay), 
+												 EWMonthDayGetDay(beginMonthDay));
+
+		if (wd == 1) {
+			CGPathAddRect(path, &p->t, CGRectMake(0.5, p->minWeight, 1, h));
+		}
+		
+		CGRect dayRect = CGRectMake(7.5 - wd, p->minWeight, 2, h);
+		while (dayRect.origin.x < dayCount) {
+			CGPathAddRect(path, &p->t, dayRect);
+			dayRect.origin.x += 7;
 		}
 	}
 	
