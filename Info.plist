@@ -21,10 +21,10 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.4</string>
+	<string>1.4.${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.4</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>FatWatch 1.4 ©2008 Benjamin Ragheb [${BUILD_NUMBER}]</string>
+	<string>FatWatch 1.4 ©2008-2009 Benjamin Ragheb [${BUILD_NUMBER}]</string>
 </dict>
 </plist>
