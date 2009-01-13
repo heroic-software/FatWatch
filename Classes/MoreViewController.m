@@ -21,7 +21,7 @@
 
 - (void)initMoreSection {
 	BRTableSection *moreSection = [self addNewSection];
-	moreSection.headerTitle = NSLocalizedString(@"MORE_SECTION_TITLE", nil);
+	moreSection.footerTitle = NSLocalizedString(@"MORE_SECTION_FOOTER", nil);
 	
 	BRTableButtonRow *chartRow = [[BRTableButtonRow alloc] init];
 	chartRow.title = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
@@ -48,7 +48,6 @@
 
 - (void)initTransferSection {
 	BRTableSection *dataSection = [self addNewSection];
-	dataSection.headerTitle = NSLocalizedString(@"TRANSFER_SECTION_TITLE", nil);
 	
 	BRTableSwitchRow *webServerRow = [[BRTableSwitchRow alloc] init];
 	webServerRow.title = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
