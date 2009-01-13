@@ -176,33 +176,64 @@
 }
 
 
-- (void)drawCaptionsInContext:(CGContextRef)ctxt {
+- (void)drawYearCaptionsInContext:(CGContextRef)ctxt {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.formatterBehavior = NSDateFormatterBehavior10_4;
-	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	formatter.dateFormat = @"Y";
 	
 	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
 	
-	CGFloat x = 0.5;
-	EWMonthDay md = beginMonthDay;
+	EWMonth month = EWMonthDayGetMonth(beginMonthDay);
+	month -= (month % 12) + 12; // adjust to earlier january
+
+	CGFloat x = 0.5 + EWDaysBetweenMonthDays(beginMonthDay, EWMonthDayMake(month, 1));
 	
-	while (md <= endMonthDay) {
-		EWMonth month = EWMonthDayGetMonth(md);
-		EWDay day = EWMonthDayGetDay(md);
+	while (month < (EWMonthDayGetMonth(endMonthDay) + 12)) {
+		CGFloat width = EWDaysBetweenMonthDays(EWMonthDayMake(month, 1), EWMonthDayMake(month + 12, 1));
 		
 		NSDate *date = EWDateFromMonthAndDay(month, 1);
 		NSData *text = [[formatter stringFromDate:date] dataUsingEncoding:NSMacOSRomanStringEncoding];
-		CGRect clipRect = CGRectMake(x - day + 1, p->minWeight, EWDaysInMonth(month), (p->maxWeight - p->minWeight));
+		CGRect clipRect = CGRectMake(x, p->minWeight, width, (p->maxWeight - p->minWeight));
 		clipRect = CGRectApplyAffineTransform(clipRect, p->t);
 		CGContextSaveGState(ctxt);
 		CGContextClipToRect(ctxt, clipRect);
 		CGContextShowTextAtPoint(ctxt, clipRect.origin.x + 4, 22, [text bytes], [text length]);
 		CGContextRestoreGState(ctxt);
 		
-		x += EWDaysInMonth(month) - day + 1;
-		md = EWMonthDayMake(month + 1, 1);
+		month += 12;
+		x += width;
+	}
+	
+	[formatter release];
+}
+
+
+- (void)drawMonthCaptionsInContext:(CGContextRef)ctxt {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	
+	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
+	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
+	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
+	
+	EWMonth month = EWMonthDayGetMonth(beginMonthDay);
+	CGFloat x = 0.5 - EWMonthDayGetDay(beginMonthDay) + 1;
+	
+	while (month <= EWMonthDayGetMonth(endMonthDay)) {
+		CGFloat width = EWDaysInMonth(month);
+
+		NSDate *date = EWDateFromMonthAndDay(month, 1);
+		NSData *text = [[formatter stringFromDate:date] dataUsingEncoding:NSMacOSRomanStringEncoding];
+		CGRect clipRect = CGRectMake(x, p->minWeight, width, (p->maxWeight - p->minWeight));
+		clipRect = CGRectApplyAffineTransform(clipRect, p->t);
+		CGContextSaveGState(ctxt);
+		CGContextClipToRect(ctxt, clipRect);
+		CGContextShowTextAtPoint(ctxt, clipRect.origin.x + 4, 22, [text bytes], [text length]);
+		CGContextRestoreGState(ctxt);
+
+		month += 1;
+		x += width;
 	}
 	
 	[formatter release];
@@ -433,7 +464,11 @@
 	
 	// name of month and year
 	
-	[self drawCaptionsInContext:ctxt];
+	if (p->scaleX < 1) {
+		[self drawYearCaptionsInContext:ctxt];
+	} else {
+		[self drawMonthCaptionsInContext:ctxt];
+	}
 		
 	if ([pointData length] > 0) {
 		CGContextSaveGState(ctxt);
