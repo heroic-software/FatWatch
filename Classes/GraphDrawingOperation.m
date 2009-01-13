@@ -120,24 +120,26 @@
 
 
 - (CGPathRef)createWeekendsBackgroundPath {
-	CGMutablePathRef path = NULL;
+	// If a single day is less than a pixel wide, don't bother.
+	if (p->scaleX < 1) return NULL;
 	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) {
-		path = CGPathCreateMutable();
-		CGFloat h = p->maxWeight - p->minWeight;
-		
-		NSUInteger wd = EWWeekdayFromMonthAndDay(EWMonthDayGetMonth(beginMonthDay), 
-												 EWMonthDayGetDay(beginMonthDay));
+	// If weekend shading has been disabled, don't do anything.
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) return NULL;
 
-		if (wd == 1) {
-			CGPathAddRect(path, &p->t, CGRectMake(0.5, p->minWeight, 1, h));
-		}
-		
-		CGRect dayRect = CGRectMake(7.5 - wd, p->minWeight, 2, h);
-		while (dayRect.origin.x < dayCount) {
-			CGPathAddRect(path, &p->t, dayRect);
-			dayRect.origin.x += 7;
-		}
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGFloat h = p->maxWeight - p->minWeight;
+	
+	NSUInteger wd = EWWeekdayFromMonthAndDay(EWMonthDayGetMonth(beginMonthDay), 
+											 EWMonthDayGetDay(beginMonthDay));
+
+	if (wd == 1) {
+		CGPathAddRect(path, &p->t, CGRectMake(0.5, p->minWeight, 1, h));
+	}
+	
+	CGRect dayRect = CGRectMake(7.5 - wd, p->minWeight, 2, h);
+	while (dayRect.origin.x < dayCount) {
+		CGPathAddRect(path, &p->t, dayRect);
+		dayRect.origin.x += 7;
 	}
 	
 	return path;
@@ -155,8 +157,8 @@
 		EWMonth month = EWMonthDayGetMonth(md);
 		EWDay day = EWMonthDayGetDay(md);
 		if (day == 1) {
-			CGPathMoveToPoint(gridPath, &p->t, x, CGRectGetMinY(bounds));
-			CGPathAddLineToPoint(gridPath, &p->t, x, CGRectGetMaxY(bounds));
+			CGPathMoveToPoint(gridPath, &p->t, x, p->minWeight);
+			CGPathAddLineToPoint(gridPath, &p->t, x, p->maxWeight);
 			x += EWDaysInMonth(month);
 		} else {
 			x += EWDaysInMonth(month) - day + 1;
@@ -182,7 +184,7 @@
 	CGContextSetRGBFillColor(ctxt, 0,0,0, 1);
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica", 20, kCGEncodingMacRoman);
-
+	
 	CGFloat x = 0.5;
 	EWMonthDay md = beginMonthDay;
 	
@@ -198,11 +200,11 @@
 		CGContextClipToRect(ctxt, clipRect);
 		CGContextShowTextAtPoint(ctxt, clipRect.origin.x + 4, 22, [text bytes], [text length]);
 		CGContextRestoreGState(ctxt);
-
+		
 		x += EWDaysInMonth(month) - day + 1;
 		md = EWMonthDayMake(month + 1, 1);
 	}
-
+	
 	[formatter release];
 }
 
