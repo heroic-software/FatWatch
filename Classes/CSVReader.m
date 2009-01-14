@@ -197,16 +197,19 @@
 
 
 - (float)readFloat {
-	id value = [self readString];
+	NSString *value = [self readString];
+	if (value == nil) return 0; // bad, no way to indicate end of line
 	if (floatFormatter) {
-		value = [floatFormatter numberFromString:value];
+		return [[floatFormatter numberFromString:value] floatValue];
+	} else {
+		return [value floatValue];
 	}
-	return [value floatValue];
 }
 
 
 - (BOOL)readBoolean {
 	NSString *value = [self readString];
+	if (value == nil) return NO; // bad, no way to indicate end of line
 	return [value boolValue];
 }
 
