@@ -154,6 +154,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	}
 	
 	int row = [self pickerRowForWeight:weight];
+	[weightPickerView reloadComponent:0];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];
 	
