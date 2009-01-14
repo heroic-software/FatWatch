@@ -147,6 +147,11 @@ NSString *kPasscodeKey = @"Passcode";
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+	[codeField becomeFirstResponder];
+}
+
+
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	if (newCode == nil) {
 		newCode = [userCode retain];
