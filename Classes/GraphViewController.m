@@ -384,8 +384,10 @@ const CGFloat kGraphMarginBottom = 16.0f;
 - (void)updateViewAtIndex:(int)index {
 	GraphViewInfo *ginfo = &info[index];
 
-	[ginfo->view setMonth:(infoCount > 1) ? EWMonthDayGetMonth(ginfo->beginMonthDay) : EWMonthNone];
-	[ginfo->view setImage:ginfo->imageRef];
+	ginfo->view.beginMonthDay = ginfo->beginMonthDay;
+	ginfo->view.endMonthDay = ginfo->endMonthDay;
+	ginfo->view.p = &parameters;
+	ginfo->view.image = ginfo->imageRef;
 	[ginfo->view setNeedsDisplay];
 	
 	if (ginfo->imageRef == NULL && ginfo->operation == nil) {

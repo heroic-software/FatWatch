@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
-
-#define EWMonthNone NSIntegerMin
+#import "GraphDrawingOperation.h"
 
 @interface GraphView : UIView {
-	EWMonth month;
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
+	GraphViewParameters *p;
 	CGImageRef image;
 }
 @property (nonatomic) CGImageRef image;
-@property (nonatomic) EWMonth month;
+@property (nonatomic) EWMonthDay beginMonthDay;
+@property (nonatomic) EWMonthDay endMonthDay;
+@property (nonatomic) GraphViewParameters *p;
 @end
