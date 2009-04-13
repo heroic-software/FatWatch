@@ -1,41 +1,32 @@
-• The half price sale will continue until the 1.4 update is complete. Afterward, FatWatch will return to its regular price of $9.99. •
+DESCRIPTION:
 
-FatWatch is a tool for people who are serious about managing their weight. Beyond simply recording your weight history, FatWatch compares your daily weight to a moving average, to let you see the real trends behind the day-to-day shifts in your body weight.
+FatWatch is a tool for people who are serious about tracking their weight.
 
-Using only your weight, FatWatch estimates and reports how many calories you are overeating or undereating, so you can intelligently adjust your diet and exercise plans. There is no need to fuss with an incomplete food database each time you eat something.
+You can't control your weight if you aren't aware of how it is changing. Beyond simply recording the readings from your scale, FatWatch computes a moving average so that you can see the real trends behind the day-to-day shifts in your body weight.
 
-FatWatch also allows easy transfer of your weight history to and from your computer over Wi-Fi. Send a chart to your trainer or your doctor. No additional software is required.
+FatWatch also estimates the amount by which you are overeating or undereating, giving you valuable information so you can intelligently adjust your diet or exercise plans. There is no need to fuss with an incomplete food database each time you eat something.
 
-NOTE: Although date and number formatting is localized, application text (for example, button labels) is in English.
+If you've already been tracking your weight, FatWatch allows you to import data from a variety of sources, including Eat Watch for Palm. You can also export your weight history to your Mac or PC and do with it as you please. No additional software is required.
 
 • Passcode Protection keeps your weight history private.
 
 • Rotate FatWatch sideways to see a chart of your weight over time.
 
-• Use notes and checkmarks to annotate your weight history.
+• Optional Body Mass Index (BMI) Monitoring, using classifications set by the World Health Organization.
 
-• Choose pounds, kilograms, or stones for weight; calories or kilojoules for energy.
+• Annotate your weight history with notes and check marks.
 
-• Scale increments of 1.0, 0.5, 0.2, 0.1, or 0.05.
+• Choose pounds, kilograms, or stones for weight; calories or kilojoules for energy; scale precisions of 1.0, 0.5, 0.2, 0.1, or 0.05.
 
-• Wi-Fi Import/Export: import weight history from other sources (such as Eat Watch for Palm), or export a comma separated text file for use anywhere.
+• Import or export your weight as a comma separated text file.
 
-• Uses statistical methods consistent with The Hacker's Diet, but applicable to any diet or exercise plan.
+• Uses statistical methods described in The Hacker's Diet, but applicable to any diet or exercise plan.
 
-• Scientific studies have demonstrated that people who weigh themselves daily are more successful at losing weight and maintaining their weight loss.
-
-NOTE: Several old customer reviews refer to a bug that prevented certain dates from being displayed correctly. That problem was resolved, but if I am wrong and you experience a similar problem, I offer a full refund.
 
 WHAT'S NEW IN THIS VERSION:
 
-• Chart view: general improvements, including a Y-axis label, a goal line, and faster loading.
+This update brings optional support for Body Mass Index (BMI) monitoring, which can be enabled on the More tab.
 
-• Trends view: now includes a "Since Goal Start" section if a goal has been set and enough weight history is available.
+An updated chart provides several preset zoom levels, such as Past Month, Past Year, and the original scrolling view.
 
-• Settings: new scale increments of 0.05 and 0.2.
-
-• Wi-Fi Import/Export: now accepts dates in both ISO format and localized short format.
-
-• Various bug fixes.
-
-Thank you for supporting FatWatch.  If you are finding it useful, please take a moment to write a review in the iTunes App Store!
+Also included are numerous bug fixes, performance enhancements, and interface improvements.

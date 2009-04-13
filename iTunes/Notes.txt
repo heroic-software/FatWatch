@@ -1,3 +1,27 @@
+Screen Shots:
+
+0	Chart: Last Month
+1	Log
+2	Weigh-in
+3	Trends, goal set
+4	More, Wi-Fi Import/Export enabled
+
+Regions:
+
+Canadian-French:	French-Canada / Kilograms / Kilojoules / 0.1
+Dutch:				Dutch-Belgium / Kilograms / Kilojoules / 0.1
+French:				French-France / Kilograms / Kilojoules / 0.1
+Italian:			Italian-Italy / Kilograms / Kilojoules / 0.1
+German:				German-Germany / Kilograms / Kilojoules / 0.1
+Spanish:			Spanish-Spain / Kilograms / Kilojoules / 0.1
+Japanese:			Japanese / Kilograms / Calories / 0.1
+US-English:			United States / Pounds / Calories / 0.5
+UK-English:			United Kingdom / Stones / Calories / 0.5
+
+Testing URL:
+
+http://www.fatwatchapp.com/testing/data-generator.html
+
 gm identify -format "%wx%h" foo.png
 => 320x480
 
