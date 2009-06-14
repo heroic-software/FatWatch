@@ -14,6 +14,8 @@
 
 extern NSString *kLogCellReuseIdentifier;
 
+#define kLogContentViewTag 456
+
 enum {
 	kVarianceAuxiliaryInfoType,
 	kBMIAuxiliaryInfoType

@@ -52,6 +52,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
 		logContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		logContentView.opaque = YES;
+		logContentView.tag = kLogContentViewTag;
 		[self.contentView addSubview:logContentView];
 		[logContentView release];
 		

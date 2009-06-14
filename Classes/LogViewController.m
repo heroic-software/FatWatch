@@ -193,8 +193,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (IBAction)auxControlAction {
 	[LogTableViewCell setAuxiliaryInfoType:auxControl.selectedSegmentIndex];
 	for (UITableViewCell *cell in [tableView visibleCells]) {
-		UIView *contentView = [[cell.contentView subviews] lastObject];
-		[contentView setNeedsDisplay];
+		[[cell viewWithTag:kLogContentViewTag] setNeedsDisplay];
 	}
 }
 
