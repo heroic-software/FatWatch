@@ -128,6 +128,10 @@
 - (NSString *)stringWithDataFromIndex:(NSUInteger)startIndex toIndex:(NSUInteger)endIndex {
 	NSData *subdata = [data subdataWithRange:NSMakeRange(startIndex, endIndex - startIndex + 1)];
 	NSString *text = [[NSString alloc] initWithData:subdata encoding:dataEncoding];
+	if (text == nil) { // might be if we cannot encode the data.
+		NSLog(@"Unable to encode data %@", subdata);
+		return @"";
+	}
 	return [text autorelease];
 }
 
