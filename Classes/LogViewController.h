@@ -14,8 +14,8 @@
 @class MonthData;
 
 @interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	IBOutlet UITableView *tableView;
-	IBOutlet UISegmentedControl *auxControl;
+	UITableView *tableView;
+	UISegmentedControl *auxControl;
 	NSDateFormatter *sectionTitleFormatter;
 	EWMonth earliestMonth, latestMonth;
 	NSIndexPath *lastIndexPath;
@@ -23,6 +23,8 @@
 }
 + (void)setCurrentMonthDay:(EWMonthDay)monthday;
 + (EWMonthDay)currentMonthDay;
+@property (nonatomic,retain) IBOutlet UITableView *tableView;
+@property (nonatomic,retain) IBOutlet UISegmentedControl *auxControl;
 @property (nonatomic,readonly) NSDate *currentDate;
 - (void)scrollToDate:(NSDate *)date;
 - (IBAction)goToDateAction;

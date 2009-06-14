@@ -33,6 +33,14 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
+@synthesize weightControl;
+@synthesize weightContainerView;
+@synthesize weightPickerView;
+@synthesize noWeightView;
+@synthesize flagControl;
+@synthesize noteView;
+@synthesize annotationContainerView;
+@synthesize navigationBar;
 @synthesize monthData;
 @synthesize day;
 @synthesize weighIn;
@@ -44,6 +52,19 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
+}
+
+
+- (void)dealloc {
+	[weightControl release];
+	[weightContainerView release];
+	[weightPickerView release];
+	[noWeightView release];
+	[flagControl release];
+	[noteView release];
+	[annotationContainerView release];
+	[navigationBar release];
+	[super dealloc];
 }
 
 

@@ -27,9 +27,9 @@ typedef struct {
 
 
 @interface GraphViewController : UIViewController <UIScrollViewDelegate> {
-	IBOutlet YAxisView *axisView;
-	IBOutlet UIScrollView *scrollView;
-	IBOutlet UISegmentedControl *spanControl;
+	YAxisView *axisView;
+	UIScrollView *scrollView;
+	UISegmentedControl *spanControl;
 	GraphViewInfo *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
@@ -38,6 +38,9 @@ typedef struct {
 	NSOperationQueue *queue;
 	CGPoint scrollingSpanSavedOffset;
 }
+@property (nonatomic,retain) IBOutlet YAxisView *axisView;
+@property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic,retain) IBOutlet UISegmentedControl *spanControl;
 - (void)clearGraphViewInfo;
 - (IBAction)spanSelected:(UISegmentedControl *)sender;
 @end

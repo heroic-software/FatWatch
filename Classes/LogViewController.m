@@ -26,6 +26,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 @implementation LogViewController
 
+
 + (void)setCurrentMonthDay:(EWMonthDay)monthday {
 	gCurrentMonthDay = monthday;
 }
@@ -34,6 +35,10 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 + (EWMonthDay)currentMonthDay {
 	return gCurrentMonthDay;
 }
+
+
+@synthesize tableView;
+@synthesize auxControl;
 
 
 - (id)init {
@@ -47,6 +52,15 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
 	}
 	return self;
+}
+
+
+- (void)dealloc {
+	[tableView release];
+	[auxControl release];
+	[lastIndexPath release];
+	[sectionTitleFormatter release];
+	[super dealloc];
 }
 
 
@@ -163,13 +177,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-- (void)dealloc {
-	[lastIndexPath release];
-	[sectionTitleFormatter release];
-	[super dealloc];
 }
 
 

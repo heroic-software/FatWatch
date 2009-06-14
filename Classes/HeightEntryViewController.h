@@ -10,10 +10,11 @@
 
 
 @interface HeightEntryViewController : UIViewController {
-	IBOutlet UIPickerView *pickerView;
+	UIPickerView *pickerView;
 	NSFormatter *formatter;
 	float increment;
 }
+@property (nonatomic,retain) IBOutlet UIPickerView *pickerView;
 + (UIViewController *)controller;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;

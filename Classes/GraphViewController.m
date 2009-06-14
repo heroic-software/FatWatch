@@ -31,6 +31,12 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 @implementation GraphViewController
 
+
+@synthesize axisView;
+@synthesize scrollView;
+@synthesize spanControl;
+
+
 - (id)init {
 	if ([super initWithNibName:@"GraphView" bundle:nil]) {
 		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
@@ -41,6 +47,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (void)dealloc {
+	[axisView release];
+	[scrollView release];
+	[spanControl release];
 	[queue release];
 	[cachedGraphViews release];
 	[self clearGraphViewInfo];

@@ -17,6 +17,9 @@ const float kDefaultHeight = 1.70;
 @implementation HeightEntryViewController
 
 
+@synthesize pickerView;
+
+
 + (UIViewController *)controller {
 	UIViewController *c = [[HeightEntryViewController alloc] init];
 	[c view];
@@ -34,6 +37,7 @@ const float kDefaultHeight = 1.70;
 
 
 - (void)dealloc {
+	[pickerView release];
 	[formatter release];
     [super dealloc];
 }

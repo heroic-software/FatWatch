@@ -41,6 +41,17 @@ NSString *kPasscodeKey = @"Passcode";
 @implementation PasscodeEntryViewController
 
 
+@synthesize navBar;
+@synthesize digitGroupView;
+@synthesize promptLabel;
+@synthesize smallLabel;
+@synthesize digit0View;
+@synthesize digit1View;
+@synthesize digit2View;
+@synthesize digit3View;
+@synthesize codeField;
+
+
 + (BOOL)authorizationRequired {
 	return [[[NSUserDefaults standardUserDefaults] stringForKey:kPasscodeKey] length] == 4;
 }
@@ -63,6 +74,20 @@ NSString *kPasscodeKey = @"Passcode";
 
 - (id)init {
 	return [super initWithNibName:@"PasscodeView" bundle:nil];
+}
+
+
+- (void)dealloc {
+	[navBar release];
+	[digitGroupView release];
+	[promptLabel release];
+	[smallLabel release];
+	[digit0View release];
+	[digit1View release];
+	[digit2View release];
+	[digit3View release];
+	[codeField release];
+	[super dealloc];
 }
 
 

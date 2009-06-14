@@ -12,6 +12,7 @@
 @implementation GoToDateViewController
 
 
+@synthesize datePicker;
 @synthesize target;
 @synthesize action;
 
@@ -25,6 +26,7 @@
 
 
 - (void)dealloc {
+	[datePicker release];
 	[initialDate release];
 	[super dealloc];
 }
