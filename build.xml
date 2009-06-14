@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="FatWatch" default="help" basedir=".">
+
+	<property name="output.root" value="Builds"/>
+
+	<import file="${user.home}/.ant/iphone-builds.xml"/>
+	
+	<property name="xcode.profile.appstore" value="1EE480A3-9698-45DA-9D06-109F575D0FD5"/>
+	<property name="xcode.profile.adhoc" value="FF9825CD-E8E9-4314-BCC7-DD0D11A5395B"/>
+		
+	<target name="make.adhoc" depends="copymobileprovision,makezip"/>
+	<target name="make.appstore" depends="makezip"/>
+	
+	<target name="adhoc">
+		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
+		<antcall target="make.adhoc">
+			<param name="xcode.profile" value="${xcode.profile.adhoc}"/>
+			<param name="xcode.target" value="FatWatch"/>
+			<param name="xcode.config" value="AdHoc"/>
+		</antcall>
+		<setdefaultkeychain name="login"/>
+	</target>
+
+	<target name="appstore">
+		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
+		<antcall target="make.appstore">
+			<param name="xcode.profile" value="${xcode.profile.appstore}"/>
+			<param name="xcode.target" value="FatWatch"/>
+			<param name="xcode.config" value="AppStore"/>
+		</antcall>
+		<setdefaultkeychain name="login"/>
+	</target>
+
+</project>

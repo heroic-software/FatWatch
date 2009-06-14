@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Icon.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.benzado.FatWatch</string>
+	<string>${BUNDLE_IDENTIFIER}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -25,6 +25,6 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.4</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>FatWatch 1.4 ©2008-2009 Benjamin Ragheb [${BUILD_NUMBER}]</string>
+	<string>FatWatch 1.4 ©2008-2009 Benjamin Ragheb (${BUILD_NUMBER})</string>
 </dict>
 </plist>

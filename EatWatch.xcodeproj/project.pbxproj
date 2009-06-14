@@ -234,6 +234,7 @@
 		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
 		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeightEntryView.xib; sourceTree = "<group>"; };
+		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
@@ -343,6 +344,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BCBA50760FE49B7300EAD2F3 /* build.xml */,
 				BC9A2E820F15B41B00A284E7 /* BRViews */,
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -948,11 +950,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0000;
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD269AEC-3E91-4F92-9D54-A6D313E9BB68";
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = AdHoc;
 		};
@@ -996,10 +999,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0000;
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EE480A3-9698-45DA-9D06-109F575D0FD5";
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = AppStore;
 		};
@@ -1068,13 +1072,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0000;
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
 		};
