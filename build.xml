@@ -5,8 +5,14 @@
 
 	<import file="${user.home}/.ant/iphone-builds.xml"/>
 	
-	<property name="xcode.profile.appstore" value="1EE480A3-9698-45DA-9D06-109F575D0FD5"/>
-	<property name="xcode.profile.adhoc" value="FF9825CD-E8E9-4314-BCC7-DD0D11A5395B"/>
+	<property
+		name="xcode.profile.appstore"
+		value="1EE480A3-9698-45DA-9D06-109F575D0FD5"
+		/>
+	<property
+		name="xcode.profile.adhoc"
+		value="FF9825CD-E8E9-4314-BCC7-DD0D11A5395B"
+		/>
 		
 	<target name="make.adhoc" depends="copymobileprovision,makezip"/>
 	<target name="make.appstore" depends="makezip"/>

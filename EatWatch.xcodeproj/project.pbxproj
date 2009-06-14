@@ -23,7 +23,6 @@
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
-		BC2CBA870EC989DA002087B7 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC2CBA860EC989DA002087B7 /* Entitlements.plist */; };
 		BC3B21370F17E53B00E9CEE2 /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BC3B21380F17E54100E9CEE2 /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
 		BC3B21590F17E76600E9CEE2 /* CreateEmptyDatabase.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */; };
@@ -78,7 +77,6 @@
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
-		BCC943F90EEA634700D267A7 /* Roadmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCC943F80EEA634700D267A7 /* Roadmap.txt */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
@@ -682,10 +680,8 @@
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,
 				BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */,
 				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
-				BC2CBA870EC989DA002087B7 /* Entitlements.plist in Resources */,
 				BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */,
 				BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */,
-				BCC943F90EEA634700D267A7 /* Roadmap.txt in Resources */,
 				BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */,
 				BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */,
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
