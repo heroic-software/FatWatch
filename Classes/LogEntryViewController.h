@@ -24,6 +24,7 @@
 	IBOutlet UISegmentedControl *flagControl;
 	IBOutlet BRTextView *noteView;
 	IBOutlet UIView *annotationContainerView;
+	IBOutlet UINavigationBar *navigationBar;
 	float scaleIncrement;
 }
 + (LogEntryViewController *)sharedController;

@@ -143,7 +143,7 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	NSDateFormatter *titleFormatter = [[NSDateFormatter alloc] init];
 	[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
-	self.title = [titleFormatter stringFromDate:date];
+	navigationBar.topItem.title = [titleFormatter stringFromDate:date];
 	[titleFormatter release];
 
 	float weight = [monthData scaleWeightOnDay:day];

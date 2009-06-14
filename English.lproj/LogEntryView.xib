@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.03">
 	<data>
-		<int key="IBDocument.SystemTarget">512</int>
-		<string key="IBDocument.SystemVersion">9G55</string>
+		<int key="IBDocument.SystemTarget">544</int>
+		<string key="IBDocument.SystemVersion">9J61</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.43</string>
+		<string key="IBDocument.AppKitVersion">949.46</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="37"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -76,9 +76,11 @@
 								<reference key="IBUINavigationBar" ref="771775402"/>
 								<string key="IBUITitle">Weigh-in</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="341365956">
+									<int key="IBUIStyle">1</int>
 									<int key="IBUISystemItemIdentifier">1</int>
 								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="100962319">
+									<int key="IBUIStyle">2</int>
 									<int key="IBUISystemItemIdentifier">3</int>
 								</object>
 							</object>
@@ -189,6 +191,7 @@
 										<bool key="IBUICanCancelContentTouches">NO</bool>
 										<bool key="IBUIBouncesZoom">NO</bool>
 										<string key="IBUIText">Note</string>
+										<object class="IBUITextInputTraits" key="IBUITextInputTraits"/>
 									</object>
 								</object>
 								<string key="NSFrame">{{8, 59}, {304, 88}}</string>
@@ -215,7 +218,7 @@
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">2</int>
-					<bytes key="NSRGB">MC4xNTY4NjI3NSAwLjE2NDcwNTg5IDAuMjIzNTI5NDMAA</bytes>
+					<bytes key="NSRGB">MC40NzQ1MDk4NCAwLjU1Njg2Mjc3IDAuNjY2NjY2NjkAA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 			</object>
@@ -373,14 +376,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">navigationItem</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="720779715"/>
-					</object>
-					<int key="connectionID">40</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">noteView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="861786815"/>
@@ -402,6 +397,14 @@
 						<reference key="destination" ref="702216355"/>
 					</object>
 					<int key="connectionID">46</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">navigationBar</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="771775402"/>
+					</object>
+					<int key="connectionID">50</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -569,7 +572,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>LogEntryViewController</string>
 					<string>UIResponder</string>
-					<string>{{252, 266}, {320, 480}}</string>
+					<string>{{57, 193}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -614,7 +617,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">47</int>
+			<int key="maxID">50</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -659,6 +662,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>annotationContainerView</string>
 							<string>flagControl</string>
+							<string>navigationBar</string>
 							<string>noWeightView</string>
 							<string>noteView</string>
 							<string>weightContainerView</string>
@@ -669,6 +673,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIView</string>
 							<string>UISegmentedControl</string>
+							<string>UINavigationBar</string>
 							<string>UIView</string>
 							<string>BRTextView</string>
 							<string>UIView</string>
@@ -685,13 +690,6 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../google-code/google-toolbox-for-mac/UnitTesting/GTMSenTestCase.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/GraphDrawingOperation.h</string>
 					</object>
 				</object>
@@ -700,5 +698,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../EatWatch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>
