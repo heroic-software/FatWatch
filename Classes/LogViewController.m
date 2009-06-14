@@ -184,7 +184,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	GoToDateViewController *viewController = [[GoToDateViewController alloc] initWithDate:self.currentDate];
 	viewController.target = self;
 	viewController.action = @selector(scrollToDate:);
-	[self presentModalViewController:[viewController autorelease] animated:YES];
+	[self presentModalViewController:viewController animated:YES];
+	[viewController release];
 }
 
 

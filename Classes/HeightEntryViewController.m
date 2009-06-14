@@ -10,9 +10,8 @@
 #import "WeightFormatters.h"
 #import "EWGoal.h"
 
-const float kMinimumHeight = 0.01;
-const float kMaximumHeight = 3.00;
-const float kDefaultHeight = 1.70;
+static const float kMaximumHeight = 3.00;
+static const float kDefaultHeight = 1.70;
 
 @implementation HeightEntryViewController
 
@@ -44,12 +43,12 @@ const float kDefaultHeight = 1.70;
 
 
 - (NSInteger)pickerRowForValue:(float)value {
-	return roundf((value - kMinimumHeight) / increment);
+	return roundf((value / increment) - 1);
 }
 
 
 - (float)valueForPickerRow:(NSInteger)pickerRow {
-	return (pickerRow * increment) + kMinimumHeight;
+	return (pickerRow + 1) * increment;
 }
 
 
@@ -85,7 +84,7 @@ const float kDefaultHeight = 1.70;
 
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return (kMaximumHeight - kMinimumHeight) / increment;
+	return (kMaximumHeight / increment) - 1;
 }
 
 
@@ -104,7 +103,7 @@ const float kDefaultHeight = 1.70;
 	
 	NSNumber *number = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
 	label.text = [formatter stringForObjectValue:number];
-		
+
 	return label;
 }
 

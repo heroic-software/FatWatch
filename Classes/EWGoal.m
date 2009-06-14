@@ -52,10 +52,25 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
++ (void)fixHeightIfNeeded {
+	// To fix a stupid bug where all height values were offset by 1 cm,
+	// causing weird results when measuring in inches.
+	if ([WeightFormatters heightIncrement] > 0.01f) {
+		float height = [EWGoal height];
+		float error = fmodf(height, 0.0254f);
+		if (fabsf(error - 0.01f) < 0.0001f) {
+			[EWGoal setHeight:(height - 0.01f)];
+			NSLog(@"Height adjusted from %f to %f", height, [EWGoal height]);
+		}
+	}
+}
+
+
 + (EWGoal *)sharedGoal {
 	static EWGoal *goal = nil;
 	
 	if (goal == nil) {
+		[self fixHeightIfNeeded];
 		goal = [[EWGoal alloc] init];
 	}
 	

@@ -2,19 +2,7 @@
 
 - Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
 
-- Regression: restore head-tail connections on chart
-- Regression: chart "Months" view should start on far right
-
 - Chart: introduce sampling to "All Time" view?
-
-- Test: data import while viewing chart
-- Chart: PROFILE & OPTIMIZE
-
-- Add switch to disable BMI in Chart
-- revisit scrolling synchronization (doesn't work)
-
-- Bug: viewing chart creates empty MonthData objects;
-	maybe add a method to flush empties?
 
 - Replace toolbar with slimmer selection control (e.g., App Store)
 
