@@ -159,7 +159,7 @@
 		BC4722230DE368C80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/importNoData.html; sourceTree = "<group>"; };
-		BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LogViewController.xib; path = Interfaces/LogViewController.xib; sourceTree = "<group>"; };
 		BC4F26790EDE67900010B5BE /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRTextView.h; path = Classes/BRTextView.h; sourceTree = "<group>"; };
 		BC4F267A0EDE67900010B5BE /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRTextView.m; path = Classes/BRTextView.m; sourceTree = "<group>"; };
 		BC51B7CD0E3A9E6700D3B4C1 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Check.png; path = Images/Check.png; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		BC8B86120DDF9D5A00045F01 /* CSVReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVReader.h; path = Classes/CSVReader.h; sourceTree = "<group>"; };
 		BC8B86130DDF9D5A00045F01 /* CSVReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVReader.m; path = Classes/CSVReader.m; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
-		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
+		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; };
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWDateTest.m; path = Classes/EWDateTest.m; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWGoal.m; path = Classes/EWGoal.m; sourceTree = "<group>"; };
 		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
 		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
-		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeightEntryView.xib; sourceTree = "<group>"; };
+		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
 		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
 		BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoToDateViewController.h; path = Classes/GoToDateViewController.h; sourceTree = "<group>"; };
 		BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoToDateViewController.m; path = Classes/GoToDateViewController.m; sourceTree = "<group>"; };
-		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GraphView.xib; sourceTree = "<group>"; };
+		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
