@@ -8,13 +8,16 @@
 
 #import "MicroWebServer.h"
 
-#import <SystemConfiguration/SystemConfiguration.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <ifaddrs.h>
+
+
+@interface MicroWebServer ()
+- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object;
+@end
 
 
 @interface MicroWebConnection ()
@@ -60,13 +63,19 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 	CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 
-	MicroWebConnection *connection = [[MicroWebConnection alloc] initWithServer:(MicroWebServer *)info
-																	 readStream:readStream 
-																	writeStream:writeStream];
+	MicroWebServer *webServer = (MicroWebServer *)info;
+	MicroWebConnection *webConnection;
+	
+	webConnection = [[MicroWebConnection alloc] initWithServer:webServer
+													readStream:readStream 
+												   writeStream:writeStream];
+	
+	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillReceiveRequest:) 
+								withObject:webConnection];
 	
 	CFStreamClientContext context;
 	context.version = 0;
-	context.info = connection;
+	context.info = webConnection;
 	context.retain = NULL;
 	context.release = NULL;
 	context.copyDescription = NULL;
@@ -184,40 +193,12 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (BOOL)isWiFiAvailable {
-	// Can we reach 0.0.0.0?
-	struct sockaddr_in zeroAddress;
-	SCNetworkReachabilityRef defaultRouteReachability;
-	SCNetworkReachabilityFlags flags;
-	
-	bzero(&zeroAddress, sizeof(zeroAddress));
-	zeroAddress.sin_len = sizeof(zeroAddress);
-	zeroAddress.sin_family = AF_INET;
-	
-	defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
-	BOOL gotFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
-	CFRelease(defaultRouteReachability);
-	
-	if (! gotFlags) return NO;
-
-	NSLog(@"SCNetworkReachabilityFlags = 0x%08x", flags);
-	
-	// If we're using the cell network, then there's no point starting a server.
-	if (flags & kSCNetworkReachabilityFlagsIsWWAN) return NO;
-	
-	// Can we get on the network at all.
-	return (flags & kSCNetworkReachabilityFlagsReachable);
-}
-
-
 - (void)start {
 	NSAssert(delegate != nil, @"must set delegate");
 	NSAssert([delegate respondsToSelector:@selector(handleWebConnection:)], @"delegate must implement handleWebConnection:");
 	
 	if (running) return; // ignore if already running
-	
-	if (! [self isWiFiAvailable]) return;
-		
+			
 	listenSocket = [self createSocket];
 	if (listenSocket == NULL) return;
 
@@ -246,6 +227,16 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	}
 	running = NO;
 }
+
+
+- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object {
+	if ([delegate respondsToSelector:msg]) {
+		[delegate performSelector:msg withObject:object];
+	}
+}
+
+
+#pragma mark NSNetServiceDelegate
 
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
@@ -287,10 +278,9 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 - (NSString *)description {
 	if (responseData) {
-		return [NSString stringWithFormat:@"MicroWebConnection: %d/%d response bytes remain", 
-				responseBytesRemaining, CFDataGetLength(responseData)];
+		return [NSString stringWithFormat:@"MicroWebConnection<%p> (%d/%d response bytes remain)", self, responseBytesRemaining, CFDataGetLength(responseData)];
 	} else {
-		return [NSString stringWithFormat:@"MicroWebConnection: reading"];
+		return [NSString stringWithFormat:@"MicroWebConnection<%p>: reading", self];
 	}
 }
 
@@ -345,15 +335,8 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	BOOL shouldClose = [self readAvailableBytes];
 
 	if ([self isRequestComplete]) {
-		[[webServer delegate] handleWebConnection:self];
-		NSAssert(responseMessage != nil, @"delegate must call setResponseStatus:");
-		CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));
-		
-		responseData = CFHTTPMessageCopySerializedMessage(responseMessage);
-		CFRelease(responseMessage); responseMessage = NULL;
-		
-		responseBytesRemaining = CFDataGetLength(responseData);
-		CFWriteStreamOpen(writeStream);
+		[webServer sendOptionalDelegateMessage:@selector(webConnectionDidReceiveRequest:) withObject:self];
+		[(id)webServer.delegate performSelector:@selector(handleWebConnection:) withObject:self afterDelay:0];
 		shouldClose = YES;
 	}
 
@@ -366,6 +349,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (void)writeStreamCanAcceptBytes {
 	if (responseBytesRemaining == 0) {
 		CFWriteStreamClose(writeStream);
+		[webServer sendOptionalDelegateMessage:@selector(webConnectionDidSendResponse:) withObject:self];
 		return;
 	}
 	
@@ -374,7 +358,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	
 	buffer += (bufferLength - responseBytesRemaining);
 	CFIndex bytesWritten = CFWriteStreamWrite(writeStream, buffer, responseBytesRemaining);
-	if (bytesWritten == -1) {
+	if (bytesWritten < 0) {
 		NSLog(@"error");
 		return;
 	}
@@ -414,6 +398,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 - (void)setResponseStatus:(CFIndex)statusCode {
 	responseMessage = CFHTTPMessageCreateResponse(kCFAllocatorDefault, statusCode, NULL, kCFHTTPVersion1_1);
+	[self performSelector:@selector(sendResponse) withObject:nil afterDelay:0];
 }
 
 
@@ -433,6 +418,20 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	NSAssert(responseMessage != nil, @"must set response status first");
 	CFHTTPMessageSetBody(responseMessage, (CFDataRef)data);
 	[self setValue:[NSString stringWithFormat:@"%d", [data length]] forResponseHeader:@"Content-Length"];
+}
+
+
+- (void)sendResponse {
+	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillSendResponse:) withObject:self];
+
+	// Sorry, we don't support Keep Alive.
+	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));
+	
+	responseData = CFHTTPMessageCopySerializedMessage(responseMessage);
+	CFRelease(responseMessage); responseMessage = NULL;
+	
+	responseBytesRemaining = CFDataGetLength(responseData);
+	CFWriteStreamOpen(writeStream);
 }
 
 @end

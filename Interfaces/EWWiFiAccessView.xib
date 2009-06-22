@@ -9,7 +9,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="17"/>
-			<integer value="1"/>
+			<integer value="19"/>
 			<integer value="16"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -88,17 +88,14 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Wi-Fi Import/Export allows you to exchange weight history between your device and your computer.</string>
+						<string type="base64-UTF8" key="IBUIText">RmF0V2F0Y2jigJlzIFdpLUZpIEltcG9ydC9FeHBvcnQgZW5hYmxlcyB5b3UgdG8gdHJhbnNmZXIgd2Vp
+Z2h0IGhpc3RvcnkgYmV0d2VlbiB5b3VyIGRldmljZSBhbmQgeW91ciBjb21wdXRlci4</string>
 						<object class="NSFont" key="IBUIFont" id="982878935">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">1.400000e+01</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
-							<reference key="NSCustomColorSpace" ref="154990841"/>
-						</object>
+						<reference key="IBUITextColor" ref="363061527"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">1.000000e+01</float>
@@ -200,7 +197,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">2</int>
-							<bytes key="NSRGB">MC4xNTY4NjI3NSAwLjE2NDcwNTg5IDAuMjIzNTI5NDMAA</bytes>
+							<bytes key="NSRGB">MC4zODAzOTIxOSAwLjQ0NzA1ODg2IDAuNTMzMzMzMzYAA</bytes>
 						</object>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					</object>
@@ -229,7 +226,7 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Connect your device and computer to the same Wi-Fi network, then use a web browser to visit this address:</string>
+						<string key="IBUIText">Make sure your computer is connected to the same Wi-Fi network, then use your computer to go to this address:</string>
 						<reference key="IBUIFont" ref="982878935"/>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
@@ -249,8 +246,8 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">http://10.0.2.34:3943</string>
-						<object class="NSFont" key="IBUIFont" id="526911374">
+						<string key="IBUIText">http://0.0.0.0:0000</string>
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">3.000000e+01</double>
 							<int key="NSfFlags">16</int>
@@ -268,7 +265,7 @@
 					<object class="IBUILabel" id="1067946044">
 						<reference key="NSNextResponder" ref="202695741"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 125}, {280, 36}}</string>
+						<string key="NSFrame">{{20, 126}, {276, 36}}</string>
 						<reference key="NSSuperview" ref="202695741"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -288,13 +285,17 @@
 					<object class="IBUILabel" id="602184107">
 						<reference key="NSNextResponder" ref="202695741"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 169}, {280, 36}}</string>
+						<string key="NSFrame">{{20, 170}, {280, 28}}</string>
 						<reference key="NSSuperview" ref="202695741"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string type="base64-UTF8" key="IBUIText">RmF0V2F0Y2ggKEJlbmphbWluJ3MgaVBob25lKQ</string>
-						<reference key="IBUIFont" ref="526911374"/>
+						<string key="IBUIText">FatWatch (Device Name)</string>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">2.300000e+01</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -322,13 +323,13 @@
 					<object class="IBUILabel" id="531155741">
 						<reference key="NSNextResponder" ref="790115512"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 20}, {280, 36}}</string>
+						<string key="NSFrame">{{20, 20}, {280, 54}}</string>
 						<reference key="NSSuperview" ref="790115512"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Your device must be connected to a Wi-Fi network to use this feature.</string>
-						<reference key="IBUIFont" ref="982878935"/>
+						<string key="IBUIText">Your device and your computer must be connected to the same Wi-Fi network in order to transfer data between them.</string>
+						<reference key="IBUIFont" ref="949478308"/>
 						<reference key="IBUITextColor" ref="363061527"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -339,8 +340,8 @@
 				<string key="NSFrameSize">{320, 218}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">2</int>
-					<bytes key="NSRGB">MC4zODAzOTIxOSAwLjQ0NzA1ODg2IDAuNTMzMzMzMzYAA</bytes>
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC41MDE5NjA4MSAwIDAAA</bytes>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
@@ -576,6 +577,7 @@
 					<string>14.IBPluginDependency</string>
 					<string>15.IBPluginDependency</string>
 					<string>16.IBEditorWindowLastContentRect</string>
+					<string>16.IBUserGuides</string>
 					<string>17.IBEditorWindowLastContentRect</string>
 					<string>17.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
@@ -591,7 +593,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>EWWiFiAccessViewController</string>
 					<string>UIResponder</string>
-					<string>{{33, 199}, {320, 480}}</string>
+					<string>{{81, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -599,8 +601,11 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{48, 462}, {320, 218}}</string>
-					<string>{{380, 461}, {320, 218}}</string>
+					<string>{{13, 218}, {320, 218}}</string>
+					<object class="NSArray">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+					</object>
+					<string>{{367, 324}, {320, 218}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -632,7 +637,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">29</int>
+			<int key="maxID">32</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

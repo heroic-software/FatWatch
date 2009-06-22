@@ -199,6 +199,7 @@
 	
 	NSString *saveButtonTitle = importReplace ? replaceTitle : mergeTitle;
 
+	[self retain];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertText delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:saveButtonTitle, nil];
 	[alert show];
 	[alert release];
@@ -213,6 +214,7 @@
 	}
 	[importData release];
 	importData = nil;
+	[self release];
 }
 
 

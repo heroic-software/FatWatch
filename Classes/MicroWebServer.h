@@ -54,4 +54,9 @@
 @protocol MicroWebServerDelegate <NSObject>
 @required
 - (void)handleWebConnection:(MicroWebConnection *)connection;
+@optional
+- (void)webConnectionWillReceiveRequest:(MicroWebConnection *)connection;
+- (void)webConnectionDidReceiveRequest:(MicroWebConnection *)connection;
+- (void)webConnectionWillSendResponse:(MicroWebConnection *)connection;
+- (void)webConnectionDidSendResponse:(MicroWebConnection *)connection;
 @end

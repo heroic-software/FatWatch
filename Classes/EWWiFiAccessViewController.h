@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MicroWebServer.h"
 
 @class BRReachability;
 @class MicroWebServer;
 
 
-@interface EWWiFiAccessViewController : UIViewController {
+@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate> {
 	UILabel *statusLabel;
 	UIActivityIndicatorView *activityView;
 	UIView *detailView;

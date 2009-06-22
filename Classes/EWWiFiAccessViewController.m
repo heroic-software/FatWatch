@@ -14,11 +14,6 @@
 #import "WebServerDelegate.h"
 
 
-// TODO: Disable Weight Chart while view is visible.
-// TODO: Store Last Import, Last Export Dates
-// TODO: Show Activity during import/export.
-
-
 @implementation EWWiFiAccessViewController
 
 
@@ -44,7 +39,7 @@
 		webServer = [[MicroWebServer alloc] init];
 		NSString *devName = [[UIDevice currentDevice] name];
 		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", devName];
-		webServer.delegate = [[WebServerDelegate alloc] init];
+		webServer.delegate = self;
     }
     return self;
 }
@@ -61,9 +56,16 @@
 	[lastImportLabel release];
 	[lastExportLabel release];
 	[reachability release];
-	[webServer.delegate release];
 	[webServer release];
     [super dealloc];
+}
+
+
+- (void)viewDidLoad {
+	activeDetailView.alpha = 0;
+	inactiveDetailView.alpha = 0;
+	[detailView addSubview:activeDetailView];
+	[detailView addSubview:inactiveDetailView];
 }
 
 
@@ -80,13 +82,48 @@
 }
 
 
+#pragma mark MicroWebServerDelegate
+
+
+- (void)webConnectionWillReceiveRequest:(MicroWebConnection *)connection {
+	[activityView startAnimating];
+	statusLabel.text = @"Receiving";
+}
+
+
+- (void)webConnectionDidReceiveRequest:(MicroWebConnection *)connection {
+	statusLabel.text = @"Processing";
+}
+
+
+- (void)webConnectionWillSendResponse:(MicroWebConnection *)connection {
+	statusLabel.text = @"Sending";
+}
+
+
+- (void)webConnectionDidSendResponse:(MicroWebConnection *)connection {
+	[activityView stopAnimating];
+	statusLabel.text = @"Ready";
+}
+
+
+- (void)handleWebConnection:(MicroWebConnection *)connection {
+	// TODO: CHANGE THIS
+	WebServerDelegate *wsd = [[WebServerDelegate alloc] init];
+	[wsd handleWebConnection:connection];
+	[wsd release];
+}
+
+
 #pragma mark BRReachabilityDelegate
 
 
 - (void)reachability:(BRReachability *)reachability didUpdateFlags:(SCNetworkReachabilityFlags)flags {
 	BOOL networkAvailable = ((flags & kSCNetworkReachabilityFlagsReachable) &&
 							 !(flags & kSCNetworkReachabilityFlagsIsWWAN));
-	
+		
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
 	if (networkAvailable && !webServer.running) {
 		// Start it up
 		[webServer start];
@@ -94,11 +131,12 @@
 			statusLabel.text = @"Ready";
 			addressLabel.text = [webServer.url description];
 			nameLabel.text = webServer.name;
-			[inactiveDetailView removeFromSuperview];
-			[detailView addSubview:activeDetailView];
+			activeDetailView.alpha = 1;
+			inactiveDetailView.alpha = 0;
 		} else {
 			statusLabel.text = @"Failed to Start";
-			[detailView addSubview:inactiveDetailView];
+			activeDetailView.alpha = 0;
+			inactiveDetailView.alpha = 1;
 		}
 	} else if (!networkAvailable) {
 		// Shut it down
@@ -106,9 +144,10 @@
 			[webServer stop];
 		}
 		statusLabel.text = @"Off";
-		[activeDetailView removeFromSuperview];
-		[detailView addSubview:inactiveDetailView];
+		activeDetailView.alpha = 0;
+		inactiveDetailView.alpha = 1;
 	}
+	[UIView commitAnimations];
 }
 
 
