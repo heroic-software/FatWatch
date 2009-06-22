@@ -175,16 +175,6 @@
 }
 
 
-- (void)showWebAddress:(BRTableButtonRow *)sender {
-	[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_ROW_MESSAGE"];
-}
-
-
-- (void)showWiFiRequiredMessage:(BRTableButtonRow *)sender {
-	[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_REQUIRED_MESSAGE"];
-}
-
-
 - (void)openURLWithString:(NSString *)text {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:text]];
 }
