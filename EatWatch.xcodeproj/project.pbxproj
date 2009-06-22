@@ -153,7 +153,7 @@
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		BC24A7490E25DAA70074FD4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GoToDateView.xib; sourceTree = "<group>"; };
 		BC24A7510E25DEA60074FD4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/LogEntryView.xib; sourceTree = "<group>"; };
-		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
+		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = Root.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
-		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
 		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode0.png; path = Images/Passcode0.png; sourceTree = "<group>"; };
 		BCD8BE420EF081EC005639DD /* Passcode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode1.png; path = Images/Passcode1.png; sourceTree = "<group>"; };
