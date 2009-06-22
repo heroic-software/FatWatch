@@ -39,7 +39,7 @@
 - (void)handleWebConnection:(MicroWebConnection *)connection {
 	NSString *path = [[connection requestURL] path];
 	
-	printf("%s <%s>\n", [[connection requestMethod] UTF8String], [path UTF8String]);
+	NSLog(@"%@ <%@>\n", [connection requestMethod], path);
 	
 	if ([path isEqualToString:@"/"]) {
 		UIDevice *device = [UIDevice currentDevice];
