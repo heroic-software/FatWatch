@@ -41,6 +41,10 @@ NSDateFormatter *EWDateFormatterCreateLocal() {
 }
 
 
+static NSString *kEWLastImportKey = @"EWLastImportDate";
+static NSString *kEWLastExportKey = @"EWLastExportDate";
+
+
 @implementation EWWiFiAccessViewController
 
 
@@ -90,7 +94,35 @@ NSDateFormatter *EWDateFormatterCreateLocal() {
 }
 
 
+- (void)updateLastImportExportLabels {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	[df setDateStyle:NSDateFormatterShortStyle];
+	[df setTimeStyle:NSDateFormatterShortStyle];
+	
+	NSDate *date;
+	
+	// If not set, leave default text that was stored in the nib.
+	
+	date = [uds objectForKey:kEWLastImportKey];
+	if (date) lastImportLabel.text = [df stringFromDate:date];
+	
+	date = [uds objectForKey:kEWLastExportKey];
+	if (date) lastExportLabel.text = [df stringFromDate:date];
+
+	[df release];
+}
+
+
+- (void)setCurrentDateForKey:(NSString *)key {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	[uds setObject:[NSDate date] forKey:key];
+	[self updateLastImportExportLabels];
+}
+	
+	
 - (void)viewDidAppear:(BOOL)animated {
+	[self updateLastImportExportLabels];
 	[RootViewController setAutorotationEnabled:NO];
 	[reachability startMonitoring];
 }
@@ -151,6 +183,8 @@ NSDateFormatter *EWDateFormatterCreateLocal() {
 	reader = nil;
 	[importData release];
 	importData = nil;
+	
+	[self setCurrentDateForKey:kEWLastImportKey];
 	
 	NSString *msg;
 	
@@ -337,6 +371,8 @@ NSDateFormatter *EWDateFormatterCreateLocal() {
 	[connection setResponseBodyData:[writer data]];
 	[writer release];
 	[formatter release];
+
+	[self setCurrentDateForKey:kEWLastExportKey];
 }
 
 
