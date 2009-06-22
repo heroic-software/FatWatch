@@ -8,6 +8,8 @@
 
 #import "MicroWebServer.h"
 
+#import <SystemConfiguration/SystemConfiguration.h>
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -182,18 +184,44 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
+- (BOOL)isWiFiAvailable {
+	// Can we reach 0.0.0.0?
+	struct sockaddr_in zeroAddress;
+	SCNetworkReachabilityRef defaultRouteReachability;
+	SCNetworkReachabilityFlags flags;
+	
+	bzero(&zeroAddress, sizeof(zeroAddress));
+	zeroAddress.sin_len = sizeof(zeroAddress);
+	zeroAddress.sin_family = AF_INET;
+	
+	defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+	BOOL gotFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+	CFRelease(defaultRouteReachability);
+	
+	if (! gotFlags) return NO;
+
+	NSLog(@"SCNetworkReachabilityFlags = 0x%08x", flags);
+	
+	// If we're using the cell network, then there's no point starting a server.
+	if (flags & kSCNetworkReachabilityFlagsIsWWAN) return NO;
+	
+	// Can we get on the network at all.
+	return (flags & kSCNetworkReachabilityFlagsReachable);
+}
+
+
 - (void)start {
 	NSAssert(delegate != nil, @"must set delegate");
 	NSAssert([delegate respondsToSelector:@selector(handleWebConnection:)], @"delegate must implement handleWebConnection:");
 	
 	if (running) return; // ignore if already running
-	running = YES;
 	
+	if (! [self isWiFiAvailable]) return;
+		
 	listenSocket = [self createSocket];
-	if (listenSocket == NULL) {
-		printf("Failed to create socket!\n");
-		return;
-	}
+	if (listenSocket == NULL) return;
+
+	running = YES;
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MWSPublishNetService"]) {
 		netService = [[NSNetService alloc] initWithDomain:@"" 
@@ -221,12 +249,12 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
-	printf("did not publish!\n");
+	NSLog(@"Didn't publish: %@", errorDict);
 }
 
 
 - (void)netServiceDidPublish:(NSNetService *)sender {
-	printf("did publish on port %d!\n", [sender port]);
+	NSLog(@"Published on port %d", [sender port]);
 }
 
 

@@ -14,6 +14,8 @@
 #import "BRTableSwitchRow.h"
 #import "HeightEntryViewController.h"
 #import "EWGoal.h"
+#import "BRReachability.h"
+#import "EWWiFiAccessViewController.h"
 
 
 @implementation MoreViewController
@@ -49,10 +51,12 @@
 - (void)initTransferSection {
 	BRTableSection *dataSection = [self addNewSection];
 	
-	BRTableSwitchRow *webServerRow = [[BRTableSwitchRow alloc] init];
+	BRTableButtonRow *webServerRow = [[BRTableButtonRow alloc] init];
 	webServerRow.title = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
-	webServerRow.object = self;
-	webServerRow.key = @"webServerEnabled";
+	webServerRow.titleAlignment = UITextAlignmentLeft;
+	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	webServerRow.target = self;
+	webServerRow.action = @selector(showWiFiAccess:);
 	[dataSection addRow:webServerRow animated:NO];
 	[webServerRow release];
 }
@@ -103,18 +107,12 @@
 
 
 - (void)dealloc {
-	[webServer.delegate release];
-	[webServer release];
 	[super dealloc];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	if (webServer == nil) {
-		webServer = [[MicroWebServer alloc] init];
-		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", [[UIDevice currentDevice] name]];
-		webServer.delegate = [[WebServerDelegate alloc] init];
-
+	if ([self numberOfSections] == 0) {
 		[self initMoreSection];
 		[self initTransferSection];
 		[self initSupportSection];
@@ -153,28 +151,12 @@
 }
 
 
-- (BOOL)webServerEnabled {
-	return webServer.running;
-}
-
-
-- (void)setWebServerEnabled:(BOOL)flag {
-	BRTableSection *transferSection = [self sectionAtIndex:1];
+- (void)showWiFiAccess:(BRTableButtonRow *)sender {
+	EWWiFiAccessViewController *controller;
 	
-	if (flag && !webServer.running) {
-		[webServer start];
-		BRTableButtonRow *addressRow = [[BRTableButtonRow alloc] init];
-		addressRow.title = [webServer.url description];
-		addressRow.target = self;
-		addressRow.action = @selector(showWebAddress:);
-		addressRow.titleColor = [UIColor blueColor];
-		addressRow.titleAlignment = UITextAlignmentCenter;
-		
-		[transferSection addRow:addressRow animated:YES];
-	} else if (!flag && webServer.running) {
-		[webServer stop];
-		[transferSection removeRowAtIndex:1 animated:YES];
-	}
+	controller = [[EWWiFiAccessViewController alloc] init];
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];
 }
 
 
@@ -185,7 +167,7 @@
 										  cancelButtonTitle:NSLocalizedString(@"OK_BUTTON", nil)
 										  otherButtonTitles:nil];
 	[alert show];
-	[alert autorelease];
+	[alert release];
 }
 
 
@@ -196,6 +178,11 @@
 
 - (void)showWebAddress:(BRTableButtonRow *)sender {
 	[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_ROW_MESSAGE"];
+}
+
+
+- (void)showWiFiRequiredMessage:(BRTableButtonRow *)sender {
+	[self showAlertTitle:@"WIFI_ROW_TITLE" message:@"WIFI_REQUIRED_MESSAGE"];
 }
 
 

@@ -11,10 +11,18 @@
 #import "RootViewController.h"
 
 
+static BOOL autorotationDisabled = NO;
+
+
 @implementation RootViewController
 
 @synthesize portraitViewController;
 @synthesize landscapeViewController;
+
+
++ (void)setAutorotationEnabled:(BOOL)flag {
+	autorotationDisabled = !flag;
+}
 
 
 - (id)init {
@@ -57,6 +65,7 @@
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	if (autorotationDisabled) return NO;
 	// Never autorotate if a modal view controller is visible.
 	if ([currentViewController modalViewController]) return NO;
 	

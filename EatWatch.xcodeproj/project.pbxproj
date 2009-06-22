@@ -50,6 +50,10 @@
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
+		BC6A8E790FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */; };
+		BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */; };
+		BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */; };
+		BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */; };
 		BC6FF1AE0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
 		BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
@@ -189,6 +193,12 @@
 		BC65EBBA0DEBA8FE0008E677 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
+		BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWWiFiAccessViewController.h; path = Classes/EWWiFiAccessViewController.h; sourceTree = "<group>"; };
+		BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWWiFiAccessViewController.m; path = Classes/EWWiFiAccessViewController.m; sourceTree = "<group>"; };
+		BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EWWiFiAccessView.xib; path = Interfaces/EWWiFiAccessView.xib; sourceTree = "<group>"; };
+		BC6A8E9E0FEECB5B002F6BE9 /* BRReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRReachability.h; path = Classes/BRReachability.h; sourceTree = "<group>"; };
+		BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRReachability.m; path = Classes/BRReachability.m; sourceTree = "<group>"; };
+		BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
 		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
@@ -278,6 +288,7 @@
 				BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */,
 				BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */,
 				BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */,
+				BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +328,7 @@
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */,
+				BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = "Linked Frameworks";
@@ -563,6 +575,11 @@
 		BCEADAD60DE29D1B0017495E /* Web */ = {
 			isa = PBXGroup;
 			children = (
+				BC6A8E9E0FEECB5B002F6BE9 /* BRReachability.h */,
+				BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */,
+				BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */,
+				BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */,
+				BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */,
 				BC8B860A0DDF93F500045F01 /* WebServerDelegate.h */,
 				BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */,
 				BC0CE4610DDC0F6300AB8899 /* DataSearch.h */,
@@ -686,6 +703,7 @@
 				BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */,
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
 				BC909D670F16F8CC0090472C /* Default.png in Resources */,
+				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +848,8 @@
 				BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */,
 				BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */,
 				BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */,
+				BC6A8E790FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m in Sources */,
+				BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

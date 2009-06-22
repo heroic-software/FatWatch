@@ -10,10 +10,6 @@
 #import "BRTableViewController.h"
 
 
-@class MicroWebServer;
-
-
 @interface MoreViewController : BRTableViewController {
-	MicroWebServer *webServer;
 }
 @end
