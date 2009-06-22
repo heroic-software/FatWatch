@@ -8,7 +8,6 @@
 
 #import "MoreViewController.h"
 #import "MicroWebServer.h"
-#import "WebServerDelegate.h"
 #import "PasscodeEntryViewController.h"
 #import "BRTableButtonRow.h"
 #import "BRTableSwitchRow.h"

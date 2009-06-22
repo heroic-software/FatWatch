@@ -1,99 +1,109 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<title>FatWatch (__NAME__)</title>
-		<script language="Javascript" type="text/javascript">
-			function onChange() {
-				var theForm = document.forms['import'];
-				theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
-			}
-		</script>
-	</head>
-	<body onload="onChange();">
-		<h1>
-			<img id="icon" src="icon.png" alt="FatWatch icon"/>
-			FatWatch on __NAME__
-		</h1>
-		<p>
-			Wi-Fi Import/Export allows you to transfer weight measurements to and from FatWatch through your computer's web browser.  No special software is required.
-		</p>
-		<p>
-			FatWatch uses comma separated values (CSV) as its file format for import and export.  CSV files are supported by many common applications.
-			The columns used are <strong>Date, Weight, Checkmark, Note</strong>.  For the Checkmark column, 1 indicates a checkmark on that date, 0 indicates no check.  When importing only the first two columns (Date and Weight) are required.
-		</p>
-		<p>
-			If you need any help, feel free to visit <a href="http://www.fatwatchapp.com/support">the FatWatch support website</a> or send email to <a href="mailto:support@fatwatchapp.com?subject=FatWatch%20__VERSION__">support@fatwatchapp.com</a>.
-			You are using FatWatch __VERSION__.
-		</p>
+<head>
+	<title>FatWatch (__NAME__)</title>
+	<link rel="stylesheet" type="text/css" href="fatwatch.css"/>
+	<script language="Javascript" type="text/javascript">
+		function onChange() {
+			var theForm = document.forms['importForm'];
+			theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
+		}
+	</script>
+</head>
+<body onload="onChange();">
+<div id="container">
+	<h1>
+		<img id="icon" src="icon.png" alt="FatWatch icon"/>
+		FatWatch on __NAME__
+	</h1>
+	<p>
+		Go directly to:
+		<a href="#export">Export</a>,
+		<a href="#import">Import</a>,
+		<a href="#format">File Format</a>,
+		or
+		<a href="#bookmarking">Bookmarking</a>.
+	</p>
+	<p>
+		Wi-Fi Import/Export allows you to transfer weight measurements to and from FatWatch through your computer's web browser.  No special software is required.
+	</p>
+	<p>
+		If you need any help, feel free to visit <a href="http://www.fatwatchapp.com/support">the FatWatch support website</a> or send email to <a href="mailto:help@fatwatchapp.com?subject=FatWatch%20__VERSION__">help@fatwatchapp.com</a>.
+	</p>
+
+	<h1><a name="export">Export</a></h1>
+	<p>
+		Copy your weight history from your __MODEL__ as a <a href="#format">CSV file</a> by clicking the link below.
+	</p>
+	<p>
+		<strong><a href="/export/weight.csv">Download Weight History</a></strong>
+	</p>
+
+	<h1><a name="import">Import</a></h1>
 	
-		<h1>Export</h1>
-		
+	<form name="importForm" method="POST" enctype="multipart/form-data" action="/import">
 		<p>
-			You can retrieve the weight data from your __MODEL__ by clicking the following link.
-		</p>
-		
-		<p>
-			<a href="/export/weight.csv">Download Weight History</a>
-		</p>
-	
-		<h1>Import</h1>
-		
-		<form name="import" method="POST" enctype="multipart/form-data" action="/import">
-			<p>
-				You can send data to your __MODEL__ using this form.  First, select a data file.
-			</p>
-			<p>
-				<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
-			</p>
-			<p>
-				If you need to, you can specify your file's encoding.  You might need to change this if your notes do not import correctly.  The default should be fine for most cases.
-			</p>
-			<p>
-				File encoding: <select name="encoding">
-					<option value="4" selected="true">Unicode (UTF-8)</option>
-					<option value="30">Western (Mac OS Roman)</option>
-					<option value="12">Western (Windows Latin 1)</option>
-					<option value="5">Western (ISO Latin 1)</option>
-					<option value="9">Western (ISO Latin 2)</option>
-					<option value="15">Central European (Windows Latin 2)</option><!-- CP1250 -->
-					<option value="11">Cyrillic (Windows)</option><!-- CP1251 -->
-					<option value="13">Greek (Windows)</option><!-- CP1253 -->
-					<option value="14">Turkish (Windows)</option><!-- CP1254 -->
-					<option value="8">Japanese (Shift JIS)</option>
-				</select>
-			</p>
-			<p>
-				Existing data can be merged or replaced with the data from your file.
-			</p>
-			<dl>
-				<dt>
-					<input type="radio" name="how" value="merge" id="merge_button" checked="true"/>
-					<label for="merge_button">Merge with existing data.</label>
-				</dt>
-				<dd>
-					If the file and the __MODEL__ have different weights for the same date, the weight in the file will replace the weight on the __MODEL__.  Otherwise, any existing weights on your __MODEL__ will be left alone.
-				</dd>
-				<dt>
-					<input type="radio" name="how" value="replace" id="replace_button"/>
-					<label for="replace_button">Replace existing data.</label>
-				</dt>
-				<dd>
-					All weights on your __MODEL__ <strong>will be deleted</strong> and the weights in your file will take their place.
-				</dd>
-			</dl>
-			<div>
-				<input type="submit" name="sendbutton" value="Send to __MODEL__"/>
-			</div>
-		</form>
-		<h1>Tips</h1>
-		<p>
-			Because FatWatch generates a new web address each time you enable Wi-Fi Import/Export, <strong>bookmarks to this page will not work.</strong>  You can still save yourself some typing, however, because FatWatch advertises the address of this page to your local network using <a href="http://www.apple.com/bonjour/">Bonjour</a>.
+			You can send data to your __MODEL__ using this form.  First, select a <a href="#format">CSV file</a>.
 		</p>
 		<p>
-			If you are using Safari on a Macintosh, you can find advertised websites by selecting Show All Bookmarks from the Bookmarks menu, then selecting Bonjour in the collections list.
+			<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
 		</p>
 		<p>
-			If you are using Windows, you can install <a href="http://www.apple.com/support/downloads/bonjourforwindows.html">Bonjour for Windows</a>, which includes a plug-in for Internet Explorer to display Bonjour advertised websites.
+			If you need to, you can specify your file's encoding.  You might need to change this if your notes do not import correctly.  The default should be fine for most cases.
 		</p>
-	</body>
+		<p>
+			File encoding: <select name="encoding">
+				<option value="4" selected="true">Unicode (UTF-8)</option>
+				<option value="30">Western (Mac OS Roman)</option>
+				<option value="12">Western (Windows Latin 1)</option>
+				<option value="5">Western (ISO Latin 1)</option>
+				<option value="9">Western (ISO Latin 2)</option>
+				<option value="15">Central European (Windows Latin 2)</option><!-- CP1250 -->
+				<option value="11">Cyrillic (Windows)</option><!-- CP1251 -->
+				<option value="13">Greek (Windows)</option><!-- CP1253 -->
+				<option value="14">Turkish (Windows)</option><!-- CP1254 -->
+				<option value="8">Japanese (Shift JIS)</option>
+			</select>
+		</p>
+		<div>
+			<input type="submit" name="sendbutton" value="Send to __MODEL__"/>
+		</div>
+	</form>
+	<h1><a name="format">File Format</a></h1>
+	<p>
+		FatWatch uses comma separated values (CSV) as its file format for import and export.  CSV files are supported by many common applications, including spreadsheets such as Numbers and Excel.
+	</p>
+	<p>
+		The columns used are <strong>Date, Weight, Checkmark, Note</strong>.
+	</p>
+	<p>
+		The Date column may be in either ISO format (YYYY-MM-DD) or your local date format.  It is always expoted in ISO format.
+	</p>
+	<p>
+		The Weight column is in pounds or kilograms, depending on your settings in FatWatch.  (If you have selected Stones, weight is imported and exported as pounds.)
+	</p>
+	<p>
+		The Checkmark column is either 1 or 0, indicating either a check or no check on that date.
+	</p>
+	<p>
+		The Note column may be any text. Text containing spaces or punctuation should be surrounded by double quotes; to include a double quote character within a quoted string, use two double quotes in succession (e.g., <code>"I am 5'8"" tall"</code>).
+	</p>
+	<p>
+		When importing only the Date and Weight columns are required.
+	</p>
+	<h1><a name="bookmarking">Bookmarking</a></h1>
+	<p>
+		Because FatWatch generates a new web address each time you enable Wi-Fi Import/Export, <strong>bookmarks to this page will not work.</strong>  You can still save yourself some typing, however, because FatWatch advertises the address of this page to your local network using <a href="http://www.apple.com/bonjour/">Bonjour</a>.
+	</p>
+	<p>
+		If you are using Safari on a Macintosh, you can find advertised websites by selecting Show All Bookmarks from the Bookmarks menu, then selecting Bonjour in the collections list.
+	</p>
+	<p>
+		If you are using Windows, you can install <a href="http://www.apple.com/support/downloads/bonjourforwindows.html">Bonjour for Windows</a>, which includes a plug-in for Internet Explorer to display Bonjour advertised websites.
+	</p>
+	<p>
+		__COPYRIGHT__
+	</p>
+</div>
+</body>
 </html>

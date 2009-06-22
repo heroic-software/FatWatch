@@ -61,7 +61,6 @@
 		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
 		BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
-		BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */; };
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
 		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
@@ -81,6 +80,7 @@
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
+		BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
@@ -211,8 +211,6 @@
 		BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MicroWebServer.m; path = Classes/MicroWebServer.m; sourceTree = "<group>"; };
 		BC8B86070DDF920100045F01 /* CSVWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVWriter.h; path = Classes/CSVWriter.h; sourceTree = "<group>"; };
 		BC8B86080DDF920100045F01 /* CSVWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVWriter.m; path = Classes/CSVWriter.m; sourceTree = "<group>"; };
-		BC8B860A0DDF93F500045F01 /* WebServerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServerDelegate.h; path = Classes/WebServerDelegate.h; sourceTree = "<group>"; };
-		BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServerDelegate.m; path = Classes/WebServerDelegate.m; sourceTree = "<group>"; };
 		BC8B86120DDF9D5A00045F01 /* CSVReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVReader.h; path = Classes/CSVReader.h; sourceTree = "<group>"; };
 		BC8B86130DDF9D5A00045F01 /* CSVReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVReader.m; path = Classes/CSVReader.m; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -247,6 +245,7 @@
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
 		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode0.png; path = Images/Passcode0.png; sourceTree = "<group>"; };
 		BCD8BE420EF081EC005639DD /* Passcode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Passcode1.png; path = Images/Passcode1.png; sourceTree = "<group>"; };
 		BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMixedNumberFormatter.h; sourceTree = "<group>"; };
@@ -580,8 +579,6 @@
 				BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */,
 				BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */,
 				BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */,
-				BC8B860A0DDF93F500045F01 /* WebServerDelegate.h */,
-				BC8B860B0DDF93F500045F01 /* WebServerDelegate.m */,
 				BC0CE4610DDC0F6300AB8899 /* DataSearch.h */,
 				BC0CE4620DDC0F6300AB8899 /* DataSearch.m */,
 				BC871F190DC7BE5A009312BA /* MicroWebServer.h */,
@@ -592,6 +589,7 @@
 				BC8B86080DDF920100045F01 /* CSVWriter.m */,
 				BC8B86120DDF9D5A00045F01 /* CSVReader.h */,
 				BC8B86130DDF9D5A00045F01 /* CSVReader.m */,
+				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
 				BC47221A0DE368170081F576 /* home.html */,
 				BC4722290DE3692C0081F576 /* importPending.html */,
 				BC47222B0DE3692C0081F576 /* importNoData.html */,
@@ -704,6 +702,7 @@
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
 				BC909D670F16F8CC0090472C /* Default.png in Resources */,
 				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
+				BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,7 +821,6 @@
 				BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */,
 				BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */,
 				BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */,
-				BC8B860C0DDF93F500045F01 /* WebServerDelegate.m in Sources */,
 				BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */,
 				BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */,
 				BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */,

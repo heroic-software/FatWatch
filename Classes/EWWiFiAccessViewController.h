@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "MicroWebServer.h"
 
+
 @class BRReachability;
 @class MicroWebServer;
+@class CSVReader;
+
+
+#define kEWReadyAddressTag 101
+#define kEWReadyNameTag 102
+
+#define kEWProgressTitleTag 401
+#define kEWProgressDetailTag 402
+#define kEWProgressButtonTag 403
 
 
 @interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate> {
@@ -19,21 +29,32 @@
 	UIView *detailView;
 	UIView *inactiveDetailView;
 	UIView *activeDetailView;
-	UILabel *addressLabel;
-	UILabel *nameLabel;
+	UIView *promptDetailView;
+	UIView *progressDetailView;
+	UIProgressView *progressView;
 	UILabel *lastImportLabel;
 	UILabel *lastExportLabel;
 	// Not NIB Stuff
 	BRReachability *reachability;
 	MicroWebServer *webServer;
+	// Import State
+	NSData *importData;
+	NSStringEncoding importEncoding;
+	CSVReader *reader;
+	NSInteger lineCount, importCount;
 }
 @property (nonatomic,retain) IBOutlet UILabel *statusLabel;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;
 @property (nonatomic,retain) IBOutlet UIView *detailView;
 @property (nonatomic,retain) IBOutlet UIView *inactiveDetailView;
 @property (nonatomic,retain) IBOutlet UIView *activeDetailView;
-@property (nonatomic,retain) IBOutlet UILabel *addressLabel;
-@property (nonatomic,retain) IBOutlet UILabel *nameLabel;
+@property (nonatomic,retain) IBOutlet UIView *promptDetailView;
+@property (nonatomic,retain) IBOutlet UIView *progressDetailView;
+@property (nonatomic,retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic,retain) IBOutlet UILabel *lastImportLabel;
 @property (nonatomic,retain) IBOutlet UILabel *lastExportLabel;
+- (IBAction)performMergeImport;
+- (IBAction)performReplaceImport;
+- (IBAction)cancelImport;
+- (IBAction)dismissProgressView;
 @end

@@ -11,7 +11,34 @@
 #import "RootViewController.h"
 #import "BRReachability.h"
 #import "MicroWebServer.h"
-#import "WebServerDelegate.h"
+#import "Database.h"
+#import "MonthData.h"
+#import "WeightFormatters.h"
+#import "CSVReader.h"
+#import "CSVWriter.h"
+#import "EWGoal.h"
+#import "FormDataParser.h"
+
+
+#define HTTP_STATUS_OK 200
+#define HTTP_STATUS_NOT_FOUND 404
+
+
+NSDateFormatter *EWDateFormatterCreateISO() {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+	[formatter setDateFormat:@"y-MM-dd"];
+	return formatter;
+}
+
+
+NSDateFormatter *EWDateFormatterCreateLocal() {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+	[formatter setDateStyle:NSDateFormatterShortStyle];
+	[formatter setTimeStyle:NSDateFormatterNoStyle];
+	return formatter;
+}
 
 
 @implementation EWWiFiAccessViewController
@@ -22,8 +49,9 @@
 @synthesize detailView;
 @synthesize inactiveDetailView;
 @synthesize activeDetailView;
-@synthesize addressLabel;
-@synthesize nameLabel;
+@synthesize promptDetailView;
+@synthesize progressDetailView;
+@synthesize progressView;
 @synthesize lastImportLabel;
 @synthesize lastExportLabel;
 
@@ -51,21 +79,14 @@
 	[detailView release];
 	[inactiveDetailView release];
 	[activeDetailView release];
-	[addressLabel release];
-	[nameLabel release];
+	[promptDetailView release];
+	[progressDetailView release];
+	[progressView release];
 	[lastImportLabel release];
 	[lastExportLabel release];
 	[reachability release];
 	[webServer release];
     [super dealloc];
-}
-
-
-- (void)viewDidLoad {
-	activeDetailView.alpha = 0;
-	inactiveDetailView.alpha = 0;
-	[detailView addSubview:activeDetailView];
-	[detailView addSubview:inactiveDetailView];
 }
 
 
@@ -79,6 +100,273 @@
 	[reachability stopMonitoring];
 	[webServer stop];
 	[RootViewController setAutorotationEnabled:YES];
+}
+
+
+- (void)displayDetailView:(UIView *)view {
+	view.alpha = 0;
+	[UIView beginAnimations:@"DetailTransition" context:nil];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(detailViewTransitionDidStop:finished:context:)];
+	for (UIView *otherView in [detailView subviews]) {
+		otherView.alpha = 0;
+	}
+	[detailView addSubview:view];
+	view.alpha = 1;
+	[UIView commitAnimations];
+}
+
+
+- (void)detailViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+	NSArray *viewArray = [[detailView subviews] copy];
+	for (UIView *view in viewArray) {
+		if (view.alpha == 0) [view removeFromSuperview];
+	}
+	[viewArray release];
+}
+
+
+- (void)beginImport {
+	reader = [[CSVReader alloc] initWithData:importData encoding:importEncoding];
+	reader.floatFormatter = [WeightFormatters exportWeightFormatter];
+	lineCount = 0;
+	importCount = 0;
+	
+	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
+	titleLabel.text = @"Importing";
+	progressView.progress = 0.0f;
+	[[progressDetailView viewWithTag:kEWProgressDetailTag] setHidden:YES];
+	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:YES];
+	[self displayDetailView:progressDetailView];
+	
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
+	[self performSelector:@selector(continueImport) withObject:nil afterDelay:0];
+}
+
+
+- (void)endImport {
+	[[Database sharedDatabase] commitChanges];
+	[reader release];
+	reader = nil;
+	[importData release];
+	importData = nil;
+	
+	NSString *msg;
+	
+	if (importCount > 0) {
+		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_COUNT", nil);
+		msg = [NSString stringWithFormat:msgFormat, lineCount, importCount];
+	} else {
+		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_NONE", nil);
+		msg = [NSString stringWithFormat:msgFormat, lineCount];
+	}
+
+	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
+	titleLabel.text = @"Done";
+	
+	progressView.progress = 1.0f;
+	
+	UILabel *detailLabel = (id)[progressDetailView viewWithTag:kEWProgressDetailTag];
+	detailLabel.text = msg;
+	detailLabel.hidden = NO;
+	
+	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:NO];
+	
+	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+}
+
+
+- (void)continueImport {
+	const Database *db = [Database sharedDatabase];
+	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
+	NSDateFormatter *isoDateFormatter = EWDateFormatterCreateISO();
+	NSDateFormatter *localDateFormatter = EWDateFormatterCreateLocal();
+	
+	while ([reader nextRow]) {
+		lineCount += 1;
+		NSString *dateString = [reader readString];
+		if (dateString != nil) {
+			NSDate *date = [isoDateFormatter dateFromString:dateString];
+			if (date == nil) {
+				date = [localDateFormatter dateFromString:dateString];
+			}
+			if (date != nil) {
+				float scaleWeight = [reader readFloat];
+				BOOL flag = [reader readBoolean];
+				NSString *note = [reader readString];
+				
+				if (scaleWeight > 0 || note != nil || flag) {
+					EWMonthDay monthday = EWMonthDayFromDate(date);
+					MonthData *md = [db dataForMonth:EWMonthDayGetMonth(monthday)];
+					[md setScaleWeight:scaleWeight
+								  flag:flag
+								  note:note
+								 onDay:EWMonthDayGetDay(monthday)];
+					importCount += 1;
+				}
+			}
+		}
+		if ([recessDate timeIntervalSinceNow] < 0) {
+			[isoDateFormatter release];
+			[localDateFormatter release];
+			progressView.progress = reader.progress;
+			[self performSelector:@selector(continueImport) 
+					   withObject:nil
+					   afterDelay:0];
+			return;
+		}
+	}
+		
+	[isoDateFormatter release];
+	[localDateFormatter release];
+	[self endImport];
+}
+
+
+#pragma mark IBAction
+
+
+- (IBAction)performMergeImport {
+	[self beginImport];
+}
+
+
+- (IBAction)performReplaceImport {
+	[EWGoal deleteGoal];
+	[[Database sharedDatabase] deleteWeights];
+	[self beginImport];
+}
+
+
+- (IBAction)cancelImport {
+	[importData release];
+	importData = nil;
+	[self displayDetailView:activeDetailView];
+}
+
+
+- (IBAction)dismissProgressView {
+	[self displayDetailView:activeDetailView];
+}
+
+
+#pragma mark Web Server Stuff
+
+
+- (void)sendNotFoundErrorToConnection:(MicroWebConnection *)connection {
+	[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
+	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyString:@"Resource Not Found"];
+}
+
+
+- (void)sendHTMLResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html"];
+	
+	if (path == nil) {
+		[self sendNotFoundErrorToConnection:connection];
+		return;
+	}
+	
+	NSMutableString *text = [[NSMutableString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+	
+	for (NSString *key in [substitutions allKeys]) {
+		[text replaceOccurrencesOfString:key
+							  withString:[substitutions objectForKey:key]
+								 options:0
+								   range:NSMakeRange(0, [text length])];
+	}
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyData:[text dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[text release];
+}
+
+
+- (void)sendResource:(NSString *)name ofType:(NSString *)type contentType:(NSString *)contentType toConnection:(MicroWebConnection *)connection {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:type];
+	
+	if (path == nil) {
+		[self sendNotFoundErrorToConnection:connection];
+		return;
+	}
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:contentType forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
+}
+
+
+- (void)handleExport:(MicroWebConnection *)connection {
+	CSVWriter *writer = [[CSVWriter alloc] init];
+	writer.floatFormatter = [WeightFormatters exportWeightFormatter];
+	
+	[writer addString:@"Date"];
+	[writer addString:@"Weight"];
+	[writer addString:@"Checkmark"];
+	[writer addString:@"Note"];
+	[writer endRow];
+	
+	NSDateFormatter *formatter = EWDateFormatterCreateISO();
+	
+	Database *db = [Database sharedDatabase];
+	EWMonth month;
+	for (month = db.earliestMonth; month <= db.latestMonth; month += 1) {
+		MonthData *md = [db dataForMonth:month];
+		EWDay day;
+		for (day = 1; day <= 31; day++) {
+			if ([md hasDataOnDay:day]) {
+				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
+				[writer addFloat:[md scaleWeightOnDay:day]];
+				[writer addBoolean:[md isFlaggedOnDay:day]];
+				[writer addString:[md noteOnDay:day]];
+				[writer endRow];
+			}
+		}
+	}
+	
+	NSString *contentType = @"text/csv; charset=utf-8";
+	NSString *contentDisposition = [NSString stringWithFormat:@"attachment; filename=\"weight-%@.csv\"", [formatter stringFromDate:[NSDate date]]];
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:contentType forResponseHeader:@"Content-Type"];
+	[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
+	[connection setResponseBodyData:[writer data]];
+	[writer release];
+	[formatter release];
+}
+
+
+- (void)handleImport:(MicroWebConnection *)connection {
+	if (importData != nil) {
+		// If we are already waiting for imported data to be handled, ignore
+		// further requests.
+		[self sendHTMLResourceNamed:@"importPending" 
+				  withSubstitutions:nil
+					   toConnection:connection];
+		return;
+	}
+	
+	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
+	
+	importData = [[form dataForKey:@"filedata"] retain];
+	importEncoding = [[form stringForKey:@"encoding"] intValue];
+	
+	if (importData == nil) {
+		[self sendHTMLResourceNamed:@"importNoData" 
+				  withSubstitutions:nil
+					   toConnection:connection];
+		return;
+	}
+	
+	[self displayDetailView:promptDetailView];
+		
+	[self sendHTMLResourceNamed:@"importAccepted"
+			  withSubstitutions:nil
+				   toConnection:connection];
 }
 
 
@@ -108,10 +396,49 @@
 
 
 - (void)handleWebConnection:(MicroWebConnection *)connection {
-	// TODO: CHANGE THIS
-	WebServerDelegate *wsd = [[WebServerDelegate alloc] init];
-	[wsd handleWebConnection:connection];
-	[wsd release];
+	NSString *path = [[connection requestURL] path];
+	
+	if ([path isEqualToString:@"/"]) {
+		UIDevice *device = [UIDevice currentDevice];
+		NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+		NSString *version = [info objectForKey:@"CFBundleVersion"];
+		NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
+		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
+							   [device name], @"__NAME__",
+							   [device localizedModel], @"__MODEL__",
+							   version, @"__VERSION__",
+							   copyright, @"__COPYRIGHT__",
+							   nil];
+		[self sendHTMLResourceNamed:@"home" 
+				  withSubstitutions:subst
+					   toConnection:connection];
+		return;
+	}
+	
+	if ([path hasPrefix:@"/export/"]) {
+		[self handleExport:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/import"]) {
+		[self handleImport:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/icon.png"]) {
+		[self sendResource:@"Icon" ofType:@"_png" 
+			   contentType:@"image/png" toConnection:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/fatwatch.css"]) {
+		[self sendResource:@"fatwatch" ofType:@"css" 
+			   contentType:@"text/css" toConnection:connection];
+		return;
+	}
+	
+	// handle robots.txt, favicon.ico
+	[self sendNotFoundErrorToConnection:connection];
 }
 
 
@@ -122,21 +449,19 @@
 	BOOL networkAvailable = ((flags & kSCNetworkReachabilityFlagsReachable) &&
 							 !(flags & kSCNetworkReachabilityFlagsIsWWAN));
 		
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
 	if (networkAvailable && !webServer.running) {
 		// Start it up
 		[webServer start];
 		if (webServer.running) {
 			statusLabel.text = @"Ready";
+			UILabel *addressLabel = (id)[activeDetailView viewWithTag:kEWReadyAddressTag];
+			UILabel *nameLabel = (id)[activeDetailView viewWithTag:kEWReadyNameTag];
 			addressLabel.text = [webServer.url description];
 			nameLabel.text = webServer.name;
-			activeDetailView.alpha = 1;
-			inactiveDetailView.alpha = 0;
+			[self displayDetailView:activeDetailView];
 		} else {
 			statusLabel.text = @"Failed to Start";
-			activeDetailView.alpha = 0;
-			inactiveDetailView.alpha = 1;
+			[self displayDetailView:inactiveDetailView];
 		}
 	} else if (!networkAvailable) {
 		// Shut it down
@@ -144,10 +469,8 @@
 			[webServer stop];
 		}
 		statusLabel.text = @"Off";
-		activeDetailView.alpha = 0;
-		inactiveDetailView.alpha = 1;
+		[self displayDetailView:inactiveDetailView];
 	}
-	[UIView commitAnimations];
 }
 
 

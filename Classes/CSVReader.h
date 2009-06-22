@@ -16,6 +16,7 @@
 	NSStringEncoding dataEncoding;
 }
 @property (nonatomic,retain) NSNumberFormatter *floatFormatter;
+@property (nonatomic,readonly) float progress;
 - (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding;
 - (BOOL)nextRow;
 - (NSString *)readString;

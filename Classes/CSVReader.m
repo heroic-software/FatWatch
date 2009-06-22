@@ -218,4 +218,9 @@
 }
 
 
+- (float)progress {
+	return (float)dataIndex / (float)[data length];
+}
+
+
 @end

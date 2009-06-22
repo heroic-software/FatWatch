@@ -1,0 +1,12 @@
+body {
+	text-align: center;
+}
+#container {
+	width: 600px;
+	margin: 0 auto;
+	text-align: left;
+}
+h1 {
+	font-family: sans-serif;
+	border-bottom: 2px solid #c00;
+}
