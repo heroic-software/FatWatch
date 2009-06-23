@@ -53,6 +53,11 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 + (void)fixHeightIfNeeded {
+	static NSString *kHeightFixAppliedKey = @"EWFixedBug0000017";
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	
+	if ([uds boolForKey:kHeightFixAppliedKey]) return;
+	
 	// To fix a stupid bug where all height values were offset by 1 cm,
 	// causing weird results when measuring in inches.
 	if ([WeightFormatters heightIncrement] > 0.01f) {
@@ -60,9 +65,11 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		float error = fmodf(height, 0.0254f);
 		if (fabsf(error - 0.01f) < 0.0001f) {
 			[EWGoal setHeight:(height - 0.01f)];
-			NSLog(@"Height adjusted from %f to %f", height, [EWGoal height]);
+			NSLog(@"Bug 0000017: Height adjusted from %f to %f", height, [EWGoal height]);
 		}
 	}
+
+	[uds setBool:YES forKey:kHeightFixAppliedKey];
 }
 
 
