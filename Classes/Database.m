@@ -291,7 +291,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 
 
 - (void)updateTrendValues {
-	NSLog(@"Updating trend values after monthday %d", earliestChangeMonthDay);
+//	NSLog(@"Updating trend values after monthday %d", earliestChangeMonthDay);
 	if (earliestChangeMonthDay != 0) {
 		EWMonth month = EWMonthDayGetMonth(earliestChangeMonthDay);
 		EWDay day = EWMonthDayGetDay(earliestChangeMonthDay);

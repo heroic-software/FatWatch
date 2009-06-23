@@ -34,7 +34,7 @@ void MicroReadStreamCallback(CFReadStreamRef stream, CFStreamEventType eventType
 			[connection readStreamHasBytesAvailable];
 			break;
 		default:
-			NSLog(@"unhandled read stream event %d", eventType);
+			NSLog(@"WARNING: Unhandled read stream event %d", eventType);
 			break;
 	}
 }
@@ -47,7 +47,7 @@ void MicroWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType eventTy
 			[connection writeStreamCanAcceptBytes];
 			break;
 		default:
-			NSLog(@"unhandled write stream event %d", eventType);
+			NSLog(@"WARNING: Unhandled write stream event %d", eventType);
 			break;
 	}
 }
@@ -240,12 +240,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
-	NSLog(@"Didn't publish: %@", errorDict);
-}
-
-
-- (void)netServiceDidPublish:(NSNetService *)sender {
-	NSLog(@"Published on port %d", [sender port]);
+	NSLog(@"Did not publish service: %@", errorDict);
 }
 
 
@@ -295,14 +290,13 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		if (dataLength > 0) {
 			Boolean didSucceed = CFHTTPMessageAppendBytes(requestMessage, buffer, dataLength);
 			if (! didSucceed) {
-				NSLog(@"error appending bytes");
+				NSLog(@"CFHTTPMessageAppendBytes: returned false");
 				return YES;
 			}
 		} else if (dataLength == 0) {
-			NSLog(@"end of read stream");
-			return YES;
+			return YES; // end of stream
 		} else {
-			NSLog(@"error");
+			NSLog(@"CFReadStreamRead: returned %d", dataLength);
 			return YES;
 		}
 	} while (CFReadStreamHasBytesAvailable(readStream));
@@ -316,14 +310,14 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	
 //	NSString *transferEncodingStr = [self requestHeaderValueForName:@"Transfer-Encoding"];
 //	if (transferEncodingStr) {
-//		printf("transfer-encoding: %s\n", [transferEncodingStr UTF8String]);
+//		NSLog(@"transfer-encoding: %@", transferEncodingStr);
 //	}
 	
 	NSString *contentLengthStr = [self requestHeaderValueForName:@"Content-Length"];
 	NSInteger contentLength = [contentLengthStr integerValue];
 	if (contentLength > 0) {
 		NSData *bodyData = [self requestBodyData];
-//		printf("content length is %d and we got %d\n", contentLength, [bodyData length]);
+//		NSLog(@"content length is %d and we got %d", contentLength, [bodyData length]);
 		return [bodyData length] >= contentLength;
 	}
 	
@@ -359,7 +353,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	buffer += (bufferLength - responseBytesRemaining);
 	CFIndex bytesWritten = CFWriteStreamWrite(writeStream, buffer, responseBytesRemaining);
 	if (bytesWritten < 0) {
-		NSLog(@"error");
+		NSLog(@"CFWriteStreamWrite: returned %d", bytesWritten);
 		return;
 	}
 	responseBytesRemaining -= bytesWritten;

@@ -24,20 +24,20 @@
 #define HTTP_STATUS_NOT_FOUND 404
 
 
-NSDateFormatter *EWDateFormatterCreateISO() {
+NSDateFormatter *EWDateFormatterGetISO() {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	[formatter setDateFormat:@"y-MM-dd"];
-	return formatter;
+	return [formatter autorelease];
 }
 
 
-NSDateFormatter *EWDateFormatterCreateLocal() {
+NSDateFormatter *EWDateFormatterGetLocal() {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	[formatter setDateStyle:NSDateFormatterShortStyle];
 	[formatter setTimeStyle:NSDateFormatterNoStyle];
-	return formatter;
+	return [formatter autorelease];
 }
 
 
@@ -213,9 +213,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (void)continueImport {
 	const Database *db = [Database sharedDatabase];
-	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
-	NSDateFormatter *isoDateFormatter = EWDateFormatterCreateISO();
-	NSDateFormatter *localDateFormatter = EWDateFormatterCreateLocal();
+	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.2];
+	NSDateFormatter *isoDateFormatter = EWDateFormatterGetISO();
+	NSDateFormatter *localDateFormatter = EWDateFormatterGetLocal();
 	
 	while ([reader nextRow]) {
 		lineCount += 1;
@@ -242,8 +242,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 			}
 		}
 		if ([recessDate timeIntervalSinceNow] < 0) {
-			[isoDateFormatter release];
-			[localDateFormatter release];
 			progressView.progress = reader.progress;
 			[self performSelector:@selector(continueImport) 
 					   withObject:nil
@@ -252,8 +250,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		}
 	}
 		
-	[isoDateFormatter release];
-	[localDateFormatter release];
 	[self endImport];
 }
 
@@ -344,7 +340,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[writer addString:@"Note"];
 	[writer endRow];
 	
-	NSDateFormatter *formatter = EWDateFormatterCreateISO();
+	NSDateFormatter *formatter = EWDateFormatterGetISO();
 	
 	Database *db = [Database sharedDatabase];
 	EWMonth month;
@@ -370,7 +366,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
 	[connection setResponseBodyData:[writer data]];
 	[writer release];
-	[formatter release];
 
 	[self setCurrentDateForKey:kEWLastExportKey];
 }

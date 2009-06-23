@@ -71,7 +71,7 @@
 		   [scanner scanString:@": " intoString:nil] &&
 		   [scanner scanUpToString:@"\r\n" intoString:&value] &&
 		   [scanner scanString:@"\r\n" intoString:nil]) {
-		NSLog(@"Parsed header: <%@> value: <%@>", name, value);
+//		NSLog(@"Parsed header: <%@> value: <%@>", name, value);
 		[headers setObject:value forKey:name];
 	}
 	
@@ -91,14 +91,14 @@
 	
 	NSString *contentDisposition = [headers objectForKey:@"Content-Disposition"];
 	if (contentDisposition == nil) {
-		NSLog(@"Part has no Content-Disposition header!");
+//		NSLog(@"Part has no Content-Disposition header!");
 		return;
 	}
 	
 	NSUInteger bodyBeginIndex = crlfcrlfIndex + 4;
 	NSUInteger bodyLength = [partData length] - bodyBeginIndex;
 	NSData *bodyData = [partData subdataWithRange:NSMakeRange(bodyBeginIndex, bodyLength)];
-	NSLog(@"Part has %d bytes of data", bodyLength);
+//	NSLog(@"Part has %d bytes of data", bodyLength);
 	
 	NSString *name;
 	
@@ -107,7 +107,7 @@
 		[scanner scanUpToString:@"\"" intoString:&name] && 
 		[scanner scanString:@"\"" intoString:nil]) {
 		[dictionary setObject:bodyData forKey:name];
-		NSLog(@"Part has name %@", name);
+//		NSLog(@"Part has name %@", name);
 	}
 	[scanner release];
 }
@@ -136,7 +136,7 @@
 		NSUInteger partEndIndex = [boundary nextIndex];
 		if (partEndIndex == NSNotFound) break;
 		NSUInteger partLength = partEndIndex - partBeginIndex - 4; // avoid \r\n--
-		NSLog(@"Found part from %d to %d", partBeginIndex, partEndIndex);
+//		NSLog(@"Found part from %d to %d", partBeginIndex, partEndIndex);
 		[self parsePartData:[bodyData subdataWithRange:NSMakeRange(partBeginIndex, partLength)]];
 		partBeginIndex = partEndIndex + [boundaryData length] + 2;
 	}
