@@ -6,7 +6,7 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "GTMSenTestCase.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "Database.h"
 #import "MonthData.h"
 

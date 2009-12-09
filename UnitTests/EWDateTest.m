@@ -7,7 +7,7 @@
 //
 
 
-#import "GTMSenTestCase.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "EWDate.h"
 
 
