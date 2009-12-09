@@ -432,7 +432,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	if ([path isEqualToString:@"/"]) {
 		UIDevice *device = [UIDevice currentDevice];
 		NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-		NSString *version = [info objectForKey:@"CFBundleVersion"];
+		NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
 		NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
 		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
 							   [device name], @"__NAME__",

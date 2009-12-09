@@ -760,7 +760,7 @@
 			);
 			name = "Run Script (Defaults.plist)";
 			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Defaults.plist",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Defaults.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -947,6 +947,8 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -963,19 +965,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0000;
-				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
+				BUILD_NUMBER = 0;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD269AEC-3E91-4F92-9D54-A6D313E9BB68";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = AdHoc;
 		};
 		BC2CBA710EC988A8002087B7 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "FatWatch β";
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1012,18 +1015,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0000;
-				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
+				BUILD_NUMBER = 0;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EE480A3-9698-45DA-9D06-109F575D0FD5";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = AppStore;
 		};
 		BCDCEB800E28150A00185857 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = FatWatch;
+				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1085,15 +1089,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0000;
-				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
+				BUILD_NUMBER = 0;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};

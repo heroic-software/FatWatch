@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>${BUNDLE_DISPLAY_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -21,10 +21,10 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.${BUILD_NUMBER}</string>
+	<string>${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.1</string>
+	<string>1.5</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>FatWatch 1.4.1 ©2008-2009 Benjamin Ragheb (${BUILD_NUMBER})</string>
+	<string>FatWatch 1.5 (${BUILD_NUMBER}) ©2008-2009 Benjamin Ragheb</string>
 </dict>
 </plist>
