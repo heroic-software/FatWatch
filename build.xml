@@ -3,38 +3,33 @@
 
 	<property name="output.root" value="Builds"/>
 
-	<import file="${user.home}/.ant/iphone-builds.xml"/>
+	<import file="BuildSystem/iphone-builds.xml"/>
 	
-	<property
-		name="xcode.profile.appstore"
-		value="1EE480A3-9698-45DA-9D06-109F575D0FD5"
-		/>
-	<property
-		name="xcode.profile.adhoc"
-		value="FF9825CD-E8E9-4314-BCC7-DD0D11A5395B"
-		/>
-		
-	<target name="make.adhoc" depends="copymobileprovision,makezip"/>
-	<target name="make.appstore" depends="makezip"/>
-	
-	<target name="adhoc">
+	<target name="adhoc.setup">
 		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
-		<antcall target="make.adhoc">
-			<param name="xcode.profile" value="${xcode.profile.adhoc}"/>
-			<param name="xcode.target" value="FatWatch"/>
-			<param name="xcode.config" value="AdHoc"/>
-		</antcall>
-		<setdefaultkeychain name="login"/>
+		<property name="xcode.target" value="FatWatch"/>
+		<property name="xcode.config" value="AdHoc"/>
+		<property
+			name="xcode.profile"
+			value="34556676-0A9B-48F5-825A-19A1161C6541"
+			/>
+	</target>
+	
+	<target name="appstore.setup">
+		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
+		<property name="xcode.target" value="FatWatch"/>
+		<property name="xcode.config" value="AppStore"/>
+		<property
+			name="xcode.profile"
+			value="1EE480A3-9698-45DA-9D06-109F575D0FD5"
+			/>
 	</target>
 
-	<target name="appstore">
-		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
-		<antcall target="make.appstore">
-			<param name="xcode.profile" value="${xcode.profile.appstore}"/>
-			<param name="xcode.target" value="FatWatch"/>
-			<param name="xcode.config" value="AppStore"/>
-		</antcall>
+	<target name="all.cleanup">
 		<setdefaultkeychain name="login"/>
 	</target>
-
+	
+	<target name="adhoc" depends="adhoc.setup,copymobileprovision,makeipa,all.cleanup"/>
+	<target name="appstore" depends="appstore.setup,makezip,all.cleanup"/>
+	
 </project>
