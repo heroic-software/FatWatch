@@ -18,6 +18,13 @@
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
+enum {
+	kModeWeight,
+	kModeWeightAndFat,
+	kModeNone
+};
+
+
 @implementation LogEntryViewController
 
 
@@ -78,17 +85,28 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 }
 
 
+- (NSInteger)pickerRowForBodyFat:(float)bodyFat {
+	return roundf(bodyFat * 1000.0f);
+}
+
+
+- (float)bodyFatForPickerRow:(NSInteger)row {
+	return row / 1000.0f;
+}
+
+
 - (void)toggleWeight {
-	if (weightControl.selectedSegmentIndex == 0) {
-		if ([weightPickerView superview] == nil) {
-			[noWeightView removeFromSuperview];
-			[weightContainerView addSubview:weightPickerView];
-		}
-	} else {
+	if (weightControl.selectedSegmentIndex == kModeNone) {
 		if ([noWeightView superview] == nil) {
 			[weightPickerView removeFromSuperview];
 			[weightContainerView addSubview:noWeightView];
 		}
+	} else {
+		if ([weightPickerView superview] == nil) {
+			[noWeightView removeFromSuperview];
+			[weightContainerView addSubview:weightPickerView];
+		}
+		[weightPickerView reloadAllComponents];
 	}
 }
 
@@ -97,11 +115,6 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	CATransition *animation = [CATransition animation];
 	[animation setType:kCATransitionFade];
 	[animation setDuration:0.3];
-	if (weightControl.selectedSegmentIndex == 0) {
-		[animation setSubtype:kCATransitionFromLeft];
-	} else {
-		[animation setSubtype:kCATransitionFromRight];
-	}
 	[self toggleWeight];
 	[[weightContainerView layer] addAnimation:animation forKey:nil];
 }
@@ -175,9 +188,15 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 	}
 	
 	int row = [self pickerRowForWeight:weight];
-	[weightPickerView reloadComponent:0];
+	[weightPickerView reloadAllComponents];
 	[weightPickerView selectRow:row inComponent:0 animated:NO];
 	[weightPickerView becomeFirstResponder];
+	
+	if (weightControl.selectedSegmentIndex == kModeWeightAndFat) {
+		[weightPickerView selectRow:[self pickerRowForBodyFat:0.25f]
+						inComponent:1
+						   animated:NO];
+	}
 	
 	flagControl.selectedSegmentIndex = [monthData isFlaggedOnDay:day];
 	
@@ -238,37 +257,46 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
+	if (weightControl.selectedSegmentIndex == kModeWeight) {
+		return 1;
+	} else {
+		return 2;
+	}
 }
 
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return [self pickerRowForWeight:500.0f];
+	if (component == 0) {
+		return [self pickerRowForWeight:500.0f];
+	} else {
+		return [self pickerRowForBodyFat:1.0f];
+	}
 }
 
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-	return kWeightPickerComponentWidth;
-}
 
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
 	UILabel *label;
-	
+
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, kWeightPickerComponentWidth, 44)] autorelease];
+		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
-		label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 	
-	float weight = [self weightForPickerRow:row];
-
-	label.text = [WeightFormatters stringForWeight:weight];
-	label.backgroundColor = [WeightFormatters backgroundColorForWeight:weight];
+	if (component == 0) {
+		float weight = [self weightForPickerRow:row];
+		label.text = [WeightFormatters stringForWeight:weight];
+		label.backgroundColor = [WeightFormatters backgroundColorForWeight:weight];
+	} else {
+		float bodyFat = [self bodyFatForPickerRow:row];
+		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * bodyFat)];
+		label.backgroundColor = [UIColor clearColor];
+	}
 
 	return label;
 }

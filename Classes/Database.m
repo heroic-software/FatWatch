@@ -357,6 +357,7 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 	if (version < 2) {
 		NSLog(@"Upgrading database from dataversion %d to 2", version);
 		[self flushCache];
+		// TODO: read SQL from file and wrap in transaction
 		[self executeSQL:"CREATE INDEX IF NOT EXISTS trendValue_index ON weight (trendValue)"];
 		[self executeSQL:"DELETE FROM weight WHERE (measuredValue IS NULL) AND (flag = 0) AND (ifnull(length(note),0) = 0)"];
 		[self executeSQL:"INSERT INTO metadata VALUES ('dataversion', 2)"];
