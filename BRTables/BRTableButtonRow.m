@@ -11,6 +11,7 @@
 
 @implementation BRTableButtonRow
 
+
 @synthesize target, action, disabled;
 
 
@@ -30,7 +31,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
-	cell.textColor = self.disabled ? [UIColor grayColor] : self.titleColor;
+	cell.textLabel.textColor = self.disabled ? [UIColor grayColor] : self.titleColor;
 }
 
 
@@ -44,5 +45,6 @@
 	}
 	[[self cell] setSelected:NO];
 }
+
 
 @end

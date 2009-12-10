@@ -48,9 +48,10 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 
 
 - (id)init {
-    if ([super initWithFrame:CGRectMake(0, 0, 320, 44) reuseIdentifier:kLogCellReuseIdentifier]) {
+	if ([super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kLogCellReuseIdentifier]) {
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
-		logContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		logContentView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | 
+										   UIViewAutoresizingFlexibleHeight);
 		logContentView.opaque = YES;
 		logContentView.tag = kLogContentViewTag;
 		[self.contentView addSubview:logContentView];
@@ -95,8 +96,8 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 	[logContentView setNeedsDisplay];
 }
 
-@end
 
+@end
 
 
 @implementation LogTableViewCellContentView

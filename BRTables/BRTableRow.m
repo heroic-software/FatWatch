@@ -58,12 +58,12 @@
 
 - (void)configureCell:(UITableViewCell *)cell {
 	if (title) {
-		cell.text = title;
+		cell.textLabel.text = title;
 	} else {
-		cell.text = [object description];
+		cell.textLabel.text = [object description];
 	}
-	cell.textAlignment = titleAlignment;
-	cell.textColor = titleColor;
+	cell.textLabel.textAlignment = titleAlignment;
+	cell.textLabel.textColor = titleColor;
 	cell.accessoryView = accessoryView;
 	cell.accessoryType = accessoryType;
 }

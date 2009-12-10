@@ -145,23 +145,23 @@ enum {
 - (void)configureCell:(UITableViewCell *)cell forTableRow:(NSInteger)row {
 	switch (row) {
 		case kTrendSpanRowWeightChangeRate:
-			cell.text = [WeightFormatters weightStringForWeightPerDay:self.weightPerDay];
-			cell.textColor = [UIColor blackColor];
+			cell.textLabel.text = [WeightFormatters weightStringForWeightPerDay:self.weightPerDay];
+			cell.textLabel.textColor = [UIColor blackColor];
 			break;
 		case kTrendSpanRowWeightChangeTotal: {
 			if (self.weightChange > 0) {
 				NSString *amount = [WeightFormatters stringForWeight:self.weightChange];
-				cell.text = [amount stringByAppendingString:NSLocalizedString(@"GAIN_SUFFIX", nil)];
+				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@"GAIN_SUFFIX", nil)];
 			} else {
 				NSString *amount = [WeightFormatters stringForWeight:-self.weightChange];
-				cell.text = [amount stringByAppendingString:NSLocalizedString(@"LOSS_SUFFIX", nil)];
+				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@"LOSS_SUFFIX", nil)];
 			}
-			cell.textColor = [UIColor blackColor];
+			cell.textLabel.textColor = [UIColor blackColor];
 			break;
 		}
 		case kTrendSpanRowEnergyChangeRate:
-			cell.text = [WeightFormatters energyStringForWeightPerDay:self.weightPerDay];
-			cell.textColor = [UIColor blackColor];
+			cell.textLabel.text = [WeightFormatters energyStringForWeightPerDay:self.weightPerDay];
+			cell.textLabel.textColor = [UIColor blackColor];
 			break;
 	}
 }
@@ -200,27 +200,27 @@ enum {
 	if (endDate) {
 		int dayCount = floor([endDate timeIntervalSinceNow] / SecondsPerDay);
 		if (dayCount > 365) {
-			cell.text = @"goal in over a year";
+			cell.textLabel.text = @"goal in over a year";
 		} else if (showEndDateAsDate) {
 			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 			[formatter setDateStyle:NSDateFormatterLongStyle];
 			[formatter setTimeStyle:NSDateFormatterNoStyle];
 			NSString *dateStr = [formatter stringFromDate:endDate];
-			cell.text = [NSString stringWithFormat:@"goal on %@", dateStr];
+			cell.textLabel.text = [NSString stringWithFormat:@"goal on %@", dateStr];
 			[formatter release];
 		} else if (dayCount == 0) {
-			cell.text = @"goal today";
+			cell.textLabel.text = @"goal today";
 		} else {
-			cell.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
+			cell.textLabel.text = [NSString stringWithFormat:@"goal in %d days", dayCount];
 		}
-		cell.textColor = [UIColor blackColor];
+		cell.textLabel.textColor = [UIColor blackColor];
 	} else {
 		if ([[EWGoal sharedGoal] isAttained]) {
-			cell.text = @"goal attained";
-			cell.textColor = [WeightFormatters goodColor];
+			cell.textLabel.text = @"goal attained";
+			cell.textLabel.textColor = [WeightFormatters goodColor];
 		} else {
-			cell.text = @"moving away from goal";
-			cell.textColor = [WeightFormatters badColor];
+			cell.textLabel.text = @"moving away from goal";
+			cell.textLabel.textColor = [WeightFormatters badColor];
 		}
 	}
 }
@@ -234,25 +234,25 @@ enum {
 	int dayCount = floor(t / SecondsPerDay);
 	if (dayCount > 0) {
 		if (dayCount > 365) {
-			cell.text = @"more than a year behind schedule";
+			cell.textLabel.text = @"more than a year behind schedule";
 		} else if (dayCount == 1) {
-			cell.text = @"1 day behind schedule";
+			cell.textLabel.text = @"1 day behind schedule";
 		} else {
-			cell.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
+			cell.textLabel.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
 		}
-		cell.textColor = [WeightFormatters warningColor];
+		cell.textLabel.textColor = [WeightFormatters warningColor];
 	} else if (dayCount < 0) {
 		if (dayCount < -365) {
-			cell.text = @"more than a year ahead of schedule";
+			cell.textLabel.text = @"more than a year ahead of schedule";
 		} else if (dayCount == -1) {
-			cell.text = @"1 day ahead of schedule";
+			cell.textLabel.text = @"1 day ahead of schedule";
 		} else {
-			cell.text = [NSString stringWithFormat:@"%d days ahead of schedule", -dayCount];
+			cell.textLabel.text = [NSString stringWithFormat:@"%d days ahead of schedule", -dayCount];
 		}
-		cell.textColor = [WeightFormatters goodColor];
+		cell.textLabel.textColor = [WeightFormatters goodColor];
 	} else {
-		cell.text = @"on schedule";
-		cell.textColor = [WeightFormatters goodColor];
+		cell.textLabel.text = @"on schedule";
+		cell.textLabel.textColor = [WeightFormatters goodColor];
 	}
 }
 

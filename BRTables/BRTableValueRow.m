@@ -76,13 +76,13 @@
 - (void)configureCell:(UITableViewCell *)cell {
 	id value = self.value;
 	if (value) {
-		cell.text = [self stringForValue:value];
-		cell.textColor = titleColor;
+		cell.textLabel.text = [self stringForValue:value];
+		cell.textLabel.textColor = titleColor;
 	} else {
-		cell.text = title;
-		cell.textColor = [UIColor grayColor];
+		cell.textLabel.text = title;
+		cell.textLabel.textColor = [UIColor grayColor];
 	}
-	cell.textAlignment = self.titleAlignment;
+	cell.textLabel.textAlignment = self.titleAlignment;
 	cell.accessoryType = self.accessoryType;
 	cell.accessoryView = self.accessoryView;
 }
