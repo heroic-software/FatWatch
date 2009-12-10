@@ -118,7 +118,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 - (void)drawMonthLabels {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+	formatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
 	
 	[[UIColor blackColor] setFill];
 	

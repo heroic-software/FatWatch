@@ -18,7 +18,7 @@
 
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"TRENDS_VIEW_TITLE", nil);
+		self.title = NSLocalizedString(@"Trends", @"Trends view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend.png"];
 		array = [[NSMutableArray alloc] init];
 	}
@@ -88,7 +88,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	if ([array count] == 0) {
-		return NSLocalizedString(@"NO_DATA_FOR_TRENDS", nil);
+		return NSLocalizedString(@"You must have weighed-in at least twice in the past year for FatWatch to compute trends.", @"Trends no data message");
 	} else {
 		return nil;
 	}

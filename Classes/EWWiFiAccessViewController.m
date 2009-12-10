@@ -189,10 +189,10 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	NSString *msg;
 	
 	if (importCount > 0) {
-		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_COUNT", nil);
+		NSString *msgFormat = NSLocalizedString(@"Read %d lines and imported %d measurements.", @"After import, count of lines read and imported.");
 		msg = [NSString stringWithFormat:msgFormat, lineCount, importCount];
 	} else {
-		NSString *msgFormat = NSLocalizedString(@"POST_IMPORT_TEXT_NONE", nil);
+		NSString *msgFormat = NSLocalizedString(@"Read %d lines but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported.");
 		msg = [NSString stringWithFormat:msgFormat, lineCount];
 	}
 

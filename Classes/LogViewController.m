@@ -43,13 +43,13 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (id)init {
 	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
-		self.title = NSLocalizedString(@"LOG_VIEW_TITLE", nil);
+		self.title = NSLocalizedString(@"Log", @"Log view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
 		scrollDestination = EWMonthDayToday();
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
-		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MONTH_YEAR_DATE_FORMAT", nil);
+		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
 	}
 	return self;
 }
@@ -243,7 +243,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		helpCell.selectionStyle = UITableViewCellSelectionStyleNone;
 
 		UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-		helpLabel.text = NSLocalizedString(@"LOG_HELP_CELL", nil);
+		helpLabel.text = NSLocalizedString(@"For earlier dates, tap the Go To button.", @"Log find earlier dates message");
 		helpLabel.textColor = [UIColor darkGrayColor];
 		helpLabel.textAlignment = UITextAlignmentCenter;
 		helpLabel.adjustsFontSizeToFitWidth = YES;

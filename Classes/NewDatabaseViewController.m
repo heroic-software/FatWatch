@@ -32,23 +32,21 @@
 
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"NEW_DATABASE_VIEW_TITLE", nil);
-		
 		[self addSectionForStrings:[WeightFormatters weightUnitNames] 
 					 selectedIndex:[WeightFormatters selectedWeightUnitIndex]
-							 title:NSLocalizedString(@"WEIGHT_UNIT", nil)];
+							 title:NSLocalizedString(@"Weight Unit", nil)];
 		[self addSectionForStrings:[WeightFormatters energyUnitNames] 
 					 selectedIndex:[WeightFormatters selectedEnergyUnitIndex]
-							 title:NSLocalizedString(@"ENERGY_UNIT", nil)];
+							 title:NSLocalizedString(@"Energy Unit", nil)];
 		[self addSectionForStrings:[WeightFormatters scaleIncrementNames]
 					 selectedIndex:[WeightFormatters selectedScaleIncrementIndex]
-							 title:NSLocalizedString(@"SCALE_INCREMENT", nil)];
+							 title:NSLocalizedString(@"Scale Precision", nil)];
 		
 		BRTableSection *buttonSection = [[BRTableSection alloc] init];
-		buttonSection.footerTitle = NSLocalizedString(@"NEW_DATABASE_DISMISS_FOOTER", nil);
+		buttonSection.footerTitle = NSLocalizedString(@"You can change units at any time using the Settings app.", @"New Database view footer");
 		
 		BRTableButtonRow *dismissRow = [[BRTableButtonRow alloc] init];
-		dismissRow.title = NSLocalizedString(@"NEW_DATABASE_DISMISS", nil);
+		dismissRow.title = NSLocalizedString(@"Weigh-in Now", nil);
 		dismissRow.target = self;
 		dismissRow.action = @selector(dismissView:);
 		[buttonSection addRow:dismissRow animated:NO];

@@ -151,10 +151,10 @@ enum {
 		case kTrendSpanRowWeightChangeTotal: {
 			if (self.weightChange > 0) {
 				NSString *amount = [WeightFormatters stringForWeight:self.weightChange];
-				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@"GAIN_SUFFIX", nil)];
+				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@" gained", @"Gain suffix")];
 			} else {
 				NSString *amount = [WeightFormatters stringForWeight:-self.weightChange];
-				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@"LOSS_SUFFIX", nil)];
+				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@" lost", @"Loss suffix")];
 			}
 			cell.textLabel.textColor = [UIColor blackColor];
 			break;

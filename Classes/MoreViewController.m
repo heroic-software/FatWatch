@@ -22,24 +22,24 @@
 
 - (void)initMoreSection {
 	BRTableSection *moreSection = [self addNewSection];
-	moreSection.footerTitle = NSLocalizedString(@"MORE_SECTION_FOOTER", nil);
+	moreSection.footerTitle = NSLocalizedString(@"Other settings are in the Settings app.", @"More section footer");
 	
 	BRTableButtonRow *chartRow = [[BRTableButtonRow alloc] init];
-	chartRow.title = NSLocalizedString(@"WEIGHT_GRAPH_ROW_TITLE", nil);
+	chartRow.title = NSLocalizedString(@"Weight Chart", @"Weight Chart button");
 	chartRow.target = self;
 	chartRow.action = @selector(showWeightChart:);
 	[moreSection addRow:chartRow animated:NO];
 	[chartRow release];
 	
 	BRTableSwitchRow *passcodeRow = [[BRTableSwitchRow alloc] init];
-	passcodeRow.title = NSLocalizedString(@"PASSCODE_ROW_TITLE", nil);
+	passcodeRow.title = NSLocalizedString(@"Require Passcode", @"Passcode switch");
 	passcodeRow.object = self;
 	passcodeRow.key = @"passcodeEnabled";
 	[moreSection addRow:passcodeRow animated:NO];
 	[passcodeRow release];
 	
 	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
-	bmiRow.title = NSLocalizedString(@"BMI_ROW_TITLE", nil);
+	bmiRow.title = NSLocalizedString(@"Monitor BMI", @"BMI switch");
 	bmiRow.object = self;
 	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
@@ -51,7 +51,7 @@
 	BRTableSection *dataSection = [self addNewSection];
 	
 	BRTableButtonRow *webServerRow = [[BRTableButtonRow alloc] init];
-	webServerRow.title = NSLocalizedString(@"WIFI_ROW_TITLE", nil);
+	webServerRow.title = NSLocalizedString(@"Wi-Fi Import/Export", @"Wi-Fi button");
 	webServerRow.titleAlignment = UITextAlignmentLeft;
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	webServerRow.target = self;
@@ -65,28 +65,28 @@
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 
 	BRTableSection *supportSection = [self addNewSection];
-	supportSection.headerTitle = NSLocalizedString(@"SUPPORT_SECTION_TITLE", nil);
+	supportSection.headerTitle = NSLocalizedString(@"Support", @"Support section title");
 	supportSection.footerTitle = [infoDictionary objectForKey:@"NSHumanReadableCopyright"];
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
-	webRow.title = NSLocalizedString(@"SUPPORT_WEBSITE_TITLE", nil);
+	webRow.title = NSLocalizedString(@"www.fatwatchapp.com", @"Support website button");
 	webRow.titleAlignment = UITextAlignmentCenter;
-	webRow.object = [NSURL URLWithString:NSLocalizedString(@"SUPPORT_WEBSITE_URL", nil)];
+	webRow.object = [NSURL URLWithString:NSLocalizedString(@"http://www.fatwatchapp.com/support/", @"Support website URL")];
 	[supportSection addRow:webRow animated:NO];
 	[webRow release];
 	
-	NSString *emailURLFormat = NSLocalizedString(@"SUPPORT_EMAIL_URL", nil);
+	NSString *emailURLFormat = NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch%%20%@", @"Support email URL");
 	NSString *emailURLString = [NSString stringWithFormat:emailURLFormat, [infoDictionary objectForKey:@"CFBundleShortVersionString"]];
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
-	emailRow.title = NSLocalizedString(@"SUPPORT_EMAIL_TITLE", nil);
+	emailRow.title = NSLocalizedString(@"help@fatwatchapp.com", @"Support email button");
 	emailRow.titleAlignment = UITextAlignmentCenter;
 	emailRow.object = [NSURL URLWithString:emailURLString];
 	[supportSection addRow:emailRow animated:NO];
 	[emailRow release];
 	
 	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
-	reviewRow.title = NSLocalizedString(@"WRITE_A_REVIEW", nil);
+	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
 	reviewRow.titleAlignment = UITextAlignmentCenter;
 	reviewRow.object = [NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=285580720&mt=8"];
 	[supportSection addRow:reviewRow animated:NO];
@@ -96,7 +96,7 @@
 
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"MORE_VIEW_TITLE", nil);
+		self.title = NSLocalizedString(@"More", @"More view title");
 		UITabBarItem *item = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0];
 		self.tabBarItem = item;
 		[item release];
@@ -159,19 +159,13 @@
 }
 
 
-- (void)showAlertTitle:(NSString *)title message:(NSString *)message {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(title, nil) 
-													message:NSLocalizedString(message, nil) 
-												   delegate:nil
-										  cancelButtonTitle:NSLocalizedString(@"OK_BUTTON", nil)
-										  otherButtonTitles:nil];
+- (void)showWeightChart:(BRTableButtonRow *)sender {
+	UIAlertView *alert = [[UIAlertView alloc] init];
+	alert.title = NSLocalizedString(@"Weight Chart", nil);
+	alert.message = NSLocalizedString(@"Rotate the device sideways to see a chart at any time.", @"Weight Chart alert message");
+	alert.cancelButtonIndex = [alert addButtonWithTitle:NSLocalizedString(@"Dismiss", nil)];
 	[alert show];
 	[alert release];
-}
-
-
-- (void)showWeightChart:(BRTableButtonRow *)sender {
-	[self showAlertTitle:@"WEIGHT_GRAPH_ROW_TITLE" message:@"WEIGHT_GRAPH_ROW_MESSAGE"];
 }
 
 

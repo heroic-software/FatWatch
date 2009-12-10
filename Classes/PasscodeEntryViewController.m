@@ -180,21 +180,21 @@ NSString *kPasscodeKey = @"Passcode";
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	if (newCode == nil) {
 		newCode = [userCode retain];
-		promptLabel.text = NSLocalizedString(@"PASSCODE_SET_2", nil);
+		promptLabel.text = NSLocalizedString(@"Re-enter your passcode", @"Passcode re-entry");
 		smallLabel.hidden = YES;
 		return NO;
 	}
 	
 	if ([newCode isEqualToString:userCode]) {
 		[[NSUserDefaults standardUserDefaults] setObject:newCode forKey:kPasscodeKey];
-		promptLabel.text = NSLocalizedString(@"PASSCODE_SET_DONE", nil);
+		promptLabel.text = NSLocalizedString(@"Passcode set", @"Passcode set");
 		smallLabel.hidden = YES;
 		return YES;
 	}
 	
-	promptLabel.text = NSLocalizedString(@"PASSCODE_SET_1", nil);
+	promptLabel.text = NSLocalizedString(@"Enter a passcode", @"Enter a passcode");
 	smallLabel.hidden = NO;
-	smallLabel.text = NSLocalizedString(@"PASSCODE_NO_MATCH", nil);
+	smallLabel.text = NSLocalizedString(@"Passcodes did not match. Try again.", @"Passcode mismatch");
 	[newCode release];
 	newCode = nil;
 	return NO;
@@ -235,14 +235,14 @@ NSString *kPasscodeKey = @"Passcode";
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	NSString *secretCode = [[NSUserDefaults standardUserDefaults] stringForKey:kPasscodeKey];
 	if ([secretCode isEqualToString:userCode]) {
-		promptLabel.text = NSLocalizedString(@"PASSCODE_AUTH_DONE", nil);
+		promptLabel.text = NSLocalizedString(@"Authorized", @"Passcode authorized");
 		smallLabel.hidden = YES;
 		isAuthorized = YES;
 		return YES;
 	} else {
 		attemptsRemaining -= 1;
 		smallLabel.hidden = NO;
-		NSString *format = NSLocalizedString(@"PASSCODE_AUTH_WRONG", nil);
+		NSString *format = NSLocalizedString(@"Incorrect. %d attempts remaining.", @"Passcode wrong, count remaining attempts");
 		smallLabel.text = [NSString stringWithFormat:format, attemptsRemaining];
 		return (attemptsRemaining == 0);
 	}
@@ -252,7 +252,7 @@ NSString *kPasscodeKey = @"Passcode";
 - (void)dismissView {
 	if (! isAuthorized) {
 		[codeField resignFirstResponder];
-		promptLabel.text = NSLocalizedString(@"PASSCODE_AUTH_FAIL", nil);
+		promptLabel.text = NSLocalizedString(@"Authorization failed", @"Passcode failed");
 		smallLabel.hidden = YES;
 		return;
 	}

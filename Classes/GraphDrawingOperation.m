@@ -154,7 +154,7 @@
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica-Bold", fontSize, kCGEncodingMacRoman);
 	
-	NSString *warningString = NSLocalizedString(@"CHART_NO_DATA", nil);
+	NSString *warningString = NSLocalizedString(@"no weight to display", @"Empty chart message");
 	NSData *text = [warningString dataUsingEncoding:NSMacOSRomanStringEncoding];
 	
 	CGPoint leftPoint = CGContextGetTextPosition(ctxt);

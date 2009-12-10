@@ -56,23 +56,23 @@
 
 - (void)addWarningSection {
 	BRTableSection *section = [self addNewSection];
-	section.footerTitle = NSLocalizedString(@"GOAL_NO_WEIGHT_WARNING", nil);
+	section.footerTitle = NSLocalizedString(@"You must weigh-in before you can set a goal.", @"No data in goal view.");
 }
 
 
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setPositiveFormat:NSLocalizedString(@"BMI_FORMAT", nil)];
+	[formatter setPositiveFormat:NSLocalizedString(@"BMI 0.0", @"BMI format")];
 	return [formatter autorelease];
 }
 
 
 - (void)addStartSection {
 	BRTableSection *section = [self addNewSection];
-	section.headerTitle = NSLocalizedString(@"START_SECTION_HEADER", nil);
+	section.headerTitle = NSLocalizedString(@"Start", @"Goal start section title");
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
-	dateRow.title = NSLocalizedString(@"START_DATE", nil);
+	dateRow.title = NSLocalizedString(@"Start Date", @"Goal start date");
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"startDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -85,7 +85,7 @@
 		 forControlEvents:UIControlEventTouchUpInside];
 	
 	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
-	weightRow.title = NSLocalizedString(@"START_WEIGHT", nil);
+	weightRow.title = NSLocalizedString(@"Start Weight", @"Goal start weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"startWeight";
 	weightRow.formatter = [WeightFormatters weightFormatter];
@@ -95,7 +95,7 @@
 	
 	if ([EWGoal isBMIEnabled]) {
 		BRTableValueRow *bmiRow = [[BRTableValueRow alloc] init];
-		bmiRow.title = NSLocalizedString(@"START_BMI", nil);
+		bmiRow.title = NSLocalizedString(@"Start BMI", @"Goal start BMI");
 		bmiRow.object = [EWGoal sharedGoal];
 		bmiRow.key = @"startBMI";
 		bmiRow.formatter = [self makeBMIFormatter];
@@ -107,7 +107,7 @@
 
 - (void)addWeightRowsToSection:(BRTableSection *)section {
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
-	weightRow.title = NSLocalizedString(@"GOAL_WEIGHT", nil);
+	weightRow.title = NSLocalizedString(@"Goal Weight", @"Goal end weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [WeightFormatters goalWeightFormatter];
@@ -123,7 +123,7 @@
 		weightRow.backgroundColorFormatter = [WeightFormatters weightBackgroundColorFormatter];
 
 		BRTableNumberPickerRow *bmiRow = [[BRTableNumberPickerRow alloc] init];
-		bmiRow.title = NSLocalizedString(@"GOAL_BMI", nil);
+		bmiRow.title = NSLocalizedString(@"Goal BMI", @"Goal end BMI");
 		bmiRow.object = [EWGoal sharedGoal];
 		bmiRow.key = @"endBMINumber";
 		bmiRow.minimumValue = 0;
@@ -141,10 +141,10 @@
 
 - (void)addGoalSection {
 	BRTableSection *goalSection = [self addNewSection];
-	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_HEADER", nil);
+	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
-	dateRow.title = NSLocalizedString(@"GOAL_DATE", nil);
+	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -157,7 +157,7 @@
 
 - (void)addNoGoalSection {
 	BRTableSection *goalSection = [self addNewSection];
-	goalSection.headerTitle = NSLocalizedString(@"GOAL_SECTION_HEADER", nil);
+	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
 	
 	[self addWeightRowsToSection:goalSection];
 }
@@ -165,11 +165,11 @@
 
 - (void)addPlanSection {
 	BRTableSection *planSection = [self addNewSection];
-	planSection.headerTitle = NSLocalizedString(@"PLAN_SECTION_HEADER", nil);
-	planSection.footerTitle = NSLocalizedString(@"PLAN_SECTION_FOOTER", nil);
+	planSection.headerTitle = NSLocalizedString(@"Plan", @"Goal plan section title");
+	planSection.footerTitle = NSLocalizedString(@"Change the plan to update your goal date.", @"Goal plan section footer");
 	
 	BRTableNumberPickerRow *energyRow = [[BRTableNumberPickerRow alloc] init];
-	energyRow.title = NSLocalizedString(@"ENERGY_CHANGE_TITLE", nil);
+	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
 	energyRow.object = [EWGoal sharedGoal];
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
@@ -181,7 +181,7 @@
 	[energyRow release];
 	
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
-	weightRow.title = NSLocalizedString(@"WEIGHT_CHANGE_TITLE", nil);
+	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
@@ -197,7 +197,7 @@
 - (void)addClearSection {
 	BRTableSection *section = [self addNewSection];
 	
-	BRTableButtonRow *clearRow = [BRTableButtonRow rowWithTitle:NSLocalizedString(@"CLEAR_GOAL_BUTTON", nil) target:self action:@selector(clearGoal:)];
+	BRTableButtonRow *clearRow = [BRTableButtonRow rowWithTitle:NSLocalizedString(@"Clear Goal", @"Clear goal button") target:self action:@selector(clearGoal:)];
 	clearRow.titleAlignment = UITextAlignmentCenter;
 	[section addRow:clearRow animated:NO];
 }
@@ -205,7 +205,7 @@
 
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"GOAL_VIEW_TITLE", nil);
+		self.title = NSLocalizedString(@"Goal", @"Goal view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
 		[self addWarningSection];
 		
@@ -294,10 +294,10 @@
 
 
 - (void)showStartWeightInfo {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"START_WEIGHT_TITLE", nil)
-													message:NSLocalizedString(@"START_WEIGHT_MESSAGE", nil)
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"About Start Weight", @"Start Weight alert title")
+													message:NSLocalizedString(@"This is the value of your weight's moving average (not the scale reading) on your selected start date.", @"Start Weight explanation")
 												   delegate:nil
-										  cancelButtonTitle:NSLocalizedString(@"START_WEIGHT_BUTTON", nil)
+										  cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Start weight alert button")
 										  otherButtonTitles:nil];
 	[alert show];
 	[alert release];
@@ -310,8 +310,8 @@
 - (void)clearGoal:(BRTableButtonRow *)sender {
 	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
 													   delegate:self 
-											  cancelButtonTitle:NSLocalizedString(@"CANCEL_BUTTON", nil) 
-										 destructiveButtonTitle:NSLocalizedString(@"CLEAR_GOAL_BUTTON", nil) 
+											  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel button") 
+										 destructiveButtonTitle:NSLocalizedString(@"Clear Goal", @"Clear goal button") 
 											  otherButtonTitles:nil];
 	[sheet showInView:self.view.window];
 	[sheet release];

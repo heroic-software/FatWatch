@@ -69,9 +69,9 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (NSArray *)weightUnitNames {
-	NSString *pounds = NSLocalizedString(@"POUNDS", nil);
-	NSString *kilograms = NSLocalizedString(@"KILOGRAMS", nil);
-	NSString *stones = NSLocalizedString(@"STONES", nil);
+	NSString *pounds = NSLocalizedString(@"Pounds (lb)", @"Pound unit name");
+	NSString *kilograms = NSLocalizedString(@"Kilograms (kg)", @"Kilogram unit name");
+	NSString *stones = NSLocalizedString(@"Stones (st lb)", @"Stone unit name");
 	return [NSArray arrayWithObjects:pounds, kilograms, stones, nil];
 }
 
@@ -88,8 +88,8 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (NSArray *)energyUnitNames {
-	NSString *calories = NSLocalizedString(@"CALORIES", nil);
-	NSString *kilojoules = NSLocalizedString(@"KILOJOULES", nil);
+	NSString *calories = NSLocalizedString(@"Calories (cal)", @"Calorie unit name");
+	NSString *kilojoules = NSLocalizedString(@"Kilojoules (kJ)", @"Kilojoule unit name");
 	return [NSArray arrayWithObjects:calories, kilojoules, nil];
 }
 
@@ -210,9 +210,9 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 			[nf setMaximumFractionDigits:[self fractionDigits]];
 			
 			if (unit == kWeightUnitPounds) {
-				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
+				[nf setPositiveSuffix:NSLocalizedString(@"lb", @"Pound unit suffix")];
 			} else {
-				[nf setPositiveSuffix:NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil)];
+				[nf setPositiveSuffix:NSLocalizedString(@"kg", @"Kilogram unit suffix")];
 				[nf setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
 			}
 			formatter = nf;
@@ -237,9 +237,9 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 			[nf setMinimumIntegerDigits:1];
 
 			if (unit == kWeightUnitPounds) {
-				[nf setPositiveSuffix:NSLocalizedString(@"POUNDS_UNIT_SUFFIX", nil)];
+				[nf setPositiveSuffix:NSLocalizedString(@"lb", @"Pound unit suffix")];
 			} else {
-				[nf setPositiveSuffix:NSLocalizedString(@"KILOGRAMS_UNIT_SUFFIX", nil)];
+				[nf setPositiveSuffix:NSLocalizedString(@"kg", @"Kilogram unit suffix")];
 				[nf setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
 			}
 			formatter = nf;
@@ -260,7 +260,7 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 	
 	if (formatter == nil) {
 		formatter = [[NSNumberFormatter alloc] init];
-		[formatter setPositiveFormat:NSLocalizedString(@"VARIANCE_FORMAT", nil)];
+		[formatter setPositiveFormat:NSLocalizedString(@"+0.0;−#", @"Variance number format")];
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitKilograms) {
 			[formatter setMultiplier:[NSNumber numberWithFloat:kKilogramsPerPound]];
@@ -283,10 +283,10 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		formatter = [[NSNumberFormatter alloc] init];
 		EWEnergyUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kEnergyUnitKey];
 		if (unit == kEnergyUnitCalories) {
-			[formatter setPositiveFormat:NSLocalizedString(@"CALORIES_PER_DAY_FORMAT", nil)];
+			[formatter setPositiveFormat:NSLocalizedString(@"+#,##0 cal/day (overeating);−# cal/day (undereating)", @"Calories/day format")];
 			[formatter setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 		} else {
-			[formatter setPositiveFormat:NSLocalizedString(@"KILOJOULES_PER_DAY_FORMAT", nil)];
+			[formatter setPositiveFormat:NSLocalizedString(@"+#,##0 kJ/day (overeating);−# kJ/day (undereating)", @"Kilojoules/day format")];
 			[formatter setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 		}
 	}
@@ -317,10 +317,10 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 		formatter = [[NSNumberFormatter alloc] init];
 		EWWeightUnit unit = [[NSUserDefaults standardUserDefaults] integerForKey:kWeightUnitKey];
 		if (unit == kWeightUnitKilograms) {
-			[formatter setPositiveFormat:NSLocalizedString(@"KILOGRAMS_PER_WEEK_FORMAT", nil)];
+			[formatter setPositiveFormat:NSLocalizedString(@"+#,##0.00 kgs/week;−# kgs/week", @"Kilogram/week format")];
 			[formatter setMultiplier:[NSNumber numberWithFloat:7.0f * kKilogramsPerPound]];
 		} else {
-			[formatter setPositiveFormat:NSLocalizedString(@"POUNDS_PER_WEEK_FORMAT", nil)];
+			[formatter setPositiveFormat:NSLocalizedString(@"+#,##0.00 lbs/week;−# lbs/week", @"Pounds/week format")];
 			[formatter setMultiplier:[NSNumber numberWithFloat:7.0f]];
 		}
 	}
