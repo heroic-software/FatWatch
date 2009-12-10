@@ -11,6 +11,7 @@
 
 @implementation BRMixedNumberFormatter
 
+
 + (NSNumberFormatter *)numberFormatterWithFractionDigits:(NSUInteger)digits {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -26,7 +27,7 @@
 	formatter.divisor = 14; // pounds per stone
 	formatter.quotientFormatter = [self numberFormatterWithFractionDigits:0];
 	formatter.remainderFormatter = [self numberFormatterWithFractionDigits:digits];
-	formatter.formatString = NSLocalizedString(@"STONE_FORMAT", nil);
+	formatter.formatString = NSLocalizedString(@"%@ st  %@ lb", @"Stone Format");
 	return [formatter autorelease];
 }
 
@@ -38,7 +39,7 @@
 	NSNumberFormatter *nf = [self numberFormatterWithFractionDigits:0];
 	formatter.quotientFormatter = nf;
 	formatter.remainderFormatter = nf;
-	formatter.formatString = @"%@\'%@\"";
+	formatter.formatString = NSLocalizedString(@"%@\'%@\"", @"Feet Format");
 	return [formatter autorelease];
 }
 
@@ -52,7 +53,14 @@
 
 - (NSString *)stringForObjectValue:(id)anObject {
 	float value = multiple * [anObject floatValue];
-	
+
+	// We round the quantity ourselves, in order to avoid a problem where 
+	// rounding late results in a remainder equal to the divisor (e.g., 5'12").
+	float m = powf(10.0f, [self.remainderFormatter minimumFractionDigits]);
+	if (m > 1) {
+		value = roundf(value * m) / m;
+	}
+
 	int quo = floorf(value / divisor);
 	float rem = fmodf(value, divisor);
 	
@@ -60,5 +68,6 @@
 	NSString *remainder = [self.remainderFormatter stringFromNumber:[NSNumber numberWithFloat:rem]];
 	return [NSString stringWithFormat:formatString, quotient, remainder];
 }
+
 
 @end
