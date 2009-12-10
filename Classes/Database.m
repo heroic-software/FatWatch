@@ -352,15 +352,23 @@ void EWFinalizeStatement(sqlite3_stmt **stmt_ptr) {
 }
 
 
+- (void)executeSQLNamed:(NSString *)name {
+	static const char zero = 0;
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"sql"];
+	NSMutableData *sql = [[NSMutableData alloc] initWithContentsOfFile:path];
+	[sql appendBytes:&zero length:1]; // null terminate it
+	[self executeSQL:[sql bytes]];
+	[sql release];
+}
+
+
 - (void)upgradeIfNeeded {
 	int version = [self intValueForMetaName:"dataversion"];
 	if (version < 2) {
 		NSLog(@"Upgrading database from dataversion %d to 2", version);
 		[self flushCache];
-		// TODO: read SQL from file and wrap in transaction
-		[self executeSQL:"CREATE INDEX IF NOT EXISTS trendValue_index ON weight (trendValue)"];
-		[self executeSQL:"DELETE FROM weight WHERE (measuredValue IS NULL) AND (flag = 0) AND (ifnull(length(note),0) = 0)"];
-		[self executeSQL:"INSERT INTO metadata VALUES ('dataversion', 2)"];
+		[self executeSQLNamed:@"DBUpgrade2"];
 	}
 }
 
