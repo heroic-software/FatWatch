@@ -80,10 +80,13 @@
 - (void)openDatabase {
 	testdb = [[EWDatabase alloc] init];
 
-	NSString *initSQL = [[NSString alloc] initWithContentsOfFile:@"CreateEmptyDatabase.sql"];
-	STAssertTrue([initSQL length] > 0, @"Initial SQL source must not be empty");
-	[testdb openMemoryWithSQL:[initSQL UTF8String]];
-	[initSQL release];
+	NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"DBCreate2" ofType:@"sql"];
+	STAssertNotNil(path, @"Can't find SQL file");
+	NSMutableData *sqlData = [[NSMutableData alloc] initWithContentsOfFile:path];
+	char zero = 0;
+	[sqlData appendBytes:&zero length:1];
+	[testdb openMemoryWithSQL:[sqlData bytes]];
+	[sqlData release];
 	
 	STAssertEquals(0u, [testdb weightCount], @"should be empty");
 

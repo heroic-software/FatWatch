@@ -331,7 +331,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	[stmt bindString:name toParameter:1];
 	if ([stmt step]) {
 		value = [stmt intValueOfColumn:0];
-		[stmt reset]; // if we don't reset we'll hold a lock that will prevent DROP TABLE during upgrade
+		[stmt reset];
 	} else {
 		value = 0;
 	}

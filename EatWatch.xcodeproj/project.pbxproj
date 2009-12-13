@@ -70,6 +70,10 @@
 		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
+		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
+		BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
+		BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
+		BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
@@ -230,7 +234,7 @@
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
 		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRoundRectView.h; path = BRViews/BRRoundRectView.h; sourceTree = "<group>"; };
 		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRoundRectView.m; path = BRViews/BRRoundRectView.m; sourceTree = "<group>"; };
-		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
+		BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate2.sql; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; wrapsLines = 1; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
 		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
+		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
+		BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate1.sql; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
@@ -398,7 +404,6 @@
 				BC1F83B70DB150B800DA88E6 /* EWDate.h */,
 				BC1F83B80DB150B800DA88E6 /* EWDate.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -620,6 +625,9 @@
 			isa = PBXGroup;
 			children = (
 				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
+				BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */,
+				BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */,
+				BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */,
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 			);
@@ -736,6 +744,7 @@
 				BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */,
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
+				BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +754,9 @@
 			files = (
 				BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */,
+				BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */,
+				BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */,
+				BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,7 +784,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/CreateEmptyDatabase.sql",
+				"$(SRCROOT)/Resources/DBCreate3.sql",
 			);
 			name = "Run Script (Create DB)";
 			outputPaths = (
@@ -780,7 +792,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SQL_FILE=$SRCROOT/CreateEmptyDatabase.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE from $SQL_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
+			shellScript = "SQL_FILE=$SRCROOT/Resources/DBCreate3.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE from $SQL_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
 		BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */ = {
