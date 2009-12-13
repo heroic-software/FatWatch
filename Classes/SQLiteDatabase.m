@@ -5,6 +5,8 @@
 //  Copyright 2009 Benjamin Ragheb. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "SQLiteDatabase.h"
 #import "SQLiteStatement.h"
 
@@ -14,34 +16,48 @@
 @end
 
 
+#pragma mark Callback Functions
+
+
 void SQLiteUpdateHandler(void *user, int op, char const *dbname, char const *tblname,sqlite3_int64 rowid) {
-	char *opstr = NULL;
-	switch (op) {
-		case SQLITE_INSERT:	opstr = "INSERT"; break;
-		case SQLITE_DELETE:	opstr = "DELETE"; break;
-		case SQLITE_UPDATE: opstr = "UPDATE"; break;
-	}
-	NSLog(@"SQLite %s %s.%s[%d]", opstr, dbname, tblname, rowid);
+	SQLiteDatabase *db = user;
+	NSString *dbNameString = [[NSString alloc] initWithFormat:@"%s", dbname];
+	NSString *tblNameString = [[NSString alloc] initWithFormat:@"%s", tblname];
+	[db.delegate didUpdateSQLiteDatabase:db name:dbNameString table:tblNameString row:rowid operation:op];
+	[dbNameString release];
+	[tblNameString release];
+}
+
+
+int SQLiteCommitHandler(void *user) {
+	SQLiteDatabase *db = user;
+	return [db.delegate shouldCommitQuerySQLiteDatabase:db] ? 0 : 1;
+}
+
+
+void SQLiteRollbackHandler(void *user) {
+	SQLiteDatabase *db = user;
+	[db.delegate didRollbackQuerySQLiteDatabase:db];
 }
 
 
 int SQLiteProgressHandler(void *user) {
-	NSLog(@"Makin' Progress!");
-	return 0; // return nonzero to cancel operation
+	SQLiteDatabase *db = user;
+	return [db.delegate shouldContinueQuerySQLiteDatabase:db] ? 0 : 1;
 }
 
 
 @implementation SQLiteDatabase
 
 
+@synthesize delegate;
+
+
 - (id)initWithFile:(NSString *)path {
 	if ([self init]) {
 		int r = sqlite3_open([path fileSystemRepresentation], &database);
 		NSAssert1(r == SQLITE_OK, @"Failed to open database: %s", sqlite3_errmsg(database));
-		// sqlite3_update_hook(database, SQLiteUpdateHandler, self);
-		// sqlite3_commit_hook()
-		// sqlite3_rollback_hook()
-		sqlite3_progress_handler(database, 0, SQLiteProgressHandler, self);
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 	}
 	return self;
 }
@@ -52,14 +68,46 @@ int SQLiteProgressHandler(void *user) {
 }
 
 
+- (void)setDelegate:(id <SQLiteDatabaseDelegate>)del {
+	if (delegate == del) return;
+	delegate = del;
+	
+	if ([delegate respondsToSelector:@selector(didUpdateSQLiteDatabase:name:table:row:operation:)]) {
+		sqlite3_update_hook(database, SQLiteUpdateHandler, self);
+	} else {
+		sqlite3_update_hook(database, NULL, NULL);
+	}
+	
+	if ([delegate respondsToSelector:@selector(shouldContinueQuerySQLiteDatabase:)]) {
+		sqlite3_progress_handler(database, 20, SQLiteProgressHandler, self);
+	} else {
+		sqlite3_progress_handler(database, 0, NULL, NULL);
+	}
+	
+	if ([delegate respondsToSelector:@selector(shouldCommitQuerySQLiteDatabase:)]) {
+		sqlite3_commit_hook(database, SQLiteCommitHandler, self);
+	} else {
+		sqlite3_commit_hook(database, NULL, NULL);
+	}
+	
+	if ([delegate respondsToSelector:@selector(didRollbackQuerySQLiteDatabase:)]) {
+		sqlite3_rollback_hook(database, SQLiteRollbackHandler, self);
+	} else {
+		sqlite3_rollback_hook(database, NULL, NULL);
+	}
+}
+
+
 - (SQLiteStatement *)statementFromSQL:(const char *)sql {
 	sqlite3_stmt *stmt;
 	
 	int r = sqlite3_prepare_v2(database, sql, -1, &stmt, NULL);
-	NSAssert2(r == SQLITE_OK, @"Failed to prepare '%s': %s", sql, sqlite3_errmsg(database));
+	NSAssert2(r == SQLITE_OK, 
+			  @"Error '%s' while compiling SQL \"%s\"", 
+			  sqlite3_errmsg(database), 
+			  sql);
 
-	SQLiteStatement *statement = [[SQLiteStatement alloc] initWithDatabase:self stmt:stmt];
-	return [statement autorelease];
+	return [[[SQLiteStatement alloc] initWithDatabase:self stmt:stmt] autorelease];
 }
 
 
@@ -71,16 +119,31 @@ int SQLiteProgressHandler(void *user) {
 }
 
 
-- (void)logSQLOfActiveStatements {
-	sqlite3_stmt *stmt = NULL;
+- (void)didReceiveMemoryWarning:(NSNotification *)notification {
+	int freed = sqlite3_release_memory(0x7fffffff);
+	NSLog(@"SQLiteDatabase %p freed %d bytes", self, freed);
+}
+
+
+- (NSString *)description {
+	NSMutableString *out = [NSMutableString string];
+	
+	[out appendFormat:@"<SQLiteDatabase:%p", self];
+	
 	int i = 0;
+	sqlite3_stmt *stmt = NULL;
 	while (stmt = sqlite3_next_stmt(database, stmt)) {
-		NSLog(@"%d: %s", ++i, sqlite3_sql(stmt));
+		[out appendFormat:@"\n  %2d: \"%s\"", ++i, sqlite3_sql(stmt)];
 	}
+	
+	[out appendString:@">"];
+	
+	return out;
 }
 
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	int r = sqlite3_close(database);
 	NSAssert1(r == SQLITE_OK, @"Failed to close database: %s", sqlite3_errmsg(database));
 	[super dealloc];
