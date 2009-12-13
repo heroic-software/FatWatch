@@ -34,6 +34,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (void)close;
 // Reading
 - (NSUInteger)weightCount;
+- (float)earliestWeight;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
 - (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;

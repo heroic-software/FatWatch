@@ -113,6 +113,21 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
+- (float)earliestWeight {
+	float weight;
+	
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleWeight FROM days WHERE scaleWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
+	if ([stmt step]) {
+		weight = [stmt doubleValueOfColumn:0];
+		[stmt reset];
+	} else {
+		weight = 0;
+	}
+	
+	return weight;
+}
+
+
 - (EWDBMonth *)getDBMonth:(EWMonth)month {
 	id key = [NSNumber numberWithInt:month];
 	EWDBMonth *dbm = nil;

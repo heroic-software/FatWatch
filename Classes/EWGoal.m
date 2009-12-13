@@ -262,15 +262,9 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
 	if (w > 0) return w;
 	
-	// there is no weight earlier than this day, so search the future
-	EWDBMonth *searchData = md;
-	while (searchData != nil) {
-		EWDay searchDay = [searchData firstDayWithWeight];
-		if (searchDay > 0) {
-			return [searchData getDBDay:searchDay]->scaleWeight;
-		}
-		searchData = searchData.next;
-	}
+	// there is no weight on or earlier than this day, so search the future
+	w = [[EWDatabase sharedDatabase] earliestWeight];
+	if (w > 0) return w;
 	
 	// we shouldn't get here because this method shouldn't be called if the 
 	// database is empty

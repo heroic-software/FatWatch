@@ -209,7 +209,11 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			} else {
 				[insertStmt bindNullToParameter:kScaleWeightColumn+1];
 			}
-			[insertStmt bindNullToParameter:kScaleFatColumn+1];
+			if (d->scaleFat > 0) {
+				[insertStmt bindDouble:d->scaleFat toParameter:kScaleFatColumn+1];
+			} else {
+				[insertStmt bindNullToParameter:kScaleFatColumn+1];
+			}
 			[insertStmt bindInt:d->flags toParameter:kFlagsColumn+1];
 			[insertStmt bindString:d->note toParameter:kNoteColumn+1];
 			[insertStmt step];

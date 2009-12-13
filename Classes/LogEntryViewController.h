@@ -26,6 +26,8 @@
 	UIView *annotationContainerView;
 	UINavigationBar *navigationBar;
 	float scaleIncrement;
+	NSInteger weightRow, fatRow;
+	int weightMode;
 }
 + (LogEntryViewController *)sharedController;
 @property (nonatomic,retain) IBOutlet UISegmentedControl *weightControl;

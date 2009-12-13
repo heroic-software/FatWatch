@@ -96,26 +96,35 @@ enum {
 
 
 - (void)toggleWeight {
-	if (weightControl.selectedSegmentIndex == kModeNone) {
-		if ([noWeightView superview] == nil) {
-			[weightPickerView removeFromSuperview];
-			[weightContainerView addSubview:noWeightView];
-		}
-	} else {
+	if (weightMode == kModeWeight || weightMode == kModeWeightAndFat) {
 		if ([weightPickerView superview] == nil) {
 			[noWeightView removeFromSuperview];
 			[weightContainerView addSubview:weightPickerView];
 		}
 		[weightPickerView reloadAllComponents];
+		[weightPickerView selectRow:weightRow inComponent:0 animated:NO];
+		if (weightMode == kModeWeightAndFat) {
+			[weightPickerView selectRow:fatRow inComponent:1 animated:NO];
+		}
+	} else {
+		if ([noWeightView superview] == nil) {
+			[weightPickerView removeFromSuperview];
+			[weightContainerView addSubview:noWeightView];
+		}
 	}
 }
 
 
 - (void)toggleWeightAction:(id)sender {
 	CATransition *animation = [CATransition animation];
-	[animation setType:kCATransitionFade];
-	[animation setDuration:0.3];
+	[animation setType:kCATransitionPush];
+	[animation setSubtype:((weightMode < weightControl.selectedSegmentIndex) 
+						   ? kCATransitionFromRight
+						   : kCATransitionFromLeft)];
+
+	weightMode = weightControl.selectedSegmentIndex;
 	[self toggleWeight];
+	
 	[[weightContainerView layer] addAnimation:animation forKey:nil];
 }
 
@@ -126,18 +135,27 @@ enum {
 
 
 - (IBAction)saveAction:(id)sender {
-	float weight;
-	if (weightControl.selectedSegmentIndex == 0) {
-		NSInteger row = [weightPickerView selectedRowInComponent:0];
-		weight = [self weightForPickerRow:row];
+	float scaleWeight, scaleFat;
+	
+	if (weightMode == kModeWeight) {
+		scaleWeight = [self weightForPickerRow:weightRow];
+		scaleFat = 0;
+	} else if (weightMode == kModeWeightAndFat) {
+		scaleWeight = [self weightForPickerRow:weightRow];
+		scaleFat = [self bodyFatForPickerRow:fatRow];
 	} else {
-		weight = 0;
+		scaleWeight = 0;
+		scaleFat = 0;
 	}
-	[monthData setScaleWeight:weight scaleFat:0
+	
+	[monthData setScaleWeight:scaleWeight
+					 scaleFat:scaleFat
 						 flag:flagControl.selectedSegmentIndex
 						 note:noteView.text
 						onDay:day];
+
 	[[EWDatabase sharedDatabase] commitChanges];
+	
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -147,16 +165,10 @@ enum {
 	float weight = [monthData inputTrendOnDay:day];
 	if (weight > 0) return weight;
 	
-	// there is no weight earlier than this day, so search the future
-	EWDBMonth *searchData = monthData;
-	while (searchData != nil) {
-		EWDay searchDay = [searchData firstDayWithWeight];
-		if (searchDay > 0) {
-			return [searchData getDBDay:searchDay]->scaleWeight;
-		}
-		searchData = searchData.next;
-	}
-	
+	// there is no weight on or earlier than this day, so find first measurement
+	weight = [[EWDatabase sharedDatabase] earliestWeight];
+	if (weight > 0) return weight;
+
 	// database is empty!
 	return 200.0f;
 }
@@ -181,30 +193,41 @@ enum {
 	[titleFormatter release];
 
 	struct EWDBDay *dd = [monthData getDBDay:day];
-	float weight = dd->scaleWeight;
-	
-	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
 
-	if (weight == 0) {
-		weight = [self chooseDefaultWeight];
+	weightRow = [self pickerRowForWeight:dd->scaleWeight];
+	fatRow = [self pickerRowForBodyFat:dd->scaleFat];
+	
+	// TODO: default segment should be based on whether previous weigh-in included fat
+	if (fatRow > 0) {
+		weightMode = kModeWeightAndFat;
+	} else if (weightRow > 0) {
+		weightMode = kModeWeight;
+	} else {
+		weightMode = kModeNone;
+	}
+
+	if (weighIn) {
+		// TODO: if previous entry included fat, show fat entry also
+		weightMode = kModeWeight;
 	}
 	
-	int row = [self pickerRowForWeight:weight];
-	[weightPickerView reloadAllComponents];
-	[weightPickerView selectRow:row inComponent:0 animated:NO];
-	[weightPickerView becomeFirstResponder];
-	
-	if (weightControl.selectedSegmentIndex == kModeWeightAndFat) {
-		[weightPickerView selectRow:[self pickerRowForBodyFat:0.25f]
-						inComponent:1
-						   animated:NO];
+	weightControl.selectedSegmentIndex = weightMode;
+
+	if (weightRow == 0) {
+		weightRow = [self pickerRowForWeight:[self chooseDefaultWeight]];
+	}
+	if (fatRow == 0) {
+		fatRow = [self pickerRowForBodyFat:0.2]; // TODO choose default
 	}
 	
+	[self toggleWeight];
+
 	flagControl.selectedSegmentIndex = (dd->flags != 0);
 	
 	noteView.text = dd->note;
 
-	[self toggleWeight];
+	[weightPickerView becomeFirstResponder];
+	[[weightContainerView layer] removeAnimationForKey:kCATransition];
 }
 
 
@@ -259,7 +282,7 @@ enum {
 
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	if (weightControl.selectedSegmentIndex == kModeWeight) {
+	if (weightMode == kModeWeight) {
 		return 1;
 	} else {
 		return 2;
@@ -275,6 +298,14 @@ enum {
 	}
 }
 
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	if (component == 0) {
+		weightRow = row;
+	} else {
+		fatRow = row;
+	}
+}
 
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
