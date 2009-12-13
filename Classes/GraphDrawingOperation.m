@@ -7,8 +7,8 @@
 //
 
 #import "GraphDrawingOperation.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "EWGoal.h"
 #import "WeightFormatters.h"
 
@@ -38,7 +38,7 @@
 	
 	CGFloat x;
 	
-	Database *db = [Database sharedDatabase];
+	EWDatabase *db = [EWDatabase sharedDatabase];
 
 	if (mdStart < beginMonthDay) {
 		// If we requested a start after actual data starts, start there.
@@ -69,20 +69,19 @@
 	
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	
-	MonthData *data = nil;
+	EWDBMonth *data = nil;
 	EWMonthDay md;
 	for (md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
 		EWDay day = EWMonthDayGetDay(md);
 		if (data == nil || day == 1) {
-			data = [db dataForMonth:EWMonthDayGetMonth(md)];
+			data = [db getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		float scale = [data scaleWeightOnDay:day];
-		if (scale > 0) {
-			float trend = [data trendWeightOnDay:day];
+		struct EWDBDay *dd = [data getDBDay:day];
+		if (dd->scaleWeight > 0) {
 			GraphPoint gp;
-			gp.scale = CGPointMake(x, scale);
-			gp.trend = CGPointMake(x, trend);
-			gp.flag = [data isFlaggedOnDay:day];
+			gp.scale = CGPointMake(x, dd->scaleWeight);
+			gp.trend = CGPointMake(x, dd->trendWeight);
+			gp.flag = (dd->flags != 0);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		}
 		x += 1;

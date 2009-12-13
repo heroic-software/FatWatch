@@ -10,7 +10,7 @@
 #import "GraphDrawingOperation.h"
 #import "GraphView.h"
 #import "EWDate.h"
-#import "Database.h"
+#import "EWDatabase.h"
 #import "YAxisView.h"
 #import "EWGoal.h"
 #import "WeightFormatters.h"
@@ -165,7 +165,7 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[queue cancelAllOperations];
 	[queue waitUntilAllOperationsAreFinished];
 
-	Database *db = [Database sharedDatabase];
+	EWDatabase *db = [EWDatabase sharedDatabase];
 	float minWeight, maxWeight;
 	EWMonthDay beginMonthDay, endMonthDay;
 	

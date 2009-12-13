@@ -7,7 +7,7 @@
 //
 
 #import "YAxisView.h"
-#import "Database.h"
+#import "EWDatabase.h"
 #import "WeightFormatters.h"
 
 

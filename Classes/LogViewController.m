@@ -8,9 +8,9 @@
 
 #import "LogViewController.h"
 #import "LogEntryViewController.h"
-#import "Database.h"
+#import "EWDatabase.h"
 #import "EWDate.h"
-#import "MonthData.h"
+#import "EWDBMonth.h"
 #import "LogTableViewCell.h"
 #import "GoToDateViewController.h"
 #import "EWGoal.h"
@@ -80,7 +80,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)databaseDidChange:(NSNotification *)notice {
 	EWMonthDay today = EWMonthDayToday();
-	Database *db = [Database sharedDatabase];
+	EWDatabase *db = [EWDatabase sharedDatabase];
 	
 	earliestMonth = db.earliestMonth;
 	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
@@ -192,7 +192,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (void)scrollToDate:(NSDate *)date {
 	scrollDestination = EWMonthDayFromDate(date);
 	if (earliestMonth > EWMonthDayGetMonth(scrollDestination)) {
-		[[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(scrollDestination)];
+		[[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(scrollDestination)];
 		[self databaseDidChange:nil];
 	}
 }
@@ -262,7 +262,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		cell = [[[LogTableViewCell alloc] init] autorelease];
 	}
 	
-	MonthData *monthData = [[Database sharedDatabase] dataForMonth:[self monthForSection:indexPath.section]];
+	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:[self monthForSection:indexPath.section]];
 	EWDay day = 1 + indexPath.row;
 	[cell updateWithMonthData:monthData day:day];
 	
@@ -276,7 +276,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	if (indexPath.section == 0) return;
 	
 	EWMonth month = [self monthForSection:indexPath.section];
-	MonthData *monthData = [[Database sharedDatabase] dataForMonth:month];
+	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:month];
 	EWDay day = 1 + indexPath.row;
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
 	controller.monthData = monthData;

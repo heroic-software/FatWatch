@@ -49,23 +49,26 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (CGImageRef)createMaskOfSize:(CGSize)size {
+	const int bitsPerComponent = 8;
+	const int bytesPerPixel = 1;
 	int pixelsWide = size.width;
 	int pixelsHigh = size.height;
-	int bitmapBytesPerRow   = (pixelsWide * 4);
+	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
 	void *bitmapData = NSZoneMalloc([self zone], bitmapByteCount);
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, 8 /* bits per component */, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
+	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
 
 	static const CGFloat fadeWidth = 8;
 	static const CGFloat components[] = { 1, 1, 0, 1 };
 	static const CGFloat locations[] = { 0, 1 };
 	CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, 2);
+	
 	CGContextDrawLinearGradient(ctxt, gradient, CGPointMake(size.width - fadeWidth, 0), CGPointMake(size.width, 0), kCGGradientDrawsBeforeStartLocation);
-	CGGradientRelease(gradient);
-
     CGImageRef mask = CGBitmapContextCreateImage(ctxt);
-
+	
+	CGGradientRelease(gradient);
+	CGContextRelease(ctxt);
 	CGColorSpaceRelease(colorSpace);
 	NSZoneFree([self zone], bitmapData);
 	
@@ -143,8 +146,8 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			CGImageRef maskImage = [self createMaskOfSize:clipRect.size];
 			CGContextClipToMask(context, clipRect, maskImage);
 			[text drawAtPoint:textPoint withFont:font];
-			CGContextRestoreGState(context);
 			CGImageRelease(maskImage);
+			CGContextRestoreGState(context);
 		} else {
 			[text drawAtPoint:textPoint withFont:font];
 		}

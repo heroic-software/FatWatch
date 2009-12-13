@@ -50,6 +50,7 @@
 		dismissRow.target = self;
 		dismissRow.action = @selector(dismissView:);
 		[buttonSection addRow:dismissRow animated:NO];
+		[dismissRow release];
 		
 		[self addSection:buttonSection animated:NO];
 		[buttonSection release];
@@ -70,7 +71,7 @@
 
 	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchView:self.view transitionType:kCATransitionPush subType:kCATransitionFromRight];
-	[self autorelease];
+	[self autorelease]; // TODO handle this a better way
 }
 
 @end

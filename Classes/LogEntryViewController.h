@@ -11,10 +11,10 @@
 #import "EWDate.h"
 
 @class BRTextView;
-@class MonthData;
+@class EWDBMonth;
 
 @interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
-	MonthData *monthData;
+	EWDBMonth *monthData;
 	EWDay day;
 	BOOL weighIn;
 	UISegmentedControl *weightControl;
@@ -36,7 +36,7 @@
 @property (nonatomic,retain) IBOutlet BRTextView *noteView;
 @property (nonatomic,retain) IBOutlet UIView *annotationContainerView;
 @property (nonatomic,retain) IBOutlet UINavigationBar *navigationBar;
-@property (nonatomic,retain) MonthData *monthData;
+@property (nonatomic,retain) EWDBMonth *monthData;
 @property (nonatomic) EWDay day;
 @property (nonatomic,getter=isWeighIn) BOOL weighIn;
 - (IBAction)toggleWeightAction:(id)sender;

@@ -11,8 +11,8 @@
 #import "RootViewController.h"
 #import "BRReachability.h"
 #import "MicroWebServer.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "WeightFormatters.h"
 #import "CSVReader.h"
 #import "CSVWriter.h"
@@ -178,7 +178,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)endImport {
-	[[Database sharedDatabase] commitChanges];
+	[[EWDatabase sharedDatabase] commitChanges];
 	[reader release];
 	reader = nil;
 	[importData release];
@@ -212,7 +212,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)continueImport {
-	const Database *db = [Database sharedDatabase];
+	const EWDatabase *db = [EWDatabase sharedDatabase];
 	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.2];
 	NSDateFormatter *isoDateFormatter = EWDateFormatterGetISO();
 	NSDateFormatter *localDateFormatter = EWDateFormatterGetLocal();
@@ -232,8 +232,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 				
 				if (scaleWeight > 0 || note != nil || flag) {
 					EWMonthDay monthday = EWMonthDayFromDate(date);
-					MonthData *md = [db dataForMonth:EWMonthDayGetMonth(monthday)];
+					EWDBMonth *md = [db getDBMonth:EWMonthDayGetMonth(monthday)];
 					[md setScaleWeight:scaleWeight
+							  scaleFat:0
 								  flag:flag
 								  note:note
 								 onDay:EWMonthDayGetDay(monthday)];
@@ -264,7 +265,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (IBAction)performReplaceImport {
 	[EWGoal deleteGoal];
-	[[Database sharedDatabase] deleteWeights];
+	[[EWDatabase sharedDatabase] deleteAllData];
 	[self beginImport];
 }
 
@@ -342,17 +343,18 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	
 	NSDateFormatter *formatter = EWDateFormatterGetISO();
 	
-	Database *db = [Database sharedDatabase];
+	EWDatabase *db = [EWDatabase sharedDatabase];
 	EWMonth month;
 	for (month = db.earliestMonth; month <= db.latestMonth; month += 1) {
-		MonthData *md = [db dataForMonth:month];
+		EWDBMonth *md = [db getDBMonth:month];
 		EWDay day;
 		for (day = 1; day <= 31; day++) {
 			if ([md hasDataOnDay:day]) {
+				struct EWDBDay *dd = [md getDBDay:day];
 				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
-				[writer addFloat:[md scaleWeightOnDay:day]];
-				[writer addBoolean:[md isFlaggedOnDay:day]];
-				[writer addString:[md noteOnDay:day]];
+				[writer addFloat:dd->scaleWeight];
+				[writer addBoolean:(dd->flags != 0)];
+				[writer addString:dd->note];
 				[writer endRow];
 			}
 		}

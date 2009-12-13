@@ -7,8 +7,8 @@
 //
 
 #import "EWGoal.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "WeightFormatters.h"
 
 
@@ -253,23 +253,23 @@ static NSString *kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 - (float)weightOnDate:(NSDate *)date {
 	EWMonthDay startMonthDay = EWMonthDayFromDate(date);
-	MonthData *md = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(startMonthDay)];
+	EWDBMonth *md = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(startMonthDay)];
 	float w;
 
-	w = [md trendWeightOnDay:EWMonthDayGetDay(startMonthDay)];
+	w = [md getDBDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
 	if (w > 0) return w;
 	
 	w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
 	if (w > 0) return w;
 	
 	// there is no weight earlier than this day, so search the future
-	MonthData *searchData = md;
+	EWDBMonth *searchData = md;
 	while (searchData != nil) {
 		EWDay searchDay = [searchData firstDayWithWeight];
 		if (searchDay > 0) {
-			return [searchData scaleWeightOnDay:searchDay];
+			return [searchData getDBDay:searchDay]->scaleWeight;
 		}
-		searchData = searchData.nextMonthData;
+		searchData = searchData.next;
 	}
 	
 	// we shouldn't get here because this method shouldn't be called if the 

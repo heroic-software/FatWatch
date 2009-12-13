@@ -62,8 +62,6 @@
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
 		BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */; };
-		BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
-		BC9BDEE20DA9D8610004E70C /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
@@ -89,11 +87,20 @@
 		BCF52ADA10D066790017C3A1 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
 		BCF52AE110D066E30017C3A1 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BCF52AE210D066ED0017C3A1 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
-		BCF52AE510D066FE0017C3A1 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDEE10DA9D8610004E70C /* Database.m */; };
-		BCF52AE810D0670A0017C3A1 /* MonthData.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9BDE980DA9CB550004E70C /* MonthData.m */; };
 		BCF52B4110D068C40017C3A1 /* BRMixedNumberFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */; };
 		BCF52B6410D06AAC0017C3A1 /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */; };
+		BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */; };
+		BCF52C7510D0AE680017C3A1 /* SQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */; };
+		BCF52C7610D0AE680017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
+		BCF52C7910D0AEA20017C3A1 /* EWDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */; };
+		BCF52C7C10D0AEB70017C3A1 /* EWDBMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */; };
+		BCF52CAA10D0D0420017C3A1 /* EWDBMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */; };
+		BCF52CAB10D0D0430017C3A1 /* EWDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */; };
+		BCF52CAE10D0D04F0017C3A1 /* SQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */; };
+		BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
+		BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */; };
+		BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -223,11 +230,7 @@
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
 		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRoundRectView.h; path = BRViews/BRRoundRectView.h; sourceTree = "<group>"; };
 		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRoundRectView.m; path = BRViews/BRRoundRectView.m; sourceTree = "<group>"; };
-		BC9BDE970DA9CB550004E70C /* MonthData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthData.h; sourceTree = "<group>"; };
-		BC9BDE980DA9CB550004E70C /* MonthData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthData.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* CreateEmptyDatabase.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateEmptyDatabase.sql; sourceTree = "<group>"; };
-		BC9BDEE00DA9D8610004E70C /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
-		BC9BDEE10DA9D8610004E70C /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; wrapsLines = 1; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
@@ -270,7 +273,16 @@
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF52AD010D066540017C3A1 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatterTest.m; sourceTree = "<group>"; };
-		BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBUpgrade2.sql; sourceTree = "<group>"; };
+		BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DBUpgrade2.sql; sourceTree = "<group>"; };
+		BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DBUpgrade3.sql; sourceTree = "<group>"; };
+		BCF52C7110D0AE680017C3A1 /* SQLiteDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteDatabase.h; sourceTree = "<group>"; };
+		BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteDatabase.m; sourceTree = "<group>"; };
+		BCF52C7310D0AE680017C3A1 /* SQLiteStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteStatement.h; sourceTree = "<group>"; };
+		BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteStatement.m; sourceTree = "<group>"; };
+		BCF52C7710D0AEA20017C3A1 /* EWDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDatabase.h; sourceTree = "<group>"; };
+		BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDatabase.m; sourceTree = "<group>"; };
+		BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBMonth.h; sourceTree = "<group>"; };
+		BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBMonth.m; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -306,10 +318,6 @@
 			children = (
 				1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */,
 				1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */,
-				BC9BDEE00DA9D8610004E70C /* Database.h */,
-				BC9BDEE10DA9D8610004E70C /* Database.m */,
-				BC9BDE970DA9CB550004E70C /* MonthData.h */,
-				BC9BDE980DA9CB550004E70C /* MonthData.m */,
 				BCE219D10E3B8E6000E94F6C /* WeightFormatters.h */,
 				BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */,
 				BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */,
@@ -363,6 +371,7 @@
 				BCB349910E6FE8CE000DF454 /* More */,
 				BC82AEA70E6FC7F900E2A693 /* Chart */,
 				BCEADAD60DE29D1B0017495E /* Web */,
+				BCF52C7010D0AE590017C3A1 /* Data */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -612,8 +621,25 @@
 			children = (
 				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
+				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		BCF52C7010D0AE590017C3A1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BCF52C7110D0AE680017C3A1 /* SQLiteDatabase.h */,
+				BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */,
+				BCF52C7310D0AE680017C3A1 /* SQLiteStatement.h */,
+				BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */,
+				BCF52C7710D0AEA20017C3A1 /* EWDatabase.h */,
+				BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */,
+				BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */,
+				BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */,
+			);
+			name = Data;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -709,6 +735,7 @@
 				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
 				BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */,
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
+				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +743,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */,
+				BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,8 +845,6 @@
 				BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */,
 				BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */,
 				BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */,
-				BC9BDE990DA9CB550004E70C /* MonthData.m in Sources */,
-				BC9BDEE20DA9D8610004E70C /* Database.m in Sources */,
 				BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */,
 				BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */,
 				BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */,
@@ -852,6 +879,10 @@
 				BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */,
 				BC6A8E790FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m in Sources */,
 				BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */,
+				BCF52C7510D0AE680017C3A1 /* SQLiteDatabase.m in Sources */,
+				BCF52C7610D0AE680017C3A1 /* SQLiteStatement.m in Sources */,
+				BCF52C7910D0AEA20017C3A1 /* EWDatabase.m in Sources */,
+				BCF52C7C10D0AEB70017C3A1 /* EWDBMonth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,10 +895,12 @@
 				BCF52ADA10D066790017C3A1 /* EWDateTest.m in Sources */,
 				BCF52AE110D066E30017C3A1 /* EWDate.m in Sources */,
 				BCF52AE210D066ED0017C3A1 /* CSVReader.m in Sources */,
-				BCF52AE510D066FE0017C3A1 /* Database.m in Sources */,
-				BCF52AE810D0670A0017C3A1 /* MonthData.m in Sources */,
 				BCF52B4110D068C40017C3A1 /* BRMixedNumberFormatterTest.m in Sources */,
 				BCF52B6410D06AAC0017C3A1 /* BRMixedNumberFormatter.m in Sources */,
+				BCF52CAA10D0D0420017C3A1 /* EWDBMonth.m in Sources */,
+				BCF52CAB10D0D0430017C3A1 /* EWDatabase.m in Sources */,
+				BCF52CAE10D0D04F0017C3A1 /* SQLiteDatabase.m in Sources */,
+				BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

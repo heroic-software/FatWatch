@@ -1,3 +1,4 @@
+BEGIN EXCLUSIVE;
 CREATE TABLE metadata (
 	name TEXT UNIQUE ON CONFLICT REPLACE,
 	value
@@ -22,3 +23,4 @@ INSERT INTO metadata VALUES ("dataversion", 2);
 -- dataversion 2
 --   added trendValue_index
 --   enforce deletion of empty rows
+END;

@@ -9,8 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "LogEntryViewController.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "WeightFormatters.h"
 #import "BRTextView.h"
 
@@ -133,11 +133,11 @@ enum {
 	} else {
 		weight = 0;
 	}
-	[monthData setScaleWeight:weight 
-							flag:flagControl.selectedSegmentIndex
-							note:noteView.text
-						   onDay:day];
-	[[Database sharedDatabase] commitChanges];
+	[monthData setScaleWeight:weight scaleFat:0
+						 flag:flagControl.selectedSegmentIndex
+						 note:noteView.text
+						onDay:day];
+	[[EWDatabase sharedDatabase] commitChanges];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -148,13 +148,13 @@ enum {
 	if (weight > 0) return weight;
 	
 	// there is no weight earlier than this day, so search the future
-	MonthData *searchData = monthData;
+	EWDBMonth *searchData = monthData;
 	while (searchData != nil) {
 		EWDay searchDay = [searchData firstDayWithWeight];
 		if (searchDay > 0) {
-			return [searchData scaleWeightOnDay:searchDay];
+			return [searchData getDBDay:searchDay]->scaleWeight;
 		}
-		searchData = searchData.nextMonthData;
+		searchData = searchData.next;
 	}
 	
 	// database is empty!
@@ -180,7 +180,9 @@ enum {
 	navigationBar.topItem.title = [titleFormatter stringFromDate:date];
 	[titleFormatter release];
 
-	float weight = [monthData scaleWeightOnDay:day];
+	struct EWDBDay *dd = [monthData getDBDay:day];
+	float weight = dd->scaleWeight;
+	
 	weightControl.selectedSegmentIndex = (weight > 0 || weighIn) ? 0 : 1;
 
 	if (weight == 0) {
@@ -198,9 +200,9 @@ enum {
 						   animated:NO];
 	}
 	
-	flagControl.selectedSegmentIndex = [monthData isFlaggedOnDay:day];
+	flagControl.selectedSegmentIndex = (dd->flags != 0);
 	
-	noteView.text = [monthData noteOnDay:day];
+	noteView.text = dd->note;
 
 	[self toggleWeight];
 }

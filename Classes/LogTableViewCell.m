@@ -8,7 +8,7 @@
 
 #import "LogTableViewCell.h"
 #import "EWDate.h"
-#import "MonthData.h"
+#import "EWDBMonth.h"
 #import "WeightFormatters.h"
 
 
@@ -63,7 +63,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 }
 
 
-- (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day {
+- (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day {
 	logContentView.day = [[NSNumber numberWithInt:day] description];
 
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -76,22 +76,21 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 	} else {
 		logContentView.backgroundColor = [UIColor whiteColor];
 	}
-	
-	float scaleWeight = [monthData scaleWeightOnDay:day];
-	if (scaleWeight == 0) {
+
+	struct EWDBDay *dd = [monthData getDBDay:day];
+	if (dd->scaleWeight == 0) {
 		logContentView.scaleWeight = nil;
 		logContentView.trendDelta = nil;
 	} else {
-		logContentView.scaleWeightFloat = scaleWeight;
-		logContentView.scaleWeight = [WeightFormatters stringForWeight:scaleWeight];
-		float trendWeight = [monthData trendWeightOnDay:day];
-		float weightDiff = scaleWeight - trendWeight;
+		logContentView.scaleWeightFloat = dd->scaleWeight;
+		logContentView.scaleWeight = [WeightFormatters stringForWeight:dd->scaleWeight];
+		float weightDiff = dd->scaleWeight - dd->trendWeight;
 		logContentView.trendDelta = [WeightFormatters stringForVariance:weightDiff];
 		logContentView.trendPositive = (weightDiff > 0);
 	}
 
-	logContentView.checked = [monthData isFlaggedOnDay:day];
-	logContentView.note = [monthData noteOnDay:day];
+	logContentView.checked = dd->flags != 0;
+	logContentView.note = dd->note;
 	
 	[logContentView setNeedsDisplay];
 }

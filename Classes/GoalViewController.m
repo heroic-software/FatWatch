@@ -8,8 +8,8 @@
 
 #import "GoalViewController.h"
 #import "EWDate.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "BRTableValueRow.h"
 #import "BRTableDatePickerRow.h"
 #import "BRTableNumberPickerRow.h"
@@ -236,7 +236,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	Database *db = [Database sharedDatabase];
+	EWDatabase *db = [EWDatabase sharedDatabase];
 	
 	// not enough data: 1 section (message)
 	// no goal set: 2 sections (start and goal)
@@ -274,7 +274,7 @@
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];
-		EWDay earliestDay = [[db dataForMonth:earliestMonth] firstDayWithWeight];
+		EWDay earliestDay = [[db getDBMonth:earliestMonth] firstDayWithWeight];
 		startDateRow.minimumDate = EWDateFromMonthAndDay(earliestMonth, MAX(1, earliestDay));
 		startDateRow.maximumDate = [NSDate date];
 	}

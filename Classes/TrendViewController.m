@@ -10,7 +10,7 @@
 #import "WeightFormatters.h"
 #import "EWGoal.h"
 #import "TrendSpan.h"
-#import "Database.h"
+#import "EWDatabase.h"
 
 
 @implementation TrendViewController

@@ -11,8 +11,8 @@
 #import "EatWatchAppDelegate.h"
 
 #import "EWDate.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "LogEntryViewController.h"
 
 #import "NewDatabaseViewController.h"
@@ -76,9 +76,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
 	EWMonthDay today = EWMonthDayToday();
-	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(today)];
+	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(today)];
 	EWDay day = EWMonthDayGetDay(today);
-	if ([data scaleWeightOnDay:day] == 0) {
+	if (![data hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
 		controller.monthData = data;
 		controller.day = day;
@@ -142,9 +142,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[self registerDefaults];
-	Database *db = [Database sharedDatabase];
-	[db openAtPath:[self pathOfDatabase]];
-	[db upgradeIfNeeded];
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	[db openFile:[self pathOfDatabase]];
+	// TODO: open modal view to show upgrade progress
 	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
@@ -152,11 +152,12 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		UIViewController *passcodeController = [PasscodeEntryViewController controllerForAuthorization];
 		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
 		[window addSubview:passcodeController.view];
-	} else if ([[Database sharedDatabase] weightCount] == 0) {
+	} else if ([[EWDatabase sharedDatabase] weightCount] == 0) {
 		// This is a new data file.
 		// Prompt user to choose weight unit.
 		UIViewController *newDbController = [[NewDatabaseViewController alloc] init];
 		[window addSubview:newDbController.view];
+		// TODO: newDbController autoreleases itself in dismissView; should do better
 	} else {
 		[self setupRootView];
 	}
@@ -165,7 +166,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	[[Database sharedDatabase] close];
+	[[EWDatabase sharedDatabase] close];
 }
 
 

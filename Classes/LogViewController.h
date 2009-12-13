@@ -11,7 +11,7 @@
 #import "EWDate.h"
 
 @class LogEntryViewController;
-@class MonthData;
+@class EWDBMonth;
 
 @interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	UITableView *tableView;

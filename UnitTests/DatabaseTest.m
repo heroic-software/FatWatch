@@ -7,13 +7,13 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 
 
 @interface DatabaseTest : SenTestCase
 {
-	Database *testdb;
+	EWDatabase *testdb;
 	NSUInteger changeCount;
 }
 @end
@@ -21,9 +21,10 @@
 
 @implementation DatabaseTest
 
+
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
-	MonthData *md = [testdb dataForMonth:month];
-	[md setScaleWeight:weight flag:NO note:nil onDay:day];
+	EWDBMonth *dbm = [testdb getDBMonth:month];
+	[dbm setScaleWeight:weight scaleFat:0 flag:NO note:nil onDay:day];
 }
 
 
@@ -32,24 +33,59 @@
 }
 
 
+- (void)printDatabase {
+	NSMutableString *output = [[NSMutableString alloc] init];
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	[df setDateFormat:@"yyyy-MM"];
+	
+	EWMonth month;
+	for (month = testdb.earliestMonth; month <= testdb.latestMonth; month++) {
+		EWDBMonth *dbm = [testdb getDBMonth:month];
+		[output appendFormat:@"%@ (#%d)\n", 
+		 [df stringFromDate:[dbm dateOnDay:1]],
+		 month];
+
+		EWDay day = [dbm firstDayWithWeight];
+		if (day == 0) {
+			continue;
+		}
+		for (; day <= [dbm lastDayWithWeight]; day++) {
+			if (![dbm hasDataOnDay:day]) continue;
+			struct EWDBDay *d = [dbm getDBDay:day];
+			[output appendFormat:@"  %2d:  %5.1f (%5.1f) %5.1f (%5.1f) 0x%04x \"%@\"\n",
+			 day,
+			 d->scaleWeight, d->trendWeight,
+			 d->scaleFat, d->trendFat,
+			 d->flags,
+			 d->note];
+		}
+	}
+	NSLog(@"DATABASE\n\n%@\n", output);
+	[df release];
+	[output release];
+}
+
+
 - (void)commitDatabase {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	NSUInteger oldChangeCount = changeCount;
 	[testdb commitChanges];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[center removeObserver:self];
 	STAssertTrue(oldChangeCount != changeCount, @"change count must change");
+	[self printDatabase];
 }
 
 
 - (void)openDatabase {
-	testdb = [[Database alloc] init];
+	testdb = [[EWDatabase alloc] init];
 
 	NSString *initSQL = [[NSString alloc] initWithContentsOfFile:@"CreateEmptyDatabase.sql"];
 	STAssertTrue([initSQL length] > 0, @"Initial SQL source must not be empty");
-	[testdb openInMemoryWithSQL:[initSQL UTF8String]];
+	[testdb openMemoryWithSQL:[initSQL UTF8String]];
 	[initSQL release];
 	
-	STAssertEquals((NSUInteger)0, [testdb weightCount], @"should be empty");
+	STAssertEquals(0u, [testdb weightCount], @"should be empty");
 
 	// set up 10 weights
 	[self setWeight:100 onDay:15 inMonth:0];
@@ -74,17 +110,19 @@
 
 
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
-	MonthData *md = [testdb dataForMonth:month];
-	STAssertEquals(weight, [md scaleWeightOnDay:day], @"weight must match");
-	STAssertEqualsWithAccuracy(trend, [md trendWeightOnDay:day], 0.0001f, @"trend must match");
+	EWDBMonth *dbm = [testdb getDBMonth:month];
+	struct EWDBDay *d = [dbm getDBDay:day];
+	NSString *note = [NSString stringWithFormat:@"mismatch on %@", [dbm dateOnDay:day]];
+	STAssertEquals(weight, d->scaleWeight, note);
+	STAssertEqualsWithAccuracy(trend, d->trendWeight, 0.0001f, note);
 }
 
 
 - (void)testDatabase {
 	[self openDatabase];
 	// verify trends
-	STAssertEquals(0.0f, [[testdb dataForMonth:0] inputTrendOnDay:14], @"before first trend");
-	STAssertEquals(100.0f, [[testdb dataForMonth:0] inputTrendOnDay:15], @"first trend");
+	STAssertEquals(0.0f, [[testdb getDBMonth:0] inputTrendOnDay:14], @"before first trend");
+	STAssertEquals(100.0f, [[testdb getDBMonth:0] inputTrendOnDay:15], @"first trend");
 	[self assertWeight:100 andTrend:100.0000 onDay:15 inMonth:0];
 	[self assertWeight:200 andTrend:110.0000 onDay:18 inMonth:0];
 	[self assertWeight:100 andTrend:109.0000 onDay: 6 inMonth:3];
@@ -95,7 +133,7 @@
 	[self assertWeight:200 andTrend:129.9754 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)10, [testdb weightCount], @"10 items");
+	STAssertEquals(10u, [testdb weightCount], @"10 items");
 	[self closeDatabase];
 }
 
@@ -115,7 +153,7 @@
 	[self assertWeight:200 andTrend:123.1949 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:120.8754 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:128.7879 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)9, [testdb weightCount], @"9 weights");
+	STAssertEquals(9u, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 
@@ -136,7 +174,7 @@
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
 	[self assertWeight:100 andTrend:130.8520 onDay:11 inMonth:9];
-	STAssertEquals((NSUInteger)11, [testdb weightCount], @"11 weights");
+	STAssertEquals(11u, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -157,7 +195,7 @@
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:165.7199 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:169.1479 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)11, [testdb weightCount], @"11 weights");
+	STAssertEquals(11u, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -177,7 +215,7 @@
 	[self assertWeight:200 andTrend:177.8050 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:170.0245 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:8];
-	STAssertEquals((NSUInteger)9, [testdb weightCount], @"9 weights");
+	STAssertEquals(9u, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 

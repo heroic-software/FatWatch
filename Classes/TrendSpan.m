@@ -9,8 +9,8 @@
 #import "TrendSpan.h"
 #import "EWDate.h"
 #import "EWGoal.h"
-#import "Database.h"
-#import "MonthData.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 #import "SlopeComputer.h"
 #import "WeightFormatters.h"
 
@@ -75,7 +75,7 @@ enum {
 	float x = 0;
 	
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
-	MonthData *data = [[Database sharedDatabase] dataForMonth:EWMonthDayGetMonth(curMonthDay)];
+	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(curMonthDay)];
 	
 	float firstTrendWeight = 0;
 	
@@ -84,7 +84,7 @@ enum {
 		float lastTrendWeight;
 		
 		while ((x < span.length) && (data != nil)) {
-			float y = [data trendWeightOnDay:curDay];
+			float y = [data getDBDay:curDay]->trendWeight;
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
 				if (firstTrendWeight == 0) firstTrendWeight = y;
@@ -93,7 +93,7 @@ enum {
 			x += 1;
 			curDay--;
 			if (curDay < 1) {
-				data = data.previousMonthData;
+				data = data.previous;
 				curDay = EWDaysInMonth(data.month);
 			}
 		}

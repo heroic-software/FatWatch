@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
 
-@class MonthData;
+@class EWDBMonth;
 @class LogTableViewCellContentView;
 
 extern NSString *kLogCellReuseIdentifier;
@@ -26,5 +26,5 @@ enum {
 	BOOL highlightWeekends;
 }
 + (void)setAuxiliaryInfoType:(NSInteger)infoType;
-- (void)updateWithMonthData:(MonthData *)monthData day:(EWDay)day;
+- (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day;
 @end
