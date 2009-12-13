@@ -105,7 +105,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 @synthesize running;
 
 
-- (CFSocketRef)createSocket {
+- (CFSocketRef)newSocket {
 	
 	CFSocketContext context;
 	context.version = 0;
@@ -199,7 +199,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	
 	if (running) return; // ignore if already running
 			
-	listenSocket = [self createSocket];
+	listenSocket = [self newSocket];
 	if (listenSocket == NULL) return;
 
 	running = YES;

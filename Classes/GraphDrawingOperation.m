@@ -89,7 +89,7 @@
 }
 
 
-- (CGPathRef)createWeekendsBackgroundPath {
+- (CGPathRef)newWeekendsBackgroundPath {
 	// If a single day is less than a pixel wide, don't bother.
 	if (p->scaleX < 1) return NULL;
 	
@@ -116,7 +116,7 @@
 }
 
 
-- (CGPathRef)createGridPath {
+- (CGPathRef)newGridPath {
 	CGMutablePathRef gridPath = CGPathCreateMutable();
 	// vertical lines
 
@@ -171,7 +171,7 @@
 }
 
 
-- (CGPathRef)createTrendPath {
+- (CGPathRef)newTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
@@ -199,7 +199,7 @@
 }
 
 
-- (CGPathRef)createMarksPathUsingFlaggedPoints:(BOOL)filter {
+- (CGPathRef)newMarksPathUsingFlaggedPoints:(BOOL)filter {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	const CGFloat markRadius = 0.5 * MIN(kDayWidth, p->scaleX);
@@ -228,7 +228,7 @@
 }
 
 
-- (CGPathRef)createErrorLinesPath {
+- (CGPathRef)newErrorLinesPath {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	const CGFloat markRadius = 0; //0.45 * p->scaleX;
@@ -261,7 +261,7 @@
 }
 
 
-- (CGPathRef)createGoalPath {
+- (CGPathRef)newGoalPath {
 	CGMutablePathRef path = NULL;
 	
 	EWGoal *goal = [EWGoal sharedGoal];
@@ -288,7 +288,7 @@
 }
 
 
-- (CGContextRef)createBitmapContext {
+- (CGContextRef)newBitmapContext {
 	int pixelsWide = CGRectGetWidth(bounds);
 	int pixelsHigh = CGRectGetHeight(bounds);
 	
@@ -316,11 +316,11 @@
 - (void)main {
 	[self computePoints];
 	
-	CGContextRef ctxt = [self createBitmapContext];
+	CGContextRef ctxt = [self newBitmapContext];
 	
 	// shaded background to show weekends
 	
-	CGPathRef weekendsBackgroundPath = [self createWeekendsBackgroundPath];
+	CGPathRef weekendsBackgroundPath = [self newWeekendsBackgroundPath];
 	if (weekendsBackgroundPath) {
 		CGContextAddPath(ctxt, weekendsBackgroundPath);
 		CGContextSetRGBFillColor(ctxt, 0.9,0.9,0.9, 1.0);
@@ -331,7 +331,7 @@
 	// vertical grid line to indicate start of month
 	// horizontal grid lines at weight intervals
 	
-	CGPathRef gridPath = [self createGridPath];
+	CGPathRef gridPath = [self newGridPath];
 	CGContextAddPath(ctxt, gridPath);
 	CGContextSetRGBStrokeColor(ctxt, 0.8,0.8,0.8, 1.0);
 	CGContextStrokePath(ctxt);
@@ -376,7 +376,7 @@
 		if (drawMarks) {
 			CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
 			CGContextSetLineWidth(ctxt, 2.0f);
-			CGPathRef errorLinesPath = [self createErrorLinesPath];
+			CGPathRef errorLinesPath = [self newErrorLinesPath];
 			CGContextAddPath(ctxt, errorLinesPath);
 			CGContextStrokePath(ctxt);
 			CGPathRelease(errorLinesPath);
@@ -386,7 +386,7 @@
 		
 		CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
 		CGContextSetLineWidth(ctxt, 3.0f);
-		CGPathRef trendPath = [self createTrendPath];
+		CGPathRef trendPath = [self newTrendPath];
 		CGContextAddPath(ctxt, trendPath);
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
@@ -399,13 +399,13 @@
 			CGContextSetRGBStrokeColor(ctxt, 0,0,0, 1.0);
 			
 			CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
-			CGPathRef unflaggedMarksPath = [self createMarksPathUsingFlaggedPoints:NO];
+			CGPathRef unflaggedMarksPath = [self newMarksPathUsingFlaggedPoints:NO];
 			CGContextAddPath(ctxt, unflaggedMarksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
 			CGPathRelease(unflaggedMarksPath);
 			
 			CGContextSetRGBFillColor(ctxt, 0.2, 0.3, 0.8, 1.0);
-			CGPathRef flaggedMarksPath = [self createMarksPathUsingFlaggedPoints:YES];
+			CGPathRef flaggedMarksPath = [self newMarksPathUsingFlaggedPoints:YES];
 			CGContextAddPath(ctxt, flaggedMarksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
 			CGPathRelease(flaggedMarksPath);
@@ -419,7 +419,7 @@
 	// goal line: sloped part
 	// goal line: flat part
 	
-	CGPathRef goalPath = [self createGoalPath];
+	CGPathRef goalPath = [self newGoalPath];
 	if (goalPath) {
 		static const CGFloat kDashLengths[] = { 6, 3 };
 		static const int kDashLengthsCount = 2;

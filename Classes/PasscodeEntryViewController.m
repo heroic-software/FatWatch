@@ -68,7 +68,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 + (PasscodeEntryViewController *)controllerForAuthorization {
-	return [[AuthorizationController alloc] init]; // don't autorelease, instance is retaining itself
+	return [[[AuthorizationController alloc] init] autorelease];
 }
 
 
@@ -258,8 +258,8 @@ NSString *kPasscodeKey = @"Passcode";
 	}
 	
 	id appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate removeLaunchView:self.view transitionType:kCATransitionReveal subType:kCATransitionFromTop];
-	[self autorelease];
+	[appDelegate removeLaunchViewWithTransitionType:kCATransitionReveal 
+											subType:kCATransitionFromTop];
 }
 
 

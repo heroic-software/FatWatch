@@ -116,16 +116,19 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-- (void)removeLaunchView:(UIView *)launchView transitionType:(NSString *)type subType:(NSString *)subType {
+- (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType {
 	CATransition *animation = [CATransition animation];
 	[animation setType:type];
 	[animation setSubtype:subType];
 	[animation setDuration:0.3];
 	
-	[launchView removeFromSuperview];
+	[launchViewController.view removeFromSuperview];
 	[self setupRootView];
 	
 	[[window layer] addAnimation:animation forKey:nil];
+	
+	[launchViewController release];
+	launchViewController = nil;
 }
 
 
@@ -133,6 +136,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 - (void)dealloc {
     [window release];
     [rootViewController release];
+	[launchViewController release];
     [super dealloc];
 }
 
@@ -149,15 +153,14 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
 	if ([PasscodeEntryViewController authorizationRequired]) {
-		UIViewController *passcodeController = [PasscodeEntryViewController controllerForAuthorization];
-		passcodeController.view.frame = [[UIScreen mainScreen] applicationFrame];
-		[window addSubview:passcodeController.view];
+		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
+//		launchViewController.view.frame = [[UIScreen mainScreen] applicationFrame];
+		[window addSubview:launchViewController.view];
 	} else if ([[EWDatabase sharedDatabase] weightCount] == 0) {
 		// This is a new data file.
 		// Prompt user to choose weight unit.
-		UIViewController *newDbController = [[NewDatabaseViewController alloc] init];
-		[window addSubview:newDbController.view];
-		// TODO: newDbController autoreleases itself in dismissView; should do better
+		launchViewController = [[NewDatabaseViewController alloc] init];
+		[window addSubview:launchViewController.view];
 	} else {
 		[self setupRootView];
 	}

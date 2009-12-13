@@ -48,7 +48,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 }
 
 
-- (CGImageRef)createMaskOfSize:(CGSize)size {
+- (CGImageRef)newMaskOfSize:(CGSize)size {
 	const int bitsPerComponent = 8;
 	const int bytesPerPixel = 1;
 	int pixelsWide = size.width;
@@ -102,7 +102,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		if (textSize.width > clipRect.size.width) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
 			CGContextSaveGState(context);
-			CGImageRef maskImage = [self createMaskOfSize:clipRect.size];
+			CGImageRef maskImage = [self newMaskOfSize:clipRect.size];
 			CGContextClipToMask(context, clipRect, maskImage);
 			[text drawAtPoint:textPoint withFont:font];
 			CGContextRestoreGState(context);
@@ -143,7 +143,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		if (textSize.width > clipRect.size.width) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
 			CGContextSaveGState(context);
-			CGImageRef maskImage = [self createMaskOfSize:clipRect.size];
+			CGImageRef maskImage = [self newMaskOfSize:clipRect.size];
 			CGContextClipToMask(context, clipRect, maskImage);
 			[text drawAtPoint:textPoint withFont:font];
 			CGImageRelease(maskImage);

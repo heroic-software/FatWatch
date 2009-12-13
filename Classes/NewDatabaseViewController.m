@@ -70,8 +70,9 @@
 	[WeightFormatters setSelectedScaleIncrementIndex:incrementSection.selectedIndex];
 
 	id appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate removeLaunchView:self.view transitionType:kCATransitionPush subType:kCATransitionFromRight];
-	[self autorelease]; // TODO handle this a better way
+	[appDelegate removeLaunchViewWithTransitionType:kCATransitionPush 
+											subType:kCATransitionFromRight];
 }
+
 
 @end

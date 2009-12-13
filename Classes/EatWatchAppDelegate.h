@@ -13,6 +13,7 @@
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	RootViewController *rootViewController;
+	UIViewController *launchViewController;
 }
-- (void)removeLaunchView:(UIView *)launchView transitionType:(NSString *)type subType:(NSString *)subType;
+- (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
 @end
