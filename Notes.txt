@@ -1,4 +1,7 @@
-? Replace [Database weightCount] with an isEmpty method?
+- PopUpPickerController
+	-show,hide
+- replace Go To Date modal view with a pop-up picker
+
 
 - Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
 

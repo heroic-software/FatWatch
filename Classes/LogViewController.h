@@ -10,23 +10,27 @@
 
 #import "EWDate.h"
 
+
 @class LogEntryViewController;
+@class LogInfoPickerController;
+@class LogDatePickerController;
 @class EWDBMonth;
+
 
 @interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	UITableView *tableView;
-	UISegmentedControl *auxControl;
 	NSDateFormatter *sectionTitleFormatter;
 	EWMonth earliestMonth, latestMonth;
 	NSIndexPath *lastIndexPath;
 	EWMonthDay scrollDestination;
+	LogInfoPickerController *infoPickerController;
+	LogDatePickerController *datePickerController;
 }
 + (void)setCurrentMonthDay:(EWMonthDay)monthday;
 + (EWMonthDay)currentMonthDay;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
-@property (nonatomic,retain) IBOutlet UISegmentedControl *auxControl;
+@property (nonatomic,retain) IBOutlet LogInfoPickerController *infoPickerController;
+@property (nonatomic,retain) IBOutlet LogDatePickerController *datePickerController;
 @property (nonatomic,readonly) NSDate *currentDate;
 - (void)scrollToDate:(NSDate *)date;
-- (IBAction)goToDateAction;
-- (IBAction)auxControlAction;
 @end

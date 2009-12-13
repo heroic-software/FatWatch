@@ -12,19 +12,17 @@
 @class EWDBMonth;
 @class LogTableViewCellContentView;
 
-extern NSString *kLogCellReuseIdentifier;
+extern NSString * const kLogCellReuseIdentifier;
 
 #define kLogContentViewTag 456
-
-enum {
-	kVarianceAuxiliaryInfoType,
-	kBMIAuxiliaryInfoType
-};
 
 @interface LogTableViewCell : UITableViewCell {
 	LogTableViewCellContentView *logContentView;
 	BOOL highlightWeekends;
 }
++ (NSInteger)auxiliaryInfoType;
 + (void)setAuxiliaryInfoType:(NSInteger)infoType;
++ (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType;
++ (NSArray *)availableAuxiliaryInfoTypes;
 - (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day;
 @end

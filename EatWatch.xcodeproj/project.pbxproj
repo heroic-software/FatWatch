@@ -18,7 +18,6 @@
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
-		BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
@@ -74,6 +73,9 @@
 		BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
 		BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
+		BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */; };
+		BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */; };
+		BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
@@ -83,7 +85,6 @@
 		BCE219D30E3B8E6000E94F6C /* WeightFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE219D20E3B8E6000E94F6C /* WeightFormatters.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
-		BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
@@ -165,7 +166,6 @@
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
 		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		BC24A7490E25DAA70074FD4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GoToDateView.xib; sourceTree = "<group>"; };
 		BC24A7510E25DEA60074FD4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogEntryView.xib; sourceTree = "<group>"; };
 		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = Root.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
@@ -232,8 +232,8 @@
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; };
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
-		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRoundRectView.h; path = BRViews/BRRoundRectView.h; sourceTree = "<group>"; };
-		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRoundRectView.m; path = BRViews/BRRoundRectView.m; sourceTree = "<group>"; };
+		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRoundRectView.h; sourceTree = "<group>"; };
+		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRoundRectView.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate2.sql; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; wrapsLines = 1; };
@@ -253,6 +253,12 @@
 		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
 		BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate1.sql; sourceTree = "<group>"; };
+		BCC4E6CC10D58C9E00E4C1A3 /* BRPopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPopUpViewController.h; sourceTree = "<group>"; };
+		BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPopUpViewController.m; sourceTree = "<group>"; };
+		BCC4E6D810D5934800E4C1A3 /* LogInfoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInfoPickerController.h; path = Classes/LogInfoPickerController.h; sourceTree = "<group>"; };
+		BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInfoPickerController.m; path = Classes/LogInfoPickerController.m; sourceTree = "<group>"; };
+		BCC4E6DB10D5935E00E4C1A3 /* LogDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogDatePickerController.h; path = Classes/LogDatePickerController.h; sourceTree = "<group>"; };
+		BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogDatePickerController.m; path = Classes/LogDatePickerController.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
@@ -272,8 +278,6 @@
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
-		BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoToDateViewController.h; path = Classes/GoToDateViewController.h; sourceTree = "<group>"; };
-		BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoToDateViewController.m; path = Classes/GoToDateViewController.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -502,21 +506,24 @@
 			children = (
 				BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */,
 				BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */,
+				BCC4E6CC10D58C9E00E4C1A3 /* BRPopUpViewController.h */,
+				BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */,
 			);
-			name = BRViews;
+			path = BRViews;
 			sourceTree = "<group>";
 		};
 		BCABE0470DD9372000DE580A /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				BCF31BDD0DF4EDBA00ABEF70 /* GoToDateViewController.h */,
-				BCF31BDE0DF4EDBA00ABEF70 /* GoToDateViewController.m */,
-				BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */,
+				BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */,
 				BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */,
 				BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */,
-				BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */,
 				BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */,
 				BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */,
+				BCC4E6D810D5934800E4C1A3 /* LogInfoPickerController.h */,
+				BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */,
+				BCC4E6DB10D5935E00E4C1A3 /* LogDatePickerController.h */,
+				BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */,
 			);
 			name = Log;
 			sourceTree = "<group>";
@@ -725,7 +732,6 @@
 				BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */,
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
-				BC24A74C0E25DABB0074FD4C /* GoToDateView.xib in Resources */,
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
 				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
 				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
@@ -866,7 +872,6 @@
 				BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */,
 				BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */,
 				BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */,
-				BCF31BDF0DF4EDBA00ABEF70 /* GoToDateViewController.m in Sources */,
 				BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */,
 				BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */,
 				BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */,
@@ -895,6 +900,9 @@
 				BCF52C7610D0AE680017C3A1 /* SQLiteStatement.m in Sources */,
 				BCF52C7910D0AEA20017C3A1 /* EWDatabase.m in Sources */,
 				BCF52C7C10D0AEB70017C3A1 /* EWDBMonth.m in Sources */,
+				BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */,
+				BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */,
+				BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,14 +935,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BC24A74B0E25DABB0074FD4C /* GoToDateView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BC24A7490E25DAA70074FD4C /* en */,
-			);
-			name = GoToDateView.xib;
-			sourceTree = "<group>";
-		};
 		BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
