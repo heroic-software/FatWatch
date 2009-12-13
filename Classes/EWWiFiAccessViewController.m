@@ -384,9 +384,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	}
 	
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
-	
 	importData = [[form dataForKey:@"filedata"] retain];
 	importEncoding = [[form stringForKey:@"encoding"] intValue];
+	[form release];
 	
 	if (importData == nil) {
 		[self sendHTMLResourceNamed:@"importNoData" 
