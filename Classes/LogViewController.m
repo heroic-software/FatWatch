@@ -239,6 +239,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		cell = (LogTableViewCell *)availableCell;
 	} else {
 		cell = [[[LogTableViewCell alloc] init] autorelease];
+		cell.tableView = self.tableView;
 	}
 	
 	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:[self monthForSection:indexPath.section]];

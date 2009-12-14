@@ -13,10 +13,6 @@
 #import "EWGoal.h"
 
 
-NSString * const kLogCellReuseIdentifier = @"LogCell";
-static NSString * const AuxiliaryInfoTypeChangedNotification = @"AuxiliaryInfoTypeChanged";
-
-
 enum {
 	kVarianceAuxiliaryInfoType,
 	kBMIAuxiliaryInfoType,
@@ -26,16 +22,9 @@ enum {
 };
 
 
-@interface LogTableViewCellContentView : UIView {
-	NSString *day;
-	NSString *weekday;
-	struct EWDBDay *dd;
-}
-@property (nonatomic,retain) NSString *day;
-@property (nonatomic,retain) NSString *weekday;
-@property (nonatomic) struct EWDBDay *dd;
-@end
+NSString * const kLogCellReuseIdentifier = @"LogCell";
 
+static NSString * const AuxiliaryInfoTypeChangedNotification = @"AuxiliaryInfoTypeChanged";
 
 static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 
@@ -79,15 +68,21 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 }
 
 
+@synthesize tableView;
+@synthesize logContentView;
+
+
 - (id)init {
 	if ([super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kLogCellReuseIdentifier]) {
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
-		logContentView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | 
-										   UIViewAutoresizingFlexibleHeight);
-		logContentView.opaque = YES;
-		logContentView.tag = kLogContentViewTag;
 		[self.contentView addSubview:logContentView];
 		[logContentView release];
+		
+		logContentView.cell = self;
+		logContentView.opaque = YES;
+		logContentView.backgroundColor = [UIColor clearColor];
+		logContentView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | 
+										   UIViewAutoresizingFlexibleHeight);
 		
 		highlightWeekends = [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"];
 		
@@ -97,27 +92,35 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 }
 
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+	[super setSelected:selected animated:animated];
+	[logContentView setNeedsDisplay];
+}
+
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+	[super setHighlighted:highlighted animated:animated];
+	[logContentView setNeedsDisplay];
+}
+
+
 - (void)auxiliaryInfoTypeChanged:(NSNotification *)notification {
 	[logContentView setNeedsDisplay];
 }
 
 
 - (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day {
-	logContentView.day = [[NSNumber numberWithInt:day] description];
-
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
 	[df setDateFormat:@"EEE"];
-	logContentView.weekday = [df stringFromDate:EWDateFromMonthAndDay(monthData.month, day)];
-	[df release];
 	
-	if (highlightWeekends && EWMonthAndDayIsWeekend(monthData.month, day)) {
-		logContentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-	} else {
-		logContentView.backgroundColor = [UIColor whiteColor];
-	}
-
+	logContentView.day = [[NSNumber numberWithInt:day] description];
+	logContentView.weekday = [df stringFromDate:EWDateFromMonthAndDay(monthData.month, day)];
+	logContentView.highlightDate = (highlightWeekends && 
+									EWMonthAndDayIsWeekend(monthData.month, day));
 	logContentView.dd = [monthData getDBDay:day];
 	
+	[df release];
+
 	[logContentView setNeedsDisplay];
 }
 
@@ -134,68 +137,81 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 @implementation LogTableViewCellContentView
 
 
+@synthesize cell;
 @synthesize day;
 @synthesize weekday;
 @synthesize dd;
+@synthesize highlightDate;
 
 
 - (void)drawRect:(CGRect)rect {
-	const CGFloat topMargin = 9;
-	const CGFloat numberRowHeight = 33;
-	const CGFloat dayRight = 34;
-	const CGFloat scaleWeightRight = 174;
-	const CGFloat trendDeltaLeft = 178;
-	const CGFloat noteY = 28;
-	const CGFloat noteRowHeight = 15;
-	const CGFloat noteLeft = dayRight + 4;
-	const CGFloat noteRight = noteLeft;
-	
 	CGFloat cellWidth = CGRectGetWidth(self.bounds);
+	CGFloat cellHeight = CGRectGetHeight(self.bounds);
+	
+	const CGFloat dateWidth = 34;
+	const CGFloat weightX = dateWidth + 4;
+	const CGFloat weightWidth = 133;
+	const CGFloat auxiliaryX = weightX + weightWidth + 4;
+	const CGFloat auxiliaryWidth = 117;
+	const CGFloat numberRowY = 16;
+	const CGFloat flagWidth = 20;
+	const CGFloat flagX = cellWidth - flagWidth;
+	const CGFloat noteX = dateWidth + 4;
+	const CGFloat noteWidth = cellWidth - noteX - flagWidth;
+	const CGFloat noteHeight = 15;
+	const CGFloat noteY = cellHeight - noteHeight;
+	
+	BOOL inverse = cell.highlighted || cell.selected;
 	
 	if (day) {
-		[[UIColor blackColor] setFill];
-		CGRect dayRect = CGRectMake(0, topMargin, dayRight, numberRowHeight);
-		[day drawInRect:dayRect
-			   withFont:[UIFont systemFontOfSize:20]
-		  lineBreakMode:UILineBreakModeClip 
-			  alignment:UITextAlignmentRight];
-		CGRect weekdayRect = CGRectMake(0, noteY, dayRight, noteRowHeight);
-		[weekday drawInRect:weekdayRect
+		if (!inverse) {
+			if (highlightDate) {
+				[[UIColor colorWithWhite:0.8 alpha:1.0] set];
+			} else {
+				[cell.tableView.separatorColor set];
+			}
+			UIRectFill(CGRectMake(0, 0, dateWidth, cellHeight));
+		}
+		
+		[(inverse ? [UIColor whiteColor] : [UIColor blackColor]) set];
+		[weekday drawInRect:CGRectMake(0, 10, dateWidth, 15)
 				   withFont:[UIFont systemFontOfSize:12]
 			  lineBreakMode:UILineBreakModeClip
-				  alignment:UITextAlignmentRight];
+				  alignment:UITextAlignmentCenter];
+		[day drawInRect:CGRectMake(0, 26, dateWidth, 24)
+			   withFont:[UIFont systemFontOfSize:20]
+		  lineBreakMode:UILineBreakModeClip 
+			  alignment:UITextAlignmentCenter];
 	}
 	
 	if (dd->scaleWeight > 0) {
 		NSString *scaleWeight = [WeightFormatters stringForWeight:dd->scaleWeight];
-		CGRect scaleWeightRect = CGRectMake(0, topMargin, scaleWeightRight, numberRowHeight);
-		[scaleWeight drawInRect:scaleWeightRect
+		[scaleWeight drawInRect:CGRectMake(weightX, numberRowY, 
+										   weightWidth, 24)
 					   withFont:[UIFont boldSystemFontOfSize:20]
 				  lineBreakMode:UILineBreakModeClip
 					  alignment:UITextAlignmentRight];
 		
 		NSString *auxInfoString;
 		UIColor *auxInfoColor;
-		CGRect auxInfoRect = CGRectMake(trendDeltaLeft, 
-										topMargin, 
-										cellWidth-trendDeltaLeft, 
-										numberRowHeight);
-		
+
 		switch (gAuxiliaryInfoType) {
-			case kVarianceAuxiliaryInfoType: {
+			case kVarianceAuxiliaryInfoType:
+			{
 				float weightDiff = dd->scaleWeight - dd->trendWeight;
 				auxInfoColor = (weightDiff > 0
 								? [WeightFormatters badColor]
 								: [WeightFormatters goodColor]);
 				auxInfoString = [WeightFormatters stringForVariance:weightDiff];
-				break;
 			}
-			case kBMIAuxiliaryInfoType: {
+				break;
+			case kBMIAuxiliaryInfoType:
+			{
 				float bmi = [WeightFormatters bodyMassIndexForWeight:dd->scaleWeight];
 				auxInfoColor = [WeightFormatters colorForBodyMassIndex:bmi];
 				auxInfoString = [NSString stringWithFormat:@"%.1f", bmi];
-				break;
 			}
+				break;
 			case kFatPercentAuxiliaryInfoType:
 				auxInfoColor = [UIColor darkGrayColor];
 				if (dd->scaleFat > 0) {
@@ -229,28 +245,58 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 				break;
 		}
 		
-		[auxInfoColor setFill];
-		[auxInfoString drawInRect:auxInfoRect
+		[auxInfoColor set];
+		[auxInfoString drawInRect:CGRectMake(auxiliaryX, numberRowY, 
+											 auxiliaryWidth, 24)
 						 withFont:[UIFont systemFontOfSize:20]
 					lineBreakMode:UILineBreakModeClip
 						alignment:UITextAlignmentLeft];
 	}
 	
 	if (dd->note) {
-		[[UIColor darkGrayColor] setFill];
-		CGRect noteRect = CGRectMake(noteLeft, 
-									 noteY,
-									 cellWidth-noteLeft-noteRight, 
-									 noteRowHeight);
-		[dd->note drawInRect:noteRect
+		[(inverse ? [UIColor lightGrayColor] : [UIColor darkGrayColor]) set];
+		[dd->note drawInRect:CGRectMake(noteX, noteY, noteWidth, 15)
 					withFont:[UIFont systemFontOfSize:12]
-			   lineBreakMode:UILineBreakModeTailTruncation
+			   lineBreakMode:UILineBreakModeMiddleTruncation
 				   alignment:UITextAlignmentCenter];
 	}
 	
-	if (dd->flags) {
-		UIImage *checkImage = [UIImage imageNamed:@"Check.png"];
-		[checkImage drawAtPoint:CGPointMake(cellWidth - 30, 10)];
+	{
+		int f;
+		CGRect rect = CGRectMake(flagX, 0, flagWidth, cellHeight);
+
+		rect.origin.x += roundf((flagWidth - 15) / 2);
+		rect.size.width = 15;
+		rect.size.height = 15;
+
+		CGContextRef ctxt = UIGraphicsGetCurrentContext();
+		
+		[(inverse ? [UIColor whiteColor] : [UIColor grayColor]) setStroke];
+
+		// red: [UIColor colorWithRed:0.404 green:0.164 blue:0.159 alpha:1.000]
+		// blue: [UIColor colorWithRed:0.176 green:0.250 blue:0.438 alpha:1.000]
+		// green: [UIColor colorWithRed:0.237 green:0.436 blue:0.166 alpha:1.000]
+		// gold: [UIColor colorWithRed:0.441 green:0.422 blue:0.173 alpha:1.000]
+		
+		[[UIColor colorWithRed:0.176 green:0.250 blue:0.438 alpha:1.000] setFill];
+		for (f = 0; f < 4; f++) {
+			CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
+			if (dd->flags & (1 << f)) {
+//				CGContextFillEllipseInRect(ctxt, CGRectInset(rect, 1.5, 1.5));
+				CGContextFillRect(ctxt, dotRect);
+			}
+//			CGContextStrokeEllipseInRect(ctxt, CGRectInset(rect, 1.5, 1.5));
+			CGContextStrokeRect(ctxt, dotRect);
+			rect.origin.y += 15;
+		}
+		// draw text size 12 in last position if measuring exercise rungs
+	}
+	
+	if (dd->scaleFat > 0 && !inverse) {
+		CGRect fatRect = CGRectMake(dateWidth, 0, cellWidth-dateWidth, 4);
+		fatRect.size.width *= dd->scaleFat;
+		[cell.tableView.separatorColor set];
+		UIRectFill(fatRect);
 	}
 }
 

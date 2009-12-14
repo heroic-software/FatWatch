@@ -14,15 +14,31 @@
 
 extern NSString * const kLogCellReuseIdentifier;
 
-#define kLogContentViewTag 456
-
 @interface LogTableViewCell : UITableViewCell {
+	UITableView *tableView;
 	LogTableViewCellContentView *logContentView;
 	BOOL highlightWeekends;
 }
+@property (nonatomic,assign) UITableView *tableView;
+@property (nonatomic,readonly) LogTableViewCellContentView *logContentView;
 + (NSInteger)auxiliaryInfoType;
 + (void)setAuxiliaryInfoType:(NSInteger)infoType;
 + (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType;
 + (NSArray *)availableAuxiliaryInfoTypes;
 - (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day;
+@end
+
+
+@interface LogTableViewCellContentView : UIView {
+	LogTableViewCell *cell;
+	NSString *day;
+	NSString *weekday;
+	struct EWDBDay *dd;
+	BOOL highlightDate;
+}
+@property (nonatomic,assign) LogTableViewCell *cell;
+@property (nonatomic,retain) NSString *day;
+@property (nonatomic,retain) NSString *weekday;
+@property (nonatomic) struct EWDBDay *dd;
+@property (nonatomic) BOOL highlightDate;
 @end
