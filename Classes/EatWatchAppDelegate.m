@@ -127,7 +127,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	[[window layer] addAnimation:animation forKey:nil];
 	
-	[launchViewController release];
+	[launchViewController autorelease];
 	launchViewController = nil;
 }
 
@@ -154,7 +154,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	if ([PasscodeEntryViewController authorizationRequired]) {
 		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
-//		launchViewController.view.frame = [[UIScreen mainScreen] applicationFrame];
 		[window addSubview:launchViewController.view];
 	} else if ([[EWDatabase sharedDatabase] weightCount] == 0) {
 		// This is a new data file.
