@@ -156,7 +156,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (void)setScaleWeight:(float)weight scaleFat:(float)fat flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day {
+- (void)setScaleWeight:(float)weight scaleFat:(float)fat flags:(int)flags note:(NSString *)note onDay:(EWDay)day {
 	NSParameterAssert((fat == 0) || ((fat > 0) && (weight > 0)));
 
 	struct EWDBDay *d = [self getDBDay:day];
@@ -173,7 +173,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		[database didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
-	d->flags = flag ? 1 : 0;
+	d->flags = flags;
 	
 	id oldNote = d->note;
 	if ([note length] > 0) {

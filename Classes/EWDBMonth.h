@@ -42,7 +42,7 @@ struct EWDBDay {
 - (EWDay)lastDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
 - (void)updateTrends;
-- (void)setScaleWeight:(float)weight scaleFat:(float)fat flag:(BOOL)flag note:(NSString *)note onDay:(EWDay)day;
+- (void)setScaleWeight:(float)weight scaleFat:(float)fat flags:(int)flags note:(NSString *)note onDay:(EWDay)day;
 - (BOOL)hasDataOnDay:(EWDay)day;
 - (BOOL)commitChanges;
 @end

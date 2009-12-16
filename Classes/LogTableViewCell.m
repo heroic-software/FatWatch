@@ -6,11 +6,12 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "LogTableViewCell.h"
-#import "EWDate.h"
+#import "BRColorPalette.h"
 #import "EWDBMonth.h"
-#import "WeightFormatters.h"
+#import "EWDate.h"
 #import "EWGoal.h"
+#import "LogTableViewCell.h"
+#import "WeightFormatters.h"
 
 
 enum {
@@ -200,8 +201,8 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 			{
 				float weightDiff = dd->scaleWeight - dd->trendWeight;
 				auxInfoColor = (weightDiff > 0
-								? [WeightFormatters badColor]
-								: [WeightFormatters goodColor]);
+								? [BRColorPalette colorNamed:@"BadText"]
+								: [BRColorPalette colorNamed:@"GoodText"]);
 				auxInfoString = [WeightFormatters stringForVariance:weightDiff];
 			}
 				break;
@@ -273,19 +274,14 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		
 		[(inverse ? [UIColor whiteColor] : [UIColor grayColor]) setStroke];
 
-		// red: [UIColor colorWithRed:0.404 green:0.164 blue:0.159 alpha:1.000]
-		// blue: [UIColor colorWithRed:0.176 green:0.250 blue:0.438 alpha:1.000]
-		// green: [UIColor colorWithRed:0.237 green:0.436 blue:0.166 alpha:1.000]
-		// gold: [UIColor colorWithRed:0.441 green:0.422 blue:0.173 alpha:1.000]
-		
-		[[UIColor colorWithRed:0.176 green:0.250 blue:0.438 alpha:1.000] setFill];
 		for (f = 0; f < 4; f++) {
 			CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
 			if (dd->flags & (1 << f)) {
-//				CGContextFillEllipseInRect(ctxt, CGRectInset(rect, 1.5, 1.5));
+				NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
+				UIColor *color = [BRColorPalette colorNamed:key];
+				[color setFill];
 				CGContextFillRect(ctxt, dotRect);
 			}
-//			CGContextStrokeEllipseInRect(ctxt, CGRectInset(rect, 1.5, 1.5));
 			CGContextStrokeRect(ctxt, dotRect);
 			rect.origin.y += 15;
 		}

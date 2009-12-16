@@ -13,6 +13,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
+		BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FDF10D99047008FCB11 /* Flag1Button0.png */; };
+		BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE010D99047008FCB11 /* Flag1Button1.png */; };
+		BC040FE910D99048008FCB11 /* Flag2Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE110D99047008FCB11 /* Flag2Button0.png */; };
+		BC040FEA10D99048008FCB11 /* Flag2Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE210D99047008FCB11 /* Flag2Button1.png */; };
+		BC040FEB10D99048008FCB11 /* Flag3Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE310D99047008FCB11 /* Flag3Button0.png */; };
+		BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE410D99047008FCB11 /* Flag3Button1.png */; };
+		BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE510D99047008FCB11 /* Flag4Button0.png */; };
+		BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE610D99047008FCB11 /* Flag4Button1.png */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
@@ -28,7 +36,6 @@
 		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
-		BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = BC51B7CD0E3A9E6700D3B4C1 /* Check.png */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
 		BC51B8930E3ACACC00D3B4C1 /* BRTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */; };
 		BC51B8940E3ACACC00D3B4C1 /* BRTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */; };
@@ -40,8 +47,6 @@
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
 		BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */; };
-		BC5CB38F0E27EC0D00A3B11C /* SegmentCheck0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */; };
-		BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
@@ -76,6 +81,8 @@
 		BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */; };
 		BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */; };
 		BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */; };
+		BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
+		BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
 		BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
@@ -157,6 +164,14 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
+		BC040FDF10D99047008FCB11 /* Flag1Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button0.png; sourceTree = "<group>"; };
+		BC040FE010D99047008FCB11 /* Flag1Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button1.png; sourceTree = "<group>"; };
+		BC040FE110D99047008FCB11 /* Flag2Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button0.png; sourceTree = "<group>"; };
+		BC040FE210D99047008FCB11 /* Flag2Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button1.png; sourceTree = "<group>"; };
+		BC040FE310D99047008FCB11 /* Flag3Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag3Button0.png; sourceTree = "<group>"; };
+		BC040FE410D99047008FCB11 /* Flag3Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag3Button1.png; sourceTree = "<group>"; };
+		BC040FE510D99047008FCB11 /* Flag4Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button0.png; sourceTree = "<group>"; };
+		BC040FE610D99047008FCB11 /* Flag4Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button1.png; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -180,7 +195,6 @@
 		BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LogViewController.xib; path = Interfaces/LogViewController.xib; sourceTree = "<group>"; };
 		BC4F26790EDE67900010B5BE /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRTextView.h; path = Classes/BRTextView.h; sourceTree = "<group>"; };
 		BC4F267A0EDE67900010B5BE /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRTextView.m; path = Classes/BRTextView.m; sourceTree = "<group>"; };
-		BC51B7CD0E3A9E6700D3B4C1 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Check.png; sourceTree = "<group>"; };
 		BC51B88C0E3ACACC00D3B4C1 /* BRTableRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableRow.h; sourceTree = "<group>"; };
 		BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableRow.m; sourceTree = "<group>"; };
 		BC51B88E0E3ACACC00D3B4C1 /* BRTableSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSection.h; sourceTree = "<group>"; };
@@ -199,8 +213,6 @@
 		BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableDatePickerRow.m; sourceTree = "<group>"; };
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconLog.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconTrend.png; sourceTree = "<group>"; };
-		BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck0.png; path = Images/SegmentCheck0.png; sourceTree = "<group>"; };
-		BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SegmentCheck1.png; path = Images/SegmentCheck1.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC65EBB10DEBA5F90008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -259,6 +271,9 @@
 		BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInfoPickerController.m; path = Classes/LogInfoPickerController.m; sourceTree = "<group>"; };
 		BCC4E6DB10D5935E00E4C1A3 /* LogDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogDatePickerController.h; path = Classes/LogDatePickerController.h; sourceTree = "<group>"; };
 		BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogDatePickerController.m; path = Classes/LogDatePickerController.m; sourceTree = "<group>"; };
+		BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ColorPalette.plist; sourceTree = "<group>"; };
+		BCC4E99810D6207B00E4C1A3 /* BRColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRColorPalette.h; sourceTree = "<group>"; };
+		BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRColorPalette.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
@@ -417,12 +432,19 @@
 			children = (
 				BCD8BE410EF081EC005639DD /* Passcode0.png */,
 				BCD8BE420EF081EC005639DD /* Passcode1.png */,
-				BC51B7CD0E3A9E6700D3B4C1 /* Check.png */,
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
 				BC909D660F16F8CC0090472C /* Default.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
+				BC040FDF10D99047008FCB11 /* Flag1Button0.png */,
+				BC040FE010D99047008FCB11 /* Flag1Button1.png */,
+				BC040FE110D99047008FCB11 /* Flag2Button0.png */,
+				BC040FE210D99047008FCB11 /* Flag2Button1.png */,
+				BC040FE310D99047008FCB11 /* Flag3Button0.png */,
+				BC040FE410D99047008FCB11 /* Flag3Button1.png */,
+				BC040FE510D99047008FCB11 /* Flag4Button0.png */,
+				BC040FE610D99047008FCB11 /* Flag4Button1.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -508,6 +530,8 @@
 				BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */,
 				BCC4E6CC10D58C9E00E4C1A3 /* BRPopUpViewController.h */,
 				BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */,
+				BCC4E99810D6207B00E4C1A3 /* BRColorPalette.h */,
+				BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */,
 			);
 			path = BRViews;
 			sourceTree = "<group>";
@@ -584,8 +608,6 @@
 				BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */,
 				BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */,
 				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
-				BC5CB38D0E27EC0D00A3B11C /* SegmentCheck0.png */,
-				BC5CB38E0E27EC0D00A3B11C /* SegmentCheck1.png */,
 				BC4F26790EDE67900010B5BE /* BRTextView.h */,
 				BC4F267A0EDE67900010B5BE /* BRTextView.m */,
 			);
@@ -637,6 +659,7 @@
 				BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */,
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
+				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -735,10 +758,7 @@
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
 				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
 				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
-				BC5CB38F0E27EC0D00A3B11C /* SegmentCheck0.png in Resources */,
-				BC5CB3900E27EC0D00A3B11C /* SegmentCheck1.png in Resources */,
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,
-				BC51B7F00E3AA20400D3B4C1 /* Check.png in Resources */,
 				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
 				BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */,
 				BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */,
@@ -751,6 +771,15 @@
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
 				BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
+				BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */,
+				BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */,
+				BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */,
+				BC040FE910D99048008FCB11 /* Flag2Button0.png in Resources */,
+				BC040FEA10D99048008FCB11 /* Flag2Button1.png in Resources */,
+				BC040FEB10D99048008FCB11 /* Flag3Button0.png in Resources */,
+				BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */,
+				BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */,
+				BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +932,7 @@
 				BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */,
 				BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */,
 				BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */,
+				BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

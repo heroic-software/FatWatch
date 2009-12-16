@@ -6,10 +6,11 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "WeightFormatters.h"
-#import "EWGoal.h"
+#import "BRColorPalette.h"
 #import "BRMixedNumberFormatter.h"
 #import "BRRangeColorFormatter.h"
+#import "EWGoal.h"
+#import "WeightFormatters.h"
 
 
 typedef enum {
@@ -45,24 +46,6 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 @implementation WeightFormatters
-
-
-#pragma mark Colors
-
-
-+ (UIColor *)goodColor {
-	return [UIColor colorWithRed:0 green:0.8 blue:0 alpha:1];
-}
-
-
-+ (UIColor *)warningColor {
-	return [UIColor colorWithRed:0.6 green:0.6 blue:0 alpha:1];
-}
-
-
-+ (UIColor *)badColor {
-	return [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
-}
 
 
 #pragma mark Setting Defaults
@@ -414,10 +397,10 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (UIColor *)colorForBodyMassIndex:(float)BMI {
-	if (BMI < 18.5f) return [UIColor blueColor]; // Underweight
-	if (BMI < 25.0f) return [WeightFormatters goodColor]; // Normal
-	if (BMI < 30.0f) return [WeightFormatters warningColor]; // Overweight
-	return [WeightFormatters badColor]; // Obese
+	if (BMI < 18.5f) return [BRColorPalette colorNamed:@"BMIUnderweight"];
+	if (BMI < 25.0f) return [BRColorPalette colorNamed:@"BMINormal"];
+	if (BMI < 30.0f) return [BRColorPalette colorNamed:@"BMIOverweight"];
+	return [BRColorPalette colorNamed:@"BMIObese"];
 }
 
 
@@ -456,7 +439,13 @@ static const NSUInteger kDefaultScaleIncrementsCount = 3;
 
 
 + (NSArray *)foregroundColorPalette {
-	return [NSArray arrayWithObjects:[UIColor blueColor], [WeightFormatters goodColor], [WeightFormatters warningColor], [WeightFormatters badColor], nil];
+	BRColorPalette *palette = [BRColorPalette sharedPalette];
+	return [NSArray arrayWithObjects:
+			[palette colorNamed:@"BMIUnderweight"],
+			[palette colorNamed:@"BMINormal"],
+			[palette colorNamed:@"BMIOverweight"],
+			[palette colorNamed:@"BMIObese"], 
+			nil];
 }
 
 

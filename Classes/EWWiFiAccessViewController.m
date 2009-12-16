@@ -235,7 +235,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 					EWDBMonth *md = [db getDBMonth:EWMonthDayGetMonth(monthday)];
 					[md setScaleWeight:scaleWeight
 							  scaleFat:0
-								  flag:flag
+								 flags:flag
 								  note:note
 								 onDay:EWMonthDayGetDay(monthday)];
 					importCount += 1;

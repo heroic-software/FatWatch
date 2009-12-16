@@ -6,12 +6,13 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "TrendSpan.h"
+#import "BRColorPalette.h"
+#import "EWDBMonth.h"
+#import "EWDatabase.h"
 #import "EWDate.h"
 #import "EWGoal.h"
-#import "EWDatabase.h"
-#import "EWDBMonth.h"
 #import "SlopeComputer.h"
+#import "TrendSpan.h"
 #import "WeightFormatters.h"
 
 
@@ -217,10 +218,10 @@ enum {
 	} else {
 		if ([[EWGoal sharedGoal] isAttained]) {
 			cell.textLabel.text = @"goal attained";
-			cell.textLabel.textColor = [WeightFormatters goodColor];
+			cell.textLabel.textColor = [BRColorPalette colorNamed:@"GoodText"];
 		} else {
 			cell.textLabel.text = @"moving away from goal";
-			cell.textLabel.textColor = [WeightFormatters badColor];
+			cell.textLabel.textColor = [BRColorPalette colorNamed:@"BadText"];
 		}
 	}
 }
@@ -240,7 +241,7 @@ enum {
 		} else {
 			cell.textLabel.text = [NSString stringWithFormat:@"%d days behind schedule", dayCount];
 		}
-		cell.textLabel.textColor = [WeightFormatters warningColor];
+		cell.textLabel.textColor = [BRColorPalette colorNamed:@"WarningText"];
 	} else if (dayCount < 0) {
 		if (dayCount < -365) {
 			cell.textLabel.text = @"more than a year ahead of schedule";
@@ -249,10 +250,10 @@ enum {
 		} else {
 			cell.textLabel.text = [NSString stringWithFormat:@"%d days ahead of schedule", -dayCount];
 		}
-		cell.textLabel.textColor = [WeightFormatters goodColor];
+		cell.textLabel.textColor = [BRColorPalette colorNamed:@"GoodText"];
 	} else {
 		cell.textLabel.text = @"on schedule";
-		cell.textLabel.textColor = [WeightFormatters goodColor];
+		cell.textLabel.textColor = [BRColorPalette colorNamed:@"GoodText"];
 	}
 }
 

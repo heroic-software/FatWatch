@@ -24,7 +24,7 @@
 
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
-	[dbm setScaleWeight:weight scaleFat:0 flag:NO note:nil onDay:day];
+	[dbm setScaleWeight:weight scaleFat:0 flags:0 note:nil onDay:day];
 }
 
 

@@ -14,10 +14,6 @@
 
 }
 
-+ (UIColor *)goodColor;
-+ (UIColor *)warningColor;
-+ (UIColor *)badColor;
-
 + (NSArray *)weightUnitNames;
 + (NSUInteger)selectedWeightUnitIndex;
 + (void)setSelectedWeightUnitIndex:(NSUInteger)index;

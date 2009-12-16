@@ -44,10 +44,13 @@ enum {
 @synthesize weightContainerView;
 @synthesize weightPickerView;
 @synthesize noWeightView;
-@synthesize flagControl;
 @synthesize noteView;
 @synthesize annotationContainerView;
 @synthesize navigationBar;
+@synthesize flag1Button;
+@synthesize flag2Button;
+@synthesize flag3Button;
+@synthesize flag4Button;
 @synthesize monthData;
 @synthesize day;
 @synthesize weighIn;
@@ -67,7 +70,10 @@ enum {
 	[weightContainerView release];
 	[weightPickerView release];
 	[noWeightView release];
-	[flagControl release];
+	[flag1Button release];
+	[flag2Button release];
+	[flag3Button release];
+	[flag4Button release];
 	[noteView release];
 	[annotationContainerView release];
 	[navigationBar release];
@@ -129,6 +135,11 @@ enum {
 }
 
 
+- (IBAction)toggleFlagButton:(UIButton *)sender {
+	sender.selected = !sender.selected;
+}
+
+
 - (IBAction)cancelAction:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -148,9 +159,15 @@ enum {
 		scaleFat = 0;
 	}
 	
+	int flags = 0;
+	if (flag1Button.selected) flags |= 0x1;
+	if (flag2Button.selected) flags |= 0x2;
+	if (flag3Button.selected) flags |= 0x4;
+	if (flag4Button.selected) flags |= 0x8;
+	
 	[monthData setScaleWeight:scaleWeight
 					 scaleFat:scaleFat
-						 flag:flagControl.selectedSegmentIndex
+						flags:flags
 						 note:noteView.text
 						onDay:day];
 
@@ -222,7 +239,10 @@ enum {
 	
 	[self toggleWeight];
 
-	flagControl.selectedSegmentIndex = (dd->flags != 0);
+	flag1Button.selected = (dd->flags & 0x1) != 0;
+	flag2Button.selected = (dd->flags & 0x2) != 0;
+	flag3Button.selected = (dd->flags & 0x4) != 0;
+	flag4Button.selected = (dd->flags & 0x8) != 0;
 	
 	noteView.text = dd->note;
 
