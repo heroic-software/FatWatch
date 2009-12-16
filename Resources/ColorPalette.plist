@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Flag1</key>
+	<string>0.404 0.164 0.159</string>
+	<key>Flag2</key>
+	<string>0.176 0.250 0.438</string>
+	<key>Flag3</key>
+	<string>0.237 0.436 0.166</string>
+	<key>Flag4</key>
+	<string>0.441 0.422 0.173</string>
+	<key>GoodText</key>
+	<string>0.0 0.8 0.0</string>
+	<key>WarningText</key>
+	<string>0.6 0.6 0.0</string>
+	<key>BadText</key>
+	<string>0.8 0.0 0.0</string>
+	<key>BMIUnderweight</key>
+	<string>0.0 0.0 1.0</string>
+	<key>BMINormal</key>
+	<string>0.0 0.8 0.0</string>
+	<key>BMIOverweight</key>
+	<string>0.6 0.6 0.0</string>
+	<key>BMIObese</key>
+	<string>0.8 0.0 0.0</string>
+</dict>
+</plist>

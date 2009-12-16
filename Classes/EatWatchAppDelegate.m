@@ -8,23 +8,20 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "EatWatchAppDelegate.h"
-
-#import "EWDate.h"
-#import "EWDatabase.h"
+#import "BRColorPalette.h"
 #import "EWDBMonth.h"
+#import "EWDatabase.h"
+#import "EWDate.h"
+#import "EatWatchAppDelegate.h"
+#import "GoalViewController.h"
+#import "GraphViewController.h"
 #import "LogEntryViewController.h"
-
+#import "LogViewController.h"
+#import "MoreViewController.h"
 #import "NewDatabaseViewController.h"
 #import "PasscodeEntryViewController.h"
 #import "RootViewController.h"
-
-#import "LogViewController.h"
 #import "TrendViewController.h"
-#import "GoalViewController.h"
-#import "MoreViewController.h"
-
-#import "GraphViewController.h"
 
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
@@ -40,6 +37,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
 	[dict release];
+	
+	path = [[NSBundle mainBundle] pathForResource:@"ColorPalette" ofType:@"plist"];
+	[[BRColorPalette sharedPalette] addColorsFromFile:path];
 }
 
 
