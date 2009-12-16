@@ -1,20 +1,33 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title>FatWatch (__NAME__)</title>
+	<title>FatWatch</title>
 	<link rel="stylesheet" type="text/css" href="fatwatch.css"/>
-	<script language="Javascript" type="text/javascript">
+	<script type="text/javascript" src="values.js"></script>
+	<script type="text/javascript">
 		function onChange() {
 			var theForm = document.forms['importForm'];
 			theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
 		}
+		window.onload = function() {
+			onChange();
+			document.title = 'FatWatch on ' + FatWatch['deviceName'];
+			document.getElementById('title1').innerText =
+				'FatWatch on ' + FatWatch['deviceName'];
+			document.getElementById('modelRef1').innerText = FatWatch['deviceModel'];
+			document.getElementById('modelRef2').innerText = FatWatch['deviceModel'];
+			document.getElementById('sendButton').value =
+				'Send to ' + FatWatch['deviceModel'];
+			document.getElementById('copyright').innerText = FatWatch['copyright'];
+			document.getElementById('helpMailLink').href = 'mailto:help@fatwatchapp.com?subject=FatWatch%20(' + FatWatch['version'] + ')';
+		}
 	</script>
 </head>
-<body onload="onChange();">
+<body>
 <div id="container">
 	<h1>
 		<img id="icon" src="icon.png" alt="FatWatch icon"/>
-		FatWatch on __NAME__
+		<span id="title1">FatWatch</span>
 	</h1>
 	<p>
 		Go directly to:
@@ -28,12 +41,12 @@
 		Wi-Fi Import/Export allows you to transfer weight measurements to and from FatWatch through your computer's web browser.  No special software is required.
 	</p>
 	<p>
-		If you need any help, feel free to visit <a href="http://www.fatwatchapp.com/support">the FatWatch support website</a> or send email to <a href="mailto:help@fatwatchapp.com?subject=FatWatch%20__VERSION__">help@fatwatchapp.com</a>.
+		If you need any help, feel free to visit <a href="http://www.fatwatchapp.com/support/">the FatWatch support website</a> or send email to <a id="helpMailLink" href="mailto:help@fatwatchapp.com?subject=FatWatch">help@fatwatchapp.com</a>.
 	</p>
 
 	<h1><a name="export">Export</a></h1>
 	<p>
-		Copy your weight history from your __MODEL__ as a <a href="#format">CSV file</a> by clicking the link below.
+		Copy your weight history from your <span id="modelRef1">device</span> as a <a href="#format">CSV file</a> by clicking the link below.
 	</p>
 	<p>
 		<strong><a href="/export/weight.csv">Download Weight History</a></strong>
@@ -43,7 +56,7 @@
 	
 	<form name="importForm" method="POST" enctype="multipart/form-data" action="/import">
 		<p>
-			You can send data to your __MODEL__ using this form.  First, select a <a href="#format">CSV file</a>.
+			You can send data to your <span id="modelRef2">device</span> using this form.  First, select a <a href="#format">CSV file</a>.
 		</p>
 		<p>
 			<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
@@ -66,7 +79,7 @@
 			</select>
 		</p>
 		<div>
-			<input type="submit" name="sendbutton" value="Send to __MODEL__"/>
+			<input id="sendButton" type="submit" name="sendbutton" value="Send to Device"/>
 		</div>
 	</form>
 	<h1><a name="format">File Format</a></h1>
@@ -101,8 +114,7 @@
 	<p>
 		If you are using Windows, you can install <a href="http://www.apple.com/support/downloads/bonjourforwindows.html">Bonjour for Windows</a>, which includes a plug-in for Internet Explorer to display Bonjour advertised websites.
 	</p>
-	<p>
-		__COPYRIGHT__
+	<p id="copyright">
 	</p>
 </div>
 </body>

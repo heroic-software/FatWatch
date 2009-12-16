@@ -292,28 +292,21 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-- (void)sendHTMLResourceNamed:(NSString *)name withSubstitutions:(NSDictionary *)substitutions toConnection:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html"];
+- (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html.gz"];
 	
 	if (path == nil) {
 		[self sendNotFoundErrorToConnection:connection];
 		return;
 	}
 	
-	NSMutableString *text = [[NSMutableString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-	
-	for (NSString *key in [substitutions allKeys]) {
-		[text replaceOccurrencesOfString:key
-							  withString:[substitutions objectForKey:key]
-								 options:0
-								   range:NSMakeRange(0, [text length])];
-	}
-	
 	[connection setResponseStatus:HTTP_STATUS_OK];
 	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyData:[text dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[text release];
+	[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
+
+	NSData *contentData = [[NSData alloc] initWithContentsOfFile:path];
+	[connection setResponseBodyData:contentData];
+	[contentData release];
 }
 
 
@@ -328,6 +321,36 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[connection setResponseStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
 	[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
+}
+
+
+void JSONAppend(NSMutableString *json, char prefix, NSString *k, NSString *v) {
+	[json appendFormat:@"%c\"%@\":\"%@\"", 
+	 prefix,
+	 k, 
+	 [v stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
+}
+
+
+- (void)sendValuesJavaScriptToConnection:(MicroWebConnection *)connection {
+	UIDevice *device = [UIDevice currentDevice];
+	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+	NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
+	NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
+	
+	NSMutableString *json = [[NSMutableString alloc] init];
+	[json appendString:@"var FatWatch="];
+	JSONAppend(json, '{', @"deviceName", [device name]);
+	JSONAppend(json, ',', @"deviceModel", [device localizedModel]);
+	JSONAppend(json, ',', @"version", version);
+	JSONAppend(json, ',', @"copyright", copyright);
+	[json appendString:@"};"];
+	
+	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection setValue:@"text/javascript" forResponseHeader:@"Content-Type"];
+	[connection setResponseBodyData:[json dataUsingEncoding:NSUTF8StringEncoding]];
+
+	[json release];
 }
 
 
@@ -378,7 +401,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		// If we are already waiting for imported data to be handled, ignore
 		// further requests.
 		[self sendHTMLResourceNamed:@"importPending" 
-				  withSubstitutions:nil
 					   toConnection:connection];
 		return;
 	}
@@ -390,7 +412,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	
 	if (importData == nil) {
 		[self sendHTMLResourceNamed:@"importNoData" 
-				  withSubstitutions:nil
 					   toConnection:connection];
 		return;
 	}
@@ -398,7 +419,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[self displayDetailView:promptDetailView];
 		
 	[self sendHTMLResourceNamed:@"importAccepted"
-			  withSubstitutions:nil
 				   toConnection:connection];
 }
 
@@ -432,19 +452,13 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	NSString *path = [[connection requestURL] path];
 	
 	if ([path isEqualToString:@"/"]) {
-		UIDevice *device = [UIDevice currentDevice];
-		NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-		NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
-		NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
-		NSDictionary *subst = [NSDictionary dictionaryWithObjectsAndKeys:
-							   [device name], @"__NAME__",
-							   [device localizedModel], @"__MODEL__",
-							   version, @"__VERSION__",
-							   copyright, @"__COPYRIGHT__",
-							   nil];
 		[self sendHTMLResourceNamed:@"home" 
-				  withSubstitutions:subst
 					   toConnection:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/values.js"]) {
+		[self sendValuesJavaScriptToConnection:connection];
 		return;
 	}
 	

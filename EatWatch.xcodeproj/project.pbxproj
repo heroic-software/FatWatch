@@ -30,10 +30,6 @@
 		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
 		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
-		BC47221B0DE368170081F576 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
-		BC47222A0DE3692C0081F576 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
-		BC47222C0DE3692C0081F576 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
-		BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
@@ -690,7 +686,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
 				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
-				BC3384F30DE7C89A001F1052 /* Run Script (Tidy HTML) */,
+				BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */,
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
 				BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */,
 				BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */,
@@ -748,10 +744,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC47221B0DE368170081F576 /* home.html in Resources */,
-				BC47222E0DE3692C0081F576 /* importAccepted.html in Resources */,
-				BC47222A0DE3692C0081F576 /* importPending.html in Resources */,
-				BC47222C0DE3692C0081F576 /* importNoData.html in Resources */,
 				BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */,
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
@@ -798,19 +790,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BC3384F30DE7C89A001F1052 /* Run Script (Tidy HTML) */ = {
+		BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/*.html",
+				"$(SRCROOT)/en.lproj/*.html",
 			);
-			name = "Run Script (Tidy HTML)";
+			name = "Run Script (Prepare HTML)";
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/*.html.gz",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/en.lproj/*.html.gz",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo Tidying HTML\n\nHTML_TIDY_OPTS=\"-modify -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nfind ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME} -name \"*.html\" -print0 | xargs -0 tidy $HTML_TIDY_OPTS\n";
+			shellScript = "HTML_DIR=$DERIVED_FILES_DIR/HTMLFiles\n\nTIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo \"Processing $SRC_FILE\"\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\techo \"Writing $DST_FILE\"\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {
@@ -827,7 +823,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SQL_FILE=$SRCROOT/Resources/DBCreate3.sql\nDATABASE_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/WeightData.db\n\necho Generating $DATABASE_FILE from $SQL_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
+			shellScript = "SQL_FILE=$SCRIPT_INPUT_FILE_0\nDATABASE_FILE=$SCRIPT_OUTPUT_FILE_0\n\necho Reading $SQL_FILE\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
 		BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */ = {
@@ -845,7 +841,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SETTINGS_PLIST=$SRCROOT/Settings/Root.plist\nXSL=$SRCROOT/Settings/ExtractDefaults.xsl\nDEFAULTS_PLIST=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Defaults.plist\n\nxsltproc -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $SCRIPT_OUTPUT_FILE_0\n";
+			shellScript = "XSL=$SCRIPT_INPUT_FILE_0\nSETTINGS_PLIST=$SCRIPT_INPUT_FILE_1\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_0\n\nxsltproc -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $DEFAULTS_PLIST\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */ = {
