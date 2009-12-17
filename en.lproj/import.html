@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" type="text/css" href="fatwatch.css"/>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="values.js"></script>
+	<script type="text/javascript" src="fatwatch.js"></script>
+	<script type="text/javascript" src="import.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			performTextSubstitution();
+
+			$('select').each(function(){
+				if (this.id.indexOf("Format") > 0) return;
+				var columns = FatWatchImport['columns'];
+				for (i in columns) {
+					var optionElt = document.createElement("option");
+					optionElt.innerHTML = columns[i];
+					optionElt.value = parseInt(i) + 1;
+					this.appendChild(optionElt);
+				}
+			}).change(function(){
+				var samples = FatWatchImport['samples'];
+				if (this.value > 0) {
+					var text = samples[String(this.value - 1)];
+					$("#" + this.id + "Format").attr("disabled", false);
+					$("#" + this.id + "Preview").html(String(text));
+				} else {
+					$("#" + this.id + "Format").attr("disabled", true);
+					$("#" + this.id + "Preview").text('');
+				}
+			});
+
+			updateFormValues(FatWatchImport['importDefaults']);
+			updateSelectOptions(FatWatch['dateFormats'], 'importDateFormat');
+			updateSelectOptions(FatWatch['weightFormats'], 'importWeightFormat');
+			updateSelectOptions(FatWatch['fatFormats'], 'importFatFormat');
+			
+			$('select').change();
+		});
+	</script>
+	<title>FatWatch</title>
+</head>
+<body>
+<div id="container">
+
+<div id="header">
+	<h1>
+		<img id="icon" src="icon.png" alt="FatWatch icon"/>
+		<span id="bigtitle">FatWatch</span>
+	</h1>
+	<p>
+		Import in progress.
+	</p>
+</div>
+
+<div id="beef">
+	<form method="POST" action="/import">
+	<table summary="Columns available for import.">
+		<thead>
+		<tr>
+			<th>Field</th>
+			<th>Import From</th>
+			<th>Format</th>
+			<th>Preview</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>Date</td>
+			<td><select name="date" id="importDate"></select></td>
+			<td><select name="dateFormat" id="importDateFormat"></select></td>
+			<td class="importPreview" id="importDatePreview"></td>
+		</tr>
+		<tr>
+			<td>Weight</td>
+			<td><select name="weight" id="importWeight"><option value="0"></option></select></td>
+			<td><select name="weightFormat" id="importWeightFormat"></select></td>
+			<td class="importPreview" id="importWeightPreview"></td>
+		</tr>
+		<tr>
+			<td>Weight Trend</td>
+			<td colspan="3" class="hint"><i>This value is computed from weight.</i></td>
+		<tr>
+			<td>Body Fat Ratio</td>
+			<td><select name="fat" id="importFat"><option value="0"></option></select></td>
+			<td><select name="fatFormat" id="importFatFormat"></select></td>
+			<td class="importPreview" id="importFatPreview"></td>
+		</tr>
+		<tr>
+			<td>Blue Mark</td>
+			<td><select name="flag1" id="importFlag1"><option value="0"></option></select></td>
+			<td></td>
+			<td class="importPreview" id="importFlag1Preview"></td>
+		</tr>
+		<tr>
+			<td>Red Mark</td>
+			<td><select name="flag2" id="importFlag2"><option value="0"></option></select></td>
+			<td></td>
+			<td class="importPreview" id="importFlag2Preview"></td>
+		</tr>
+		<tr>
+			<td>Green Mark</td>
+			<td><select name="flag3" id="importFlag3"><option value="0"></option></select></td>
+			<td></td>
+			<td class="importPreview" id="importFlag3Preview"></td>
+		</tr>
+		<tr>
+			<td>Yellow Mark</td>
+			<td><select name="flag4" id="importFlag4"><option value="0"></option></select></td>
+			<td></td>
+			<td class="importPreview" id="importFlag4Preview"></td>
+		</tr>
+		<tr>
+			<td>Note</td>
+			<td><select name="note" id="importNote"><option value="0"></option></select></td>
+			<td></td>
+			<td class="importPreview" id="importNotePreview"></td>
+		</tr>
+		</tbody>
+	</table>
+	<p>
+		<input type="radio" name="prepare" value="merge" id="importMerge" checked="true"/>
+		<label for="importMerge">Merge imported data with data on <span class="deviceModel">device</span>.</label>
+	</p>
+	<p>
+		<input type="radio" name="prepare" value="replace" id="importReplace"/>
+		<label for="importReplace">Delete all data from <span class="deviceModel">device</span> before import.</label>
+	</p>
+	<p>
+		<input type="submit" name="op" value="Cancel"/>
+		<input type="submit" name="op" value="Import"/>
+	</p>
+	</form>
+</div>
+
+<div id="footer">
+	<p>
+		Need help? Visit <a target="_blank" href="http://www.fatwatchapp.com/support/">the FatWatch support website</a> or send email to <a id="helpMailLink" href="mailto:help@fatwatchapp.com?subject=FatWatch">help@fatwatchapp.com</a>.
+	</p>
+	<p id="copyright"></p>
+</div>
+
+</div>
+</body>
+</html>

@@ -44,10 +44,10 @@
 - (NSDictionary *)requestHeaders;
 - (NSString *)requestHeaderValueForName:(NSString *)headerName;
 - (NSData *)requestBodyData;
-- (void)setResponseStatus:(CFIndex)statusCode;
+- (void)beginResponseWithStatus:(CFIndex)statusCode;
 - (void)setValue:(NSString *)value forResponseHeader:(NSString *)header;
-- (void)setResponseBodyString:(NSString *)string;
-- (void)setResponseBodyData:(NSData *)data;
+- (void)endResponseWithBodyString:(NSString *)string;
+- (void)endResponseWithBodyData:(NSData *)data;
 @end
 
 

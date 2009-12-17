@@ -229,18 +229,21 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object {
-	if ([delegate respondsToSelector:msg]) {
-		[delegate performSelector:msg withObject:object];
-	}
-}
-
-
 #pragma mark NSNetServiceDelegate
 
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
 	NSLog(@"Did not publish service: %@", errorDict);
+}
+
+
+#pragma mark Private Methods
+
+
+- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object {
+	if ([delegate respondsToSelector:msg]) {
+		[delegate performSelector:msg withObject:object];
+	}
 }
 
 
@@ -390,42 +393,41 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (void)setResponseStatus:(CFIndex)statusCode {
+- (void)beginResponseWithStatus:(CFIndex)statusCode {
 	responseMessage = CFHTTPMessageCreateResponse(kCFAllocatorDefault, statusCode, NULL, kCFHTTPVersion1_1);
-	[self performSelector:@selector(sendResponse) withObject:nil afterDelay:0];
 }
 
 
 - (void)setValue:(NSString *)value forResponseHeader:(NSString *)header {
-	NSAssert(responseMessage != nil, @"must set response status first");
+	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
 	CFHTTPMessageSetHeaderFieldValue(responseMessage, (CFStringRef)header, (CFStringRef)value);
 }
 
 
-- (void)setResponseBodyString:(NSString *)string {
-	NSAssert(responseMessage != nil, @"must set response status first");
-	[self setResponseBodyData:[string dataUsingEncoding:NSUTF8StringEncoding]];
+- (void)endResponseWithBodyString:(NSString *)string {
+	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
+	[self endResponseWithBodyData:[string dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 
-- (void)setResponseBodyData:(NSData *)data {
-	NSAssert(responseMessage != nil, @"must set response status first");
+- (void)endResponseWithBodyData:(NSData *)data {
+	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
 	CFHTTPMessageSetBody(responseMessage, (CFDataRef)data);
-	[self setValue:[NSString stringWithFormat:@"%d", [data length]] forResponseHeader:@"Content-Length"];
-}
 
-
-- (void)sendResponse {
-	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillSendResponse:) withObject:self];
-
+	NSString *lenstr = [NSString stringWithFormat:@"%d", [data length]];
+	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Content-Length"), (CFStringRef)lenstr);
+	
 	// Sorry, we don't support Keep Alive.
 	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));
 	
+	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillSendResponse:) withObject:self];
+
 	responseData = CFHTTPMessageCopySerializedMessage(responseMessage);
 	CFRelease(responseMessage); responseMessage = NULL;
 	
 	responseBytesRemaining = CFDataGetLength(responseData);
 	CFWriteStreamOpen(writeStream);
 }
+
 
 @end

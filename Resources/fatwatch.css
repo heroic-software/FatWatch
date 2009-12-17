@@ -1,12 +1,47 @@
 body {
 	text-align: center;
 }
+
 #container {
-	width: 600px;
+	max-width: 700px;
 	margin: 0 auto;
 	text-align: left;
 }
+
 h1 {
 	font-family: sans-serif;
 	border-bottom: 2px solid #c00;
+}
+
+h2 {
+	font-family: sans-serif;
+	border-bottom: 1px solid #c00;
+}
+
+form {
+	margin-bottom: 12px;
+}
+
+#footer {
+	border-top: 2px solid #c00;
+}
+
+#copyright {
+	font-size: small;
+}
+
+a.selected {
+	background-color: #fcc;
+}
+
+strong {
+	background-color: #fcc;
+}
+
+.hint {
+	color: #999;
+}
+
+td.importPreview {
+	font-family: monospace;
 }

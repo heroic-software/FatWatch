@@ -1,68 +1,199 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title>FatWatch</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="fatwatch.css"/>
+	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="values.js"></script>
+	<script type="text/javascript" src="fatwatch.js"></script>
 	<script type="text/javascript">
-		function onChange() {
-			var theForm = document.forms['importForm'];
-			theForm.elements['sendbutton'].disabled = ! (theForm.elements['filedata'].value);
-		}
-		window.onload = function() {
-			onChange();
-			document.title = 'FatWatch on ' + FatWatch['deviceName'];
-			document.getElementById('title1').innerText =
-				'FatWatch on ' + FatWatch['deviceName'];
-			document.getElementById('modelRef1').innerText = FatWatch['deviceModel'];
-			document.getElementById('modelRef2').innerText = FatWatch['deviceModel'];
-			document.getElementById('sendButton').value =
-				'Send to ' + FatWatch['deviceModel'];
-			document.getElementById('copyright').innerText = FatWatch['copyright'];
-			document.getElementById('helpMailLink').href = 'mailto:help@fatwatchapp.com?subject=FatWatch%20(' + FatWatch['version'] + ')';
-		}
+		$(document).ready(function(){
+			// Input Validation
+			$("#importFileData").change(function(event){
+				$("#sendButton").get(0).disabled = !this.value;
+			}).change();
+
+			// Text Substitution
+			performTextSubstitution();
+			var mailURL = 'mailto:help@fatwatchapp.com?subject=FatWatch%20(' +
+						  FatWatch['version'] + ')';
+			$("#sendButton").attr('value', 'Send to ' + FatWatch['deviceModel']);
+			$("#helpMailLink").attr('href', mailURL);
+			
+			configureTabs();
+			
+			// Export Form Formats
+			updateSelectOptions(FatWatch['dateFormats'], 'exportDateFormat');
+			updateSelectOptions(FatWatch['weightFormats'], 'exportWeightFormat');
+			updateSelectOptions(FatWatch['fatFormats'], 'exportFatFormat');
+			
+			// Export Form Defaults
+			updateFormValues(FatWatch['exportDefaults']);
+		});
 	</script>
+	<title>FatWatch</title>
 </head>
 <body>
 <div id="container">
+
+<div id="header">
 	<h1>
 		<img id="icon" src="icon.png" alt="FatWatch icon"/>
-		<span id="title1">FatWatch</span>
+		<span id="bigtitle">FatWatch</span>
 	</h1>
-	<p>
-		Go directly to:
-		<a href="#export">Export</a>,
-		<a href="#import">Import</a>,
-		<a href="#format">File Format</a>,
-		or
-		<a href="#bookmarking">Bookmarking</a>.
-	</p>
 	<p>
 		Wi-Fi Import/Export allows you to transfer weight measurements to and from FatWatch through your computer's web browser.  No special software is required.
 	</p>
 	<p>
-		If you need any help, feel free to visit <a href="http://www.fatwatchapp.com/support/">the FatWatch support website</a> or send email to <a id="helpMailLink" href="mailto:help@fatwatchapp.com?subject=FatWatch">help@fatwatchapp.com</a>.
+		What do you want to do?
+		<a class="tablink" href="#export">Export to a file</a>,
+		<a class="tablink" href="#import">Import from a file</a>,
+		<a class="tablink" href="#format">Learn about file formats</a>,
+		or
+		<a class="tablink" href="#bookmarking">Bookmark this page</a>.
 	</p>
+</div>
 
-	<h1><a name="export">Export</a></h1>
-	<p>
-		Copy your weight history from your <span id="modelRef1">device</span> as a <a href="#format">CSV file</a> by clicking the link below.
-	</p>
-	<p>
-		<strong><a href="/export/weight.csv">Download Weight History</a></strong>
-	</p>
-
-	<h1><a name="import">Import</a></h1>
+<div id="tabs">
 	
-	<form name="importForm" method="POST" enctype="multipart/form-data" action="/import">
+	<div class="section" id="export">
+	<h1>Export</h1>
+	<form method="POST" action="/export">
 		<p>
-			You can send data to your <span id="modelRef2">device</span> using this form.  First, select a <a href="#format">CSV file</a>.
+			Copy your weight history from your <span class="deviceModel">device</span> to this computer as a <a class="tablink" href="#format">CSV file</a>.
 		</p>
 		<p>
-			<input type="file" name="filedata" accept="text/csv,text/plain" onchange="onChange();"/>
+			<input type="submit" value="Export Weight History"/>
+		</p>
+		<h2>Advanced Settings</h2>
+		<p>
+			Select what columns to include.
+		</p>
+		<table summary="Columns available for export.">
+			<thead>
+			<tr>
+				<th>Include</th>
+				<th>Column Name</th>
+				<th>Format</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="date" id="exportDate"/>
+					<label for="exportDate">Date</label>
+				</td>
+				<td>
+					<input name="dateName" id="exportDateName"/>
+				</td>
+				<td>
+					<select name="dateFormat" id="exportDateFormat">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="weight" id="exportWeight"/>
+					<label for="exportWeight">Weight</label>
+				</td>
+				<td>
+					<input name="weightName" id="exportWeightName"/>
+				</td>
+				<td>
+					<select name="weightFormat" id="exportWeightFormat">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="trendWeight" id="exportTrendWeight"/>
+					<label for="exportTrendWeight">Weight Trend</label>
+				</td>
+				<td>
+					<input name="trendWeightName" id="exportTrendWeightName"/>
+				</td>
+				<td>
+					<i>same as weight</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="fat" id="exportFat"/>
+					<label for="exportFat">Body Fat Ratio</label>
+				</td>
+				<td>
+					<input name="fatName" id="exportFatName"/>
+				</td>
+				<td>
+					<select name="fatFormat" id="exportFatFormat">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="flag1" id="exportFlag1"/>
+					<label for="exportFlag1">Blue Mark</label>
+				</td>
+				<td>
+					<input name="flag1Name" id="exportFlag1Name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="flag2" id="exportFlag2"/>
+					<label for="exportFlag2">Red Mark</label>
+				</td>
+				<td>
+					<input name="flag2Name" id="exportFlag2Name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="flag3" id="exportFlag3"/>
+					<label for="exportFlag3">Green Mark</label>
+				</td>
+				<td>
+					<input name="flag3Name" id="exportFlag3Name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="flag4" id="exportFlag4"/>
+					<label for="exportFlag4">Yellow Mark</label>
+				</td>
+				<td>
+					<input name="flag4Name" id="exportFlag4Name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" checked="true" name="note" id="exportNote"/>
+					<label for="exportNote">Note</label>
+				</td>
+				<td>
+					<input name="noteName" id="exportNoteName"/>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</form>
+	</div>
+
+	<div class="section" id="import">
+	<h1>Import</h1>
+	<form method="POST" enctype="multipart/form-data" action="/import">
+		<p>
+			Choose a <a class="tablink" href="#format">CSV file</a> and then send it to your <span class="deviceModel">device</span> using this form.
 		</p>
 		<p>
-			If you need to, you can specify your file's encoding.  You might need to change this if your notes do not import correctly.  The default should be fine for most cases.
+			<input id="importFileData" type="file" name="filedata" accept="text/csv,text/plain"/>
+		</p>
+		<p>
+			<input id="sendButton" type="submit" name="sendbutton" value="Send to Device"/>
+		</p>
+		<h2>Advanced Settings</h2>
+		<p>
+			If you need to, you can specify your file's text encoding.  You might need to change this if your notes do not import correctly.  The default (UTF-8) should be fine for most cases.
 		</p>
 		<p>
 			File encoding: <select name="encoding">
@@ -78,11 +209,11 @@
 				<option value="8">Japanese (Shift JIS)</option>
 			</select>
 		</p>
-		<div>
-			<input id="sendButton" type="submit" name="sendbutton" value="Send to Device"/>
-		</div>
 	</form>
-	<h1><a name="format">File Format</a></h1>
+	</div>
+	
+	<div class="section" id="format">
+	<h1>File Format</h1>
 	<p>
 		FatWatch uses comma separated values (CSV) as its file format for import and export.  CSV files are supported by many common applications, including spreadsheets such as Numbers and Excel.
 	</p>
@@ -104,7 +235,10 @@
 	<p>
 		When importing only the Date and Weight columns are required.
 	</p>
-	<h1><a name="bookmarking">Bookmarking</a></h1>
+	</div>
+	
+	<div class="section" id="bookmarking">
+	<h1>Bookmarking</h1>
 	<p>
 		Because FatWatch generates a new web address each time you enable Wi-Fi Import/Export, <strong>bookmarks to this page will not work.</strong>  You can still save yourself some typing, however, because FatWatch advertises the address of this page to your local network using <a href="http://www.apple.com/bonjour/">Bonjour</a>.
 	</p>
@@ -114,8 +248,17 @@
 	<p>
 		If you are using Windows, you can install <a href="http://www.apple.com/support/downloads/bonjourforwindows.html">Bonjour for Windows</a>, which includes a plug-in for Internet Explorer to display Bonjour advertised websites.
 	</p>
-	<p id="copyright">
+	</div>
+
+</div>
+
+<div id="footer">
+	<p>
+		Need help? Visit <a target="_blank" href="http://www.fatwatchapp.com/support/">the FatWatch support website</a> or send email to <a id="helpMailLink" href="mailto:help@fatwatchapp.com?subject=FatWatch">help@fatwatchapp.com</a>.
 	</p>
+	<p id="copyright"></p>
+</div>
+
 </div>
 </body>
 </html>

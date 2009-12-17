@@ -1,5 +1,29 @@
+TrueWeight CSV
+http://www.trueweight.net/
+	Date (YYYY-MM-DD)
+	Weight (grams)
+
+Hacker's Diet Online CSV
+http://fourmilab.ch/hackdiet/online/images/hdocsv.html
+	Date ISO 8601
+	Weight lb/kg
+	Rung 1-48
+	Flag 0-1
+	Comment text
+optional lines Epoch, User, Preferences, Diet-Plan
+
+Hacker's Diet Online XML
+http://fourmilab.ch/hackdiet/online/images/hdoxml.html
+
+PhysicsDiet.com export only
+http://www.physicsdiet.com/
+
+WeightBot exports only
+http://www.weightbot.com/
 
 
+
+- Mini chart in trends view
 
 - Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
 

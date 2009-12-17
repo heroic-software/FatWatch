@@ -286,27 +286,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)sendNotFoundErrorToConnection:(MicroWebConnection *)connection {
-	[connection setResponseStatus:HTTP_STATUS_NOT_FOUND];
+	[connection beginResponseWithStatus:HTTP_STATUS_NOT_FOUND];
 	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyString:@"Resource Not Found"];
-}
-
-
-- (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html.gz"];
-	
-	if (path == nil) {
-		[self sendNotFoundErrorToConnection:connection];
-		return;
-	}
-	
-	[connection setResponseStatus:HTTP_STATUS_OK];
-	[connection setValue:@"text/html; charset=utf-8" forResponseHeader:@"Content-Type"];
-	[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
-
-	NSData *contentData = [[NSData alloc] initWithContentsOfFile:path];
-	[connection setResponseBodyData:contentData];
-	[contentData release];
+	[connection endResponseWithBodyString:@"Resource Not Found"];
 }
 
 
@@ -318,17 +300,74 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		return;
 	}
 	
-	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyData:[NSData dataWithContentsOfFile:path]];
+	
+	if ([type hasSuffix:@".gz"]) {
+		[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
+	}
+	
+	NSData *contentData = [[NSData alloc] initWithContentsOfFile:path];
+	[connection endResponseWithBodyData:contentData];
+	[contentData release];
 }
 
 
-void JSONAppend(NSMutableString *json, char prefix, NSString *k, NSString *v) {
-	[json appendFormat:@"%c\"%@\":\"%@\"", 
-	 prefix,
-	 k, 
-	 [v stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
+- (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
+	[self sendResource:name ofType:@"html.gz"
+		   contentType:@"text/html; charset=utf-8"
+		  toConnection:connection];
+}
+
+
+void JSONify(id object, NSMutableString *json) {
+	if ([object isKindOfClass:[NSArray class]]) {
+		BOOL printComma = NO;
+		[json appendString:@"["];
+		for (id item in object) {
+			if (printComma) [json appendString:@","]; else printComma = YES;
+			JSONify(item, json);
+		}
+		[json appendString:@"]"];
+	}
+	else if ([object isKindOfClass:[NSDictionary class]]) {
+		BOOL printComma = NO;
+		[json appendString:@"{"];
+		for (id key in object) {
+			if (printComma) [json appendString:@","]; else printComma = YES;
+			[json appendFormat:@"\"%@\":", key]; // trust keys don't need escaping
+			JSONify([object valueForKey:key], json);
+		}
+		[json appendString:@"}"];
+	}
+	else if ([object isKindOfClass:[NSNumber class]]) {
+		[json appendFormat:@"%@", object];
+	} else {
+		NSString *esc = 
+		[[object description] stringByReplacingOccurrencesOfString:@"\"" 
+														withString:@"\\\""];
+		[json appendFormat:@"\"%@\"", esc];
+	}
+}
+
+
+NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	if (format) {
+		[df setDateFormat:format];
+	} else {
+		[df setDateStyle:NSDateFormatterShortStyle];
+		[df setTimeStyle:NSDateFormatterNoStyle];
+		format = [df dateFormat];
+	}
+	NSString *label = [NSString stringWithFormat:@"%@ (%@)",
+					   [df stringFromDate:[NSDate date]],
+					   name];
+	[df autorelease];
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			format, @"value",
+			label, @"label",
+			nil];
 }
 
 
@@ -338,17 +377,84 @@ void JSONAppend(NSMutableString *json, char prefix, NSString *k, NSString *v) {
 	NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
 	NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
 	
+	NSMutableDictionary *root = [[NSMutableDictionary alloc] init];
+
+	[root setObject:[device name] forKey:@"deviceName"];
+	[root setObject:[device localizedModel] forKey:@"deviceModel"];
+	[root setObject:version forKey:@"version"];
+	[root setObject:copyright forKey:@"copyright"];
+	
+	// Formats
+	NSMutableArray *array = [[NSMutableArray alloc] init];
+	
+	[array addObject:DateFormatDictionary(@"y-MM-dd", @"ISO")];
+	[array addObject:DateFormatDictionary(nil, @"Local")];
+	[root setObject:[[array copy] autorelease] forKey:@"dateFormats"];
+	[array removeAllObjects];
+
+	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					  @"lbs", @"value", @"pounds (lbs)", @"label", nil]];
+	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					  @"kgs", @"value", @"kilograms (kgs)", @"label", nil]];
+	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					  @"gs", @"value", @"grams (gs)", @"label", nil]];
+	[root setObject:[[array copy] autorelease] forKey:@"weightFormats"];
+	[array removeAllObjects];
+	
+	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					  @"ratio", @"value", @"ratio (0.0-&ndash;1.0)", @"label", nil]];
+	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					  @"percent", @"value", @"percent (0%&ndash;100%)", @"label", nil]];
+	[root setObject:[[array copy] autorelease] forKey:@"fatFormats"];
+	[array release];
+	
+	// Export Defaults
+	
+	NSMutableDictionary *exportDefaults = [[NSMutableDictionary alloc] init];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportDate"];
+	[exportDefaults setObject:@"Date" forKey:@"exportDateName"];
+	[exportDefaults setObject:@"y-MM-dd" forKey:@"exportDateFormat"];
+
+	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportWeight"];
+	[exportDefaults setObject:@"Weight" forKey:@"exportWeightName"];
+	[exportDefaults setObject:@"lbs" forKey:@"exportWeightFormat"];
+
+	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportTrendWeight"];
+	[exportDefaults setObject:@"Trend" forKey:@"exportTrendWeightName"];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFat"];
+	[exportDefaults setObject:@"ratio" forKey:@"exportFatFormat"];
+	[exportDefaults setObject:@"BodyFat" forKey:@"exportFatName"];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportFlag1"];
+	[exportDefaults setObject:@"Checkmark" forKey:@"exportFlag1Name"];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag2"];
+	[exportDefaults setObject:@"Checkmark2" forKey:@"exportFlag2Name"];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag3"];
+	[exportDefaults setObject:@"Checkmark3" forKey:@"exportFlag3Name"];
+	
+	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag4"];
+	[exportDefaults setObject:@"Checkmark4" forKey:@"exportFlag4Name"];
+
+	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportNote"];
+	[exportDefaults setObject:@"Note" forKey:@"exportNoteName"];
+
+	[root setObject:exportDefaults forKey:@"exportDefaults"];
+	[exportDefaults release];
+
 	NSMutableString *json = [[NSMutableString alloc] init];
 	[json appendString:@"var FatWatch="];
-	JSONAppend(json, '{', @"deviceName", [device name]);
-	JSONAppend(json, ',', @"deviceModel", [device localizedModel]);
-	JSONAppend(json, ',', @"version", version);
-	JSONAppend(json, ',', @"copyright", copyright);
-	[json appendString:@"};"];
+	JSONify(root, json);
+	[json appendString:@";"];
+
+	[root release];
 	
-	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:@"text/javascript" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyData:[json dataUsingEncoding:NSUTF8StringEncoding]];
+	[connection endResponseWithBodyString:json];
 
 	[json release];
 }
@@ -386,10 +492,10 @@ void JSONAppend(NSMutableString *json, char prefix, NSString *k, NSString *v) {
 	NSString *contentType = @"text/csv; charset=utf-8";
 	NSString *contentDisposition = [NSString stringWithFormat:@"attachment; filename=\"weight-%@.csv\"", [formatter stringFromDate:[NSDate date]]];
 	
-	[connection setResponseStatus:HTTP_STATUS_OK];
+	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
 	[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
-	[connection setResponseBodyData:[writer data]];
+	[connection endResponseWithBodyData:[writer data]];
 	[writer release];
 
 	[self setCurrentDateForKey:kEWLastExportKey];
@@ -479,8 +585,23 @@ void JSONAppend(NSMutableString *json, char prefix, NSString *k, NSString *v) {
 	}
 	
 	if ([path isEqualToString:@"/fatwatch.css"]) {
-		[self sendResource:@"fatwatch" ofType:@"css" 
-			   contentType:@"text/css" toConnection:connection];
+		[self sendResource:@"fatwatch" ofType:@"css.gz" 
+			   contentType:@"text/css; charset=utf-8"
+			  toConnection:connection];
+		return;
+	}
+	
+	if ([path isEqualToString:@"/jquery.js"]) {
+		[self sendResource:@"jquery" ofType:@"js.gz"
+			   contentType:@"text/javascript; charset=utf-8"
+			  toConnection:connection];
+		return;
+	}
+
+	if ([path isEqualToString:@"/fatwatch.js"]) {
+		[self sendResource:@"fatwatch" ofType:@"js.gz"
+			   contentType:@"text/javascript; charset=utf-8"
+			  toConnection:connection];
 		return;
 	}
 	

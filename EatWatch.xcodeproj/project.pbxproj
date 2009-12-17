@@ -80,7 +80,6 @@
 		BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
-		BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
@@ -168,6 +167,10 @@
 		BC040FE410D99047008FCB11 /* Flag3Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag3Button1.png; sourceTree = "<group>"; };
 		BC040FE510D99047008FCB11 /* Flag4Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button0.png; sourceTree = "<group>"; };
 		BC040FE610D99047008FCB11 /* Flag4Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button1.png; sourceTree = "<group>"; };
+		BC0410F010D9D532008FCB11 /* FakeValues.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FakeValues.js; sourceTree = "<group>"; };
+		BC04125E10DA0D2E008FCB11 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/import.html; sourceTree = SOURCE_ROOT; };
+		BC04126910DA0DD3008FCB11 /* fatwatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fatwatch.js; sourceTree = "<group>"; };
+		BC04126E10DA12DB008FCB11 /* FakeImport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FakeImport.js; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC2CBA860EC989DA002087B7 /* Entitlements.plist */,
+				BC0410F010D9D532008FCB11 /* FakeValues.js */,
+				BC04126E10DA12DB008FCB11 /* FakeImport.js */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BCF52BCF10D075930017C3A1 /* Localizables */,
 				29B97317FDCFA39411CA2CEA /* Images */,
@@ -641,6 +646,7 @@
 				BC4722290DE3692C0081F576 /* importPending.html */,
 				BC47222B0DE3692C0081F576 /* importNoData.html */,
 				BC47222D0DE3692C0081F576 /* importAccepted.html */,
+				BC04126110DA0D32008FCB11 /* import.html */,
 			);
 			name = Localizables;
 			path = Images;
@@ -650,6 +656,7 @@
 			isa = PBXGroup;
 			children = (
 				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
+				BC04126910DA0DD3008FCB11 /* fatwatch.js */,
 				BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */,
 				BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */,
 				BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */,
@@ -687,6 +694,7 @@
 				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
 				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
 				BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */,
+				BC04110A10D9D720008FCB11 /* Run Script (gzip resources) */,
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
 				BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */,
 				BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */,
@@ -728,7 +736,15 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				de,
+				en,
+				es,
+				fr,
+				jp,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -759,7 +775,6 @@
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
 				BC909D670F16F8CC0090472C /* Default.png in Resources */,
 				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
-				BCD4C0A10FEFFF9F00E770B7 /* fatwatch.css in Resources */,
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
 				BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
@@ -790,6 +805,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BC04110A10D9D720008FCB11 /* Run Script (gzip resources) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Resources/fatwatch.css",
+				"$(SRCROOT)/jQuery/jquery-1.3.2.min.js",
+				"$(SRCROOT)/Resources/fatwatch.js",
+			);
+			name = "Run Script (gzip resources)";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/fatwatch.css.gz",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/jquery.js.gz",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/fatwatch.js.gz",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "GZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\t\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSIF=${!SIF_NAME}\n\t\tSOF=${!SOF_NAME}\n\t\techo \"Processing $SIF\"\n\t\techo \"Creating $SOF\"\n\t\t$GZIP_CMD $SIF > $SOF\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor (( i = 0; i < $SCRIPT_OUTPUT_FILE_COUNT; i++ )); do\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSOF=${!SOF_NAME}\n\t\tif [ -e $SOF ]; then\n\t\t\techo \"Removing $SOF\"\n\t\tfi\n\tdone\nfi\n";
+		};
 		BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -806,7 +841,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "HTML_DIR=$DERIVED_FILES_DIR/HTMLFiles\n\nTIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo \"Processing $SRC_FILE\"\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\techo \"Writing $DST_FILE\"\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
+			shellScript = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo \"Processing $SRC_FILE\"\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\techo \"Writing $DST_FILE\"\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor PATTERN in ${!SCRIPT_OUTPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor DST_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $DST_FILE ]; then\n\t\t\t\techo \"Removing $DST_FILE\"\n\t\t\t\trm $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {
@@ -961,6 +996,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BC04126110DA0D32008FCB11 /* import.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC04125E10DA0D2E008FCB11 /* en */,
+			);
+			name = import.html;
+			sourceTree = "<group>";
+		};
 		BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
