@@ -430,4 +430,11 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
+- (void)respondWithErrorMessage:(NSString *)message {
+	[self beginResponseWithStatus:500];
+	[self setValue:@"text/plain; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[self endResponseWithBodyString:message];
+}
+
+
 @end

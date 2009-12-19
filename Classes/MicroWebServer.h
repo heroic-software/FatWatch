@@ -48,6 +48,7 @@
 - (void)setValue:(NSString *)value forResponseHeader:(NSString *)header;
 - (void)endResponseWithBodyString:(NSString *)string;
 - (void)endResponseWithBodyData:(NSData *)data;
+- (void)respondWithErrorMessage:(NSString *)message;
 @end
 
 
