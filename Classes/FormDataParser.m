@@ -90,6 +90,11 @@
 #pragma mark Accessing Parsed Values
 
 
+- (NSArray *)allKeys {
+	return [dictionary allKeys];
+}
+
+
 - (BOOL)hasKey:(NSString *)key {
 	return [dictionary objectForKey:key] != nil;
 }

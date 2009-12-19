@@ -16,6 +16,7 @@
 }
 - (id)initWithData:(NSData *)data;
 - (id)initWithConnection:(MicroWebConnection *)connection;
+- (NSArray *)allKeys;
 - (BOOL)hasKey:(NSString *)key;
 - (NSData *)dataForKey:(NSString *)key;
 - (NSString *)stringForKey:(NSString *)key;
