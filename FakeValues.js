@@ -27,7 +27,7 @@ var FatWatch={
 		"exportFlag1Name":"Checkmark",
 		"exportFlag2":true,
 		"exportFlag2Name":"Checkmark2",
-		"exportFlag3":true,
+		"exportFlag3":false,
 		"exportFlag3Name":"Checkmark3",
 		"exportFlag4":true,
 		"exportFlag4Name":"Checkmark4",

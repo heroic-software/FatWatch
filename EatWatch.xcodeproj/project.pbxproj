@@ -21,6 +21,13 @@
 		BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE410D99047008FCB11 /* Flag3Button1.png */; };
 		BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE510D99047008FCB11 /* Flag4Button0.png */; };
 		BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE610D99047008FCB11 /* Flag4Button1.png */; };
+		BC04130E10DB718C008FCB11 /* BRJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04130D10DB718C008FCB11 /* BRJSON.m */; };
+		BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC04131110DB7AD9008FCB11 /* WebResources.plist */; };
+		BC04131710DB8024008FCB11 /* CSVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04131610DB8024008FCB11 /* CSVExporter.m */; };
+		BC04131A10DB804B008FCB11 /* EWExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04131910DB804B008FCB11 /* EWExporter.m */; };
+		BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
+		BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */; };
+		BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
@@ -171,6 +178,14 @@
 		BC04125E10DA0D2E008FCB11 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/import.html; sourceTree = SOURCE_ROOT; };
 		BC04126910DA0DD3008FCB11 /* fatwatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fatwatch.js; sourceTree = "<group>"; };
 		BC04126E10DA12DB008FCB11 /* FakeImport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FakeImport.js; sourceTree = "<group>"; };
+		BC04130C10DB718C008FCB11 /* BRJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRJSON.h; sourceTree = "<group>"; };
+		BC04130D10DB718C008FCB11 /* BRJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRJSON.m; sourceTree = "<group>"; };
+		BC04131110DB7AD9008FCB11 /* WebResources.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WebResources.plist; sourceTree = "<group>"; };
+		BC04131510DB8024008FCB11 /* CSVExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVExporter.h; path = Classes/CSVExporter.h; sourceTree = "<group>"; };
+		BC04131610DB8024008FCB11 /* CSVExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVExporter.m; path = Classes/CSVExporter.m; sourceTree = "<group>"; };
+		BC04131810DB804B008FCB11 /* EWExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWExporter.h; path = Classes/EWExporter.h; sourceTree = "<group>"; };
+		BC04131910DB804B008FCB11 /* EWExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWExporter.m; path = Classes/EWExporter.m; sourceTree = "<group>"; };
+		BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormDataParserTest.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -500,10 +515,11 @@
 			isa = PBXGroup;
 			children = (
 				BCF52AD010D066540017C3A1 /* UnitTests-Info.plist */,
+				BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */,
 				BCEADA030DE219E70017495E /* CSVReaderTest.m */,
 				BC3384010DE78303001F1052 /* DatabaseTest.m */,
 				BC910BC90E385C0F007B7941 /* EWDateTest.m */,
-				BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */,
+				BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -533,6 +549,8 @@
 				BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */,
 				BCC4E99810D6207B00E4C1A3 /* BRColorPalette.h */,
 				BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */,
+				BC04130C10DB718C008FCB11 /* BRJSON.h */,
+				BC04130D10DB718C008FCB11 /* BRJSON.m */,
 			);
 			path = BRViews;
 			sourceTree = "<group>";
@@ -623,6 +641,10 @@
 				BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */,
 				BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */,
 				BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */,
+				BC04131510DB8024008FCB11 /* CSVExporter.h */,
+				BC04131610DB8024008FCB11 /* CSVExporter.m */,
+				BC04131810DB804B008FCB11 /* EWExporter.h */,
+				BC04131910DB804B008FCB11 /* EWExporter.m */,
 				BC0CE4610DDC0F6300AB8899 /* DataSearch.h */,
 				BC0CE4620DDC0F6300AB8899 /* DataSearch.m */,
 				BC871F190DC7BE5A009312BA /* MicroWebServer.h */,
@@ -663,6 +685,7 @@
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
+				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -787,6 +810,7 @@
 				BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */,
 				BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */,
 				BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */,
+				BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +988,9 @@
 				BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */,
 				BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */,
 				BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */,
+				BC04130E10DB718C008FCB11 /* BRJSON.m in Sources */,
+				BC04131710DB8024008FCB11 /* CSVExporter.m in Sources */,
+				BC04131A10DB804B008FCB11 /* EWExporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -982,6 +1009,9 @@
 				BCF52CAB10D0D0430017C3A1 /* EWDatabase.m in Sources */,
 				BCF52CAE10D0D04F0017C3A1 /* SQLiteDatabase.m in Sources */,
 				BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */,
+				BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */,
+				BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */,
+				BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

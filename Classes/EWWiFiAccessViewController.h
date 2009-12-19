@@ -42,6 +42,7 @@
 	NSStringEncoding importEncoding;
 	CSVReader *reader;
 	NSInteger lineCount, importCount;
+	NSDictionary *webResources;
 }
 @property (nonatomic,retain) IBOutlet UILabel *statusLabel;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;

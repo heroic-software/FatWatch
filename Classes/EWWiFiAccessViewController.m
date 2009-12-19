@@ -6,18 +6,19 @@
 //  Copyright 2009 Benjamin Ragheb. All rights reserved.
 //
 
-#import "EWWiFiAccessViewController.h"
-
-#import "RootViewController.h"
+#import "BRJSON.h"
 #import "BRReachability.h"
-#import "MicroWebServer.h"
-#import "EWDatabase.h"
-#import "EWDBMonth.h"
-#import "WeightFormatters.h"
 #import "CSVReader.h"
-#import "CSVWriter.h"
+#import "CSVExporter.h"
+#import "EWDBMonth.h"
+#import "EWDatabase.h"
+#import "EWExporter.h"
 #import "EWGoal.h"
+#import "EWWiFiAccessViewController.h"
 #import "FormDataParser.h"
+#import "MicroWebServer.h"
+#import "RootViewController.h"
+#import "WeightFormatters.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -26,7 +27,6 @@
 
 NSDateFormatter *EWDateFormatterGetISO() {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	[formatter setDateFormat:@"y-MM-dd"];
 	return [formatter autorelease];
 }
@@ -34,7 +34,6 @@ NSDateFormatter *EWDateFormatterGetISO() {
 
 NSDateFormatter *EWDateFormatterGetLocal() {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 	[formatter setDateStyle:NSDateFormatterShortStyle];
 	[formatter setTimeStyle:NSDateFormatterNoStyle];
 	return [formatter autorelease];
@@ -90,6 +89,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[lastExportLabel release];
 	[reachability release];
 	[webServer release];
+	[webResources release];
     [super dealloc];
 }
 
@@ -300,6 +300,10 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		return;
 	}
 	
+	if ([contentType hasPrefix:@"text/"]) {
+		contentType = [contentType stringByAppendingString:@"; charset=utf-8"];
+	}
+
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
 	
@@ -315,39 +319,8 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
 	[self sendResource:name ofType:@"html.gz"
-		   contentType:@"text/html; charset=utf-8"
+		   contentType:@"text/html"
 		  toConnection:connection];
-}
-
-
-void JSONify(id object, NSMutableString *json) {
-	if ([object isKindOfClass:[NSArray class]]) {
-		BOOL printComma = NO;
-		[json appendString:@"["];
-		for (id item in object) {
-			if (printComma) [json appendString:@","]; else printComma = YES;
-			JSONify(item, json);
-		}
-		[json appendString:@"]"];
-	}
-	else if ([object isKindOfClass:[NSDictionary class]]) {
-		BOOL printComma = NO;
-		[json appendString:@"{"];
-		for (id key in object) {
-			if (printComma) [json appendString:@","]; else printComma = YES;
-			[json appendFormat:@"\"%@\":", key]; // trust keys don't need escaping
-			JSONify([object valueForKey:key], json);
-		}
-		[json appendString:@"}"];
-	}
-	else if ([object isKindOfClass:[NSNumber class]]) {
-		[json appendFormat:@"%@", object];
-	} else {
-		NSString *esc = 
-		[[object description] stringByReplacingOccurrencesOfString:@"\"" 
-														withString:@"\\\""];
-		[json appendFormat:@"\"%@\"", esc];
-	}
 }
 
 
@@ -445,60 +418,126 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[root setObject:exportDefaults forKey:@"exportDefaults"];
 	[exportDefaults release];
 
-	NSMutableString *json = [[NSMutableString alloc] init];
-	[json appendString:@"var FatWatch="];
-	JSONify(root, json);
-	[json appendString:@";"];
-
+	NSMutableData *json = [[NSMutableData alloc] init];
+	[json appendBytes:"var FatWatch=" length:13];
+	[root appendJSONRepresentationToData:json];
+	[json appendBytes:";" length:1];
+	
 	[root release];
 	
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:@"text/javascript" forResponseHeader:@"Content-Type"];
-	[connection endResponseWithBodyString:json];
+	[connection endResponseWithBodyData:json];
 
 	[json release];
 }
 
 
 - (void)handleExport:(MicroWebConnection *)connection {
-	CSVWriter *writer = [[CSVWriter alloc] init];
-	writer.floatFormatter = [WeightFormatters exportWeightFormatter];
+	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
 	
-	[writer addString:@"Date"];
-	[writer addString:@"Weight"];
-	[writer addString:@"Checkmark"];
-	[writer addString:@"Note"];
-	[writer endRow];
+	NSLog(@"Export: %@", form);
 	
-	NSDateFormatter *formatter = EWDateFormatterGetISO();
+	EWExporter *exporter = [[CSVExporter alloc] init];
 	
-	EWDatabase *db = [EWDatabase sharedDatabase];
-	EWMonth month;
-	for (month = db.earliestMonth; month <= db.latestMonth; month += 1) {
-		EWDBMonth *md = [db getDBMonth:month];
-		EWDay day;
-		for (day = 1; day <= 31; day++) {
-			if ([md hasDataOnDay:day]) {
-				struct EWDBDay *dd = [md getDBDay:day];
-				[writer addString:[formatter stringFromDate:[md dateOnDay:day]]];
-				[writer addFloat:dd->scaleWeight];
-				[writer addBoolean:(dd->flags != 0)];
-				[writer addString:dd->note];
-				[writer endRow];
-			}
-		}
+	if ([form hasKey:@"date"]) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		[df setDateFormat:[form stringForKey:@"dateFormat"]];
+		[exporter addField:EWExporterFieldDate
+					  name:[form stringForKey:@"dateName"]
+				 formatter:df];
+		[df release];
 	}
 	
-	NSString *contentType = @"text/csv; charset=utf-8";
-	NSString *contentDisposition = [NSString stringWithFormat:@"attachment; filename=\"weight-%@.csv\"", [formatter stringFromDate:[NSDate date]]];
+	NSNumberFormatter *nf = nil;
 	
-	[connection beginResponseWithStatus:HTTP_STATUS_OK];
-	[connection setValue:contentType forResponseHeader:@"Content-Type"];
-	[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
-	[connection endResponseWithBodyData:[writer data]];
-	[writer release];
+	NSString *wfName = [form stringForKey:@"weightFormat"];
+	if ([wfName isEqualToString:@"lbs"]) {
+		nf = [[WeightFormatters weightFormatter] retain];
+	}
 
-	[self setCurrentDateForKey:kEWLastExportKey];
+	if ([form hasKey:@"weight"]) {
+		[exporter addField:EWExporterFieldWeight
+					  name:[form stringForKey:@"weightName"]
+				 formatter:nf];
+	}
+	
+	if ([form hasKey:@"trendWeight"]) {
+		[exporter addField:EWExporterFieldTrendWeight
+					  name:[form stringForKey:@"trendWeightName"]
+				 formatter:nf];
+	}
+	
+	[nf release];
+	
+	if ([form hasKey:@"fat"]) {
+		nf = [[NSNumberFormatter alloc] init];
+		[nf setPositiveFormat:[form stringForKey:@"fatFormat"]];
+		[exporter addField:EWExporterFieldFat
+					  name:[form stringForKey:@"fatName"]
+				 formatter:nf];
+		[nf release];
+	}
+	
+	if ([form hasKey:@"flag1"]) {
+		[exporter addField:EWExporterFieldFlag1
+					  name:[form stringForKey:@"flag1Name"]
+				 formatter:nil];
+	}
+	
+	if ([form hasKey:@"flag2"]) {
+		[exporter addField:EWExporterFieldFlag2
+					  name:[form stringForKey:@"flag2Name"]
+				 formatter:nil];
+	}
+	
+	if ([form hasKey:@"flag3"]) {
+		[exporter addField:EWExporterFieldFlag3
+					  name:[form stringForKey:@"flag3Name"]
+				 formatter:nil];
+	}
+	
+	if ([form hasKey:@"flag4"]) {
+		[exporter addField:EWExporterFieldFlag4
+					  name:[form stringForKey:@"flag4Name"]
+				 formatter:nil];
+	}
+	
+	if ([form hasKey:@"note"]) {
+		[exporter addField:EWExporterFieldNote
+					  name:[form stringForKey:@"noteName"]
+				 formatter:nil];
+	}
+	
+	[form release];
+	
+	NSData *data = [exporter exportedData];
+	
+	if (data) {
+		[self setCurrentDateForKey:kEWLastExportKey];
+
+		[connection beginResponseWithStatus:HTTP_STATUS_OK];
+
+#if TARGET_IPHONE_SIMULATOR
+		[connection setValue:@"text/plain; charset=utf-8" forResponseHeader:@"Content-Type"];
+		[connection setValue:@"inline" forResponseHeader:@"Content-Disposition"];
+#else
+		NSDateFormatter *isoDF = EWDateFormatterGetISO();
+		NSString *contentDisposition = 
+		[NSString stringWithFormat:@"attachment; filename=\"export-%@.%@\"", 
+		 [isoDF stringFromDate:[NSDate date]],
+		 [exporter fileExtension]];
+		
+		[connection setValue:[exporter contentType] forResponseHeader:@"Content-Type"];
+		[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
+#endif
+		
+		[connection endResponseWithBodyData:data];
+	} else {
+		[connection respondWithErrorMessage:@"Unable to export data."];
+	}
+
+	[exporter release];
 }
 
 
@@ -557,9 +596,17 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 - (void)handleWebConnection:(MicroWebConnection *)connection {
 	NSString *path = [[connection requestURL] path];
 	
-	if ([path isEqualToString:@"/"]) {
-		[self sendHTMLResourceNamed:@"home" 
-					   toConnection:connection];
+	if (webResources == nil) {
+		NSString *p = [[NSBundle mainBundle] pathForResource:@"WebResources" ofType:@"plist"];
+		webResources = [[NSDictionary alloc] initWithContentsOfFile:p];
+	}
+	
+	NSDictionary *rsrc = [webResources objectForKey:path];
+	if (rsrc) {
+		[self sendResource:[rsrc objectForKey:@"Name"]
+					ofType:[rsrc objectForKey:@"Type"]
+			   contentType:[rsrc objectForKey:@"Content-Type"]
+			  toConnection:connection];
 		return;
 	}
 	
@@ -568,7 +615,12 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		return;
 	}
 	
-	if ([path hasPrefix:@"/export/"]) {
+//	if ([path isEqualToString:@"/import.js"]) {
+//		[self sendImportJavaScriptToConnection:connection];
+//		return;
+//	}
+	
+	if ([path isEqualToString:@"/export"]) {
 		[self handleExport:connection];
 		return;
 	}
@@ -578,34 +630,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		return;
 	}
 	
-	if ([path isEqualToString:@"/icon.png"]) {
-		[self sendResource:@"Icon" ofType:@"_png" 
-			   contentType:@"image/png" toConnection:connection];
-		return;
-	}
-	
-	if ([path isEqualToString:@"/fatwatch.css"]) {
-		[self sendResource:@"fatwatch" ofType:@"css.gz" 
-			   contentType:@"text/css; charset=utf-8"
-			  toConnection:connection];
-		return;
-	}
-	
-	if ([path isEqualToString:@"/jquery.js"]) {
-		[self sendResource:@"jquery" ofType:@"js.gz"
-			   contentType:@"text/javascript; charset=utf-8"
-			  toConnection:connection];
-		return;
-	}
-
-	if ([path isEqualToString:@"/fatwatch.js"]) {
-		[self sendResource:@"fatwatch" ofType:@"js.gz"
-			   contentType:@"text/javascript; charset=utf-8"
-			  toConnection:connection];
-		return;
-	}
-	
-	// handle robots.txt, favicon.ico
 	[self sendNotFoundErrorToConnection:connection];
 }
 

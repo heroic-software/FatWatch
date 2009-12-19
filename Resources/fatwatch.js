@@ -42,10 +42,11 @@ function updateSelectOptions(formats, eltId) {
 function updateFormValues(defaults) {
 	for (eltId in defaults) {
 		var value = defaults[eltId];
-		if (value) {
-			document.getElementById(eltId).value = value;
+		var elt = document.getElementById(eltId);
+		if (elt.type == "checkbox") {
+			elt.checked = value;
 		} else {
-			document.getElementById(eltId).checked = false;
+			elt.value = value;
 		}
 	}
 }
