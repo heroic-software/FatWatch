@@ -50,3 +50,57 @@ function updateFormValues(defaults) {
 		}
 	}
 }
+
+var FWExportPresets = {
+	"Everything":{
+		"exportOrder":null,
+		"exportDate":true,
+		"exportDateName":"Date",
+		"exportDateFormat":"y-MM-dd",
+		"exportWeight":true,
+		"exportWeightName":"Weight",
+		"exportWeightFormat":"G",
+		"exportTrendWeight":true,
+		"exportFat":true,
+		"exportFlag1":true,
+		"exportFlag2":true,
+		"exportFlag3":true,
+		"exportFlag4":true,
+		"exportNote":true
+	},
+	"Hacker's Diet Online":{
+		"exportOrder":"date,weight,flag4,flag1,note",
+		"exportDate":true,
+		"exportDateName":"Date",
+		"exportDateFormat":"y-MM-dd",
+		"exportWeight":true,
+		"exportWeightName":"Weight",
+		"exportWeightFormat":"L",
+		"exportTrendWeight":false,
+		"exportFat":false,
+		"exportFlag1":true,
+		"exportFlag1Name":"Flag",
+		"exportFlag2":false,
+		"exportFlag3":false,
+		"exportFlag4":false,
+		"exportFlag4Name":"Rung",
+		"exportNote":false,
+		"exportNoteName":"Comment"
+	},
+	"TrueWeight":{
+		"exportOrder":"date,weight",
+		"exportDate":true,
+		"exportDateName":"Date",
+		"exportDateFormat":"y-MM-dd",
+		"exportWeight":true,
+		"exportWeightName":"Weight",
+		"exportWeightFormat":"G",
+		"exportTrendWeight":false,
+		"exportFat":false,
+		"exportFlag1":false,
+		"exportFlag2":false,
+		"exportFlag3":false,
+		"exportFlag4":false,
+		"exportNote":false
+	}
+};

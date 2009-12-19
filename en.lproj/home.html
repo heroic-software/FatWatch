@@ -29,6 +29,39 @@
 			
 			// Export Form Defaults
 			updateFormValues(FatWatch['exportDefaults']);
+
+			// Preset Links
+			var presetContainer = document.getElementById('exportPresets');
+			for (k in FWExportPresets) {
+				presetContainer.appendChild(document.createTextNode(", "));
+				var link = document.createElement('a');
+				link.href = '#';
+				link.appendChild(document.createTextNode(k));
+				presetContainer.appendChild(link);
+			}
+			
+			$('#exportPresets>a').click(function(event){
+				var defaults = FWExportPresets[this.innerText];
+				if (defaults) {
+					updateFormValues(defaults);
+				} else {
+					updateFormValues(FatWatch['exportDefaults']);
+				}
+				event.preventDefault();
+			});
+
+			$('#export form :checkbox').change(function(){
+				var nameElt = document.getElementById(this.id + 'Name');
+				var formatElt = document.getElementById(this.id + 'Format');
+				nameElt.disabled = !this.checked;
+				if (formatElt) formatElt.disabled = !this.checked;
+				var label = $('#export label[for=' + this.id + ']');
+				if (this.checked) {
+					label.removeClass('disabled');
+				} else {
+					label.addClass('disabled');
+				}
+			}).change();
 		});
 	</script>
 	<title>FatWatch</title>
@@ -59,6 +92,7 @@
 	<div class="section" id="export">
 	<h1>Export</h1>
 	<form method="POST" action="/export">
+		<input type="hidden" name="order" id="exportOrder"/>
 		<p>
 			Copy your weight history from your <span class="deviceModel">device</span> to this computer as a <a class="tablink" href="#format">CSV file</a>.
 		</p>
@@ -68,6 +102,7 @@
 		<h2>Advanced Settings</h2>
 		<p>
 			Select what columns to include.
+			Presets: <span id="exportPresets"><a href="#" onclick="updateFormValues(FatWatch['exportDefaults']);">Defaults</a></span>.
 		</p>
 		<table summary="Columns available for export.">
 			<thead>

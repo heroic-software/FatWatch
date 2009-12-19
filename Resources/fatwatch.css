@@ -45,3 +45,8 @@ strong {
 td.importPreview {
 	font-family: monospace;
 }
+
+input:disabled,
+label.disabled {
+	color: #999;
+}
