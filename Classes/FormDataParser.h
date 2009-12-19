@@ -14,7 +14,9 @@
 	MicroWebConnection *connection;
 	NSMutableDictionary *dictionary;
 }
+- (id)initWithData:(NSData *)data;
 - (id)initWithConnection:(MicroWebConnection *)connection;
+- (BOOL)hasKey:(NSString *)key;
 - (NSData *)dataForKey:(NSString *)key;
 - (NSString *)stringForKey:(NSString *)key;
 @end

@@ -11,25 +11,63 @@
 #import "DataSearch.h"
 
 
+@interface NSScanner (FormDataParser)
+- (BOOL)scanStringOfLength:(NSInteger)length intoString:(NSString **)value;
+@end
+
+
+@implementation NSScanner (FormDataParser)
+- (BOOL)scanStringOfLength:(NSInteger)length intoString:(NSString **)value {
+	if ([[self string] length] < [self scanLocation] + length) {
+		return NO;
+	}
+	if (value) {
+		NSRange range = NSMakeRange([self scanLocation], length);
+		*value = [[self string] substringWithRange:range];
+	}
+	[self setScanLocation:([self scanLocation] + length)];
+	return YES;
+}
+@end
+
+
 @interface FormDataParser ()
 - (NSDictionary *)parseHeadersFromData:(NSData *)headersData;
 - (void)parsePartData:(NSData *)partData;
 - (NSData *)boundaryData;
 - (void)parseMultipartFormData;
+- (void)parseURLEncodedFormData:(NSData *)data;
 @end
 
 
 @implementation FormDataParser
 
-- (id)initWithConnection:(MicroWebConnection *)theConnection {
-	if ([super init]) {
-		connection = [theConnection retain];
-		dictionary = [[NSMutableDictionary alloc] init];
 
+- (id)init {
+	if (self = [super init]) {
+		dictionary = [[NSMutableDictionary alloc] init];
+	}
+	return self;
+}
+
+
+- (id)initWithData:(NSData *)data {
+	if (self = [self init]) {
+		[self parseURLEncodedFormData:data];
+	}
+	return self;
+}
+
+
+- (id)initWithConnection:(MicroWebConnection *)theConnection {
+	if (self = [self init]) {
+		connection = [theConnection retain];
 		if ([[connection requestMethod] isEqualToString:@"POST"]) {
 			NSString *contentType = [connection requestHeaderValueForName:@"Content-Type"];
 			if ([contentType hasPrefix:@"multipart/form-data"]) {
 				[self parseMultipartFormData];
+			} else if ([contentType hasPrefix:@"application/x-www-form-urlencoded"]) {
+				[self parseURLEncodedFormData:[connection requestBodyData]];
 			}
 		}
 	}
@@ -44,19 +82,107 @@
 }
 
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<FormDataParser:%@>", dictionary];
+}
+
+
+#pragma mark Accessing Parsed Values
+
+
+- (BOOL)hasKey:(NSString *)key {
+	return [dictionary objectForKey:key] != nil;
+}
+
+
 - (NSData *)dataForKey:(NSString *)key {
-	return [dictionary objectForKey:key];
+	id object = [dictionary objectForKey:key];
+	if ([object isKindOfClass:[NSString class]]) {
+		return [object dataUsingEncoding:NSUTF8StringEncoding];
+	}
+	return object;
 }
 
 
 - (NSString *)stringForKey:(NSString *)key {
-	NSData *data = [dictionary objectForKey:key];
-	if (data) {
-		NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		return [string autorelease];
+	id object = [dictionary objectForKey:key];
+	if ([object isKindOfClass:[NSData class]]) {
+		return [[[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding] autorelease];
 	}
-	return nil;
+	return object;
 }
+
+
+#pragma mark Singlepart Parsing
+
+
+- (void)parseURLEncodedFormData:(NSData *)data {
+	NSString *bodyString;
+	NSScanner *bodyScan;
+	
+	bodyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	bodyScan = [[NSScanner alloc] initWithString:bodyString];
+	[bodyString release];
+	
+	NSMutableString *accum = [[NSMutableString alloc] init];
+	NSString *key = nil;
+	
+	NSCharacterSet *cSet = [NSCharacterSet characterSetWithCharactersInString:@"+=&%"];
+	while (![bodyScan isAtEnd]) {
+
+		NSString *part;
+		if ([bodyScan scanUpToCharactersFromSet:cSet intoString:&part]) {
+			[accum appendString:part];
+		}
+		
+		if ([bodyScan scanString:@"%" intoString:nil]) {
+			NSString *digits = nil;
+			if ([bodyScan scanStringOfLength:2 intoString:&digits]) {
+				NSScanner *digitScan = [[NSScanner alloc] initWithString:digits];
+				unsigned int charCode;
+				if ([digitScan scanHexInt:&charCode]) {
+					[accum appendFormat:@"%c", charCode];
+				} else {
+					NSLog(@"Warning: expected hex number, got '%@'", digits);
+				}
+				[digitScan release];
+			} else {
+				NSLog(@"Warning: %% escape without two digits following");
+				[accum appendString:@"%"];
+			}
+		}
+		else if ([bodyScan scanString:@"+" intoString:nil]) {
+			[accum appendString:@" "];
+		}
+		else if ([bodyScan scanString:@"=" intoString:nil]) {
+			if (key) {
+				NSLog(@"Warning: discarding key '%@'", key);
+				[key release];
+			}
+			key = [accum copy];
+			[accum setString:@""];
+		}
+		else if ([bodyScan scanString:@"&" intoString:nil] || [bodyScan isAtEnd]) {
+			NSString *value = [accum copy];
+			if (key) {
+				[dictionary setObject:value forKey:key];
+				[key release];
+				key	= nil;
+			} else {
+				[dictionary setObject:@"" forKey:value];
+			}
+			[value release];
+			[accum setString:@""];
+		}
+	}
+	
+	[key release];
+	[accum release];
+	[bodyScan release];
+}
+
+
+#pragma mark Multipart Parsing
 
 
 - (NSDictionary *)parseHeadersFromData:(NSData *)headersData {
@@ -70,8 +196,8 @@
 	while ([scanner scanUpToString:@": " intoString:&name] &&
 		   [scanner scanString:@": " intoString:nil] &&
 		   [scanner scanUpToString:@"\r\n" intoString:&value] &&
-		   [scanner scanString:@"\r\n" intoString:nil]) {
-//		NSLog(@"Parsed header: <%@> value: <%@>", name, value);
+		   [scanner scanString:@"\r\n" intoString:nil])
+	{
 		[headers setObject:value forKey:name];
 	}
 	
@@ -91,14 +217,14 @@
 	
 	NSString *contentDisposition = [headers objectForKey:@"Content-Disposition"];
 	if (contentDisposition == nil) {
-//		NSLog(@"Part has no Content-Disposition header!");
+		NSLog(@"Part has no Content-Disposition header!");
 		return;
 	}
-	
-	NSUInteger bodyBeginIndex = crlfcrlfIndex + 4;
-	NSUInteger bodyLength = [partData length] - bodyBeginIndex;
-	NSData *bodyData = [partData subdataWithRange:NSMakeRange(bodyBeginIndex, bodyLength)];
-//	NSLog(@"Part has %d bytes of data", bodyLength);
+
+	NSRange bodyRange;
+	bodyRange.location = crlfcrlfIndex + 4;
+	bodyRange.length = [partData length] - bodyRange.location;
+	NSData *bodyData = [partData subdataWithRange:bodyRange];
 	
 	NSString *name;
 	
@@ -107,7 +233,6 @@
 		[scanner scanUpToString:@"\"" intoString:&name] && 
 		[scanner scanString:@"\"" intoString:nil]) {
 		[dictionary setObject:bodyData forKey:name];
-//		NSLog(@"Part has name %@", name);
 	}
 	[scanner release];
 }
@@ -131,14 +256,14 @@
 	DataSearch *boundary = [[DataSearch alloc] initWithData:bodyData patternData:boundaryData];
 	
 	NSUInteger boundaryIndex = [boundary nextIndex];
-	NSUInteger partBeginIndex = boundaryIndex + [boundaryData length] + 2;
+	NSRange partRange;
+	partRange.location = boundaryIndex + [boundaryData length] + 2;
 	while (true) {
 		NSUInteger partEndIndex = [boundary nextIndex];
 		if (partEndIndex == NSNotFound) break;
-		NSUInteger partLength = partEndIndex - partBeginIndex - 4; // avoid \r\n--
-//		NSLog(@"Found part from %d to %d", partBeginIndex, partEndIndex);
-		[self parsePartData:[bodyData subdataWithRange:NSMakeRange(partBeginIndex, partLength)]];
-		partBeginIndex = partEndIndex + [boundaryData length] + 2;
+		partRange.length = partEndIndex - partRange.location - 4; // avoid "\r\n--"
+		[self parsePartData:[bodyData subdataWithRange:partRange]];
+		partRange.location = partEndIndex + [boundaryData length] + 2;
 	}
 	
 	[boundary release];
