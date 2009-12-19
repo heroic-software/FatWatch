@@ -7,62 +7,7 @@
 	<script type="text/javascript" src="values.js"></script>
 	<script type="text/javascript" src="fatwatch.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			// Input Validation
-			$("#importFileData").change(function(event){
-				$("#sendButton").get(0).disabled = !this.value;
-			}).change();
-
-			// Text Substitution
-			performTextSubstitution();
-			var mailURL = 'mailto:help@fatwatchapp.com?subject=FatWatch%20(' +
-						  FatWatch['version'] + ')';
-			$("#sendButton").attr('value', 'Send to ' + FatWatch['deviceModel']);
-			$("#helpMailLink").attr('href', mailURL);
-			
-			configureTabs();
-			
-			// Export Form Formats
-			updateSelectOptions(FatWatch['dateFormats'], 'exportDateFormat');
-			updateSelectOptions(FatWatch['weightFormats'], 'exportWeightFormat');
-			updateSelectOptions(FatWatch['fatFormats'], 'exportFatFormat');
-			
-			// Export Form Defaults
-			updateFormValues(FatWatch['exportDefaults']);
-
-			// Preset Links
-			var presetContainer = document.getElementById('exportPresets');
-			for (k in FWExportPresets) {
-				presetContainer.appendChild(document.createTextNode(", "));
-				var link = document.createElement('a');
-				link.href = '#';
-				link.appendChild(document.createTextNode(k));
-				presetContainer.appendChild(link);
-			}
-			
-			$('#exportPresets>a').click(function(event){
-				var defaults = FWExportPresets[this.innerText];
-				if (defaults) {
-					updateFormValues(defaults);
-				} else {
-					updateFormValues(FatWatch['exportDefaults']);
-				}
-				event.preventDefault();
-			});
-
-			$('#export form :checkbox').change(function(){
-				var nameElt = document.getElementById(this.id + 'Name');
-				var formatElt = document.getElementById(this.id + 'Format');
-				nameElt.disabled = !this.checked;
-				if (formatElt) formatElt.disabled = !this.checked;
-				var label = $('#export label[for=' + this.id + ']');
-				if (this.checked) {
-					label.removeClass('disabled');
-				} else {
-					label.addClass('disabled');
-				}
-			}).change();
-		});
+		$(document).ready(homeReady);
 	</script>
 	<title>FatWatch</title>
 </head>
@@ -101,8 +46,8 @@
 		</p>
 		<h2>Advanced Settings</h2>
 		<p>
-			Select what columns to include.
-			Presets: <span id="exportPresets"><a href="#" onclick="updateFormValues(FatWatch['exportDefaults']);">Defaults</a></span>.
+			Select what columns to include, or choose:
+			<span id="exportPresets"><a href="#">Last Used</a></span>.
 		</p>
 		<table summary="Columns available for export.">
 			<thead>

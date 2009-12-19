@@ -24,11 +24,22 @@ typedef enum {
 
 
 @interface EWExporter : NSObject {
+	int fieldCount;
+	EWExporterField fieldOrder[EWExporterFieldCount];
 	NSString *fieldNames[EWExporterFieldCount];
 	NSFormatter *fieldFormatters[EWExporterFieldCount];
 }
+// Public API
+- (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter;
+- (NSArray *)orderedFieldNames;
+- (void)performExport;
+// Optional Override
+- (void)beginRecord;
+- (void)endRecord;
+- (void)exportField:(EWExporterField)field value:(id)value;
+// Mandatory Override
 - (NSString *)fileExtension;
 - (NSString *)contentType;
-- (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter;
+- (void)exportField:(EWExporterField)field formattedValue:(NSString *)string;
 - (NSData *)exportedData;
 @end

@@ -5,40 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="fatwatch.css"/>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="values.js"></script>
-	<script type="text/javascript" src="fatwatch.js"></script>
 	<script type="text/javascript" src="import.js"></script>
+	<script type="text/javascript" src="fatwatch.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			performTextSubstitution();
-
-			$('select').each(function(){
-				if (this.id.indexOf("Format") > 0) return;
-				var columns = FatWatchImport['columns'];
-				for (i in columns) {
-					var optionElt = document.createElement("option");
-					optionElt.innerHTML = columns[i];
-					optionElt.value = parseInt(i) + 1;
-					this.appendChild(optionElt);
-				}
-			}).change(function(){
-				var samples = FatWatchImport['samples'];
-				if (this.value > 0) {
-					var text = samples[String(this.value - 1)];
-					$("#" + this.id + "Format").attr("disabled", false);
-					$("#" + this.id + "Preview").html(String(text));
-				} else {
-					$("#" + this.id + "Format").attr("disabled", true);
-					$("#" + this.id + "Preview").text('');
-				}
-			});
-
-			updateFormValues(FatWatchImport['importDefaults']);
-			updateSelectOptions(FatWatch['dateFormats'], 'importDateFormat');
-			updateSelectOptions(FatWatch['weightFormats'], 'importWeightFormat');
-			updateSelectOptions(FatWatch['fatFormats'], 'importFatFormat');
-			
-			$('select').change();
-		});
+		$(document).ready(importReady);
 	</script>
 	<title>FatWatch</title>
 </head>

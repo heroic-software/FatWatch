@@ -7,29 +7,151 @@
 //
 
 #import "EWExporter.h"
+#import "EWDatabase.h"
+#import "EWDBMonth.h"
 
 
 @implementation EWExporter
 
-- (NSString *)fileExtension {
-	return nil;
-}
 
-
-- (NSString *)contentType {
-	return nil;
-}
+#pragma mark Public API
 
 
 - (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter {
+	NSAssert(fieldCount < EWExporterFieldCount, @"too many fields!");
+	NSAssert(fieldNames[field] == nil, @"duplicate field");
+	NSAssert(fieldFormatters[field] == nil, @"duplicate formatter");
+	NSAssert(name != nil, @"must have a name");
+	NSAssert(field < EWExporterFieldCount, @"invalid field ID");
+	
+	fieldOrder[fieldCount] = field;
+	fieldCount += 1;
+	
 	fieldNames[field] = [name copy];
 	fieldFormatters[field] = [formatter retain];
 }
 
 
-- (NSData *)exportedData {
+- (NSArray *)orderedFieldNames {
+	NSMutableArray *names = [NSMutableArray array];
+	int i;
+	for (i = 0; i < fieldCount; i++) {
+		EWExporterField f = fieldOrder[i];
+		[names addObject:fieldNames[f]];
+	}
+	return names;
+}
+
+
+- (void)performExport {
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	EWDBMonth *dbm = [db getDBMonth:db.earliestMonth];
+	
+	while (dbm) {
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		EWDay day;
+		
+		for (day = 1; day <= 31; day++) {
+			if (! [dbm hasDataOnDay:day]) continue;
+			
+			struct EWDBDay *dd = [dbm getDBDay:day];
+			
+			[self beginRecord];
+			
+			int i;
+			for (i = 0; i < fieldCount; i++) {
+				EWExporterField f = fieldOrder[i];
+				id value;
+				
+				switch (f) {
+					case EWExporterFieldDate:
+						value = [dbm dateOnDay:day];
+						break;
+					case EWExporterFieldWeight:
+						value = [NSNumber numberWithFloat:dd->scaleWeight];
+						break;
+					case EWExporterFieldTrendWeight:
+						value = [NSNumber numberWithFloat:dd->trendWeight];
+						break;
+					case EWExporterFieldFat:
+						value = [NSNumber numberWithFloat:dd->scaleFat];
+						break;
+					case EWExporterFieldFlag1:
+					case EWExporterFieldFlag2:
+					case EWExporterFieldFlag3:
+					case EWExporterFieldFlag4:
+						value = [NSNumber numberWithInt:dd->flags];
+						break;
+					case EWExporterFieldNote:
+						value = dd->note;
+						break;
+					default:
+						value = nil;
+						break;
+				}
+				
+				[self exportField:f value:value];
+			}
+			
+			[self endRecord];
+		}
+		
+		dbm = dbm.next;
+		[pool release];
+	}
+}
+
+
+#pragma mark Optional Overrides
+
+
+- (void)beginRecord {
+}
+
+
+- (void)exportField:(EWExporterField)field value:(id)value {
+	NSFormatter *formatter = fieldFormatters[field];
+	NSString *string;
+	if (formatter) {
+		string = [formatter stringForObjectValue:value];
+	} else {
+		string = [value description];
+	}
+	[self exportField:field formattedValue:string];
+}
+
+
+- (void)endRecord {
+}
+
+
+#pragma mark Mandatory Overrides
+
+
+- (NSString *)fileExtension {
+	NSAssert(NO, @"must override");
 	return nil;
 }
+
+
+- (NSString *)contentType {
+	NSAssert(NO, @"must override");
+	return nil;
+}
+
+
+- (void)exportField:(EWExporterField)field formattedValue:(NSString *)string {
+	NSAssert(NO, @"must override");
+}
+
+
+- (NSData *)exportedData {
+	NSAssert(NO, @"must override");
+	return nil;
+}
+
+
+#pragma mark Cleanup
 
 
 - (void)dealloc {

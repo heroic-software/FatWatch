@@ -31,14 +31,19 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 @implementation EatWatchAppDelegate
 
 
-- (void)registerDefaults {
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"];
-	NSAssert(path != nil, @"registration domain defaults plist is missing");
+- (void)registerDefaultsNamed:(NSString *)name {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+	NSAssert1(path != nil, @"registration domain defaults plist '%@' is missing", name);
 	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
 	[dict release];
-	
-	path = [[NSBundle mainBundle] pathForResource:@"ColorPalette" ofType:@"plist"];
+}
+
+
+- (void)registerDefaults {
+	[self registerDefaultsNamed:@"Defaults"];
+	[self registerDefaultsNamed:@"MoreDefaults"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"ColorPalette" ofType:@"plist"];
 	[[BRColorPalette sharedPalette] addColorsFromFile:path];
 }
 

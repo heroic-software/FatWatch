@@ -28,6 +28,7 @@
 		BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
 		BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */; };
 		BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
+		BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
@@ -186,6 +187,7 @@
 		BC04131810DB804B008FCB11 /* EWExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWExporter.h; path = Classes/EWExporter.h; sourceTree = "<group>"; };
 		BC04131910DB804B008FCB11 /* EWExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWExporter.m; path = Classes/EWExporter.m; sourceTree = "<group>"; };
 		BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormDataParserTest.m; sourceTree = "<group>"; };
+		BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MoreDefaults.plist; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
+				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */,
 				BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */,
 				BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */,
+				BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

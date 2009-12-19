@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExportDefaults</key>
+	<dict>
+		<key>exportDate</key>
+		<true/>
+		<key>exportDateName</key>
+		<string>Date</string>
+		<key>exportDateFormat</key>
+		<string>y-MM-dd</string>
+		<key>exportWeight</key>
+		<true/>
+		<key>exportWeightName</key>
+		<string>Weight</string>
+		<key>exportWeightFormat</key>
+		<string>L</string>
+		<key>exportTrendWeight</key>
+		<false/>
+		<key>exportTrendWeightName</key>
+		<string>Trend</string>
+		<key>exportFat</key>
+		<true/>
+		<key>exportFatName</key>
+		<string>Body Fat</string>
+		<key>exportFatFormat</key>
+		<string>R</string>
+		<key>exportFlag1</key>
+		<true/>
+		<key>exportFlag1Name</key>
+		<string>Flag A</string>
+		<key>exportFlag2</key>
+		<true/>
+		<key>exportFlag2Name</key>
+		<string>Flag B</string>
+		<key>exportFlag3</key>
+		<true/>
+		<key>exportFlag3Name</key>
+		<string>Flag C</string>
+		<key>exportFlag4</key>
+		<true/>
+		<key>exportFlag4Name</key>
+		<string>Flag D</string>
+		<key>exportNote</key>
+		<true/>
+		<key>exportNoteName</key>
+		<string>Note</string>
+	</dict>
+</dict>
+</plist>

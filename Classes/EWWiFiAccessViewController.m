@@ -77,19 +77,20 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)dealloc {
-	[statusLabel release];
+	[activeDetailView release];
 	[activityView release];
 	[detailView release];
+	[exportDefaults release];
 	[inactiveDetailView release];
-	[activeDetailView release];
-	[promptDetailView release];
+	[lastExportLabel release];
+	[lastImportLabel release];
 	[progressDetailView release];
 	[progressView release];
-	[lastImportLabel release];
-	[lastExportLabel release];
+	[promptDetailView release];
 	[reachability release];
-	[webServer release];
+	[statusLabel release];
 	[webResources release];
+	[webServer release];
     [super dealloc];
 }
 
@@ -300,6 +301,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		return;
 	}
 	
+	// if (request:If-None-Match = response:ETag) send 304 Not Modified
+	// if (request:If-Modified-Since = Last-Modified) send 304 Not Modified
+	
 	if ([contentType hasPrefix:@"text/"]) {
 		contentType = [contentType stringByAppendingString:@"; charset=utf-8"];
 	}
@@ -366,57 +370,28 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[array removeAllObjects];
 
 	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"lbs", @"value", @"pounds (lbs)", @"label", nil]];
+					  @"L", @"value", @"pounds (lbs)", @"label", nil]];
 	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"kgs", @"value", @"kilograms (kgs)", @"label", nil]];
+					  @"K", @"value", @"kilograms (kgs)", @"label", nil]];
 	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"gs", @"value", @"grams (gs)", @"label", nil]];
+					  @"G", @"value", @"grams (gs)", @"label", nil]];
 	[root setObject:[[array copy] autorelease] forKey:@"weightFormats"];
 	[array removeAllObjects];
 	
 	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"ratio", @"value", @"ratio (0.0-&ndash;1.0)", @"label", nil]];
+					  @"R", @"value", @"ratio (0.0-&ndash;1.0)", @"label", nil]];
 	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"percent", @"value", @"percent (0%&ndash;100%)", @"label", nil]];
+					  @"P", @"value", @"percent (0%&ndash;100%)", @"label", nil]];
 	[root setObject:[[array copy] autorelease] forKey:@"fatFormats"];
 	[array release];
 	
 	// Export Defaults
+	if (exportDefaults == nil) {
+		exportDefaults = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"ExportDefaults"] mutableCopy];
+		NSAssert(exportDefaults, @"Can't find ExportDefaults in defaults db");
+	}
 	
-	NSMutableDictionary *exportDefaults = [[NSMutableDictionary alloc] init];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportDate"];
-	[exportDefaults setObject:@"Date" forKey:@"exportDateName"];
-	[exportDefaults setObject:@"y-MM-dd" forKey:@"exportDateFormat"];
-
-	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportWeight"];
-	[exportDefaults setObject:@"Weight" forKey:@"exportWeightName"];
-	[exportDefaults setObject:@"lbs" forKey:@"exportWeightFormat"];
-
-	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportTrendWeight"];
-	[exportDefaults setObject:@"Trend" forKey:@"exportTrendWeightName"];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFat"];
-	[exportDefaults setObject:@"ratio" forKey:@"exportFatFormat"];
-	[exportDefaults setObject:@"BodyFat" forKey:@"exportFatName"];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportFlag1"];
-	[exportDefaults setObject:@"Checkmark" forKey:@"exportFlag1Name"];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag2"];
-	[exportDefaults setObject:@"Checkmark2" forKey:@"exportFlag2Name"];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag3"];
-	[exportDefaults setObject:@"Checkmark3" forKey:@"exportFlag3Name"];
-	
-	[exportDefaults setObject:[NSNumber numberWithBool:NO] forKey:@"exportFlag4"];
-	[exportDefaults setObject:@"Checkmark4" forKey:@"exportFlag4Name"];
-
-	[exportDefaults setObject:[NSNumber numberWithBool:YES] forKey:@"exportNote"];
-	[exportDefaults setObject:@"Note" forKey:@"exportNoteName"];
-
 	[root setObject:exportDefaults forKey:@"exportDefaults"];
-	[exportDefaults release];
 
 	NSMutableData *json = [[NSMutableData alloc] init];
 	[json appendBytes:"var FatWatch=" length:13];
@@ -426,7 +401,8 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[root release];
 	
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
-	[connection setValue:@"text/javascript" forResponseHeader:@"Content-Type"];
+	[connection setValue:@"text/javascript; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[connection setValue:@"no-cache" forResponseHeader:@"Cache-Control"];
 	[connection endResponseWithBodyData:json];
 
 	[json release];
@@ -436,77 +412,69 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 - (void)handleExport:(MicroWebConnection *)connection {
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
 	
-	NSLog(@"Export: %@", form);
+#if TARGET_IPHONE_SIMULATOR
+	NSLog(@"Export Parameters: %@", form);
+#endif
+	
+	NSArray *fieldArray = [NSArray arrayWithObjects:
+						   @"date",@"weight",@"trendWeight",@"fat",
+						   @"flag1",@"flag2",@"flag3",@"flag4",@"note",nil];
+
+	NSArray *allExportKeys = [[exportDefaults allKeys] copy];
+	for (NSString *exportKey in allExportKeys) {
+		// exportFooBar => fooBar
+		NSString *key = [exportKey stringByReplacingCharactersInRange:NSMakeRange(0, 7) withString:[[exportKey substringWithRange:NSMakeRange(6,1)] lowercaseString]];
+		if ([form hasKey:key]) {
+			[exportDefaults setObject:[form stringForKey:key] forKey:exportKey];
+		}
+		else if (![key hasSuffix:@"Name"] && ![key hasSuffix:@"Format"]) {
+			[exportDefaults setObject:(id)kCFBooleanFalse forKey:exportKey];
+		}
+	}
+	[allExportKeys release];
+	
+	[[NSUserDefaults standardUserDefaults] setObject:exportDefaults forKey:@"ExportDefaults"];
+	
+	NSMutableDictionary *formatterDictionary = [NSMutableDictionary dictionary];
+	
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	[df setDateFormat:[form stringForKey:@"dateFormat"]];
+	[formatterDictionary setObject:df forKey:@"date"];
+	[df release];
+	
+	NSNumberFormatter *wf = [WeightFormatters exportWeightFormatter];
+	[formatterDictionary setObject:wf forKey:@"weight"];
+	[formatterDictionary setObject:wf forKey:@"trendWeight"];
+	
+	NSNumberFormatter *ff = [[NSNumberFormatter alloc] init];
+	NSString *ffName = [form stringForKey:@"fatFormat"];
+	if ([ffName isEqualToString:@"R"]) {
+	}
+	else if ([ffName isEqualToString:@"P"]) {
+		[ff setNumberStyle:NSNumberFormatterPercentStyle];
+	}
+	[formatterDictionary setObject:ff forKey:@"fat"];
+	[ff release];
+	
+	NSArray *order;
+	
+	NSString *orderString = [form stringForKey:@"order"];
+	if ([orderString length] > 0) {
+		order = [orderString componentsSeparatedByString:@","];
+	} else {
+		order = fieldArray;
+	}
 	
 	EWExporter *exporter = [[CSVExporter alloc] init];
-	
-	if ([form hasKey:@"date"]) {
-		NSDateFormatter *df = [[NSDateFormatter alloc] init];
-		[df setDateFormat:[form stringForKey:@"dateFormat"]];
-		[exporter addField:EWExporterFieldDate
-					  name:[form stringForKey:@"dateName"]
-				 formatter:df];
-		[df release];
-	}
-	
-	NSNumberFormatter *nf = nil;
-	
-	NSString *wfName = [form stringForKey:@"weightFormat"];
-	if ([wfName isEqualToString:@"lbs"]) {
-		nf = [[WeightFormatters weightFormatter] retain];
-	}
 
-	if ([form hasKey:@"weight"]) {
-		[exporter addField:EWExporterFieldWeight
-					  name:[form stringForKey:@"weightName"]
-				 formatter:nf];
-	}
-	
-	if ([form hasKey:@"trendWeight"]) {
-		[exporter addField:EWExporterFieldTrendWeight
-					  name:[form stringForKey:@"trendWeightName"]
-				 formatter:nf];
-	}
-	
-	[nf release];
-	
-	if ([form hasKey:@"fat"]) {
-		nf = [[NSNumberFormatter alloc] init];
-		[nf setPositiveFormat:[form stringForKey:@"fatFormat"]];
-		[exporter addField:EWExporterFieldFat
-					  name:[form stringForKey:@"fatName"]
-				 formatter:nf];
-		[nf release];
-	}
-	
-	if ([form hasKey:@"flag1"]) {
-		[exporter addField:EWExporterFieldFlag1
-					  name:[form stringForKey:@"flag1Name"]
-				 formatter:nil];
-	}
-	
-	if ([form hasKey:@"flag2"]) {
-		[exporter addField:EWExporterFieldFlag2
-					  name:[form stringForKey:@"flag2Name"]
-				 formatter:nil];
-	}
-	
-	if ([form hasKey:@"flag3"]) {
-		[exporter addField:EWExporterFieldFlag3
-					  name:[form stringForKey:@"flag3Name"]
-				 formatter:nil];
-	}
-	
-	if ([form hasKey:@"flag4"]) {
-		[exporter addField:EWExporterFieldFlag4
-					  name:[form stringForKey:@"flag4Name"]
-				 formatter:nil];
-	}
-	
-	if ([form hasKey:@"note"]) {
-		[exporter addField:EWExporterFieldNote
-					  name:[form stringForKey:@"noteName"]
-				 formatter:nil];
+	for (NSString *key in order) {
+		if ([form hasKey:key]) {
+			NSString *name = [form stringForKey:[key stringByAppendingString:@"Name"]];
+			if (name == nil) name = key;
+			[exporter addField:[fieldArray indexOfObject:key]
+						  name:name
+					 formatter:[formatterDictionary objectForKey:key]];
+		}
 	}
 	
 	[form release];
@@ -524,7 +492,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 #else
 		NSDateFormatter *isoDF = EWDateFormatterGetISO();
 		NSString *contentDisposition = 
-		[NSString stringWithFormat:@"attachment; filename=\"export-%@.%@\"", 
+		[NSString stringWithFormat:@"attachment; filename=\"FatWatch-Export-%@.%@\"", 
 		 [isoDF stringFromDate:[NSDate date]],
 		 [exporter fileExtension]];
 		
