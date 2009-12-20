@@ -8,7 +8,8 @@
 
 #import "YAxisView.h"
 #import "EWDatabase.h"
-#import "WeightFormatters.h"
+#import "EWWeightFormatter.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 @implementation YAxisView
@@ -34,7 +35,7 @@
 	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
 
 	// draw labels
-	NSFormatter *formatter = [WeightFormatters chartWeightFormatter];
+	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	[[UIColor blackColor] setFill];
 	float w;
@@ -56,7 +57,7 @@
 	}
 	
 	// minor ticks
-	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += [WeightFormatters chartWeightIncrement]) {
+	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += [[NSUserDefaults standardUserDefaults] weightWholeIncrement]) {
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - minorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);

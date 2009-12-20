@@ -15,6 +15,7 @@
 #import "EWGoal.h"
 #import "BRReachability.h"
 #import "EWWiFiAccessViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 @implementation MoreViewController
@@ -136,7 +137,7 @@
 
 
 - (BOOL)displayBMI {
-	return [EWGoal isBMIEnabled];
+	return [[NSUserDefaults standardUserDefaults] isBMIEnabled];
 }
 
 
@@ -145,7 +146,7 @@
 		UIViewController *controller = [HeightEntryViewController controller];
 		[self presentModalViewController:controller animated:YES];
 	} else {
-		[EWGoal setBMIEnabled:NO];
+		[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
 	}
 }
 

@@ -154,7 +154,7 @@ function updateFormValues(defaults) {
 
 
 var FWExportPresets = {
-	"All":{
+	"Select All":{
 		"exportOrder":null,
 		"exportDate":true,
 		"exportWeight":true,
@@ -166,7 +166,7 @@ var FWExportPresets = {
 		"exportFlag4":true,
 		"exportNote":true
 	},
-	"None":{
+	"Select None":{
 		"exportOrder":null,
 		"exportDate":false,
 		"exportWeight":false,
@@ -207,7 +207,7 @@ var FWExportPresets = {
 		"exportDateFormat":"y-MM-dd",
 		"exportWeight":true,
 		"exportWeightName":"Weight",
-		"exportWeightFormat":"L",
+		"exportWeightFormat":"1",
 		"exportTrendWeight":false,
 		"exportFat":false,
 		"exportFlag1":true,
@@ -226,7 +226,7 @@ var FWExportPresets = {
 		"exportDateFormat":"y-MM-dd",
 		"exportWeight":true,
 		"exportWeightName":"Weight",
-		"exportWeightFormat":"G",
+		"exportWeightFormat":"4",
 		"exportTrendWeight":false,
 		"exportFat":false,
 		"exportFlag1":false,

@@ -11,7 +11,8 @@
 #import "EWDate.h"
 #import "EWGoal.h"
 #import "LogTableViewCell.h"
-#import "WeightFormatters.h"
+#import "EWWeightFormatter.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 enum {
@@ -59,7 +60,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 + (NSArray *)availableAuxiliaryInfoTypes {
 	NSMutableArray *array = [NSMutableArray array];
 	[array addObject:[NSNumber numberWithInt:kVarianceAuxiliaryInfoType]];
-	if ([EWGoal isBMIEnabled]) {
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
 		[array addObject:[NSNumber numberWithInt:kBMIAuxiliaryInfoType]];
 	}
 	[array addObject:[NSNumber numberWithInt:kFatPercentAuxiliaryInfoType]];
@@ -145,6 +146,26 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 @synthesize highlightDate;
 
 
+- (id)initWithFrame:(CGRect)frame {
+	if (self = [super initWithFrame:frame]) {
+		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
+		varianceFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance] retain];
+		if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
+			bmiFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMI] retain];
+		}
+	}
+	return self;
+}
+
+
+- (void)dealloc {
+	[weightFormatter release];
+	[varianceFormatter release];
+	[bmiFormatter release];
+	[super dealloc];
+}
+
+
 - (void)drawRect:(CGRect)rect {
 	CGFloat cellWidth = CGRectGetWidth(self.bounds);
 	CGFloat cellHeight = CGRectGetHeight(self.bounds);
@@ -186,7 +207,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 	}
 	
 	if (dd->scaleWeight > 0) {
-		NSString *scaleWeight = [WeightFormatters stringForWeight:dd->scaleWeight];
+		NSString *scaleWeight = [weightFormatter stringForFloat:dd->scaleWeight];
 		[scaleWeight drawInRect:CGRectMake(weightX, numberRowY, 
 										   weightWidth, 24)
 					   withFont:[UIFont boldSystemFontOfSize:20]
@@ -203,14 +224,13 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 				auxInfoColor = (weightDiff > 0
 								? [BRColorPalette colorNamed:@"BadText"]
 								: [BRColorPalette colorNamed:@"GoodText"]);
-				auxInfoString = [WeightFormatters stringForVariance:weightDiff];
+				auxInfoString = [varianceFormatter stringForFloat:weightDiff];
 			}
 				break;
 			case kBMIAuxiliaryInfoType:
 			{
-				float bmi = [WeightFormatters bodyMassIndexForWeight:dd->scaleWeight];
-				auxInfoColor = [WeightFormatters colorForBodyMassIndex:bmi];
-				auxInfoString = [NSString stringWithFormat:@"%.1f", bmi];
+				auxInfoColor = [EWWeightFormatter colorForWeight:dd->scaleWeight];
+				auxInfoString = [bmiFormatter stringForFloat:dd->scaleWeight];
 			}
 				break;
 			case kFatPercentAuxiliaryInfoType:
@@ -225,8 +245,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 			case kFatWeightAuxiliaryInfoType:
 				auxInfoColor = [UIColor darkGrayColor];
 				if (dd->scaleFat > 0) {
-					auxInfoString = [WeightFormatters stringForWeight:
-									 (dd->scaleWeight * dd->scaleFat)];
+					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * dd->scaleFat)];
 				} else {
 					auxInfoString = @"—";
 				}
@@ -234,8 +253,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 			case kLeanWeightAuxiliaryInfoType:
 				auxInfoColor = [UIColor darkGrayColor];
 				if (dd->scaleFat > 0) {
-					auxInfoString = [WeightFormatters stringForWeight:
-									 (dd->scaleWeight * (1 - dd->scaleFat))];
+					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * (1 - dd->scaleFat))];
 				} else {
 					auxInfoString = @"—";
 				}

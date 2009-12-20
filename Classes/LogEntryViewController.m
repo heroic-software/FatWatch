@@ -11,7 +11,8 @@
 #import "LogEntryViewController.h"
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
-#import "WeightFormatters.h"
+#import "EWWeightFormatter.h"
+#import "NSUserDefaults+EWAdditions.h"
 #import "BRTextView.h"
 
 
@@ -58,7 +59,8 @@ enum {
 
 - (id)init {
 	if (self = [super initWithNibName:@"LogEntryView" bundle:nil]) {
-		scaleIncrement = [WeightFormatters scaleIncrement];
+		scaleIncrement = [[NSUserDefaults standardUserDefaults] weightIncrement];
+		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
@@ -77,6 +79,7 @@ enum {
 	[noteView release];
 	[annotationContainerView release];
 	[navigationBar release];
+	[weightFormatter release];
 	[super dealloc];
 }
 
@@ -343,8 +346,8 @@ enum {
 	
 	if (component == 0) {
 		float weight = [self weightForPickerRow:row];
-		label.text = [WeightFormatters stringForWeight:weight];
-		label.backgroundColor = [WeightFormatters backgroundColorForWeight:weight];
+		label.text = [weightFormatter stringForFloat:weight];
+		label.backgroundColor = [EWWeightFormatter backgroundColorForWeight:weight];
 	} else {
 		float bodyFat = [self bodyFatForPickerRow:row];
 		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * bodyFat)];

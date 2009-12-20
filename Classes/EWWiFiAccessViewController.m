@@ -18,7 +18,8 @@
 #import "FormDataParser.h"
 #import "MicroWebServer.h"
 #import "RootViewController.h"
-#import "WeightFormatters.h"
+#import "NSUserDefaults+EWAdditions.h"
+#import "EWWeightFormatter.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -161,7 +162,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (void)beginImport {
 	reader = [[CSVReader alloc] initWithData:importData encoding:importEncoding];
-	reader.floatFormatter = [WeightFormatters exportWeightFormatter];
+	reader.floatFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport];
 	lineCount = 0;
 	importCount = 0;
 	
@@ -369,12 +370,12 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[root setObject:[[array copy] autorelease] forKey:@"dateFormats"];
 	[array removeAllObjects];
 
-	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"L", @"value", @"pounds (lbs)", @"label", nil]];
-	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"K", @"value", @"kilograms (kgs)", @"label", nil]];
-	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"G", @"value", @"grams (gs)", @"label", nil]];
+	for (id weightUnit in [NSUserDefaults weightUnitsForExport]) {
+		[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+						  weightUnit, @"value",
+						  [NSUserDefaults nameForWeightUnit:weightUnit], @"label",
+						  nil]];
+	}
 	[root setObject:[[array copy] autorelease] forKey:@"weightFormats"];
 	[array removeAllObjects];
 	
@@ -442,7 +443,8 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[formatterDictionary setObject:df forKey:@"date"];
 	[df release];
 	
-	NSNumberFormatter *wf = [WeightFormatters exportWeightFormatter];
+	EWWeightUnit weightUnit = [[form stringForKey:@"weightFormat"] intValue];
+	NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport unit:weightUnit];
 	[formatterDictionary setObject:wf forKey:@"weight"];
 	[formatterDictionary setObject:wf forKey:@"trendWeight"];
 	

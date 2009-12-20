@@ -6,9 +6,11 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "HeightEntryViewController.h"
-#import "WeightFormatters.h"
+#import "BRMixedNumberFormatter.h"
 #import "EWGoal.h"
+#import "HeightEntryViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
+
 
 static const float kMaximumHeight = 3.00;
 static const float kDefaultHeight = 1.70;
@@ -26,10 +28,24 @@ static const float kDefaultHeight = 1.70;
 }
 
 
+- (NSFormatter *)heightFormatter {
+	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
+		case EWWeightUnitKilograms:
+		case EWWeightUnitGrams: {
+			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+			[nf setPositiveFormat:@"0.00 m"];
+			return [nf autorelease];
+		}
+		default:
+			return [BRMixedNumberFormatter metersAsFeetFormatter];
+	}
+}
+
+
 - (id)init {
 	if ([super initWithNibName:@"HeightEntryView" bundle:nil]) {
-		formatter = [[WeightFormatters heightFormatter] retain];
-		increment = [WeightFormatters heightIncrement];
+		formatter = [[self heightFormatter] retain];
+		increment = [[NSUserDefaults standardUserDefaults] heightIncrement];
 	}
 	return self;
 }
@@ -63,14 +79,14 @@ static const float kDefaultHeight = 1.70;
 - (IBAction)saveAction:(id)sender {
 	NSInteger row = [pickerView selectedRowInComponent:0];
 	float height = [self valueForPickerRow:row];
-	[EWGoal setHeight:height];
-	[EWGoal setBMIEnabled:YES];
+	[[NSUserDefaults standardUserDefaults] setHeight:height];
+	[[NSUserDefaults standardUserDefaults] setBMIEnabled:YES];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)cancelAction:(id)sender {
-	[EWGoal setBMIEnabled:NO];
+	[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
 	[self dismissModalViewControllerAnimated:YES];
 }
 

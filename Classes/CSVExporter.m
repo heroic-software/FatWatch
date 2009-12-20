@@ -8,9 +8,6 @@
 
 #import "CSVExporter.h"
 #import "CSVWriter.h"
-#import "EWDatabase.h"
-#import "EWDBMonth.h"
-#import "WeightFormatters.h"
 
 
 @implementation CSVExporter

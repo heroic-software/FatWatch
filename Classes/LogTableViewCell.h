@@ -35,6 +35,9 @@ extern NSString * const kLogCellReuseIdentifier;
 	NSString *weekday;
 	struct EWDBDay *dd;
 	BOOL highlightDate;
+	NSFormatter *weightFormatter;
+	NSFormatter *varianceFormatter;
+	NSFormatter *bmiFormatter;
 }
 @property (nonatomic,assign) LogTableViewCell *cell;
 @property (nonatomic,retain) NSString *day;

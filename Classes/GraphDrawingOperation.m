@@ -10,7 +10,6 @@
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 #import "EWGoal.h"
-#import "WeightFormatters.h"
 
 
 @implementation GraphDrawingOperation

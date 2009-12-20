@@ -6,16 +6,20 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import "GoalViewController.h"
-#import "EWDate.h"
-#import "EWDatabase.h"
-#import "EWDBMonth.h"
-#import "BRTableValueRow.h"
+#import "BRColorPalette.h"
+#import "BRRangeColorFormatter.h"
+#import "BRTableButtonRow.h"
 #import "BRTableDatePickerRow.h"
 #import "BRTableNumberPickerRow.h"
-#import "WeightFormatters.h"
+#import "BRTableValueRow.h"
+#import "EWDBMonth.h"
+#import "EWDatabase.h"
+#import "EWDate.h"
 #import "EWGoal.h"
-#import "BRTableButtonRow.h"
+#import "EWWeightChangeFormatter.h"
+#import "EWWeightFormatter.h"
+#import "GoalViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 /*Goal screen:
@@ -88,17 +92,17 @@
 	weightRow.title = NSLocalizedString(@"Start Weight", @"Goal start weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"startWeight";
-	weightRow.formatter = [WeightFormatters weightFormatter];
+	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
 	weightRow.accessoryView = infoButton;
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
 	
-	if ([EWGoal isBMIEnabled]) {
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
 		BRTableValueRow *bmiRow = [[BRTableValueRow alloc] init];
 		bmiRow.title = NSLocalizedString(@"Start BMI", @"Goal start BMI");
-		bmiRow.object = [EWGoal sharedGoal];
-		bmiRow.key = @"startBMI";
-		bmiRow.formatter = [self makeBMIFormatter];
+		bmiRow.object = weightRow.object;
+		bmiRow.key = weightRow.key;
+		bmiRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
 		[section addRow:bmiRow animated:NO];
 		[bmiRow release];
 	}
@@ -110,8 +114,8 @@
 	weightRow.title = NSLocalizedString(@"Goal Weight", @"Goal end weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"endWeightNumber";
-	weightRow.formatter = [WeightFormatters goalWeightFormatter];
-	weightRow.increment = [WeightFormatters goalWeightIncrement];
+	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
+	weightRow.increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -119,20 +123,33 @@
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
 	
-	if ([EWGoal isBMIEnabled]) {
-		weightRow.backgroundColorFormatter = [WeightFormatters weightBackgroundColorFormatter];
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
+		
+		float w[3];
+		[EWWeightFormatter getBMIWeights:w];
+		BRColorPalette *palette = [BRColorPalette sharedPalette];
+		NSArray *colorArray = [NSArray arrayWithObjects:
+							   [[palette colorNamed:@"BMIUnderweight"] colorWithAlphaComponent:0.4],
+							   [[palette colorNamed:@"BMINormal"] colorWithAlphaComponent:0.4],
+							   [[palette colorNamed:@"BMIOverweight"] colorWithAlphaComponent:0.4],
+							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4],
+							   nil];
+		BRRangeColorFormatter *colorFormatter = [[BRRangeColorFormatter alloc] initWithColors:colorArray forValues:w];
+		weightRow.backgroundColorFormatter = colorFormatter;
+		[colorFormatter release];
 
 		BRTableNumberPickerRow *bmiRow = [[BRTableNumberPickerRow alloc] init];
 		bmiRow.title = NSLocalizedString(@"Goal BMI", @"Goal end BMI");
-		bmiRow.object = [EWGoal sharedGoal];
-		bmiRow.key = @"endBMINumber";
-		bmiRow.minimumValue = 0;
-		bmiRow.maximumValue = 100;
-		bmiRow.increment = 0.1f;
-		bmiRow.formatter = [self makeBMIFormatter];
-		bmiRow.backgroundColorFormatter = [WeightFormatters BMIBackgroundColorFormatter];
+		bmiRow.object = weightRow.object;
+		bmiRow.key = weightRow.key;
+		bmiRow.minimumValue = weightRow.minimumValue;
+		bmiRow.maximumValue = weightRow.maximumValue;
+		NSNumberFormatter *bmiFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
+		bmiRow.formatter = bmiFormatter;
+		bmiRow.increment = 0.5f / [[bmiFormatter multiplier] floatValue];
+		bmiRow.backgroundColorFormatter = weightRow.backgroundColorFormatter;
 		bmiRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		bmiRow.defaultValue = [NSNumber numberWithFloat:[[EWGoal sharedGoal] startBMI]];
+		bmiRow.defaultValue = weightRow.defaultValue;
 		[section addRow:bmiRow animated:NO];
 		[bmiRow release];
 	}
@@ -148,6 +165,7 @@
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	// TODO: bind minimumDate to goalStartDate
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 	
@@ -172,8 +190,8 @@
 	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
 	energyRow.object = [EWGoal sharedGoal];
 	energyRow.key = @"weightChangePerDay";
-	energyRow.formatter = [WeightFormatters energyChangePerDayFormatter];
-	energyRow.increment = [WeightFormatters energyChangePerDayIncrement];
+	energyRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay] autorelease];
+	energyRow.increment = [EWWeightChangeFormatter energyChangePerDayIncrement];
 	energyRow.minimumValue = -1000 * energyRow.increment;
 	energyRow.maximumValue = 1000 * energyRow.increment;
 	energyRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -184,8 +202,8 @@
 	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"weightChangePerDay";
-	weightRow.formatter = [WeightFormatters weightChangePerWeekFormatter];
-	weightRow.increment = [WeightFormatters weightChangePerWeekIncrement];
+	weightRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek] autorelease];
+	weightRow.increment = [EWWeightChangeFormatter weightChangePerWeekIncrement];
 	weightRow.minimumValue = -1000 * weightRow.increment;
 	weightRow.maximumValue = 1000 * weightRow.increment;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -250,7 +268,7 @@
 		}
 	} else {
 		BOOL needsUpdate = (([[EWGoal sharedGoal] isDefined] != isSetupForGoal) || 
-							([EWGoal isBMIEnabled] != isSetupForBMI) ||
+							([[NSUserDefaults standardUserDefaults] isBMIEnabled] != isSetupForBMI) ||
 							[self numberOfSections] < 2);
 		
 		if (needsUpdate) {
@@ -270,7 +288,7 @@
 				[self.tableView reloadData];
 			}
 			isSetupForGoal = [[EWGoal sharedGoal] isDefined];
-			isSetupForBMI = [EWGoal isBMIEnabled];
+			isSetupForBMI = [[NSUserDefaults standardUserDefaults] isBMIEnabled];
 		}
 		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
 		EWMonth earliestMonth = [db earliestMonth];

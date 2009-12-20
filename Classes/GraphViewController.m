@@ -13,8 +13,9 @@
 #import "EWDatabase.h"
 #import "YAxisView.h"
 #import "EWGoal.h"
-#import "WeightFormatters.h"
 #import "LogViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
+#import "EWWeightFormatter.h"
 
 
 enum {
@@ -86,13 +87,12 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 
 - (void)prepareBMIRegions {
-	if (! [EWGoal isBMIEnabled]) return;
+	if (! [[NSUserDefaults standardUserDefaults] isBMIEnabled]) return;
 	
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightBMIZones"]) return;
 
-	float w0 = [WeightFormatters weightForBodyMassIndex:18.5];
-	float w1 = [WeightFormatters weightForBodyMassIndex:25.0];
-	float w2 = [WeightFormatters weightForBodyMassIndex:30.0];
+	float w[3];
+	[EWWeightFormatter getBMIWeights:w];
 	
 	CGFloat width = 32; // at most 31 days in a month
 	
@@ -103,34 +103,34 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	
 	CGRect wholeRect = CGRectMake(0, parameters.minWeight, width, parameters.maxWeight - parameters.minWeight);
 	
-	if (w0 > parameters.minWeight) {
-		rect = CGRectMake(0, parameters.minWeight, width, w0 - parameters.minWeight);
+	if (w[0] > parameters.minWeight) {
+		rect = CGRectMake(0, parameters.minWeight, width, w[0] - parameters.minWeight);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [WeightFormatters backgroundColorForWeight:parameters.minWeight];
+			color = [EWWeightFormatter backgroundColorForWeight:parameters.minWeight];
 			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
 		}
 	}
 	
-	rect = CGRectMake(0, w0, width, w1 - w0);
+	rect = CGRectMake(0, w[0], width, w[1] - w[0]);
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
-		color = [WeightFormatters backgroundColorForWeight:0.5f*(w0+w1)];
+		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[0]+w[1])];
 		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
 	}
 	
-	rect = CGRectMake(0, w1, width, w2 - w1);
+	rect = CGRectMake(0, w[1], width, w[2] - w[1]);
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
-		color = [WeightFormatters backgroundColorForWeight:0.5f*(w1+w2)];
+		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[1]+w[2])];
 		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
 	}
 	
-	if (w2 < parameters.maxWeight) {
-		rect = CGRectMake(0, w2, width, parameters.maxWeight - w2);
+	if (w[2] < parameters.maxWeight) {
+		rect = CGRectMake(0, w[2], width, parameters.maxWeight - w[2]);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [WeightFormatters backgroundColorForWeight:parameters.maxWeight];
+			color = [EWWeightFormatter backgroundColorForWeight:parameters.maxWeight];
 			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
 		}
 	}
@@ -158,6 +158,28 @@ const CGFloat kGraphMarginBottom = 16.0f;
 	[scrollView scrollRectToVisible:scrollRect animated:NO];
 	
 	[LogViewController setCurrentMonthDay:0];
+}
+
+
+- (float)chartWeightIncrementAfter:(float)previousIncrement {
+	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
+		case EWWeightUnitKilograms:
+			return previousIncrement + (1 / kKilogramsPerPound);
+		case EWWeightUnitStones:
+			if (previousIncrement == 1) {
+				return 7;
+			} else {
+				return previousIncrement + 7;
+			}
+		case EWWeightUnitPounds:
+			if (previousIncrement == 1) {
+				return 5;
+			} else {
+				return previousIncrement + 5;
+			}
+		default:
+			return 0;
+	}
 }
 
 
@@ -234,9 +256,9 @@ const CGFloat kGraphMarginBottom = 16.0f;
 
 	[self prepareBMIRegions];
 	
-	float increment = [WeightFormatters chartWeightIncrement];
+	float increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
 	while (parameters.scaleY * increment < [UIFont systemFontSize]) {
-		increment = [WeightFormatters chartWeightIncrementAfter:increment];
+		increment = [self chartWeightIncrementAfter:increment];
 	}
 	parameters.gridIncrementWeight = increment;
 	parameters.gridMinWeight = roundf(parameters.minWeight / increment) * increment;

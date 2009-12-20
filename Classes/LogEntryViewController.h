@@ -31,6 +31,7 @@
 	float scaleIncrement;
 	NSInteger weightRow, fatRow;
 	int weightMode;
+	NSFormatter *weightFormatter;
 }
 + (LogEntryViewController *)sharedController;
 @property (nonatomic,retain) IBOutlet UISegmentedControl *weightControl;

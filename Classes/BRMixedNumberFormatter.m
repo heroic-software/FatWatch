@@ -22,12 +22,13 @@
 
 
 + (NSFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits {
+	// Unicode PUNCTUATION SPACE: E2 80 88
 	BRMixedNumberFormatter *formatter = [[BRMixedNumberFormatter alloc] init];
 	formatter.multiple = 1;
 	formatter.divisor = 14; // pounds per stone
 	formatter.quotientFormatter = [self numberFormatterWithFractionDigits:0];
 	formatter.remainderFormatter = [self numberFormatterWithFractionDigits:digits];
-	formatter.formatString = NSLocalizedString(@"%@ st  %@ lb", @"Stone Format");
+	formatter.formatString = NSLocalizedString(@"%@\xe2\x80\x88st %@\xe2\x80\x88lb", @"Stone Format");
 	return [formatter autorelease];
 }
 
@@ -39,7 +40,7 @@
 	NSNumberFormatter *nf = [self numberFormatterWithFractionDigits:0];
 	formatter.quotientFormatter = nf;
 	formatter.remainderFormatter = nf;
-	formatter.formatString = NSLocalizedString(@"%@\'%@\"", @"Feet Format");
+	formatter.formatString = NSLocalizedString(@"%@\'\xe2\x80\x88%@\"", @"Feet Format");
 	return [formatter autorelease];
 }
 

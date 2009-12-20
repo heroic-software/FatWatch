@@ -17,11 +17,6 @@
 
 }
 
-+ (BOOL)isBMIEnabled;
-+ (void)setBMIEnabled:(BOOL)flag;
-+ (void)setHeight:(float)meters;
-+ (float)height;
-
 + (void)deleteGoal;
 + (EWGoal *)sharedGoal;
 
@@ -30,13 +25,10 @@
 @property (readonly,getter=isDefined) BOOL defined;
 @property (readonly,getter=isAttained) BOOL attained;
 @property (readonly) float startWeight;
-@property (readonly) float startBMI;
 
 @property (retain) NSDate *endDate;
 @property float endWeight;
 @property (retain) NSNumber *endWeightNumber;
-@property float endBMI;
-@property (retain) NSNumber *endBMINumber;
 
 @property float weightChangePerDay;
 

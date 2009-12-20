@@ -54,19 +54,19 @@
 - (void)testPoundsAsStones {
 	NSFormatter *fmtr = [BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:1];
 	
-	STAssertEqualObjects([fmtr stringForFloat:0], @"0 st  0.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:1], @"0 st  1.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:13], @"0 st  13.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:14], @"1 st  0.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:15], @"1 st  1.0 lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:0], @"0\xe2\x80\x88st 0.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:1], @"0\xe2\x80\x88st 1.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:13], @"0\xe2\x80\x88st 13.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:14], @"1\xe2\x80\x88st 0.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:15], @"1\xe2\x80\x88st 1.0\xe2\x80\x88lb", @"int test");
 
-	STAssertEqualObjects([fmtr stringForFloat:0.01], @"0 st  0.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:0.99], @"0 st  1.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:12.99], @"0 st  13.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:13.99], @"1 st  0.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:14.009], @"1 st  0.0 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:14.09], @"1 st  0.1 lb", @"int test");
-	STAssertEqualObjects([fmtr stringForFloat:14.99], @"1 st  1.0 lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:0.01], @"0\xe2\x80\x88st 0.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:0.99], @"0\xe2\x80\x88st 1.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:12.99], @"0\xe2\x80\x88st 13.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:13.99], @"1\xe2\x80\x88st 0.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:14.009], @"1\xe2\x80\x88st 0.0\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:14.09], @"1\xe2\x80\x88st 0.1\xe2\x80\x88lb", @"int test");
+	STAssertEqualObjects([fmtr stringForFloat:14.99], @"1\xe2\x80\x88st 1.0\xe2\x80\x88lb", @"int test");
 }
 
 

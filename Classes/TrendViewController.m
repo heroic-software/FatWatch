@@ -7,7 +7,6 @@
 //
 
 #import "TrendViewController.h"
-#import "WeightFormatters.h"
 #import "EWGoal.h"
 #import "TrendSpan.h"
 #import "EWDatabase.h"

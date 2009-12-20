@@ -8,39 +8,68 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "NewDatabaseViewController.h"
-#import "WeightFormatters.h"
-#import "EatWatchAppDelegate.h"
 #import "BRTableButtonRow.h"
+#import "EatWatchAppDelegate.h"
+#import "NSUserDefaults+EWAdditions.h"
+#import "NewDatabaseViewController.h"
 
 
 @implementation NewDatabaseViewController
 
 
-- (void)addSectionForStrings:(NSArray *)stringArray 
-			   selectedIndex:(NSUInteger)index
-					   title:(NSString *)title {
-	BRTableRadioSection *section = [[BRTableRadioSection alloc] init];
-	section.headerTitle = title;
-	for (NSString *name in stringArray) {
-		[section addRow:[BRTableRow rowWithTitle:name] animated:NO];
-	}
-	section.selectedIndex = index;
-	[self addSection:section animated:NO];
-}
-
-
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
-		[self addSectionForStrings:[WeightFormatters weightUnitNames] 
-					 selectedIndex:[WeightFormatters selectedWeightUnitIndex]
-							 title:NSLocalizedString(@"Weight Unit", nil)];
-		[self addSectionForStrings:[WeightFormatters energyUnitNames] 
-					 selectedIndex:[WeightFormatters selectedEnergyUnitIndex]
-							 title:NSLocalizedString(@"Energy Unit", nil)];
-		[self addSectionForStrings:[WeightFormatters scaleIncrementNames]
-					 selectedIndex:[WeightFormatters selectedScaleIncrementIndex]
-							 title:NSLocalizedString(@"Scale Precision", nil)];
+
+		NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+		BRTableRadioSection *section;
+		
+		EWWeightUnit selectedWeightUnit = [ud weightUnit];
+		section = [[BRTableRadioSection alloc] init];
+		section.headerTitle = NSLocalizedString(@"Weight Unit", nil);
+		for (id weightUnit in [NSUserDefaults weightUnitsForDisplay]) {
+			BRTableRow *row = [[BRTableRow alloc] init];
+			row.title = [NSUserDefaults nameForWeightUnit:weightUnit];
+			row.object = weightUnit;
+			[section addRow:row animated:NO];
+			[row release];
+			if ([weightUnit intValue] == selectedWeightUnit) {
+				section.selectedIndex = [section numberOfRows] - 1;
+			}
+		}
+		[self addSection:section animated:NO];
+		[section release];
+		
+		EWEnergyUnit selectedEnergyUnit = [ud energyUnit];
+		section = [[BRTableRadioSection alloc] init];
+		section.headerTitle = NSLocalizedString(@"Energy Unit", nil);
+		for (id energyUnit in [NSUserDefaults energyUnits]) {
+			BRTableRow *row = [[BRTableRow alloc] init];
+			row.title = [NSUserDefaults nameForEnergyUnit:energyUnit];
+			row.object = energyUnit;
+			[section addRow:row animated:NO];
+			[row release];
+			if ([energyUnit intValue] == selectedEnergyUnit) {
+				section.selectedIndex = [section numberOfRows] - 1;
+			}
+		}
+		[self addSection:section animated:NO];
+		[section release];
+		
+		float selectedIncrement = [ud scaleIncrement];
+		section = [[BRTableRadioSection alloc] init];
+		section.headerTitle = NSLocalizedString(@"Scale Precision", nil);
+		for (id scaleIncrement in [NSUserDefaults energyUnits]) {
+			BRTableRow *row = [[BRTableRow alloc] init];
+			row.title = [NSUserDefaults nameForScaleIncrement:scaleIncrement];
+			row.object = scaleIncrement;
+			[section addRow:row animated:NO];
+			[row release];
+			if (fabsf([scaleIncrement floatValue] - selectedIncrement) < 0.1f) {
+				section.selectedIndex = [section numberOfRows] - 1;
+			}
+		}
+		[self addSection:section animated:NO];
+		[section release];
 		
 		BRTableSection *buttonSection = [[BRTableSection alloc] init];
 		buttonSection.footerTitle = NSLocalizedString(@"You can change units at any time using the Settings app.", @"New Database view footer");
@@ -60,14 +89,21 @@
 
 
 - (void)dismissView:(BRTableButtonRow *)sender {
-	BRTableRadioSection *weightSection = (BRTableRadioSection *)[self sectionAtIndex:0];
-	[WeightFormatters setSelectedWeightUnitIndex:weightSection.selectedIndex];
+	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+	BRTableRadioSection *section;
+	BRTableRow *row;
 	
-	BRTableRadioSection *energySection = (BRTableRadioSection *)[self sectionAtIndex:1];
-	[WeightFormatters setSelectedEnergyUnitIndex:energySection.selectedIndex];
+	section = (id)[self sectionAtIndex:0];
+	row = [section rowAtIndex:section.selectedIndex];
+	[ud setWeightUnit:row.object];
 	
-	BRTableRadioSection *incrementSection = (BRTableRadioSection *)[self sectionAtIndex:2];
-	[WeightFormatters setSelectedScaleIncrementIndex:incrementSection.selectedIndex];
+	section = (id)[self sectionAtIndex:1];
+	row = [section rowAtIndex:section.selectedIndex];
+	[ud setEnergyUnit:row.object];
+
+	section = (id)[self sectionAtIndex:2];
+	row = [section rowAtIndex:section.selectedIndex];
+	[ud setScaleIncrement:row.object];
 
 	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchViewWithTransitionType:kCATransitionPush 

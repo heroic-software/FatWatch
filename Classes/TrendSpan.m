@@ -11,9 +11,10 @@
 #import "EWDatabase.h"
 #import "EWDate.h"
 #import "EWGoal.h"
+#import "EWWeightChangeFormatter.h"
+#import "EWWeightFormatter.h"
 #import "SlopeComputer.h"
 #import "TrendSpan.h"
-#import "WeightFormatters.h"
 
 
 const NSInteger kTrendSpanRowCount = 3;
@@ -145,25 +146,32 @@ enum {
 
 - (void)configureCell:(UITableViewCell *)cell forTableRow:(NSInteger)row {
 	switch (row) {
-		case kTrendSpanRowWeightChangeRate:
-			cell.textLabel.text = [WeightFormatters weightStringForWeightPerDay:self.weightPerDay];
+		case kTrendSpanRowWeightChangeRate: {
+			EWWeightChangeFormatter *changeFormatter = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
+			cell.textLabel.text = [changeFormatter stringForFloat:self.weightPerDay];
 			cell.textLabel.textColor = [UIColor blackColor];
+			[changeFormatter release];
 			break;
+		}
 		case kTrendSpanRowWeightChangeTotal: {
+			EWWeightFormatter *weightFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
 			if (self.weightChange > 0) {
-				NSString *amount = [WeightFormatters stringForWeight:self.weightChange];
+				NSString *amount = [weightFormatter stringForFloat:self.weightChange];
 				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@" gained", @"Gain suffix")];
 			} else {
-				NSString *amount = [WeightFormatters stringForWeight:-self.weightChange];
+				NSString *amount = [weightFormatter stringForFloat:-self.weightChange];
 				cell.textLabel.text = [amount stringByAppendingString:NSLocalizedString(@" lost", @"Loss suffix")];
 			}
 			cell.textLabel.textColor = [UIColor blackColor];
 			break;
 		}
-		case kTrendSpanRowEnergyChangeRate:
-			cell.textLabel.text = [WeightFormatters energyStringForWeightPerDay:self.weightPerDay];
+		case kTrendSpanRowEnergyChangeRate: {
+			EWWeightChangeFormatter *changeFormatter = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
+			cell.textLabel.text = [changeFormatter stringForFloat:self.weightPerDay];
 			cell.textLabel.textColor = [UIColor blackColor];
+			[changeFormatter release];
 			break;
+		}
 	}
 }
 
