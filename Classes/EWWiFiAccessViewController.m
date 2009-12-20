@@ -23,6 +23,7 @@
 
 
 #define HTTP_STATUS_OK 200
+#define HTTP_STATUS_NOT_MODIFIED 304
 #define HTTP_STATUS_NOT_FOUND 404
 
 
@@ -302,8 +303,16 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		return;
 	}
 	
-	// if (request:If-None-Match = response:ETag) send 304 Not Modified
-	// if (request:If-Modified-Since = Last-Modified) send 304 Not Modified
+	NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+	NSDate *lastModifiedDate = [attrs fileModificationDate];
+
+	NSDate *ifModifiedSinceDate = [connection dateForRequestHeader:@"If-Modified-Since"];
+	if (ifModifiedSinceDate &&
+		[ifModifiedSinceDate compare:lastModifiedDate] != NSOrderedAscending) {
+		[connection beginResponseWithStatus:HTTP_STATUS_NOT_MODIFIED];
+		[connection endResponseWithBodyData:[NSData data]];
+		return;
+	}
 	
 	if ([contentType hasPrefix:@"text/"]) {
 		contentType = [contentType stringByAppendingString:@"; charset=utf-8"];
@@ -311,6 +320,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
+	[connection setValue:lastModifiedDate forResponseHeader:@"Last-Modified"];
 	
 	if ([type hasSuffix:@".gz"]) {
 		[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];

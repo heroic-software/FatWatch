@@ -265,6 +265,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (void)dealloc {
+	[httpDateFormatterArray release];
 	if (responseData) CFRelease(responseData);
 	if (responseMessage) CFRelease(responseMessage);
 	CFRelease(requestMessage);
@@ -311,12 +312,12 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (BOOL)isRequestComplete {
 	if (! CFHTTPMessageIsHeaderComplete(requestMessage)) return NO;
 	
-//	NSString *transferEncodingStr = [self requestHeaderValueForName:@"Transfer-Encoding"];
+//	NSString *transferEncodingStr = [self stringForRequestHeader:@"Transfer-Encoding"];
 //	if (transferEncodingStr) {
 //		NSLog(@"transfer-encoding: %@", transferEncodingStr);
 //	}
 	
-	NSString *contentLengthStr = [self requestHeaderValueForName:@"Content-Length"];
+	NSString *contentLengthStr = [self stringForRequestHeader:@"Content-Length"];
 	NSInteger contentLength = [contentLengthStr integerValue];
 	if (contentLength > 0) {
 		NSData *bodyData = [self requestBodyData];
@@ -363,6 +364,34 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
+- (NSDateFormatter *)httpDateFormatter {
+	// Thanks http://blog.mro.name/2009/08/nsdateformatter-http-header/
+	if (httpDateFormatterArray == nil) {
+		NSDateFormatter *rfc1123 = [[NSDateFormatter alloc] init];
+		rfc1123.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+		rfc1123.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
+		rfc1123.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
+		
+		NSDateFormatter *rfc850 = [[NSDateFormatter alloc] init];
+		rfc850.timeZone = rfc1123.timeZone;
+		rfc850.locale = rfc1123.locale;
+		rfc850.dateFormat = @"EEEE',' dd'-'MMM'-'yy HH':'mm':'ss z";
+		
+		NSDateFormatter *asctime = [[NSDateFormatter alloc] init];
+		asctime.timeZone = rfc1123.timeZone;
+		asctime.locale = rfc1123.locale;
+		asctime.dateFormat = @"EEE MMM d HH':'mm':'ss yyyy";
+		
+		httpDateFormatterArray = [[NSArray alloc] initWithObjects:rfc1123, rfc850, asctime, nil];
+		
+		[rfc1123 release];
+		[rfc850 release];
+		[asctime release];
+	}
+	return [httpDateFormatterArray objectAtIndex:0];
+}
+
+
 - (NSString *)requestMethod {
 	NSString *method = (NSString *)CFHTTPMessageCopyRequestMethod(requestMessage);
 	return [method autorelease];
@@ -381,9 +410,21 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (NSString *)requestHeaderValueForName:(NSString *)headerName {
+- (NSString *)stringForRequestHeader:(NSString *)headerName {
 	NSString *headerValue = (NSString *)CFHTTPMessageCopyHeaderFieldValue(requestMessage, (CFStringRef)headerName);
 	return [headerValue autorelease];
+}
+
+
+- (NSDate *)dateForRequestHeader:(NSString *)headerName {
+	NSString *string = [self stringForRequestHeader:headerName];
+	if (string == nil) return nil;
+	[self httpDateFormatter];
+	for (NSDateFormatter *df in httpDateFormatterArray) {
+		NSDate *date = [df dateFromString:string];
+		if (date) return date;
+	}
+	return nil;
 }
 
 
@@ -398,9 +439,18 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (void)setValue:(NSString *)value forResponseHeader:(NSString *)header {
+- (void)setValue:(id)value forResponseHeader:(NSString *)header {
 	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
-	CFHTTPMessageSetHeaderFieldValue(responseMessage, (CFStringRef)header, (CFStringRef)value);
+	NSString *string;
+	
+	if ([value isKindOfClass:[NSDate class]]) {
+		string = [[self httpDateFormatter] stringFromDate:value];
+	}
+	else {
+		string = [value description];
+	}
+	
+	CFHTTPMessageSetHeaderFieldValue(responseMessage, (CFStringRef)header, (CFStringRef)string);
 }
 
 

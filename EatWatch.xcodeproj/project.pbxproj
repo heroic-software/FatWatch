@@ -861,7 +861,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\t\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSIF=${!SIF_NAME}\n\t\tSOF=${!SOF_NAME}\n\t\techo \"Processing $SIF\"\n\t\techo \"Creating $SOF\"\n\t\t$GZIP_CMD $SIF > $SOF\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor (( i = 0; i < $SCRIPT_OUTPUT_FILE_COUNT; i++ )); do\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSOF=${!SOF_NAME}\n\t\tif [ -e $SOF ]; then\n\t\t\techo \"Removing $SOF\"\n\t\tfi\n\tdone\nfi\n";
+			shellScript = "GZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\t\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSIF=${!SIF_NAME}\n\t\tSOF=${!SOF_NAME}\n\t\t$GZIP_CMD $SIF > $SOF\n\t\tdu -h $SIF $SOF\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor (( i = 0; i < $SCRIPT_OUTPUT_FILE_COUNT; i++ )); do\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSOF=${!SOF_NAME}\n\t\tif [ -e $SOF ]; then\n\t\t\techo \"Removing $SOF\"\n\t\tfi\n\tdone\nfi\n";
 		};
 		BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -879,7 +879,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo \"Processing $SRC_FILE\"\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\techo \"Writing $DST_FILE\"\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor PATTERN in ${!SCRIPT_OUTPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor DST_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $DST_FILE ]; then\n\t\t\t\techo \"Removing $DST_FILE\"\n\t\t\t\trm $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
+			shellScript = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo Processing $SRC_FILE\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\t\techo Writing $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor PATTERN in ${!SCRIPT_OUTPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor DST_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $DST_FILE ]; then\n\t\t\t\techo \"Removing $DST_FILE\"\n\t\t\t\trm $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {

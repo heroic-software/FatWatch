@@ -38,14 +38,17 @@
 	CFHTTPMessageRef responseMessage;
 	CFDataRef responseData;
 	CFIndex responseBytesRemaining;
+	NSArray *httpDateFormatterArray;
 }
+- (NSDateFormatter *)httpDateFormatter;
 - (NSString *)requestMethod;
 - (NSURL *)requestURL;
 - (NSDictionary *)requestHeaders;
-- (NSString *)requestHeaderValueForName:(NSString *)headerName;
+- (NSString *)stringForRequestHeader:(NSString *)headerName;
+- (NSDate *)dateForRequestHeader:(NSString *)headerName;
 - (NSData *)requestBodyData;
 - (void)beginResponseWithStatus:(CFIndex)statusCode;
-- (void)setValue:(NSString *)value forResponseHeader:(NSString *)header;
+- (void)setValue:(id)value forResponseHeader:(NSString *)header;
 - (void)endResponseWithBodyString:(NSString *)string;
 - (void)endResponseWithBodyData:(NSData *)data;
 - (void)respondWithErrorMessage:(NSString *)message;

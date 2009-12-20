@@ -63,7 +63,7 @@
 	if (self = [self init]) {
 		connection = [theConnection retain];
 		if ([[connection requestMethod] isEqualToString:@"POST"]) {
-			NSString *contentType = [connection requestHeaderValueForName:@"Content-Type"];
+			NSString *contentType = [connection stringForRequestHeader:@"Content-Type"];
 			if ([contentType hasPrefix:@"multipart/form-data"]) {
 				[self parseMultipartFormData];
 			} else if ([contentType hasPrefix:@"application/x-www-form-urlencoded"]) {
@@ -244,7 +244,7 @@
 
 
 - (NSData *)boundaryData {
-	NSString *contentType = [connection requestHeaderValueForName:@"Content-Type"];
+	NSString *contentType = [connection stringForRequestHeader:@"Content-Type"];
 	NSString *prefix = @"multipart/form-data; boundary=";
 	if (! [contentType hasPrefix:prefix]) return nil;
 	NSString *boundaryString = [contentType substringFromIndex:[prefix length]];
