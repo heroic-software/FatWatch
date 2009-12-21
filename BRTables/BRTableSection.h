@@ -26,6 +26,7 @@
 - (void)willRemoveFromController;
 - (NSUInteger)numberOfRows;
 - (BRTableRow *)rowAtIndex:(NSUInteger)index;
+- (NSIndexPath *)indexPathOfRow:(BRTableRow *)row;
 - (void)addRow:(BRTableRow *)tableRow animated:(BOOL)animated;
 - (void)removeRowAtIndex:(NSUInteger)index animated:(BOOL)animated;
 - (UITableViewCell *)cellForRow:(BRTableRow *)row;
@@ -38,4 +39,5 @@
 	NSInteger selectedIndex;
 }
 @property (nonatomic) NSInteger selectedIndex;
+@property (nonatomic,readonly) BRTableRow *selectedRow;
 @end

@@ -34,8 +34,10 @@
 - (UITableViewCell *)createCell;
 - (void)configureCell:(UITableViewCell *)cell;
 - (UITableViewCell *)cell;
+- (NSIndexPath *)indexPath;
 - (void)didAddToSection:(BRTableSection *)section;
 - (void)willRemoveFromSection;
 - (void)didSelect;
 - (void)updateCell;
+- (void)deselectAnimated:(BOOL)animated;
 @end

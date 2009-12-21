@@ -43,7 +43,7 @@
 			[self.target performSelector:self.action withObject:self];
 		}
 	}
-	[[self cell] setSelected:NO];
+	[self deselectAnimated:YES];
 }
 
 

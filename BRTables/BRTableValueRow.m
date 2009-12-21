@@ -92,12 +92,12 @@
 	// id value = [change objectForKey:NSKeyValueChangeNewKey];
 	UITableViewCell *cell = [self cell];
 	[self configureCell:cell];
-	cell.selected = YES;
+	[cell setHighlighted:YES animated:YES];
 }
 
 
 - (void)didSelect {
-	[[self cell] setSelected:NO];
+	[self deselectAnimated:YES];
 }
 
 

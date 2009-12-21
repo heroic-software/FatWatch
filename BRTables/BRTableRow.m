@@ -74,6 +74,11 @@
 }
 
 
+- (NSIndexPath *)indexPath {
+	return [section indexPathOfRow:self];
+}
+
+
 - (void)didAddToSection:(BRTableSection *)aSection {
 	section = aSection;
 }
@@ -90,6 +95,12 @@
 
 - (void)updateCell {
 	[self configureCell:[self cell]];
+}
+
+
+- (void)deselectAnimated:(BOOL)animated {
+	UITableView *tableView = self.section.controller.tableView;
+	[tableView deselectRowAtIndexPath:[self indexPath] animated:animated];
 }
 
 

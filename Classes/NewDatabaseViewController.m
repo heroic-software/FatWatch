@@ -91,19 +91,15 @@
 - (void)dismissView:(BRTableButtonRow *)sender {
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	BRTableRadioSection *section;
-	BRTableRow *row;
 	
 	section = (id)[self sectionAtIndex:0];
-	row = [section rowAtIndex:section.selectedIndex];
-	[ud setWeightUnit:row.object];
+	[ud setWeightUnit:[[section selectedRow] object]];
 	
 	section = (id)[self sectionAtIndex:1];
-	row = [section rowAtIndex:section.selectedIndex];
-	[ud setEnergyUnit:row.object];
+	[ud setEnergyUnit:[[section selectedRow] object]];
 
 	section = (id)[self sectionAtIndex:2];
-	row = [section rowAtIndex:section.selectedIndex];
-	[ud setScaleIncrement:row.object];
+	[ud setScaleIncrement:[[section selectedRow] object]];
 
 	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchViewWithTransitionType:kCATransitionPush 

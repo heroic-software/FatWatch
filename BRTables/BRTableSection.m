@@ -55,6 +55,12 @@
 }
 
 
+- (NSIndexPath *)indexPathOfRow:(BRTableRow *)row {
+	return [NSIndexPath indexPathForRow:[rows indexOfObject:row] 
+							  inSection:[controller	indexOfSection:self]];
+}
+
+
 - (void)addRow:(BRTableRow *)tableRow animated:(BOOL)animated {
 	[rows addObject:tableRow];
 	[tableRow didAddToSection:self];
@@ -82,7 +88,8 @@
 
 
 - (UITableViewCell *)cellForRow:(BRTableRow *)row {
-	return [self cellForRowAtIndex:[rows indexOfObject:row]];
+	NSIndexPath *indexPath = [self indexPathOfRow:row];
+	return [controller.tableView cellForRowAtIndexPath:indexPath];
 }
 
 
@@ -134,8 +141,17 @@
 	selectedIndex = index;
 	UITableViewCell *cell = [self cellForRowAtIndex:selectedIndex];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
-	[cell setSelected:NO animated:YES];
-	[super didSelectRowAtIndex:index];
+	[super didSelectRowAtIndex:selectedIndex];
+	[[self rowAtIndex:selectedIndex] deselectAnimated:YES];
+}
+
+
+- (BRTableRow *)selectedRow {
+	if (selectedIndex >= 0) {
+		return [self rowAtIndex:selectedIndex];
+	} else {
+		return nil;
+	}
 }
 
 

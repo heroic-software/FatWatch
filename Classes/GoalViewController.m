@@ -300,11 +300,9 @@
 
 
 - (void)viewDidAppear:(BOOL)animated {
-	[self.tableView beginUpdates];
 	for (UITableViewCell *cell in [self.tableView visibleCells]) {
-		[cell setSelected:NO animated:animated];
+		[cell setHighlighted:NO animated:animated];
 	}
-	[self.tableView endUpdates];
 }
 
 

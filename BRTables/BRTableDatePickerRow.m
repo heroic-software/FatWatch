@@ -63,6 +63,7 @@
 
 
 - (void)didSelect {
+	[super didSelect];
 	BRDatePickerViewController *controller = [[BRDatePickerViewController alloc] initWithRow:self];
 	[self.section.controller presentViewController:controller forRow:self];
 	[controller release];

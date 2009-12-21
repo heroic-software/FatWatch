@@ -36,6 +36,7 @@
 
 
 - (void)didSelect {
+	[super didSelect];
 	UIViewController *controller = [[BRNumberPickerViewController alloc] initWithRow:self];
 	[self.section.controller presentViewController:controller forRow:self];
 	[controller release];
