@@ -108,27 +108,22 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 
 + (NSArray *)scaleIncrements {
-	return [NSArray arrayWithObjects:
-			[NSNumber numberWithFloat:0.1f],
-			[NSNumber numberWithFloat:0.2f],
-			[NSNumber numberWithFloat:0.5f],
-			[NSNumber numberWithFloat:1.0f],
-			nil];
+	return [NSArray arrayWithObjects:@"1.00", @"0.50", @"0.20", @"0.10", @"0.05", nil];
 }
 
 
-+ (NSString *)nameForScaleIncrement:(NSNumber *)number {
++ (NSString *)nameForScaleIncrement:(id)number {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimumFractionDigits:1];
-	NSString *name = [formatter stringFromNumber:number];
+	NSString *name = [formatter stringFromNumber:[NSNumber numberWithFloat:[number floatValue]]];
 	[formatter release];
 	return name;
 }
 
 
-- (void)setScaleIncrement:(NSNumber *)number {
-	[self setFloat:[number floatValue] forKey:kScaleIncrementKey];
+- (void)setScaleIncrement:(id)number {
+	[self setObject:number forKey:kScaleIncrementKey];
 }
 
 

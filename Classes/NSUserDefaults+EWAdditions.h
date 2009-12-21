@@ -39,8 +39,8 @@ typedef enum {
 - (void)setEnergyUnit:(NSNumber *)energyUnit;
 - (EWEnergyUnit)energyUnit;
 + (NSArray *)scaleIncrements;
-+ (NSString *)nameForScaleIncrement:(NSNumber *)number;
-- (void)setScaleIncrement:(NSNumber *)number;
++ (NSString *)nameForScaleIncrement:(id)number;
+- (void)setScaleIncrement:(id)number;
 - (float)scaleIncrement;
 - (BOOL)isBMIEnabled;
 - (void)setBMIEnabled:(BOOL)flag;
