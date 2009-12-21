@@ -1,3 +1,15 @@
+Exercise Rungs
+	1-15 Introductory Ladder
+	16-48 Lifetime Ladder
+	
+Rung	1
+Bend	2
+SitUp	3
+LegLift	4
+PushUp	2
+Steps	105
+Count	1 30 (105 = 75*1+30) 75 steps, 7 jumping jacks, 30 extra steps
+
 TrueWeight CSV
 http://www.trueweight.net/
 	Date (YYYY-MM-DD)

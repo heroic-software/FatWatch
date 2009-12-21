@@ -87,6 +87,16 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Track Exercise Ladder</string>
+			<key>Key</key>
+			<string>EnableLadder</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>DISPLAY</string>
 			<key>Type</key>

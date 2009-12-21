@@ -291,19 +291,27 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		CGContextRef ctxt = UIGraphicsGetCurrentContext();
 		
 		[(inverse ? [UIColor whiteColor] : [UIColor grayColor]) setStroke];
-
+		
 		for (f = 0; f < 4; f++) {
-			CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
-			if (EWFlagGet(dd->flags, f)) {
-				NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
-				UIColor *color = [BRColorPalette colorNamed:key];
-				[color setFill];
-				CGContextFillRect(ctxt, dotRect);
+			NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
+			[[BRColorPalette colorNamed:key] setFill];
+			EWFlagValue value = EWFlagGet(dd->flags, f);
+			
+			if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
+				if (inverse) [[UIColor whiteColor] setFill];
+				NSString *string = [NSString stringWithFormat:@"%d", value];
+				[string drawInRect:rect 
+						  withFont:[UIFont boldSystemFontOfSize:12]
+					 lineBreakMode:UILineBreakModeClip
+						 alignment:UITextAlignmentCenter];
 			}
-			CGContextStrokeRect(ctxt, dotRect);
+			else {
+				CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
+				if (value) CGContextFillRect(ctxt, dotRect);
+				CGContextStrokeRect(ctxt, dotRect);
+			}
 			rect.origin.y += 15;
 		}
-		// draw text size 12 in last position if measuring exercise rungs
 	}
 	
 	if (dd->scaleFat > 0 && !inverse) {

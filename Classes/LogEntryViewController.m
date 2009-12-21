@@ -14,6 +14,7 @@
 #import "EWWeightFormatter.h"
 #import "NSUserDefaults+EWAdditions.h"
 #import "BRTextView.h"
+#import "RungEntryViewController.h"
 
 
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
@@ -52,9 +53,6 @@ enum {
 @synthesize flag2Button;
 @synthesize flag3Button;
 @synthesize flag4Button;
-@synthesize monthData;
-@synthesize day;
-@synthesize weighIn;
 
 
 - (id)init {
@@ -64,6 +62,14 @@ enum {
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
+}
+
+
+- (void)viewDidLoad {
+	flagButtons[0] = flag1Button;
+	flagButtons[1] = flag2Button;
+	flagButtons[2] = flag3Button;
+	flagButtons[3] = flag4Button;
 }
 
 
@@ -138,8 +144,51 @@ enum {
 }
 
 
+- (int)rung {
+	return [[flag4Button titleForState:UIControlStateNormal] intValue];
+}
+
+
+- (void)setValue:(EWFlagValue)value forFlagIndex:(int)f {
+	BOOL selected;
+	NSString *title;
+	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
+		if (value) {
+			title = [NSString stringWithFormat:@"%d", value];
+		} else {
+			title = @"\xe2\x97\x86"; // LOZENGE
+		}
+		selected = NO;
+	} else {
+		title = @"";
+		selected = value != 0;
+	}
+	[flagButtons[f] setTitle:title forState:UIControlStateNormal];
+	flagButtons[f].selected = selected;
+}
+
+
+- (void)setRung:(int)rung {
+	[self setValue:rung forFlagIndex:3];
+}
+
+
 - (IBAction)toggleFlagButton:(UIButton *)sender {
-	sender.selected = !sender.selected;
+	int f;
+	for (f = 0; f < 4; f++) {
+		if (flagButtons[f] == sender) {
+			if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
+				RungEntryViewController *controller = [[RungEntryViewController alloc] init];
+				controller.target = self;
+				controller.key = @"rung";
+				[self presentModalViewController:controller animated:YES];
+				[controller release];
+			} else {
+				sender.selected = !sender.selected;
+			}
+			return;
+		}
+	}
 }
 
 
@@ -163,11 +212,16 @@ enum {
 	}
 	
 	EWFlags flags = 0;
-	
-	if (flag1Button.selected) EWFlagSet(&flags, 0, 1);
-	if (flag2Button.selected) EWFlagSet(&flags, 1, 1);
-	if (flag3Button.selected) EWFlagSet(&flags, 2, 1);
-	if (flag4Button.selected) EWFlagSet(&flags, 3, 1);
+	int f;
+	for (f = 0; f < 4; f++) {
+		EWFlagValue value;
+		if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
+			value = [[flagButtons[f] titleForState:UIControlStateNormal] intValue];
+		} else {
+			value = flagButtons[f].selected ? 1 : 0;
+		}
+		EWFlagSet(&flags, f, value);
+	}
 	
 	[monthData setScaleWeight:scaleWeight
 					 scaleFat:scaleFat
@@ -206,6 +260,19 @@ enum {
 				   name:UIKeyboardWillHideNotification
 				 object:nil];
 	
+	[weightPickerView becomeFirstResponder];
+	[[weightContainerView layer] removeAnimationForKey:kCATransition];
+}
+
+
+- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth isWeighIn:(BOOL)isWeighIn {
+	day = aDay;
+	[monthData release];
+	monthData = [aDBMonth retain];
+	weighIn = isWeighIn;
+	
+	[self view]; // force load of view
+	
 	NSDate *date = [monthData dateOnDay:day];
 	NSDateFormatter *titleFormatter = [[NSDateFormatter alloc] init];
 	[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -243,15 +310,12 @@ enum {
 	
 	[self toggleWeight];
 
-	flag1Button.selected = EWFlagGet(dd->flags, 0) != 0;
-	flag2Button.selected = EWFlagGet(dd->flags, 1) != 0;
-	flag3Button.selected = EWFlagGet(dd->flags, 2) != 0;
-	flag4Button.selected = EWFlagGet(dd->flags, 3) != 0;
+	int f;
+	for (f = 0; f < 4; f++) {
+		[self setValue:EWFlagGet(dd->flags, f) forFlagIndex:f];
+	}
 	
 	noteView.text = dd->note;
-
-	[weightPickerView becomeFirstResponder];
-	[[weightContainerView layer] removeAnimationForKey:kCATransition];
 }
 
 

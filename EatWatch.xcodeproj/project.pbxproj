@@ -96,6 +96,8 @@
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
+		BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE6075110E01C0100819E77 /* RungEntryView.xib */; };
+		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
@@ -311,6 +313,9 @@
 		BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRangeColorFormatter.m; path = Classes/BRRangeColorFormatter.m; sourceTree = SOURCE_ROOT; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
+		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
+		BCE6075410E0227000819E77 /* RungEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RungEntryViewController.h; path = Classes/RungEntryViewController.h; sourceTree = "<group>"; };
+		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
@@ -641,6 +646,9 @@
 				BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */,
 				BC4F26790EDE67900010B5BE /* BRTextView.h */,
 				BC4F267A0EDE67900010B5BE /* BRTextView.m */,
+				BCE6075110E01C0100819E77 /* RungEntryView.xib */,
+				BCE6075410E0227000819E77 /* RungEntryViewController.h */,
+				BCE6075510E0227000819E77 /* RungEntryViewController.m */,
 			);
 			name = "Weigh-in";
 			sourceTree = "<group>";
@@ -825,6 +833,7 @@
 				BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */,
 				BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */,
 				BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */,
+				BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1016,7 @@
 				BC04159A10DE1656008FCB11 /* NSUserDefaults+EWAdditions.m in Sources */,
 				BC0415B110DE20D7008FCB11 /* EWWeightFormatter.m in Sources */,
 				BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */,
+				BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1120,14 @@
 			);
 			name = TrendSpans.plist;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		BCE6075110E01C0100819E77 /* RungEntryView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCE6074F10E01BFC00819E77 /* en */,
+			);
+			name = RungEntryView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

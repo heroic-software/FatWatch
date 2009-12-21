@@ -28,6 +28,7 @@
 	UIButton *flag2Button;
 	UIButton *flag3Button;
 	UIButton *flag4Button;
+	UIButton *flagButtons[4];
 	float scaleIncrement;
 	NSInteger weightRow, fatRow;
 	int weightMode;
@@ -45,9 +46,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *flag2Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag3Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag4Button;
-@property (nonatomic,retain) EWDBMonth *monthData;
-@property (nonatomic) EWDay day;
-@property (nonatomic,getter=isWeighIn) BOOL weighIn;
+- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth isWeighIn:(BOOL)isWeighIn;
 - (IBAction)toggleWeightAction:(id)sender;
 - (IBAction)toggleFlagButton:(UIButton *)sender;
 - (IBAction)cancelAction:(id)sender;

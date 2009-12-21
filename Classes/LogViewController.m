@@ -260,9 +260,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:month];
 	EWDay day = 1 + indexPath.row;
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
-	controller.monthData = monthData;
-	controller.day = day;
-	controller.weighIn = NO;
+	[controller configureForDay:day dbMonth:monthData isWeighIn:NO];
 	[self presentModalViewController:controller animated:YES];
 }
 

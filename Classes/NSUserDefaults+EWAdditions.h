@@ -51,4 +51,5 @@ typedef enum {
 - (float)weightWholeIncrement;
 - (float)defaultWeightChange;
 - (float)heightIncrement;
+- (BOOL)isNumericFlag:(int)which;
 @end

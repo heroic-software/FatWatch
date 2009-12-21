@@ -216,4 +216,10 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	}
 }
 
+
+- (BOOL)isNumericFlag:(int)which {
+	return [self boolForKey:@"EnableLadder"] ? (which == 3) : NO;
+}
+
+
 @end
