@@ -58,7 +58,7 @@
 		float selectedIncrement = [ud scaleIncrement];
 		section = [[BRTableRadioSection alloc] init];
 		section.headerTitle = NSLocalizedString(@"Scale Precision", nil);
-		for (id scaleIncrement in [NSUserDefaults energyUnits]) {
+		for (id scaleIncrement in [NSUserDefaults scaleIncrements]) {
 			BRTableRow *row = [[BRTableRow alloc] init];
 			row.title = [NSUserDefaults nameForScaleIncrement:scaleIncrement];
 			row.object = scaleIncrement;
