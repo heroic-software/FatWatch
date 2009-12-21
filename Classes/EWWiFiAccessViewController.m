@@ -230,7 +230,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 			}
 			if (date != nil) {
 				float scaleWeight = [reader readFloat];
-				BOOL flag = [reader readBoolean];
+				EWFlags flag = [reader readBoolean];
 				NSString *note = [reader readString];
 				
 				if (scaleWeight > 0 || note != nil || flag) {

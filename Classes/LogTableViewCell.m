@@ -294,7 +294,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 
 		for (f = 0; f < 4; f++) {
 			CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
-			if (dd->flags & (1 << f)) {
+			if (EWFlagGet(dd->flags, f)) {
 				NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
 				UIColor *color = [BRColorPalette colorNamed:key];
 				[color setFill];

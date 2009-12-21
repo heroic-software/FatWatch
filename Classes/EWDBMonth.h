@@ -13,17 +13,26 @@
 @class EWDatabase;
 
 
-struct EWDBDay {
+typedef UInt8 EWFlagValue;
+typedef UInt32 EWFlags;
+typedef struct EWDBDay {
 	float scaleWeight;
-	float scaleFat;
+	float scaleFat; // scaleFat is set => scaleWeight is set
 	float trendWeight;
 	float trendFat;
 	NSString *note;
-	int flags;
-};
+	EWFlags flags;
+} EWDBDay;
 
 
-// scaleFat is set => scaleWeight is set
+static inline EWFlagValue EWFlagGet(EWFlags flags, int i) {
+	return 0xFF & (flags >> (8*i));
+}
+
+
+static inline void EWFlagSet(EWFlags *flags, int i, EWFlagValue v) { 
+	*flags = (*flags & ~(0xFF << (8*i))) | (v << (8*i));
+}
 
 
 @interface EWDBMonth : NSObject {
@@ -42,7 +51,7 @@ struct EWDBDay {
 - (EWDay)lastDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
 - (void)updateTrends;
-- (void)setScaleWeight:(float)weight scaleFat:(float)fat flags:(int)flags note:(NSString *)note onDay:(EWDay)day;
+- (void)setScaleWeight:(float)weight scaleFat:(float)fat flags:(EWFlags)flags note:(NSString *)note onDay:(EWDay)day;
 - (BOOL)hasDataOnDay:(EWDay)day;
 - (BOOL)commitChanges;
 @end

@@ -77,10 +77,16 @@
 						value = [NSNumber numberWithFloat:dd->scaleFat];
 						break;
 					case EWExporterFieldFlag1:
+						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 0)];
+						break;
 					case EWExporterFieldFlag2:
+						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 1)];
+						break;
 					case EWExporterFieldFlag3:
+						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 2)];
+						break;
 					case EWExporterFieldFlag4:
-						value = [NSNumber numberWithInt:dd->flags];
+						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 3)];
 						break;
 					case EWExporterFieldNote:
 						value = dd->note;

@@ -162,11 +162,12 @@ enum {
 		scaleFat = 0;
 	}
 	
-	int flags = 0;
-	if (flag1Button.selected) flags |= 0x1;
-	if (flag2Button.selected) flags |= 0x2;
-	if (flag3Button.selected) flags |= 0x4;
-	if (flag4Button.selected) flags |= 0x8;
+	EWFlags flags = 0;
+	
+	if (flag1Button.selected) EWFlagSet(&flags, 0, 1);
+	if (flag2Button.selected) EWFlagSet(&flags, 1, 1);
+	if (flag3Button.selected) EWFlagSet(&flags, 2, 1);
+	if (flag4Button.selected) EWFlagSet(&flags, 3, 1);
 	
 	[monthData setScaleWeight:scaleWeight
 					 scaleFat:scaleFat
@@ -242,10 +243,10 @@ enum {
 	
 	[self toggleWeight];
 
-	flag1Button.selected = (dd->flags & 0x1) != 0;
-	flag2Button.selected = (dd->flags & 0x2) != 0;
-	flag3Button.selected = (dd->flags & 0x4) != 0;
-	flag4Button.selected = (dd->flags & 0x8) != 0;
+	flag1Button.selected = EWFlagGet(dd->flags, 0) != 0;
+	flag2Button.selected = EWFlagGet(dd->flags, 1) != 0;
+	flag3Button.selected = EWFlagGet(dd->flags, 2) != 0;
+	flag4Button.selected = EWFlagGet(dd->flags, 3) != 0;
 	
 	noteView.text = dd->note;
 

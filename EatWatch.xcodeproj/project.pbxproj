@@ -914,7 +914,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "XSL=$SCRIPT_INPUT_FILE_0\nSETTINGS_PLIST=$SCRIPT_INPUT_FILE_1\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_0\n\nxsltproc -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $DEFAULTS_PLIST\n";
+			shellScript = "XSL=$SCRIPT_INPUT_FILE_0\nSETTINGS_PLIST=$SCRIPT_INPUT_FILE_1\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_0\n\n# --novalid prevents DTD loading, which will fail off the Internet\n\nxsltproc --novalid -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $DEFAULTS_PLIST\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */ = {

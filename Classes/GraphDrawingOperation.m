@@ -80,6 +80,7 @@
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
+			// TODO: show more nuance than "any flag is set"
 			gp.flag = (dd->flags != 0);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		}
