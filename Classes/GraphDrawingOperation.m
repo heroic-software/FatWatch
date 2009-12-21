@@ -288,17 +288,21 @@
 
 
 - (CGContextRef)newBitmapContext {
+	const int bitsPerComponent = 8;
+	const int bytesPerPixel = 4;
+
 	int pixelsWide = CGRectGetWidth(bounds);
 	int pixelsHigh = CGRectGetHeight(bounds);
 	
-	int bitmapBytesPerRow   = (pixelsWide * 4);
+	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
     int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
 	void *bitmapData = malloc(bitmapByteCount);
-	NSAssert(bitmapByteCount, @"could not allocate memory for bitmap");
+	NSAssert(bitmapData, @"could not allocate memory for bitmap");
+	bzero(bitmapData, bitmapByteCount);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	
-	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, 8 /* bits per component */, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	if (ctxt == NULL) {
 		free(bitmapData);
 		NSAssert(NO, @"could not create bitmap context");

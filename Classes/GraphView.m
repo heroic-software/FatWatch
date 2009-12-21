@@ -55,7 +55,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	int pixelsHigh = size.height;
 	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
-	void *bitmapData = NSZoneMalloc([self zone], bitmapByteCount);
+	void *bitmapData = malloc(bitmapByteCount);
+	bzero(bitmapData, bitmapByteCount);
+	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
 	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
 
@@ -66,12 +68,19 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	
 	CGContextDrawLinearGradient(ctxt, gradient, CGPointMake(size.width - fadeWidth, 0), CGPointMake(size.width, 0), kCGGradientDrawsBeforeStartLocation);
     CGImageRef mask = CGBitmapContextCreateImage(ctxt);
-	
+
 	CGGradientRelease(gradient);
 	CGContextRelease(ctxt);
 	CGColorSpaceRelease(colorSpace);
-	NSZoneFree([self zone], bitmapData);
-	
+	free(bitmapData);
+
+	// TODO: confirm this bug on device
+	// 3.0 CFVersion 478.470000
+	// 3.1 CFVersion 478.520000
+	if (kCFCoreFoundationVersionNumber == 478.47) {
+		CFRetain(CGImageGetDataProvider(mask));
+	}
+
 	return mask;
 }
 
@@ -104,9 +113,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			CGContextSaveGState(context);
 			CGImageRef maskImage = [self newMaskOfSize:clipRect.size];
 			CGContextClipToMask(context, clipRect, maskImage);
+			CGImageRelease(maskImage);
 			[text drawAtPoint:textPoint withFont:font];
 			CGContextRestoreGState(context);
-			CGImageRelease(maskImage);
 		} else {
 			[text drawAtPoint:textPoint withFont:font];
 		}
@@ -145,8 +154,8 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			CGContextSaveGState(context);
 			CGImageRef maskImage = [self newMaskOfSize:clipRect.size];
 			CGContextClipToMask(context, clipRect, maskImage);
-			[text drawAtPoint:textPoint withFont:font];
 			CGImageRelease(maskImage);
+			[text drawAtPoint:textPoint withFont:font];
 			CGContextRestoreGState(context);
 		} else {
 			[text drawAtPoint:textPoint withFont:font];
