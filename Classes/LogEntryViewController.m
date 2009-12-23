@@ -21,8 +21,8 @@ const CGFloat kWeightPickerComponentWidth = 320 - 88;
 
 
 enum {
-	kModeWeight,
 	kModeWeightAndFat,
+	kModeWeight,
 	kModeNone
 };
 
