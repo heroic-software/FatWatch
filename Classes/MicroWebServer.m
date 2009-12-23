@@ -169,27 +169,34 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-- (NSURL *)url {
+- (NSURL *)rootURL {
 	if (listenSocket == NULL) return nil;
 
-	int err;
-	struct ifaddrs *ifa = NULL, *ifp;
+	struct ifaddrs *ifa = NULL, *ifList, *ifBest = NULL;
 	
-	err = getifaddrs(&ifp);
+	int err = getifaddrs(&ifList);
 	if (err < 0) return nil;
 	
-	for (ifa = ifp; ifa != NULL; ifa = ifa->ifa_next) {
+	for (ifa = ifList; ifa != NULL; ifa = ifa->ifa_next) {
 		if (ifa->ifa_addr == NULL) continue;
 		if (ifa->ifa_addr->sa_family != AF_INET) continue; // skip non-IP4
-		if (strncmp(ifa->ifa_name, "lo", 2) == 0) continue; // skip loopback addresses
+		ifBest = ifa;
+		// Stop searching unless this is just a loopback address
+		if (strncmp(ifa->ifa_name, "lo", 2) != 0) break;
+	}
+	
+	NSURL *theURL;
+	
+	if (ifBest) {
 		struct sockaddr_in *address = (struct sockaddr_in *)ifa->ifa_addr;
 		char *host = inet_ntoa(address->sin_addr);
-		freeifaddrs(ifp);
-		return [NSURL URLWithString:[NSString stringWithFormat:@"http://%s:%d", host, self.port]];
+		NSString *string = [NSString stringWithFormat:@"http://%s:%d", host, self.port];
+		theURL = [NSURL URLWithString:string];
 	}
-
-	freeifaddrs(ifp);
-	return nil;
+	
+	freeifaddrs(ifList);
+	
+	return theURL;
 }
 
 
@@ -484,6 +491,21 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	[self beginResponseWithStatus:500];
 	[self setValue:@"text/plain; charset=utf-8" forResponseHeader:@"Content-Type"];
 	[self endResponseWithBodyString:message];
+}
+
+
+- (void)respondWithRedirectToURL:(NSURL *)url {
+	[self beginResponseWithStatus:301];
+	[self setValue:[url absoluteString] forResponseHeader:@"Location"];
+	[self endResponseWithBodyData:[NSData data]];
+}
+
+
+- (void)respondWithRedirectToPath:(NSString *)path {
+	NSURL *rootURL = webServer.rootURL;
+	NSAssert(rootURL, @"Must have a root URL");
+	NSURL *url = [NSURL URLWithString:path relativeToURL:rootURL];
+	[self respondWithRedirectToURL:url];
 }
 
 

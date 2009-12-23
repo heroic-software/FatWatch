@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MicroWebServer.h"
+#import "EWImporter.h"
 
 
 @class BRReachability;
 @class MicroWebServer;
-@class CSVReader;
 
 
 #define kEWReadyAddressTag 101
@@ -23,7 +23,7 @@
 #define kEWProgressButtonTag 403
 
 
-@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate> {
+@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate,EWImporterDelegate> {
 	UILabel *statusLabel;
 	UIActivityIndicatorView *activityView;
 	UIView *detailView;
@@ -37,13 +37,10 @@
 	// Not NIB Stuff
 	BRReachability *reachability;
 	MicroWebServer *webServer;
-	// Import State
-	NSData *importData;
-	NSStringEncoding importEncoding;
-	CSVReader *reader;
-	NSInteger lineCount, importCount;
 	NSDictionary *webResources;
 	NSMutableDictionary *exportDefaults;
+	// Import State
+	EWImporter *importer;
 }
 @property (nonatomic,retain) IBOutlet UILabel *statusLabel;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;

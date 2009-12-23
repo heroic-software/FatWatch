@@ -26,7 +26,7 @@
 </div>
 
 <div id="beef">
-	<form method="POST" action="/import">
+	<form method="POST" action="/process">
 	<table summary="Columns available for import.">
 		<thead>
 		<tr>
@@ -45,7 +45,7 @@
 		</tr>
 		<tr>
 			<td>Weight</td>
-			<td><select name="weight" id="importWeight"><option value="0"></option></select></td>
+			<td><select name="weight" id="importWeight"><option value="0">&mdash;</option></select></td>
 			<td><select name="weightFormat" id="importWeightFormat"></select></td>
 			<td class="importPreview" id="importWeightPreview"></td>
 		</tr>
@@ -54,53 +54,53 @@
 			<td colspan="3" class="hint"><i>This value is computed from weight.</i></td>
 		<tr>
 			<td>Body Fat Ratio</td>
-			<td><select name="fat" id="importFat"><option value="0"></option></select></td>
+			<td><select name="fat" id="importFat"><option value="0">&mdash;</option></select></td>
 			<td><select name="fatFormat" id="importFatFormat"></select></td>
 			<td class="importPreview" id="importFatPreview"></td>
 		</tr>
 		<tr>
 			<td>Blue Mark</td>
-			<td><select name="flag1" id="importFlag1"><option value="0"></option></select></td>
+			<td><select name="flag1" id="importFlag1"><option value="0">&mdash;</option></select></td>
 			<td></td>
 			<td class="importPreview" id="importFlag1Preview"></td>
 		</tr>
 		<tr>
 			<td>Red Mark</td>
-			<td><select name="flag2" id="importFlag2"><option value="0"></option></select></td>
+			<td><select name="flag2" id="importFlag2"><option value="0">&mdash;</option></select></td>
 			<td></td>
 			<td class="importPreview" id="importFlag2Preview"></td>
 		</tr>
 		<tr>
 			<td>Green Mark</td>
-			<td><select name="flag3" id="importFlag3"><option value="0"></option></select></td>
+			<td><select name="flag3" id="importFlag3"><option value="0">&mdash;</option></select></td>
 			<td></td>
 			<td class="importPreview" id="importFlag3Preview"></td>
 		</tr>
 		<tr>
 			<td>Yellow Mark</td>
-			<td><select name="flag4" id="importFlag4"><option value="0"></option></select></td>
+			<td><select name="flag4" id="importFlag4"><option value="0">&mdash;</option></select></td>
 			<td></td>
 			<td class="importPreview" id="importFlag4Preview"></td>
 		</tr>
 		<tr>
 			<td>Note</td>
-			<td><select name="note" id="importNote"><option value="0"></option></select></td>
+			<td><select name="note" id="importNote"><option value="0">&mdash;</option></select></td>
 			<td></td>
 			<td class="importPreview" id="importNotePreview"></td>
 		</tr>
 		</tbody>
 	</table>
 	<p>
-		<input type="radio" name="prepare" value="merge" id="importMerge" checked="true"/>
+		<input type="radio" name="prep" value="none" id="importMerge" checked="true"/>
 		<label for="importMerge">Merge imported data with data on <span class="deviceModel">device</span>.</label>
 	</p>
 	<p>
-		<input type="radio" name="prepare" value="replace" id="importReplace"/>
+		<input type="radio" name="prep" value="replace" id="importReplace"/>
 		<label for="importReplace">Delete all data from <span class="deviceModel">device</span> before import.</label>
 	</p>
 	<p>
-		<input type="submit" name="op" value="Cancel"/>
-		<input type="submit" name="op" value="Import"/>
+		<input type="submit" name="doCancel" value="Cancel"/>
+		<input type="submit" name="doImport" value="Import"/>
 	</p>
 	</form>
 </div>

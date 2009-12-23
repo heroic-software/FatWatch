@@ -98,6 +98,7 @@
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE6075110E01C0100819E77 /* RungEntryView.xib */; };
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
+		BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6082410E03E7F00819E77 /* EWImporter.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
@@ -316,6 +317,8 @@
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
 		BCE6075410E0227000819E77 /* RungEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RungEntryViewController.h; path = Classes/RungEntryViewController.h; sourceTree = "<group>"; };
 		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; };
+		BCE6082310E03E7F00819E77 /* EWImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWImporter.h; path = Classes/EWImporter.h; sourceTree = "<group>"; };
+		BCE6082410E03E7F00819E77 /* EWImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWImporter.m; path = Classes/EWImporter.m; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
@@ -665,6 +668,8 @@
 				BC04131610DB8024008FCB11 /* CSVExporter.m */,
 				BC04131810DB804B008FCB11 /* EWExporter.h */,
 				BC04131910DB804B008FCB11 /* EWExporter.m */,
+				BCE6082310E03E7F00819E77 /* EWImporter.h */,
+				BCE6082410E03E7F00819E77 /* EWImporter.m */,
 				BC0CE4610DDC0F6300AB8899 /* DataSearch.h */,
 				BC0CE4620DDC0F6300AB8899 /* DataSearch.m */,
 				BC871F190DC7BE5A009312BA /* MicroWebServer.h */,
@@ -759,6 +764,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF52AD410D066550017C3A1 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
+				BCF6ED5D10E09B5600139F20 /* ShellScript */,
 				BCF52ACA10D066540017C3A1 /* Resources */,
 				BCF52ACB10D066540017C3A1 /* Sources */,
 				BCF52ACC10D066540017C3A1 /* Frameworks */,
@@ -956,6 +962,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		BCF6ED5D10E09B5600139F20 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find $SRCROOT \\\n\t-type f \\\n\t-name \"*.js\" \\\n\t-not -name \"*jquery*\" \\\n\t-exec /Users/benzado/bin/jslint/jslint.sh \"{}\" \\;\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1017,6 +1037,7 @@
 				BC0415B110DE20D7008FCB11 /* EWWeightFormatter.m in Sources */,
 				BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */,
 				BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */,
+				BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

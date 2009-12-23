@@ -24,7 +24,7 @@
 @property (nonatomic,assign) id <MicroWebServerDelegate> delegate;
 @property (nonatomic,readonly,getter=isRunning) BOOL running;
 @property (nonatomic,readonly) UInt16 port;
-@property (nonatomic,readonly) NSURL *url;
+@property (nonatomic,readonly) NSURL *rootURL;
 - (void)start;
 - (void)stop;
 @end
@@ -52,6 +52,8 @@
 - (void)endResponseWithBodyString:(NSString *)string;
 - (void)endResponseWithBodyData:(NSData *)data;
 - (void)respondWithErrorMessage:(NSString *)message;
+- (void)respondWithRedirectToURL:(NSURL *)url;
+- (void)respondWithRedirectToPath:(NSString *)path;
 @end
 
 

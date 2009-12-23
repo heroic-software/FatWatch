@@ -18,8 +18,10 @@
 @property (nonatomic,retain) NSNumberFormatter *floatFormatter;
 @property (nonatomic,readonly) float progress;
 - (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding;
+- (void)reset;
 - (BOOL)nextRow;
 - (NSString *)readString;
 - (float)readFloat;
 - (BOOL)readBoolean;
+- (NSArray *)readRow;
 @end

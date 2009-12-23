@@ -8,12 +8,9 @@
 
 #import "BRJSON.h"
 #import "BRReachability.h"
-#import "CSVReader.h"
 #import "CSVExporter.h"
-#import "EWDBMonth.h"
-#import "EWDatabase.h"
 #import "EWExporter.h"
-#import "EWGoal.h"
+#import "EWImporter.h"
 #import "EWWiFiAccessViewController.h"
 #import "FormDataParser.h"
 #import "MicroWebServer.h"
@@ -93,6 +90,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[statusLabel release];
 	[webResources release];
 	[webServer release];
+	[importer release];
     [super dealloc];
 }
 
@@ -138,6 +136,9 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
+#pragma mark Detail View Swapping
+
+
 - (void)displayDetailView:(UIView *)view {
 	view.alpha = 0;
 	[UIView beginAnimations:@"DetailTransition" context:nil];
@@ -161,122 +162,21 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-- (void)beginImport {
-	reader = [[CSVReader alloc] initWithData:importData encoding:importEncoding];
-	reader.floatFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport];
-	lineCount = 0;
-	importCount = 0;
-	
-	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
-	titleLabel.text = @"Importing";
-	progressView.progress = 0.0f;
-	[[progressDetailView viewWithTag:kEWProgressDetailTag] setHidden:YES];
-	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:YES];
-	[self displayDetailView:progressDetailView];
-	
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-
-	[self performSelector:@selector(continueImport) withObject:nil afterDelay:0];
-}
-
-
-- (void)endImport {
-	[[EWDatabase sharedDatabase] commitChanges];
-	[reader release];
-	reader = nil;
-	[importData release];
-	importData = nil;
-	
-	[self setCurrentDateForKey:kEWLastImportKey];
-	
-	NSString *msg;
-	
-	if (importCount > 0) {
-		NSString *msgFormat = NSLocalizedString(@"Read %d lines and imported %d measurements.", @"After import, count of lines read and imported.");
-		msg = [NSString stringWithFormat:msgFormat, lineCount, importCount];
-	} else {
-		NSString *msgFormat = NSLocalizedString(@"Read %d lines but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported.");
-		msg = [NSString stringWithFormat:msgFormat, lineCount];
-	}
-
-	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
-	titleLabel.text = @"Done";
-	
-	progressView.progress = 1.0f;
-	
-	UILabel *detailLabel = (id)[progressDetailView viewWithTag:kEWProgressDetailTag];
-	detailLabel.text = msg;
-	detailLabel.hidden = NO;
-	
-	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:NO];
-	
-	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-}
-
-
-- (void)continueImport {
-	const EWDatabase *db = [EWDatabase sharedDatabase];
-	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.2];
-	NSDateFormatter *isoDateFormatter = EWDateFormatterGetISO();
-	NSDateFormatter *localDateFormatter = EWDateFormatterGetLocal();
-	
-	while ([reader nextRow]) {
-		lineCount += 1;
-		NSString *dateString = [reader readString];
-		if (dateString != nil) {
-			NSDate *date = [isoDateFormatter dateFromString:dateString];
-			if (date == nil) {
-				date = [localDateFormatter dateFromString:dateString];
-			}
-			if (date != nil) {
-				float scaleWeight = [reader readFloat];
-				EWFlags flag = [reader readBoolean];
-				NSString *note = [reader readString];
-				
-				if (scaleWeight > 0 || note != nil || flag) {
-					EWMonthDay monthday = EWMonthDayFromDate(date);
-					EWDBMonth *md = [db getDBMonth:EWMonthDayGetMonth(monthday)];
-					[md setScaleWeight:scaleWeight
-							  scaleFat:0
-								 flags:flag
-								  note:note
-								 onDay:EWMonthDayGetDay(monthday)];
-					importCount += 1;
-				}
-			}
-		}
-		if ([recessDate timeIntervalSinceNow] < 0) {
-			progressView.progress = reader.progress;
-			[self performSelector:@selector(continueImport) 
-					   withObject:nil
-					   afterDelay:0];
-			return;
-		}
-	}
-		
-	[self endImport];
-}
-
-
 #pragma mark IBAction
 
 
 - (IBAction)performMergeImport {
-	[self beginImport];
+	// TODO: delete
 }
 
 
 - (IBAction)performReplaceImport {
-	[EWGoal deleteGoal];
-	[[EWDatabase sharedDatabase] deleteAllData];
-	[self beginImport];
+	// TODO: delete
 }
 
 
 - (IBAction)cancelImport {
-	[importData release];
-	importData = nil;
-	[self displayDetailView:activeDetailView];
+	// TODO: delete
 }
 
 
@@ -314,10 +214,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 		return;
 	}
 	
-	if ([contentType hasPrefix:@"text/"]) {
-		contentType = [contentType stringByAppendingString:@"; charset=utf-8"];
-	}
-
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
 	[connection setValue:lastModifiedDate forResponseHeader:@"Last-Modified"];
@@ -334,9 +230,12 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
 	[self sendResource:name ofType:@"html.gz"
-		   contentType:@"text/html"
+		   contentType:@"text/html; charset=utf-8"
 		  toConnection:connection];
 }
+
+
+#pragma mark Web Server Actions
 
 
 NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
@@ -521,30 +420,151 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 }
 
 
-- (void)handleImport:(MicroWebConnection *)connection {
-	if (importData != nil) {
-		// If we are already waiting for imported data to be handled, ignore
-		// further requests.
-		[self sendHTMLResourceNamed:@"importPending" 
-					   toConnection:connection];
+- (void)receiveUpload:(MicroWebConnection *)connection {
+	if (importer) {
+		// An import is already in progress!
+		// TODO: release and replace importer only if it is safe to do so
+		// (not in the process of importing now)
+		[self sendHTMLResourceNamed:@"importPending" toConnection:connection];
 		return;
 	}
 	
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
-	importData = [[form dataForKey:@"filedata"] retain];
-	importEncoding = [[form stringForKey:@"encoding"] intValue];
+	NSData *data = [form dataForKey:@"filedata"];
+	NSStringEncoding encoding = [[form stringForKey:@"encoding"] intValue];
 	[form release];
 	
-	if (importData == nil) {
-		[self sendHTMLResourceNamed:@"importNoData" 
-					   toConnection:connection];
+	if (data == nil) {
+		[self sendHTMLResourceNamed:@"importNoData" toConnection:connection];
+		return;
+	}
+
+	importer = [[EWImporter alloc] initWithData:data encoding:encoding];
+	importer.delegate = self;
+		
+	[connection respondWithRedirectToPath:@"/import"];
+}
+
+
+- (void)sendImportJavaScriptToConnection:(MicroWebConnection *)connection {
+	NSDictionary *root = [importer infoForJavaScript];
+	
+	NSMutableData *json = [[NSMutableData alloc] init];
+	[json appendBytes:"var FatWatchImport=" length:19];
+	[root appendJSONRepresentationToData:json];
+	[json appendBytes:";" length:1];
+	
+	[connection beginResponseWithStatus:HTTP_STATUS_OK];
+	[connection setValue:@"text/javascript; charset=utf-8" forResponseHeader:@"Content-Type"];
+	[connection setValue:@"no-cache" forResponseHeader:@"Cache-Control"];
+	[connection endResponseWithBodyData:json];
+	
+	[json release];
+}
+
+
+- (void)processImport:(MicroWebConnection *)connection {
+	if (importer == nil) {
+		[connection respondWithErrorMessage:@"No Import to Process!"];
 		return;
 	}
 	
-	[self displayDetailView:promptDetailView];
-		
-	[self sendHTMLResourceNamed:@"importAccepted"
-				   toConnection:connection];
+	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
+	
+	if (! [form hasKey:@"doImport"]) {
+		[form release];
+		[importer release];
+		importer = nil;
+		[connection respondWithRedirectToPath:@"/#import"];
+		return;
+	}
+	
+	[importer setColumn:[[form stringForKey:@"date"] intValue] 
+			   forField:EWImporterFieldDate];
+	[importer setColumn:[[form stringForKey:@"weight"] intValue] 
+			   forField:EWImporterFieldWeight];
+	[importer setColumn:[[form stringForKey:@"fat"] intValue] 
+			   forField:EWImporterFieldFat];
+	[importer setColumn:[[form stringForKey:@"flag1"] intValue] 
+			   forField:EWImporterFieldFlag1];
+	[importer setColumn:[[form stringForKey:@"flag2"] intValue] 
+			   forField:EWImporterFieldFlag2];
+	[importer setColumn:[[form stringForKey:@"flag3"] intValue] 
+			   forField:EWImporterFieldFlag3];
+	[importer setColumn:[[form stringForKey:@"flag4"] intValue] 
+			   forField:EWImporterFieldFlag4];
+	[importer setColumn:[[form stringForKey:@"note"] intValue] 
+			   forField:EWImporterFieldNote];
+	
+	{
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		[df setDateFormat:[form stringForKey:@"dateFormat"]];
+		[importer setFormatter:df forField:EWImporterFieldDate];
+		[df release];
+	}
+	{
+		EWWeightUnit weightUnit = [[form stringForKey:@"weightFormat"] intValue];
+		NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport unit:weightUnit];
+		[importer setFormatter:wf forField:EWImporterFieldWeight];
+	}
+	{
+		NSNumberFormatter *ff = [[NSNumberFormatter alloc] init];
+		[importer setFormatter:ff forField:EWImporterFieldFat];
+		[ff release];
+	}
+	
+	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
+	
+	[form release];
+	
+	if ([importer performImport]) {
+		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+		[self displayDetailView:progressDetailView];
+		[self sendHTMLResourceNamed:@"importAccepted" toConnection:connection];
+	} else {
+		[connection respondWithErrorMessage:@"Importer Problem!"];
+	}
+}
+
+
+#pragma mark EWImporterDelegate
+
+
+- (void)importer:(EWImporter *)anImporter importProgress:(float)progress {
+	progressView.progress = progress;
+}
+
+
+- (void)importer:(EWImporter *)anImporter didImportNumberOfMeasurements:(int)importedCount outOfNumberOfRows:(int)rowCount {
+	
+	[importer autorelease];
+	importer = nil;
+
+	[self setCurrentDateForKey:kEWLastImportKey];
+	
+	NSString *msg;
+	
+	if (importedCount > 0) {
+		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d measurements out of %d rows.", @"After import, count of lines read and imported."), 
+			   importedCount,
+			   rowCount];
+	} else {
+		msg = [NSString stringWithFormat:NSLocalizedString(@"Read %d rows but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported."),
+			   rowCount];
+	}
+
+	progressView.progress = 1.0f;
+
+	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
+	titleLabel.text = @"Done";
+
+	UILabel *detailLabel = (id)[progressDetailView viewWithTag:kEWProgressDetailTag];
+	detailLabel.text = msg;
+	detailLabel.hidden = NO;
+
+	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:NO];
+
+	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
 
@@ -583,34 +603,19 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	NSDictionary *rsrc = [webResources objectForKey:path];
 	if (rsrc) {
-		[self sendResource:[rsrc objectForKey:@"Name"]
-					ofType:[rsrc objectForKey:@"Type"]
-			   contentType:[rsrc objectForKey:@"Content-Type"]
-			  toConnection:connection];
-		return;
+		NSString *action = [rsrc objectForKey:@"Action"];
+		if (action) {
+			[self performSelector:NSSelectorFromString(action) 
+					   withObject:connection];
+		} else {
+			[self sendResource:[rsrc objectForKey:@"Name"]
+						ofType:[rsrc objectForKey:@"Type"]
+				   contentType:[rsrc objectForKey:@"Content-Type"]
+				  toConnection:connection];
+		}
+	} else {
+		[self sendNotFoundErrorToConnection:connection];
 	}
-	
-	if ([path isEqualToString:@"/values.js"]) {
-		[self sendValuesJavaScriptToConnection:connection];
-		return;
-	}
-	
-//	if ([path isEqualToString:@"/import.js"]) {
-//		[self sendImportJavaScriptToConnection:connection];
-//		return;
-//	}
-	
-	if ([path isEqualToString:@"/export"]) {
-		[self handleExport:connection];
-		return;
-	}
-	
-	if ([path isEqualToString:@"/import"]) {
-		[self handleImport:connection];
-		return;
-	}
-	
-	[self sendNotFoundErrorToConnection:connection];
 }
 
 
@@ -628,7 +633,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			statusLabel.text = @"Ready";
 			UILabel *addressLabel = (id)[activeDetailView viewWithTag:kEWReadyAddressTag];
 			UILabel *nameLabel = (id)[activeDetailView viewWithTag:kEWReadyNameTag];
-			addressLabel.text = [webServer.url description];
+			addressLabel.text = [webServer.rootURL description];
 			nameLabel.text = webServer.name;
 			[self displayDetailView:activeDetailView];
 		} else {

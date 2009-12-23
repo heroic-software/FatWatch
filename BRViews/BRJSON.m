@@ -59,7 +59,7 @@
 
 @implementation NSNumber (BRJSON)
 - (void)appendJSONRepresentationToData:(NSMutableData *)json {
-	if (CFNumberGetType((CFNumberRef)self)) {
+	if (CFNumberGetType((CFNumberRef)self) == kCFNumberCharType) {
 		char v = [self charValue];
 		if (v == 0) { [json appendBytes:"false" length:5]; return; }
 		if (v == 1) { [json appendBytes:"true" length:4]; return; }

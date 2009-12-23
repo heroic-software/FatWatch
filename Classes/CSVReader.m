@@ -44,6 +44,11 @@
 }
 
 
+- (void)reset {
+	dataIndex = 0;
+}
+
+
 - (void)skipOverBytes:(const char *)charset {
 	const NSUInteger dataLength	 = [data length];
 	const char *dataBytes = [data bytes];
@@ -220,6 +225,17 @@
 
 - (float)progress {
 	return (float)dataIndex / (float)[data length];
+}
+
+
+- (NSArray *)readRow {
+	if (![self nextRow]) return nil;
+	NSMutableArray *rowArray = [[NSMutableArray alloc] init];
+	NSString *string;
+	while (string = [self readString]) {
+		[rowArray addObject:string];
+	}
+	return [rowArray autorelease];
 }
 
 

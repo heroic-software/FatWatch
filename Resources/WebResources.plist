@@ -9,7 +9,39 @@
 		<key>Type</key>
 		<string>html.gz</string>
 		<key>Content-Type</key>
-		<string>text/html</string>
+		<string>text/html; charset=utf-8</string>
+	</dict>
+	<key>/export</key>
+	<dict>
+		<key>Action</key>
+		<string>handleExport:</string>
+	</dict>
+	<key>/fatwatch.css</key>
+	<dict>
+		<key>Name</key>
+		<string>fatwatch</string>
+		<key>Type</key>
+		<string>css.gz</string>
+		<key>Content-Type</key>
+		<string>text/css; charset=utf-8</string>
+	</dict>
+	<key>/fatwatch.js</key>
+	<dict>
+		<key>Name</key>
+		<string>fatwatch</string>
+		<key>Type</key>
+		<string>js.gz</string>
+		<key>Content-Type</key>
+		<string>text/javascript; charset=utf-8</string>
+	</dict>
+	<key>/favicon.ico</key>
+	<dict>
+		<key>Name</key>
+		<string>favicon</string>
+		<key>Type</key>
+		<string>ico.gz</string>
+		<key>Content-Type</key>
+		<string>image/x-icon</string>
 	</dict>
 	<key>/icon.png</key>
 	<dict>
@@ -20,14 +52,19 @@
 		<key>Content-Type</key>
 		<string>image/png</string>
 	</dict>
-	<key>/fatwatch.css</key>
+	<key>/import</key>
 	<dict>
 		<key>Name</key>
-		<string>fatwatch</string>
+		<string>import</string>
 		<key>Type</key>
-		<string>css.gz</string>
+		<string>html.gz</string>
 		<key>Content-Type</key>
-		<string>text/css</string>
+		<string>text/html; charset=utf-8</string>
+	</dict>
+	<key>/import.js</key>
+	<dict>
+		<key>Action</key>
+		<string>sendImportJavaScriptToConnection:</string>
 	</dict>
 	<key>/jquery.js</key>
 	<dict>
@@ -36,16 +73,12 @@
 		<key>Type</key>
 		<string>js.gz</string>
 		<key>Content-Type</key>
-		<string>text/javascript</string>
+		<string>text/javascript; charset=utf-8</string>
 	</dict>
-	<key>/fatwatch.js</key>
+	<key>/process</key>
 	<dict>
-		<key>Name</key>
-		<string>fatwatch</string>
-		<key>Type</key>
-		<string>js.gz</string>
-		<key>Content-Type</key>
-		<string>text/javascript</string>
+		<key>Action</key>
+		<string>processImport:</string>
 	</dict>
 	<key>/robots.txt</key>
 	<dict>
@@ -54,16 +87,17 @@
 		<key>Type</key>
 		<string>txt.gz</string>
 		<key>Content-Type</key>
-		<string>text/plain</string>
+		<string>text/plain; charset=utf-8</string>
 	</dict>
-	<key>/favicon.ico</key>
+	<key>/upload</key>
 	<dict>
-		<key>Name</key>
-		<string>favicon</string>
-		<key>Type</key>
-		<string>ico.gz</string>
-		<key>Content-Type</key>
-		<string>image/x-icon</string>
+		<key>Action</key>
+		<string>receiveUpload:</string>
+	</dict>
+	<key>/values.js</key>
+	<dict>
+		<key>Action</key>
+		<string>sendValuesJavaScriptToConnection:</string>
 	</dict>
 </dict>
 </plist>
