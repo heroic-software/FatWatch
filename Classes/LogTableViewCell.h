@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "EWDate.h"
+#import "EWDBMonth.h"
 
-@class EWDBMonth;
 @class LogTableViewCellContentView;
 
 extern NSString * const kLogCellReuseIdentifier;
@@ -33,7 +33,7 @@ extern NSString * const kLogCellReuseIdentifier;
 	LogTableViewCell *cell;
 	NSString *day;
 	NSString *weekday;
-	struct EWDBDay *dd;
+	const EWDBDay *dd;
 	BOOL highlightDate;
 	NSFormatter *weightFormatter;
 	NSFormatter *varianceFormatter;
@@ -42,6 +42,6 @@ extern NSString * const kLogCellReuseIdentifier;
 @property (nonatomic,assign) LogTableViewCell *cell;
 @property (nonatomic,retain) NSString *day;
 @property (nonatomic,retain) NSString *weekday;
-@property (nonatomic) struct EWDBDay *dd;
+@property (nonatomic) const EWDBDay *dd;
 @property (nonatomic) BOOL highlightDate;
 @end

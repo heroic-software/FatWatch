@@ -24,7 +24,10 @@
 
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
-	[dbm setScaleWeight:weight scaleFat:0 flags:0 note:nil onDay:day];
+	EWDBDay dbd;
+	bcopy([dbm getDBDayOnDay:day], &dbd, sizeof(EWDBDay));
+	dbd.scaleWeight = weight;
+	[dbm setDBDay:&dbd onDay:day];
 }
 
 
@@ -51,7 +54,7 @@
 		}
 		for (; day <= [dbm lastDayWithWeight]; day++) {
 			if (![dbm hasDataOnDay:day]) continue;
-			struct EWDBDay *d = [dbm getDBDay:day];
+			const EWDBDay *d = [dbm getDBDayOnDay:day];
 			[output appendFormat:@"  %2d:  %5.1f (%5.1f) %5.1f (%5.1f) 0x%08x \"%@\"\n",
 			 day,
 			 d->scaleWeight, d->trendWeight,
@@ -114,7 +117,7 @@
 
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
-	struct EWDBDay *d = [dbm getDBDay:day];
+	const EWDBDay *d = [dbm getDBDayOnDay:day];
 	NSString *note = [NSString stringWithFormat:@"mismatch on %@", [dbm dateOnDay:day]];
 	STAssertEquals(weight, d->scaleWeight, note);
 	STAssertEqualsWithAccuracy(trend, d->trendWeight, 0.0001f, note);
@@ -222,21 +225,5 @@
 	[self closeDatabase];
 }
 
-
-- (void)testFlagFunctions {
-	EWFlags flags = 0x12345678;
-	STAssertEquals(EWFlagGet(flags, 0), (EWFlagValue)0x78, @"EWFlagGet");
-	STAssertEquals(EWFlagGet(flags, 1), (EWFlagValue)0x56, @"EWFlagGet");
-	STAssertEquals(EWFlagGet(flags, 2), (EWFlagValue)0x34, @"EWFlagGet");
-	STAssertEquals(EWFlagGet(flags, 3), (EWFlagValue)0x12, @"EWFlagGet");
-	EWFlagSet(&flags, 0, 0x87);
-	STAssertEquals(flags, (EWFlags)0x12345687, @"EWFlagSet");
-	EWFlagSet(&flags, 1, 0x65);
-	STAssertEquals(flags, (EWFlags)0x12346587, @"EWFlagSet");
-	EWFlagSet(&flags, 2, 0x43);
-	STAssertEquals(flags, (EWFlags)0x12436587, @"EWFlagSet");
-	EWFlagSet(&flags, 3, 0x21);
-	STAssertEquals(flags, (EWFlags)0x21436587, @"EWFlagSet");
-}
 
 @end

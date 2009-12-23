@@ -203,7 +203,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	EWDBMonth *md = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(startMonthDay)];
 	float w;
 
-	w = [md getDBDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
+	w = [md getDBDayOnDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
 	if (w > 0) return w;
 	
 	w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];

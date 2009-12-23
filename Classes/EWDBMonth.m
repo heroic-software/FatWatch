@@ -15,13 +15,15 @@ enum {
 	kMonthDayColumn = 0,
 	kScaleWeightColumn,
 	kScaleFatColumn,
-	kFlagsColumn,
+	kFlag0Column,
+	kFlag1Column,
+	kFlag2Column,
+	kFlag3Column,
 	kNoteColumn
 };
 
 
 #define EWSetBit(bf, i) { bf |= (1 << (i)); }
-#define EWClearBit(bf, i) { bf &= ~(1 << (i)); }
 
 
 BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
@@ -39,6 +41,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 @interface EWDBMonth ()
 - (void)updateTrendsSaveOutput:(BOOL)saveOutput;
+- (EWDBDay *)accessDBDayOnDay:(EWDay)day;
 @end
 
 
@@ -60,10 +63,13 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		[stmt bindInt:EWMonthDayMake(m+1, 0) toParameter:2];
 		while ([stmt step]) {
 			EWDay day = EWMonthDayGetDay([stmt intValueOfColumn:kMonthDayColumn]);
-			struct EWDBDay *d = [self getDBDay:day];
+			EWDBDay *d = [self accessDBDayOnDay:day];
 			d->scaleWeight = [stmt doubleValueOfColumn:kScaleWeightColumn];
 			d->scaleFat = [stmt doubleValueOfColumn:kScaleFatColumn];
-			d->flags = [stmt intValueOfColumn:kFlagsColumn];
+			d->flags[0] = [stmt intValueOfColumn:kFlag0Column];
+			d->flags[1] = [stmt intValueOfColumn:kFlag1Column];
+			d->flags[2] = [stmt intValueOfColumn:kFlag2Column];
+			d->flags[3] = [stmt intValueOfColumn:kFlag3Column];
 			d->note = [[stmt stringValueOfColumn:kNoteColumn] copy];
 		}
 
@@ -95,15 +101,20 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (struct EWDBDay *)getDBDay:(EWDay)day {
+- (const EWDBDay *)getDBDayOnDay:(EWDay)day {
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];
 }
 
 
 - (BOOL)hasDataOnDay:(EWDay)day {
-	struct EWDBDay *d = [self getDBDay:day];
-	return (d->scaleWeight > 0 || d->note != nil || d->flags != 0);
+	EWDBDay *d = [self accessDBDayOnDay:day];
+	return (d->scaleWeight > 0 || 
+			d->flags[0] != 0 ||
+			d->flags[1] != 0 ||
+			d->flags[2] != 0 ||
+			d->flags[3] != 0 ||
+			d->note != nil);
 }
 
 
@@ -156,32 +167,37 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (void)setScaleWeight:(float)weight scaleFat:(float)fat flags:(EWFlags)flags note:(NSString *)note onDay:(EWDay)day {
-	NSParameterAssert((fat == 0) || ((fat > 0) && (weight > 0)));
+- (void)setDBDay:(EWDBDay *)src onDay:(EWDay)day {
+	NSParameterAssert((src->scaleFat == 0) || ((src->scaleFat > 0) && (src->scaleWeight > 0)));
 
-	struct EWDBDay *d = [self getDBDay:day];
+	EWDBDay *dst = [self accessDBDayOnDay:day];
 	
-	if (d->scaleWeight != weight) {
-		d->scaleWeight = weight;
-		d->trendWeight = 0;
+	if (dst->scaleWeight != src->scaleWeight) {
+		dst->scaleWeight = src->scaleWeight;
+		dst->trendWeight = 0;
 		[database didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
-	if (d->scaleFat != fat) {
-		d->scaleFat = fat;
-		d->trendFat = 0;
+	if (dst->scaleFat != src->scaleFat) {
+		dst->scaleFat = src->scaleFat;
+		dst->trendFat = 0;
 		[database didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
-	d->flags = flags;
+	dst->flags[0] = src->flags[0];
+	dst->flags[1] = src->flags[1];
+	dst->flags[2] = src->flags[2];
+	dst->flags[3] = src->flags[3];
 	
-	id oldNote = d->note;
-	if ([note length] > 0) {
-		d->note = [note copy];
-	} else {
-		d->note = nil;
+	if (dst->note != src->note) {
+		id oldNote = dst->note;
+		if ([src->note length] > 0) {
+			dst->note = [src->note copy];
+		} else {
+			dst->note = nil;
+		}
+		[oldNote release];
 	}
-	[oldNote release];
 
 	EWSetBit(dirtyBits, day - 1);
 }
@@ -214,7 +230,10 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			} else {
 				[insertStmt bindNullToParameter:kScaleFatColumn+1];
 			}
-			[insertStmt bindInt:d->flags toParameter:kFlagsColumn+1];
+			[insertStmt bindInt:d->flags[0] toParameter:kFlag0Column+1];
+			[insertStmt bindInt:d->flags[1] toParameter:kFlag1Column+1];
+			[insertStmt bindInt:d->flags[2] toParameter:kFlag2Column+1];
+			[insertStmt bindInt:d->flags[3] toParameter:kFlag3Column+1];
 			[insertStmt bindString:d->note toParameter:kNoteColumn+1];
 			[insertStmt step];
 			[insertStmt reset];
@@ -262,6 +281,12 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		[stmt step];
 		[stmt reset];
 	}
+}
+
+
+- (EWDBDay *)accessDBDayOnDay:(EWDay)day { // 
+	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
+	return &days[day - 1];
 }
 
 

@@ -52,11 +52,11 @@
 							 @"importFat", @"fat",
 							 @"importFat", @"bodyfat",
 							 @"importFat", @"body fat",
-							 @"importFlag1", @"flag",
-							 @"importFlag1", @"check",
-							 @"importFlag1", @"mark",
-							 @"importFlag1", @"checkmark",
-							 @"importFlag4", @"rung",
+							 @"importFlag0", @"flag",
+							 @"importFlag0", @"check",
+							 @"importFlag0", @"mark",
+							 @"importFlag0", @"checkmark",
+							 @"importFlag3", @"rung",
 							 @"importNote", @"note",
 							 @"importNote", @"comment",
 							 nil];
@@ -151,7 +151,7 @@
 		EWDay day = EWMonthDayGetDay(md);
 		EWDBDay dd;
 
-		bcopy([dbm getDBDay:day], &dd, sizeof(EWDBDay));
+		bcopy([dbm getDBDayOnDay:day], &dd, sizeof(EWDBDay));
 		
 		id value;
 		
@@ -161,23 +161,19 @@
 		value = [self valueForField:EWImporterFieldFat inArray:rowArray];
 		if (value) dd.scaleFat = [value floatValue];
 		
+		value = [self valueForField:EWImporterFieldFlag0 inArray:rowArray];
+		if (value) dd.flags[0] = [value intValue];
 		value = [self valueForField:EWImporterFieldFlag1 inArray:rowArray];
-		if (value) EWFlagSet(&dd.flags, 0, [value intValue]);
+		if (value) dd.flags[1] = [value intValue];
 		value = [self valueForField:EWImporterFieldFlag2 inArray:rowArray];
-		if (value) EWFlagSet(&dd.flags, 1, [value intValue]);
+		if (value) dd.flags[2] = [value intValue];
 		value = [self valueForField:EWImporterFieldFlag3 inArray:rowArray];
-		if (value) EWFlagSet(&dd.flags, 2, [value intValue]);
-		value = [self valueForField:EWImporterFieldFlag4 inArray:rowArray];
-		if (value) EWFlagSet(&dd.flags, 3, [value intValue]);
+		if (value) dd.flags[3] = [value intValue];
 
 		value = [self valueForField:EWImporterFieldNote inArray:rowArray];
 		if (value) dd.note = value;
 		
-		[dbm setScaleWeight:dd.scaleWeight
-				   scaleFat:dd.scaleFat
-					  flags:dd.flags
-					   note:dd.note
-					  onDay:day];
+		[dbm setDBDay:&dd onDay:day];
 
 		importedCount += 1;
 

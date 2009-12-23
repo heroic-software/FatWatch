@@ -119,7 +119,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 	logContentView.weekday = [df stringFromDate:EWDateFromMonthAndDay(monthData.month, day)];
 	logContentView.highlightDate = (highlightWeekends && 
 									EWMonthAndDayIsWeekend(monthData.month, day));
-	logContentView.dd = [monthData getDBDay:day];
+	logContentView.dd = [monthData getDBDayOnDay:day];
 	
 	[df release];
 
@@ -295,7 +295,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		for (f = 0; f < 4; f++) {
 			NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
 			[[BRColorPalette colorNamed:key] setFill];
-			EWFlagValue value = EWFlagGet(dd->flags, f);
+			EWFlagValue value = dd->flags[f];
 			
 			if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
 				if (inverse) [[UIColor whiteColor] setFill];

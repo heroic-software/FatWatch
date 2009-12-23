@@ -14,10 +14,10 @@ typedef enum {
 	EWExporterFieldWeight,
 	EWExporterFieldTrendWeight,
 	EWExporterFieldFat,
+	EWExporterFieldFlag0,
 	EWExporterFieldFlag1,
 	EWExporterFieldFlag2,
 	EWExporterFieldFlag3,
-	EWExporterFieldFlag4,
 	EWExporterFieldNote,
 	EWExporterFieldCount
 } EWExporterField;

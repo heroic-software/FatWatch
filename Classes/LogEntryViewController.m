@@ -49,10 +49,10 @@ enum {
 @synthesize noteView;
 @synthesize annotationContainerView;
 @synthesize navigationBar;
+@synthesize flag0Button;
 @synthesize flag1Button;
 @synthesize flag2Button;
 @synthesize flag3Button;
-@synthesize flag4Button;
 
 
 - (id)init {
@@ -66,10 +66,10 @@ enum {
 
 
 - (void)viewDidLoad {
-	flagButtons[0] = flag1Button;
-	flagButtons[1] = flag2Button;
-	flagButtons[2] = flag3Button;
-	flagButtons[3] = flag4Button;
+	flagButtons[0] = flag0Button;
+	flagButtons[1] = flag1Button;
+	flagButtons[2] = flag2Button;
+	flagButtons[3] = flag3Button;
 }
 
 
@@ -78,10 +78,10 @@ enum {
 	[weightContainerView release];
 	[weightPickerView release];
 	[noWeightView release];
+	[flag0Button release];
 	[flag1Button release];
 	[flag2Button release];
 	[flag3Button release];
-	[flag4Button release];
 	[noteView release];
 	[annotationContainerView release];
 	[navigationBar release];
@@ -145,7 +145,7 @@ enum {
 
 
 - (int)rung {
-	return [[flag4Button titleForState:UIControlStateNormal] intValue];
+	return [[flag3Button titleForState:UIControlStateNormal] intValue];
 }
 
 
@@ -198,36 +198,31 @@ enum {
 
 
 - (IBAction)saveAction:(id)sender {
-	float scaleWeight, scaleFat;
+	EWDBDay dbd;
 	
 	if (weightMode == kModeWeight) {
-		scaleWeight = [self weightForPickerRow:weightRow];
-		scaleFat = 0;
+		dbd.scaleWeight = [self weightForPickerRow:weightRow];
+		dbd.scaleFat = 0;
 	} else if (weightMode == kModeWeightAndFat) {
-		scaleWeight = [self weightForPickerRow:weightRow];
-		scaleFat = [self bodyFatForPickerRow:fatRow];
+		dbd.scaleWeight = [self weightForPickerRow:weightRow];
+		dbd.scaleFat = [self bodyFatForPickerRow:fatRow];
 	} else {
-		scaleWeight = 0;
-		scaleFat = 0;
+		dbd.scaleWeight = 0;
+		dbd.scaleFat = 0;
 	}
 	
-	EWFlags flags = 0;
 	int f;
 	for (f = 0; f < 4; f++) {
-		EWFlagValue value;
 		if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
-			value = [[flagButtons[f] titleForState:UIControlStateNormal] intValue];
+			dbd.flags[f] = [[flagButtons[f] titleForState:UIControlStateNormal] intValue];
 		} else {
-			value = flagButtons[f].selected ? 1 : 0;
+			dbd.flags[f] = flagButtons[f].selected ? 1 : 0;
 		}
-		EWFlagSet(&flags, f, value);
 	}
 	
-	[monthData setScaleWeight:scaleWeight
-					 scaleFat:scaleFat
-						flags:flags
-						 note:noteView.text
-						onDay:day];
+	dbd.note = noteView.text;
+	
+	[monthData setDBDay:&dbd onDay:day];
 
 	[[EWDatabase sharedDatabase] commitChanges];
 	
@@ -280,7 +275,7 @@ enum {
 	navigationBar.topItem.title = [titleFormatter stringFromDate:date];
 	[titleFormatter release];
 
-	struct EWDBDay *dd = [monthData getDBDay:day];
+	const EWDBDay *dd = [monthData getDBDayOnDay:day];
 
 	weightRow = [self pickerRowForWeight:dd->scaleWeight];
 	fatRow = [self pickerRowForBodyFat:dd->scaleFat];
@@ -312,7 +307,7 @@ enum {
 
 	int f;
 	for (f = 0; f < 4; f++) {
-		[self setValue:EWFlagGet(dd->flags, f) forFlagIndex:f];
+		[self setValue:dd->flags[f] forFlagIndex:f];
 	}
 	
 	noteView.text = dd->note;

@@ -311,7 +311,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	NSArray *fieldArray = [NSArray arrayWithObjects:
 						   @"date",@"weight",@"trendWeight",@"fat",
-						   @"flag1",@"flag2",@"flag3",@"flag4",@"note",nil];
+						   @"flag0",@"flag1",@"flag2",@"flag3",@"note",nil];
 
 	NSArray *allExportKeys = [[exportDefaults allKeys] copy];
 	for (NSString *exportKey in allExportKeys) {
@@ -468,14 +468,14 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			   forField:EWImporterFieldWeight];
 	[importer setColumn:[[form stringForKey:@"fat"] intValue] 
 			   forField:EWImporterFieldFat];
+	[importer setColumn:[[form stringForKey:@"flag0"] intValue] 
+			   forField:EWImporterFieldFlag0];
 	[importer setColumn:[[form stringForKey:@"flag1"] intValue] 
 			   forField:EWImporterFieldFlag1];
 	[importer setColumn:[[form stringForKey:@"flag2"] intValue] 
 			   forField:EWImporterFieldFlag2];
 	[importer setColumn:[[form stringForKey:@"flag3"] intValue] 
 			   forField:EWImporterFieldFlag3];
-	[importer setColumn:[[form stringForKey:@"flag4"] intValue] 
-			   forField:EWImporterFieldFlag4];
 	[importer setColumn:[[form stringForKey:@"note"] intValue] 
 			   forField:EWImporterFieldNote];
 	

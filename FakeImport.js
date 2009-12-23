@@ -16,7 +16,7 @@ var FatWatchImport = {
 		"importWeight":2,
 		"importFat":3,
 		"importNote":4,
-		"importFlag1":5,
-		"importFlag2":6
+		"importFlag0":5,
+		"importFlag1":6
 	}
 };

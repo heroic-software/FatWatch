@@ -86,7 +86,7 @@ enum {
 		float lastTrendWeight;
 		
 		while ((x < span.length) && (data != nil)) {
-			float y = [data getDBDay:curDay]->trendWeight;
+			float y = [data getDBDayOnDay:curDay]->trendWeight;
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
 				if (firstTrendWeight == 0) firstTrendWeight = y;

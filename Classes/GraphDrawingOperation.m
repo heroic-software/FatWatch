@@ -75,7 +75,7 @@
 		if (data == nil || day == 1) {
 			data = [db getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		struct EWDBDay *dd = [data getDBDay:day];
+		const EWDBDay *dd = [data getDBDayOnDay:day];
 		if (dd->scaleWeight > 0) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);

@@ -24,10 +24,10 @@
 	BRTextView *noteView;
 	UIView *annotationContainerView;
 	UINavigationBar *navigationBar;
+	UIButton *flag0Button;
 	UIButton *flag1Button;
 	UIButton *flag2Button;
 	UIButton *flag3Button;
-	UIButton *flag4Button;
 	UIButton *flagButtons[4];
 	float scaleIncrement;
 	NSInteger weightRow, fatRow;
@@ -42,10 +42,10 @@
 @property (nonatomic,retain) IBOutlet BRTextView *noteView;
 @property (nonatomic,retain) IBOutlet UIView *annotationContainerView;
 @property (nonatomic,retain) IBOutlet UINavigationBar *navigationBar;
+@property (nonatomic,retain) IBOutlet UIButton *flag0Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag1Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag2Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag3Button;
-@property (nonatomic,retain) IBOutlet UIButton *flag4Button;
 - (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth isWeighIn:(BOOL)isWeighIn;
 - (IBAction)toggleWeightAction:(id)sender;
 - (IBAction)toggleFlagButton:(UIButton *)sender;

@@ -196,7 +196,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 - (float)trendWeightOnMonthDay:(EWMonthDay)md {
 	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-	struct EWDBDay *d = [dbm getDBDay:EWMonthDayGetDay(md)];
+	const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
 	return d->trendWeight;
 }
 
@@ -210,7 +210,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		if (EWMonthDayGetMonth(md) != dbm.month) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		struct EWDBDay *d = [dbm getDBDay:EWMonthDayGetDay(md)];
+		const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
 		if (d->scaleWeight > 0) {
 			return md;
 		}
@@ -229,7 +229,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		if (EWMonthDayGetMonth(md) != dbm.month) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		struct EWDBDay *d = [dbm getDBDay:EWMonthDayGetDay(md)];
+		const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
 		if (d->scaleWeight > 0) {
 			return md;
 		}
@@ -292,7 +292,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 - (SQLiteStatement *)insertDayStatement {
-	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFat,flag,note) VALUES (?,?,?,?,?)"];
+	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFat,flag0,flag1,flag2,flag3,note) VALUES (?,?,?,?,?,?,?,?)"];
 }
 
 

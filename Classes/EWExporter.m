@@ -54,7 +54,7 @@
 		for (day = 1; day <= 31; day++) {
 			if (! [dbm hasDataOnDay:day]) continue;
 			
-			struct EWDBDay *dd = [dbm getDBDay:day];
+			const EWDBDay *dd = [dbm getDBDayOnDay:day];
 			
 			[self beginRecord];
 			
@@ -76,17 +76,17 @@
 					case EWExporterFieldFat:
 						value = [NSNumber numberWithFloat:dd->scaleFat];
 						break;
+					case EWExporterFieldFlag0:
+						value = [NSNumber numberWithUnsignedChar:dd->flags[0]];
+						break;
 					case EWExporterFieldFlag1:
-						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 0)];
+						value = [NSNumber numberWithUnsignedChar:dd->flags[1]];
 						break;
 					case EWExporterFieldFlag2:
-						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 1)];
+						value = [NSNumber numberWithUnsignedChar:dd->flags[2]];
 						break;
 					case EWExporterFieldFlag3:
-						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 2)];
-						break;
-					case EWExporterFieldFlag4:
-						value = [NSNumber numberWithUnsignedChar:EWFlagGet(dd->flags, 3)];
+						value = [NSNumber numberWithUnsignedChar:dd->flags[3]];
 						break;
 					case EWExporterFieldNote:
 						value = dd->note;
