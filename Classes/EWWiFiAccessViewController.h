@@ -29,7 +29,6 @@
 	UIView *detailView;
 	UIView *inactiveDetailView;
 	UIView *activeDetailView;
-	UIView *promptDetailView;
 	UIView *progressDetailView;
 	UIProgressView *progressView;
 	UILabel *lastImportLabel;
@@ -47,13 +46,9 @@
 @property (nonatomic,retain) IBOutlet UIView *detailView;
 @property (nonatomic,retain) IBOutlet UIView *inactiveDetailView;
 @property (nonatomic,retain) IBOutlet UIView *activeDetailView;
-@property (nonatomic,retain) IBOutlet UIView *promptDetailView;
 @property (nonatomic,retain) IBOutlet UIView *progressDetailView;
 @property (nonatomic,retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic,retain) IBOutlet UILabel *lastImportLabel;
 @property (nonatomic,retain) IBOutlet UILabel *lastExportLabel;
-- (IBAction)performMergeImport;
-- (IBAction)performReplaceImport;
-- (IBAction)cancelImport;
 - (IBAction)dismissProgressView;
 @end

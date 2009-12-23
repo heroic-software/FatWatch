@@ -51,7 +51,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 @synthesize detailView;
 @synthesize inactiveDetailView;
 @synthesize activeDetailView;
-@synthesize promptDetailView;
 @synthesize progressDetailView;
 @synthesize progressView;
 @synthesize lastImportLabel;
@@ -85,7 +84,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[lastImportLabel release];
 	[progressDetailView release];
 	[progressView release];
-	[promptDetailView release];
 	[reachability release];
 	[statusLabel release];
 	[webResources release];
@@ -163,21 +161,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 #pragma mark IBAction
-
-
-- (IBAction)performMergeImport {
-	// TODO: delete
-}
-
-
-- (IBAction)performReplaceImport {
-	// TODO: delete
-}
-
-
-- (IBAction)cancelImport {
-	// TODO: delete
-}
 
 
 - (IBAction)dismissProgressView {
@@ -543,13 +526,14 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[self setCurrentDateForKey:kEWLastImportKey];
 	
 	NSString *msg;
-	
+
+	// \xc2\xa0 : NO-BREAK SPACE
 	if (importedCount > 0) {
-		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d measurements out of %d rows.", @"After import, count of lines read and imported."), 
+		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d\xc2\xa0measurements out of %d\xc2\xa0rows.", @"After import, count of lines read and imported."), 
 			   importedCount,
 			   rowCount];
 	} else {
-		msg = [NSString stringWithFormat:NSLocalizedString(@"Read %d rows but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported."),
+		msg = [NSString stringWithFormat:NSLocalizedString(@"Read %d\xc2\xa0rows but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported."),
 			   rowCount];
 	}
 
