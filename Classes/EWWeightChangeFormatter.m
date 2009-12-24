@@ -45,16 +45,15 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 - (void)initStyleEnergyPerDay {
 	switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
 		case EWEnergyUnitCalories:
-			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"cal/day (eating)", @"positive calories per day")]];
-			[self setNegativeSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"cal/day (burning)",@"negative calories per day")]];
+			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"cal/day", @"calories per day")]];
 			[self setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
 			break;
 		case EWEnergyUnitKilojoules:
-			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ/day (eating)", @"positive kilojoules per day")]];
-			[self setNegativeSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ/day (burning)",@"negative kilojoules per day")]];
+			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ/day", @"kilojoules per day")]];
 			[self setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
 			break;
 	}
+	[self setNegativeSuffix:[self positiveSuffix]];
 	[self setMaximumFractionDigits:0];
 }
 

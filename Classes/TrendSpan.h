@@ -15,6 +15,7 @@
 	float weightPerDay;
 	float weightChange;
 	BOOL visible;
+	float flagFrequencies[4];
 }
 + (NSArray *)computeTrendSpans;
 @property (nonatomic,retain) NSString *title;
@@ -22,14 +23,6 @@
 @property (nonatomic) float weightPerDay;
 @property (nonatomic) float weightChange;
 @property (nonatomic) BOOL visible;
-- (NSInteger)numberOfTableRows;
-- (void)configureCell:(UITableViewCell *)cell forTableRow:(NSInteger)row;
-- (BOOL)shouldUpdateAfterDidSelectRow:(NSInteger)row;
-@end
-
-
-@interface GoalTrendSpan : TrendSpan {
-	BOOL showEndDateAsDate;
-}
 @property (nonatomic,readonly) NSDate *endDate;
+@property (nonatomic,readonly) float *flagFrequencies;
 @end

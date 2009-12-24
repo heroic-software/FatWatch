@@ -66,6 +66,7 @@
 		BC749EC110E31425001E8030 /* TrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC010E31425001E8030 /* TrendView.xib */; };
 		BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC610E31E9D001E8030 /* TriangleDown.png */; };
 		BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC710E31E9D001E8030 /* TriangleUp.png */; };
+		BC749EEC10E33EC8001E8030 /* EWTrendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BC749EEB10E33EC8001E8030 /* EWTrendButton.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
@@ -260,6 +261,8 @@
 		BC749EC010E31425001E8030 /* TrendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrendView.xib; path = Interfaces/TrendView.xib; sourceTree = "<group>"; };
 		BC749EC610E31E9D001E8030 /* TriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleDown.png; sourceTree = "<group>"; };
 		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
+		BC749EEA10E33EC8001E8030 /* EWTrendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWTrendButton.h; path = Classes/EWTrendButton.h; sourceTree = "<group>"; };
+		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -613,6 +616,8 @@
 		BCB3498F0E6FE8B6000DF454 /* Trends */ = {
 			isa = PBXGroup;
 			children = (
+				BC749EEA10E33EC8001E8030 /* EWTrendButton.h */,
+				BC749EEB10E33EC8001E8030 /* EWTrendButton.m */,
 				BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */,
 				BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */,
 				BC6FF1AC0E774B3B000BABED /* TrendSpan.h */,
@@ -1050,6 +1055,7 @@
 				BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */,
 				BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */,
 				BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */,
+				BC749EEC10E33EC8001E8030 /* EWTrendButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
