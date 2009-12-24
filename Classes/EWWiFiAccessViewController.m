@@ -39,6 +39,26 @@ NSDateFormatter *EWDateFormatterGetLocal() {
 }
 
 
+NSArray *EWFatFormatterNames() {
+	return [NSArray arrayWithObjects:
+			@"Ratio (0...1)",
+			@"Percentage (0...100)", 
+			nil];
+}
+
+
+NSFormatter *EWFatFormatter(NSString *indexString) {
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMinimum:[NSNumber numberWithFloat:0]];
+	[formatter setMaximum:[NSNumber numberWithFloat:1]];
+	if ([indexString intValue] == 1) {
+		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
+	}
+	return [formatter autorelease];
+}
+
+
 static NSString *kEWLastImportKey = @"EWLastImportDate";
 static NSString *kEWLastExportKey = @"EWLastExportDate";
 
@@ -271,11 +291,14 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[root setObject:[[array copy] autorelease] forKey:@"weightFormats"];
 	[array removeAllObjects];
 	
-	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"R", @"value", @"ratio (0.0-&ndash;1.0)", @"label", nil]];
-	[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					  @"P", @"value", @"percent (0%&ndash;100%)", @"label", nil]];
-	[root setObject:[[array copy] autorelease] forKey:@"fatFormats"];
+	int i = 0;
+	for (NSString *name in EWFatFormatterNames()) {
+		[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+						  [NSString stringWithFormat:@"%d", i++], @"value",
+						  name, @"label",
+						  nil]];
+	}
+	[root setObject:array forKey:@"fatFormats"];
 	[array release];
 	
 	// Export Defaults
@@ -340,16 +363,9 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[formatterDictionary setObject:wf forKey:@"weight"];
 	[formatterDictionary setObject:wf forKey:@"trendWeight"];
 	
-	NSNumberFormatter *ff = [[NSNumberFormatter alloc] init];
-	NSString *ffName = [form stringForKey:@"fatFormat"];
-	if ([ffName isEqualToString:@"R"]) {
-	}
-	else if ([ffName isEqualToString:@"P"]) {
-		[ff setNumberStyle:NSNumberFormatterPercentStyle];
-	}
+	NSFormatter *ff = EWFatFormatter([form stringForKey:@"fatFormat"]);
 	[formatterDictionary setObject:ff forKey:@"fat"];
-	[ff release];
-	
+		
 	NSArray *order;
 	
 	NSString *orderString = [form stringForKey:@"order"];
@@ -485,16 +501,15 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[importer setFormatter:df forField:EWImporterFieldDate];
 		[df release];
 	}
+	
 	{
 		EWWeightUnit weightUnit = [[form stringForKey:@"weightFormat"] intValue];
 		NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport unit:weightUnit];
 		[importer setFormatter:wf forField:EWImporterFieldWeight];
 	}
-	{
-		NSNumberFormatter *ff = [[NSNumberFormatter alloc] init];
-		[importer setFormatter:ff forField:EWImporterFieldFat];
-		[ff release];
-	}
+
+	[importer setFormatter:EWFatFormatter([form stringForKey:@"fatFormat"]) 
+				  forField:EWImporterFieldFat];
 	
 	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
 	
