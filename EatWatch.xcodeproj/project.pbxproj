@@ -63,6 +63,9 @@
 		BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */; };
 		BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */; };
 		BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
+		BC749EC110E31425001E8030 /* TrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC010E31425001E8030 /* TrendView.xib */; };
+		BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC610E31E9D001E8030 /* TriangleDown.png */; };
+		BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC710E31E9D001E8030 /* TriangleUp.png */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
@@ -254,6 +257,9 @@
 		BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
 		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
+		BC749EC010E31425001E8030 /* TrendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrendView.xib; path = Interfaces/TrendView.xib; sourceTree = "<group>"; };
+		BC749EC610E31E9D001E8030 /* TriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleDown.png; sourceTree = "<group>"; };
+		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -481,6 +487,8 @@
 				BC040FE410D99047008FCB11 /* Flag3Button1.png */,
 				BC040FE510D99047008FCB11 /* Flag4Button0.png */,
 				BC040FE610D99047008FCB11 /* Flag4Button1.png */,
+				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
+				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -611,6 +619,7 @@
 				BC6FF1AD0E774B3B000BABED /* TrendSpan.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
+				BC749EC010E31425001E8030 /* TrendView.xib */,
 			);
 			name = Trends;
 			sourceTree = "<group>";
@@ -840,6 +849,9 @@
 				BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */,
 				BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */,
 				BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */,
+				BC749EC110E31425001E8030 /* TrendView.xib in Resources */,
+				BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */,
+				BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

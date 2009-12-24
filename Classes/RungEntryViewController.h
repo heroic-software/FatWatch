@@ -18,7 +18,8 @@
 	UILabel *legLiftLabel;
 	UILabel *pushUpLabel;
 	UILabel *stepsLabel;
-	UILabel *countLabel;
+	UILabel *setsLabel;
+	UILabel *extraStepsLabel;
 	int rung;
 	id target;
 	NSString *key;
@@ -33,7 +34,8 @@
 @property (nonatomic,retain) IBOutlet UILabel *legLiftLabel;
 @property (nonatomic,retain) IBOutlet UILabel *pushUpLabel;
 @property (nonatomic,retain) IBOutlet UILabel *stepsLabel;
-@property (nonatomic,retain) IBOutlet UILabel *countLabel;
+@property (nonatomic,retain) IBOutlet UILabel *setsLabel;
+@property (nonatomic,retain) IBOutlet UILabel *extraStepsLabel;
 - (IBAction)changeRung;
 - (IBAction)dismiss;
 - (IBAction)clearRungAndDismiss;
