@@ -14,6 +14,8 @@
 #import "EWWeightChangeFormatter.h"
 #import "EWWeightFormatter.h"
 #import "BRColorPalette.h"
+#import "GraphView.h"
+#import "GraphDrawingOperation.h"
 
 
 /*
@@ -65,6 +67,7 @@
 @implementation TrendViewController
 
 
+@synthesize graphView;
 @synthesize weightChangeButton;
 @synthesize energyChangeButton;
 @synthesize goalGroupView;
@@ -97,6 +100,12 @@
 
 - (void)viewDidLoad {
 	goalGroupView.backgroundColor = self.view.backgroundColor;
+	
+	graphView.backgroundColor = [UIColor whiteColor];
+	
+	weightChangeButton.enabled = NO;
+	relativeWeightButton.enabled = NO;
+	planButton.enabled = NO;
 	
 	[relativeEnergyButton setText:@"burning " forPart:0];
 	[relativeEnergyButton setText:@"10 cal/day" forPart:1];
@@ -220,6 +229,7 @@
 	[wf setPositivePrefix:@""];
 	[relativeEnergyButton setText:[wf stringForFloat:fabsf(rate - plan)]
 						  forPart:1];
+	[wf release];
 	
 	BOOL more;
 	
@@ -240,6 +250,56 @@
 }
 
 
+- (void)updateGraph {
+	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
+	
+	GraphViewParameters *gp = span.graphParameters;
+	
+	if (gp->gridIncrementWeight == 0) {
+		[GraphDrawingOperation prepareGraphViewInfo:gp 
+											forSize:graphView.bounds.size
+									   numberOfDays:span.length];
+	}
+	
+	graphView.beginMonthDay = span.beginMonthDay;
+	graphView.endMonthDay = span.endMonthDay;
+	graphView.p = span.graphParameters;
+	graphView.image = span.graphImageRef;
+	[graphView setNeedsDisplay];
+	
+	if (span.graphImageRef == nil && span.graphOperation == nil) {
+		GraphDrawingOperation *op = [[GraphDrawingOperation alloc] init];
+		op.delegate = self;
+		op.index = spanIndex;
+		op.p = span.graphParameters;
+		op.bounds = graphView.bounds;
+		op.beginMonthDay = span.beginMonthDay;
+		op.endMonthDay = span.endMonthDay;
+		span.graphOperation = op;
+		if (queue == nil) {
+			queue = [[NSOperationQueue alloc] init];
+		}
+		[queue addOperation:op];
+		[op release];
+	}
+}
+
+
+- (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
+	TrendSpan *span = [spanArray objectAtIndex:operation.index];
+	
+	if (span.graphOperation == operation && ![operation isCancelled]) {
+		CGImageRelease(span.graphImageRef);
+		span.graphImageRef = CGImageRetain(operation.imageRef);
+		if (operation.index == spanIndex) {
+			[graphView setImage:span.graphImageRef];
+			[graphView setNeedsDisplay];
+		}
+		span.graphOperation = nil;
+	}
+}
+
+
 - (void)updateControls {
 	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
 
@@ -247,6 +307,8 @@
 	self.navigationItem.leftBarButtonItem.enabled = (spanIndex > 0);
 	self.navigationItem.rightBarButtonItem.enabled = (spanIndex + 1 < [spanArray count]);
 
+	[self updateGraph];
+	
 	NSNumber *change = [NSNumber numberWithFloat:span.weightPerDay];
 	
 	NSFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
@@ -280,22 +342,6 @@
 	flag2Label.text = [pf stringForFloat:span.flagFrequencies[2]];
 	flag3Label.text = [pf stringForFloat:span.flagFrequencies[3]];
 	[pf release];
-}
-
-
-- (void)dealloc {
-	[weightChangeButton release];
-	[energyChangeButton release];
-	[goalGroupView release];
-	[relativeEnergyButton release];
-	[relativeWeightButton release];
-	[dateButton release];
-	[planButton release];
-	[flag0Label release];
-	[flag1Label release];
-	[flag2Label release];
-	[flag3Label release];
-	[super dealloc];
 }
 
 
@@ -354,75 +400,24 @@
 }
 
 
-/*
-#pragma mark UITableViewDataSource (Required)
+#pragma mark Cleanup
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return MAX(1, [array count]);
+
+- (void)dealloc {
+	[weightChangeButton release];
+	[energyChangeButton release];
+	[goalGroupView release];
+	[relativeEnergyButton release];
+	[relativeWeightButton release];
+	[dateButton release];
+	[planButton release];
+	[flag0Label release];
+	[flag1Label release];
+	[flag2Label release];
+	[flag3Label release];
+	[queue release];
+	[super dealloc];
 }
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if ([array count] == 0) return 0;
-	TrendSpan *span = [array objectAtIndex:section];
-	return [span numberOfTableRows];
-}
-
-
-#pragma mark UITableViewDataSource (Optional)
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if ([array count] == 0) return nil;
-	TrendSpan *span = [array objectAtIndex:section];
-	return span.title;
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if ([array count] == 0) {
-		return NSLocalizedString(@"You must have weighed-in at least twice in the past year for FatWatch to compute trends.", @"Trends no data message");
-	} else {
-		return nil;
-	}
-}
-
-
-#pragma mark UITableViewDelegate (Required)
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell;
-	
-	id availableCell = [tableView dequeueReusableCellWithIdentifier:@"TrendCell"];
-	if (availableCell != nil) {
-		cell = (UITableViewCell *)availableCell;
-	} else {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"TrendCell"] autorelease];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone; // don't show selection
-	}
-
-	TrendSpan *span = [array objectAtIndex:indexPath.section];
-	[span configureCell:cell forTableRow:indexPath.row];
-	
-	return cell;
-}
-
-
-#pragma mark UITableViewDelegate (Optional)
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	TrendSpan *span = [array objectAtIndex:indexPath.section];
-	if ([span shouldUpdateAfterDidSelectRow:indexPath.row]) {
-		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-		[span configureCell:cell forTableRow:indexPath.row];
-	}
-	// auto-scroll section to top of view
-	[tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]
-					 atScrollPosition:UITableViewScrollPositionTop 
-							 animated:YES];
-}
-*/
 
 
 @end

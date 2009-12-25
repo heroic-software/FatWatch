@@ -185,10 +185,10 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		if (strncmp(ifa->ifa_name, "lo", 2) != 0) break;
 	}
 	
-	NSURL *theURL;
+	NSURL *theURL = nil;
 	
 	if (ifBest) {
-		struct sockaddr_in *address = (struct sockaddr_in *)ifa->ifa_addr;
+		struct sockaddr_in *address = (struct sockaddr_in *)ifBest->ifa_addr;
 		char *host = inet_ntoa(address->sin_addr);
 		NSString *string = [NSString stringWithFormat:@"http://%s:%d", host, self.port];
 		theURL = [NSURL URLWithString:string];

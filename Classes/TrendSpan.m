@@ -35,6 +35,12 @@ enum {
 @synthesize weightPerDay;
 @synthesize weightChange;
 @synthesize visible;
+@dynamic flagFrequencies;
+@synthesize beginMonthDay;
+@synthesize endMonthDay;
+@synthesize graphImageRef;
+@synthesize graphOperation;
+@dynamic graphParameters;
 
 
 - (float *)flagFrequencies {
@@ -42,20 +48,14 @@ enum {
 }
 
 
+- (GraphViewParameters *)graphParameters {
+	return &graphParameters;
+}
+
+
 + (NSMutableArray *)trendSpanArray {
 	NSMutableArray *spanArray = [NSMutableArray array];
-	
-	EWGoal *goal = [EWGoal sharedGoal];
-	if (goal.defined) {
-		TrendSpan *span = [[TrendSpan alloc] init];
-		
-		NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:goal.startDate toDate:[NSDate date] options:0];
-		span.title = @"Since Goal Start";
-		span.length = [comps day];
-		[spanArray addObject:span];
-		[span release];
-	}
-	
+
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"TrendSpans" ofType:@"plist"];
 	NSDictionary *spanDict = [NSDictionary dictionaryWithContentsOfFile:path];
 	NSArray *spanLengths = [spanDict objectForKey:@"SpanLengths"];
@@ -91,8 +91,12 @@ enum {
 	
 	NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
 	for (TrendSpan *span in sortedArray) {
+		GraphViewParameters *gp = span.graphParameters;
 		float lastTrendWeight;
 		
+		gp->minWeight = 500;
+		gp->maxWeight = 0;
+
 		while ((x < span.length) && (data != nil)) {
 			const EWDBDay *dbd = [data getDBDayOnDay:curDay];
 
@@ -100,6 +104,16 @@ enum {
 			if (dbd->flags[1]) flagCounts[1] += 1;
 			if (dbd->flags[2]) flagCounts[2] += 1;
 			if (dbd->flags[3]) flagCounts[3] += 1;
+			
+			if (dbd->scaleWeight > 0) {
+				if (dbd->scaleWeight < dbd->trendWeight) {
+					if (dbd->scaleWeight < gp->minWeight) gp->minWeight = dbd->scaleWeight;
+					if (dbd->trendWeight > gp->maxWeight) gp->maxWeight = dbd->trendWeight;
+				} else {
+					if (dbd->trendWeight < gp->minWeight) gp->minWeight = dbd->trendWeight;
+					if (dbd->scaleWeight > gp->maxWeight) gp->maxWeight = dbd->scaleWeight;
+				}
+			}
 			
 			float y = dbd->trendWeight;
 			if (y > 0) {
@@ -120,7 +134,10 @@ enum {
 			span.visible = YES;
 			previousCount = computer.count;
 		}
+		
 		if (span.visible) {
+			span.beginMonthDay = EWMonthDayMake(data.month, curDay);
+			span.endMonthDay = EWMonthDayToday();
 			span.weightPerDay = -computer.slope;
 			span.weightChange = firstTrendWeight - lastTrendWeight;
 			span.flagFrequencies[0] = flagCounts[0] / x;
@@ -155,12 +172,6 @@ enum {
 }
 
 
-- (void)dealloc {
-	[title release];
-	[super dealloc];
-}
-
-
 - (NSComparisonResult)compare:(TrendSpan *)otherSpan {
 	if (self.length < otherSpan.length) {
 		return NSOrderedAscending;
@@ -169,6 +180,15 @@ enum {
 	} else {
 		return NSOrderedSame;
 	}
+}
+
+
+- (void)dealloc {
+	[title release];
+	CGImageRelease(graphImageRef);
+	[graphOperation release];
+	[graphParameters.regions release];
+	[super dealloc];
 }
 
 

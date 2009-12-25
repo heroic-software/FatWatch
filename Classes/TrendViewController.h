@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GraphDrawingOperation.h"
 
 
 @class EWTrendButton;
+@class GraphView;
 
 
 @interface TrendViewController : UIViewController {
 	NSArray *spanArray;
 	int spanIndex;
 	BOOL showAbsoluteDate;
+	GraphViewParameters graphParams;
+	GraphView *graphView;
 	EWTrendButton *weightChangeButton;
 	EWTrendButton *energyChangeButton;
 	UIView *goalGroupView;
@@ -27,7 +31,9 @@
 	UILabel *flag1Label;
 	UILabel *flag2Label;
 	UILabel *flag3Label;
+	NSOperationQueue *queue;
 }
+@property (nonatomic,retain) IBOutlet GraphView	*graphView;
 @property (nonatomic,retain) IBOutlet EWTrendButton *weightChangeButton;
 @property (nonatomic,retain) IBOutlet EWTrendButton *energyChangeButton;
 @property (nonatomic,retain) IBOutlet UIView *goalGroupView;

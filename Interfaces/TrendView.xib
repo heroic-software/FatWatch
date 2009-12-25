@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="35"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -43,14 +43,11 @@
 					<object class="IBUIView" id="1037846778">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{8, 8}, {304, 80}}</string>
+						<string key="NSFrameSize">{320, 88}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="668335219">
-								<int key="NSID">2</int>
-							</object>
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MSAwLjQwMDAwMDAwNiAxAA</bytes>
 						</object>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					</object>
@@ -59,37 +56,39 @@
 						<int key="NSvFlags">268</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIView" id="26044732">
+							<object class="IBUIView" id="727224794">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{10, 0}, {300, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="560657622">
+								<object class="NSColor" key="IBUIBackgroundColor" id="916414701">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
-									<reference key="NSCustomColorSpace" ref="668335219"/>
+									<object class="NSColorSpace" key="NSCustomColorSpace" id="668335219">
+										<int key="NSID">2</int>
+									</object>
 								</object>
 							</object>
-							<object class="IBUIView" id="537330788">
+							<object class="IBUIView" id="224381682">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{10, 29}, {300, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
-								<reference key="IBUIBackgroundColor" ref="560657622"/>
+								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
-							<object class="IBUIView" id="669313583">
+							<object class="IBUIView" id="836375187">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{10, 58}, {300, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
-								<reference key="IBUIBackgroundColor" ref="560657622"/>
+								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
-							<object class="IBUIView" id="566195210">
+							<object class="IBUIView" id="792834201">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{10, 87}, {300, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
-								<reference key="IBUIBackgroundColor" ref="560657622"/>
+								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
 						</object>
 						<string key="NSFrame">{{0, 150}, {320, 128}}</string>
@@ -225,18 +224,18 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{10, 121}, {300, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="228590486">
+						<object class="NSColor" key="IBUIBackgroundColor" id="449648048">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 							<reference key="NSCustomColorSpace" ref="668335219"/>
 						</object>
 					</object>
-					<object class="IBUIView" id="254802312">
+					<object class="IBUIView" id="320013491">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{10, 92}, {300, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="IBUIBackgroundColor" ref="228590486"/>
+						<reference key="IBUIBackgroundColor" ref="449648048"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 367}</string>
@@ -308,7 +307,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">weightChangeButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="254802312"/>
+						<reference key="destination" ref="320013491"/>
 					</object>
 					<int key="connectionID">60</int>
 				</object>
@@ -324,7 +323,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">relativeWeightButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="26044732"/>
+						<reference key="destination" ref="727224794"/>
 					</object>
 					<int key="connectionID">62</int>
 				</object>
@@ -332,7 +331,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">relativeEnergyButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="537330788"/>
+						<reference key="destination" ref="224381682"/>
 					</object>
 					<int key="connectionID">63</int>
 				</object>
@@ -340,23 +339,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dateButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="669313583"/>
+						<reference key="destination" ref="836375187"/>
 					</object>
 					<int key="connectionID">64</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">toggleDateFormat:</string>
-						<reference key="source" ref="669313583"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">67</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">showEnergyEquivalents:</string>
-						<reference key="source" ref="537330788"/>
+						<reference key="source" ref="224381682"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -375,9 +365,26 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">planButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="566195210"/>
+						<reference key="destination" ref="792834201"/>
 					</object>
 					<int key="connectionID">70</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">toggleDateFormat:</string>
+						<reference key="source" ref="836375187"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">1</int>
+					</object>
+					<int key="connectionID">71</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">graphView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1037846778"/>
+					</object>
+					<int key="connectionID">73</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -404,7 +411,7 @@
 							<reference ref="645189537"/>
 							<reference ref="990283159"/>
 							<reference ref="490323172"/>
-							<reference ref="254802312"/>
+							<reference ref="320013491"/>
 							<reference ref="1041635492"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -470,10 +477,10 @@
 						<reference key="object" ref="1041635492"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="26044732"/>
-							<reference ref="537330788"/>
-							<reference ref="669313583"/>
-							<reference ref="566195210"/>
+							<reference ref="727224794"/>
+							<reference ref="224381682"/>
+							<reference ref="836375187"/>
+							<reference ref="792834201"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -484,27 +491,27 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
-						<reference key="object" ref="254802312"/>
+						<reference key="object" ref="320013491"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">56</int>
-						<reference key="object" ref="26044732"/>
+						<reference key="object" ref="727224794"/>
 						<reference key="parent" ref="1041635492"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">57</int>
-						<reference key="object" ref="537330788"/>
+						<reference key="object" ref="224381682"/>
 						<reference key="parent" ref="1041635492"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
-						<reference key="object" ref="669313583"/>
+						<reference key="object" ref="836375187"/>
 						<reference key="parent" ref="1041635492"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
-						<reference key="object" ref="566195210"/>
+						<reference key="object" ref="792834201"/>
 						<reference key="parent" ref="1041635492"/>
 					</object>
 				</object>
@@ -521,6 +528,7 @@
 					<string>27.IBPluginDependency</string>
 					<string>28.IBPluginDependency</string>
 					<string>29.IBPluginDependency</string>
+					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>35.IBPluginDependency</string>
 					<string>54.CustomClassName</string>
@@ -546,6 +554,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>GraphView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>EWTrendButton</string>
@@ -578,7 +587,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">70</int>
+			<int key="maxID">73</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -589,6 +598,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/EWTrendButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GraphView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/GraphView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -625,6 +642,7 @@
 							<string>flag2Label</string>
 							<string>flag3Label</string>
 							<string>goalGroupView</string>
+							<string>graphView</string>
 							<string>planButton</string>
 							<string>relativeEnergyButton</string>
 							<string>relativeWeightButton</string>
@@ -639,6 +657,7 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIView</string>
+							<string>GraphView</string>
 							<string>EWTrendButton</string>
 							<string>EWTrendButton</string>
 							<string>EWTrendButton</string>

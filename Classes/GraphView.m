@@ -54,9 +54,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	int pixelsWide = size.width;
 	int pixelsHigh = size.height;
 	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
-	int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
-	void *bitmapData = malloc(bitmapByteCount);
-	bzero(bitmapData, bitmapByteCount);
+	void *bitmapData = calloc(pixelsHigh, bitmapBytesPerRow);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
 	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
@@ -198,10 +196,12 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGColorSpaceRelease(space);
 	}
 
-	if (p->scaleX < 1) {
-		[self drawYearLabels];
-	} else {
-		[self drawMonthLabels];
+	if (p) {
+		if (p->scaleX < 1) {
+			[self drawYearLabels];
+		} else {
+			[self drawMonthLabels];
+		}
 	}
 }
 

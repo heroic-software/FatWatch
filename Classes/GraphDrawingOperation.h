@@ -49,6 +49,7 @@ typedef struct {
 	CGPoint headPoint;
 	CGPoint tailPoint;
 }
++ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,assign) id delegate;

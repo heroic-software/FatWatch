@@ -10,6 +10,29 @@
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 #import "EWGoal.h"
+#import "EWWeightFormatter.h"
+
+
+static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
+	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
+		case EWWeightUnitKilograms:
+			return previousIncrement + (1 / kKilogramsPerPound);
+		case EWWeightUnitStones:
+			if (previousIncrement == 1) {
+				return 7;
+			} else {
+				return previousIncrement + 7;
+			}
+		case EWWeightUnitPounds:
+			if (previousIncrement == 1) {
+				return 5;
+			} else {
+				return previousIncrement + 5;
+			}
+		default:
+			return 0;
+	}
+}
 
 
 @implementation GraphDrawingOperation
@@ -22,6 +45,97 @@
 @synthesize imageRef;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
+
+
++ (void)prepareBMIRegionsForGraphViewParameters:(GraphViewParameters *)gp {
+	if (! [[NSUserDefaults standardUserDefaults] isBMIEnabled]) return;
+	
+	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightBMIZones"]) return;
+	
+	float w[3];
+	[EWWeightFormatter getBMIWeights:w];
+	
+	CGFloat width = 32; // at most 31 days in a month
+	
+	NSMutableArray *regions = [NSMutableArray arrayWithCapacity:4];
+	
+	CGRect rect;
+	UIColor *color;
+	
+	CGRect wholeRect = CGRectMake(0, gp->minWeight, width, gp->maxWeight - gp->minWeight);
+	
+	if (w[0] > gp->minWeight) {
+		rect = CGRectMake(0, gp->minWeight, width, w[0] - gp->minWeight);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [EWWeightFormatter backgroundColorForWeight:gp->minWeight];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+	}
+	
+	rect = CGRectMake(0, w[0], width, w[1] - w[0]);
+	rect = CGRectIntersection(wholeRect, rect);
+	if (!CGRectIsEmpty(rect)) {
+		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[0]+w[1])];
+		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+	}
+	
+	rect = CGRectMake(0, w[1], width, w[2] - w[1]);
+	rect = CGRectIntersection(wholeRect, rect);
+	if (!CGRectIsEmpty(rect)) {
+		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[1]+w[2])];
+		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+	}
+	
+	if (w[2] < gp->maxWeight) {
+		rect = CGRectMake(0, w[2], width, gp->maxWeight - w[2]);
+		rect = CGRectIntersection(wholeRect, rect);
+		if (!CGRectIsEmpty(rect)) {
+			color = [EWWeightFormatter backgroundColorForWeight:gp->maxWeight];
+			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		}
+	}
+	
+	gp->regions = [regions copy];
+}
+
+
++ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays {
+	const CGFloat kGraphMarginTop = 32.0f;
+	const CGFloat kGraphMarginBottom = 16.0f;
+	
+	// Assumes minWeight and maxWeight have already been set, but need adjusting
+	// Does not set: shouldDrawNoDataWarning
+
+	if ((gp->maxWeight - gp->minWeight) < 0.01) {
+		gp->minWeight -= 1;
+		gp->maxWeight += 1;
+	}
+
+	gp->scaleX = size.width / numberOfDays;
+	gp->scaleY = (size.height - (kGraphMarginTop + kGraphMarginBottom)) / (gp->maxWeight - gp->minWeight);
+	gp->minWeight -= (kGraphMarginBottom / gp->scaleY);
+	gp->maxWeight += (kGraphMarginTop / gp->scaleY);
+		
+	float increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
+	float minIncrement = [UIFont systemFontSize] / gp->scaleY;
+	while (increment < minIncrement) {
+		increment = EWChartWeightIncrementAfterIncrement(increment);
+	}
+	gp->gridIncrementWeight = increment;
+	gp->gridMinWeight = roundf(gp->minWeight / increment) * increment;
+	gp->gridMaxWeight = roundf(gp->maxWeight / increment) * increment;
+	
+	CGAffineTransform t = CGAffineTransformMakeTranslation(0, size.height);
+	t = CGAffineTransformScale(t, gp->scaleX, -gp->scaleY);
+	t = CGAffineTransformTranslate(t, -0.5, -gp->minWeight);
+	gp->t = t;
+	
+	[self prepareBMIRegionsForGraphViewParameters:gp];
+	
+	[[EWDatabase sharedDatabase] getEarliestMonthDay:&gp->mdEarliest
+									  latestMonthDay:&gp->mdLatest];
+}
 
 
 - (void)computePoints {
@@ -296,17 +410,14 @@
 	int pixelsHigh = CGRectGetHeight(bounds);
 	
 	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
-    int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
-	void *bitmapData = malloc(bitmapByteCount);
+	void *bitmapData = calloc(pixelsHigh, bitmapBytesPerRow);
 	NSAssert(bitmapData, @"could not allocate memory for bitmap");
-	bzero(bitmapData, bitmapByteCount);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	
 	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	if (ctxt == NULL) {
 		free(bitmapData);
-		NSAssert(NO, @"could not create bitmap context");
 	}
 	CGColorSpaceRelease(colorSpace);
 	
@@ -321,7 +432,8 @@
 	[self computePoints];
 	
 	CGContextRef ctxt = [self newBitmapContext];
-	
+	NSAssert(ctxt, @"could not create bitmap context");
+
 	// shaded background to show weekends
 	
 	CGPathRef weekendsBackgroundPath = [self newWeekendsBackgroundPath];
