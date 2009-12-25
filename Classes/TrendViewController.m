@@ -289,8 +289,7 @@
 	TrendSpan *span = [spanArray objectAtIndex:operation.index];
 	
 	if (span.graphOperation == operation && ![operation isCancelled]) {
-		CGImageRelease(span.graphImageRef);
-		span.graphImageRef = CGImageRetain(operation.imageRef);
+		span.graphImageRef = operation.imageRef;
 		if (operation.index == spanIndex) {
 			[graphView setImage:span.graphImageRef];
 			[graphView setNeedsDisplay];

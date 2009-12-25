@@ -195,7 +195,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
 			// TODO: show more nuance than "any flag is set"
-			gp.flag = (dd->flags != 0);
+			gp.flag = (dd->flags[0] || dd->flags[1] || dd->flags[2] || dd->flags[3]);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		}
 		x += 1;
@@ -553,6 +553,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	void *bitmapData = CGBitmapContextGetData(ctxt); 
     CGContextRelease(ctxt);
     if (bitmapData) free(bitmapData);
+
+	// TODO: confirm this bug on device
+	// 3.0 CFVersion 478.470000
+	// 3.1 CFVersion 478.520000
+	if (kCFCoreFoundationVersionNumber == 478.47) {
+		CFRetain(CGImageGetDataProvider(imageRef));
+	}
 
 #if TARGET_IPHONE_SIMULATOR
 	// Simulate iPhone's slow drawing

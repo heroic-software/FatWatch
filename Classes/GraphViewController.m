@@ -147,7 +147,7 @@ enum {
 				numberOfDays = 30;
 			} else if (spanIndex == kSpan90Days) {
 				numberOfDays = 90;
-			} else if (spanIndex == kSpanYear) {
+			} else { // if (spanIndex == kSpanYear) {
 				numberOfDays = 365;
 			}
 			

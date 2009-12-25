@@ -53,6 +53,15 @@ enum {
 }
 
 
+- (void)setGraphImageRef:(CGImageRef)imgRef {
+	if (graphImageRef != imgRef) {
+		CGImageRetain(imgRef);
+		CGImageRelease(graphImageRef);
+		graphImageRef = imgRef;
+	}
+}
+
+
 + (NSMutableArray *)trendSpanArray {
 	NSMutableArray *spanArray = [NSMutableArray array];
 
