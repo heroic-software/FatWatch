@@ -94,7 +94,7 @@
 
 - (void)databaseDidChange:(NSNotification *)notice {
 	[spanArray release];
-	spanArray = [[TrendSpan computeTrendSpans] copy];
+	spanArray = nil;
 }
 
 
@@ -121,6 +121,24 @@
 	[relativeWeightButton setFont:boldFont forPart:0];
 	[dateButton setFont:boldFont forPart:1];
 	[planButton setFont:boldFont forPart:0];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	if (spanArray == nil) {
+		spanArray = [[TrendSpan computeTrendSpans] copy];
+	}
+	[self updateControls];
+}
+
+
+- (void)viewDidUnload {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -341,31 +359,6 @@
 	flag2Label.text = [pf stringForFloat:span.flagFrequencies[2]];
 	flag3Label.text = [pf stringForFloat:span.flagFrequencies[3]];
 	[pf release];
-}
-
-
-- (void)startObservingDatabase {
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(databaseDidChange:) 
-												 name:EWDatabaseDidChangeNotification 
-											   object:nil];
-	[self databaseDidChange:nil];
-}
-
-
-- (void)stopObservingDatabase {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	[self startObservingDatabase];
-	[self updateControls];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[self stopObservingDatabase];
 }
 
 
