@@ -64,6 +64,11 @@
  */
 
 
+@interface TrendViewController ()
+- (void)updateControls;
+@end
+
+
 @implementation TrendViewController
 
 
