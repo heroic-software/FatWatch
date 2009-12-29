@@ -31,7 +31,6 @@
 	UILabel *flag1Label;
 	UILabel *flag2Label;
 	UILabel *flag3Label;
-	NSOperationQueue *queue;
 }
 @property (nonatomic,retain) IBOutlet GraphView	*graphView;
 @property (nonatomic,retain) IBOutlet EWTrendButton *weightChangeButton;

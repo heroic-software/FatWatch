@@ -57,6 +57,8 @@ typedef struct {
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
 @property (nonatomic,readonly) CGImageRef imageRef;
++ (void)flushQueue;
+- (void)enqueue;
 @end
 
 

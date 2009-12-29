@@ -294,10 +294,7 @@
 		op.beginMonthDay = span.beginMonthDay;
 		op.endMonthDay = span.endMonthDay;
 		span.graphOperation = op;
-		if (queue == nil) {
-			queue = [[NSOperationQueue alloc] init];
-		}
-		[queue addOperation:op];
+		[op enqueue];
 		[op release];
 	}
 }
@@ -407,7 +404,6 @@
 	[flag1Label release];
 	[flag2Label release];
 	[flag3Label release];
-	[queue release];
 	[super dealloc];
 }
 

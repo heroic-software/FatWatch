@@ -38,7 +38,6 @@ enum {
 - (id)init {
 	if ([super initWithNibName:@"GraphView" bundle:nil]) {
 		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
-		queue = [[NSOperationQueue alloc] init];
 	}
 	return self;
 }
@@ -48,7 +47,6 @@ enum {
 	[axisView release];
 	[scrollView release];
 	[spanControl release];
-	[queue release];
 	[cachedGraphViews release];
 	[self clearGraphViewInfo];
 	[super dealloc];
@@ -57,8 +55,7 @@ enum {
 
 - (void)clearGraphViewInfo {
 	if (info == nil) return;
-	[queue cancelAllOperations];
-	[queue waitUntilAllOperationsAreFinished];
+	[GraphDrawingOperation flushQueue];
 	
 	if (infoCount > 1) {
 		// If we are switching away from the 'Browse' view, save the offset
@@ -106,8 +103,7 @@ enum {
 
 
 - (void)prepareGraphViewInfo {
-	[queue cancelAllOperations];
-	[queue waitUntilAllOperationsAreFinished];
+	[GraphDrawingOperation flushQueue];
 
 	EWDatabase *db = [EWDatabase sharedDatabase];
 	float minWeight, maxWeight;
@@ -333,7 +329,7 @@ enum {
 		operation.endMonthDay = ginfo->endMonthDay;
 		
 		ginfo->operation = operation;
-		[queue addOperation:operation];
+		[operation enqueue];
 	}
 }
 

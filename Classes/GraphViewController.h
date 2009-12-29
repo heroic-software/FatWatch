@@ -35,7 +35,6 @@ typedef struct {
 	NSMutableArray *cachedGraphViews;
 	int lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
-	NSOperationQueue *queue;
 	CGPoint scrollingSpanSavedOffset;
 }
 @property (nonatomic,retain) IBOutlet YAxisView *axisView;

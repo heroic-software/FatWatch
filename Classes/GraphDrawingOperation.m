@@ -13,6 +13,9 @@
 #import "EWWeightFormatter.h"
 
 
+static NSOperationQueue *gDrawingQueue = nil;
+
+
 static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
 		case EWWeightUnitKilograms:
@@ -45,6 +48,27 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 @synthesize imageRef;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
+
+
+#pragma mark Queue
+
+
++ (void)flushQueue {
+	[gDrawingQueue cancelAllOperations];
+	[gDrawingQueue waitUntilAllOperationsAreFinished];
+}
+
+
+- (void)enqueue {
+	if (gDrawingQueue == nil) {
+		gDrawingQueue = [[NSOperationQueue alloc] init];
+	}
+	
+	[gDrawingQueue addOperation:self];
+}
+
+
+#pragma mark Graph Drawing
 
 
 + (void)prepareBMIRegionsForGraphViewParameters:(GraphViewParameters *)gp {
@@ -570,6 +594,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 							   withObject:self
 							waitUntilDone:NO];
 }
+
+
+#pragma mark Cleanup
 
 
 - (void)dealloc {
