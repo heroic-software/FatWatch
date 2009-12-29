@@ -14,6 +14,10 @@
 @implementation EWExporter
 
 
+@synthesize beginDate;
+@synthesize endDate;
+
+
 #pragma mark Public API
 
 
@@ -45,13 +49,37 @@
 
 - (void)performExport {
 	EWDatabase *db = [EWDatabase sharedDatabase];
-	EWDBMonth *dbm = [db getDBMonth:db.earliestMonth];
+
+	EWMonth beginMonth, endMonth;
+	EWDay beginDay, endDay;
 	
-	while (dbm) {
+	if (beginDate) {
+		EWMonthDay beginMD = EWMonthDayFromDate(beginDate);
+		beginMonth = EWMonthDayGetMonth(beginMD);
+		beginDay = EWMonthDayGetDay(beginMD);
+	} else {
+		beginMonth = db.earliestMonth;
+		beginDay = 1;
+	}
+
+	if (endDate) {
+		EWMonthDay endMD = EWMonthDayFromDate(endDate);
+		endMonth = EWMonthDayGetMonth(endMD);
+		endDay = EWMonthDayGetDay(endMD);
+	} else {
+		endMonth = db.latestMonth;
+		endDay = 31;
+	}
+	
+	EWDBMonth *dbm = [db getDBMonth:beginMonth];
+	
+	while (dbm && dbm.month <= endMonth) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		EWDay firstDay = (dbm.month == beginMonth) ? beginDay : 1;
+		EWDay lastDay = (dbm.month == endMonth) ? endDay : 31;
 		EWDay day;
 		
-		for (day = 1; day <= 31; day++) {
+		for (day = firstDay; day <= lastDay; day++) {
 			if (! [dbm hasDataOnDay:day]) continue;
 			
 			const EWDBDay *dd = [dbm getDBDayOnDay:day];
@@ -166,6 +194,8 @@
 		[fieldNames[i] release];
 		[fieldFormatters[i] release];
 	}
+	[beginDate release];
+	[endDate release];
 	[super dealloc];
 }
 
