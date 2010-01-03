@@ -58,13 +58,13 @@
 		float selectedIncrement = [ud scaleIncrement];
 		section = [[BRTableRadioSection alloc] init];
 		section.headerTitle = NSLocalizedString(@"Scale Precision", nil);
-		for (id scaleIncrement in [NSUserDefaults scaleIncrements]) {
+		for (id increment in [NSUserDefaults scaleIncrements]) {
 			BRTableRow *row = [[BRTableRow alloc] init];
-			row.title = [NSUserDefaults nameForScaleIncrement:scaleIncrement];
-			row.object = scaleIncrement;
+			row.title = [NSUserDefaults nameForScaleIncrement:increment];
+			row.object = increment;
 			[section addRow:row animated:NO];
 			[row release];
-			if (fabsf([scaleIncrement floatValue] - selectedIncrement) < 0.1f) {
+			if (fabsf([increment floatValue] - selectedIncrement) < 0.01f) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
