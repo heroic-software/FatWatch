@@ -57,8 +57,22 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
+- (void)setButton:(UIButton *)button backgroundImageNamed:(NSString *)name forState:(UIControlState)state {
+	UIImage *base = [UIImage imageNamed:name];
+	UIImage *image = [base stretchableImageWithLeftCapWidth:5 topCapHeight:6];
+	[button setBackgroundImage:image forState:state];
+}
+
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	UIButton *button = infoPickerController.infoTypeButton;
+	[self setButton:button backgroundImageNamed:@"NavButton0.png" 
+		   forState:UIControlStateNormal];
+	[self setButton:button backgroundImageNamed:@"NavButton1.png" 
+		   forState:UIControlStateHighlighted];
+	
 	[infoPickerController updateButton];
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
