@@ -73,6 +73,7 @@
 
 
 @synthesize graphView;
+@synthesize changeGroupView;
 @synthesize weightChangeButton;
 @synthesize energyChangeButton;
 @synthesize goalGroupView;
@@ -80,10 +81,12 @@
 @synthesize relativeWeightButton;
 @synthesize dateButton;
 @synthesize planButton;
+@synthesize flagGroupView;
 @synthesize flag0Label;
 @synthesize flag1Label;
 @synthesize flag2Label;
 @synthesize flag3Label;
+@synthesize messageGroupView;
 
 
 - (id)init {
@@ -112,6 +115,9 @@
 	relativeWeightButton.enabled = NO;
 	planButton.enabled = NO;
 	
+	energyChangeButton.showsDisclosureIndicator = YES;
+	relativeEnergyButton.showsDisclosureIndicator = YES;
+	
 	[relativeEnergyButton setText:@"burning " forPart:0];
 	[relativeEnergyButton setText:@"10 cal/day" forPart:1];
 	[relativeEnergyButton setText:@" less than plan" forPart:2];
@@ -131,6 +137,13 @@
 											 selector:@selector(databaseDidChange:) 
 												 name:EWDatabaseDidChangeNotification 
 											   object:nil];
+	
+	[self.view addSubview:messageGroupView];
+	messageGroupView.hidden = YES;
+	CGRect frame = messageGroupView.frame;
+	frame.origin.x = 0;
+	frame.origin.y = CGRectGetMinY(changeGroupView.frame);
+	messageGroupView.frame = frame;
 }
 
 
@@ -319,15 +332,15 @@
 }
 
 
-- (void)updateControls {
-	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
-
-	self.navigationItem.title = span.title;
-	self.navigationItem.leftBarButtonItem.enabled = (spanIndex > 0);
-	self.navigationItem.rightBarButtonItem.enabled = (spanIndex + 1 < [spanArray count]);
+- (void)updateControlsWithSpan:(TrendSpan *)span {
+	UINavigationItem *navItem = self.navigationItem;
+	navItem.title = span.title;
+	navItem.leftBarButtonItem.enabled = (spanIndex > 0);
+	navItem.rightBarButtonItem.enabled = (spanIndex + 1 < [spanArray count]);
 
 	[self updateGraph];
 	
+	changeGroupView.hidden = NO;
 	NSNumber *change = [NSNumber numberWithFloat:span.weightPerDay];
 	
 	NSFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
@@ -354,6 +367,7 @@
 		[self updatePlanButtonWithDate:span.endDate];
 	}
 	
+	flagGroupView.hidden = NO;
 	NSNumberFormatter *pf = [[NSNumberFormatter alloc] init];
 	[pf setNumberStyle:NSNumberFormatterPercentStyle];
 	flag0Label.text = [pf stringForFloat:span.flagFrequencies[0]];
@@ -361,6 +375,23 @@
 	flag2Label.text = [pf stringForFloat:span.flagFrequencies[2]];
 	flag3Label.text = [pf stringForFloat:span.flagFrequencies[3]];
 	[pf release];
+}
+
+
+- (void)updateControls {
+	if (spanIndex < [spanArray count]) {
+		[self updateControlsWithSpan:[spanArray objectAtIndex:spanIndex]];
+		messageGroupView.hidden = YES;
+	} else {
+		UINavigationItem *navItem = self.navigationItem;
+		navItem.title = @"Not Enough Data";
+		navItem.leftBarButtonItem.enabled = NO;
+		navItem.rightBarButtonItem.enabled = NO;
+		changeGroupView.hidden = YES;
+		goalGroupView.hidden = YES;
+		flagGroupView.hidden = YES;
+		messageGroupView.hidden = NO;
+	}
 }
 
 

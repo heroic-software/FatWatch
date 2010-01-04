@@ -12,7 +12,9 @@
 @interface EWTrendButton : UIControl {
 	NSMutableArray *partArray;
 	CGSize marginSize;
+	BOOL showsDisclosureIndicator;
 }
+@property (nonatomic) BOOL showsDisclosureIndicator;
 - (void)setText:(NSString *)text forPart:(int)part;
 - (void)setTextColor:(UIColor *)color forPart:(int)part;
 - (void)setFont:(UIFont *)font forPart:(int)part;

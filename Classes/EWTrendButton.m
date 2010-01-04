@@ -9,7 +9,26 @@
 #import "EWTrendButton.h"
 
 
+void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
+	// (x,y) is the tip of the arrow
+	static const CGFloat R = 4.5;
+	static const CGFloat W = 3;
+	CGContextSaveGState(ctxt);
+	CGContextMoveToPoint(ctxt, x-R, y-R);
+	CGContextAddLineToPoint(ctxt, x, y);
+	CGContextAddLineToPoint(ctxt, x-R, y+R);
+	CGContextSetLineCap(ctxt, kCGLineCapSquare);
+	CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
+	CGContextSetLineWidth(ctxt, W);
+	CGContextStrokePath(ctxt);
+	CGContextRestoreGState(ctxt);
+}
+
+
 @implementation EWTrendButton
+
+
+@synthesize showsDisclosureIndicator;
 
 
 - (void)awakeFromNib {
@@ -79,6 +98,24 @@
 	}
 	
 	CGFloat remainingWidth = CGRectGetWidth(self.bounds) - (2*marginSize.width);
+	
+	if (showsDisclosureIndicator) {
+		CGContextRef ctxt = UIGraphicsGetCurrentContext();
+		
+		if (self.highlighted) {
+			CGContextSetRGBStrokeColor(ctxt, 1, 1, 1, 1);
+		} else {
+			CGContextSetRGBStrokeColor(ctxt, 0.5, 0.5, 0.5, 1);
+		}
+		
+		CGFloat x = CGRectGetMaxX(self.bounds) - marginSize.width;
+		CGFloat y = CGRectGetMidY(self.bounds);
+		
+		BRDrawDisclosureIndicator(ctxt, x, y);
+		
+		remainingWidth -= 12;
+	}
+	
 	CGPoint p = CGPointMake(marginSize.width, marginSize.height);
 	for (NSDictionary *info in partArray) {
 		NSString *text = [info objectForKey:@"text"];
