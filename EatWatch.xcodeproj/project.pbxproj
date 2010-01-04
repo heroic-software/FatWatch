@@ -85,6 +85,8 @@
 		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
+		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
+		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
 		BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
 		BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
@@ -300,6 +302,8 @@
 		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
 		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
+		BCC485D410F2700300563776 /* NavButton0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton0.png; sourceTree = "<group>"; };
+		BCC485D510F2700300563776 /* NavButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton1.png; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
 		BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate1.sql; sourceTree = "<group>"; };
 		BCC4E6CC10D58C9E00E4C1A3 /* BRPopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPopUpViewController.h; sourceTree = "<group>"; };
@@ -479,6 +483,8 @@
 		29B97317FDCFA39411CA2CEA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BCC485D410F2700300563776 /* NavButton0.png */,
+				BCC485D510F2700300563776 /* NavButton1.png */,
 				BCD8BE410EF081EC005639DD /* Passcode0.png */,
 				BCD8BE420EF081EC005639DD /* Passcode1.png */,
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
@@ -861,6 +867,8 @@
 				BC749EC110E31425001E8030 /* TrendView.xib in Resources */,
 				BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */,
 				BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */,
+				BCC485D610F2700300563776 /* NavButton0.png in Resources */,
+				BCC485D710F2700300563776 /* NavButton1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
