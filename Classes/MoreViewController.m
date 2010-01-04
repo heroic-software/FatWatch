@@ -16,6 +16,8 @@
 #import "BRReachability.h"
 #import "EWWiFiAccessViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "EWExporter.h"
+#import "CSVExporter.h"
 
 
 @implementation MoreViewController
@@ -50,15 +52,24 @@
 
 - (void)initTransferSection {
 	BRTableSection *dataSection = [self addNewSection];
+	dataSection.headerTitle = NSLocalizedString(@"Data", @"Data section title");
 	
 	BRTableButtonRow *webServerRow = [[BRTableButtonRow alloc] init];
-	webServerRow.title = NSLocalizedString(@"Wi-Fi Import/Export", @"Wi-Fi button");
+	webServerRow.title = NSLocalizedString(@"Import/Export via Wi-Fi", @"Wi-Fi button");
 	webServerRow.titleAlignment = UITextAlignmentLeft;
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	webServerRow.target = self;
 	webServerRow.action = @selector(showWiFiAccess:);
 	[dataSection addRow:webServerRow animated:NO];
 	[webServerRow release];
+	
+	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
+	emailRow.title = NSLocalizedString(@"Export via Email", @"Export as email attachment button");
+	emailRow.disabled = ![MFMailComposeViewController canSendMail];
+	emailRow.target = self;
+	emailRow.action = @selector(emailExport:);
+	[dataSection addRow:emailRow animated:NO];
+	[emailRow release];
 }
 
 
@@ -170,8 +181,31 @@
 }
 
 
-- (void)openURLWithString:(NSString *)text {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:text]];
+- (void)emailExport:(BRTableButtonRow *)sender {
+	// TODO: display a progress indicator
+	EWExporter *exporter = [[CSVExporter alloc] init];
+	
+	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+	
+	NSString *fileName = [@"FatWatch-Export" stringByAppendingPathExtension:[exporter fileExtension]];
+	
+	// TODO: add link to help page (what to do with this file?)
+	NSString *body = [NSString stringWithFormat:@"The attached file is weight history exported from <a href=\"http://www.fatwatchapp.com/\">FatWatch</a> on <b>%@</b>.", [[UIDevice currentDevice] name]];
+	
+	[mail setMailComposeDelegate:self];
+	[mail setSubject:@"FatWatch Export"];
+	[mail setMessageBody:body isHTML:YES];
+	[mail addAttachmentData:[exporter exportedData]
+				   mimeType:[exporter contentType]
+				   fileName:fileName];
+	
+	[self presentModalViewController:mail animated:YES];
+	[mail release];
+}
+
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[controller dismissModalViewControllerAnimated:YES];
 }
 
 

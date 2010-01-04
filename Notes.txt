@@ -1,14 +1,63 @@
-Exercise Rungs
-	1-15 Introductory Ladder
-	16-48 Lifetime Ladder
+NECESSARY TODO
+
+- Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
+
+- Export: choose year/month range for export
+
+- Trend: blue line to show slope
+
+- Energy Equivalents: when tapped in trends view
+
+	<Back]      [Edit]
+	[+]         [Done]
+	100 cal/day is equivalent to
+	[Elements]
+	Fat				1 g
+	Protein			2 g
+	Carbohydrates	1 g
+	[Food]
+	Coca-Cola	1.23 oz
+	[Exercise]
+	Running		 10 min
+	Stairs		 21 min		
+
+// lb/day * (x) = g
+// lb/day * (y) = min
+
+// x lb/day * 3500 cal/lb * 60 min/hr = y cal/hr
+
+// 1 MET = 3.5 mL/kg/min = 1 cal/kg/hr
+
+CREATE TABLE energy (
+	id INTEGER PRIMARY KEY,
+	group INTEGER, -- exercise, food, element
+	name TEXT,
+	factor REAL
+);
+
+NICE TODO
+
+- Chart: introduce sampling to "All Time" view? Do it in subpixel territory?
+
+- Export to Email (as an attachment)
+
+- Import from Google Spreadsheet
+- Export to Google Spreadsheet
+
+- Import form Hacker's Diet Online
+- Export to Hacker's Diet Online
+	enter name and password, simulate web access
 	
-Rung	1
-Bend	2
-SitUp	3
-LegLift	4
-PushUp	2
-Steps	105
-Count	1 30 (105 = 75*1+30) 75 steps, 7 jumping jacks, 30 extra steps
+- Import from WebDAV
+- Export to WebDAV
+
+- Export to Web
+	upload file
+	display code for download
+	email link for download
+
+
+IMPORT/EXPORT SUPPORT
 
 TrueWeight CSV
 http://www.trueweight.net/
@@ -34,131 +83,10 @@ WeightBot exports only
 http://www.weightbot.com/
 
 
-
-- Mini chart in trends view
-
-- Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
-
-- Chart: introduce sampling to "All Time" view?
-
-- Replace toolbar with slimmer selection control (e.g., App Store)
-
-New Export Process
-
-	user taps Export button
-	prompt for email address (pre-filled with last entered, if any)
-	device to server: HERE IS (data) FOR (email address)
-	server to device: OK
-	server sends email with link or attachment
-	
-	user follows link, user can:
-		download as CSV
-		send to Hacker's Diet Online
-		send to Weightbot
-		send to PhysicsDiet
-		download a chart?
-		
-	user taps Export button
-	device prompts for email address (pre-filled with last entered, if any)
-	device to server: START EXPORT FOR DEVICE UDID, EMAIL ADDRESS
-	server to device: SEND NEW DATA
-	-or-
-	server to device: I ALREADY HAVE DATA FOR THAT PAIR (sends checksums)
-	device to server: HERE IS NEW DATA
-	server sends email with link / attachment
-
-New Import Process
-
-	user taps Import button
-	device to server: IMPORT AVAILABLE FOR DEVICE ID?
-	server to device: NO
-	device prompts user for email address (pre-filled with last entered, if any)
-	device to server: IMPORT AVAILABLE FOR EMAIL ADDRESS?
-	server to device: NO, I'LL INITIATE ONE
-	server sends email with link
-	
-	user follows link
-	server to user: upload a file? get data from other service? etc.
-	server processes file
-	server to user: Go tap import again
-	
-	user taps import button
-	device to server: IMPORTS AVAILABLE?
-	server to device: YES HAVE THIS (data)
-	device prompts: confirm or cancel?
-	device imports data
-	
-	if moving to another device...
-		device to server: IMPORT AVAILABLE FOR UUID?
-		server to device: NO
-		device to server: IMPORT AVAILABLE FOR EMAIL?
-		server to device: YES BUT YOU'LL NEED A CODE
-		server sends code to email:
-		device prompts for code (it's in your email)
-		device to server: HERE IS A CODE
-		server to device: OK HERE IS YOUR DATA
-		-or-
-		NO BEANS
-
-	Scenarios:
-		Backup data
-		Move data to another device
-		Export data to CSV file
-		Export data to Hacker's Diet Online
-		Import data from Hacker's Diet Online
-		Import data from PhysicsDiet
-		Export data to PhysicsDiet
-		Export data to show chart on blog
-		Import/Export Weightbot server
-
-	Server
-		emails (id, email_address)
-		devices (id, device_udid, device_name)
-		pairings (device_id, email_id, active?)
-
-
-WHO BMI ranges
-http://www.who.int/bmi/index.jsp?introPage=intro_3.html
-
-      < 18.50	Underweight
-18.50 - 24.99	Normal
-25.00 - 29.99	Overweight
-30.00 <			Obese
-
-
-	  < 16.00	Underweight severe
-16.00 - 16.99	Underweight moderate
-17.00 - 18.49	Underweight mild
-18.50 - 24.99	Normal
-25.00 - 29.99	Overweight
-30.00 - 34.99	Obese I
-35.00 - 39.99	Obese II
-40.00 <			Obese III
-
-
-Release Process:
-
-1. Tag the release
-svn copy file:///Volumes/benzado/Documents/Repositories/EatWatch/trunk file:///Volumes/benzado/Documents/Repositories/EatWatch/tags/release-1.?
-2. Update changelog generation script
-3. Bump version number in Info.plist
-
-Ideas:
+MISC
 
 Use method swizzling in singleton to avoid instance checks
 http://googlemac.blogspot.com/2006/11/synchronized-swimming-part-2.html
 
-BMI: by Screen
-
-Log
-	background color of table cell
-Weigh-in
-	background color of picker cell
-Trends
-	N/A: no absolute weight values displayed
-Goal
-	text color of table cell
-Goal Set
-	background color of picker cell
-More
-	add BMI switch, when ON, ask for height
+cd "$HOME/Library/Application Support/iPhone Simulator/User/Applications/"
+rm -v ./*/Documents/* ./*/Library/Preferences/com.benzado.*

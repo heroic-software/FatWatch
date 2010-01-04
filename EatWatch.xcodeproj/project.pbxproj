@@ -95,6 +95,7 @@
 		BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
+		BCD2D23710EAADD700C1117F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2D23610EAADD700C1117F /* MessageUI.framework */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
@@ -169,7 +170,7 @@
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatWatchAppDelegate.m; sourceTree = "<group>"; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* FatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FatWatch-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
@@ -313,6 +314,7 @@
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
+		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
 		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Passcode0.png; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */,
 				BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */,
 				BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */,
+				BCD2D23710EAADD700C1117F /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +400,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCD2D23610EAADD700C1117F /* MessageUI.framework */,
 				BCC860660DD6C6360034EE2D /* QuartzCore.framework */,
 				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
@@ -419,7 +423,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
+				1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */,
 				BCF52ACF10D066540017C3A1 /* UnitTests.octest */,
 			);
 			name = Products;
@@ -431,6 +435,7 @@
 				BCBA50760FE49B7300EAD2F3 /* build.xml */,
 				BC9A2E820F15B41B00A284E7 /* BRViews */,
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
+				080E96DDFE201D6D7F000001 /* Classes */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
 				BCABE0470DD9372000DE580A /* Log */,
 				BCB36E090ECEDFAB00AAB7DF /* Weigh-in */,
@@ -440,7 +445,6 @@
 				BC82AEA70E6FC7F900E2A693 /* Chart */,
 				BCEADAD60DE29D1B0017495E /* Web */,
 				BCF52C7010D0AE590017C3A1 /* Data */,
-				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC2CBA860EC989DA002087B7 /* Entitlements.plist */,
@@ -771,7 +775,7 @@
 			);
 			name = FatWatch;
 			productName = EatWatch;
-			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BCF52ACE10D066540017C3A1 /* UnitTests */ = {
@@ -1185,7 +1189,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
-				PRODUCT_NAME = FatWatch;
+				PRODUCT_NAME = "FatWatch-Debug";
 			};
 			name = Debug;
 		};
@@ -1213,8 +1217,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
-				PRODUCT_NAME = FatWatch;
-				WRAPPER_EXTENSION = app;
+				PRODUCT_NAME = "FatWatch-Beta";
 			};
 			name = AdHoc;
 		};
@@ -1242,7 +1245,6 @@
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
 				PRODUCT_NAME = FatWatch;
-				WRAPPER_EXTENSION = app;
 			};
 			name = AppStore;
 		};

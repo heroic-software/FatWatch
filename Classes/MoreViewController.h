@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "BRTableViewController.h"
 
 
-@interface MoreViewController : BRTableViewController {
+@interface MoreViewController : BRTableViewController <MFMailComposeViewControllerDelegate> {
 }
 @end
