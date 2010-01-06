@@ -88,6 +88,7 @@ enum {
 	NSMutableArray *array = [self trendSpanArray];
 	
 	EWMonthDay curMonthDay = EWMonthDayToday();
+	EWMonth curMonth = EWMonthDayGetMonth(curMonthDay);
 	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	int previousCount = 1;
 	float x = 0;
@@ -134,8 +135,9 @@ enum {
 			x += 1;
 			curDay--;
 			if (curDay < 1) {
+				curMonth -= 1;
+				curDay = EWDaysInMonth(curMonth);
 				data = data.previous;
-				curDay = EWDaysInMonth(data.month);
 			}
 		}
 		
@@ -145,7 +147,7 @@ enum {
 		}
 		
 		if (span.visible) {
-			span.beginMonthDay = EWMonthDayMake(data.month, curDay);
+			span.beginMonthDay = EWMonthDayMake(curMonth, curDay);
 			span.endMonthDay = EWMonthDayToday();
 			span.weightPerDay = -computer.slope;
 			span.weightChange = firstTrendWeight - lastTrendWeight;
