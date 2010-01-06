@@ -16,7 +16,8 @@
 #import "BRColorPalette.h"
 #import "GraphView.h"
 #import "GraphDrawingOperation.h"
-
+#import "EnergyViewController.h"
+#import "EWDBMonth.h"
 
 /*
  [W]	weight change
@@ -415,7 +416,25 @@
 
 
 - (IBAction)showEnergyEquivalents:(id)sender {
-	NSLog(@"Beep!");
+	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
+	float rate = span.weightPerDay;
+	
+	if (sender == relativeEnergyButton) {
+		float plan = [[EWGoal sharedGoal] weightChangePerDay];
+		rate = fabsf(rate - plan);
+	} else {
+		rate = fabsf(rate);
+	}
+
+	// TODO find latest weight in DB; this code will fail if last month has no weight
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	EWDBMonth *month = [db getDBMonth:db.latestMonth];
+	const EWDBDay *day = [month getDBDayOnDay:[month lastDayWithWeight]];
+	float weight = day->trendWeight;
+	EnergyViewController *ctrlr = [[EnergyViewController alloc] initWithWeight:weight
+															   andChangePerDay:rate];
+	[self.navigationController pushViewController:ctrlr animated:YES];
+	[ctrlr release];
 }
 
 

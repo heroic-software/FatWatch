@@ -12,7 +12,7 @@
 extern const float kKilogramsPerPound;
 extern const float kCaloriesPerPound;
 extern const float kKilojoulesPerPound;
-
+extern const float kKilojoulesPerCalorie;
 
 typedef enum {
 	EWWeightUnitPounds = 1,

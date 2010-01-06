@@ -12,6 +12,7 @@
 const float kKilogramsPerPound = 0.45359237f;
 const float kCaloriesPerPound = 3500;
 const float kKilojoulesPerPound = 7716 / 0.45359237f;
+const float kKilojoulesPerCalorie = 0.004184f;
 
 
 static NSString * const kWeightUnitKey = @"WeightUnit";

@@ -13,6 +13,9 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
+		BC02490C10F40C8700BED779 /* EnergyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02490B10F40C8700BED779 /* EnergyViewController.m */; };
+		BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
+		BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02496210F419F600BED779 /* EWEnergyEquivalent.m */; };
 		BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FDF10D99047008FCB11 /* Flag1Button0.png */; };
 		BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE010D99047008FCB11 /* Flag1Button1.png */; };
 		BC040FE910D99048008FCB11 /* Flag2Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE110D99047008FCB11 /* Flag2Button0.png */; };
@@ -179,6 +182,12 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
+		BC02490A10F40C8700BED779 /* EnergyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnergyViewController.h; path = Classes/EnergyViewController.h; sourceTree = "<group>"; };
+		BC02490B10F40C8700BED779 /* EnergyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnergyViewController.m; path = Classes/EnergyViewController.m; sourceTree = "<group>"; };
+		BC02492710F4159E00BED779 /* EWEnergyFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEnergyFormatter.h; sourceTree = "<group>"; };
+		BC02492810F4159E00BED779 /* EWEnergyFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEnergyFormatter.m; sourceTree = "<group>"; };
+		BC02496110F419F600BED779 /* EWEnergyEquivalent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWEnergyEquivalent.h; path = Classes/EWEnergyEquivalent.h; sourceTree = "<group>"; };
+		BC02496210F419F600BED779 /* EWEnergyEquivalent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWEnergyEquivalent.m; path = Classes/EWEnergyEquivalent.m; sourceTree = "<group>"; };
 		BC040FDF10D99047008FCB11 /* Flag1Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button0.png; sourceTree = "<group>"; };
 		BC040FE010D99047008FCB11 /* Flag1Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button1.png; sourceTree = "<group>"; };
 		BC040FE110D99047008FCB11 /* Flag2Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button0.png; sourceTree = "<group>"; };
@@ -393,6 +402,8 @@
 				BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */,
 				BC0415AF10DE20D7008FCB11 /* EWWeightFormatter.h */,
 				BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */,
+				BC02492710F4159E00BED779 /* EWEnergyFormatter.h */,
+				BC02492810F4159E00BED779 /* EWEnergyFormatter.m */,
 				BC04162C10DE46E4008FCB11 /* EWWeightChangeFormatter.h */,
 				BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */,
 				BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */,
@@ -634,6 +645,10 @@
 				BC6FF1AD0E774B3B000BABED /* TrendSpan.m */,
 				BC69B4890DB86D1300E4A333 /* SlopeComputer.h */,
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
+				BC02490A10F40C8700BED779 /* EnergyViewController.h */,
+				BC02490B10F40C8700BED779 /* EnergyViewController.m */,
+				BC02496110F419F600BED779 /* EWEnergyEquivalent.h */,
+				BC02496210F419F600BED779 /* EWEnergyEquivalent.m */,
 				BC749EC010E31425001E8030 /* TrendView.xib */,
 			);
 			name = Trends;
@@ -1068,6 +1083,9 @@
 				BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */,
 				BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */,
 				BC749EEC10E33EC8001E8030 /* EWTrendButton.m in Sources */,
+				BC02490C10F40C8700BED779 /* EnergyViewController.m in Sources */,
+				BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */,
+				BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
