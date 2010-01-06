@@ -48,6 +48,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 @synthesize imageRef;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
+@synthesize showGoalLine;
 
 
 #pragma mark Queue
@@ -400,28 +401,22 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 - (CGPathRef)newGoalPath {
-	CGMutablePathRef path = NULL;
+	// we need at least one graph point
+	if ([pointData length] < sizeof(GraphPoint)) return NULL;
 	
 	EWGoal *goal = [EWGoal sharedGoal];
-	if (goal.defined) {
-		path = CGPathCreateMutable();
+	if (! goal.defined) return NULL;
 		
-		if (goal.startMonthDay < endMonthDay) {
-			NSDate *firstOfGraph = EWDateFromMonthDay(beginMonthDay);
-			CGFloat x;
-			
-			x = 1 + roundf([goal.startDate timeIntervalSinceDate:firstOfGraph] / SecondsPerDay);
-			CGPathMoveToPoint(path, &p->t, x, goal.startWeight);
-			
-			x = 1 + roundf([goal.endDate timeIntervalSinceDate:firstOfGraph] / SecondsPerDay);
-			CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
-			
-			if (x < dayCount) {
-				CGPathAddLineToPoint(path, &p->t, dayCount + 1, goal.endWeight);
-			}
-		}
-	}
+	const GraphPoint *lastGP = [pointData bytes] + [pointData length] - sizeof(GraphPoint);
+	const CGFloat m = [goal weightChangePerDay];	
+	const CGFloat x = lastGP->trend.x + fabsf((lastGP->trend.y - goal.endWeight) / m);
 	
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
+	CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
+	if (x < dayCount) {
+		CGPathAddLineToPoint(path, &p->t, dayCount + 1, goal.endWeight);
+	}		
 	return path;
 }
 
@@ -559,17 +554,19 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	// goal line: sloped part
 	// goal line: flat part
 	
-	CGPathRef goalPath = [self newGoalPath];
-	if (goalPath) {
-		static const CGFloat kDashLengths[] = { 6, 3 };
-		static const int kDashLengthsCount = 2;
-		
-		CGContextSetLineWidth(ctxt, 3);
-		CGContextSetLineDash(ctxt, 0, kDashLengths, kDashLengthsCount);
-		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
-		CGContextAddPath(ctxt, goalPath);
-		CGContextStrokePath(ctxt);
-		CGPathRelease(goalPath);
+	if (showGoalLine) {
+		CGPathRef goalPath = [self newGoalPath];
+		if (goalPath) {
+			static const CGFloat kDashLengths[] = { 6, 3 };
+			static const int kDashLengthsCount = 2;
+			
+			CGContextSetLineWidth(ctxt, 3);
+			CGContextSetLineDash(ctxt, 0, kDashLengths, kDashLengthsCount);
+			CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
+			CGContextAddPath(ctxt, goalPath);
+			CGContextStrokePath(ctxt);
+			CGPathRelease(goalPath);
+		}
 	}
 	
     imageRef = CGBitmapContextCreateImage(ctxt);

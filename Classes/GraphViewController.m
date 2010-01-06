@@ -118,7 +118,7 @@ enum {
 		if (infoCount == 1) {
 			numberOfDays = EWDaysInMonth(db.earliestMonth);
 		} else {
-			numberOfDays = 0;
+			numberOfDays = 1;
 			size.width = kDayWidth;
 		}
 
@@ -137,7 +137,7 @@ enum {
 				beginMonthDay = EWMonthDayToday();
 				endMonthDay = beginMonthDay;
 			}
-			numberOfDays = EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
+			numberOfDays = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 		} else {
 			if (spanIndex == kSpan30Days) {
 				numberOfDays = 30;
@@ -327,6 +327,7 @@ enum {
 		operation.bounds = ginfo->view.bounds;
 		operation.beginMonthDay = ginfo->beginMonthDay;
 		operation.endMonthDay = ginfo->endMonthDay;
+		operation.showGoalLine = (index + 1 == infoCount);
 		
 		ginfo->operation = operation;
 		[operation enqueue];

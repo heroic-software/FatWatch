@@ -48,6 +48,7 @@ typedef struct {
 	NSUInteger dayCount;
 	CGPoint headPoint;
 	CGPoint tailPoint;
+	BOOL showGoalLine;
 }
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays;
 @property (nonatomic) EWMonthDay beginMonthDay;
@@ -56,6 +57,7 @@ typedef struct {
 @property (nonatomic) int index;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
+@property (nonatomic) BOOL showGoalLine;
 @property (nonatomic,readonly) CGImageRef imageRef;
 + (void)flushQueue;
 - (void)enqueue;
