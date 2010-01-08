@@ -239,6 +239,13 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
+- (BOOL)hasDataForToday {
+	EWMonthDay today = EWMonthDayToday();
+	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(today)];
+	return [dbm hasDataOnDay:EWMonthDayGetDay(today)];
+}
+
+
 #pragma mark Writing
 
 

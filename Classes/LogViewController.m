@@ -18,6 +18,7 @@
 
 
 @interface LogViewController ()
+- (void)updateTabBarItemBadge;
 - (void)databaseDidChange:(NSNotification *)notice;
 @end
 
@@ -52,8 +53,16 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
+		
+		[self updateTabBarItemBadge];
 	}
 	return self;
+}
+
+
+- (void)updateTabBarItemBadge {
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	self.tabBarItem.badgeValue = [db hasDataForToday] ? nil : @"!";
 }
 
 
@@ -121,6 +130,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	[lastIndexPath retain];
 	
 	[tableView reloadData];
+
+	[self updateTabBarItemBadge];
 }
 
 

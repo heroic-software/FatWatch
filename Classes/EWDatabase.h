@@ -41,6 +41,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (float)trendWeightOnMonthDay:(EWMonthDay)md;
 - (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)md;
 - (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)md;
+- (BOOL)hasDataForToday;
 // Writing
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (void)commitChanges;

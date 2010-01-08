@@ -81,11 +81,11 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
 	EWMonthDay today = EWMonthDayToday();
-	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(today)];
+	EWDBMonth *dbm = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(today)];
 	EWDay day = EWMonthDayGetDay(today);
-	if (![data hasDataOnDay:day]) {
+	if (![dbm hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
-		[controller configureForDay:day dbMonth:data isWeighIn:YES];
+		[controller configureForDay:day dbMonth:dbm isWeighIn:YES];
 		[rootViewController.portraitViewController presentModalViewController:controller animated:NO];
 	}
 }
