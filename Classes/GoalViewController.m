@@ -168,25 +168,23 @@
 }
 
 
-- (void)addClearSection {
-	BRTableSection *section = [self addNewSection];
-	
-	BRTableButtonRow *clearRow = [BRTableButtonRow rowWithTitle:NSLocalizedString(@"Clear Goal", @"Clear goal button") target:self action:@selector(clearGoal:)];
-	clearRow.titleAlignment = UITextAlignmentCenter;
-	[section addRow:clearRow animated:NO];
-}
-
-
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"Goal", @"Goal view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"Clear Goal nav button") style:UIBarButtonItemStyleBordered target:self action:@selector(clearGoal:)] autorelease];
 	}
 	return self;
 }
 
 
 #pragma mark View Crap
+
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	self.tableView.scrollEnabled = NO;
+}
 
 
 - (void)updateTableSections {
@@ -197,14 +195,13 @@
 	BOOL bmiEnabled = [[NSUserDefaults standardUserDefaults] isBMIEnabled];
 	BOOL needsUpdate = ((goalDefined != isSetupForGoal) || 
 						(bmiEnabled != isSetupForBMI) ||
-						[self numberOfSections] < 2);
+						[self numberOfSections] < 1);
 	
 	if (needsUpdate) {
 		[self removeAllSections];
 		if (goalDefined) {
 			[self addGoalSection];
 			[self addPlanSection];
-			[self addClearSection];
 		} else {
 			[self addNoGoalSection];
 		}
@@ -230,7 +227,7 @@
 #pragma mark Clearing
 
 
-- (void)clearGoal:(BRTableButtonRow *)sender {
+- (void)clearGoal:(id)sender {
 	UIActionSheet *sheet = [[UIActionSheet alloc] init];
 	sheet.delegate = self;
 

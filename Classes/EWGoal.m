@@ -66,9 +66,22 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	// endDate is affected by weightChangePerDay
+	// endWeight is independent
+	// weightChangePerDay is independent
+	
+	// endDate depends on endWeight and weightChangePerDay
 	if ([key isEqualToString:@"endDate"]) {
-		keyPaths = [keyPaths setByAddingObject:@"weightChangePerDay"];
+		NSSet *morePaths = [NSSet setWithObjects:
+							@"weightChangePerDay", 
+							@"endWeight",
+							nil];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:morePaths];
+	}
+	else if ([key isEqualToString:@"endWeightNumber"]) {
+		keyPaths = [keyPaths setByAddingObject:@"endWeight"];
+	}
+	else if ([key isEqualToString:@"endWeight"]) {
+		keyPaths = [keyPaths setByAddingObject:@"endWeightNumber"];
 	}
 	
 	return keyPaths;
@@ -129,8 +142,6 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 - (void)setEndWeight:(float)weight {
 	@synchronized (self) {
 		[self willChangeValueForKey:@"endWeight"];
-		[self willChangeValueForKey:@"endWeightNumber"];
-		[self willChangeValueForKey:@"endDate"];
 		[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
 		// make sure sign matches
 		float weightChange = weight - [self currentWeight];
@@ -139,8 +150,6 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 			self.weightChangePerDay = -delta;
 		}
 		[self didChangeValueForKey:@"endWeight"];
-		[self didChangeValueForKey:@"endWeightNumber"];
-		[self didChangeValueForKey:@"endDate"];
 	}
 }
 
