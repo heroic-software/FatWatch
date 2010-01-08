@@ -45,7 +45,7 @@
 }
 
 
-- (EWEnergyEquivalent *)newEquivalent {
+- (EWEnergyEquivalent *)makeNewEquivalent {
 	EWEnergyEquivalent *equiv = [[EWEnergyEquivalent alloc] init];
 	equiv.name = @"Kilojoules";
 	equiv.energyPerUnit = 1.0f / kKilojoulesPerCalorie;
@@ -140,8 +140,6 @@
 	
 	array = [dataArray objectAtIndex:2];
 
-	// TODO: must factor in current weight
-	
 	equiv = [[EWEnergyEquivalent alloc] init];
 	equiv.name = @"Dancing";
 	[equiv setEnergyPerMinuteByMets:4.5 forWeight:weight];
@@ -288,7 +286,7 @@
 						 withRowAnimation:UITableViewRowAnimationBottom];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
-		[[dataArray objectAtIndex:indexPath.section] insertObject:[self newEquivalent]
+		[[dataArray objectAtIndex:indexPath.section] insertObject:[self makeNewEquivalent]
 														  atIndex:indexPath.row];
 		[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 						 withRowAnimation:UITableViewRowAnimationBottom];
