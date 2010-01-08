@@ -65,6 +65,9 @@
  */
 
 
+static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+
+
 @interface TrendViewController ()
 - (void)updateControls;
 @end
@@ -163,7 +166,7 @@
 
 - (void)updateDateButtonWithDate:(NSDate *)date {
 	if (date) {
-		int dayCount = floor([date timeIntervalSinceNow] / SecondsPerDay);
+		int dayCount = floor([date timeIntervalSinceNow] / kSecondsPerDay);
 		if (dayCount > 365) {
 			[dateButton setText:@"goal in " forPart:0];
 			[dateButton setText:@"over a year" forPart:1];
@@ -198,7 +201,7 @@
 - (void)updatePlanButtonWithDate:(NSDate *)date {
 	if (date) {
 		NSTimeInterval t = [date timeIntervalSinceDate:[[EWGoal sharedGoal] endDate]];
-		int dayCount = floor(t / SecondsPerDay);
+		int dayCount = floor(t / kSecondsPerDay);
 		if (dayCount > 0) {
 			if (dayCount > 365) {
 				[planButton setText:@"over a year" forPart:0];

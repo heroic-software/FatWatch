@@ -58,54 +58,10 @@
 @implementation GoalViewController
 
 
-- (void)addWarningSection {
-	BRTableSection *section = [self addNewSection];
-	section.footerTitle = NSLocalizedString(@"You must weigh-in before you can set a goal.", @"No data in goal view.");
-}
-
-
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setPositiveFormat:NSLocalizedString(@"BMI 0.0", @"BMI format")];
 	return [formatter autorelease];
-}
-
-
-- (void)addStartSection {
-	BRTableSection *section = [self addNewSection];
-	section.headerTitle = NSLocalizedString(@"Start", @"Goal start section title");
-	
-	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
-	dateRow.title = NSLocalizedString(@"Start Date", @"Goal start date");
-	dateRow.object = [EWGoal sharedGoal];
-	dateRow.key = @"startDate";
-	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	[section addRow:dateRow animated:NO];
-	[dateRow release];
-	
-	UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
-	[infoButton addTarget:self 
-				   action:@selector(showStartWeightInfo) 
-		 forControlEvents:UIControlEventTouchUpInside];
-	
-	BRTableValueRow *weightRow = [[BRTableValueRow alloc] init];
-	weightRow.title = NSLocalizedString(@"Start Weight", @"Goal start weight");
-	weightRow.object = [EWGoal sharedGoal];
-	weightRow.key = @"startWeight";
-	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
-	weightRow.accessoryView = infoButton;
-	[section addRow:weightRow animated:NO];
-	[weightRow release];
-	
-	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		BRTableValueRow *bmiRow = [[BRTableValueRow alloc] init];
-		bmiRow.title = NSLocalizedString(@"Start BMI", @"Goal start BMI");
-		bmiRow.object = weightRow.object;
-		bmiRow.key = weightRow.key;
-		bmiRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
-		[section addRow:bmiRow animated:NO];
-		[bmiRow release];
-	}
 }
 
 
@@ -119,7 +75,8 @@
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	weightRow.defaultValue = [NSNumber numberWithFloat:[[EWGoal sharedGoal] startWeight]];
+	// TODO: pick default
+	weightRow.defaultValue = [NSNumber numberWithFloat:150];
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
 	
@@ -156,28 +113,27 @@
 }
 
 
+- (void)addNoGoalSection {
+	BRTableSection *goalSection = [self addNewSection];
+	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
+	
+	[self addWeightRowsToSection:goalSection];
+}
+
+
 - (void)addGoalSection {
 	BRTableSection *goalSection = [self addNewSection];
 	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
+
+	[self addWeightRowsToSection:goalSection];
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	// TODO: bind minimumDate to goalStartDate
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
-	
-	[self addWeightRowsToSection:goalSection];
-}
-
-
-- (void)addNoGoalSection {
-	BRTableSection *goalSection = [self addNewSection];
-	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
-	
-	[self addWeightRowsToSection:goalSection];
 }
 
 
@@ -225,77 +181,42 @@
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"Goal", @"Goal view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
-		[self addWarningSection];
-		
-		[[EWGoal sharedGoal] addObserver:self forKeyPath:@"startDate" options:NSKeyValueObservingOptionNew context:NULL];
 	}
 	return self;
-}
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:@"startDate"]) {
-		if ([self numberOfSections] == 4) {
-			NSDate *newStartDate = [change objectForKey:NSKeyValueChangeNewKey];
-			BRTableDatePickerRow *endRow = (id)[[self sectionAtIndex:1] rowAtIndex:0];
-			endRow.minimumDate = [newStartDate addTimeInterval:SecondsPerDay];
-		} else if ([self numberOfSections] == 2) {
-			BRTableSection *section = [self sectionAtIndex:1];
-			if ([section numberOfRows] > 0) {
-				BRTableNumberPickerRow *weightRow = (id)[section rowAtIndex:0];
-				weightRow.defaultValue = [NSNumber numberWithFloat:[object startWeight]];
-			}
-		}
-	}
 }
 
 
 #pragma mark View Crap
 
 
-- (void)viewWillAppear:(BOOL)animated {
-	EWDatabase *db = [EWDatabase sharedDatabase];
+- (void)updateTableSections {
+	// no goal set: 1 sections (goal)
+	// goal set: 2 sections (goal, plan)
 	
-	// not enough data: 1 section (message)
-	// no goal set: 2 sections (start and goal)
-	// goal set: 3 sections (start, goal, plan)
+	BOOL goalDefined = [[EWGoal sharedGoal] isDefined];
+	BOOL bmiEnabled = [[NSUserDefaults standardUserDefaults] isBMIEnabled];
+	BOOL needsUpdate = ((goalDefined != isSetupForGoal) || 
+						(bmiEnabled != isSetupForBMI) ||
+						[self numberOfSections] < 2);
 	
-	if ([db weightCount] == 0) {
-		if ([self numberOfSections] != 1) {
-			[self removeAllSections];
-			[self addWarningSection];
-			[self.tableView reloadData];
+	if (needsUpdate) {
+		[self removeAllSections];
+		if (goalDefined) {
+			[self addGoalSection];
+			[self addPlanSection];
+			[self addClearSection];
+		} else {
+			[self addNoGoalSection];
 		}
-	} else {
-		BOOL needsUpdate = (([[EWGoal sharedGoal] isDefined] != isSetupForGoal) || 
-							([[NSUserDefaults standardUserDefaults] isBMIEnabled] != isSetupForBMI) ||
-							[self numberOfSections] < 2);
-		
-		if (needsUpdate) {
-			if ([[EWGoal sharedGoal] isDefined]) {
-				[self removeAllSections];
-				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
-				[self addStartSection];
-				[self addGoalSection];
-				[self addPlanSection];
-				[self addClearSection];
-				[self.tableView reloadData];
-			} else {
-				[self removeAllSections];
-				[[EWGoal sharedGoal] startDate]; // set default if needed before adding observers
-				[self addStartSection];
-				[self addNoGoalSection];
-				[self.tableView reloadData];
-			}
-			isSetupForGoal = [[EWGoal sharedGoal] isDefined];
-			isSetupForBMI = [[NSUserDefaults standardUserDefaults] isBMIEnabled];
-		}
-		BRTableDatePickerRow *startDateRow = (BRTableDatePickerRow *)[[self sectionAtIndex:0] rowAtIndex:0];
-		EWMonth earliestMonth = [db earliestMonth];
-		EWDay earliestDay = [[db getDBMonth:earliestMonth] firstDayWithWeight];
-		startDateRow.minimumDate = EWDateFromMonthAndDay(earliestMonth, MAX(1, earliestDay));
-		startDateRow.maximumDate = [NSDate date];
+		[self.tableView reloadData];
+		isSetupForGoal = goalDefined;
+		isSetupForBMI = bmiEnabled;
 	}
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self updateTableSections];
 }
 
 
@@ -306,40 +227,28 @@
 }
 
 
-#pragma mark Info
-
-
-- (void)showStartWeightInfo {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"About Start Weight", @"Start Weight alert title")
-													message:NSLocalizedString(@"This is the value of your weight's moving average (not the scale reading) on your selected start date.", @"Start Weight explanation")
-												   delegate:nil
-										  cancelButtonTitle:NSLocalizedString(@"Dismiss", @"Start weight alert button")
-										  otherButtonTitles:nil];
-	[alert show];
-	[alert release];
-}
-
-
 #pragma mark Clearing
 
 
 - (void)clearGoal:(BRTableButtonRow *)sender {
-	UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-													   delegate:self 
-											  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel button") 
-										 destructiveButtonTitle:NSLocalizedString(@"Clear Goal", @"Clear goal button") 
-											  otherButtonTitles:nil];
+	UIActionSheet *sheet = [[UIActionSheet alloc] init];
+	sheet.delegate = self;
+
+	sheet.destructiveButtonIndex = 
+	[sheet addButtonWithTitle:NSLocalizedString(@"Clear Goal", @"Clear goal button")];
+	
+	sheet.cancelButtonIndex =
+	[sheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button")];
+
 	[sheet showInView:self.view.window];
 	[sheet release];
 }
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
+	if (buttonIndex == actionSheet.destructiveButtonIndex) {
 		[EWGoal deleteGoal];
-		[self removeSectionsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 3)] animated:NO];
-		[self addNoGoalSection];
-		[self.tableView reloadData];
+		[self updateTableSections];
 	}
 }
 

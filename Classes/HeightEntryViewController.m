@@ -7,7 +7,6 @@
 //
 
 #import "BRMixedNumberFormatter.h"
-#import "EWGoal.h"
 #import "HeightEntryViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 

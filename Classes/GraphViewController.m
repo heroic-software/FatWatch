@@ -12,7 +12,6 @@
 #import "EWDate.h"
 #import "EWDatabase.h"
 #import "YAxisView.h"
-#import "EWGoal.h"
 #import "LogViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
@@ -125,7 +124,7 @@ enum {
 		beginMonthDay = 0;
 		endMonthDay = 0;
 	} else {
-		const NSTimeInterval kSecondsPerDay	= 60 * 60 * 24;
+		static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 		infoCount = 1;
 

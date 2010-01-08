@@ -12,7 +12,6 @@
 #import "BRTableButtonRow.h"
 #import "BRTableSwitchRow.h"
 #import "HeightEntryViewController.h"
-#import "EWGoal.h"
 #import "BRReachability.h"
 #import "EWWiFiAccessViewController.h"
 #import "NSUserDefaults+EWAdditions.h"

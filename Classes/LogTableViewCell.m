@@ -9,7 +9,6 @@
 #import "BRColorPalette.h"
 #import "EWDBMonth.h"
 #import "EWDate.h"
-#import "EWGoal.h"
 #import "LogTableViewCell.h"
 #import "EWWeightFormatter.h"
 #import "NSUserDefaults+EWAdditions.h"

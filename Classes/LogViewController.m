@@ -9,7 +9,6 @@
 #import "EWDBMonth.h"
 #import "EWDatabase.h"
 #import "EWDate.h"
-#import "EWGoal.h"
 #import "LogDatePickerController.h"
 #import "LogEntryViewController.h"
 #import "LogInfoPickerController.h"

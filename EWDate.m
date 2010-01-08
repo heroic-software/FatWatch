@@ -43,7 +43,7 @@ NSInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB) {
 	}
 	NSDate *dateA = EWDateFromMonthDay(mdA);
 	NSDate *dateB = EWDateFromMonthDay(mdB);
-	const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+	static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 	// Because of daylight savings, the difference might be slightly more or 
 	// less than a full day, so we must round.
 	return round([dateB timeIntervalSinceDate:dateA] / kSecondsPerDay);
