@@ -201,6 +201,8 @@
 	
 	[self presentModalViewController:mail animated:YES];
 	[mail release];
+
+	[exporter release];
 }
 
 
