@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,13 @@
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
+		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
+		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
+		BC200C7410F7D6F900352A32 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
+		BC200C7510F7D6F900352A32 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
+		BC200C7610F7D6F900352A32 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
+		BC200C7D10F7D8B500352A32 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
+		BC200C7E10F7D8B500352A32 /* fatwatch.js in Resources */ = {isa = PBXBuildFile; fileRef = BC04126910DA0DD3008FCB11 /* fatwatch.js */; };
 		BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
@@ -134,6 +141,42 @@
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		BC200C6110F7D42800352A32 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.html";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
+			);
+			script = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\n$TIDY_CMD $INPUT_FILE_PATH | $GZIP_CMD - > $SOF\n";
+		};
+		BC200C7B10F7D81400352A32 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.js";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
+			);
+			script = "/Users/benzado/bin/jslint/jslint.sh $INPUT_FILE_PATH\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF\n";
+		};
+		BC200C7C10F7D81400352A32 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.css";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
+			);
+			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXContainerItemProxy section */
 		BCF52AEB10D067170017C3A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -149,7 +192,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Settings.bundle;
-			dstSubfolderSpec = 1;
+			dstSubfolderSpec = 7;
 			files = (
 				BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */,
 				BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */,
@@ -161,7 +204,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Settings.bundle/en.lproj;
-			dstSubfolderSpec = 1;
+			dstSubfolderSpec = 7;
 			files = (
 				BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */,
 			);
@@ -258,7 +301,7 @@
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
-		BC65EBB10DEBA5F90008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC65EBB10DEBA5F90008E677 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
@@ -466,7 +509,7 @@
 				BC0410F010D9D532008FCB11 /* FakeValues.js */,
 				BC04126E10DA12DB008FCB11 /* FakeImport.js */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
-				BCF52BCF10D075930017C3A1 /* Localizables */,
+				BCF52BCF10D075930017C3A1 /* Localizable Resources */,
 				29B97317FDCFA39411CA2CEA /* Images */,
 				BC263C2A0DB56A3B007D03F4 /* Settings */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -723,7 +766,7 @@
 			name = Web;
 			sourceTree = "<group>";
 		};
-		BCF52BCF10D075930017C3A1 /* Localizables */ = {
+		BCF52BCF10D075930017C3A1 /* Localizable Resources */ = {
 			isa = PBXGroup;
 			children = (
 				BC65EBB40DEBA6140008E677 /* Localizable.strings */,
@@ -734,8 +777,7 @@
 				BC47222D0DE3692C0081F576 /* importAccepted.html */,
 				BC04126110DA0D32008FCB11 /* import.html */,
 			);
-			name = Localizables;
-			path = Images;
+			name = "Localizable Resources";
 			sourceTree = "<group>";
 		};
 		BCF52BD110D075BC0017C3A1 /* Resources */ = {
@@ -781,15 +823,16 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
 				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
-				BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */,
-				BC04110A10D9D720008FCB11 /* Run Script (gzip resources) */,
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
 				BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */,
-				BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */,
+				BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 			);
 			buildRules = (
+				BC200C7B10F7D81400352A32 /* PBXBuildRule */,
+				BC200C7C10F7D81400352A32 /* PBXBuildRule */,
+				BC200C6110F7D42800352A32 /* PBXBuildRule */,
 			);
 			dependencies = (
 				BCF52AEC10D067170017C3A1 /* PBXTargetDependency */,
@@ -803,11 +846,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCF52AD410D066550017C3A1 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
-				BCF6ED5D10E09B5600139F20 /* ShellScript */,
+				BC200C3210F7250200352A32 /* Warn about TODOs */,
 				BCF52ACA10D066540017C3A1 /* Resources */,
 				BCF52ACB10D066540017C3A1 /* Sources */,
 				BCF52ACC10D066540017C3A1 /* Frameworks */,
-				BCF52ACD10D066540017C3A1 /* ShellScript */,
+				BCF52ACD10D066540017C3A1 /* Run Tests */,
 			);
 			buildRules = (
 			);
@@ -824,7 +867,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -849,6 +892,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC200C7D10F7D8B500352A32 /* fatwatch.css in Resources */,
+				BC200C7E10F7D8B500352A32 /* fatwatch.js in Resources */,
+				BC200C7310F7D6F900352A32 /* home.html in Resources */,
+				BC200C7410F7D6F900352A32 /* importPending.html in Resources */,
+				BC200C7510F7D6F900352A32 /* importNoData.html in Resources */,
+				BC200C7610F7D6F900352A32 /* importAccepted.html in Resources */,
+				BC200C6410F7D66F00352A32 /* import.html in Resources */,
 				BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */,
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
@@ -902,43 +952,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BC04110A10D9D720008FCB11 /* Run Script (gzip resources) */ = {
+		BC200C3210F7250200352A32 /* Warn about TODOs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Resources/fatwatch.css",
-				"$(SRCROOT)/jQuery/jquery-1.3.2.min.js",
-				"$(SRCROOT)/Resources/fatwatch.js",
 			);
-			name = "Run Script (gzip resources)";
+			name = "Warn about TODOs";
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/fatwatch.css.gz",
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/jquery.js.gz",
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/fatwatch.js.gz",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\t\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSIF=${!SIF_NAME}\n\t\tSOF=${!SOF_NAME}\n\t\t$GZIP_CMD $SIF > $SOF\n\t\tdu -h $SIF $SOF\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor (( i = 0; i < $SCRIPT_OUTPUT_FILE_COUNT; i++ )); do\n\t\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\t\tSOF=${!SOF_NAME}\n\t\tif [ -e $SOF ]; then\n\t\t\techo \"Removing $SOF\"\n\t\tfi\n\tdone\nfi\n";
-		};
-		BC3384F30DE7C89A001F1052 /* Run Script (Prepare HTML) */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/*.html",
-				"$(SRCROOT)/en.lproj/*.html",
-			);
-			name = "Run Script (Prepare HTML)";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/*.html.gz",
-				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/en.lproj/*.html.gz",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\n\nif [ \"$ACTION\" == \"build\" ]; then\n\tfor PATTERN in ${!SCRIPT_INPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor SRC_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $SRC_FILE ]; then\n\t\t\t\techo Processing $SRC_FILE\n\t\t\t\tSRC_BASENAME=${SRC_FILE#$SRCROOT/}\n\t\t\t\tDST_FILE=${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${SRC_BASENAME}.gz\n\t\t\t\t$TIDY_CMD $SRC_FILE | $GZIP_CMD - > $DST_FILE\n\t\t\t\techo Writing $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n\nif [ \"$ACTION\" == \"clean\" ]; then\n\tfor PATTERN in ${!SCRIPT_OUTPUT_FILE_*}; do\n\t\techo \"Searching ${!PATTERN}\"\n\t\tfor DST_FILE in ${!PATTERN}; do\n\t\t\tif [ -e $DST_FILE ]; then\n\t\t\t\techo \"Removing $DST_FILE\"\n\t\t\t\trm $DST_FILE\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n";
+			shellScript = "KEYWORDS=\"TODO:|\\?\\?\\?:\"\nfind ${SRCROOT} \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | \\\n    xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\n    perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n\nKEYWORDS=\"FIXME:|\\!\\!\\!:\"\nfind ${SRCROOT} \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | \\\n    xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\n    perl -p -e \"s/($KEYWORDS)/ error: \\$1/\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */ = {
@@ -976,49 +1002,38 @@
 			shellScript = "XSL=$SCRIPT_INPUT_FILE_0\nSETTINGS_PLIST=$SCRIPT_INPUT_FILE_1\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_0\n\n# --novalid prevents DTD loading, which will fail off the Internet\n\nxsltproc --novalid -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $DEFAULTS_PLIST\n";
 			showEnvVarsInLog = 0;
 		};
-		BCEBA8060E691F6F0078D7B5 /* Run Script (cp Icon._png) */ = {
+		BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"$(SRCROOT)/Images/Icon.png",
+				"$(SRCROOT)/jQuery/jquery-1.3.2.min.js",
 			);
-			name = "Run Script (cp Icon._png)";
+			name = "Run Script (Copy & Rename)";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Icon._png",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/jquery.js.gz",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp ${SRCROOT}/Images/Icon.png ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Icon._png\n";
+			shellScript = "function doBuild {\n\tlocal SIF=$1\n\tlocal SOF=$2\n\tif [ ${SOF:(-3)} == \".gz\" ]; then\n\t\tgzip -c -9 $SIF > $SOF\n\t\techo \"$SIF -> $SOF\"\n\telse\n\t\tcp -v $SIF $SOF\n\tfi\n}\n\nfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\tSIF=${!SIF_NAME}\n\tSOF=${!SOF_NAME}\n\tcase \"$ACTION\" in\n\t\tbuild)\n\t\t\tdoBuild $SIF $SOF\n\t\t\t;;\n\t\tclean)\n\t\t\trm -v $SOF\n\t\t\t;;\n\tesac\ndone\n";
 			showEnvVarsInLog = 0;
 		};
-		BCF52ACD10D066540017C3A1 /* ShellScript */ = {
+		BCF52ACD10D066540017C3A1 /* Run Tests */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Tests";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		BCF6ED5D10E09B5600139F20 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "find $SRCROOT \\\n\t-type f \\\n\t-name \"*.js\" \\\n\t-not -name \"*jquery*\" \\\n\t-exec /Users/benzado/bin/jslint/jslint.sh \"{}\" \\;\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1143,7 +1158,6 @@
 				BC0CE4160DDBE10F00AB8899 /* en */,
 			);
 			name = home.html;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BC4722290DE3692C0081F576 /* importPending.html */ = {
@@ -1152,7 +1166,6 @@
 				BC4722250DE368E80081F576 /* en */,
 			);
 			name = importPending.html;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BC47222B0DE3692C0081F576 /* importNoData.html */ = {
@@ -1161,7 +1174,6 @@
 				BC4722270DE369010081F576 /* en */,
 			);
 			name = importNoData.html;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BC47222D0DE3692C0081F576 /* importAccepted.html */ = {
@@ -1170,16 +1182,14 @@
 				BC4722230DE368C80081F576 /* en */,
 			);
 			name = importAccepted.html;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BC65EBB40DEBA6140008E677 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BC65EBB10DEBA5F90008E677 /* en */,
+				BC65EBB10DEBA5F90008E677 /* Localizable.strings */,
 			);
 			name = Localizable.strings;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */ = {
@@ -1188,7 +1198,6 @@
 				BC65EBBA0DEBA8FE0008E677 /* en */,
 			);
 			name = TrendSpans.plist;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		BCE6075110E01C0100819E77 /* RungEntryView.xib */ = {
