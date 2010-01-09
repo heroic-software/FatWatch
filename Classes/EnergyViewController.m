@@ -28,12 +28,10 @@
 									 [wf stringForFloat:weight]];
 		
 		titleArray = [[NSArray alloc] initWithObjects:
-					  NSLocalizedString(@"Nutrients", @"Nutrients section"),
-					  NSLocalizedString(@"Foods", @"Foods section"),
 					  activitiesTitle,
+					  NSLocalizedString(@"Foods & Nutrients", @"Foods section"),
 					  nil];
 		dataArray = [[NSArray alloc] initWithObjects:
-					 [NSMutableArray array],
 					 [NSMutableArray array],
 					 [NSMutableArray array],
 					 nil];
@@ -45,11 +43,16 @@
 }
 
 
-- (EWEnergyEquivalent *)makeNewEquivalent {
+- (EWEnergyEquivalent *)makeNewEquivalentForSection:(NSInteger)section {
 	EWEnergyEquivalent *equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Kilojoules";
-	equiv.energyPerUnit = 1.0f / kKilojoulesPerCalorie;
-	equiv.unitName = @"kJ";
+	if (section == 0) {
+		equiv.name = @"Rest";
+		[equiv setEnergyPerMinuteByMets:1 forWeight:weight];
+	} else {
+		equiv.name = @"Kilojoules";
+		equiv.energyPerUnit = 1.0f / kKilojoulesPerCalorie;
+		equiv.unitName = @"kJ";
+	}
 	return [equiv autorelease];
 }
 
@@ -65,6 +68,14 @@
 	EWEnergyEquivalent *equiv;
 	
 	array = [dataArray objectAtIndex:0];
+	
+	equiv = [[EWEnergyEquivalent alloc] init];
+	equiv.name = @"Dancing";
+	[equiv setEnergyPerMinuteByMets:4.5 forWeight:weight];
+	[array addObject:equiv];
+	[equiv release];
+	
+	array = [dataArray objectAtIndex:1];
 
 	equiv = [[EWEnergyEquivalent alloc] init];
 	equiv.name = @"protein";
@@ -93,9 +104,7 @@
 	equiv.unitName = @"g";
 	[array addObject:equiv];
 	[equiv release];
-	
-	array = [dataArray objectAtIndex:1];
-	
+		
 	equiv = [[EWEnergyEquivalent alloc] init];
 	equiv.name = @"Apple (approx 3 per lb)";
 	equiv.energyPerUnit = 71.8;
@@ -135,32 +144,6 @@
 	equiv.name = @"Beer (light)";
 	equiv.energyPerUnit = 102.7f;
 	equiv.unitName = @"can";
-	[array addObject:equiv];
-	[equiv release];
-	
-	array = [dataArray objectAtIndex:2];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Dancing";
-	[equiv setEnergyPerMinuteByMets:4.5 forWeight:weight];
-	[array addObject:equiv];
-	[equiv release];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"3.5 METs";
-	[equiv setEnergyPerMinuteByMets:3.5 forWeight:weight];
-	[array addObject:equiv];
-	[equiv release];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Two METs";
-	[equiv setEnergyPerMinuteByMets:2.0 forWeight:weight];
-	[array addObject:equiv];
-	[equiv release];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Sitting Around";
-	[equiv setEnergyPerMinuteByMets:1.0 forWeight:weight];
 	[array addObject:equiv];
 	[equiv release];
 }
@@ -286,8 +269,8 @@
 						 withRowAnimation:UITableViewRowAnimationBottom];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
-		[[dataArray objectAtIndex:indexPath.section] insertObject:[self makeNewEquivalent]
-														  atIndex:indexPath.row];
+		EWEnergyEquivalent *equiv = [self makeNewEquivalentForSection:indexPath.section];
+		[[dataArray objectAtIndex:indexPath.section] insertObject:equiv atIndex:indexPath.row];
 		[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 						 withRowAnimation:UITableViewRowAnimationBottom];
     }   
@@ -295,15 +278,22 @@
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-	NSArray *destinationSection = [dataArray objectAtIndex:proposedDestinationIndexPath.section];
-	if (proposedDestinationIndexPath.row < [destinationSection count]) {
+	NSArray *array = [dataArray objectAtIndex:sourceIndexPath.section];
+	if (sourceIndexPath.section < proposedDestinationIndexPath.section) {
+		// return last row in source section
+		return [NSIndexPath indexPathForRow:([array count] - 1)
+								  inSection:sourceIndexPath.section];
+	}
+	else if (sourceIndexPath.section > proposedDestinationIndexPath.section) {
+		// return first row in source section
+		return [NSIndexPath indexPathForRow:0
+								  inSection:sourceIndexPath.section];
+	}
+	else if (proposedDestinationIndexPath.row < [array count]) {
 		return proposedDestinationIndexPath;
 	} else {
-		int newRow = [destinationSection count];
-		if (sourceIndexPath.section == proposedDestinationIndexPath.section) {
-			newRow -= 1;
-		}
-		return [NSIndexPath indexPathForRow:newRow inSection:proposedDestinationIndexPath.section];
+		return [NSIndexPath indexPathForRow:([array count] - 1) 
+								  inSection:sourceIndexPath.section];
 	}
 }
 

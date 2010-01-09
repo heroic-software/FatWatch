@@ -230,8 +230,8 @@
 		BC02490B10F40C8700BED779 /* EnergyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnergyViewController.m; path = Classes/EnergyViewController.m; sourceTree = "<group>"; };
 		BC02492710F4159E00BED779 /* EWEnergyFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEnergyFormatter.h; sourceTree = "<group>"; };
 		BC02492810F4159E00BED779 /* EWEnergyFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEnergyFormatter.m; sourceTree = "<group>"; };
-		BC02496110F419F600BED779 /* EWEnergyEquivalent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWEnergyEquivalent.h; path = Classes/EWEnergyEquivalent.h; sourceTree = "<group>"; };
-		BC02496210F419F600BED779 /* EWEnergyEquivalent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWEnergyEquivalent.m; path = Classes/EWEnergyEquivalent.m; sourceTree = "<group>"; };
+		BC02496110F419F600BED779 /* EWEnergyEquivalent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEnergyEquivalent.h; sourceTree = "<group>"; };
+		BC02496210F419F600BED779 /* EWEnergyEquivalent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEnergyEquivalent.m; sourceTree = "<group>"; };
 		BC040FDF10D99047008FCB11 /* Flag1Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button0.png; sourceTree = "<group>"; };
 		BC040FE010D99047008FCB11 /* Flag1Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button1.png; sourceTree = "<group>"; };
 		BC040FE110D99047008FCB11 /* Flag2Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button0.png; sourceTree = "<group>"; };
@@ -697,8 +697,6 @@
 				BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */,
 				BC02490A10F40C8700BED779 /* EnergyViewController.h */,
 				BC02490B10F40C8700BED779 /* EnergyViewController.m */,
-				BC02496110F419F600BED779 /* EWEnergyEquivalent.h */,
-				BC02496210F419F600BED779 /* EWEnergyEquivalent.m */,
 				BC749EC010E31425001E8030 /* TrendView.xib */,
 			);
 			name = Trends;
@@ -815,6 +813,8 @@
 				BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */,
 				BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */,
 				BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */,
+				BC02496110F419F600BED779 /* EWEnergyEquivalent.h */,
+				BC02496210F419F600BED779 /* EWEnergyEquivalent.m */,
 			);
 			name = Data;
 			path = Classes;
