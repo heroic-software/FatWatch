@@ -119,6 +119,21 @@ int SQLiteProgressHandler(void *user) {
 }
 
 
+- (void)beginTransaction {
+	[self executeSQL:"BEGIN"];
+}
+
+
+- (void)commitTransaction {
+	[self executeSQL:"END"];
+}
+
+
+- (int)lastInsertRowID {
+	return sqlite3_last_insert_rowid(database);
+}
+
+
 - (void)didReceiveMemoryWarning:(NSNotification *)notification {
 	int freed = sqlite3_release_memory(0x7fffffff);
 	NSLog(@"SQLiteDatabase %p freed %d bytes", self, freed);

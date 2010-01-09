@@ -17,11 +17,13 @@
 	SQLiteDatabase *database;
 	sqlite3_stmt *statement;
 }
+// Parameters are 1-based indexes
 - (void)bindInt:(int)value toParameter:(int)param;
 - (void)bindDouble:(double)value toParameter:(int)param;
 - (void)bindString:(NSString *)value toParameter:(int)param;
 - (void)bindNullToParameter:(int)param;
 - (BOOL)step;
+// Columns are 0-based indexes
 - (BOOL)isNullColumn:(int)column;
 - (NSString *)stringValueOfColumn:(int)column;
 - (int)intValueOfColumn:(int)column;
