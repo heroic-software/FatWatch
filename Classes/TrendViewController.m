@@ -429,7 +429,7 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 		rate = fabsf(rate);
 	}
 
-	// TODO find latest weight in DB; this code will fail if last month has no weight
+	// FIXME: find latest weight in DB; this code will fail if last month has no weight
 	EWDatabase *db = [EWDatabase sharedDatabase];
 	EWDBMonth *month = [db getDBMonth:db.latestMonth];
 	const EWDBDay *day = [month getDBDayOnDay:[month lastDayWithWeight]];
