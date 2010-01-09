@@ -154,6 +154,19 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
+- (float)latestWeight {
+	EWMonthDay startMonthDay = EWMonthDayToday();
+	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(startMonthDay)];
+	float w;
+	
+	w = [dbm getDBDayOnDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
+	if (w > 0) return w;
+	
+	w = [dbm inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
+	return w;
+}
+
+
 - (EWDBMonth *)getDBMonth:(EWMonth)month {
 	id key = [NSNumber numberWithInt:month];
 	EWDBMonth *dbm = nil;

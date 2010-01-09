@@ -300,7 +300,7 @@ enum {
 		weightRow = [self pickerRowForWeight:[self chooseDefaultWeight]];
 	}
 	if (fatRow == 0) {
-		fatRow = [self pickerRowForBodyFat:0.2]; // TODO: choose default
+		fatRow = [self pickerRowForBodyFat:0.2]; // TODO: choose default fat
 	}
 	
 	[self toggleWeight];

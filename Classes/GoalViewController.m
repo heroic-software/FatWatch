@@ -75,8 +75,11 @@
 	weightRow.minimumValue = 0;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	// TODO: pick default
-	weightRow.defaultValue = [NSNumber numberWithFloat:150];
+
+	float w = [[EWDatabase sharedDatabase] latestWeight];
+	if (w == 0) w = 150;
+	weightRow.defaultValue = [NSNumber numberWithFloat:w];
+	
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
 	

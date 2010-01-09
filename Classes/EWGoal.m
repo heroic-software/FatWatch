@@ -89,19 +89,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 
 - (float)currentWeight {
-	// TODO: rewrite to take advantage of specialized function (code used to be for any date)
-	EWMonthDay startMonthDay = EWMonthDayToday();
-	EWDBMonth *md = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(startMonthDay)];
-	float w;
-	
-	w = [md getDBDayOnDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
-	if (w > 0) return w;
-	
-	w = [md inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
-	if (w > 0) return w;
-	
-	// there is no weight on or earlier than this day, so search the future
-	w = [[EWDatabase sharedDatabase] earliestWeight];
+	float w = [[EWDatabase sharedDatabase] latestWeight];
 	if (w > 0) return w;
 
 	// this means the database is empty, so we'll just return the goal weight
