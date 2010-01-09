@@ -244,28 +244,26 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (UIImage *)exportableImage {
-	CGRect imageRect;
-	
-	imageRect.origin = CGPointZero;
-	imageRect.size.width = CGImageGetWidth(image);
-	imageRect.size.height = CGImageGetHeight(image);
-	
-	CGSize contextSize = imageRect.size;
+	CGSize contextSize = self.bounds.size;
 
 	if (yAxisView) {
-		CGFloat w = CGRectGetWidth(yAxisView.bounds);
-		contextSize.width += w;
-		imageRect.origin.x += w;
+		contextSize.width += CGRectGetWidth(yAxisView.bounds);
 	}
 	
 	UIGraphicsBeginImageContext(contextSize);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
 	if (yAxisView) {
-		[yAxisView drawRect:yAxisView.bounds];
+		CGRect yAxisBounds = yAxisView.bounds;
+		CGFloat w = CGRectGetWidth(yAxisBounds);
+		CGContextTranslateCTM(context, w, 0);
+		[self drawRect:self.bounds];
+		CGContextTranslateCTM(context, -w, 0);
+		CGContextClearRect(context, yAxisBounds);
+		[yAxisView drawRect:yAxisBounds];
+	} else {
+		[self drawRect:self.bounds];
 	}
-
-	CGContextDrawImage(context, imageRect, image);
 
 	UIImage *exportImage = UIGraphicsGetImageFromCurrentImageContext();
 	
