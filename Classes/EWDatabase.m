@@ -10,6 +10,7 @@
 #import "EWDBMonth.h"
 #import "SQLiteDatabase.h"
 #import "SQLiteStatement.h"
+#import "EWEnergyEquivalent.h"
 
 
 NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
@@ -300,11 +301,11 @@ static EWDatabase *gSharedDB = nil;
 	
 	[self updateTrendValues];
 	[monthCacheLock lock];
-	[db executeSQL:"BEGIN"];
+	[db beginTransaction];
 	for (EWDBMonth *dbm in [monthCache allValues]) {
 		if ([dbm commitChanges]) changeCount++;
 	}
-	[db executeSQL:"END"];
+	[db commitTransaction];
 	[monthCacheLock unlock];
 	
 	if (changeCount > 0) {
@@ -344,6 +345,86 @@ static EWDatabase *gSharedDB = nil;
 
 - (SQLiteStatement *)deleteDayStatement {
 	return [db statementFromSQL:"DELETE FROM days WHERE monthday = ?"];
+}
+
+
+#pragma mark Energy Equivalents
+
+
+- (NSArray *)loadEnergyEquivalents {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT * FROM equivalents ORDER BY section,row"];
+	NSMutableArray *array0 = [NSMutableArray array];
+	NSMutableArray *array1 = [NSMutableArray array];
+	
+	[EWActivityEquivalent setCurrentWeight:[self latestWeight]];
+	
+	while ([stmt step]) {
+		id <EWEnergyEquivalent> equiv;
+		
+		if ([stmt intValueOfColumn:1] == 0) {
+			equiv = [[EWActivityEquivalent alloc] init];
+			[array0 addObject:equiv];
+		} else {
+			equiv = [[EWFoodEquivalent alloc] init];
+			[array1 addObject:equiv];
+		}
+		
+		equiv.dbID = [stmt intValueOfColumn:0];
+		equiv.name = [stmt stringValueOfColumn:3];
+		equiv.unitName = [stmt stringValueOfColumn:4];
+		equiv.value = [stmt doubleValueOfColumn:5];
+		
+		[equiv release];
+	}
+	
+	if ([array0 count] == 0 && [array1 count] == 0) {
+		NSLog(@"Equivalents table empty, loading defaults.");
+		[self executeSQLNamed:@"DBEquivDefaults"];
+		return [self loadEnergyEquivalents];
+	}
+	
+	return [NSArray arrayWithObjects:array0, array1, nil];
+}
+
+
+- (void)saveEnergyEquivalents:(NSArray *)dataArray deletedItems:(NSArray *)deletedArray {
+	SQLiteStatement *updateStmt = [db statementFromSQL:"UPDATE equivalents SET row=? WHERE id=?"];
+	SQLiteStatement *insertStmt = [db statementFromSQL:"INSERT INTO equivalents (section,row,name,unit,value) VALUES (?,?,?,?,?)"];
+	SQLiteStatement *deleteStmt = [db statementFromSQL:"DELETE FROM equivalents WHERE id=?"];
+	
+	[db beginTransaction];
+	
+	for (id <EWEnergyEquivalent> equiv in deletedArray) {
+		[deleteStmt bindInt:equiv.dbID toParameter:1];
+		[deleteStmt step];
+		[deleteStmt reset];
+	}
+	
+	int section;
+	for (section = 0; section < [dataArray count]; section++) {
+		NSArray *sectionArray = [dataArray objectAtIndex:section];
+		int row;
+		for (row = 0; row < [sectionArray count]; row++) {
+			id <EWEnergyEquivalent> equiv = [sectionArray objectAtIndex:row];
+			if (equiv.dbID > 0) {
+				[updateStmt bindInt:row toParameter:1];
+				[updateStmt bindInt:equiv.dbID toParameter:2];
+				[updateStmt step];
+				[updateStmt reset];
+			} else {
+				[insertStmt bindInt:section toParameter:1];
+				[insertStmt bindInt:row toParameter:2];
+				[insertStmt bindString:equiv.name toParameter:3];
+				[insertStmt bindString:equiv.unitName toParameter:4];
+				[insertStmt bindDouble:equiv.value toParameter:5];
+				[insertStmt step];
+				[insertStmt reset];
+				equiv.dbID = [db lastInsertRowID];
+			}
+		}
+	}
+	
+	[db commitTransaction];
 }
 
 

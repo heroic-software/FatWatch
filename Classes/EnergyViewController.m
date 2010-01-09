@@ -11,6 +11,7 @@
 #import "EWEnergyFormatter.h"
 #import "EWEnergyEquivalent.h"
 #import "EWWeightFormatter.h"
+#import "EWDatabase.h"
 
 
 @implementation EnergyViewController
@@ -31,10 +32,7 @@
 					  activitiesTitle,
 					  NSLocalizedString(@"Foods & Nutrients", @"Foods section"),
 					  nil];
-		dataArray = [[NSArray alloc] initWithObjects:
-					 [NSMutableArray array],
-					 [NSMutableArray array],
-					 nil];
+		deletedItemArray = [[NSMutableArray alloc] init];
 		self.title = NSLocalizedString(@"Energy", @"Energy view title");
 		self.navigationItem.title = [energyFormatter stringFromFloat:energy];
 		self.hidesBottomBarWhenPushed = YES;
@@ -43,14 +41,16 @@
 }
 
 
-- (EWEnergyEquivalent *)makeNewEquivalentForSection:(NSInteger)section {
-	EWEnergyEquivalent *equiv = [[EWEnergyEquivalent alloc] init];
+- (id <EWEnergyEquivalent>)makeNewEquivalentForSection:(NSInteger)section {
+	id <EWEnergyEquivalent> equiv;
 	if (section == 0) {
+		equiv = [[EWActivityEquivalent alloc] init];
 		equiv.name = @"Rest";
-		[equiv setEnergyPerMinuteByMets:1 forWeight:weight];
+		equiv.value = 1;
 	} else {
+		equiv = [[EWFoodEquivalent alloc] init];
 		equiv.name = @"Kilojoules";
-		equiv.energyPerUnit = 1.0f / kKilojoulesPerCalorie;
+		equiv.value = 1.0f / kKilojoulesPerCalorie;
 		equiv.unitName = @"kJ";
 	}
 	return [equiv autorelease];
@@ -63,89 +63,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	
-	NSMutableArray *array;
-	EWEnergyEquivalent *equiv;
-	
-	array = [dataArray objectAtIndex:0];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Dancing";
-	[equiv setEnergyPerMinuteByMets:4.5 forWeight:weight];
-	[array addObject:equiv];
-	[equiv release];
-	
-	array = [dataArray objectAtIndex:1];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"protein";
-	equiv.energyPerUnit = 4; // 16.7 kJ
-	equiv.unitName = @"g";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"carbohydrate";
-	equiv.energyPerUnit = 4; // 16.7 kJ
-	equiv.unitName = @"g";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"fat";
-	equiv.energyPerUnit = 9; // 37.7 kJ
-	equiv.unitName = @"g";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"alcohol";
-	equiv.energyPerUnit = 7;
-	equiv.unitName = @"g";
-	[array addObject:equiv];
-	[equiv release];
-		
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Apple (approx 3 per lb)";
-	equiv.energyPerUnit = 71.8;
-	equiv.unitName = @"medium";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Cola";
-	equiv.energyPerUnit = 100.f/8.f;
-	equiv.unitName = @"oz";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Cola (12 oz)";
-	equiv.energyPerUnit = 12.f*100.f/8.f;
-	equiv.unitName = @"can";
-	[array addObject:equiv];
-	[equiv release];
-
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Cola (20 oz)";
-	equiv.energyPerUnit = 20.f*100.f/8.f;
-	equiv.unitName = @"bottle";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Beer (regular)";
-	equiv.energyPerUnit = 153.1f;
-	equiv.unitName = @"can";
-	[array addObject:equiv];
-	[equiv release];
-	
-	equiv = [[EWEnergyEquivalent alloc] init];
-	equiv.name = @"Beer (light)";
-	equiv.energyPerUnit = 102.7f;
-	equiv.unitName = @"can";
-	[array addObject:equiv];
-	[equiv release];
+	[dataArray release];
+	dataArray = [[[EWDatabase sharedDatabase] loadEnergyEquivalents] copy];
 }
 
 
@@ -177,19 +96,13 @@
 */
 
 
-- (void)setEditing:(BOOL)flag animated:(BOOL)animated {
-	[super setEditing:flag animated:animated];
-	NSMutableArray *paths = [[NSMutableArray alloc] initWithCapacity:[dataArray count]];
-	int s = 0;
-	for (NSArray *array in dataArray) {
-		[paths addObject:[NSIndexPath indexPathForRow:[array count] inSection:s++]];
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+	[super setEditing:editing animated:animated];
+	if (!editing && dirty) {
+		[[EWDatabase sharedDatabase] saveEnergyEquivalents:dataArray deletedItems:deletedItemArray];
+		[deletedItemArray removeAllObjects];
+		dirty = NO;
 	}
-	if (flag) {
-		[self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
-	} else {
-		[self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
-	}
-	[paths release];
 }	
 
 
@@ -202,7 +115,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[dataArray objectAtIndex:section] count] + (self.editing ? 1 : 0);
+    return [[dataArray objectAtIndex:section] count];
 }
 
 
@@ -222,58 +135,29 @@
     }
     
 	NSArray *sectionDataArray = [dataArray objectAtIndex:indexPath.section];
-	if (indexPath.row < [sectionDataArray count]) {
-		EWEnergyEquivalent *equiv = [sectionDataArray objectAtIndex:indexPath.row];
-		cell.textLabel.text = equiv.name;
-		cell.detailTextLabel.text = [equiv stringForEnergy:energy];
-	} else {
-		cell.textLabel.text = @"Add New";
-		cell.detailTextLabel.text = nil;
-	}
+	id <EWEnergyEquivalent> equiv = [sectionDataArray objectAtIndex:indexPath.row];
+	cell.textLabel.text = equiv.name;
+	cell.detailTextLabel.text = [equiv stringForEnergy:energy];
 	
     return cell;
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row < [[dataArray objectAtIndex:indexPath.section] count]) {
-		return UITableViewCellEditingStyleDelete;
-	} else {
-		return UITableViewCellEditingStyleInsert;
-	}
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[[dataArray objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
+		NSMutableArray *array = [dataArray objectAtIndex:indexPath.section];
+		[deletedItemArray addObject:[array objectAtIndex:indexPath.row]];
+		[array removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 						 withRowAnimation:UITableViewRowAnimationBottom];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-		EWEnergyEquivalent *equiv = [self makeNewEquivalentForSection:indexPath.section];
-		[[dataArray objectAtIndex:indexPath.section] insertObject:equiv atIndex:indexPath.row];
-		[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-						 withRowAnimation:UITableViewRowAnimationBottom];
-    }   
+		dirty = YES;
+    }
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.row < [[dataArray objectAtIndex:indexPath.section] count];
 }
 
 
@@ -306,17 +190,14 @@
 	NSMutableArray *toSection = [dataArray objectAtIndex:toIndexPath.section];
 	[toSection insertObject:thing atIndex:toIndexPath.row];
 	[thing release];
-}
-
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row < [[dataArray objectAtIndex:indexPath.section] count];
+	dirty = YES;
 }
 
 
 - (void)dealloc {
 	[titleArray release];
 	[dataArray release];
+	[deletedItemArray release];
     [super dealloc];
 }
 

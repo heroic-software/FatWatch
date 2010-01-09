@@ -113,6 +113,9 @@
 		BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
 		BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */; };
 		BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */; };
+		BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02496210F419F600BED779 /* EWEnergyEquivalent.m */; };
+		BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */; };
+		BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE6075110E01C0100819E77 /* RungEntryView.xib */; };
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
@@ -383,6 +386,7 @@
 		BCDFBCF310F8049A00FA0C93 /* UpgradeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpgradeViewController.h; path = Classes/UpgradeViewController.h; sourceTree = "<group>"; };
 		BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpgradeViewController.m; path = Classes/UpgradeViewController.m; sourceTree = "<group>"; };
 		BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UpgradeView.xib; path = Interfaces/UpgradeView.xib; sourceTree = "<group>"; };
+		BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBEquivDefaults.sql; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
@@ -795,6 +799,7 @@
 				BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */,
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
+				BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */,
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
@@ -941,6 +946,7 @@
 				BCC485D610F2700300563776 /* NavButton0.png in Resources */,
 				BCC485D710F2700300563776 /* NavButton1.png in Resources */,
 				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
+				BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,6 +1136,8 @@
 				BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */,
 				BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */,
 				BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */,
+				BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */,
+				BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

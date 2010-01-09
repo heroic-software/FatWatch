@@ -9,14 +9,28 @@
 #import <Foundation/Foundation.h>
 
 
-@interface EWEnergyEquivalent : NSObject {
+@protocol EWEnergyEquivalent <NSObject>
+@property (nonatomic) int dbID;
+@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *unitName;
+@property (nonatomic) float value;
+- (NSString *)stringForEnergy:(float)energy;
+@end
+
+
+@interface EWActivityEquivalent : NSObject <EWEnergyEquivalent> {
+	int dbID;
+	NSString *name;
+	float mets;
+}
++ (void)setCurrentWeight:(float)weight;
+@end
+
+
+@interface EWFoodEquivalent : NSObject <EWEnergyEquivalent> {
+	int dbID;
 	NSString *name;
 	float energyPerUnit;
 	NSString *unitName;
 }
-@property (nonatomic,copy) NSString *name;
-@property (nonatomic) float energyPerUnit;
-@property (nonatomic,copy) NSString *unitName;
-- (void)setEnergyPerMinuteByMets:(float)mets forWeight:(float)weight;
-- (NSString *)stringForEnergy:(float)energy;
 @end

@@ -15,7 +15,9 @@
 	float energy;
 	NSArray *titleArray;
 	NSArray *dataArray;
+	NSMutableArray *deletedItemArray;
 	EWEnergyFormatter *energyFormatter;
+	BOOL dirty;
 }
 - (id)initWithWeight:(float)weight andChangePerDay:(float)rate;
 @end
