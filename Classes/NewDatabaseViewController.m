@@ -78,6 +78,7 @@
 		dismissRow.title = NSLocalizedString(@"Weigh-in Now", nil);
 		dismissRow.target = self;
 		dismissRow.action = @selector(dismissView:);
+		dismissRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		[buttonSection addRow:dismissRow animated:NO];
 		[dismissRow release];
 		
