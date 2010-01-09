@@ -29,9 +29,13 @@ extern NSString * const EWDatabaseDidChangeNotification;
 @property (nonatomic,readonly) EWMonth earliestMonth;
 @property (nonatomic,readonly) EWMonth latestMonth;
 + (EWDatabase *)sharedDatabase;
-- (void)openFile:(NSString *)path;
-- (void)openMemoryWithSQL:(const char *)sql;
++ (void)setSharedDatabase:(EWDatabase *)db;
+// Setup
+- (id)initWithFile:(NSString *)path;
+- (id)initWithSQL:(const char *)sql;
 - (void)close;
+- (BOOL)needsUpgrade;
+- (void)upgrade;
 // Reading
 - (NSUInteger)weightCount;
 - (float)earliestWeight;

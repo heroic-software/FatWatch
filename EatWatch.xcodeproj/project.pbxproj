@@ -99,7 +99,6 @@
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
 		BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
-		BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */; };
 		BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */; };
@@ -112,6 +111,8 @@
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
+		BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */; };
+		BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE6075110E01C0100819E77 /* RungEntryView.xib */; };
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
@@ -379,6 +380,9 @@
 		BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatter.m; sourceTree = "<group>"; };
 		BCD8BF9B0EF0B76A005639DD /* BRRangeColorFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRangeColorFormatter.h; path = Classes/BRRangeColorFormatter.h; sourceTree = SOURCE_ROOT; };
 		BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRRangeColorFormatter.m; path = Classes/BRRangeColorFormatter.m; sourceTree = SOURCE_ROOT; };
+		BCDFBCF310F8049A00FA0C93 /* UpgradeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpgradeViewController.h; path = Classes/UpgradeViewController.h; sourceTree = "<group>"; };
+		BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpgradeViewController.m; path = Classes/UpgradeViewController.m; sourceTree = "<group>"; };
+		BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UpgradeView.xib; path = Interfaces/UpgradeView.xib; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
@@ -673,6 +677,9 @@
 				BCABE0400DD932A100DE580A /* RootViewController.m */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
+				BCDFBCF310F8049A00FA0C93 /* UpgradeViewController.h */,
+				BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */,
+				BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -916,7 +923,6 @@
 				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
-				BCC4E54210D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
 				BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */,
 				BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */,
 				BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */,
@@ -934,6 +940,7 @@
 				BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */,
 				BCC485D610F2700300563776 /* NavButton0.png in Resources */,
 				BCC485D710F2700300563776 /* NavButton1.png in Resources */,
+				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,7 +980,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Resources/DBCreate3.sql",
+				"$(SRCROOT)/Resources/DBCreate2.sql",
 			);
 			name = "Run Script (Create DB)";
 			outputPaths = (
@@ -1101,6 +1108,7 @@
 				BC02490C10F40C8700BED779 /* EnergyViewController.m in Sources */,
 				BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */,
 				BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */,
+				BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

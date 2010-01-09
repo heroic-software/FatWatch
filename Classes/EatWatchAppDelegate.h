@@ -14,6 +14,7 @@
     UIWindow *window;
 	RootViewController *rootViewController;
 	UIViewController *launchViewController;
+	BOOL readyToGo;
 }
 - (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
 @end

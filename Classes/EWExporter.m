@@ -128,6 +128,7 @@
 			}
 			
 			[self endRecord];
+			[pool drain];
 		}
 		
 		dbm = dbm.next;

@@ -22,6 +22,7 @@
 #import "PasscodeEntryViewController.h"
 #import "RootViewController.h"
 #import "TrendViewController.h"
+#import "UpgradeViewController.h"
 
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
@@ -91,6 +92,12 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
+- (void)addViewToWindow:(UIView *)view {
+	view.frame = [[UIScreen mainScreen] applicationFrame];
+	[window addSubview:view];
+}
+
+
 - (void)setupRootView {
 	UIViewController *logController = [[[LogViewController alloc] init] autorelease];
 	UIViewController *trendController = [[[TrendViewController alloc] init] autorelease];
@@ -115,9 +122,38 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	rootViewController.portraitViewController = tabBarController;
 	rootViewController.landscapeViewController = graphController;
 	
-	[window addSubview:rootViewController.view];
+	[self addViewToWindow:rootViewController.view];
 	
 	[self autoWeighInIfEnabled];
+}
+
+
+- (void)continuePostLaunch {
+	// Won't get here until passcode authorized.
+
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	
+	// Haven't loaded the DB yet.
+	if (db == nil) {
+		db = [[EWDatabase alloc] initWithFile:[self pathOfDatabase]];
+		if ([db needsUpgrade]) {
+			launchViewController = [[UpgradeViewController alloc] initWithDatabase:db];
+			[self addViewToWindow:launchViewController.view];
+		} else {
+			[EWDatabase setSharedDatabase:db];
+		}
+		[db release];
+		if (launchViewController) return;
+	}
+	
+	if (([db weightCount] == 0) && !readyToGo) {
+		// Consider a new data file, prompt user for new units.
+		launchViewController = [[NewDatabaseViewController alloc] init];
+		[self addViewToWindow:launchViewController.view];
+		readyToGo = YES;
+	} else {
+		[self setupRootView];
+	}
 }
 
 
@@ -128,22 +164,14 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	[animation setDuration:0.3];
 	
 	[launchViewController.view removeFromSuperview];
-	[self setupRootView];
-	
-	[[window layer] addAnimation:animation forKey:nil];
-	
 	[launchViewController autorelease];
 	launchViewController = nil;
+
+	[self continuePostLaunch];
+	
+	[[window layer] addAnimation:animation forKey:nil];
 }
 
-
-
-- (void)dealloc {
-    [window release];
-    [rootViewController release];
-	[launchViewController release];
-    [super dealloc];
-}
 
 
 #pragma mark UIApplicationDelegate
@@ -151,23 +179,16 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[self registerDefaults];
-	EWDatabase *db = [EWDatabase sharedDatabase];
-	[db openFile:[self pathOfDatabase]];
-	// TODO: open modal view to show upgrade progress
 	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
 	if ([PasscodeEntryViewController authorizationRequired]) {
 		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
-		[window addSubview:launchViewController.view];
-	} else if ([[EWDatabase sharedDatabase] weightCount] == 0) {
-		// This is a new data file.
-		// Prompt user to choose weight unit.
-		launchViewController = [[NewDatabaseViewController alloc] init];
-		[window addSubview:launchViewController.view];
+		[self addViewToWindow:launchViewController.view];
 	} else {
-		[self setupRootView];
+		[self continuePostLaunch];
 	}
+	
     [window makeKeyAndVisible];
 }
 
@@ -183,6 +204,17 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
+}
+
+
+#pragma mark Cleanup
+
+
+- (void)dealloc {
+    [window release];
+    [rootViewController release];
+	[launchViewController release];
+    [super dealloc];
 }
 
 

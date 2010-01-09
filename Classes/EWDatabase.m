@@ -15,12 +15,15 @@
 NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
+static EWDatabase *gSharedDB = nil;
+
+
 @interface EWDatabase ()
+- (void)didOpen;
 - (void)updateTrendValues;
 - (void)flushCache;
 - (void)executeSQLNamed:(NSString *)name;
 - (int)intValueForMetaName:(NSString *)name;
-- (void)upgradeIfNeeded;
 @end
 
 
@@ -32,12 +35,13 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 + (EWDatabase *)sharedDatabase {
-	static EWDatabase *db = nil;
-	
-	if (db == nil) {
-		db = [[EWDatabase alloc] init];
-	}
-	return db;
+	return gSharedDB;
+}
+
+
++ (void)setSharedDatabase:(EWDatabase *)db {
+	NSAssert(gSharedDB == nil, @"Cannot set shared DB twice!");
+	gSharedDB = [db retain];
 }
 
 
@@ -51,10 +55,47 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
+- (id)initWithFile:(NSString *)path {
+	if (self = [self init]) {
+		db = [[SQLiteDatabase alloc] initWithFile:path];
+		[self didOpen];
+	}
+	return self;
+}
+
+
+- (id)initWithSQL:(const char *)sql {
+	if (self = [self init]) {
+		db = [[SQLiteDatabase alloc] initInMemory];
+		[db executeSQL:sql];
+		[self didOpen];
+	}
+	return self;
+}
+
+
+- (BOOL)needsUpgrade {
+	return [self intValueForMetaName:@"dataversion"] < 3;
+}
+
+
+- (void)upgrade {
+	int version = [self intValueForMetaName:@"dataversion"];
+	if (version < 2) {
+		[self executeSQLNamed:@"DBUpgrade2"];
+	}
+	if (version < 3) {
+		[self executeSQLNamed:@"DBUpgrade3"];
+	}
+	[self didOpen];
+}
+
+
 - (void)didOpen {
+	if ([self needsUpgrade]) return;
+	
 	earliestChangeMonthDay = 0;
 	
-	[self upgradeIfNeeded];
 	EWMonth currentMonth = EWMonthDayGetMonth(EWMonthDayToday());
 	SQLiteStatement *stmt = [db statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM days"];
 	if ([stmt step]) {
@@ -69,21 +110,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		earliestMonth = currentMonth;
 		latestMonth = currentMonth;
 	}
-}
-
-
-- (void)openFile:(NSString *)path {
-	NSAssert(db == nil, @"Database must not already be open");
-	db = [[SQLiteDatabase alloc] initWithFile:path];
-	[self didOpen];
-}
-
-
-- (void)openMemoryWithSQL:(const char *)sql {
-	NSAssert(db == nil, @"Database must not already be open");
-	db = [[SQLiteDatabase alloc] initInMemory];
-	[db executeSQL:sql];
-	[self didOpen];
 }
 
 
@@ -358,17 +384,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		value = 0;
 	}
 	return value;
-}
-
-
-- (void)upgradeIfNeeded {
-	int version = [self intValueForMetaName:@"dataversion"];
-	if (version < 2) {
-		[self executeSQLNamed:@"DBUpgrade2"];
-	}
-	if (version < 3) {
-		[self executeSQLNamed:@"DBUpgrade3"];
-	}
 }
 
 
