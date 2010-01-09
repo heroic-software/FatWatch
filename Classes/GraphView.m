@@ -29,6 +29,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
 @synthesize p;
+@synthesize yAxisView;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -204,6 +205,97 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		}
 	}
 }
+
+
+#pragma mark Image Export
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (image) {
+		[self performSelector:@selector(showExportActionSheet) withObject:nil afterDelay:1];
+	}
+}
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	[[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(showExportActionSheet) target:self argument:nil];
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(showExportActionSheet) target:self argument:nil];
+}
+
+
+- (void)showExportActionSheet {
+	UIActionSheet *sheet = [[UIActionSheet alloc] init];
+	sheet.delegate = self;
+	[sheet addButtonWithTitle:NSLocalizedString(@"Save Image", @"Save image")];
+	[sheet addButtonWithTitle:NSLocalizedString(@"Copy", @"Copy image")];
+	sheet.cancelButtonIndex = 
+	[sheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel image")];
+	if (self.window) {
+		[sheet showInView:self.window];
+	} else {
+		NSLog(@"Can't show sheet: GraphView.window = nil");
+	}
+	[sheet release];
+}
+
+
+- (UIImage *)exportableImage {
+	CGRect imageRect;
+	
+	imageRect.origin = CGPointZero;
+	imageRect.size.width = CGImageGetWidth(image);
+	imageRect.size.height = CGImageGetHeight(image);
+	
+	CGSize contextSize = imageRect.size;
+
+	if (yAxisView) {
+		CGFloat w = CGRectGetWidth(yAxisView.bounds);
+		contextSize.width += w;
+		imageRect.origin.x += w;
+	}
+	
+	UIGraphicsBeginImageContext(contextSize);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+
+	if (yAxisView) {
+		[yAxisView drawRect:yAxisView.bounds];
+	}
+
+	CGContextDrawImage(context, imageRect, image);
+
+	UIImage *exportImage = UIGraphicsGetImageFromCurrentImageContext();
+	
+	UIGraphicsEndImageContext();
+	
+	return exportImage;
+}
+
+
+- (void)exportImageToSavedPhotos {
+	UIImageWriteToSavedPhotosAlbum([self exportableImage], nil, nil, nil);
+}
+
+
+- (void)copy:(id)sender {
+	[[UIPasteboard generalPasteboard] setImage:[self exportableImage]];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		[self exportImageToSavedPhotos];
+	}
+	else if (buttonIndex == 1) {
+		[self copy:nil];
+	}
+}
+
+
+#pragma mark Cleanup
 
 
 - (void)dealloc {

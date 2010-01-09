@@ -414,6 +414,7 @@ enum {
 				[cachedGraphViews removeLastObject];
 			} else {
 				ginfo->view = [[GraphView alloc] init];
+				ginfo->view.yAxisView = axisView;
 				// insert subview at the back, so it doesn't overlap the scroll indicator
 				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
