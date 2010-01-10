@@ -116,6 +116,8 @@
 		BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02496210F419F600BED779 /* EWEnergyEquivalent.m */; };
 		BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */; };
 		BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */; };
+		BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBF0C10F9393000FA0C93 /* NewEquivalentView.xib */; };
+		BCDFBF1110F93B9800FA0C93 /* NewEquivalentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */; };
 		BCE21B200E3BAFCE00E94F6C /* BRTableNumberPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */; };
 		BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE6075110E01C0100819E77 /* RungEntryView.xib */; };
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
@@ -387,6 +389,9 @@
 		BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpgradeViewController.m; path = Classes/UpgradeViewController.m; sourceTree = "<group>"; };
 		BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UpgradeView.xib; path = Interfaces/UpgradeView.xib; sourceTree = "<group>"; };
 		BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBEquivDefaults.sql; sourceTree = "<group>"; };
+		BCDFBF0C10F9393000FA0C93 /* NewEquivalentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NewEquivalentView.xib; path = Interfaces/NewEquivalentView.xib; sourceTree = "<group>"; };
+		BCDFBF0F10F93B9800FA0C93 /* NewEquivalentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewEquivalentViewController.h; path = Classes/NewEquivalentViewController.h; sourceTree = "<group>"; };
+		BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEquivalentViewController.m; path = Classes/NewEquivalentViewController.m; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
@@ -702,6 +707,9 @@
 				BC02490A10F40C8700BED779 /* EnergyViewController.h */,
 				BC02490B10F40C8700BED779 /* EnergyViewController.m */,
 				BC749EC010E31425001E8030 /* TrendView.xib */,
+				BCDFBF0C10F9393000FA0C93 /* NewEquivalentView.xib */,
+				BCDFBF0F10F93B9800FA0C93 /* NewEquivalentViewController.h */,
+				BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */,
 			);
 			name = Trends;
 			sourceTree = "<group>";
@@ -947,6 +955,7 @@
 				BCC485D710F2700300563776 /* NavButton1.png in Resources */,
 				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
 				BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */,
+				BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,6 +1124,7 @@
 				BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */,
 				BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */,
 				BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */,
+				BCDFBF1110F93B9800FA0C93 /* NewEquivalentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

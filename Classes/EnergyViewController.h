@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class EWEnergyFormatter;
+@class NewEquivalentViewController;
 
 @interface EnergyViewController : UITableViewController {
 	float weight;
@@ -18,6 +19,7 @@
 	NSMutableArray *deletedItemArray;
 	EWEnergyFormatter *energyFormatter;
 	BOOL dirty;
+	NewEquivalentViewController *newEquivalentController;
 }
 - (id)initWithWeight:(float)weight andChangePerDay:(float)rate;
 @end

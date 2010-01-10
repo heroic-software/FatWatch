@@ -12,6 +12,7 @@
 #import "EWEnergyEquivalent.h"
 #import "EWWeightFormatter.h"
 #import "EWDatabase.h"
+#import "NewEquivalentViewController.h"
 
 
 @implementation EnergyViewController
@@ -57,6 +58,14 @@
 }
 
 
+- (void)showNewEquivalentView:(id)sender {
+	if (newEquivalentController == nil) {
+		newEquivalentController = [[NewEquivalentViewController alloc] init];
+	}
+	[self.navigationController pushViewController:newEquivalentController animated:YES];
+}
+
+
 #pragma mark UIViewController
 
 
@@ -69,31 +78,29 @@
 
 
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+	[super viewDidUnload];
+	[dataArray release];
+	dataArray = nil;
 }
 
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+	id equiv = newEquivalentController.newEquivalent;
+	if (equiv) {
+		int sec = [equiv isKindOfClass:[EWActivityEquivalent class]] ? 0 : 1;
+		NSMutableArray *array = [dataArray objectAtIndex:sec];
+		int row = [array count];
+		[array addObject:equiv];
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:sec];
+		[self.tableView	insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+							  withRowAnimation:UITableViewRowAnimationTop];
+		[self.tableView scrollToRowAtIndexPath:indexPath 
+							  atScrollPosition:UITableViewScrollPositionNone
+									  animated:YES];
+		dirty = YES;
+		newEquivalentController.newEquivalent = nil;
+	}
 }
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
 
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -103,6 +110,14 @@
 		[deletedItemArray removeAllObjects];
 		dirty = NO;
 	}
+	UIBarButtonItem *newLeftItem;
+	if (editing) {
+		newLeftItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showNewEquivalentView:)];
+	} else {
+		newLeftItem = nil;
+	}
+	[self.navigationItem setLeftBarButtonItem:newLeftItem animated:YES];
+	[newLeftItem release];
 }	
 
 
@@ -150,7 +165,7 @@
 		[deletedItemArray addObject:[array objectAtIndex:indexPath.row]];
 		[array removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-						 withRowAnimation:UITableViewRowAnimationBottom];
+						 withRowAnimation:UITableViewRowAnimationFade];
 		dirty = YES;
     }
 }
@@ -198,6 +213,7 @@
 	[titleArray release];
 	[dataArray release];
 	[deletedItemArray release];
+	[newEquivalentController release];
     [super dealloc];
 }
 
