@@ -140,18 +140,28 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
-- (float)earliestWeight {
-	float weight;
+- (float)floatFromSQL:(const char *)sql {
+	float value;
 	
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleWeight FROM days WHERE scaleWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
+	SQLiteStatement *stmt = [db statementFromSQL:sql];
 	if ([stmt step]) {
-		weight = [stmt doubleValueOfColumn:0];
+		value = [stmt doubleValueOfColumn:0];
 		[stmt reset];
 	} else {
-		weight = 0;
+		value = 0;
 	}
 	
-	return weight;
+	return value;
+}
+
+
+- (float)earliestWeight {
+	return [self floatFromSQL:"SELECT scaleWeight FROM days WHERE scaleWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
+}
+
+
+- (float)earliestFat {
+	return [self floatFromSQL:"SELECT scaleFat FROM days WHERE scaleFat IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
@@ -165,6 +175,38 @@ static EWDatabase *gSharedDB = nil;
 	
 	w = [dbm inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
 	return w;
+}
+
+
+- (float)latestFatBeforeMonth:(EWMonth)month {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFat FROM days WHERE scaleFat IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	float fat;
+	
+	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
+	if ([stmt step]) {
+		fat = [stmt doubleValueOfColumn:0];
+		[stmt reset];
+	} else {
+		fat = 0;
+	}
+	
+	return fat;
+}
+
+
+- (BOOL)didRecordFatBeforeMonth:(EWMonth)month {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFat FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	float fat;
+	
+	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
+	if ([stmt step]) {
+		fat = [stmt doubleValueOfColumn:0];
+		[stmt reset];
+	} else {
+		fat = 0;
+	}
+	
+	return fat > 0;
 }
 
 

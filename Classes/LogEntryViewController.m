@@ -236,11 +236,24 @@ enum {
 	if (weight > 0) return weight;
 	
 	// there is no weight on or earlier than this day, so find first measurement
-	weight = [[EWDatabase sharedDatabase] earliestWeight];
+	weight = [monthData.database earliestWeight];
 	if (weight > 0) return weight;
 
 	// database is empty!
 	return 200.0f;
+}
+
+
+- (float)chooseDefaultFat {
+	// no fat today, search earlier
+	float fat = [monthData latestFatBeforeDay:day];
+	if (fat > 0) return fat;
+	
+	// nothing on or earlier, find first
+	fat = [monthData.database earliestFat];
+	if (fat > 0) return fat;
+	
+	return 0.25f;
 }
 
 
@@ -260,11 +273,10 @@ enum {
 }
 
 
-- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth isWeighIn:(BOOL)isWeighIn {
+- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth {
 	day = aDay;
 	[monthData release];
 	monthData = [aDBMonth retain];
-	weighIn = isWeighIn;
 	
 	[self view]; // force load of view
 	
@@ -280,18 +292,23 @@ enum {
 	weightRow = [self pickerRowForWeight:dd->scaleWeight];
 	fatRow = [self pickerRowForBodyFat:dd->scaleFat];
 	
-	// TODO: default segment should be based on whether previous weigh-in included fat
-	if (fatRow > 0) {
-		weightMode = kModeWeightAndFat;
-	} else if (weightRow > 0) {
-		weightMode = kModeWeight;
-	} else {
-		weightMode = kModeNone;
-	}
+	BOOL weighIn = (![monthData hasDataOnDay:day] &&
+					(EWMonthDayToday() == EWMonthDayMake(monthData.month, day)));
 
 	if (weighIn) {
-		// TODO: if previous entry included fat, show fat entry also
-		weightMode = kModeWeight;
+		if ([monthData didRecordFatBeforeDay:day]) {
+			weightMode = kModeWeightAndFat;
+		} else {
+			weightMode = kModeWeight;
+		}
+	} else {
+		if (fatRow > 0) {
+			weightMode = kModeWeightAndFat;
+		} else if (weightRow > 0) {
+			weightMode = kModeWeight;
+		} else {
+			weightMode = kModeNone;
+		}
 	}
 	
 	weightControl.selectedSegmentIndex = weightMode;
@@ -299,8 +316,9 @@ enum {
 	if (weightRow == 0) {
 		weightRow = [self pickerRowForWeight:[self chooseDefaultWeight]];
 	}
+	
 	if (fatRow == 0) {
-		fatRow = [self pickerRowForBodyFat:0.2]; // TODO: choose default fat
+		fatRow = [self pickerRowForBodyFat:[self chooseDefaultFat]];
 	}
 	
 	[self toggleWeight];

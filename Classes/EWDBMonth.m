@@ -48,6 +48,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 @implementation EWDBMonth
 
 
+@synthesize database;
 @synthesize month;
 
 
@@ -159,6 +160,31 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	// If nothing else, return weight (implies day is first day of data ever)
 
 	return days[day - 1].scaleWeight;
+}
+
+
+- (float)latestFatBeforeDay:(EWDay)day {
+	int i;
+	
+	for (i = (day - 1) - 1; i >= 0; i--) {
+		float fat = days[i].scaleFat;
+		if (fat > 0) return fat;
+	}
+
+	return [database latestFatBeforeMonth:month];
+}
+
+
+- (BOOL)didRecordFatBeforeDay:(EWDay)day {
+	int i;
+	
+	for (i = (day - 1) - 1; i >= 0; i--) {
+		if (days[i].scaleWeight > 0) {
+			return days[i].scaleFat > 0;
+		}
+	}
+	
+	return [database didRecordFatBeforeMonth:month];
 }
 
 

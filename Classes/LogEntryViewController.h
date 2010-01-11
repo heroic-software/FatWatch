@@ -16,7 +16,6 @@
 @interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
 	EWDBMonth *monthData;
 	EWDay day;
-	BOOL weighIn;
 	UISegmentedControl *weightControl;
 	UIView *weightContainerView;
 	UIPickerView *weightPickerView;
@@ -46,7 +45,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *flag1Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag2Button;
 @property (nonatomic,retain) IBOutlet UIButton *flag3Button;
-- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth isWeighIn:(BOOL)isWeighIn;
+- (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth;
 - (IBAction)toggleWeightAction:(id)sender;
 - (IBAction)toggleFlagButton:(UIButton *)sender;
 - (IBAction)cancelAction:(id)sender;

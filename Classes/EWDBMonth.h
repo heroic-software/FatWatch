@@ -31,6 +31,7 @@ typedef struct EWDBDay {
 	struct EWDBDay days[31];
 	UInt32 dirtyBits;
 }
+@property (nonatomic,readonly) EWDatabase *database;
 @property (nonatomic,readonly) EWMonth month;
 @property (nonatomic,readonly) EWDBMonth *previous;
 @property (nonatomic,readonly) EWDBMonth *next;
@@ -40,6 +41,8 @@ typedef struct EWDBDay {
 - (EWDay)firstDayWithWeight;
 - (EWDay)lastDayWithWeight;
 - (float)inputTrendOnDay:(EWDay)day;
+- (float)latestFatBeforeDay:(EWDay)day;
+- (BOOL)didRecordFatBeforeDay:(EWDay)day;
 - (void)updateTrends;
 - (void)setDBDay:(EWDBDay *)dbd onDay:(EWDay)day;
 - (BOOL)hasDataOnDay:(EWDay)day;

@@ -86,7 +86,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	EWDay day = EWMonthDayGetDay(today);
 	if (![dbm hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
-		[controller configureForDay:day dbMonth:dbm isWeighIn:YES];
+		[controller configureForDay:day dbMonth:dbm];
 		[rootViewController.portraitViewController presentModalViewController:controller animated:NO];
 	}
 }
