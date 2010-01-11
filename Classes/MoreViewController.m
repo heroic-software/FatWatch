@@ -19,10 +19,16 @@
 #import "CSVExporter.h"
 
 
+static const int kSectionOptions = 0;
+static const int kSectionData = 1;
+static const int kSectionSupport = 2;
+static const int kRowExportEmail = 1;
+
+
 @implementation MoreViewController
 
 
-- (void)initMoreSection {
+- (void)initOptionsSection {
 	BRTableSection *moreSection = [self addNewSection];
 	moreSection.footerTitle = NSLocalizedString(@"Other settings are in the Settings app.", @"More section footer");
 	
@@ -49,7 +55,7 @@
 }
 
 
-- (void)initTransferSection {
+- (void)initDataSection {
 	BRTableSection *dataSection = [self addNewSection];
 	dataSection.headerTitle = NSLocalizedString(@"Data", @"Data section title");
 	
@@ -109,9 +115,7 @@
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"More", @"More view title");
-		UITabBarItem *item = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0];
-		self.tabBarItem = item;
-		[item release];
+		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
 	}
 	return self;
 }
@@ -124,11 +128,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	if ([self numberOfSections] == 0) {
-		[self initMoreSection];
-		[self initTransferSection];
+		[self initOptionsSection];
+		[self initDataSection];
 		[self initSupportSection];
+		[self.tableView reloadData];
 	}
-	[self.tableView reloadData];
 }
 
 
@@ -171,20 +175,26 @@
 }
 
 
-- (void)showWeightChart:(BRTableButtonRow *)sender {
+- (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
 	UIAlertView *alert = [[UIAlertView alloc] init];
-	alert.title = NSLocalizedString(@"Weight Chart", nil);
-	alert.message = NSLocalizedString(@"Rotate the device sideways to see a chart at any time.", @"Weight Chart alert message");
-	alert.cancelButtonIndex = [alert addButtonWithTitle:NSLocalizedString(@"Dismiss", nil)];
+	alert.title = title;
+	alert.message = message;
+	alert.cancelButtonIndex = 
+	[alert addButtonWithTitle:NSLocalizedString(@"Dismiss", nil)];
 	[alert show];
 	[alert release];
 }
 
 
+- (void)showWeightChart:(BRTableButtonRow *)sender {
+	[self showAlertWithTitle:NSLocalizedString(@"Weight Chart", nil)
+					 message:NSLocalizedString(@"Rotate the device sideways to see a chart at any time.", @"Weight Chart alert message")];
+}
+
+
 - (void)emailExport:(BRTableButtonRow *)sender {
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-	UIActivityIndicatorView *activityView = (id)sender.accessoryView;
-	[activityView startAnimating];
+	[(UIActivityIndicatorView *)sender.accessoryView startAnimating];
 	[NSThread detachNewThreadSelector:@selector(doExport:) toTarget:self withObject:nil];
 }
 
@@ -210,23 +220,20 @@
 	NSData *data = [args objectAtIndex:2];
 	
 	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-	BRTableRow *row = [[self sectionAtIndex:1] rowAtIndex:1];
-	UIActivityIndicatorView *activityView = (id)row.accessoryView;
-	[activityView stopAnimating];
+	BRTableRow *row = [[self sectionAtIndex:kSectionData] rowAtIndex:kRowExportEmail];
+	[(UIActivityIndicatorView *)row.accessoryView stopAnimating];
 
-	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
-	
 	NSString *fileName = [@"FatWatch-Export" stringByAppendingPathExtension:fileExtension];
 	
 	NSString *body = [NSString stringWithFormat:
 					  NSLocalizedString(@"ExportEmailBodyFormat", nil),
 					  [[UIDevice currentDevice] name]];
 	
+	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
 	[mail setMailComposeDelegate:self];
 	[mail setSubject:@"FatWatch Export"];
 	[mail setMessageBody:body isHTML:YES];
 	[mail addAttachmentData:data mimeType:contentType fileName:fileName];
-	
 	[self presentModalViewController:mail animated:YES];
 	[mail release];
 }
@@ -235,12 +242,8 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[controller dismissModalViewControllerAnimated:YES];
 	if (result == MFMailComposeResultFailed) {
-		UIAlertView *alert = [[UIAlertView alloc] init];
-		alert.title = @"Error";
-		alert.message = [error localizedDescription];
-		alert.cancelButtonIndex = [alert addButtonWithTitle:@"Dismiss"];
-		[alert show];
-		[alert release];
+		[self showAlertWithTitle:NSLocalizedString(@"Mail Error", nil)
+						 message:[error localizedDescription]];
 	}
 }
 
