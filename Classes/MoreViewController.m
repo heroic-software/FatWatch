@@ -67,6 +67,7 @@
 	emailRow.disabled = ![MFMailComposeViewController canSendMail];
 	emailRow.target = self;
 	emailRow.action = @selector(emailExport:);
+	emailRow.accessoryView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
 	[dataSection addRow:emailRow animated:NO];
 	[emailRow release];
 }
@@ -181,27 +182,53 @@
 
 
 - (void)emailExport:(BRTableButtonRow *)sender {
-	// TODO: display a progress indicator
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	UIActivityIndicatorView *activityView = (id)sender.accessoryView;
+	[activityView startAnimating];
+	[NSThread detachNewThreadSelector:@selector(doExport:) toTarget:self withObject:nil];
+}
+
+
+- (void)doExport:(id)arg {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	EWExporter *exporter = [[CSVExporter alloc] init];
+	[self performSelectorOnMainThread:@selector(mailExport:)
+						   withObject:[NSArray arrayWithObjects:
+									   [exporter contentType],
+									   [exporter fileExtension],
+									   [exporter exportedData],
+									   nil]
+						waitUntilDone:NO];
+	[exporter release];
+	[pool release];
+}
+
+
+- (void)mailExport:(NSArray *)args {
+	NSString *contentType = [args objectAtIndex:0];
+	NSString *fileExtension = [args objectAtIndex:1];
+	NSData *data = [args objectAtIndex:2];
 	
+	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+	BRTableRow *row = [[self sectionAtIndex:1] rowAtIndex:1];
+	UIActivityIndicatorView *activityView = (id)row.accessoryView;
+	[activityView stopAnimating];
+
 	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
 	
-	NSString *fileName = [@"FatWatch-Export" stringByAppendingPathExtension:[exporter fileExtension]];
+	NSString *fileName = [@"FatWatch-Export" stringByAppendingPathExtension:fileExtension];
 	
-	// TODO: add link to help page (what to do with this file?)
-	NSString *body = [NSString stringWithFormat:@"The attached file is weight history exported from <a href=\"http://www.fatwatchapp.com/\">FatWatch</a> on <b>%@</b>.", [[UIDevice currentDevice] name]];
+	NSString *body = [NSString stringWithFormat:
+					  NSLocalizedString(@"ExportEmailBodyFormat", nil),
+					  [[UIDevice currentDevice] name]];
 	
 	[mail setMailComposeDelegate:self];
 	[mail setSubject:@"FatWatch Export"];
 	[mail setMessageBody:body isHTML:YES];
-	[mail addAttachmentData:[exporter exportedData]
-				   mimeType:[exporter contentType]
-				   fileName:fileName];
+	[mail addAttachmentData:data mimeType:contentType fileName:fileName];
 	
 	[self presentModalViewController:mail animated:YES];
 	[mail release];
-
-	[exporter release];
 }
 
 

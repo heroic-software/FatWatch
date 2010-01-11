@@ -74,11 +74,11 @@
 	EWDBMonth *dbm = [db getDBMonth:beginMonth];
 	
 	while (dbm && dbm.month <= endMonth) {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		EWDay firstDay = (dbm.month == beginMonth) ? beginDay : 1;
 		EWDay lastDay = (dbm.month == endMonth) ? endDay : 31;
 		EWDay day;
 		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		for (day = firstDay; day <= lastDay; day++) {
 			if (! [dbm hasDataOnDay:day]) continue;
 			
@@ -128,11 +128,13 @@
 			}
 			
 			[self endRecord];
-			[pool drain];
 		}
+		[pool drain];
 		
 		dbm = dbm.next;
-		[pool release];
+#if TARGET_IPHONE_SIMULATOR
+		[NSThread sleepForTimeInterval:1.0/12.0];
+#endif
 	}
 }
 
