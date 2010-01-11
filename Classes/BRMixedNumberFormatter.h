@@ -16,8 +16,8 @@
 	NSNumberFormatter *remainderFormatter;
 	NSString *formatString;
 }
-+ (NSFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits;
-+ (NSFormatter *)metersAsFeetFormatter; // input values are inches
++ (BRMixedNumberFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits;
++ (BRMixedNumberFormatter *)metersAsFeetFormatter; // input values are inches
 @property (nonatomic) float multiple;
 @property (nonatomic) float divisor;
 @property (nonatomic,retain) NSNumberFormatter *quotientFormatter;

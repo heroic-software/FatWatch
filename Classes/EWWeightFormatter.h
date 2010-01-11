@@ -14,6 +14,7 @@ typedef enum {
 	EWWeightFormatterStyleDisplay,
 	EWWeightFormatterStyleVariance,
 	EWWeightFormatterStyleWhole,
+	EWWeightFormatterStyleGraph,
 	EWWeightFormatterStyleExport,
 	EWWeightFormatterStyleBMI,
 	EWWeightFormatterStyleBMILabeled

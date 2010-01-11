@@ -21,7 +21,7 @@
 }
 
 
-+ (NSFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits {
++ (BRMixedNumberFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits {
 	// Unicode PUNCTUATION SPACE: E2 80 88
 	BRMixedNumberFormatter *formatter = [[BRMixedNumberFormatter alloc] init];
 	formatter.multiple = 1;
@@ -33,7 +33,7 @@
 }
 
 
-+ (NSFormatter *)metersAsFeetFormatter {
++ (BRMixedNumberFormatter *)metersAsFeetFormatter {
 	BRMixedNumberFormatter *formatter = [[BRMixedNumberFormatter alloc] init];
 	formatter.multiple = 39.370079f; // meters to inches
 	formatter.divisor = 12; // inches per foot

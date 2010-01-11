@@ -214,6 +214,13 @@ enum {
 - (void)viewDidLoad {
 	[axisView useParameters:&parameters];
 	spanControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"ChartSelectedSpanIndex"];
+	[axisView sizeToFit];
+	CGFloat axisViewWidth = CGRectGetWidth(axisView.frame);
+	CGFloat totalWidth = CGRectGetWidth(self.view.bounds);
+	CGRect frame = scrollView.frame;
+	frame.origin.x = axisViewWidth;
+	frame.size.width = totalWidth - axisViewWidth;
+	scrollView.frame = frame;
 }
 
 

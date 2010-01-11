@@ -58,6 +58,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 		case EWWeightFormatterStyleDisplay:
 			return [[NSUserDefaults standardUserDefaults] scaleIncrementFractionDigits];
 		case EWWeightFormatterStyleWhole:
+		case EWWeightFormatterStyleGraph:
 			return 0;
 		case EWWeightFormatterStyleVariance:
 		case EWWeightFormatterStyleExport:
@@ -113,7 +114,12 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	NSUInteger fd = [self fractionDigitsForStyle:style];
 	
 	if (unit == EWWeightUnitStones && style != EWWeightFormatterStyleVariance) {
-		return [BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:fd];
+		BRMixedNumberFormatter *fmtr = 
+		[BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:fd];
+		if (style == EWWeightFormatterStyleGraph) {
+			fmtr.formatString = @"%@,%@";
+		}
+		return fmtr;
 	}
 	
 	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];

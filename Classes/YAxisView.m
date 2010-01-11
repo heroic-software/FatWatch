@@ -12,6 +12,10 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
+static const CGFloat gTickWidth = 6.5;
+static const CGFloat gMinorTickWidth = 3.5;
+
+
 @implementation YAxisView
 
 
@@ -20,13 +24,22 @@
 }
 
 
+- (CGSize)sizeThatFits:(CGSize)size {
+	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
+	// 993 lbs | 451 kg | 70 st 13 lb
+	NSNumber *number = [NSNumber numberWithFloat:993];
+	NSString *label = [formatter stringForObjectValue:number];
+	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
+	CGSize labelSize = [label sizeWithFont:labelFont];
+	return CGSizeMake(labelSize.width + 2*gTickWidth, size.height);
+}
+
+
 - (void)drawRect:(CGRect)rect {
 	NSAssert(p != NULL, @"Attempt to draw Y-axis view before parameters are set.");
 	
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
-	const CGFloat tickWidth = 6.5;
-	const CGFloat minorTickWidth = 3.5;
 		
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
@@ -35,7 +48,7 @@
 	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
 
 	// draw labels
-	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
+	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	[[UIColor blackColor] setFill];
 	float w;
@@ -44,22 +57,22 @@
 		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
 		CGSize labelSize = [label sizeWithFont:labelFont];
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
-		CGRect labelRect = CGRectMake(viewWidth - labelSize.width - tickWidth, 
+		CGRect labelRect = CGRectMake(viewWidth - labelSize.width - gTickWidth, 
 									  point.y - (labelSize.height / 2),
 									  labelSize.width,
 									  labelSize.height);
 		if (CGRectContainsRect(bounds, labelRect)) {
-			[label drawInRect:labelRect withFont:labelFont];
+			[label drawAtPoint:labelRect.origin withFont:labelFont];
 		}
 		// add tick line to path
-		CGPathMoveToPoint(tickPath, NULL, viewWidth - tickWidth, point.y);
+		CGPathMoveToPoint(tickPath, NULL, viewWidth - gTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
 	// minor ticks
 	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += [[NSUserDefaults standardUserDefaults] weightWholeIncrement]) {
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
-		CGPathMoveToPoint(tickPath, NULL, viewWidth - minorTickWidth, point.y);
+		CGPathMoveToPoint(tickPath, NULL, viewWidth - gMinorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
