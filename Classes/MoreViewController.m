@@ -234,6 +234,14 @@
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[controller dismissModalViewControllerAnimated:YES];
+	if (result == MFMailComposeResultFailed) {
+		UIAlertView *alert = [[UIAlertView alloc] init];
+		alert.title = @"Error";
+		alert.message = [error localizedDescription];
+		alert.cancelButtonIndex = [alert addButtonWithTitle:@"Dismiss"];
+		[alert show];
+		[alert release];
+	}
 }
 
 
