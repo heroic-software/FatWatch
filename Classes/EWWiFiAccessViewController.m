@@ -41,8 +41,8 @@ NSDateFormatter *EWDateFormatterGetLocal() {
 
 NSArray *EWFatFormatterNames() {
 	return [NSArray arrayWithObjects:
-			@"Ratio (0...1)",
 			@"Percentage (0...100)", 
+			@"Ratio (0...1)",
 			nil];
 }
 
@@ -52,7 +52,7 @@ NSFormatter *EWFatFormatter(NSString *indexString) {
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimum:[NSNumber numberWithFloat:0]];
 	[formatter setMaximum:[NSNumber numberWithFloat:1]];
-	if ([indexString intValue] == 1) {
+	if ([indexString intValue] == 0) {
 		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
 	}
 	return [formatter autorelease];
