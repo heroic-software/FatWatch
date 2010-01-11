@@ -84,6 +84,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	[infoPickerController updateButton];
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
+	
+//	UILabel *fortuneLabel = (id)[self.tableView.tableFooterView viewWithTag:240];
 }
 
 
@@ -118,7 +120,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
 
 	NSUInteger row, section;
-	section = latestMonth - earliestMonth + 1;
+	section = latestMonth - earliestMonth;
 	if (latestMonth == EWMonthDayGetMonth(today)) {
 		row = EWMonthDayGetDay(today) - 1;
 	} else {
@@ -135,13 +137,13 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (EWMonth)monthForSection:(NSInteger)section {
-	return earliestMonth + (section - 1);
+	return earliestMonth + section;
 }
 
 
 - (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
-	NSInteger section = 1 + MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
-								[self numberOfSectionsInTableView:tableView] - 1);
+	NSInteger section = MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
+							[self numberOfSectionsInTableView:tableView] - 1);
 	NSInteger row = MIN((EWMonthDayGetDay(monthday) - 1), 
 						[self tableView:tableView numberOfRowsInSection:section] - 1);
 	return [NSIndexPath indexPathForRow:row inSection:section];
@@ -167,7 +169,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 	if (scrollDestination != 0) {
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
-						 atScrollPosition:UITableViewScrollPositionMiddle
+						 atScrollPosition:UITableViewScrollPositionNone
 								 animated:animated];
 		scrollDestination = 0;
 	}
@@ -201,7 +203,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	}
 	NSIndexPath *path = [self indexPathForMonthDay:md];
 	[tableView scrollToRowAtIndexPath:path
-					 atScrollPosition:UITableViewScrollPositionBottom
+					 atScrollPosition:UITableViewScrollPositionNone
 							 animated:YES];
 }
 
@@ -210,14 +212,12 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1 + (latestMonth - earliestMonth + 1);
+	return (latestMonth - earliestMonth + 1);
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == 0) {
-		return 1;
-	} else if (section == [lastIndexPath section]) {
+	if (section == [lastIndexPath section]) {
 		return [lastIndexPath row] + 1;
 	} else {
 		EWMonth month = [self monthForSection:section];
@@ -230,7 +230,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 0) return nil;
 	EWMonth month = [self monthForSection:section];
 	NSDate *theDate = EWDateFromMonthAndDay(month, 1);
 	return [sectionTitleFormatter stringFromDate:theDate];
@@ -241,21 +240,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0) {
-		UITableViewCell *helpCell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
-		helpCell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-		UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-		helpLabel.text = NSLocalizedString(@"For earlier dates, tap the Go To button.", @"Log find earlier dates message");
-		helpLabel.textColor = [UIColor darkGrayColor];
-		helpLabel.textAlignment = UITextAlignmentCenter;
-		helpLabel.adjustsFontSizeToFitWidth = YES;
-		[helpCell.contentView addSubview:helpLabel];
-		[helpLabel release];
-		
-		return [helpCell autorelease];
-	}
-	
 	LogTableViewCell *cell = nil;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
@@ -278,8 +262,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0) return;
-	
 	EWMonth month = [self monthForSection:indexPath.section];
 	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:month];
 	EWDay day = 1 + indexPath.row;
