@@ -25,6 +25,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 @implementation GraphView
 
 
+@synthesize selected;
 @synthesize image;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
@@ -37,6 +38,14 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		self.backgroundColor = [UIColor whiteColor];
 	}
 	return self;
+}
+
+
+- (void)setSelected:(BOOL)flag {
+	if (selected != flag) {
+		selected = flag;
+		[self setNeedsDisplay];
+	}
 }
 
 
@@ -169,9 +178,10 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (void)drawRect:(CGRect)rect {
+	CGContextRef context = UIGraphicsGetCurrentContext();
+
 	if (image != NULL) {
 		CGRect bounds = self.bounds;
-		CGContextRef context = UIGraphicsGetCurrentContext();
 		CGContextSaveGState(context);
 		CGContextTranslateCTM(context, 0, CGRectGetHeight(bounds));
 		CGContextScaleCTM(context, 1, -1);
@@ -188,12 +198,11 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			pattern = CGPatternCreate(NULL, CGRectMake(0, 0, kDayWidth, kDayWidth), CGAffineTransformIdentity, kDayWidth, kDayWidth, kCGPatternTilingConstantSpacing, TRUE, &callbacks);
 		}
 		
-		CGContextRef ctxt = UIGraphicsGetCurrentContext();
 		CGColorSpaceRef space = CGColorSpaceCreatePattern(NULL);
-		CGContextSetFillColorSpace(ctxt, space);
+		CGContextSetFillColorSpace(context, space);
 		const CGFloat alpha[] = { 1.0 };
-		CGContextSetFillPattern(ctxt, pattern, alpha);
-		CGContextFillRect(ctxt, self.bounds);
+		CGContextSetFillPattern(context, pattern, alpha);
+		CGContextFillRect(context, self.bounds);
 		CGColorSpaceRelease(space);
 	}
 
@@ -204,26 +213,32 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 			[self drawMonthLabels];
 		}
 	}
+	
+	if (selected) {
+		CGContextSetRGBFillColor(context, 0, 0, 0, 0.2f);
+		CGContextFillRect(context, rect);
+	}
 }
 
 
 #pragma mark Image Export
 
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)beginExport {
 	if (image) {
+		exporting = YES;
+		self.selected = YES;
 		[self performSelector:@selector(showExportActionSheet) withObject:nil afterDelay:1];
 	}
 }
 
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	[[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(showExportActionSheet) target:self argument:nil];
-}
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(showExportActionSheet) target:self argument:nil];
+- (void)cancelExport {
+	if (exporting) {
+		exporting = NO;
+		self.selected = NO;
+		[GraphView cancelPreviousPerformRequestsWithTarget:self selector:@selector(showExportActionSheet) object:nil];
+	}
 }
 
 
@@ -244,14 +259,16 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (UIImage *)exportableImage {
-	CGSize contextSize = self.bounds.size;
+	CGRect contextRect = self.bounds;
 
 	if (yAxisView) {
-		contextSize.width += CGRectGetWidth(yAxisView.bounds);
+		contextRect.size.width += CGRectGetWidth(yAxisView.bounds);
 	}
 	
-	UIGraphicsBeginImageContext(contextSize);
+	UIGraphicsBeginImageContext(contextRect.size);
 	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSetRGBFillColor(context, 1, 1, 1, 1);
+	CGContextFillRect(context, contextRect);
 
 	if (yAxisView) {
 		CGRect yAxisBounds = yAxisView.bounds;
@@ -259,7 +276,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGContextTranslateCTM(context, w, 0);
 		[self drawRect:self.bounds];
 		CGContextTranslateCTM(context, -w, 0);
-		CGContextClearRect(context, yAxisBounds);
 		[yAxisView drawRect:yAxisBounds];
 	} else {
 		[self drawRect:self.bounds];
@@ -283,13 +299,36 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 }
 
 
+#pragma mark UIActionSheetDelegate
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	self.selected = NO;
 	if (buttonIndex == 0) {
 		[self exportImageToSavedPhotos];
 	}
 	else if (buttonIndex == 1) {
 		[self copy:nil];
 	}
+	exporting = NO;
+}
+
+
+#pragma mark UIView Touches
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self beginExport];
+}
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self cancelExport];
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self cancelExport];
 }
 
 
@@ -298,6 +337,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 - (void)dealloc {
 	CGImageRelease(image);
+	[yAxisView release];
 	[super dealloc];
 }
 
