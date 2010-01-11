@@ -287,9 +287,18 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 		rect.size.width = 15;
 		rect.size.height = 15;
 
-		CGContextRef ctxt = UIGraphicsGetCurrentContext();
+		static const CGFloat R = 5;
+		CGMutablePathRef path = CGPathCreateMutable();
+		CGPathMoveToPoint(path, NULL,     0,  R);
+		CGPathAddLineToPoint(path, NULL,  R,  0);
+		CGPathAddLineToPoint(path, NULL,  0, -R);
+		CGPathAddLineToPoint(path, NULL, -R,  0);
+		CGPathCloseSubpath(path);
 		
-		[(inverse ? [UIColor whiteColor] : [UIColor grayColor]) setStroke];
+		CGContextRef ctxt = UIGraphicsGetCurrentContext();
+		CGContextSetLineWidth(ctxt, 1);
+		
+		[(inverse ? [UIColor whiteColor] : [UIColor blackColor]) setStroke];
 		
 		for (f = 0; f < 4; f++) {
 			NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
@@ -305,9 +314,11 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 						 alignment:UITextAlignmentCenter];
 			}
 			else {
-				CGRect dotRect = CGRectInset(rect, 2.25, 2.25);
-				if (value) CGContextFillRect(ctxt, dotRect);
-				CGContextStrokeRect(ctxt, dotRect);
+				CGContextSaveGState(ctxt);
+				CGContextTranslateCTM(ctxt, CGRectGetMidX(rect), CGRectGetMidY(rect));
+				CGContextAddPath(ctxt, path);
+				CGContextDrawPath(ctxt, value ? kCGPathFillStroke : kCGPathStroke);
+				CGContextRestoreGState(ctxt);
 			}
 			rect.origin.y += 15;
 		}
