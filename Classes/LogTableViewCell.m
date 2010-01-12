@@ -40,6 +40,11 @@ static NSInteger gAuxiliaryInfoType;
 
 
 + (NSInteger)auxiliaryInfoType {
+	if (gAuxiliaryInfoType == kBMIAuxiliaryInfoType) {
+		if (![[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
+			[self setAuxiliaryInfoType:kVarianceAuxiliaryInfoType];
+		}
+	}
 	return gAuxiliaryInfoType;
 }
 

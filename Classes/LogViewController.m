@@ -81,8 +81,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	[self setButton:button backgroundImageNamed:@"NavButton1.png" 
 		   forState:UIControlStateHighlighted];
 	
-	[infoPickerController updateButton];
-	[infoPickerController updatePicker];
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
 	

@@ -14,6 +14,10 @@ extern const float kCaloriesPerPound;
 extern const float kKilojoulesPerPound;
 extern const float kKilojoulesPerCalorie;
 
+
+extern NSString * const EWBMIStatusDidChange;
+
+
 typedef enum {
 	EWWeightUnitPounds = 1,
 	EWWeightUnitKilograms = 2,

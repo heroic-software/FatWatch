@@ -8,6 +8,7 @@
 
 #import "LogInfoPickerController.h"
 #import "LogTableViewCell.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 @implementation LogInfoPickerController
@@ -17,7 +18,6 @@
 @synthesize infoTypePicker;
 
 
-
 - (void)updateButton {
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
 	NSString *title = [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
@@ -25,12 +25,21 @@
 }
 
 
-- (void)updatePicker {
+- (void)bmiStatusDidChange:(NSNotification *)notification {
 	[infoTypeArray release];
 	infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
 	int row = [infoTypeArray indexOfObject:[NSNumber numberWithInt:auxInfoType]];
+	[infoTypePicker reloadComponent:0];
 	[infoTypePicker selectRow:row inComponent:0 animated:NO];
+	[self updateButton];
+}
+
+
+- (void)setSuperview:(UIView *)aView {
+	[super setSuperview:aView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChange object:nil];
+	[self bmiStatusDidChange:nil];
 }
 
 
@@ -67,6 +76,7 @@
 
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[infoTypeButton release];
 	[infoTypePicker release];
 	[infoTypeArray release];
