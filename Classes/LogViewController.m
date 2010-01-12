@@ -82,6 +82,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		   forState:UIControlStateHighlighted];
 	
 	[infoPickerController updateButton];
+	[infoPickerController updatePicker];
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
 	

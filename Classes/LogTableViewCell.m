@@ -25,12 +25,18 @@ enum {
 
 NSString * const kLogCellReuseIdentifier = @"LogCell";
 
+static NSString * const AuxiliaryInfoTypeKey = @"AuxiliaryInfoType";
 static NSString * const AuxiliaryInfoTypeChangedNotification = @"AuxiliaryInfoTypeChanged";
 
-static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
+static NSInteger gAuxiliaryInfoType;
 
 
 @implementation LogTableViewCell
+
+
++ (void)initialize {
+	gAuxiliaryInfoType = [[NSUserDefaults standardUserDefaults] integerForKey:AuxiliaryInfoTypeKey];
+}
 
 
 + (NSInteger)auxiliaryInfoType {
@@ -40,6 +46,7 @@ static NSInteger gAuxiliaryInfoType = kVarianceAuxiliaryInfoType;
 
 + (void)setAuxiliaryInfoType:(NSInteger)infoType {
 	gAuxiliaryInfoType = infoType;
+	[[NSUserDefaults standardUserDefaults] setInteger:gAuxiliaryInfoType forKey:AuxiliaryInfoTypeKey];
 	[[NSNotificationCenter defaultCenter] postNotificationName:AuxiliaryInfoTypeChangedNotification object:nil];
 }
 

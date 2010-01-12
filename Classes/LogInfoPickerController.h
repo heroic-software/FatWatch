@@ -17,4 +17,5 @@
 @property (nonatomic,retain) IBOutlet UIButton *infoTypeButton;
 @property (nonatomic,retain) IBOutlet UIPickerView *infoTypePicker;
 - (void)updateButton;
+- (void)updatePicker;
 @end

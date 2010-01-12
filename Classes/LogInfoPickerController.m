@@ -17,10 +17,20 @@
 @synthesize infoTypePicker;
 
 
+
 - (void)updateButton {
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
 	NSString *title = [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
 	[infoTypeButton setTitle:title forState:UIControlStateNormal];
+}
+
+
+- (void)updatePicker {
+	[infoTypeArray release];
+	infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
+	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
+	int row = [infoTypeArray indexOfObject:[NSNumber numberWithInt:auxInfoType]];
+	[infoTypePicker selectRow:row inComponent:0 animated:NO];
 }
 
 
@@ -33,9 +43,6 @@
 
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	if (infoTypeArray == nil) {
-		infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
-	}
 	return [infoTypeArray count];
 }
 
