@@ -99,14 +99,14 @@ enum {
 	float firstTrendWeight = 0;
 	float flagCounts[4] = {0,0,0,0};
 	
+	float minWeight = 500;
+	float maxWeight = 0;
+	
 	NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
 	for (TrendSpan *span in sortedArray) {
 		GraphViewParameters *gp = span.graphParameters;
 		float lastTrendWeight;
 		
-		gp->minWeight = 500;
-		gp->maxWeight = 0;
-
 		while ((x < span.length) && (data != nil)) {
 			const EWDBDay *dbd = [data getDBDayOnDay:curDay];
 
@@ -117,15 +117,15 @@ enum {
 			
 			if (dbd->scaleWeight > 0) {
 				if (dbd->scaleWeight < dbd->trendWeight) {
-					if (dbd->scaleWeight < gp->minWeight) gp->minWeight = dbd->scaleWeight;
-					if (dbd->trendWeight > gp->maxWeight) gp->maxWeight = dbd->trendWeight;
+					if (dbd->scaleWeight < minWeight) minWeight = dbd->scaleWeight;
+					if (dbd->trendWeight > maxWeight) maxWeight = dbd->trendWeight;
 				} else {
-					if (dbd->trendWeight < gp->minWeight) gp->minWeight = dbd->trendWeight;
-					if (dbd->scaleWeight > gp->maxWeight) gp->maxWeight = dbd->scaleWeight;
+					if (dbd->trendWeight < minWeight) minWeight = dbd->trendWeight;
+					if (dbd->scaleWeight > maxWeight) maxWeight = dbd->scaleWeight;
 				}
 			}
 			
-			float y = dbd->trendWeight;
+			float y = dbd->scaleWeight;
 			if (y > 0) {
 				[computer addPointAtX:x y:y];
 				if (firstTrendWeight == 0) firstTrendWeight = y;
@@ -147,6 +147,8 @@ enum {
 		}
 		
 		if (span.visible) {
+			gp->minWeight = minWeight;
+			gp->maxWeight = maxWeight;
 			span.beginMonthDay = EWMonthDayMake(curMonth, curDay);
 			span.endMonthDay = EWMonthDayToday();
 			span.weightPerDay = -computer.slope;

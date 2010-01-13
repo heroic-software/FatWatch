@@ -285,18 +285,15 @@ static EWDatabase *gSharedDB = nil;
 
 /* Searches for a monthday before the given monthday where weight was recorded. Will cross at most one month boundary. */
 - (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)mdStart {
-	EWMonth monthStop = EWMonthDayGetMonth(mdStart) - 2;
-	EWMonthDay md = EWMonthDayPrevious(mdStart);
-	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-	while (monthStop < EWMonthDayGetMonth(md)) {
-		if (EWMonthDayGetMonth(md) != dbm.month) {
+	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) - 1, 1);
+	EWDBMonth *dbm = nil;
+	EWMonthDay md;
+	for (md = EWMonthDayPrevious(mdStart); md >= mdStop; md = EWMonthDayPrevious(md)) {
+		if (dbm == nil || EWMonthDayGetMonth(md) != dbm.month) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-		if (d->scaleWeight > 0) {
-			return md;
-		}
-		md = EWMonthDayPrevious(md);
+		const EWDBDay *dbd = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
+		if (dbd->scaleWeight > 0) return md;
 	}
 	return 0;
 }
@@ -304,18 +301,15 @@ static EWDatabase *gSharedDB = nil;
 
 /* Searches for a monthday after the given monthday where weight was recorded. Will cross at most one month boundary. */
 - (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)mdStart {
-	EWMonth monthStop = EWMonthDayGetMonth(mdStart) + 2;
-	EWMonthDay md = EWMonthDayNext(mdStart);
-	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-	while (monthStop < EWMonthDayGetMonth(md)) {
-		if (EWMonthDayGetMonth(md) != dbm.month) {
+	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) + 1, 31);
+	EWDBMonth *dbm = nil;
+	EWMonthDay md;
+	for (md = EWMonthDayNext(mdStart); md <= mdStop; md = EWMonthDayNext(md)) {
+		if (dbm == nil || EWMonthDayGetDay(md) == 1) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
-		const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-		if (d->scaleWeight > 0) {
-			return md;
-		}
-		md = EWMonthDayNext(md);
+		const EWDBDay *dbd = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
+		if (dbd->scaleWeight > 0) return md;
 	}
 	return 0;
 }

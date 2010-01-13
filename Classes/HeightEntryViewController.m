@@ -68,7 +68,7 @@ static const float kDefaultHeight = 1.70;
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	float height = [[NSUserDefaults standardUserDefaults] floatForKey:@"BMIHeight"];
+	float height = [[NSUserDefaults standardUserDefaults] height];
 	if (height == 0) height = kDefaultHeight;
 	NSInteger row = [self pickerRowForValue:height];
 	[pickerView selectRow:row inComponent:0 animated:NO];

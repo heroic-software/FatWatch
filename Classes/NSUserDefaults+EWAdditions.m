@@ -222,4 +222,14 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 }
 
 
+- (BOOL)highlightWeekends {
+	return [self boolForKey:@"HighlightWeekends"];
+}
+
+
+- (BOOL)highlightBMIZones {
+	return [self boolForKey:@"HighlightBMIZones"];
+}
+
+
 @end

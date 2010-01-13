@@ -97,7 +97,7 @@ static NSInteger gAuxiliaryInfoType;
 		logContentView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | 
 										   UIViewAutoresizingFlexibleHeight);
 		
-		highlightWeekends = [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"];
+		highlightWeekends = [[NSUserDefaults standardUserDefaults] highlightWeekends];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(auxiliaryInfoTypeChanged:) name:AuxiliaryInfoTypeChangedNotification object:nil];
 	}

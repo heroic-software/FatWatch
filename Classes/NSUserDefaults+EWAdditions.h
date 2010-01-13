@@ -56,4 +56,6 @@ typedef enum {
 - (float)defaultWeightChange;
 - (float)heightIncrement;
 - (BOOL)isNumericFlag:(int)which;
+- (BOOL)highlightWeekends;
+- (BOOL)highlightBMIZones;
 @end

@@ -150,8 +150,10 @@ enum {
 			endMonthDay = EWMonthDayToday();
 			beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 		}
+
+//		endMonthDay = EWMonthDayNext(EWMonthDayNext(EWMonthDayNext(endMonthDay)));
 	}
-	
+
 	parameters.shouldDrawNoDataWarning = (infoCount == 1);
 
 	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];
@@ -166,7 +168,7 @@ enum {
 		
 	[GraphDrawingOperation prepareGraphViewInfo:&parameters 
 										forSize:size
-								   numberOfDays:numberOfDays];
+								   numberOfDays:numberOfDays * 1.1];
 	
 	info = malloc(infoCount * sizeof(GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
@@ -333,7 +335,8 @@ enum {
 		operation.bounds = ginfo->view.bounds;
 		operation.beginMonthDay = ginfo->beginMonthDay;
 		operation.endMonthDay = ginfo->endMonthDay;
-		operation.showGoalLine = (index + 1 == infoCount);
+		operation.showGoalLine = (index == infoCount - 1);
+		operation.showTrajectoryLine = (infoCount == 1);
 		
 		ginfo->operation = operation;
 		[operation enqueue];

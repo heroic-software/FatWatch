@@ -291,19 +291,22 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 
 - (void)updateGraph {
+	// FIXME: invalidate images when goal is set/unset
+	// FIXME: invalidate images when BMI is enabled/disabled
 	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
 	
 	GraphViewParameters *gp = span.graphParameters;
 	
-	if (gp->gridIncrementWeight == 0) {
+	if (!gp->shouldDrawNoDataWarning) {
+		gp->shouldDrawNoDataWarning = YES;
 		[GraphDrawingOperation prepareGraphViewInfo:gp 
 											forSize:graphView.bounds.size
-									   numberOfDays:span.length];
+									   numberOfDays:span.length * 1.2];
 	}
 	
-	graphView.beginMonthDay = span.beginMonthDay;
+	graphView.beginMonthDay = EWMonthDayNext(span.beginMonthDay);
 	graphView.endMonthDay = span.endMonthDay;
-	graphView.p = span.graphParameters;
+	graphView.p = gp;
 	graphView.image = span.graphImageRef;
 	[graphView setNeedsDisplay];
 	
@@ -311,10 +314,12 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 		GraphDrawingOperation *op = [[GraphDrawingOperation alloc] init];
 		op.delegate = self;
 		op.index = spanIndex;
-		op.p = span.graphParameters;
+		op.p = graphView.p;
 		op.bounds = graphView.bounds;
-		op.beginMonthDay = span.beginMonthDay;
-		op.endMonthDay = span.endMonthDay;
+		op.beginMonthDay = graphView.beginMonthDay;
+		op.endMonthDay = graphView.endMonthDay;
+		op.showGoalLine = YES;
+		op.showTrajectoryLine = YES;
 		span.graphOperation = op;
 		[op enqueue];
 		[op release];

@@ -635,14 +635,14 @@
 		BC82AEA70E6FC7F900E2A693 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
-				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
+				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
+				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
 				BC263E810DB6665E007D03F4 /* GraphView.h */,
 				BC263E820DB6665E007D03F4 /* GraphView.m */,
 				BC82AE980E6FC77200E2A693 /* GraphDrawingOperation.h */,
 				BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */,
-				BC78DA2C0E51533D0094ECBD /* YAxisView.h */,
-				BC78DA2D0E51533D0094ECBD /* YAxisView.m */,
+				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
+				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
 				BCF329740EFF629500D31E49 /* GraphView.xib */,
 			);
 			name = Chart;

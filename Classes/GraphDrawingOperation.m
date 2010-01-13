@@ -11,6 +11,8 @@
 #import "EWDBMonth.h"
 #import "EWGoal.h"
 #import "EWWeightFormatter.h"
+#import "SlopeComputer.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 static NSOperationQueue *gDrawingQueue = nil;
@@ -38,6 +40,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 }
 
 
+#define GraphRegionMake(r, c) [NSArray arrayWithObjects:[NSValue valueWithCGRect:(r)], (c), nil]
+#define GraphRegionGetRect(rgn) [[rgn objectAtIndex:0] CGRectValue]
+#define GraphRegionGetColor(rgn) [rgn objectAtIndex:1]
+
+
 @implementation GraphDrawingOperation
 
 
@@ -49,6 +56,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
 @synthesize showGoalLine;
+@synthesize showTrajectoryLine;
 
 
 #pragma mark Queue
@@ -75,7 +83,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 + (void)prepareBMIRegionsForGraphViewParameters:(GraphViewParameters *)gp {
 	if (! [[NSUserDefaults standardUserDefaults] isBMIEnabled]) return;
 	
-	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightBMIZones"]) return;
+	if (! [[NSUserDefaults standardUserDefaults] highlightBMIZones]) return;
 	
 	float w[3];
 	[EWWeightFormatter getBMIWeights:w];
@@ -94,7 +102,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
 			color = [EWWeightFormatter backgroundColorForWeight:gp->minWeight];
-			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
 	
@@ -102,14 +110,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
 		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[0]+w[1])];
-		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		[regions addObject:GraphRegionMake(rect, color)];
 	}
 	
 	rect = CGRectMake(0, w[1], width, w[2] - w[1]);
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
 		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[1]+w[2])];
-		[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+		[regions addObject:GraphRegionMake(rect, color)];
 	}
 	
 	if (w[2] < gp->maxWeight) {
@@ -117,7 +125,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
 			color = [EWWeightFormatter backgroundColorForWeight:gp->maxWeight];
-			[regions addObject:[NSArray arrayWithObjects:[NSValue valueWithCGRect:rect], color, nil]];
+			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
 	
@@ -129,10 +137,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const CGFloat kGraphMarginTop = 32.0f;
 	const CGFloat kGraphMarginBottom = 16.0f;
 	
+#if TARGET_IPHONE_SIMULATOR
+	NSLog(@"Weight Range: (%f,%f)", gp->minWeight, gp->maxWeight);
+#endif
+	
 	// Assumes minWeight and maxWeight have already been set, but need adjusting
 	// Does not set: shouldDrawNoDataWarning
 
-	if ((gp->maxWeight - gp->minWeight) < 0.01) {
+	if ((gp->maxWeight - gp->minWeight) < 0.02) {
 		gp->minWeight -= 1;
 		gp->maxWeight += 1;
 	}
@@ -167,18 +179,17 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 	
-	EWMonthDay mdStart = p->mdEarliest;
-	EWMonthDay mdStop = p->mdLatest;
-	
-	if (mdStart == 0 || mdStop == 0) {
+	if (p->mdEarliest == 0 || p->mdLatest == 0) {
 		return; // no data, nothing to draw!
 	}
 	
+	EWMonthDay mdStart; // first point to draw
+	EWMonthDay mdStop; // last point to draw
 	CGFloat x;
 	
 	EWDatabase *db = [EWDatabase sharedDatabase];
-
-	if (mdStart < beginMonthDay) {
+	
+	if (p->mdEarliest < beginMonthDay) {
 		// If we requested a start after actual data starts, start there.
 		x = 1;
 		mdStart = beginMonthDay;
@@ -190,11 +201,12 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 	} else {
 		// Otherwise, bump X to compensate.
+		mdStart = p->mdEarliest;
 		x = 1 + EWDaysBetweenMonthDays(beginMonthDay, mdStart);
 		// don't need to compute headPoint because there is no earlier data
 	}
 	
-	if (endMonthDay < mdStop) {
+	if (endMonthDay < p->mdLatest) {
 		// If we requested an end before data ends, stop there.
 		mdStop = endMonthDay;
 		// Compute tail point, because there is later data.
@@ -203,8 +215,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
 			tailPoint.y = [db trendWeightOnMonthDay:mdTail];
 		}
+	} else {
+		mdStop = p->mdLatest;
 	}
-	
+
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	
 	EWDBMonth *data = nil;
@@ -225,15 +239,26 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 		x += 1;
 	}
+
+#if TARGET_IPHONE_SIMULATOR
+	NSLog(@"%@\nFrom %@ (%@)\n  To %@ (%@)\nHead %@\nTail %@\nPnts %d",
+		  self,
+		  EWDateFromMonthDay(mdStart), EWDateFromMonthDay(beginMonthDay),
+		  EWDateFromMonthDay(mdStop), EWDateFromMonthDay(endMonthDay),
+		  NSStringFromCGPoint(headPoint),
+		  NSStringFromCGPoint(tailPoint),
+		  [pointData length] / sizeof(GraphPoint));
+#endif
+	
 }
 
 
 - (CGPathRef)newWeekendsBackgroundPath {
-	// If a single day is less than a pixel wide, don't bother.
-	if (p->scaleX < 1) return NULL;
+	// If a single day is less than two pixels wide, don't bother.
+	if (p->scaleX < 2) return NULL;
 	
 	// If weekend shading has been disabled, don't do anything.
-	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"HighlightWeekends"]) return NULL;
+	if (! [[NSUserDefaults standardUserDefaults] highlightWeekends]) return NULL;
 
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGFloat h = p->maxWeight - p->minWeight;
@@ -276,10 +301,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 	
 	// horizontal lines:
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
 	float w;
 	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += p->gridIncrementWeight) {
 		CGPathMoveToPoint(gridPath, &p->t, -0.5, w);
-		CGPathAddLineToPoint(gridPath, &p->t, dayCount + 1, w);
+		CGPathAddLineToPoint(gridPath, &p->t, xMax, w);
 	}
 	return gridPath;
 }
@@ -414,9 +440,37 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
 	CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
-	if (x < dayCount) {
-		CGPathAddLineToPoint(path, &p->t, dayCount + 1, goal.endWeight);
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
+	if (x < xMax) {
+		CGPathAddLineToPoint(path, &p->t, xMax, goal.endWeight);
 	}		
+	return path;
+}
+
+
+- (CGPathRef)newTrajectoryPath {
+	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
+	if (gpCount == 0) return NULL;
+	
+	SlopeComputer *sc = [[SlopeComputer alloc] init];
+	
+	const GraphPoint *gp = [pointData bytes];
+	int k;
+	for (k = 0; k < gpCount; k++) {
+		CGPoint scalePoint = gp[k].scale;
+		[sc addPointAtX:scalePoint.x y:scalePoint.y];
+	}
+
+	const GraphPoint *lastGP = &gp[gpCount-1];
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
+	const CGFloat y = lastGP->trend.y + sc.slope * (xMax - lastGP->trend.x);
+	
+	[sc release];
+	
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
+	CGPathAddLineToPoint(path, &p->t, xMax, y);
+	
 	return path;
 }
 
@@ -485,8 +539,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGColorRelease(clearColor);
 		
 		for (NSArray *region in p->regions) {
-			CGRect rect = [[region objectAtIndex:0] CGRectValue];
-			UIColor *color = [region objectAtIndex:1];
+			CGRect rect = GraphRegionGetRect(region);
+			UIColor *color = GraphRegionGetColor(region);
 			
 			CFArraySetValueAtIndex(colorArray, 1, [color CGColor]);
 
@@ -503,6 +557,31 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGColorSpaceRelease(colorSpace);
 	}
 		
+	static const CGFloat kDashLengths[] = { 6, 3 };
+	static const int kDashLengthsCount = 2;
+	CGContextSetLineWidth(ctxt, 3);
+	CGContextSetLineDash(ctxt, 6, kDashLengths, kDashLengthsCount);
+	if (showTrajectoryLine) {
+		CGPathRef trajPath = [self newTrajectoryPath];
+		if (trajPath) {
+			CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
+			CGContextAddPath(ctxt, trajPath);
+			CGContextStrokePath(ctxt);
+			CGPathRelease(trajPath);
+		}
+	}
+	if (showGoalLine) {
+		CGPathRef goalPath = [self newGoalPath];
+		if (goalPath) {
+			CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
+			CGContextAddPath(ctxt, goalPath);
+			CGContextStrokePath(ctxt);
+			CGPathRelease(goalPath);
+		}
+	}
+	CGContextSetLineDash(ctxt, 0, NULL, 0);
+	
+
 	if ([pointData length] > 0) {
 		CGContextSaveGState(ctxt);
 		
@@ -550,25 +629,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	} else if (p->shouldDrawNoDataWarning) {
 		[self drawNoDataWarningInContext:ctxt];
 	}
-	
-	// goal line: sloped part
-	// goal line: flat part
-	
-	if (showGoalLine) {
-		CGPathRef goalPath = [self newGoalPath];
-		if (goalPath) {
-			static const CGFloat kDashLengths[] = { 6, 3 };
-			static const int kDashLengthsCount = 2;
-			
-			CGContextSetLineWidth(ctxt, 3);
-			CGContextSetLineDash(ctxt, 0, kDashLengths, kDashLengthsCount);
-			CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
-			CGContextAddPath(ctxt, goalPath);
-			CGContextStrokePath(ctxt);
-			CGPathRelease(goalPath);
-		}
-	}
-	
+		
     imageRef = CGBitmapContextCreateImage(ctxt);
 
 	void *bitmapData = CGBitmapContextGetData(ctxt); 
