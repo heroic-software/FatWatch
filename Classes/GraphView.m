@@ -31,6 +31,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 @synthesize endMonthDay;
 @synthesize p;
 @synthesize yAxisView;
+@synthesize drawBorder;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -217,6 +218,16 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	if (selected) {
 		CGContextSetRGBFillColor(context, 0, 0, 0, 0.2f);
 		CGContextFillRect(context, rect);
+	}
+	
+	if (drawBorder && !exporting) {
+		CGFloat y = CGRectGetMaxY(self.bounds) - 0.5;
+		CGFloat x = CGRectGetMaxX(self.bounds);
+		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
+		CGContextSetLineWidth(context, 1);
+		CGContextMoveToPoint(context, 0, y);
+		CGContextAddLineToPoint(context, x, y);
+		CGContextStrokePath(context);
 	}
 }
 

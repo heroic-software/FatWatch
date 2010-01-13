@@ -114,6 +114,7 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 	goalGroupView.backgroundColor = self.view.backgroundColor;
 	
 	graphView.backgroundColor = [UIColor whiteColor];
+	graphView.drawBorder = YES;
 	
 	weightChangeButton.enabled = NO;
 	relativeWeightButton.enabled = NO;

@@ -20,6 +20,7 @@
 	UIView *yAxisView;
 	BOOL selected;
 	BOOL exporting;
+	BOOL drawBorder;
 }
 @property (nonatomic,getter=isSelected) BOOL selected;
 @property (nonatomic) CGImageRef image;
@@ -27,4 +28,5 @@
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic,retain) UIView *yAxisView;
+@property (nonatomic) BOOL drawBorder;
 @end
