@@ -127,6 +127,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if (textField == nameField) {
+		[nameField resignFirstResponder];
 		if (typeControl.selectedSegmentIndex == 0) {
 			[metSlider becomeFirstResponder];
 		} else {
