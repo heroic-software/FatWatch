@@ -44,4 +44,5 @@ extern NSString * const kLogCellReuseIdentifier;
 @property (nonatomic,retain) NSString *weekday;
 @property (nonatomic) const EWDBDay *dd;
 @property (nonatomic) BOOL highlightDate;
+- (void)bmiStatusDidChange:(NSNotification *)notification;
 @end

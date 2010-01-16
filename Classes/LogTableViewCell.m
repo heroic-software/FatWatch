@@ -161,15 +161,25 @@ static NSInteger gAuxiliaryInfoType;
 	if (self = [super initWithFrame:frame]) {
 		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
 		varianceFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance] retain];
-		if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-			bmiFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMI] retain];
-		}
+		[self bmiStatusDidChange:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChangeNotification object:nil];
 	}
 	return self;
 }
 
 
+- (void)bmiStatusDidChange:(NSNotification *)notification {
+	[bmiFormatter release];
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
+		bmiFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMI] retain];
+	} else {
+		bmiFormatter = nil;
+	}
+}
+
+
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[weightFormatter release];
 	[varianceFormatter release];
 	[bmiFormatter release];
