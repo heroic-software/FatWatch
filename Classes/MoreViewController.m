@@ -58,7 +58,7 @@ static const int kRowExportEmail = 1;
 	[bmiRow release];
 	
 	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
-	markRow.title = NSLocalizedString(@"Mark Icons", @"Mark Icons button");
+	markRow.title = NSLocalizedString(@"Choose Icons", @"Choose Icons button");
 	markRow.target = self;
 	markRow.action = @selector(showMarkOptions:);
 	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -221,6 +221,7 @@ static const int kRowExportEmail = 1;
 
 - (void)showMarkOptions:(BRTableButtonRow *)sender {
 	FlagIconViewController *mivc = [[FlagIconViewController alloc] init];
+	mivc.title = sender.title;
 	[self.navigationController pushViewController:mivc animated:YES];
 	[mivc release];
 }
@@ -235,6 +236,9 @@ static const int kRowExportEmail = 1;
 
 - (void)doExport:(id)arg {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+#if TARGET_IPHONE_SIMULATOR
+	[NSThread sleepForTimeInterval:3];
+#endif
 	EWExporter *exporter = [[CSVExporter alloc] init];
 	[self performSelectorOnMainThread:@selector(mailExport:)
 						   withObject:[NSArray arrayWithObjects:
