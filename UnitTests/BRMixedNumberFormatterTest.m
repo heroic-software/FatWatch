@@ -70,4 +70,13 @@
 }
 
 
+- (void)testHeight {
+	NSFormatter *fmtr = [BRMixedNumberFormatter metersAsFeetFormatter];
+	STAssertEqualObjects([fmtr stringForFloat:1.4986], @"4'\xe2\x80\x88" @"11\"", @"height test");
+	STAssertEqualObjects([fmtr stringForFloat:1.524], @"5'\xe2\x80\x88" @"0\"", @"height test");
+	STAssertEqualObjects([fmtr stringForFloat:1.52399993], @"5'\xe2\x80\x88" @"0\"", @"height test");
+	STAssertEqualObjects([fmtr stringForFloat:1.8288], @"6'\xe2\x80\x88" @"0\"", @"height test");
+}
+
+
 @end

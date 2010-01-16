@@ -60,6 +60,8 @@
 	float m = powf(10.0f, [self.remainderFormatter minimumFractionDigits]);
 	if (m > 1) {
 		value = roundf(value * m) / m;
+	} else {
+		value = roundf(value);
 	}
 
 	int quo = floorf(value / divisor);
