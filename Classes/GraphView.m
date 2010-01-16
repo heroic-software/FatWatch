@@ -60,16 +60,14 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (CGImageRef)newMaskOfSize:(CGSize)size {
-	const int bitsPerComponent = 8;
-	const int bytesPerPixel = 1;
-	int pixelsWide = size.width;
-	int pixelsHigh = size.height;
-	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
-	void *bitmapData = calloc(pixelsHigh, bitmapBytesPerRow);
-	
-	// TODO: replace bitmapData with NULL
+	static const size_t bitsPerComponent = 8;
+	static const size_t bytesPerPixel = 1;
+	size_t pixelsWide = size.width;
+	size_t pixelsHigh = size.height;
+	size_t bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
+
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
+	CGContextRef ctxt = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
 
 	static const CGFloat fadeWidth = 8;
 	static const CGFloat components[] = { 1, 1, 0, 1 };
@@ -82,7 +80,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	CGGradientRelease(gradient);
 	CGContextRelease(ctxt);
 	CGColorSpaceRelease(colorSpace);
-	free(bitmapData);
 
 	// TODO: confirm this bug on device
 	// 3.0 CFVersion 478.470000

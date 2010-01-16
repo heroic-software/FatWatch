@@ -476,22 +476,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 - (CGContextRef)newBitmapContext {
-	const int bitsPerComponent = 8;
-	const int bytesPerPixel = 4;
-
-	int pixelsWide = CGRectGetWidth(bounds);
-	int pixelsHigh = CGRectGetHeight(bounds);
-	
-	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
-	void *bitmapData = calloc(pixelsHigh, bitmapBytesPerRow);
-	NSAssert(bitmapData, @"could not allocate memory for bitmap");
+	static const size_t bitsPerComponent = 8;
+	static const size_t bytesPerPixel = 4;
+	const size_t pixelsWide = CGRectGetWidth(bounds);
+	const size_t pixelsHigh = CGRectGetHeight(bounds);
+	const size_t bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	// TODO: replace bitmapData with NULL
-	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
-	if (ctxt == NULL) {
-		free(bitmapData);
-	}
+	CGContextRef ctxt = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	CGColorSpaceRelease(colorSpace);
 	
 	CGContextTranslateCTM(ctxt, 0, pixelsHigh);
@@ -632,9 +624,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
     imageRef = CGBitmapContextCreateImage(ctxt);
 
-	void *bitmapData = CGBitmapContextGetData(ctxt); 
     CGContextRelease(ctxt);
-    if (bitmapData) free(bitmapData);
 
 	// TODO: confirm this bug on device
 	// 3.0 CFVersion 478.470000
