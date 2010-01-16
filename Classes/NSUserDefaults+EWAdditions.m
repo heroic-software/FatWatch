@@ -15,7 +15,7 @@ const float kKilojoulesPerPound = 7716 / 0.45359237f;
 const float kKilojoulesPerCalorie = 0.004184f;
 
 
-NSString * const EWBMIStatusDidChange = @"BMIStatusDidChange";
+NSString * const EWBMIStatusDidChangeNotification = @"BMIStatusDidChange";
 
 
 static NSString * const kWeightUnitKey = @"WeightUnit";
@@ -146,7 +146,7 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 - (void)setBMIEnabled:(BOOL)flag {
 	[self setBool:flag forKey:kBMIEnabledKey];
-	[[NSNotificationCenter defaultCenter] postNotificationName:EWBMIStatusDidChange object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWBMIStatusDidChangeNotification object:self];
 }
 
 

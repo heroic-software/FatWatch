@@ -15,7 +15,7 @@ extern const float kKilojoulesPerPound;
 extern const float kKilojoulesPerCalorie;
 
 
-extern NSString * const EWBMIStatusDidChange;
+extern NSString * const EWBMIStatusDidChangeNotification;
 
 
 typedef enum {

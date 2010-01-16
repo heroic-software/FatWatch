@@ -16,6 +16,8 @@
 static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 
+NSString * const EWGoalDidChangeNotification = @"EWGoalDidChange";
+
 static NSString * const kGoalWeightKey = @"GoalWeight";
 static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
@@ -60,6 +62,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	[uds removeObjectForKey:kGoalWeightKey];
 	[uds removeObjectForKey:kGoalWeightChangePerDayKey];
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
 }
 
 
@@ -139,6 +142,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		}
 		[self didChangeValueForKey:@"endWeight"];
 	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
 }
 
 
@@ -185,6 +189,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 		[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
 		[self didChangeValueForKey:@"weightChangePerDay"];
 	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
 }
 
 

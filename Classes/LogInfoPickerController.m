@@ -38,7 +38,7 @@
 
 - (void)setSuperview:(UIView *)aView {
 	[super setSuperview:aView];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChange object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChangeNotification object:nil];
 	[self bmiStatusDidChange:nil];
 }
 

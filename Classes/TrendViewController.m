@@ -138,10 +138,19 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 	[dateButton setFont:boldFont forPart:1];
 	[planButton setFont:boldFont forPart:0];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(databaseDidChange:) 
-												 name:EWDatabaseDidChangeNotification 
-											   object:nil];
+	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+	[center addObserver:self 
+			   selector:@selector(databaseDidChange:) 
+				   name:EWDatabaseDidChangeNotification 
+				 object:nil];
+	[center addObserver:self
+			   selector:@selector(databaseDidChange:)
+				   name:EWBMIStatusDidChangeNotification
+				 object:nil];
+	[center addObserver:self
+			   selector:@selector(databaseDidChange:)
+				   name:EWGoalDidChangeNotification 
+				 object:nil];
 	
 	[self.view addSubview:messageGroupView];
 	messageGroupView.hidden = YES;
@@ -292,8 +301,6 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 
 - (void)updateGraph {
-	// FIXME: invalidate images when goal is set/unset
-	// FIXME: invalidate images when BMI is enabled/disabled
 	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
 	
 	GraphViewParameters *gp = span.graphParameters;

@@ -10,6 +10,9 @@
 #import "EWDate.h"
 
 
+extern NSString * const EWGoalDidChangeNotification;
+
+
 @interface EWGoal : NSObject {
 
 }
