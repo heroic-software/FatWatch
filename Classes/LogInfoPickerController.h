@@ -13,6 +13,7 @@
 	UIButton *infoTypeButton;
 	UIPickerView *infoTypePicker;
 	NSArray *infoTypeArray;
+	BOOL toggleTimerDidFire;
 }
 @property (nonatomic,retain) IBOutlet UIButton *infoTypeButton;
 @property (nonatomic,retain) IBOutlet UIPickerView *infoTypePicker;
