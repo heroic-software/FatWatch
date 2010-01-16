@@ -26,10 +26,25 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGRect b = self.bounds;
-	[[UIColor grayColor] setFill];
+	[[UIColor groupTableViewBackgroundColor] setFill];
 	UIRectFill(b);
 	[[UIColor whiteColor] setFill];
 	UIRectFill(CGRectInset(tabRect, -10, -10));
+	[[UIColor blackColor] setStroke];
+	CGContextRef context = UIGraphicsGetCurrentContext();
+
+	const CGFloat xL = CGRectGetMinX(tabRect)-10.5;
+	const CGFloat xR = CGRectGetMaxX(tabRect)+10.5;
+	const CGFloat yT = CGRectGetMinY(tabRect)-10.5;
+	const CGFloat yB = CGRectGetMaxY(b)-0.5;
+	
+	CGContextMoveToPoint(context, CGRectGetMinX(b), yB);
+	CGContextAddLineToPoint(context, xL, yB);
+	CGContextAddLineToPoint(context, xL, yT);
+	CGContextAddLineToPoint(context, xR, yT);
+	CGContextAddLineToPoint(context, xR, yB);
+	CGContextAddLineToPoint(context, CGRectGetMaxX(b), yB);
+	CGContextStrokePath(context);
 }
 
 
