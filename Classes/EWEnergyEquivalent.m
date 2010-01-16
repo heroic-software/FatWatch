@@ -8,6 +8,7 @@
 
 #import "EWEnergyEquivalent.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "EWEnergyFormatter.h"
 
 
 static float gCurrentWeightInKilograms = 0;
@@ -49,6 +50,10 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 	return string;
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"%.1f MET", mets];
+}
+
 - (void)dealloc {
 	[name release];
 	[super dealloc];
@@ -73,6 +78,11 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 	NSString *string = [nf stringFromNumber:[NSNumber numberWithFloat:x]];
 	[nf release];
 	return string;
+}
+
+- (NSString *)description {
+	EWEnergyFormatter *ef = [[[EWEnergyFormatter alloc] init] autorelease];
+	return [NSString stringWithFormat:@"%@/%@", [ef stringFromFloat:energyPerUnit], unitName];
 }
 
 - (void)dealloc {

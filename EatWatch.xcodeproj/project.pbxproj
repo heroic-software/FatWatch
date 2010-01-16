@@ -42,6 +42,7 @@
 		BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC112F911101981F00EAC8DA /* FlagIconView.xib */; };
 		BC112F9611019BED00EAC8DA /* FlagIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9511019BED00EAC8DA /* FlagIconViewController.m */; };
 		BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9811019D9100EAC8DA /* FlagTabView.m */; };
+		BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -1176,6 +1177,7 @@
 				BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */,
 				BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */,
 				BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */,
+				BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

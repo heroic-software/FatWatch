@@ -66,6 +66,18 @@
 }
 
 
+- (void)updateCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+	NSArray *sectionDataArray = [dataArray objectAtIndex:indexPath.section];
+	id <EWEnergyEquivalent> equiv = [sectionDataArray objectAtIndex:indexPath.row];
+	cell.textLabel.text = equiv.name;
+	if (self.editing) {
+		cell.detailTextLabel.text = [equiv description];
+	} else {
+		cell.detailTextLabel.text = [equiv stringForEnergy:energy];
+	}
+}
+
+
 #pragma mark UIViewController
 
 
@@ -118,6 +130,10 @@
 	}
 	[self.navigationItem setLeftBarButtonItem:newLeftItem animated:YES];
 	[newLeftItem release];
+	for (NSIndexPath *indexPath in [self.tableView indexPathsForVisibleRows]) {
+		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+		[self updateCell:cell forIndexPath:indexPath];
+	}
 }	
 
 
@@ -148,12 +164,9 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-	NSArray *sectionDataArray = [dataArray objectAtIndex:indexPath.section];
-	id <EWEnergyEquivalent> equiv = [sectionDataArray objectAtIndex:indexPath.row];
-	cell.textLabel.text = equiv.name;
-	cell.detailTextLabel.text = [equiv stringForEnergy:energy];
 	
+	[self updateCell:cell forIndexPath:indexPath];
+    
     return cell;
 }
 

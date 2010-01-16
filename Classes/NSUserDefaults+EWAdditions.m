@@ -12,7 +12,7 @@
 const float kKilogramsPerPound = 0.45359237f;
 const float kCaloriesPerPound = 3500;
 const float kKilojoulesPerPound = 7716 / 0.45359237f;
-const float kKilojoulesPerCalorie = 0.004184f;
+const float kKilojoulesPerCalorie = 4.184f;
 
 
 NSString * const EWBMIStatusDidChangeNotification = @"BMIStatusDidChange";
