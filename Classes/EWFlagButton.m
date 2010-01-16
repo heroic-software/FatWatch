@@ -11,9 +11,12 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
+static NSString * const EWFlagButtonIconDidChangeNotification = @"EWFlagButtonIconDidChange";
+
+
 static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
-	return CGRectMake(CGRectGetMidX(rect) - 0.5f * size.width,
-					  CGRectGetMidY(rect) - 0.5f * size.height,
+	return CGRectMake(roundf(CGRectGetMidX(rect) - 0.5f * size.width),
+					  roundf(CGRectGetMidY(rect) - 0.5f * size.height),
 					  size.width, 
 					  size.height);
 }
@@ -22,9 +25,19 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 @implementation EWFlagButton
 
 
++ (void)updateIconName:(NSString *)name forFlagIndex:(int)flagIndex {
+	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
+	[[NSUserDefaults standardUserDefaults] setObject:name forKey:key];
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWFlagButtonIconDidChangeNotification object:[NSNumber numberWithInt:flagIndex]];
+}
+
+
 - (void)awakeFromNib {
 	if (self.tag > 0) {
-		[self configureForFlagIndex:(self.tag % 10)];
+		int flagIndex = self.tag % 10;
+		[self configureForFlagIndex:flagIndex];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flagIconDidChange:) name:EWFlagButtonIconDidChangeNotification object:[NSNumber numberWithInt:flagIndex]];
+		self.backgroundColor = [UIColor whiteColor];
 	}
 }
 
@@ -69,7 +82,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 }
 
 
-- (UIImage *)iconImageForIndex:(int)flagIndex {
+- (UIImage *)iconImageForFlagIndex:(int)flagIndex {
 	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:flagIndex]) return nil;
 	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
 	NSString *iconName = [[NSUserDefaults standardUserDefaults] stringForKey:key];
@@ -81,12 +94,10 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 
 - (void)configureForFlagIndex:(int)flagIndex {
-	self.backgroundColor = [UIColor whiteColor];
-	
 	NSString *colorName = [NSString stringWithFormat:@"Flag%d", flagIndex];
 	UIColor *color = [[BRColorPalette sharedPalette] colorNamed:colorName];
 
-	UIImage *iconImage = [self iconImageForIndex:flagIndex];
+	UIImage *iconImage = [self iconImageForFlagIndex:flagIndex];
 		
 	UIImage *normalImage = [self backgroundImageWithColor:[UIColor whiteColor] icon:iconImage];
 	[self setBackgroundImage:normalImage forState:UIControlStateNormal];
@@ -102,5 +113,20 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 		[self setBackgroundImage:backgroundImage forState:UIControlStateSelected];
 	}
 }
+
+
+- (void)flagIconDidChange:(NSNotification *)notification {
+	[self configureForFlagIndex:[[notification object] intValue]];
+}
+
+
+#pragma mark Cleanup
+
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super dealloc];
+}
+
 
 @end

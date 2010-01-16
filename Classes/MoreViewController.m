@@ -17,6 +17,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWExporter.h"
 #import "CSVExporter.h"
+#import "FlagIconViewController.h"
 
 
 static const int kSectionOptions = 0;
@@ -26,6 +27,9 @@ static const int kRowExportEmail = 1;
 
 
 @implementation MoreViewController
+
+
+#pragma mark Table Row Setup
 
 
 - (void)initOptionsSection {
@@ -52,6 +56,14 @@ static const int kRowExportEmail = 1;
 	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
 	[bmiRow release];
+	
+	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
+	markRow.title = NSLocalizedString(@"Mark Icons", @"Mark Icons button");
+	markRow.target = self;
+	markRow.action = @selector(showMarkOptions:);
+	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	[moreSection addRow:markRow animated:NO];
+	[markRow release];
 }
 
 
@@ -112,6 +124,9 @@ static const int kRowExportEmail = 1;
 }
 
 
+#pragma mark NSObject
+
+
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"More", @"More view title");
@@ -126,6 +141,9 @@ static const int kRowExportEmail = 1;
 }
 
 
+#pragma mark UIViewController
+
+
 - (void)viewWillAppear:(BOOL)animated {
 	if ([self numberOfSections] == 0) {
 		[self initOptionsSection];
@@ -134,6 +152,9 @@ static const int kRowExportEmail = 1;
 		[self.tableView reloadData];
 	}
 }
+
+
+#pragma mark Properties
 
 
 - (BOOL)passcodeEnabled {
@@ -166,13 +187,7 @@ static const int kRowExportEmail = 1;
 }
 
 
-- (void)showWiFiAccess:(BRTableButtonRow *)sender {
-	EWWiFiAccessViewController *controller;
-	
-	controller = [[EWWiFiAccessViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
-}
+#pragma mark Utilities
 
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
@@ -186,9 +201,28 @@ static const int kRowExportEmail = 1;
 }
 
 
+#pragma mark Button Actions
+
+
+- (void)showWiFiAccess:(BRTableButtonRow *)sender {
+	EWWiFiAccessViewController *controller;
+	
+	controller = [[EWWiFiAccessViewController alloc] init];
+	[self.navigationController pushViewController:controller animated:YES];
+	[controller release];
+}
+
+
 - (void)showWeightChart:(BRTableButtonRow *)sender {
 	[self showAlertWithTitle:NSLocalizedString(@"Weight Chart", nil)
 					 message:NSLocalizedString(@"Rotate the device sideways to see a chart at any time.", @"Weight Chart alert message")];
+}
+
+
+- (void)showMarkOptions:(BRTableButtonRow *)sender {
+	FlagIconViewController *mivc = [[FlagIconViewController alloc] init];
+	[self.navigationController pushViewController:mivc animated:YES];
+	[mivc release];
 }
 
 
