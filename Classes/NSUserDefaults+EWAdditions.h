@@ -56,6 +56,7 @@ typedef enum {
 - (float)defaultWeightChange;
 - (float)heightIncrement;
 - (BOOL)isNumericFlag:(int)which;
-- (BOOL)highlightWeekends;
-- (BOOL)highlightBMIZones;
+@property (nonatomic,readonly) BOOL highlightWeekends;
+@property (nonatomic,readonly) BOOL highlightBMIZones;
+@property (nonatomic,getter=isLadderEnabled) BOOL ladderEnabled;
 @end

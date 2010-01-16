@@ -232,4 +232,14 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 }
 
 
+- (BOOL)isLadderEnabled {
+	return [self boolForKey:@"EnableLadder"];
+}
+
+
+- (void)setLadderEnabled:(BOOL)doit {
+	[self setBool:doit forKey:@"EnableLadder"];
+}
+
+
 @end
