@@ -15,6 +15,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 #import "BRTextView.h"
 #import "RungEntryViewController.h"
+#import "EWFlagButton.h"
 
 
 const CGFloat kWeightPickerComponentWidth = 320 - 88;
@@ -150,7 +151,6 @@ enum {
 
 
 - (void)setValue:(EWFlagValue)value forFlagIndex:(int)f {
-	BOOL selected;
 	NSString *title;
 	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
 		if (value) {
@@ -158,13 +158,11 @@ enum {
 		} else {
 			title = @"\xe2\x97\x86"; // LOZENGE
 		}
-		selected = NO;
 	} else {
 		title = @"";
-		selected = value != 0;
 	}
 	[flagButtons[f] setTitle:title forState:UIControlStateNormal];
-	flagButtons[f].selected = selected;
+	flagButtons[f].selected = (value > 0);
 }
 
 

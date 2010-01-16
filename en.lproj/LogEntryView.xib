@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="45"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -176,9 +176,15 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{22, 8}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="702216355"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="929097302">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4yNQA</bytes>
+									<reference key="NSCustomColorSpace" ref="745753437"/>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
+								<int key="IBUITag">220</int>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<object class="NSFont" key="IBUIFont" id="169001757">
@@ -193,22 +199,19 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor" id="356702009">
+								<object class="NSColor" key="IBUISelectedTitleColor" id="479487736">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
+									<reference key="NSCustomColorSpace" ref="745753437"/>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleColor" id="827238035">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC41AA</bytes>
 									<reference key="NSCustomColorSpace" ref="745753437"/>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="743396884">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
-								</object>
-								<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag1Button1.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag1Button0.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="470411590">
@@ -216,9 +219,11 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{100, 8}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="702216355"/>
+								<reference key="IBUIBackgroundColor" ref="929097302"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
+								<int key="IBUITag">221</int>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="169001757"/>
@@ -226,25 +231,20 @@
 								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 								<reference key="IBUIHighlightedTitleColor" ref="998058600"/>
-								<reference key="IBUINormalTitleColor" ref="356702009"/>
+								<reference key="IBUISelectedTitleColor" ref="479487736"/>
+								<reference key="IBUINormalTitleColor" ref="827238035"/>
 								<reference key="IBUINormalTitleShadowColor" ref="743396884"/>
-								<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag2Button1.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag2Button0.png</string>
-								</object>
 							</object>
 							<object class="IBUIButton" id="24004983">
 								<reference key="NSNextResponder" ref="702216355"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{178, 8}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="702216355"/>
+								<reference key="IBUIBackgroundColor" ref="929097302"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
+								<int key="IBUITag">222</int>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="169001757"/>
@@ -252,25 +252,20 @@
 								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 								<reference key="IBUIHighlightedTitleColor" ref="998058600"/>
-								<reference key="IBUINormalTitleColor" ref="356702009"/>
+								<reference key="IBUISelectedTitleColor" ref="479487736"/>
+								<reference key="IBUINormalTitleColor" ref="827238035"/>
 								<reference key="IBUINormalTitleShadowColor" ref="743396884"/>
-								<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag3Button1.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag3Button0.png</string>
-								</object>
 							</object>
 							<object class="IBUIButton" id="349189498">
 								<reference key="NSNextResponder" ref="702216355"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{256, 8}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="702216355"/>
+								<reference key="IBUIBackgroundColor" ref="929097302"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
+								<int key="IBUITag">223</int>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="169001757"/>
@@ -279,16 +274,9 @@
 								<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 								<string key="IBUINormalTitle">48</string>
 								<reference key="IBUIHighlightedTitleColor" ref="998058600"/>
-								<reference key="IBUINormalTitleColor" ref="356702009"/>
+								<reference key="IBUISelectedTitleColor" ref="479487736"/>
+								<reference key="IBUINormalTitleColor" ref="827238035"/>
 								<reference key="IBUINormalTitleShadowColor" ref="743396884"/>
-								<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag4Button1.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Flag4Button0.png</string>
-								</object>
 							</object>
 						</object>
 						<string key="NSFrame">{{0, 305}, {320, 155}}</string>
@@ -732,9 +720,13 @@
 					<string>41.IBPluginDependency</string>
 					<string>47.CustomClassName</string>
 					<string>5.IBPluginDependency</string>
+					<string>51.CustomClassName</string>
 					<string>51.IBPluginDependency</string>
+					<string>52.CustomClassName</string>
 					<string>52.IBPluginDependency</string>
+					<string>53.CustomClassName</string>
 					<string>53.IBPluginDependency</string>
+					<string>54.CustomClassName</string>
 					<string>54.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -763,9 +755,13 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>BRRoundRectView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>EWFlagButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>EWFlagButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>EWFlagButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>EWFlagButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -804,6 +800,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/BRTextView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">EWFlagButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/EWFlagButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

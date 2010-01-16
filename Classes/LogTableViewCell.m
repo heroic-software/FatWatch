@@ -313,7 +313,7 @@ static NSInteger gAuxiliaryInfoType;
 		[(inverse ? [UIColor whiteColor] : [UIColor blackColor]) setStroke];
 		
 		for (f = 0; f < 4; f++) {
-			NSString *key = [NSString stringWithFormat:@"Flag%d", f+1];
+			NSString *key = [NSString stringWithFormat:@"Flag%d", f];
 			[[BRColorPalette colorNamed:key] setFill];
 			EWFlagValue value = dd->flags[f];
 			

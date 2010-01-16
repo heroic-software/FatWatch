@@ -67,6 +67,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	int bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	void *bitmapData = calloc(pixelsHigh, bitmapBytesPerRow);
 	
+	// TODO: replace bitmapData with NULL
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
 	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
 

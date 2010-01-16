@@ -37,6 +37,8 @@
 		BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
+		BC112E8F1101453200EAC8DA /* MarkIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* MarkIcons */; };
+		BC112E93110145A200EAC8DA /* EWFlagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112E92110145A200EAC8DA /* EWFlagButton.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -268,6 +270,10 @@
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
+		BC112E0910FDFEA400EAC8DA /* RegistrationForm.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationForm.html; sourceTree = "<group>"; };
+		BC112E8E1101453200EAC8DA /* MarkIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MarkIcons; sourceTree = SOURCE_ROOT; };
+		BC112E91110145A200EAC8DA /* EWFlagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWFlagButton.h; path = Classes/EWFlagButton.h; sourceTree = "<group>"; };
+		BC112E92110145A200EAC8DA /* EWFlagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWFlagButton.m; path = Classes/EWFlagButton.m; sourceTree = "<group>"; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
@@ -531,6 +537,7 @@
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
+				BC112E0910FDFEA400EAC8DA /* RegistrationForm.html */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 			);
 			name = CustomTemplate;
@@ -751,6 +758,8 @@
 				BCE6075110E01C0100819E77 /* RungEntryView.xib */,
 				BCE6075410E0227000819E77 /* RungEntryViewController.h */,
 				BCE6075510E0227000819E77 /* RungEntryViewController.m */,
+				BC112E91110145A200EAC8DA /* EWFlagButton.h */,
+				BC112E92110145A200EAC8DA /* EWFlagButton.m */,
 			);
 			name = "Weigh-in";
 			sourceTree = "<group>";
@@ -808,6 +817,7 @@
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 				BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */,
+				BC112E8E1101453200EAC8DA /* MarkIcons */,
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
@@ -956,6 +966,7 @@
 				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
 				BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */,
 				BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */,
+				BC112E8F1101453200EAC8DA /* MarkIcons in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1136,7 @@
 				BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */,
 				BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */,
 				BCDFBF1110F93B9800FA0C93 /* NewEquivalentViewController.m in Sources */,
+				BC112E93110145A200EAC8DA /* EWFlagButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

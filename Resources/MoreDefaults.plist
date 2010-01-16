@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Flag0Image</key>
+	<string>82-dogpaw</string>
+	<key>Flag1Image</key>
+	<string>79-medical-bag</string>
+	<key>Flag2Image</key>
+	<string>76-baby</string>
+	<key>Flag3Image</key>
+	<string>75-phone</string>
 	<key>ExportDefaults</key>
 	<dict>
 		<key>exportDate</key>

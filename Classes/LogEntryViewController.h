@@ -12,6 +12,7 @@
 
 @class BRTextView;
 @class EWDBMonth;
+@class EWFlagButton;
 
 @interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
 	EWDBMonth *monthData;
@@ -23,11 +24,11 @@
 	BRTextView *noteView;
 	UIView *annotationContainerView;
 	UINavigationBar *navigationBar;
-	UIButton *flag0Button;
-	UIButton *flag1Button;
-	UIButton *flag2Button;
-	UIButton *flag3Button;
-	UIButton *flagButtons[4];
+	EWFlagButton *flag0Button;
+	EWFlagButton *flag1Button;
+	EWFlagButton *flag2Button;
+	EWFlagButton *flag3Button;
+	EWFlagButton *flagButtons[4];
 	float scaleIncrement;
 	NSInteger weightRow, fatRow;
 	int weightMode;

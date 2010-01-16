@@ -2,13 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Flag0</key>
+	<string>0.176 0.250 0.438</string>
 	<key>Flag1</key>
 	<string>0.404 0.164 0.159</string>
 	<key>Flag2</key>
-	<string>0.176 0.250 0.438</string>
-	<key>Flag3</key>
 	<string>0.237 0.436 0.166</string>
-	<key>Flag4</key>
+	<key>Flag3</key>
 	<string>0.441 0.422 0.173</string>
 	<key>GoodText</key>
 	<string>0.0 0.8 0.0</string>

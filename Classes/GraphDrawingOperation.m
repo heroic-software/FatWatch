@@ -487,7 +487,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	NSAssert(bitmapData, @"could not allocate memory for bitmap");
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	
+	// TODO: replace bitmapData with NULL
 	CGContextRef ctxt = CGBitmapContextCreate(bitmapData, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	if (ctxt == NULL) {
 		free(bitmapData);
