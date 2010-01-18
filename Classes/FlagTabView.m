@@ -30,7 +30,7 @@
 	UIRectFill(b);
 	[[UIColor whiteColor] setFill];
 	UIRectFill(CGRectInset(tabRect, -10, -10));
-	[[UIColor blackColor] setStroke];
+	[[UIColor grayColor] setStroke];
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
 	const CGFloat xL = CGRectGetMinX(tabRect)-10.5;
