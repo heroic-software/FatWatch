@@ -16,6 +16,9 @@
 #import "LogViewController.h"
 
 
+static NSString * const kBadgeValueNoDataToday = @"!";
+
+
 @interface LogViewController ()
 - (void)databaseDidChange:(NSNotification *)notice;
 @end
@@ -98,8 +101,12 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (void)databaseDidChange:(NSNotification *)notice {
 	EWMonthDay today = EWMonthDayToday();
 	EWDatabase *db = [EWDatabase sharedDatabase];
-	
-	self.tabBarItem.badgeValue = [db hasDataForToday] ? nil : @"!";
+
+	if ([db hasDataForToday]) {
+		self.tabBarItem.badgeValue = nil;
+	} else {
+		self.tabBarItem.badgeValue = kBadgeValueNoDataToday;
+	}
 	
 	earliestMonth = db.earliestMonth;
 	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));

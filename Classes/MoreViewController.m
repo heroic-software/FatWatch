@@ -31,6 +31,7 @@ enum {
 
 
 static const int kRowExportEmail = 1;
+static NSString * const kBadgeValueUnregistered = @"!";
 
 
 @implementation MoreViewController
@@ -40,6 +41,9 @@ static const int kRowExportEmail = 1;
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"More", @"More view title");
 		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
+		if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
+			self.tabBarItem.badgeValue = kBadgeValueUnregistered;
+		}
 	}
 	return self;
 }
@@ -178,6 +182,7 @@ static const int kRowExportEmail = 1;
 	if ([aboutSection numberOfRows] > 1) {
 		if ([[NSUserDefaults standardUserDefaults] registration]) {
 			[aboutSection removeRowAtIndex:1 animated:YES];
+			self.tabBarItem.badgeValue = nil;
 		}
 	}
 }
