@@ -17,7 +17,6 @@
 
 
 @interface LogViewController ()
-- (void)updateTabBarItemBadge;
 - (void)databaseDidChange:(NSNotification *)notice;
 @end
 
@@ -53,15 +52,13 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
 		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
 		
-		[self updateTabBarItemBadge];
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(databaseDidChange:) 
+													 name:EWDatabaseDidChangeNotification 
+												   object:nil];
+		[self databaseDidChange:nil];
 	}
 	return self;
-}
-
-
-- (void)updateTabBarItemBadge {
-	EWDatabase *db = [EWDatabase sharedDatabase];
-	self.tabBarItem.badgeValue = [db hasDataForToday] ? nil : @"!";
 }
 
 
@@ -84,11 +81,12 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
 	
-//	UILabel *fortuneLabel = (id)[self.tableView.tableFooterView viewWithTag:240];
+	//	UILabel *fortuneLabel = (id)[self.tableView.tableFooterView viewWithTag:240];
 }
 
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[tableView release];
 	[infoPickerController release];
 	[lastIndexPath release];
@@ -97,23 +95,11 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
-- (void)startObservingDatabase {
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(databaseDidChange:) 
-												 name:EWDatabaseDidChangeNotification 
-											   object:nil];
-	[self databaseDidChange:nil];
-}
-
-
-- (void)stopObservingDatabase {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
 - (void)databaseDidChange:(NSNotification *)notice {
 	EWMonthDay today = EWMonthDayToday();
 	EWDatabase *db = [EWDatabase sharedDatabase];
+	
+	self.tabBarItem.badgeValue = [db hasDataForToday] ? nil : @"!";
 	
 	earliestMonth = db.earliestMonth;
 	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
@@ -126,12 +112,9 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		row = EWDaysInMonth(latestMonth) - 1;
 	}
 	[lastIndexPath release];
-	lastIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
-	[lastIndexPath retain];
+	lastIndexPath = [[NSIndexPath indexPathForRow:row inSection:section] retain];
 	
 	[tableView reloadData];
-
-	[self updateTabBarItemBadge];
 }
 
 
@@ -164,9 +147,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	[self startObservingDatabase];
-
 	if (scrollDestination != 0) {
+		[tableView numberOfSections]; // Implicitly performs a conditional reload.
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
 						 atScrollPosition:UITableViewScrollPositionNone
 								 animated:animated];
@@ -184,7 +166,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[self stopObservingDatabase];
 	NSArray *visibleRows = [tableView indexPathsForVisibleRows];
 	if ([visibleRows count] > 0) {
 		NSIndexPath *path = [visibleRows objectAtIndex:0];
