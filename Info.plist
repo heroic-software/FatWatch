@@ -23,8 +23,8 @@
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5</string>
+	<string>2.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>FatWatch 1.5 (${BUILD_NUMBER}) ©2008-2009 Benjamin Ragheb</string>
+	<string>©2008-2010 Benjamin Ragheb</string>
 </dict>
 </plist>

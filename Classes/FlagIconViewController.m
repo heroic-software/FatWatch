@@ -23,6 +23,7 @@
 
 - (id)init {
     if (self = [super initWithNibName:@"FlagIconView" bundle:nil]) {
+		self.title = NSLocalizedString(@"Choose Icons", nil);
 		self.hidesBottomBarWhenPushed = YES;
 	}
 	return self;

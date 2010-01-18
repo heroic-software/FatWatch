@@ -11,7 +11,15 @@
 
 @implementation BRTableRow
 
-@synthesize title, titleAlignment, titleColor, object, section, accessoryType;
+
+@synthesize title;
+@synthesize detail;
+@synthesize cellStyle;
+@synthesize titleAlignment;
+@synthesize titleColor;
+@synthesize object;
+@synthesize section;
+@synthesize accessoryType;
 @synthesize accessoryView;
 
 
@@ -47,12 +55,12 @@
 
 
 - (NSString *)reuseableCellIdentifier {
-	return @"BRTableRowCell";
+	return [NSString stringWithFormat:@"BRTableRowCell:%d", cellStyle];
 }
 
 
 - (UITableViewCell *)createCell {
-	return [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:[self reuseableCellIdentifier]] autorelease];
+	return [[[UITableViewCell alloc] initWithStyle:cellStyle reuseIdentifier:[self reuseableCellIdentifier]] autorelease];
 }
 
 
@@ -62,6 +70,7 @@
 	} else {
 		cell.textLabel.text = [object description];
 	}
+	cell.detailTextLabel.text = detail;
 	cell.textLabel.textAlignment = titleAlignment;
 	cell.textLabel.textColor = titleColor;
 	cell.accessoryView = accessoryView;

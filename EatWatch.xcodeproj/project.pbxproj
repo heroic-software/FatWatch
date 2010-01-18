@@ -16,14 +16,6 @@
 		BC02490C10F40C8700BED779 /* EnergyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02490B10F40C8700BED779 /* EnergyViewController.m */; };
 		BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
 		BC02496310F419F600BED779 /* EWEnergyEquivalent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02496210F419F600BED779 /* EWEnergyEquivalent.m */; };
-		BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FDF10D99047008FCB11 /* Flag1Button0.png */; };
-		BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE010D99047008FCB11 /* Flag1Button1.png */; };
-		BC040FE910D99048008FCB11 /* Flag2Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE110D99047008FCB11 /* Flag2Button0.png */; };
-		BC040FEA10D99048008FCB11 /* Flag2Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE210D99047008FCB11 /* Flag2Button1.png */; };
-		BC040FEB10D99048008FCB11 /* Flag3Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE310D99047008FCB11 /* Flag3Button0.png */; };
-		BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE410D99047008FCB11 /* Flag3Button1.png */; };
-		BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE510D99047008FCB11 /* Flag4Button0.png */; };
-		BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC040FE610D99047008FCB11 /* Flag4Button1.png */; };
 		BC04130E10DB718C008FCB11 /* BRJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04130D10DB718C008FCB11 /* BRJSON.m */; };
 		BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC04131110DB7AD9008FCB11 /* WebResources.plist */; };
 		BC04131710DB8024008FCB11 /* CSVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04131610DB8024008FCB11 /* CSVExporter.m */; };
@@ -43,6 +35,8 @@
 		BC112F9611019BED00EAC8DA /* FlagIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9511019BED00EAC8DA /* FlagIconViewController.m */; };
 		BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9811019D9100EAC8DA /* FlagTabView.m */; };
 		BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
+		BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11321F1102F0DC00EAC8DA /* AboutViewController.m */; };
+		BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1133351103AE5300EAC8DA /* RegistrationViewController.m */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -243,14 +237,6 @@
 		BC02492810F4159E00BED779 /* EWEnergyFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEnergyFormatter.m; sourceTree = "<group>"; };
 		BC02496110F419F600BED779 /* EWEnergyEquivalent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWEnergyEquivalent.h; sourceTree = "<group>"; };
 		BC02496210F419F600BED779 /* EWEnergyEquivalent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWEnergyEquivalent.m; sourceTree = "<group>"; };
-		BC040FDF10D99047008FCB11 /* Flag1Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button0.png; sourceTree = "<group>"; };
-		BC040FE010D99047008FCB11 /* Flag1Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag1Button1.png; sourceTree = "<group>"; };
-		BC040FE110D99047008FCB11 /* Flag2Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button0.png; sourceTree = "<group>"; };
-		BC040FE210D99047008FCB11 /* Flag2Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag2Button1.png; sourceTree = "<group>"; };
-		BC040FE310D99047008FCB11 /* Flag3Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag3Button0.png; sourceTree = "<group>"; };
-		BC040FE410D99047008FCB11 /* Flag3Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag3Button1.png; sourceTree = "<group>"; };
-		BC040FE510D99047008FCB11 /* Flag4Button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button0.png; sourceTree = "<group>"; };
-		BC040FE610D99047008FCB11 /* Flag4Button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flag4Button1.png; sourceTree = "<group>"; };
 		BC0410F010D9D532008FCB11 /* FakeValues.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FakeValues.js; sourceTree = "<group>"; };
 		BC04125E10DA0D2E008FCB11 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/import.html; sourceTree = SOURCE_ROOT; };
 		BC04126910DA0DD3008FCB11 /* fatwatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fatwatch.js; sourceTree = "<group>"; };
@@ -274,7 +260,6 @@
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
-		BC112E0910FDFEA400EAC8DA /* RegistrationForm.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationForm.html; sourceTree = "<group>"; };
 		BC112E8E1101453200EAC8DA /* MarkIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MarkIcons; sourceTree = SOURCE_ROOT; };
 		BC112E91110145A200EAC8DA /* EWFlagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWFlagButton.h; path = Classes/EWFlagButton.h; sourceTree = "<group>"; };
 		BC112E92110145A200EAC8DA /* EWFlagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWFlagButton.m; path = Classes/EWFlagButton.m; sourceTree = "<group>"; };
@@ -283,6 +268,12 @@
 		BC112F9511019BED00EAC8DA /* FlagIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagIconViewController.m; path = Classes/FlagIconViewController.m; sourceTree = "<group>"; };
 		BC112F9711019D9100EAC8DA /* FlagTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagTabView.h; path = Classes/FlagTabView.h; sourceTree = "<group>"; };
 		BC112F9811019D9100EAC8DA /* FlagTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagTabView.m; path = Classes/FlagTabView.m; sourceTree = "<group>"; };
+		BC11321E1102F0DC00EAC8DA /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
+		BC11321F1102F0DC00EAC8DA /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
+		BC1133341103AE5300EAC8DA /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = Classes/RegistrationViewController.h; sourceTree = "<group>"; };
+		BC1133351103AE5300EAC8DA /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = Classes/RegistrationViewController.m; sourceTree = "<group>"; };
+		BC11334C1103B7DA00EAC8DA /* RegistrationError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.html; sourceTree = "<group>"; };
+		BC1133A41103C9FD00EAC8DA /* register */ = {isa = PBXFileReference; lastKnownFileType = folder; name = register; path = ../../../pl141/public_html/fatwatch/register; sourceTree = SOURCE_ROOT; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
@@ -546,7 +537,7 @@
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
-				BC112E0910FDFEA400EAC8DA /* RegistrationForm.html */,
+				BC1133A41103C9FD00EAC8DA /* register */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 			);
 			name = CustomTemplate;
@@ -575,14 +566,6 @@
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
 				BC909D660F16F8CC0090472C /* Default.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
-				BC040FDF10D99047008FCB11 /* Flag1Button0.png */,
-				BC040FE010D99047008FCB11 /* Flag1Button1.png */,
-				BC040FE110D99047008FCB11 /* Flag2Button0.png */,
-				BC040FE210D99047008FCB11 /* Flag2Button1.png */,
-				BC040FE310D99047008FCB11 /* Flag3Button0.png */,
-				BC040FE410D99047008FCB11 /* Flag3Button1.png */,
-				BC040FE510D99047008FCB11 /* Flag4Button0.png */,
-				BC040FE610D99047008FCB11 /* Flag4Button1.png */,
 				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
 				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
 			);
@@ -757,6 +740,10 @@
 				BC112F9411019BED00EAC8DA /* FlagIconViewController.h */,
 				BC112F9511019BED00EAC8DA /* FlagIconViewController.m */,
 				BC112F911101981F00EAC8DA /* FlagIconView.xib */,
+				BC11321E1102F0DC00EAC8DA /* AboutViewController.h */,
+				BC11321F1102F0DC00EAC8DA /* AboutViewController.m */,
+				BC1133341103AE5300EAC8DA /* RegistrationViewController.h */,
+				BC1133351103AE5300EAC8DA /* RegistrationViewController.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -835,6 +822,7 @@
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
+				BC11334C1103B7DA00EAC8DA /* RegistrationError.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -961,14 +949,6 @@
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
 				BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */,
-				BC040FE710D99048008FCB11 /* Flag1Button0.png in Resources */,
-				BC040FE810D99048008FCB11 /* Flag1Button1.png in Resources */,
-				BC040FE910D99048008FCB11 /* Flag2Button0.png in Resources */,
-				BC040FEA10D99048008FCB11 /* Flag2Button1.png in Resources */,
-				BC040FEB10D99048008FCB11 /* Flag3Button0.png in Resources */,
-				BC040FEC10D99048008FCB11 /* Flag3Button1.png in Resources */,
-				BC040FED10D99048008FCB11 /* Flag4Button0.png in Resources */,
-				BC040FEE10D99048008FCB11 /* Flag4Button1.png in Resources */,
 				BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */,
 				BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */,
 				BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */,
@@ -1058,11 +1038,13 @@
 			inputPaths = (
 				"$(SRCROOT)/Images/Icon.png",
 				"$(SRCROOT)/jQuery/jquery-1.3.2.min.js",
+				"$(SRCROOT)/Resources/RegistrationError.html",
 			);
 			name = "Run Script (Copy & Rename)";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Icon._png",
 				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/jquery.js.gz",
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/RegistrationError.html",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1154,6 +1136,8 @@
 				BC112E93110145A200EAC8DA /* EWFlagButton.m in Sources */,
 				BC112F9611019BED00EAC8DA /* FlagIconViewController.m in Sources */,
 				BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */,
+				BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */,
+				BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

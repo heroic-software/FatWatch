@@ -15,7 +15,9 @@
 @interface BRTableRow : NSObject {
 	BRTableSection *section;
 	id object;
+	UITableViewCellStyle cellStyle;
 	NSString *title;
+	NSString *detail;
 	UITextAlignment titleAlignment;
 	UIColor *titleColor;
 	UITableViewCellAccessoryType accessoryType;
@@ -23,7 +25,9 @@
 }
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
+@property (nonatomic) UITableViewCellStyle cellStyle;
 @property (nonatomic,retain) NSString *title;
+@property (nonatomic,retain) NSString *detail;
 @property (nonatomic) UITextAlignment titleAlignment;
 @property (nonatomic,retain) UIColor *titleColor;
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;

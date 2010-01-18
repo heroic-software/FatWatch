@@ -1,92 +1,50 @@
-NECESSARY TODO
-
-- Bug: Turn BMI off. Load Weigh-in screen. Picker cells only colored on refresh.
-
-- Export: choose year/month range for export
-
-- Trend: blue line to show slope
-
-- Energy Equivalents: when tapped in trends view
-
-	<Back]      [Edit]
-	[+]         [Done]
-	100 cal/day is equivalent to
-	[Elements]
-	Fat				1 g
-	Protein			2 g
-	Carbohydrates	1 g
-	[Food]
-	Coca-Cola	1.23 oz
-	[Exercise]
-	Running		 10 min
-	Stairs		 21 min		
-
-// lb/day * (x) = g
-// lb/day * (y) = min
-
-// x lb/day * 3500 cal/lb * 60 min/hr = y cal/hr
-
-// 1 MET = 3.5 mL/kg/min = 1 cal/kg/hr
-
-CREATE TABLE energy (
-	id INTEGER PRIMARY KEY,
-	group INTEGER, -- exercise, food, element
-	name TEXT,
-	factor REAL
-);
-
-NICE TODO
-
-- Chart: introduce sampling to "All Time" view? Do it in subpixel territory?
-
-- Export to Email (as an attachment)
-
-- Import from Google Spreadsheet
-- Export to Google Spreadsheet
-
-- Import form Hacker's Diet Online
-- Export to Hacker's Diet Online
-	enter name and password, simulate web access
-	
-- Import from WebDAV
-- Export to WebDAV
-
-- Export to Web
-	upload file
-	display code for download
-	email link for download
-
-
-IMPORT/EXPORT SUPPORT
-
-TrueWeight CSV
-http://www.trueweight.net/
-	Date (YYYY-MM-DD)
-	Weight (grams)
-
-Hacker's Diet Online CSV
-http://fourmilab.ch/hackdiet/online/images/hdocsv.html
-	Date ISO 8601
-	Weight lb/kg
-	Rung 1-48
-	Flag 0-1
-	Comment text
-optional lines Epoch, User, Preferences, Diet-Plan
-
-Hacker's Diet Online XML
-http://fourmilab.ch/hackdiet/online/images/hdoxml.html
-
-PhysicsDiet.com export only
-http://www.physicsdiet.com/
-
-WeightBot exports only
-http://www.weightbot.com/
-
-
 MISC
 
 Use method swizzling in singleton to avoid instance checks
 http://googlemac.blogspot.com/2006/11/synchronized-swimming-part-2.html
 
+SNIPPETS
+
 cd "$HOME/Library/Application Support/iPhone Simulator/User/Applications/"
 rm -v ./*/Documents/* ./*/Library/Preferences/com.benzado.*
+
+
+More
+	About >
+	Register (!)
+
+	Weight Chart
+	Require Passcode [-]
+	Monitor BMI [-]
+	Choose Icons >
+	
+	[Data]
+	Import/Export via Wi-Fi >
+	Export via Email
+	
+	[Support]
+	www.fatwatchapp.com
+	help@fatwatchapp.com
+	Write an App Store Review
+	
+About
+	Version   2.0 (8)
+	Measurements   1920
+
+	[Registered To]
+	Joe Blow
+	jb@yahoo.com
+	
+	[Design & Development]
+	Benjamin Ragheb
+	www.benzado.com
+	
+	[Icon Design]
+	Steve Dressler
+	stevedressler.wordpress.com
+	
+	[More Icons]
+	Glyphish
+
+	[App Store]
+	MetroCost

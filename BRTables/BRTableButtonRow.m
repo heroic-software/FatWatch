@@ -7,6 +7,8 @@
 //
 
 #import "BRTableButtonRow.h"
+#import "BRTableSection.h"
+#import "BRTableViewController.h"
 
 
 @implementation BRTableButtonRow
@@ -36,14 +38,17 @@
 
 
 - (void)didSelect {
-	if (! disabled) {
-		if ((self.target == nil) && [self.object isKindOfClass:[NSURL class]]) {
-			[[UIApplication sharedApplication] openURL:self.object];
-		} else {
-			[self.target performSelector:self.action withObject:self];
-		}
-	}
 	[self deselectAnimated:YES];
+	if (disabled) return;
+	if (self.target) {
+		[self.target performSelector:self.action withObject:self];
+	}
+	if ([self.object isKindOfClass:[NSURL class]]) {
+		[[UIApplication sharedApplication] openURL:self.object];
+	}
+	if ([self.object isKindOfClass:[UIViewController class]]) {
+		[self.section.controller presentViewController:self.object forRow:self];
+	}
 }
 
 

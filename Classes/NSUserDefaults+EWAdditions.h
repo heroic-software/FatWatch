@@ -59,4 +59,5 @@ typedef enum {
 @property (nonatomic,readonly) BOOL highlightWeekends;
 @property (nonatomic,readonly) BOOL highlightBMIZones;
 @property (nonatomic,getter=isLadderEnabled) BOOL ladderEnabled;
+@property (nonatomic,copy) NSDictionary *registration;
 @end

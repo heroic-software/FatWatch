@@ -18,18 +18,61 @@
 #import "EWExporter.h"
 #import "CSVExporter.h"
 #import "FlagIconViewController.h"
+#import "AboutViewController.h"
+#import "RegistrationViewController.h"
 
 
-static const int kSectionOptions = 0;
-static const int kSectionData = 1;
-static const int kSectionSupport = 2;
+enum {
+	kSectionAbout,
+	kSectionOptions,
+	kSectionData,
+	kSectionSupport
+};
+
+
 static const int kRowExportEmail = 1;
 
 
 @implementation MoreViewController
 
 
+- (id)init {
+	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
+		self.title = NSLocalizedString(@"More", @"More view title");
+		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
+	}
+	return self;
+}
+
+
+- (void)dealloc {
+	[super dealloc];
+}
+
+
 #pragma mark Table Row Setup
+
+
+- (void)initAboutSection {
+	BRTableSection *aboutSection = [self addNewSection];
+	
+	BRTableButtonRow *aboutRow = [[BRTableButtonRow alloc] init];
+	aboutRow.title = NSLocalizedString(@"About", nil);
+	aboutRow.object = [[[AboutViewController alloc] init] autorelease];
+	aboutRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	[aboutSection addRow:aboutRow animated:NO];
+	[aboutRow release];
+
+	if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
+		BRTableButtonRow *registerRow = [[BRTableButtonRow alloc] init];
+		registerRow.title = NSLocalizedString(@"Register Now", nil);
+		registerRow.titleColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+		registerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		registerRow.object = [RegistrationViewController sharedController];
+		[aboutSection addRow:registerRow animated:NO];
+		[registerRow release];
+	}
+}
 
 
 - (void)initOptionsSection {
@@ -59,8 +102,7 @@ static const int kRowExportEmail = 1;
 	
 	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
 	markRow.title = NSLocalizedString(@"Choose Icons", @"Choose Icons button");
-	markRow.target = self;
-	markRow.action = @selector(showMarkOptions:);
+	markRow.object = [[[FlagIconViewController alloc] init] autorelease];
 	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[moreSection addRow:markRow animated:NO];
 	[markRow release];
@@ -75,8 +117,7 @@ static const int kRowExportEmail = 1;
 	webServerRow.title = NSLocalizedString(@"Import/Export via Wi-Fi", @"Wi-Fi button");
 	webServerRow.titleAlignment = UITextAlignmentLeft;
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	webServerRow.target = self;
-	webServerRow.action = @selector(showWiFiAccess:);
+	webServerRow.object = [[[EWWiFiAccessViewController alloc] init] autorelease];
 	[dataSection addRow:webServerRow animated:NO];
 	[webServerRow release];
 	
@@ -92,11 +133,8 @@ static const int kRowExportEmail = 1;
 
 
 - (void)initSupportSection {
-	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-
 	BRTableSection *supportSection = [self addNewSection];
 	supportSection.headerTitle = NSLocalizedString(@"Support", @"Support section title");
-	supportSection.footerTitle = [infoDictionary objectForKey:@"NSHumanReadableCopyright"];
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
 	webRow.title = NSLocalizedString(@"www.fatwatchapp.com", @"Support website button");
@@ -105,13 +143,10 @@ static const int kRowExportEmail = 1;
 	[supportSection addRow:webRow animated:NO];
 	[webRow release];
 	
-	NSString *emailURLFormat = NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch%%20%@", @"Support email URL");
-	NSString *emailURLString = [NSString stringWithFormat:emailURLFormat, [infoDictionary objectForKey:@"CFBundleShortVersionString"]];
-	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"help@fatwatchapp.com", @"Support email button");
 	emailRow.titleAlignment = UITextAlignmentCenter;
-	emailRow.object = [NSURL URLWithString:emailURLString];
+	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch", @"Support email URL")];
 	[supportSection addRow:emailRow animated:NO];
 	[emailRow release];
 	
@@ -124,32 +159,26 @@ static const int kRowExportEmail = 1;
 }
 
 
-#pragma mark NSObject
-
-
-- (id)init {
-	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"More", @"More view title");
-		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
-	}
-	return self;
-}
-
-
-- (void)dealloc {
-	[super dealloc];
-}
-
-
 #pragma mark UIViewController
 
 
 - (void)viewWillAppear:(BOOL)animated {
 	if ([self numberOfSections] == 0) {
+		[self initAboutSection];
 		[self initOptionsSection];
 		[self initDataSection];
 		[self initSupportSection];
 		[self.tableView reloadData];
+	}
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	BRTableSection *aboutSection = [self sectionAtIndex:kSectionAbout];
+	if ([aboutSection numberOfRows] > 1) {
+		if ([[NSUserDefaults standardUserDefaults] registration]) {
+			[aboutSection removeRowAtIndex:1 animated:YES];
+		}
 	}
 }
 
@@ -204,26 +233,9 @@ static const int kRowExportEmail = 1;
 #pragma mark Button Actions
 
 
-- (void)showWiFiAccess:(BRTableButtonRow *)sender {
-	EWWiFiAccessViewController *controller;
-	
-	controller = [[EWWiFiAccessViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
-}
-
-
 - (void)showWeightChart:(BRTableButtonRow *)sender {
 	[self showAlertWithTitle:NSLocalizedString(@"Weight Chart", nil)
 					 message:NSLocalizedString(@"Rotate the device sideways to see a chart at any time.", @"Weight Chart alert message")];
-}
-
-
-- (void)showMarkOptions:(BRTableButtonRow *)sender {
-	FlagIconViewController *mivc = [[FlagIconViewController alloc] init];
-	mivc.title = sender.title;
-	[self.navigationController pushViewController:mivc animated:YES];
-	[mivc release];
 }
 
 

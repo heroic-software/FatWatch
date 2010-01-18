@@ -242,4 +242,14 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 }
 
 
+- (NSDictionary *)registration {
+	return [self dictionaryForKey:@"RegistrationInfo"];
+}
+
+
+- (void)setRegistration:(NSDictionary *)info {
+	[self setObject:info forKey:@"RegistrationInfo"];
+}
+
+
 @end
