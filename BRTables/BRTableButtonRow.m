@@ -27,7 +27,7 @@
 
 
 - (NSString *)reuseableCellIdentifier {
-	return @"BRTableButtonRowCell";
+	return [NSString stringWithFormat:@"BRTableButtonRowCell:%d", self.cellStyle];
 }
 
 

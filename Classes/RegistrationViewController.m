@@ -10,6 +10,13 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
+#if TARGET_IPHONE_SIMULATOR
+#define REGISTRATION_URL @"http://fatwatchapp.test/app/register.html"
+#else
+#define REGISTRATION_URL @"http://www.fatwatchapp.com/app/register.html"
+#endif
+
+
 static RegistrationViewController *gSharedController = nil;
 
 
@@ -27,6 +34,7 @@ static RegistrationViewController *gSharedController = nil;
 - (id)init {
     if (self = [super initWithNibName:nil bundle:nil]) {
 		self.title = NSLocalizedString(@"Product Registration", nil);
+		self.hidesBottomBarWhenPushed = YES;
 		
 		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
@@ -57,7 +65,7 @@ static RegistrationViewController *gSharedController = nil;
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	NSURL *url = [NSURL URLWithString:@"http://fatwatchapp.test/register/"];
+	NSURL *url = [NSURL URLWithString:REGISTRATION_URL];
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	[webView loadRequest:request];
 }

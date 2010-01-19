@@ -84,7 +84,6 @@
 
 - (void)presentViewController:(UIViewController *)controller forRow:(BRTableRow *)row {
 	if (self.navigationController) {
-		controller.hidesBottomBarWhenPushed = YES;
 		[self.navigationController pushViewController:controller animated:YES];
 	} else {
 		// TODO: replace this with a simple nav bar

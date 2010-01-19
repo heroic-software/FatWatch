@@ -18,6 +18,7 @@
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"About", @"About view title");
+		self.hidesBottomBarWhenPushed = YES;
 	}
 	return self;
 }
@@ -43,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+		
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 
 	BRTableSection *verSection = [self addNewSection];
@@ -51,7 +52,7 @@
 	
 	BRTableRow *versionRow = [[BRTableRow alloc] init];
 	versionRow.cellStyle = UITableViewCellStyleValue1;
-//	versionRow.selectionStyle = UITableViewCellSelectionStyleNone;
+	versionRow.selectionStyle = UITableViewCellSelectionStyleNone;
 	versionRow.title = [infoDictionary objectForKey:@"CFBundleDisplayName"];
 	versionRow.detail = [NSString stringWithFormat:@"%@ (%@)",
 						 [infoDictionary objectForKey:@"CFBundleShortVersionString"],
@@ -106,8 +107,8 @@
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
 	row.title = @"John Walker";
-	row.detail = @"Author of The Hacker's Diet";
-	row.object = [NSURL URLWithString:@"http://fourmilab.ch/hackdiet/"];
+	row.detail = @"Author of The Hacker\xe2\x80\x99s Diet";
+	row.object = [NSURL URLWithString:@"http://fourmilab.ch/"];
 	[section addRow:row animated:NO];
 	[row release];
 }

@@ -20,12 +20,14 @@
 #import "FlagIconViewController.h"
 #import "AboutViewController.h"
 #import "RegistrationViewController.h"
+#import "BookViewController.h"
 
 
 enum {
 	kSectionAbout,
 	kSectionOptions,
 	kSectionData,
+	kSectionBook,
 	kSectionSupport
 };
 
@@ -136,6 +138,21 @@ static NSString * const kBadgeValueUnregistered = @"!";
 }
 
 
+- (void)initBookSection {
+	BRTableSection *bookSection = [self addNewSection];
+	bookSection.headerTitle = NSLocalizedString(@"Read", nil);
+	
+	BRTableButtonRow *bookRow = [[BRTableButtonRow alloc] init];
+	bookRow.cellStyle = UITableViewCellStyleSubtitle;
+	bookRow.title = @"The Hacker\xe2\x80\x99s Diet";
+	bookRow.detail = @"by John Walker";
+	bookRow.object = [[[BookViewController alloc] init] autorelease];
+	bookRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	[bookSection addRow:bookRow animated:NO];
+	[bookRow release];
+}
+
+
 - (void)initSupportSection {
 	BRTableSection *supportSection = [self addNewSection];
 	supportSection.headerTitle = NSLocalizedString(@"Support", @"Support section title");
@@ -171,6 +188,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 		[self initAboutSection];
 		[self initOptionsSection];
 		[self initDataSection];
+		[self initBookSection];
 		[self initSupportSection];
 		[self.tableView reloadData];
 	}

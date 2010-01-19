@@ -21,6 +21,7 @@
 @synthesize section;
 @synthesize accessoryType;
 @synthesize accessoryView;
+@synthesize selectionStyle;
 
 
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle {
@@ -41,6 +42,7 @@
 	if ([super init]) {
 		self.titleAlignment = UITextAlignmentLeft;
 		self.titleColor = [UIColor blackColor];
+		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
 	return self;
 }
@@ -75,6 +77,7 @@
 	cell.textLabel.textColor = titleColor;
 	cell.accessoryView = accessoryView;
 	cell.accessoryType = accessoryType;
+	cell.selectionStyle = selectionStyle;
 }
 
 

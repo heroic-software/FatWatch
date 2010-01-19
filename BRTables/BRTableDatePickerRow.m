@@ -81,6 +81,7 @@
 	if ([super initWithNibName:nil bundle:nil]) {
 		row = [aRow retain];
 		self.title = row.title;
+		self.hidesBottomBarWhenPushed = YES;
 	}
 	return self;
 }
