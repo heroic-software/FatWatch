@@ -254,6 +254,16 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
+#pragma mark Cleanup
+
+
+- (void)dealloc {
+	[self stop];
+	[name release];
+	[super dealloc];
+}
+
+
 @end
 
 
