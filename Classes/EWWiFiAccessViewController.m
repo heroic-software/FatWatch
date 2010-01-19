@@ -63,6 +63,12 @@ static NSString *kEWLastImportKey = @"EWLastImportDate";
 static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
+@interface EWWiFiAccessViewController ()
+- (void)displayDetailView:(UIView *)detailView;
+@end
+
+
+
 @implementation EWWiFiAccessViewController
 
 
@@ -81,14 +87,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
     if (self = [super initWithNibName:@"EWWiFiAccessView" bundle:nil]) {
 		self.title = @"Wi-Fi Import/Export";
 		self.hidesBottomBarWhenPushed = YES;
-		
-		reachability = [[BRReachability alloc] init];
-		reachability.delegate = self;
-		
-		webServer = [[MicroWebServer alloc] init];
-		NSString *devName = [[UIDevice currentDevice] name];
-		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", devName];
-		webServer.delegate = self;
     }
     return self;
 }
@@ -138,11 +136,26 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[uds setObject:[NSDate date] forKey:key];
 	[self updateLastImportExportLabels];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	if (webServer == nil) {
+		webServer = [[MicroWebServer alloc] init];
+		NSString *devName = [[UIDevice currentDevice] name];
+		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", devName];
+		webServer.delegate = self;
+	}
+	
+	if (reachability == nil) {
+		reachability = [[BRReachability alloc] init];
+		reachability.delegate = self;
+	}
+}	
 	
 	
 - (void)viewDidAppear:(BOOL)animated {
-	[self updateLastImportExportLabels];
 	[RootViewController setAutorotationEnabled:NO];
+	[self updateLastImportExportLabels];
 	[reachability startMonitoring];
 }
 
@@ -150,7 +163,26 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 - (void)viewWillDisappear:(BOOL)animated {
 	[reachability stopMonitoring];
 	[webServer stop];
+	statusLabel.text = @"Off";
+	[self displayDetailView:nil];
 	[RootViewController setAutorotationEnabled:YES];
+}
+
+
+- (void)viewDidUnload {
+	[reachability release];
+	reachability = nil;
+	[webServer release];
+	webServer = nil;
+	self.statusLabel = nil;
+	self.activityView = nil;
+	self.detailView = nil;
+	self.inactiveDetailView = nil;
+	self.activeDetailView = nil;
+	self.progressDetailView = nil;
+	self.progressView = nil;
+	self.lastImportLabel = nil;
+	self.lastExportLabel = nil;
 }
 
 
