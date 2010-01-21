@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>SpanLengths</key>
-	<array>
-		<integer>7</integer>
-		<integer>14</integer>
-		<integer>30</integer>
-		<integer>90</integer>
-		<integer>182</integer>
-		<integer>365</integer>
-	</array>
-	<key>SpanTitles</key>
-	<array>
+<array>
+	<dict>
+		<key>Title</key>
 		<string>Past Week</string>
+		<key>Days</key>
+		<integer>7</integer>
+	</dict>
+	<dict>
+		<key>Title</key>
 		<string>Past Two Weeks</string>
+		<key>Days</key>
+		<integer>14</integer>
+	</dict>
+	<dict>
+		<key>Title</key>
 		<string>Past Month</string>
+		<key>Months</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Title</key>
 		<string>Past Quarter</string>
+		<key>Months</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Title</key>
 		<string>Past Six Months</string>
+		<key>Months</key>
+		<integer>6</integer>
+	</dict>
+	<dict>
+		<key>Title</key>
 		<string>Past Year</string>
-	</array>
-</dict>
+		<key>Months</key>
+		<integer>12</integer>
+	</dict>
+</array>
 </plist>

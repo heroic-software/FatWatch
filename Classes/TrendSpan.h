@@ -14,8 +14,6 @@
 	NSString *title;
 	NSInteger length;
 	float weightPerDay;
-	float weightChange;
-	BOOL visible;
 	float flagFrequencies[4];
 	EWMonthDay beginMonthDay;
 	EWMonthDay endMonthDay;
@@ -27,8 +25,6 @@
 @property (nonatomic,retain) NSString *title;
 @property (nonatomic) NSInteger length;
 @property (nonatomic) float weightPerDay;
-@property (nonatomic) float weightChange;
-@property (nonatomic) BOOL visible;
 @property (nonatomic,readonly) NSDate *endDate;
 @property (nonatomic,readonly) float *flagFrequencies;
 @property (nonatomic) EWMonthDay beginMonthDay;

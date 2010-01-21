@@ -33,8 +33,6 @@ enum {
 @synthesize title;
 @synthesize length;
 @synthesize weightPerDay;
-@synthesize weightChange;
-@synthesize visible;
 @dynamic flagFrequencies;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
@@ -62,53 +60,53 @@ enum {
 }
 
 
-+ (NSMutableArray *)trendSpanArray {
++ (NSArray *)trendSpanArray {
 	NSMutableArray *spanArray = [NSMutableArray array];
 
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"TrendSpans" ofType:@"plist"];
-	NSDictionary *spanDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	NSArray *spanLengths = [spanDict objectForKey:@"SpanLengths"];
-	NSArray *spanTitles = [spanDict objectForKey:@"SpanTitles"];
-	NSUInteger spanCount = MIN([spanLengths count], [spanTitles count]);
-	
-	NSUInteger spanIndex;
-	for (spanIndex = 0; spanIndex < spanCount; spanIndex++) {
+
+	NSArray *infoArray = [NSArray arrayWithContentsOfFile:path];
+	NSDateComponents *dc = [[NSDateComponents alloc] init];
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSDate *now = EWDateFromMonthDay(EWMonthDayToday());
+	for (NSDictionary *info in infoArray) {
 		TrendSpan *span = [[TrendSpan alloc] init];
-		span.title = [spanTitles objectAtIndex:spanIndex];
-		span.length = [[spanLengths objectAtIndex:spanIndex] intValue];
+		span.title = [info objectForKey:@"Title"];
+		[dc setMonth:-[[info objectForKey:@"Months"] intValue]];
+		[dc setDay:-[[info objectForKey:@"Days"] intValue]];
+		NSDate *beginDate = [calendar dateByAddingComponents:dc toDate:now options:0];
+		span.beginMonthDay = EWMonthDayFromDate(beginDate);
+		span.endMonthDay = EWMonthDayToday();
+		span.length = EWDaysBetweenMonthDays(span.beginMonthDay, span.endMonthDay);
 		[spanArray addObject:span];
 		[span release];
 	}
-	
+	[dc release];
+
 	return spanArray;
 }
 
 
 + (NSArray *)computeTrendSpans {
-	NSMutableArray *array = [self trendSpanArray];
-	
 	EWMonthDay curMonthDay = EWMonthDayToday();
-	EWMonth curMonth = EWMonthDayGetMonth(curMonthDay);
-	EWDay curDay = EWMonthDayGetDay(curMonthDay);
 	int previousCount = 1;
-	float x = 0;
+	int x = 0;
 	
 	SlopeComputer *computer = [[SlopeComputer alloc] init];
 	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(curMonthDay)];
 	
-	float firstTrendWeight = 0;
 	float flagCounts[4] = {0,0,0,0};
 	
 	float minWeight = 500;
 	float maxWeight = 0;
 	
-	NSArray *sortedArray = [array sortedArrayUsingSelector:@selector(compare:)];
-	for (TrendSpan *span in sortedArray) {
+	NSMutableArray *computedSpans = [NSMutableArray array];
+	
+	for (TrendSpan *span in [self trendSpanArray]) {
 		GraphViewParameters *gp = span.graphParameters;
-		float lastTrendWeight;
 		
-		while ((x < span.length) && (data != nil)) {
-			const EWDBDay *dbd = [data getDBDayOnDay:curDay];
+		while ((curMonthDay > span.beginMonthDay) && (data != nil)) {
+			const EWDBDay *dbd = [data getDBDayOnDay:EWMonthDayGetDay(curMonthDay)];
 
 			if (dbd->flags[0]) flagCounts[0] += 1;
 			if (dbd->flags[1]) flagCounts[1] += 1;
@@ -123,50 +121,37 @@ enum {
 					if (dbd->trendWeight < minWeight) minWeight = dbd->trendWeight;
 					if (dbd->scaleWeight > maxWeight) maxWeight = dbd->scaleWeight;
 				}
-			}
-			
-			float y = dbd->trendWeight;
-			if (y > 0) {
-				[computer addPoint:CGPointMake(x, y)];
-				if (firstTrendWeight == 0) firstTrendWeight = y;
-				lastTrendWeight = y;
+				[computer addPoint:CGPointMake(x, dbd->trendWeight)];
 			}
 			
 			x += 1;
-			curDay--;
-			if (curDay < 1) {
-				curMonth -= 1;
-				curDay = EWDaysInMonth(curMonth);
+			curMonthDay = EWMonthDayPrevious(curMonthDay);
+			if (data.month != EWMonthDayGetMonth(curMonthDay)) {
 				data = data.previous;
 			}
 		}
 		
 		if (computer.count > previousCount) {
-			span.visible = YES;
 			previousCount = computer.count;
-		}
-		
-		if (span.visible) {
 			gp->minWeight = minWeight;
 			gp->maxWeight = maxWeight;
-			span.beginMonthDay = EWMonthDayMake(curMonth, curDay);
-			span.endMonthDay = EWMonthDayToday();
 			span.weightPerDay = -computer.slope;
-			span.weightChange = firstTrendWeight - lastTrendWeight;
-			span.flagFrequencies[0] = flagCounts[0] / x;
-			span.flagFrequencies[1] = flagCounts[1] / x;
-			span.flagFrequencies[2] = flagCounts[2] / x;
-			span.flagFrequencies[3] = flagCounts[3] / x;
+			span.flagFrequencies[0] = flagCounts[0] / (float)x;
+			span.flagFrequencies[1] = flagCounts[1] / (float)x;
+			span.flagFrequencies[2] = flagCounts[2] / (float)x;
+			span.flagFrequencies[3] = flagCounts[3] / (float)x;
+			[computedSpans addObject:span];
 		}
 	}
 	[computer release];
 	
-	NSMutableArray *filteredArray = [NSMutableArray array];
-	for (TrendSpan *span in array) {
-		if (span.visible) [filteredArray addObject:span];
+#if TARGET_IPHONE_SIMULATOR
+	for (TrendSpan *span in computedSpans) {
+		NSLog(@"Computed %@", span);
 	}
+#endif
 	
-	return filteredArray;
+	return computedSpans;
 }
 
 
@@ -182,6 +167,23 @@ enum {
 	} else {
 		return endDate;
 	}
+}
+
+
+- (NSString *)description {
+	return [NSString stringWithFormat:
+			@"<TrendSpan: \"%@\"\n"
+			@"\tfrom %@\n"
+			@"\t  to %@\n"
+			@"\t len %d\n"
+			@"\t slp %f lbs/wk\n"
+			@">",
+			self.title,
+			EWDateFromMonthDay(self.beginMonthDay),
+			EWDateFromMonthDay(self.endMonthDay),
+			self.length,
+			self.weightPerDay * 7.f
+			];
 }
 
 
