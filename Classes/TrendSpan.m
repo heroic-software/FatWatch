@@ -125,9 +125,9 @@ enum {
 				}
 			}
 			
-			float y = dbd->scaleWeight;
+			float y = dbd->trendWeight;
 			if (y > 0) {
-				[computer addPointAtX:x y:y];
+				[computer addPoint:CGPointMake(x, y)];
 				if (firstTrendWeight == 0) firstTrendWeight = y;
 				lastTrendWeight = y;
 			}

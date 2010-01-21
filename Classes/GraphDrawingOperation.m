@@ -457,8 +457,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const GraphPoint *gp = [pointData bytes];
 	int k;
 	for (k = 0; k < gpCount; k++) {
-		CGPoint scalePoint = gp[k].scale;
-		[sc addPointAtX:scalePoint.x y:scalePoint.y];
+		[sc addPoint:gp[k].trend];
 	}
 
 	const GraphPoint *lastGP = &gp[gpCount-1];

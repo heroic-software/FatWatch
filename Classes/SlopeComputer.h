@@ -13,7 +13,7 @@
 	double sumX, sumY, sumXsquared, sumXY;
 	unsigned int count;
 }
-- (void)addPointAtX:(float)x y:(float)y;
+- (void)addPoint:(CGPoint)point;
 @property (nonatomic,readonly) unsigned int count;
 @property (nonatomic,readonly) float slope;
 @end

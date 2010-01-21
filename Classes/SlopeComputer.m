@@ -15,12 +15,12 @@
 @synthesize count;
 
 
-- (void)addPointAtX:(float)x y:(float)y
+- (void)addPoint:(CGPoint)point
 {
-	sumX += x;
-	sumY += y;
-	sumXsquared += x * x;
-	sumXY += x * y;
+	sumX += point.x;
+	sumY += point.y;
+	sumXsquared += point.x * point.x;
+	sumXY += point.x * point.y;
 	count++;
 }
 

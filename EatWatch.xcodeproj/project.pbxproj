@@ -275,7 +275,6 @@
 		BC1133341103AE5300EAC8DA /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = Classes/RegistrationViewController.h; sourceTree = "<group>"; };
 		BC1133351103AE5300EAC8DA /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = Classes/RegistrationViewController.m; sourceTree = "<group>"; };
 		BC11334C1103B7DA00EAC8DA /* RegistrationError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.html; sourceTree = "<group>"; };
-		BC1133A41103C9FD00EAC8DA /* register */ = {isa = PBXFileReference; lastKnownFileType = folder; name = register; path = ../../../pl141/public_html/fatwatch/register; sourceTree = SOURCE_ROOT; };
 		BC11353411056D4500EAC8DA /* BookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookViewController.h; path = Classes/BookViewController.h; sourceTree = "<group>"; };
 		BC11353511056D4500EAC8DA /* BookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookViewController.m; path = Classes/BookViewController.m; sourceTree = "<group>"; };
 		BC11356F110577C800EAC8DA /* BookView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BookView.xib; path = Classes/BookView.xib; sourceTree = "<group>"; };
@@ -387,6 +386,7 @@
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
+		BCD041571108E90D008C735C /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; name = app; path = ../../../pl141/public_html/fatwatch/app; sourceTree = SOURCE_ROOT; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
@@ -542,7 +542,7 @@
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
-				BC1133A41103C9FD00EAC8DA /* register */,
+				BCD041571108E90D008C735C /* app */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 			);
 			name = CustomTemplate;
