@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>date</key>
+	<string>importDate</string>
+	<key>weight</key>
+	<string>importWeight</string>
+	<key>fat</key>
+	<string>importFat</string>
+	<key>body fat</key>
+	<string>importFat</string>
+	<key>bodyfat</key>
+	<string>importFat</string>
+	<key>flag</key>
+	<string>importFlag0</string>
+	<key>check</key>
+	<string>importFlag0</string>
+	<key>mark</key>
+	<string>importFlag0</string>
+	<key>checkmark</key>
+	<string>importFlag0</string>
+	<key>rung</key>
+	<string>importFlag3</string>
+	<key>exercise rung</key>
+	<string>importFlag3</string>
+	<key>exerciserung</key>
+	<string>importFlag3</string>
+	<key>note</key>
+	<string>importNote</string>
+	<key>comment</key>
+	<string>importNote</string>
+</dict>
+</plist>

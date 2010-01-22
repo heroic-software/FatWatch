@@ -46,20 +46,8 @@
 		
 		[reader reset];
 		
-		NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:
-							 @"importDate", @"date",
-							 @"importWeight", @"weight",
-							 @"importFat", @"fat",
-							 @"importFat", @"bodyfat",
-							 @"importFat", @"body fat",
-							 @"importFlag0", @"flag",
-							 @"importFlag0", @"check",
-							 @"importFlag0", @"mark",
-							 @"importFlag0", @"checkmark",
-							 @"importFlag3", @"rung",
-							 @"importNote", @"note",
-							 @"importNote", @"comment",
-							 nil];
+		NSString *mapPath = [[NSBundle mainBundle] pathForResource:@"ImportColumns" ofType:@"plist"];
+		NSDictionary *map = [[NSDictionary alloc] initWithContentsOfFile:mapPath];
 		
 		NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
 		for (c = 0; c < [columnNames count]; c++) {
@@ -69,6 +57,9 @@
 				[defaults setObject:[NSNumber numberWithInt:(c+1)] forKey:field];
 			}
 		}
+		
+		[map release];
+		
 		importDefaults = [defaults copy];
 		[defaults release];
 	}

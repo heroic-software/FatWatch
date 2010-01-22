@@ -108,6 +108,7 @@
 		BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
+		BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCD042A011097FCA008C735C /* ImportColumns.plist */; };
 		BCD2D23710EAADD700C1117F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2D23610EAADD700C1117F /* MessageUI.framework */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
 		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
@@ -387,6 +388,7 @@
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
 		BCD041571108E90D008C735C /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; name = app; path = ../../../pl141/public_html/fatwatch/app; sourceTree = SOURCE_ROOT; };
+		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
+				BCD042A011097FCA008C735C /* ImportColumns.plist */,
 				BC11334C1103B7DA00EAC8DA /* RegistrationError.html */,
 			);
 			path = Resources;
@@ -971,6 +974,7 @@
 				BC112E8F1101453200EAC8DA /* FlagIcons in Resources */,
 				BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */,
 				BC113570110577C900EAC8DA /* BookView.xib in Resources */,
+				BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
