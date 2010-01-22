@@ -1,3 +1,37 @@
+ICONS
+
+FOOD ITEMS
+martini glass (already have a wine glass and a beer mug)
+candy
+chocolate
+a donut
+soda pop
+potato chips, snack food
+slice of pizza
+hamburger
+french fries
+a slice of bread (atkins)
+
+ACTIVITIES
+car
+bicycle
+ice skate
+roller skate
+couch
+figure walking
+figure running
+boxing glove
+yoga*
+meditation*
+exercise*
+sports*
+
+OTHER
+flowers
+money
+toothbrush
+
+
 MISC
 
 Use method swizzling in singleton to avoid instance checks

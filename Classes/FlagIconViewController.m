@@ -38,7 +38,7 @@
 	}
 	
 	const CGFloat w = CGRectGetWidth(iconArea.bounds);
-	const CGFloat h = 18 + 60 * (([iconPaths count] / 5) + 1);
+	const CGFloat h = 18 + 60 * ceilf([iconPaths count] / 5.0f);
 	iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
 	
 	int i = 0;
