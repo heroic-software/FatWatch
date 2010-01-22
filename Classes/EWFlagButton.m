@@ -88,7 +88,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 	NSString *iconName = [[NSUserDefaults standardUserDefaults] stringForKey:key];
 	NSString *iconPath = [[NSBundle mainBundle] pathForResource:iconName 
 														 ofType:@"png"
-													inDirectory:@"MarkIcons"];
+													inDirectory:@"FlagIcons"];
 	return [[[UIImage alloc] initWithContentsOfFile:iconPath] autorelease];
 }
 

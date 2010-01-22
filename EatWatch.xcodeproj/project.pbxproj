@@ -29,7 +29,7 @@
 		BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
-		BC112E8F1101453200EAC8DA /* MarkIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* MarkIcons */; };
+		BC112E8F1101453200EAC8DA /* FlagIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* FlagIcons */; };
 		BC112E93110145A200EAC8DA /* EWFlagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112E92110145A200EAC8DA /* EWFlagButton.m */; };
 		BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC112F911101981F00EAC8DA /* FlagIconView.xib */; };
 		BC112F9611019BED00EAC8DA /* FlagIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9511019BED00EAC8DA /* FlagIconViewController.m */; };
@@ -262,7 +262,7 @@
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
 		BC0CE4620DDC0F6300AB8899 /* DataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSearch.m; path = Classes/DataSearch.m; sourceTree = "<group>"; };
-		BC112E8E1101453200EAC8DA /* MarkIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MarkIcons; sourceTree = SOURCE_ROOT; };
+		BC112E8E1101453200EAC8DA /* FlagIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FlagIcons; sourceTree = SOURCE_ROOT; };
 		BC112E91110145A200EAC8DA /* EWFlagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWFlagButton.h; path = Classes/EWFlagButton.h; sourceTree = "<group>"; };
 		BC112E92110145A200EAC8DA /* EWFlagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWFlagButton.m; path = Classes/EWFlagButton.m; sourceTree = "<group>"; };
 		BC112F911101981F00EAC8DA /* FlagIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FlagIconView.xib; path = Interfaces/FlagIconView.xib; sourceTree = "<group>"; };
@@ -826,7 +826,7 @@
 				BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */,
 				BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */,
 				BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */,
-				BC112E8E1101453200EAC8DA /* MarkIcons */,
+				BC112E8E1101453200EAC8DA /* FlagIcons */,
 				BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */,
 				BC04131110DB7AD9008FCB11 /* WebResources.plist */,
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
@@ -968,7 +968,7 @@
 				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
 				BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */,
 				BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */,
-				BC112E8F1101453200EAC8DA /* MarkIcons in Resources */,
+				BC112E8F1101453200EAC8DA /* FlagIcons in Resources */,
 				BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */,
 				BC113570110577C900EAC8DA /* BookView.xib in Resources */,
 			);

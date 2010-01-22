@@ -34,11 +34,11 @@
     [super viewDidLoad];
 	
 	if (iconPaths == nil) {
-		iconPaths = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"MarkIcons"] copy];
+		iconPaths = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"FlagIcons"] copy];
 	}
 	
 	const CGFloat w = CGRectGetWidth(iconArea.bounds);
-	const CGFloat h = 18 + 60 * ([iconPaths count] / 5);
+	const CGFloat h = 18 + 60 * (([iconPaths count] / 5) + 1);
 	iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
 	
 	int i = 0;
@@ -125,6 +125,7 @@
 
 
 - (IBAction)explainLadder:(UIButton *)sender {
+	// TODO: display BookViewController
 	NSURL *ladderURL = [NSURL URLWithString:@"http://www.fourmilab.ch/hackdiet/e4/exercise.html"];
 	[[UIApplication sharedApplication] openURL:ladderURL];
 }
