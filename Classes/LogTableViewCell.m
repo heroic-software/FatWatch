@@ -18,8 +18,7 @@ enum {
 	kVarianceAuxiliaryInfoType,
 	kBMIAuxiliaryInfoType,
 	kFatPercentAuxiliaryInfoType,
-	kFatWeightAuxiliaryInfoType,
-	kLeanWeightAuxiliaryInfoType
+	kFatWeightAuxiliaryInfoType
 };
 
 
@@ -62,7 +61,6 @@ static NSInteger gAuxiliaryInfoType;
 		case kBMIAuxiliaryInfoType: return @"BMI";
 		case kFatPercentAuxiliaryInfoType: return @"Body Fat Percentage";
 		case kFatWeightAuxiliaryInfoType: return @"Body Fat Weight";
-		case kLeanWeightAuxiliaryInfoType: return @"Body Lean Weight";
 		default: return @"Unknown";
 	}
 }
@@ -76,7 +74,6 @@ static NSInteger gAuxiliaryInfoType;
 	}
 	[array addObject:[NSNumber numberWithInt:kFatPercentAuxiliaryInfoType]];
 	[array addObject:[NSNumber numberWithInt:kFatWeightAuxiliaryInfoType]];
-	[array addObject:[NSNumber numberWithInt:kLeanWeightAuxiliaryInfoType]];
 	return array;
 }
 
@@ -267,14 +264,6 @@ static NSInteger gAuxiliaryInfoType;
 				auxInfoColor = [UIColor darkGrayColor];
 				if (dd->scaleFat > 0) {
 					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * dd->scaleFat)];
-				} else {
-					auxInfoString = @"—";
-				}
-				break;
-			case kLeanWeightAuxiliaryInfoType:
-				auxInfoColor = [UIColor darkGrayColor];
-				if (dd->scaleFat > 0) {
-					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * (1 - dd->scaleFat))];
 				} else {
 					auxInfoString = @"—";
 				}
