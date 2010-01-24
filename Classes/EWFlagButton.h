@@ -12,5 +12,6 @@
 @interface EWFlagButton : UIButton {
 }
 + (void)updateIconName:(NSString *)name forFlagIndex:(int)flagIndex;
++ (NSString *)iconNameForFlagIndex:(int)flagIndex;
 - (void)configureForFlagIndex:(int)flagIndex;
 @end

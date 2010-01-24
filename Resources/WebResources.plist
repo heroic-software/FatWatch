@@ -48,7 +48,7 @@
 		<key>Name</key>
 		<string>Icon</string>
 		<key>Type</key>
-		<string>_png</string>
+		<string>png</string>
 		<key>Content-Type</key>
 		<string>image/png</string>
 	</dict>
@@ -98,6 +98,11 @@
 	<dict>
 		<key>Action</key>
 		<string>sendValuesJavaScriptToConnection:</string>
+	</dict>
+	<key>/flag.png</key>
+	<dict>
+		<key>Action</key>
+		<string>sendFlagImage:</string>
 	</dict>
 </dict>
 </plist>

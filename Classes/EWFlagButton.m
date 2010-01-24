@@ -32,6 +32,15 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 }
 
 
++ (NSString *)iconNameForFlagIndex:(int)flagIndex {
+	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:flagIndex]) {
+		return @"300-ladder";
+	}
+	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
+	return [[NSUserDefaults standardUserDefaults] stringForKey:key];
+}
+
+
 - (void)awakeFromNib {
 	if (self.tag > 0) {
 		int flagIndex = self.tag % 10;
@@ -83,9 +92,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 
 - (UIImage *)iconImageForFlagIndex:(int)flagIndex {
-	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:flagIndex]) return nil;
-	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
-	NSString *iconName = [[NSUserDefaults standardUserDefaults] stringForKey:key];
+	NSString *iconName = [EWFlagButton iconNameForFlagIndex:flagIndex];
 	NSString *iconPath = [[NSBundle mainBundle] pathForResource:iconName 
 														 ofType:@"png"
 													inDirectory:@"FlagIcons"];
@@ -96,9 +103,15 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 - (void)configureForFlagIndex:(int)flagIndex {
 	NSString *colorName = [NSString stringWithFormat:@"Flag%d", flagIndex];
 	UIColor *color = [[BRColorPalette sharedPalette] colorNamed:colorName];
+	
+	UIImage *iconImage;
+	
+	if ([[self titleForState:UIControlStateNormal] length] > 0) {
+		iconImage = nil;
+	} else {
+		iconImage = [self iconImageForFlagIndex:flagIndex];
+	}
 
-	UIImage *iconImage = [self iconImageForFlagIndex:flagIndex];
-		
 	UIImage *normalImage = [self backgroundImageWithColor:[UIColor whiteColor] icon:iconImage];
 	[self setBackgroundImage:normalImage forState:UIControlStateNormal];
 
@@ -111,6 +124,15 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 		CGImageRelease(maskImageRef);
 	} else {
 		[self setBackgroundImage:backgroundImage forState:UIControlStateSelected];
+	}
+}
+
+
+- (void)setTitle:(NSString *)title forState:(UIControlState)state {
+	NSString *oldTitle = [self titleForState:state];
+	[super setTitle:title forState:state];
+	if (([oldTitle length] > 0) != ([title length] > 0)) {
+		[self configureForFlagIndex:(self.tag % 10)];
 	}
 }
 

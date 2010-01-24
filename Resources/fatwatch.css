@@ -50,3 +50,29 @@ input:disabled,
 label.disabled {
 	color: #999;
 }
+
+label.disabled span {
+	opacity: 0.5;
+}
+
+label {
+	position: relative;
+}
+
+#flagIcon0 { background-image: url(flag.png?0); }
+#flagIcon1 { background-image: url(flag.png?1); }
+#flagIcon2 { background-image: url(flag.png?2); }
+#flagIcon3 { background-image: url(flag.png?3); }
+
+#flagIcon0,
+#flagIcon1,
+#flagIcon2,
+#flagIcon3 {
+	display: inline-block;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 1px solid black;
+	width: 32px;
+	height: 32px;
+}

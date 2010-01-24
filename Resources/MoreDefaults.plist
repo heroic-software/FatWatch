@@ -10,6 +10,8 @@
 	<string>001-check</string>
 	<key>Flag3Image</key>
 	<string>001-check</string>
+	<key>EnableLadder</key>
+	<false/>
 	<key>ExportDefaults</key>
 	<dict>
 		<key>exportDate</key>

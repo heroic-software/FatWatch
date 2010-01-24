@@ -17,6 +17,7 @@
 #import "RootViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
+#import "EWFlagButton.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -230,9 +231,8 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-- (void)sendResource:(NSString *)name ofType:(NSString *)type contentType:(NSString *)contentType toConnection:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:type];
-	
+- (void)sendFileAtPath:(NSString *)path contentType:(NSString *)contentType toConnection:(MicroWebConnection *)connection {
+
 	if (path == nil) {
 		[self sendNotFoundErrorToConnection:connection];
 		return;
@@ -253,20 +253,30 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[connection setValue:contentType forResponseHeader:@"Content-Type"];
 	[connection setValue:lastModifiedDate forResponseHeader:@"Last-Modified"];
 	
-	if ([type hasSuffix:@".gz"]) {
+	if ([path hasSuffix:@".gz"]) {
 		[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
 	}
 	
-	NSData *contentData = [[NSData alloc] initWithContentsOfFile:path];
+	NSData *contentData;
+	
+	if ([contentType isEqualToString:@"image/png"]) {
+		UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+		contentData = [UIImagePNGRepresentation(image) retain];
+		[image release];
+	} else {
+		contentData = [[NSData alloc] initWithContentsOfFile:path];
+	}
+	
 	[connection endResponseWithBodyData:contentData];
 	[contentData release];
 }
 
 
 - (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
-	[self sendResource:name ofType:@"html.gz"
-		   contentType:@"text/html; charset=utf-8"
-		  toConnection:connection];
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html.gz"];
+	[self sendFileAtPath:path 
+			 contentType:@"text/html; charset=utf-8"
+			toConnection:connection];
 }
 
 
@@ -354,6 +364,16 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[connection endResponseWithBodyData:json];
 
 	[json release];
+}
+
+
+- (void)sendFlagImage:(MicroWebConnection *)connection {
+	int flagIndex = [[[connection requestURL] query] intValue];
+	NSString *name = [EWFlagButton iconNameForFlagIndex:flagIndex];
+	NSString *path = [[NSBundle mainBundle] pathForResource:name
+													 ofType:@"png"
+												inDirectory:@"FlagIcons"];
+	[self sendFileAtPath:path contentType:@"image/png" toConnection:connection];
 }
 
 
@@ -639,10 +659,11 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			[self performSelector:NSSelectorFromString(action) 
 					   withObject:connection];
 		} else {
-			[self sendResource:[rsrc objectForKey:@"Name"]
-						ofType:[rsrc objectForKey:@"Type"]
-				   contentType:[rsrc objectForKey:@"Content-Type"]
-				  toConnection:connection];
+			NSString *path = [[NSBundle mainBundle] pathForResource:[rsrc objectForKey:@"Name"]
+															 ofType:[rsrc objectForKey:@"Type"]];
+			[self sendFileAtPath:path 
+					 contentType:[rsrc objectForKey:@"Content-Type"]
+					toConnection:connection];
 		}
 	} else {
 		[self sendNotFoundErrorToConnection:connection];
