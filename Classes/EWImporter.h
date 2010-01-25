@@ -41,10 +41,12 @@ typedef enum {
 	NSFormatter *formatterForField[EWImporterFieldCount];
 	id <EWImporterDelegate> delegate;
 	BOOL deleteFirst;
+	BOOL importing;
 	int rowCount, importedCount;
 }
 @property (nonatomic,assign) id <EWImporterDelegate> delegate;
 @property (nonatomic) BOOL deleteFirst;
+@property (nonatomic,readonly,getter=isImporting) BOOL importing;
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding;
 - (NSDictionary *)infoForJavaScript;
 - (void)setColumn:(int)column forField:(EWImporterField)field;

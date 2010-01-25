@@ -19,6 +19,7 @@
 
 @synthesize delegate;
 @synthesize deleteFirst;
+@synthesize importing;
 
 
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding {
@@ -92,6 +93,7 @@
 
 
 - (BOOL)performImport {
+	importing = YES;
 	rowCount = 0;
 	importedCount = 0;
 	
@@ -185,6 +187,7 @@
 
 - (void)concludeImport {
 	[[EWDatabase sharedDatabase] commitChanges];
+	importing = NO;
 	[delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
 }
 

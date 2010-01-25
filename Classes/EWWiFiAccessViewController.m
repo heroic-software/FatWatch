@@ -473,11 +473,13 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 
 - (void)receiveUpload:(MicroWebConnection *)connection {
 	if (importer) {
-		// An import is already in progress!
-		// TODO: release and replace importer only if it is safe to do so
-		// (not in the process of importing now)
-		[self sendHTMLResourceNamed:@"importPending" toConnection:connection];
-		return;
+		if (importer.importing) {
+			[self sendHTMLResourceNamed:@"importPending" toConnection:connection];
+			return;
+		} else {
+			[importer release];
+			importer = nil;
+		}
 	}
 	
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
