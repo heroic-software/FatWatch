@@ -11,7 +11,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
-static NSString * const EWFlagButtonIconDidChangeNotification = @"EWFlagButtonIconDidChange";
+NSString * const EWFlagButtonIconDidChangeNotification = @"EWFlagButtonIconDidChange";
 
 
 static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {

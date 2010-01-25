@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
+extern NSString * const EWFlagButtonIconDidChangeNotification;
+
+
 @interface EWFlagButton : UIButton {
 }
 + (void)updateIconName:(NSString *)name forFlagIndex:(int)flagIndex;

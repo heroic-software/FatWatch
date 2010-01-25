@@ -12,6 +12,7 @@
 #import "LogTableViewCell.h"
 #import "EWWeightFormatter.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "EWFlagButton.h"
 
 
 enum {
@@ -159,7 +160,9 @@ static NSInteger gAuxiliaryInfoType;
 		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
 		varianceFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance] retain];
 		[self bmiStatusDidChange:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChangeNotification object:nil];
+		NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+		[center addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChangeNotification object:nil];
+		[center addObserver:self selector:@selector(flagIconDidChange:) name:EWFlagButtonIconDidChangeNotification object:nil];
 	}
 	return self;
 }
@@ -172,6 +175,11 @@ static NSInteger gAuxiliaryInfoType;
 	} else {
 		bmiFormatter = nil;
 	}
+}
+
+
+- (void)flagIconDidChange:(NSNotification *)notification {
+	[self setNeedsDisplay];
 }
 
 
