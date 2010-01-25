@@ -139,6 +139,12 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 		[nf setPositiveSuffix:[kShortSpace stringByAppendingString:[self suffixForUnit:unit]]];
 	}
 	
+	if (style == EWWeightFormatterStyleExport) {
+		NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+		[nf setLocale:locale];
+		[locale release];
+	}
+	
 	return [nf autorelease];
 }
 

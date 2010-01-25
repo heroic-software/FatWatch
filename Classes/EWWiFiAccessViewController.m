@@ -56,6 +56,9 @@ NSFormatter *EWFatFormatter(NSString *indexString) {
 	if ([indexString intValue] == 0) {
 		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
 	}
+	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	[formatter setLocale:locale];
+	[locale release];
 	return [formatter autorelease];
 }
 
