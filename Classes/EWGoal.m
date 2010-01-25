@@ -18,6 +18,8 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 NSString * const EWGoalDidChangeNotification = @"EWGoalDidChange";
 
+static NSString * const kOldGoalStartDateKey = @"GoalStartDate";
+
 static NSString * const kGoalWeightKey = @"GoalWeight";
 static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
