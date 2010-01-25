@@ -15,31 +15,23 @@
 @synthesize key;
 
 
-- (NSString *)reuseableCellIdentifier {
-	return @"BRTableSwitchRowCell";
-}
-
-
-- (UITableViewCell *)createCell {
-	UITableViewCell *cell = [super createCell];
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	return cell;
+- (id)init {
+	if (self = [super init]) {
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+		UISwitch *control = [[UISwitch alloc] init];
+		[control addTarget:self 
+					action:@selector(toggleSwitch:) 
+		  forControlEvents:UIControlEventValueChanged];
+		self.accessoryView = control;
+		[control release];
+	}
+	return self;
 }
 
 
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
-	UISwitch *control;
-	
-	if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
-		control = (UISwitch *)cell.accessoryView;
-	} else {
-		control = [[UISwitch alloc] init];
-		[control addTarget:self action:@selector(toggleSwitch:) forControlEvents:UIControlEventValueChanged];
-		cell.accessoryView = control;
-		[control release];
-	}
-
+	UISwitch *control = (id)self.accessoryView;
 	control.on = [[self.object valueForKey:self.key] boolValue];
 }
 

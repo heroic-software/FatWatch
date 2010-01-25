@@ -30,7 +30,13 @@ enum {
 };
 
 
-static const int kRowExportEmail = 1;
+enum {
+	kRowExportEmail = 1,
+	kRowPasscode = 1,
+	kRowBMI = 2
+};
+
+
 static NSString * const kBadgeValueUnregistered = @"!";
 
 
@@ -173,6 +179,15 @@ static NSString * const kBadgeValueUnregistered = @"!";
 		[self initDataSection];
 		[self initSupportSection];
 		[self.tableView reloadData];
+	} else {
+		NSArray *rows = [NSArray arrayWithObjects:
+						 [NSIndexPath indexPathForRow:kRowPasscode
+											inSection:kSectionOptions],
+						 [NSIndexPath indexPathForRow:kRowBMI
+											inSection:kSectionOptions],
+						 nil];
+		[self.tableView reloadRowsAtIndexPaths:rows 
+							  withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 
