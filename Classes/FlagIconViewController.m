@@ -30,7 +30,7 @@
 
 - (id)init {
     if (self = [super initWithNibName:@"FlagIconView" bundle:nil]) {
-		self.title = NSLocalizedString(@"Choose Icons", nil);
+		self.title = NSLocalizedString(@"Mark Icons", nil);
 		self.hidesBottomBarWhenPushed = YES;
 	}
 	return self;
@@ -105,8 +105,10 @@
 	int newFlagIndex = (sender.tag % 10);
 	if (flagIndex == newFlagIndex) return;
 	[flagTabView selectTabAroundRect:[sender frame]];
+	contentOffsets[flagIndex] = [iconArea contentOffset];
 	flagIndex = newFlagIndex;
 	[self updateLowerView];
+	[iconArea setContentOffset:contentOffsets[flagIndex]];
 }
 
 

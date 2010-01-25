@@ -18,6 +18,7 @@
 	NSArray *iconPaths;
 	int flagIndex;
 	UIView *iconView;
+	CGPoint contentOffsets[4];
 }
 @property (nonatomic,retain) IBOutlet FlagTabView *flagTabView;
 @property (nonatomic,retain) IBOutlet UIScrollView *iconArea;

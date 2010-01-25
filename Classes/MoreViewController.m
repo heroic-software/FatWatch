@@ -104,14 +104,14 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[passcodeRow release];
 	
 	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
-	bmiRow.title = NSLocalizedString(@"Monitor BMI", @"BMI switch");
+	bmiRow.title = NSLocalizedString(@"Compute BMI", @"BMI switch");
 	bmiRow.object = self;
 	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
 	[bmiRow release];
 	
 	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
-	markRow.title = NSLocalizedString(@"Choose Icons", @"Choose Icons button");
+	markRow.title = NSLocalizedString(@"Mark Icons", @"Mark Icons button");
 	markRow.object = [[[FlagIconViewController alloc] init] autorelease];
 	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[moreSection addRow:markRow animated:NO];

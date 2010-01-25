@@ -192,13 +192,18 @@
 					<object class="IBUILabel" id="1027024334">
 						<reference key="NSNextResponder" ref="205907311"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{20, 20}, {280, 63}}</string>
+						<string key="NSFrame">{{20, 20}, {280, 32}}</string>
 						<reference key="NSSuperview" ref="205907311"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">This mark is being used to track rungs on the Hacker's Diet Exercise Ladder.</string>
+						<string key="IBUIText">This mark is being used to track your current rung on The Hacker’s Diet Exercise Ladder.</string>
+						<object class="NSFont" key="IBUIFont" id="77837566">
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">13</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<object class="NSColor" key="IBUITextColor" id="100985384">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -207,11 +212,12 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">0</int>
+						<int key="IBUITextAlignment">1</int>
 					</object>
 					<object class="IBUIButton" id="678577059">
 						<reference key="NSNextResponder" ref="205907311"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{20, 91}, {280, 37}}</string>
+						<string key="NSFrame">{{20, 60}, {280, 37}}</string>
 						<reference key="NSSuperview" ref="205907311"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -220,7 +226,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="926041948"/>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Use as Regular Mark</string>
+						<string key="IBUINormalTitle">Use as Plain Mark</string>
 						<reference key="IBUIHighlightedTitleColor" ref="703461127"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -229,7 +235,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="154397824"/>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 148}</string>
+				<string key="NSFrameSize">{320, 117}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -247,23 +253,20 @@
 					<object class="IBUILabel" id="308296362">
 						<reference key="NSNextResponder" ref="760289981"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 20}, {266, 32}}</string>
+						<string key="NSFrame">{{20, 20}, {280, 32}}</string>
 						<reference key="NSSuperview" ref="760289981"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">This mark can be used to track rungs on the Hacker's Diet Exercise Ladder.</string>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica</string>
-							<double key="NSSize">13</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<string key="IBUIText">This mark can be used to track your current rung on The Hacker’s Diet Exercise Ladder.</string>
+						<reference key="IBUIFont" ref="77837566"/>
 						<reference key="IBUITextColor" ref="100985384"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">0</int>
+						<int key="IBUITextAlignment">1</int>
 					</object>
 					<object class="IBUIButton" id="222770560">
 						<reference key="NSNextResponder" ref="760289981"/>
@@ -496,8 +499,8 @@
 						<reference key="object" ref="205907311"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="678577059"/>
 							<reference ref="1027024334"/>
+							<reference ref="678577059"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -574,11 +577,11 @@
 					<string>UIResponder</string>
 					<string>{{47, 47}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{76, 333}, {320, 148}}</string>
+					<string>{{92, 330}, {320, 117}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{26, 207}, {320, 142}}</string>
+					<string>{{463, 349}, {320, 142}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
