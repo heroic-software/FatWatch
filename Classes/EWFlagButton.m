@@ -26,8 +26,10 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 
 + (void)updateIconName:(NSString *)name forFlagIndex:(int)flagIndex {
-	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
-	[[NSUserDefaults standardUserDefaults] setObject:name forKey:key];
+	if (name) {
+		NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
+		[[NSUserDefaults standardUserDefaults] setObject:name forKey:key];
+	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:EWFlagButtonIconDidChangeNotification object:[NSNumber numberWithInt:flagIndex]];
 }
 
