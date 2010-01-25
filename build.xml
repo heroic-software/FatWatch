@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="FatWatch" default="help" basedir=".">
 
-	<property name="output.root" value="Builds"/>
+	<property file="build.properties"/>
 
 	<import file="BuildSystem/iphone-builds.xml"/>
 	
@@ -9,20 +9,14 @@
 		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
 		<property name="xcode.target" value="FatWatch"/>
 		<property name="xcode.config" value="AdHoc"/>
-		<property
-			name="xcode.profile"
-			value="34556676-0A9B-48F5-825A-19A1161C6541"
-			/>
+		<property name="xcode.profile" value="${xcode.profile.adhoc}"/>
 	</target>
 	
 	<target name="appstore.setup">
 		<setdefaultkeychain name="iPhone Benjamin Ragheb"/>
 		<property name="xcode.target" value="FatWatch"/>
 		<property name="xcode.config" value="AppStore"/>
-		<property
-			name="xcode.profile"
-			value="1EE480A3-9698-45DA-9D06-109F575D0FD5"
-			/>
+		<property name="xcode.profile" value="${xcode.profile.appstore}"/>
 	</target>
 
 	<target name="all.cleanup">

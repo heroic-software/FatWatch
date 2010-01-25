@@ -430,6 +430,7 @@
 		BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBMonth.m; sourceTree = "<group>"; };
 		BCF678FE110D670800C923BF /* TriangleLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleLeft.png; sourceTree = "<group>"; };
 		BCF678FF110D670800C923BF /* TriangleRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleRight.png; sourceTree = "<group>"; };
+		BCF6797E110E5F7400C923BF /* build.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = build.properties; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -516,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				BCBA50760FE49B7300EAD2F3 /* build.xml */,
+				BCF6797E110E5F7400C923BF /* build.properties */,
 				BC9A2E820F15B41B00A284E7 /* BRViews */,
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
 				080E96DDFE201D6D7F000001 /* Classes */,
