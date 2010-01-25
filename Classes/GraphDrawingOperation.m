@@ -233,7 +233,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
-			// TODO: show more nuance than "any flag is set"
 			gp.flag = (dd->flags[0] || dd->flags[1] || dd->flags[2] || dd->flags[3]);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		}
@@ -609,7 +608,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
 			CGPathRelease(unflaggedMarksPath);
 			
-			CGContextSetRGBFillColor(ctxt, 0.2, 0.3, 0.8, 1.0);
+			CGContextSetRGBFillColor(ctxt, 0.0, 0.0, 0.0, 1.0); // black for flagged
 			CGPathRef flaggedMarksPath = [self newMarksPathUsingFlaggedPoints:YES];
 			CGContextAddPath(ctxt, flaggedMarksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
