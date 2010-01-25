@@ -145,6 +145,8 @@
 		BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
 		BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */; };
 		BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */; };
+		BCF67900110D670800C923BF /* TriangleLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FE110D670800C923BF /* TriangleLeft.png */; };
+		BCF67901110D670800C923BF /* TriangleRight.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FF110D670800C923BF /* TriangleRight.png */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -426,6 +428,8 @@
 		BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDatabase.m; sourceTree = "<group>"; };
 		BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBMonth.h; sourceTree = "<group>"; };
 		BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBMonth.m; sourceTree = "<group>"; };
+		BCF678FE110D670800C923BF /* TriangleLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleLeft.png; sourceTree = "<group>"; };
+		BCF678FF110D670800C923BF /* TriangleRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleRight.png; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -568,8 +572,10 @@
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
 				BC909D660F16F8CC0090472C /* Default.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
-				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
 				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
+				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
+				BCF678FE110D670800C923BF /* TriangleLeft.png */,
+				BCF678FF110D670800C923BF /* TriangleRight.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -966,6 +972,8 @@
 				BC112E8F1101453200EAC8DA /* FlagIcons in Resources */,
 				BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */,
 				BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */,
+				BCF67900110D670800C923BF /* TriangleLeft.png in Resources */,
+				BCF67901110D670800C923BF /* TriangleRight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -97,8 +97,16 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 	if (self = [super initWithNibName:@"TrendView" bundle:nil]) {
 		self.title = NSLocalizedString(@"Trends", @"Trends view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend.png"];
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(previousSpan:)] autorelease];
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextSpan:)] autorelease];
+		
+		UIImage *previousImage = [UIImage imageNamed:@"TriangleLeft.png"];
+		UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:previousImage style:UIBarButtonItemStyleBordered target:self action:@selector(previousSpan:)];
+		self.navigationItem.leftBarButtonItem = previousItem;
+		[previousItem release];
+
+		UIImage *nextImage = [UIImage imageNamed:@"TriangleRight.png"];
+		UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:nextImage style:UIBarButtonItemStyleBordered target:self action:@selector(nextSpan:)];
+		self.navigationItem.rightBarButtonItem = nextItem;
+		[nextItem release];
 	}
 	return self;
 }
