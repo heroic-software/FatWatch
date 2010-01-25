@@ -292,11 +292,11 @@ static NSInteger gAuxiliaryInfoType;
 	
 	{
 		int f;
-		CGRect rect = CGRectMake(flagX, 0, flagWidth, cellHeight);
+		CGRect rect = CGRectMake(flagX, 4, flagWidth, cellHeight);
 
 		rect.origin.x += roundf((flagWidth - 15) / 2);
 		rect.size.width = 15;
-		rect.size.height = 15;
+		rect.size.height = 13;
 
 		static const CGFloat R = 5;
 		CGMutablePathRef path = CGPathCreateMutable();
@@ -331,7 +331,7 @@ static NSInteger gAuxiliaryInfoType;
 				CGContextDrawPath(ctxt, value ? kCGPathFillStroke : kCGPathStroke);
 				CGContextRestoreGState(ctxt);
 			}
-			rect.origin.y += 15;
+			rect.origin.y += rect.size.height;
 		}
 	}
 	
