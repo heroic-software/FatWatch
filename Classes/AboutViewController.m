@@ -12,6 +12,13 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
+#if TARGET_IPHONE_SIMULATOR
+#define BOOK_WELCOME_URL @"http://fatwatchapp.test/app/book-welcome"
+#else
+#define BOOK_WELCOME_URL @"http://www.fatwatchapp.com/app/book-welcome"
+#endif
+
+
 @implementation AboutViewController
 
 
@@ -31,6 +38,7 @@
 		BRTableButtonRow *row = (id)[section rowAtIndex:0];
 		row.cellStyle = UITableViewCellStyleSubtitle;
 		row.title = [info objectForKey:@"name"];
+		row.titleColor = [UIColor blackColor];
 		row.detail = [info objectForKey:@"email"];
 		row.object = nil;
 		row.accessoryType = UITableViewCellAccessoryNone;
@@ -69,6 +77,7 @@
 	
 	row = [[BRTableButtonRow alloc] init];
 	row.title = @"Unregistered";
+	row.titleColor = [UIColor redColor];
 	row.object = [RegistrationViewController sharedController];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
@@ -80,13 +89,13 @@
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
 	row.title = @"Benjamin Ragheb";
-	row.detail = @"Design & Development";
+	row.detail = @"Design & Engineering";
 	row.object = [NSURL URLWithString:@"http://www.benzado.com/"];
 	[section addRow:row animated:NO];
 	[row release];
 	
 	section = [self addNewSection];
-	section.headerTitle = @"Thanks to";
+	section.headerTitle = @"Also by";
 	
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
@@ -95,20 +104,23 @@
 	row.object = [NSURL URLWithString:@"http://stevedressler.wordpress.com/"];
 	[section addRow:row animated:NO];
 	[row release];
-	
+		
+	section = [self addNewSection];
+	section.headerTitle = @"Thanks to";
+
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
 	row.title = @"Joseph Wain";
-	row.detail = @"Glyphish Icons";
+	row.detail = @"Glyphish Icon Collection";
 	row.object = [NSURL URLWithString:@"http://glyphish.com/"];
 	[section addRow:row animated:NO];
 	[row release];
-	
+
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
 	row.title = @"John Walker";
-	row.detail = @"Author of The Hacker\xe2\x80\x99s Diet";
-	row.object = [NSURL URLWithString:@"http://fourmilab.ch/"];
+	row.detail = @"The Hacker\xe2\x80\x99s Diet";
+	row.object = [NSURL URLWithString:BOOK_WELCOME_URL];
 	[section addRow:row animated:NO];
 	[row release];
 }

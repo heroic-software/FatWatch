@@ -12,6 +12,13 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
+#if TARGET_IPHONE_SIMULATOR
+#define BOOK_EXERCISE_URL @"http://fatwatchapp.test/app/book-exercise"
+#else
+#define BOOK_EXERCISE_URL @"http://www.fatwatchapp.com/app/book-exercise"
+#endif
+
+
 @implementation FlagIconViewController
 
 
@@ -105,14 +112,14 @@
 
 - (IBAction)useLastFlagForLadder:(UIButton *)sender {
 	[[NSUserDefaults standardUserDefaults] setLadderEnabled:YES];
-	[EWFlagButton updateIconName:nil forFlagIndex:3];
+	[EWFlagButton updateIconName:nil forFlagIndex:flagIndex];
 	[self updateLowerView];
 }
 
 
 - (IBAction)useLastFlagForIcon:(UIButton *)sender {
 	[[NSUserDefaults standardUserDefaults] setLadderEnabled:NO];
-	[EWFlagButton updateIconName:nil forFlagIndex:3];
+	[EWFlagButton updateIconName:nil forFlagIndex:flagIndex];
 	[self updateLowerView];
 }
 
@@ -125,9 +132,8 @@
 
 
 - (IBAction)explainLadder:(UIButton *)sender {
-	// TODO: display BookViewController
-	NSURL *ladderURL = [NSURL URLWithString:@"http://www.fourmilab.ch/hackdiet/e4/exercise.html"];
-	[[UIApplication sharedApplication] openURL:ladderURL];
+	NSURL *bookURL = [NSURL URLWithString:BOOK_EXERCISE_URL];
+	[[UIApplication sharedApplication] openURL:bookURL];
 }
 
 

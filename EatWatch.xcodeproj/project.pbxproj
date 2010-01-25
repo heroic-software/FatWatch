@@ -37,8 +37,6 @@
 		BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
 		BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11321F1102F0DC00EAC8DA /* AboutViewController.m */; };
 		BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1133351103AE5300EAC8DA /* RegistrationViewController.m */; };
-		BC11353611056D4500EAC8DA /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11353511056D4500EAC8DA /* BookViewController.m */; };
-		BC113570110577C900EAC8DA /* BookView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC11356F110577C800EAC8DA /* BookView.xib */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -276,9 +274,6 @@
 		BC1133341103AE5300EAC8DA /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = Classes/RegistrationViewController.h; sourceTree = "<group>"; };
 		BC1133351103AE5300EAC8DA /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = Classes/RegistrationViewController.m; sourceTree = "<group>"; };
 		BC11334C1103B7DA00EAC8DA /* RegistrationError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.html; sourceTree = "<group>"; };
-		BC11353411056D4500EAC8DA /* BookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookViewController.h; path = Classes/BookViewController.h; sourceTree = "<group>"; };
-		BC11353511056D4500EAC8DA /* BookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookViewController.m; path = Classes/BookViewController.m; sourceTree = "<group>"; };
-		BC11356F110577C800EAC8DA /* BookView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BookView.xib; path = Classes/BookView.xib; sourceTree = "<group>"; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
@@ -751,9 +746,6 @@
 				BC11321F1102F0DC00EAC8DA /* AboutViewController.m */,
 				BC1133341103AE5300EAC8DA /* RegistrationViewController.h */,
 				BC1133351103AE5300EAC8DA /* RegistrationViewController.m */,
-				BC11353411056D4500EAC8DA /* BookViewController.h */,
-				BC11353511056D4500EAC8DA /* BookViewController.m */,
-				BC11356F110577C800EAC8DA /* BookView.xib */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -973,7 +965,6 @@
 				BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */,
 				BC112E8F1101453200EAC8DA /* FlagIcons in Resources */,
 				BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */,
-				BC113570110577C900EAC8DA /* BookView.xib in Resources */,
 				BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1149,7 +1140,6 @@
 				BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */,
 				BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */,
 				BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */,
-				BC11353611056D4500EAC8DA /* BookViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
