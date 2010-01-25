@@ -20,6 +20,7 @@
 #import "FlagIconViewController.h"
 #import "AboutViewController.h"
 #import "RegistrationViewController.h"
+#import "BRColorPalette.h"
 
 
 enum {
@@ -76,12 +77,48 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
 		BRTableButtonRow *registerRow = [[BRTableButtonRow alloc] init];
 		registerRow.title = NSLocalizedString(@"Register Now", nil);
-		registerRow.titleColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+		registerRow.titleColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
 		registerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		registerRow.object = [RegistrationViewController sharedController];
 		[aboutSection addRow:registerRow animated:NO];
 		[registerRow release];
 	}
+}
+
+
+- (UIImage *)markRowImage {
+	static const CGFloat width = 16;
+	static const CGFloat space = 2;
+	
+	BRColorPalette *palette = [BRColorPalette sharedPalette];
+	
+	UIGraphicsBeginImageContext(CGSizeMake(4*width + 3*space, width));
+	[[UIColor blackColor] setStroke];
+	
+	CGRect rect = CGRectMake(0, 0, width, width);
+	[[palette colorNamed:@"Flag0"] setFill];
+	UIRectFill(rect);
+	UIRectFrame(rect);
+
+	rect.origin.x += rect.size.width + space;
+	[[palette colorNamed:@"Flag1"] setFill];
+	UIRectFill(rect);
+	UIRectFrame(rect);
+	
+	rect.origin.x += rect.size.width + space;
+	[[palette colorNamed:@"Flag2"] setFill];
+	UIRectFill(rect);
+	UIRectFrame(rect);
+	
+	rect.origin.x += rect.size.width + space;
+	[[palette colorNamed:@"Flag3"] setFill];
+	UIRectFill(rect);
+	UIRectFrame(rect);
+	
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+
+	return image;
 }
 
 
@@ -111,9 +148,14 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[bmiRow release];
 	
 	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
-	markRow.title = NSLocalizedString(@"Mark Icons", @"Mark Icons button");
-	markRow.object = [[[FlagIconViewController alloc] init] autorelease];
 	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	markRow.image = [self markRowImage];
+	
+	UIViewController *controller = [[FlagIconViewController alloc] init];
+	markRow.title = controller.title;
+	markRow.object = controller;
+	[controller release];
+
 	[moreSection addRow:markRow animated:NO];
 	[markRow release];
 }

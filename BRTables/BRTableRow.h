@@ -23,6 +23,7 @@
 	UITableViewCellAccessoryType accessoryType;
 	UIView *accessoryView;
 	UITableViewCellSelectionStyle selectionStyle;
+	UIImage *image;
 }
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
@@ -34,6 +35,7 @@
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (nonatomic,retain) UIView *accessoryView;
 @property (nonatomic) UITableViewCellSelectionStyle selectionStyle;
+@property (nonatomic,retain) UIImage *image;
 @property (nonatomic,retain) id object;
 @property (nonatomic,readonly) BRTableSection *section;
 - (NSString *)reuseableCellIdentifier;

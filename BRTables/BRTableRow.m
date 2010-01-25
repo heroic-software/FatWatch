@@ -22,6 +22,7 @@
 @synthesize accessoryType;
 @synthesize accessoryView;
 @synthesize selectionStyle;
+@synthesize image;
 
 
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle {
@@ -72,6 +73,7 @@
 	} else {
 		cell.textLabel.text = [object description];
 	}
+	cell.imageView.image = image;
 	cell.detailTextLabel.text = detail;
 	cell.textLabel.textAlignment = titleAlignment;
 	cell.textLabel.textColor = titleColor;

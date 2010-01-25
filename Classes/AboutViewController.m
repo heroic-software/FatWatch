@@ -77,7 +77,7 @@
 	
 	row = [[BRTableButtonRow alloc] init];
 	row.title = @"Unregistered";
-	row.titleColor = [UIColor redColor];
+	row.titleColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
 	row.object = [RegistrationViewController sharedController];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
