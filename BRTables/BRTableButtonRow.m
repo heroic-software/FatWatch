@@ -37,17 +37,34 @@
 }
 
 
+- (BOOL)openThing:(id)thing {
+	if ([thing isKindOfClass:[NSArray class]]) {
+		for (id subthing in thing) {
+			if ([self openThing:subthing]) return YES;
+		}
+	}
+	else if ([thing isKindOfClass:[NSURL class]]) {
+		UIApplication *app = [UIApplication sharedApplication];
+		if ([app canOpenURL:thing]) {
+			[app openURL:thing];
+			return YES;
+		}
+	}
+	else if ([thing isKindOfClass:[UIViewController class]]) {
+		[self.section.controller presentViewController:thing forRow:self];
+		return YES;
+	}
+	return NO;
+}
+
+
 - (void)didSelect {
 	[self deselectAnimated:YES];
 	if (disabled) return;
 	if (self.target) {
 		[self.target performSelector:self.action withObject:self];
-	}
-	if ([self.object isKindOfClass:[NSURL class]]) {
-		[[UIApplication sharedApplication] openURL:self.object];
-	}
-	if ([self.object isKindOfClass:[UIViewController class]]) {
-		[self.section.controller presentViewController:self.object forRow:self];
+	} else {
+		[self openThing:self.object];
 	}
 }
 
