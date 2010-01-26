@@ -66,6 +66,7 @@
 
 
 static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 @interface TrendViewController ()
@@ -172,6 +173,16 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 - (void)viewWillAppear:(BOOL)animated {
 	if (spanArray == nil) {
 		spanArray = [[TrendSpan computeTrendSpans] copy];
+		int length = [[NSUserDefaults standardUserDefaults] integerForKey:kTrendSpanLengthKey];
+		if (length > 0) {
+			int i;
+			for (i = 0; i < [spanArray count]; i++) {
+				// Allow length to be off by a few days
+				if (ABS([[spanArray objectAtIndex:i] length] - length) < 7) {
+					spanIndex = i;
+				}
+			}
+		}
 	}
 	[self updateControls];
 }
@@ -358,6 +369,8 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 
 - (void)updateControlsWithSpan:(TrendSpan *)span {
+	[[NSUserDefaults standardUserDefaults] setInteger:span.length forKey:kTrendSpanLengthKey];
+	
 	UINavigationItem *navItem = self.navigationItem;
 	navItem.title = span.title;
 	navItem.leftBarButtonItem.enabled = (spanIndex > 0);
