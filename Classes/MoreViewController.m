@@ -189,14 +189,26 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	supportSection.headerTitle = NSLocalizedString(@"Support", @"Support section title");
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
-	webRow.title = NSLocalizedString(@"www.fatwatchapp.com", @"Support website button");
+	webRow.title = NSLocalizedString(@"Visit www.fatwatchapp.com", @"Support website button");
 	webRow.titleAlignment = UITextAlignmentCenter;
 	webRow.object = [NSURL URLWithString:NSLocalizedString(@"http://www.fatwatchapp.com/support/", @"Support website URL")];
 	[supportSection addRow:webRow animated:NO];
 	[webRow release];
 	
+	BRTableButtonRow *twitterRow = [[BRTableButtonRow alloc] init];
+	twitterRow.title = NSLocalizedString(@"Follow @FatWatch on Twitter", @"Support Twitter button");
+	twitterRow.titleAlignment = UITextAlignmentCenter;
+	twitterRow.object = [NSArray arrayWithObjects:
+						 [NSURL URLWithString:@"tweetie://user?screen_name=FatWatch"],
+						 // [NSURL URLWithString:@"echofon:///user_timeline?FatWatch"],
+						 [NSURL URLWithString:@"x-birdfeed://user?screen_name=FatWatch"],
+						 [NSURL URLWithString:@"http://twitter.com/FatWatch"],
+						 nil];
+	[supportSection addRow:twitterRow animated:NO];
+	[twitterRow release];
+	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
-	emailRow.title = NSLocalizedString(@"help@fatwatchapp.com", @"Support email button");
+	emailRow.title = NSLocalizedString(@"Email help@fatwatchapp.com", @"Support email button");
 	emailRow.titleAlignment = UITextAlignmentCenter;
 	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch", @"Support email URL")];
 	[supportSection addRow:emailRow animated:NO];
@@ -205,7 +217,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
 	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
 	reviewRow.titleAlignment = UITextAlignmentCenter;
-	reviewRow.object = [NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=285580720&mt=8"];
+	reviewRow.object = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=285580720&type=Purple+Software"];
 	[supportSection addRow:reviewRow animated:NO];
 	[reviewRow release];
 }
