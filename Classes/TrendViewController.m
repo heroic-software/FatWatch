@@ -199,6 +199,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		if (dayCount > 365) {
 			[dateButton setText:@"goal in " forPart:0];
 			[dateButton setText:@"over a year" forPart:1];
+			dateButton.enabled = NO;
 		} else if (showAbsoluteDate) {
 			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 			[formatter setDateStyle:NSDateFormatterLongStyle];
@@ -206,12 +207,15 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			[dateButton setText:@"goal on " forPart:0];
 			[dateButton setText:[formatter stringFromDate:date] forPart:1];
 			[formatter release];
+			dateButton.enabled = YES;
 		} else if (dayCount == 0) {
 			[dateButton setText:@"goal " forPart:0];
 			[dateButton setText:@"today" forPart:1];
+			dateButton.enabled = YES;
 		} else {
 			[dateButton setText:@"goal in " forPart:0];
 			[dateButton setText:[NSString stringWithFormat:@"%d days", dayCount] forPart:1];
+			dateButton.enabled = YES;
 		}
 		[dateButton setTextColor:[UIColor blackColor] forPart:1];
 	} else {
@@ -223,6 +227,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			[dateButton setText:@"moving away from goal" forPart:1];
 			[dateButton setTextColor:[BRColorPalette colorNamed:@"BadText"] forPart:1];
 		}
+		dateButton.enabled = NO;
 	}
 }
 
