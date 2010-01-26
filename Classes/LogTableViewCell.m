@@ -342,13 +342,6 @@ static NSInteger gAuxiliaryInfoType;
 			rect.origin.y += rect.size.height;
 		}
 	}
-	
-	if (dd->scaleFat > 0 && !inverse) {
-		CGRect fatRect = CGRectMake(dateWidth, 0, cellWidth-dateWidth, 4);
-		fatRect.size.width *= dd->scaleFat;
-		[cell.tableView.separatorColor set];
-		UIRectFill(fatRect);
-	}
 }
 
 
