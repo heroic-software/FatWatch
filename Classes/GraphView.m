@@ -213,12 +213,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		}
 	}
 	
-	if (selected) {
-		CGContextSetRGBFillColor(context, 0, 0, 0, 0.2f);
-		CGContextFillRect(context, rect);
-	}
-	
-	if (drawBorder && !exporting) {
+	if (drawBorder) {
 		CGFloat y = CGRectGetMaxY(self.bounds) - 0.5;
 		CGFloat x = CGRectGetMaxX(self.bounds);
 		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
@@ -226,6 +221,11 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGContextMoveToPoint(context, 0, y);
 		CGContextAddLineToPoint(context, x, y);
 		CGContextStrokePath(context);
+	}
+
+	if (selected) {
+		CGContextSetRGBFillColor(context, 0, 0, 0, 0.2f);
+		CGContextFillRect(context, rect);
 	}
 }
 
@@ -278,6 +278,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSetRGBFillColor(context, 1, 1, 1, 1);
 	CGContextFillRect(context, contextRect);
+	
+	BOOL oldBorderState = drawBorder;
+	drawBorder = NO;
 
 	if (yAxisView) {
 		CGRect yAxisBounds = yAxisView.bounds;
@@ -289,6 +292,8 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	} else {
 		[self drawRect:self.bounds];
 	}
+	
+	drawBorder = oldBorderState;
 
 	UIImage *exportImage = UIGraphicsGetImageFromCurrentImageContext();
 	
