@@ -227,6 +227,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	if ([self numberOfSections] == 0) {
 		[self initAboutSection];
 		[self initOptionsSection];
@@ -247,6 +248,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	BRTableSection *aboutSection = [self sectionAtIndex:kSectionAbout];
 	if ([aboutSection numberOfRows] > 1) {
 		if ([[NSUserDefaults standardUserDefaults] registration]) {
