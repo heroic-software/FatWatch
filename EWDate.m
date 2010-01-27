@@ -74,6 +74,8 @@ EWMonthDay EWMonthDayPrevious(EWMonthDay md) {
 
 
 NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
+	if (d == 0) return nil;
+	
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 
 	NSDate *refDateGMT = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
@@ -93,6 +95,8 @@ NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 
 
 EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
+	if (theDate == nil) return 0;
+	
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 
 	NSDateComponents *dc = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:theDate];

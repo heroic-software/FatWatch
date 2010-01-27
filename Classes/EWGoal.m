@@ -18,13 +18,15 @@ static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 
 NSString * const EWGoalDidChangeNotification = @"EWGoalDidChange";
 
-static NSString * const kOldGoalStartDateKey = @"GoalStartDate";
 
 static NSString * const kGoalWeightKey = @"GoalWeight";
-static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
+static NSString * const kGoalDateKey = @"GoalDate"; // stored as MonthDay
 
 
 @implementation EWGoal
+
+
+#pragma mark Class Methods
 
 
 + (void)fixHeightIfNeeded {
@@ -48,11 +50,44 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
++ (void)upgradeDefaultsIfNeeded {
+	static NSString * const kOldGoalStartDateKey = @"GoalStartDate";
+	static NSString * const kOldGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
+	
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	
+	NSNumber *startDateNumber = [uds objectForKey:kOldGoalStartDateKey];
+	if (startDateNumber == nil) return;
+	
+	NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDateNumber doubleValue]];
+	float changePerDay = [uds floatForKey:kOldGoalWeightChangePerDayKey];
+
+	EWMonthDay md = EWMonthDayFromDate(startDate);
+	EWDatabase *db = [EWDatabase sharedDatabase];
+	float startWeight = [db trendWeightOnMonthDay:md];
+	if (startWeight == 0) {
+		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+		startWeight = [dbm inputTrendOnDay:EWMonthDayGetDay(md)];
+	}
+	
+	if (startWeight > 0) {
+		float goalWeight = [uds floatForKey:kGoalWeightKey];
+		NSTimeInterval seconds = (goalWeight - startWeight) / changePerDay * kSecondsPerDay;
+		NSDate *goalDate = [startDate addTimeInterval:seconds];
+		[uds setInteger:EWMonthDayFromDate(goalDate) forKey:kGoalDateKey];
+	}
+	
+	[uds removeObjectForKey:kOldGoalStartDateKey];
+	[uds removeObjectForKey:kOldGoalWeightChangePerDayKey];
+}
+
+
 + (EWGoal *)sharedGoal {
 	static EWGoal *goal = nil;
 	
 	if (goal == nil) {
 		[self fixHeightIfNeeded];
+		[self upgradeDefaultsIfNeeded];
 		goal = [[EWGoal alloc] init];
 	}
 	
@@ -63,7 +98,7 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 + (void)deleteGoal {
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	[uds removeObjectForKey:kGoalWeightKey];
-	[uds removeObjectForKey:kGoalWeightChangePerDayKey];
+	[uds removeObjectForKey:kGoalDateKey];
 	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
 }
 
@@ -72,13 +107,13 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 	// endWeight is independent
-	// weightChangePerDay is independent
-	
-	// endDate depends on endWeight and weightChangePerDay
-	if ([key isEqualToString:@"endDate"]) {
+	// endDate is independent
+
+	// weightChangePerDay depends on endWeight and endDate
+	if ([key isEqualToString:@"weightChangePerDay"]) {
 		NSSet *morePaths = [NSSet setWithObjects:
-							@"weightChangePerDay", 
-							@"endWeight",
+							@"endWeight", 
+							@"endDate",
 							nil];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:morePaths];
 	}
@@ -93,6 +128,9 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
+#pragma mark Helper Methods
+
+
 - (float)currentWeight {
 	float w = [[EWDatabase sharedDatabase] latestWeight];
 	if (w > 0) return w;
@@ -102,50 +140,70 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
-- (BOOL)isDefined {
-	BOOL b;
+- (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay {
+	NSTimeInterval seconds;
 	
 	@synchronized (self) {
-		b = [[NSUserDefaults standardUserDefaults] objectForKey:kGoalWeightKey] != nil;
+		float totalWeightChange = (self.endWeight - [self currentWeight]);
+		seconds = totalWeightChange / weightChangePerDay * kSecondsPerDay;
 	}
-	return b;
+	return [NSDate dateWithTimeIntervalSinceNow:seconds];
 }
+
+
+#pragma mark Properties
+
+
+- (BOOL)isDefined {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	@synchronized (self) {
+		return [uds objectForKey:kGoalWeightKey] != nil;
+	}
+	return NO;
+}
+
+
+#pragma mark -
 
 
 - (BOOL)isAttained {
-	BOOL b;
-	
 	@synchronized (self) {
-		b = fabsf([self currentWeight] - self.endWeight) < 2.5f;
+		return fabsf([self currentWeight] - self.endWeight) < 2.5f;
 	}
-	return b;
+	return NO;
 }
 
 
+#pragma mark -
+
+
 - (float)endWeight {
-	float w;
-	
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	@synchronized (self) {
-		w = [[NSUserDefaults standardUserDefaults] floatForKey:kGoalWeightKey];
+		return [uds floatForKey:kGoalWeightKey];
 	}
-	return w;
+	return 0;
 }
 
 
 - (void)setEndWeight:(float)weight {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	@synchronized (self) {
 		[self willChangeValueForKey:@"endWeight"];
-		[[NSUserDefaults standardUserDefaults] setFloat:weight forKey:kGoalWeightKey];
-		// make sure sign matches
-		float weightChange = weight - [self currentWeight];
-		float delta = self.weightChangePerDay;
-		if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
-			self.weightChangePerDay = -delta;
-		}
+		[uds setFloat:weight forKey:kGoalWeightKey];
 		[self didChangeValueForKey:@"endWeight"];
+		NSDate *date = self.endDate;
+		if (date == nil) {
+			date = EWDateFromMonthDay(EWMonthDayToday());
+			date = [date addTimeInterval:90 * kSecondsPerDay];
+			self.endDate = date;
+		}
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
 }
+
+
+#pragma mark -
 
 
 - (NSNumber *)endWeightNumber {
@@ -163,18 +221,41 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 }
 
 
+#pragma mark -
+
+
+- (NSDate *)endDate {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	EWMonthDay md;
+	@synchronized (self) {
+		md = [uds integerForKey:kGoalDateKey];
+	}
+	return EWDateFromMonthDay(md);
+}
+
+
+- (void)setEndDate:(NSDate *)date {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	EWMonthDay md = EWMonthDayFromDate(date);
+	@synchronized (self) {
+		[self willChangeValueForKey:@"endDate"];
+		[uds setInteger:md forKey:kGoalDateKey];
+		[self didChangeValueForKey:@"endDate"];
+	}
+}
+
+
+#pragma mark -
+
+
 - (float)weightChangePerDay {
 	float delta;
 	
 	@synchronized (self) {
-		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-		NSNumber *number = [defs objectForKey:kGoalWeightChangePerDayKey];
-		if (number) {
-			delta = [number floatValue];
-		} else {
-			delta = [[NSUserDefaults standardUserDefaults] defaultWeightChange];
-			self.weightChangePerDay = delta;
-		}
+		NSDate *todayDate = EWDateFromMonthDay(EWMonthDayToday());
+		NSTimeInterval seconds = [self.endDate timeIntervalSinceDate:todayDate];
+		float weightChange = self.endWeight - [self currentWeight];
+		return weightChange / (seconds / kSecondsPerDay);
 	}
 	return delta;
 }
@@ -182,46 +263,12 @@ static NSString * const kGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 
 - (void)setWeightChangePerDay:(float)delta {
 	@synchronized (self) {
-		[self willChangeValueForKey:@"weightChangePerDay"];
-		// make sure sign matches
 		float weightChange = self.endWeight - [self currentWeight];
-		if ((weightChange > 0 && delta < 0) || (weightChange < 0 && delta > 0)) {
-			delta = -delta;
-		}
-		[[NSUserDefaults standardUserDefaults] setFloat:delta forKey:kGoalWeightChangePerDayKey];
-		[self didChangeValueForKey:@"weightChangePerDay"];
+		NSTimeInterval seconds = (weightChange / delta) * kSecondsPerDay;
+		NSDate *todayDate = EWDateFromMonthDay(EWMonthDayToday());
+		self.endDate = [todayDate addTimeInterval:seconds];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:EWGoalDidChangeNotification object:self];
-}
-
-
-- (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay {
-	NSTimeInterval seconds;
-	
-	@synchronized (self) {
-		float totalWeightChange = (self.endWeight - [self currentWeight]);
-		seconds = totalWeightChange / weightChangePerDay * kSecondsPerDay;
-	}
-	return [NSDate dateWithTimeIntervalSinceNow:seconds];
-}
-
-
-- (NSDate *)endDate {
-	NSDate *d;
-
-	@synchronized (self) {
-		d = [self endDateWithWeightChangePerDay:self.weightChangePerDay];
-	}
-	return d;
-}
-
-
-- (void)setEndDate:(NSDate *)date {
-	@synchronized (self) {
-		float weightChange = self.endWeight - [self currentWeight];
-		NSTimeInterval timeChange = [date timeIntervalSinceNow];
-		self.weightChangePerDay = (weightChange / (timeChange / kSecondsPerDay));
-	}
 }
 
 

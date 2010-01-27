@@ -135,6 +135,7 @@
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	dateRow.minimumDate = EWDateFromMonthDay(EWMonthDayNext(EWMonthDayToday()));
 	[goalSection addRow:dateRow animated:NO];
 	[dateRow release];
 }
