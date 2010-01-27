@@ -17,7 +17,6 @@
 
 
 @synthesize titleLabel;
-@synthesize messageLabel;
 @synthesize activityView;
 @synthesize dismissButton;
 
@@ -32,8 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	titleLabel.text = NSLocalizedString(@"Upgrade in Progress", @"Upgrade in progress title");
-	messageLabel.text = NSLocalizedString(@"FatWatch is performing a one-time database upgrade to take advantage of features in this new version.", @"Upgrade in progress message");
+	titleLabel.text = NSLocalizedString(@"Upgrading...", @"Upgrade in progress title");
 }
 
 
@@ -57,7 +55,6 @@
 - (void)didUpgrade {
 	[database upgrade];
 	titleLabel.text = NSLocalizedString(@"Upgrade Complete", @"Upgrade complete title");
-	messageLabel.text = NSLocalizedString(@"Tap OK to begin taking advantage of Body Fat Percentage tracking, and more.", @"Upgrade complete message");
 	[activityView stopAnimating];
 	dismissButton.hidden = NO;
 }
