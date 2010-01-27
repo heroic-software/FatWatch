@@ -75,6 +75,7 @@
 	} else {
 		cell.detailTextLabel.text = [equiv stringForEnergy:energy];
 	}
+	[cell setNeedsLayout];
 }
 
 
@@ -122,6 +123,7 @@
 		[deletedItemArray removeAllObjects];
 		dirty = NO;
 	}
+
 	UIBarButtonItem *newLeftItem;
 	if (editing) {
 		newLeftItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showNewEquivalentView:)];
@@ -130,6 +132,7 @@
 	}
 	[self.navigationItem setLeftBarButtonItem:newLeftItem animated:YES];
 	[newLeftItem release];
+	
 	for (NSIndexPath *indexPath in [self.tableView indexPathsForVisibleRows]) {
 		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 		[self updateCell:cell forIndexPath:indexPath];
