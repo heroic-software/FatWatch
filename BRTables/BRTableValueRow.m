@@ -77,9 +77,9 @@
 	id value = self.value;
 	if (value) {
 		cell.textLabel.text = [self stringForValue:value];
-		cell.textLabel.textColor = titleColor;
+		cell.textLabel.textColor = self.titleColor;
 	} else {
-		cell.textLabel.text = title;
+		cell.textLabel.text = self.title;
 		cell.textLabel.textColor = [UIColor grayColor];
 	}
 	cell.textLabel.textAlignment = self.titleAlignment;

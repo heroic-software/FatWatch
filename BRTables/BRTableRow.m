@@ -63,23 +63,23 @@
 
 
 - (UITableViewCell *)createCell {
-	return [[[UITableViewCell alloc] initWithStyle:cellStyle reuseIdentifier:[self reuseableCellIdentifier]] autorelease];
+	return [[[UITableViewCell alloc] initWithStyle:self.cellStyle reuseIdentifier:[self reuseableCellIdentifier]] autorelease];
 }
 
 
 - (void)configureCell:(UITableViewCell *)cell {
-	if (title) {
-		cell.textLabel.text = title;
+	if (self.title) {
+		cell.textLabel.text = self.title;
 	} else {
-		cell.textLabel.text = [object description];
+		cell.textLabel.text = [self.object description];
 	}
-	cell.imageView.image = image;
-	cell.detailTextLabel.text = detail;
-	cell.textLabel.textAlignment = titleAlignment;
-	cell.textLabel.textColor = titleColor;
-	cell.accessoryView = accessoryView;
-	cell.accessoryType = accessoryType;
-	cell.selectionStyle = selectionStyle;
+	cell.imageView.image = self.image;
+	cell.detailTextLabel.text = self.detail;
+	cell.textLabel.textAlignment = self.titleAlignment;
+	cell.textLabel.textColor = self.titleColor;
+	cell.accessoryView = self.accessoryView;
+	cell.accessoryType = self.accessoryType;
+	cell.selectionStyle = self.selectionStyle;
 }
 
 

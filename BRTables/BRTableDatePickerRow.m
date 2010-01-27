@@ -33,6 +33,29 @@
 }
 
 
+- (BOOL)isValueInRange {
+	NSDate *date = self.value;
+	if (self.minimumDate) {
+		NSTimeInterval t = [date timeIntervalSinceDate:self.minimumDate];
+		if (t < 0) return NO;
+	}
+	if (self.maximumDate) {
+		NSTimeInterval t = [date timeIntervalSinceDate:self.maximumDate];
+		if (t > 0) return NO;
+	}
+	return YES;
+}
+
+
+- (UIColor *)titleColor {
+	if ([self isValueInRange]) {
+		return [super titleColor];
+	} else {
+		return [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
+	}
+}
+
+
 - (NSFormatter *)formatter {
 	NSFormatter *f = [super formatter];
 	if (f == nil) {
