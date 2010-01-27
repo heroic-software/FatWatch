@@ -23,6 +23,8 @@ extern NSString * const EWGoalDidChangeNotification;
 @property (readonly,getter=isDefined) BOOL defined;
 @property (readonly,getter=isAttained) BOOL attained;
 
+@property (readonly) float currentWeight;
+
 @property (retain) NSDate *endDate;
 @property float endWeight;
 @property (retain) NSNumber *endWeightNumber;

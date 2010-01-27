@@ -168,7 +168,7 @@ static NSString * const kGoalDateKey = @"GoalDate"; // stored as MonthDay
 
 - (BOOL)isAttained {
 	@synchronized (self) {
-		return fabsf([self currentWeight] - self.endWeight) < 2.5f;
+		return fabsf([self currentWeight] - self.endWeight) < 1.4f;
 	}
 	return NO;
 }

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="74"/>
+			<integer value="35"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -104,21 +104,21 @@
 							<object class="IBUIView" id="224381682">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{0, 29}, {320, 29}}</string>
+								<string key="NSFrame">{{0, 87}, {320, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
 								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
 							<object class="IBUIView" id="836375187">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{0, 58}, {320, 29}}</string>
+								<string key="NSFrame">{{0, 29}, {320, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
 								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
 							<object class="IBUIView" id="792834201">
 								<reference key="NSNextResponder" ref="1041635492"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{0, 87}, {320, 29}}</string>
+								<string key="NSFrame">{{0, 58}, {320, 29}}</string>
 								<reference key="NSSuperview" ref="1041635492"/>
 								<reference key="IBUIBackgroundColor" ref="916414701"/>
 							</object>
@@ -316,7 +316,7 @@
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 			</object>
 			<object class="IBUIView" id="885224249">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -325,7 +325,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 20}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="885224249"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -348,7 +347,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{20, 49}, {280, 63}}</string>
 						<reference key="NSSuperview" ref="885224249"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -362,8 +360,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 132}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -747,7 +743,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>TrendViewController</string>
 					<string>UIResponder</string>
-					<string>{{14, 31}, {320, 480}}</string>
+					<string>{{174, 240}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -769,7 +765,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>EWTrendButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{511, 420}, {320, 132}}</string>
+					<string>{{511, 616}, {320, 132}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

@@ -19,51 +19,6 @@
 #import "EnergyViewController.h"
 #import "EWDBMonth.h"
 
-/*
- [W]	weight change
- [E]	energy change
- [P]	relative to plan
- 
- [A]	weight to goal
- [D]	time to goal
- [S]	relative to plan
- 
- Values:
- 
- [W]	[+1.0 lbs/week] gaining
- [W]	[-1.0 lbs/week] losing
- 
- [E]	[+52 cal/day] eating more than you burn
- [E]	[-52 cal/day] burning more than you eat
- 
- [P]	burning 10 cal/day more than plan
- [P]	eating 10 cal/day less than plan
- [P]	burning 10 cal/day less than plan
- [P]	eating 10 cal/day more than plan
-		tap: calorie equivalents
- 
- [A]	[27 lbs] to gain
- [A]	[12 lbs] to lose
- 
- [D]	goal on [March 27, 2010]
- [D]	goal in 27 days
- [D]	goal attained
- [D]	moving away from goal
- 
- [S]	more than a year behind plan
- [S]	12 days earlier than plan
- [S]	12 days later than plan
-
- Actions:
- 
- [W]	nothing
- [E]	show calorie equivalents
- [P]	show calorie equivalents
- [A]	nothing
- [D]	toggle date vs. days-to
- [S]	nothing
- */
-
 
 static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
@@ -132,20 +87,14 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	energyChangeButton.showsDisclosureIndicator = YES;
 	relativeEnergyButton.showsDisclosureIndicator = YES;
 	
-	[relativeEnergyButton setText:@"burning " forPart:0];
-	[relativeEnergyButton setText:@"10 cal/day" forPart:1];
-	[relativeEnergyButton setText:@" less than plan" forPart:2];
-	
-	[relativeWeightButton setText:@"27 lb" forPart:0];
-	[relativeWeightButton setText:@" to lose" forPart:1];
-	
 	UIFont *boldFont = [UIFont boldSystemFontOfSize:17];
-	[weightChangeButton setFont:boldFont forPart:0];
-	[energyChangeButton setFont:boldFont forPart:0];
-	[relativeEnergyButton setFont:boldFont forPart:1];
+	[weightChangeButton setFont:boldFont forPart:1];
+	[energyChangeButton setFont:boldFont forPart:1];
 	[relativeWeightButton setFont:boldFont forPart:0];
 	[dateButton setFont:boldFont forPart:1];
 	[planButton setFont:boldFont forPart:0];
+	[relativeEnergyButton setFont:boldFont forPart:0];
+	[relativeEnergyButton setFont:boldFont forPart:1];
 
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self 
@@ -193,6 +142,29 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 }
 
 
+- (void)updateRelativeWeightButton {
+	EWGoal *goal = [EWGoal sharedGoal];
+	
+	if ([goal isAttained]) {
+		[relativeWeightButton setText:@"goal attained" forPart:0];
+		[relativeWeightButton setText:@"" forPart:1];
+		[relativeWeightButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] 
+								   forPart:0];
+	} else {
+		float weightToGo = goal.endWeight - goal.currentWeight;
+		EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:
+								 EWWeightFormatterStyleDisplay];
+		[relativeWeightButton setText:[wf stringForFloat:fabsf(weightToGo)] 
+							  forPart:0];
+		[relativeWeightButton setText:((weightToGo > 0) ?
+									   @" to gain" :
+									   @" to lose")
+							  forPart:1];
+		[relativeWeightButton setTextColor:[UIColor blackColor] forPart:0];
+	}
+}
+
+
 - (void)updateDateButtonWithDate:(NSDate *)date {
 	if (date) {
 		int dayCount = floor([date timeIntervalSinceNow] / kSecondsPerDay);
@@ -208,119 +180,142 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			[dateButton setText:[formatter stringFromDate:date] forPart:1];
 			[formatter release];
 			dateButton.enabled = YES;
-		} else if (dayCount == 0) {
-			[dateButton setText:@"goal " forPart:0];
-			[dateButton setText:@"today" forPart:1];
-			dateButton.enabled = YES;
 		} else {
-			[dateButton setText:@"goal in " forPart:0];
-			[dateButton setText:[NSString stringWithFormat:@"%d days", dayCount] forPart:1];
+			[dateButton setText:@"goal " forPart:0];
+			if (dayCount == 0) {
+				[dateButton setText:@"today" forPart:1];
+			} else if (dayCount == 1) {
+				[dateButton setText:@"tomorrow" forPart:1];
+			} else {
+				[dateButton setText:[NSString stringWithFormat:@"in %d days", dayCount] forPart:1];
+			}
 			dateButton.enabled = YES;
 		}
 		[dateButton setTextColor:[UIColor blackColor] forPart:1];
 	} else {
 		[dateButton setText:@"" forPart:0];
-		if ([[EWGoal sharedGoal] isAttained]) {
-			[dateButton setText:@"goal attained" forPart:1];
-			[dateButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:1];
-		} else {
-			[dateButton setText:@"moving away from goal" forPart:1];
-			[dateButton setTextColor:[BRColorPalette colorNamed:@"BadText"] forPart:1];
-		}
+		[dateButton setText:@"moving away from goal" forPart:1];
+		[dateButton setTextColor:[BRColorPalette colorNamed:@"BadText"] forPart:1];
 		dateButton.enabled = NO;
 	}
 }
 
 
-- (void)updatePlanButtonWithDate:(NSDate *)date {
-	if (date) {
-		NSTimeInterval t = [date timeIntervalSinceDate:[[EWGoal sharedGoal] endDate]];
-		int dayCount = floor(t / kSecondsPerDay);
-		if (dayCount > 0) {
-			if (dayCount > 365) {
-				[planButton setText:@"over a year" forPart:0];
-			} else if (dayCount == 1) {
-				[planButton setText:@"1 day" forPart:0];
-			} else {
-				[planButton setText:[NSString stringWithFormat:@"%d days", dayCount] forPart:0];
-			}
-			[planButton setText:@" later than plan" forPart:1];
-			[planButton setTextColor:[BRColorPalette colorNamed:@"WarningText"] forPart:0];
-		} else if (dayCount < 0) {
-			if (dayCount < -365) {
-				[planButton setText:@"over a year" forPart:0];
-			} else if (dayCount == -1) {
-				[planButton setText:@"1 day" forPart:0];
-			} else {
-				[planButton setText:[NSString stringWithFormat:@"%d days", -dayCount] forPart:0];
-			}
-			[planButton setText:@" earlier than plan" forPart:1];
-			[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
-		} else {
-			[planButton setText:@"on schedule" forPart:0];
-			[planButton setText:@" according to plan" forPart:1];
-			[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
-		}
-		planButton.hidden = NO;
+- (NSString *)stringFromDayCount:(int)dayCount {
+	if (dayCount > 365) {
+		return @"over a year";
+	} else if (dayCount == 1) {
+		return @"1 day";
 	} else {
-		planButton.hidden = YES;
+		return [NSString stringWithFormat:@"%d days", dayCount];
 	}
 }
 
 
-- (void)updateRelativeWeightButton {
-	float goalWeight = [[EWGoal sharedGoal] endWeight];
-	float currentWeight = [[EWDatabase sharedDatabase] trendWeightOnMonthDay:EWMonthDayToday()];
-	
-	EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
-	[relativeWeightButton setText:[wf stringForFloat:fabsf(goalWeight - currentWeight)]
-						  forPart:0];
-	[relativeWeightButton setText:((goalWeight > currentWeight) ? 
-								   @" to gain" :
-								   @" to lose") 
-						  forPart:1];
+- (void)updatePlanButtonWithDate:(NSDate *)date {
+	planButton.hidden = (date == nil);
+	if (date == nil) return;
+	NSTimeInterval t = [date timeIntervalSinceDate:[[EWGoal sharedGoal] endDate]];
+	int dayCount = floor(t / kSecondsPerDay);
+	if (dayCount > 0) {
+		[planButton setText:[self stringFromDayCount:dayCount] forPart:0];
+		[planButton setText:@" later than plan" forPart:1];
+		[planButton setTextColor:[BRColorPalette colorNamed:@"WarningText"] forPart:0];
+	} else if (dayCount < 0) {
+		[planButton setText:[self stringFromDayCount:-dayCount] forPart:0];
+		[planButton setText:@" earlier than plan" forPart:1];
+		[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
+	} else {
+		[planButton setText:@"on schedule" forPart:0];
+		[planButton setText:@" according to plan" forPart:1];
+		[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
+	}
 }
 
 
 - (void)updateRelativeEnergyButtonWithRate:(float)rate {
 	float plan = [[EWGoal sharedGoal] weightChangePerDay];
 /*
-	plan	rate
-	+10		+15		eating 5 more		15-10=	+5
-	+10		+5		eating 5 less		 5-10=	-5
-	-10		-15		burning 5 more		-15+10=	-5
-	-10		-5		burning 5 less		-5+10=  +5 ***
+ plan		rate	R-P
+ ***		***		 ~0		following plan						G
+ -10		-20		-10		burning 10 cal/day more than plan	G
+ -30		-20		+10		burn 10 cal/day more to make goal	W
+ -30		+20		+50		burn 50 cal/day more to meet goal	B \
+ -10		+20		+30		burn 30 cal/day more to meet goal	B /
+ +10		-20		-30		eat 30 cal/day more to make goal	B \
+ +30		-20		-50		eat 50 cal/day more to make goal	B /
+ +30		+20		-10		eat 10 cal/day more to make goal	W
+ +10		+20		+10		eating 10 cal/day more than plan	G
+ */
+	
+	float gap = rate - plan;
 
-	-10		+5		eating 15 more		 5+10= +15
-	+10		-5		burning 15 less		-5-10= -15
- 
-	+60		-82		burning (-82-60) more	
-*/
+#if TARGET_IPHONE_SIMULATOR
+	NSLog(@"PLAN=%f RATE=%f GAP=%f", plan, rate, gap);
+#endif
 	
-	[relativeEnergyButton setText:(rate < 0 ? @"burning " : @"eating ") forPart:0];
+	if (fabsf(gap) < 0.001) { // remember, this is lbs/day
+		// I love it when a plan comes together.
+		[relativeEnergyButton setText:@"" forPart:0];
+		[relativeEnergyButton setText:@"following plan" forPart:1];
+		[relativeEnergyButton setText:@"" forPart:2];
+		[relativeEnergyButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:1];
+		relativeEnergyButton.showsDisclosureIndicator = NO;
+		relativeEnergyButton.enabled = NO;
+		return;
+	}
 	
-	NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
+	UIColor *energyColor;
+	
+	NSString *kTextBurning = NSLocalizedString(@"burning ", nil);
+	NSString *kTextEating = NSLocalizedString(@"eating ", nil);
+	NSString *kTextPlanDescriptive = NSLocalizedString(@" beyond plan", nil);
+	NSString *kTextCut = NSLocalizedString(@"cut ", nil);
+	NSString *kTextAdd = NSLocalizedString(@"add ", nil);
+	NSString *kTextPlanImperative = NSLocalizedString(@" to match plan", nil);
+	
+	if (plan < 0) {
+		if (rate < 0) {
+			if (gap < 0) {
+				[relativeEnergyButton setText:kTextBurning forPart:0];
+				energyColor = [BRColorPalette colorNamed:@"GoodText"];
+				[relativeEnergyButton setText:kTextPlanDescriptive forPart:2];
+			} else {
+				[relativeEnergyButton setText:kTextCut forPart:0];
+				energyColor = [BRColorPalette colorNamed:@"WarningText"];
+				[relativeEnergyButton setText:kTextPlanImperative forPart:2];
+			}
+		} else {
+			[relativeEnergyButton setText:kTextCut forPart:0];
+			energyColor = [BRColorPalette colorNamed:@"BadText"];
+			[relativeEnergyButton setText:kTextPlanImperative forPart:2];
+		}
+	} else {
+		if (rate < 0) {
+			[relativeEnergyButton setText:kTextAdd forPart:0];
+			energyColor = [BRColorPalette colorNamed:@"BadText"];
+			[relativeEnergyButton setText:kTextPlanImperative forPart:2];
+		} else {
+			if (gap < 0) {
+				[relativeEnergyButton setText:kTextAdd forPart:0];
+				energyColor = [BRColorPalette colorNamed:@"WarningText"];
+				[relativeEnergyButton setText:kTextPlanImperative forPart:2];
+			} else {
+				[relativeEnergyButton setText:kTextEating forPart:0];
+				energyColor = [BRColorPalette colorNamed:@"GoodText"];
+				[relativeEnergyButton setText:kTextPlanDescriptive forPart:2];
+			}
+		}
+	}
+	
+	NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:
+							 EWWeightChangeFormatterStyleEnergyPerDay];
 	[wf setPositivePrefix:@""];
-	[relativeEnergyButton setText:[wf stringForFloat:fabsf(rate - plan)]
-						  forPart:1];
+	[relativeEnergyButton setText:[wf stringForFloat:fabsf(gap)] forPart:1];
+	[relativeEnergyButton setTextColor:energyColor forPart:1];
 	[wf release];
-	
-	BOOL more;
-	
-	if (rate > 0 && plan > 0) {
-		more = (rate > plan);
-	}
-	else if (rate < 0 && plan < 0) {
-		more = (rate < plan);
-	}
-	else {
-		more = (rate > 0 && plan < 0);
-	}
-	
-	[relativeEnergyButton setText:(more ?
-								   @" more than plan" :
-								   @" less than plan")
-						  forPart:2];
+	relativeEnergyButton.showsDisclosureIndicator = YES;
+	relativeEnergyButton.enabled = YES;
 }
 
 
@@ -384,30 +379,47 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	[self updateGraph];
 	
 	changeGroupView.hidden = NO;
-	NSNumber *change = [NSNumber numberWithFloat:span.weightPerDay];
-	
-	NSFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
-	[weightChangeButton setText:[wf stringForObjectValue:change] forPart:0];
-	[weightChangeButton setText:(span.weightPerDay > 0 ?
-								 @" gaining" :
-								 @" losing")
-						forPart:1];
-	[wf release];
 
-	NSFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
-	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:0];
-	[energyChangeButton setText:(span.weightPerDay > 0 ? 
-								 @" eating more than you burn" : 
-								 @" burning more than you eat")
-						forPart:1];
+	if (span.weightPerDay > 0) {
+		[weightChangeButton setText:@"gaining " forPart:0];
+		[energyChangeButton setText:@"eating " forPart:0];
+		[energyChangeButton setText:@" more than you burn" forPart:2];
+	} else {
+		[weightChangeButton setText:@"losing " forPart:0];
+		[energyChangeButton setText:@"burning " forPart:0];
+		[energyChangeButton setText:@" more than you eat" forPart:2];
+	}
+
+	NSNumber *change = [NSNumber numberWithFloat:fabsf(span.weightPerDay)];
+
+	NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
+	[wf setPositivePrefix:@""];
+	[weightChangeButton setText:[wf stringForObjectValue:change] forPart:1];
+	[wf release];
+	
+	NSNumberFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
+	[ef setPositivePrefix:@""];
+	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
 	[ef release];
 	
-	goalGroupView.hidden = ![[EWGoal sharedGoal] isDefined];
-	if (!goalGroupView.hidden) {
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (goal.defined) {
+		goalGroupView.hidden = NO;
 		[self updateRelativeWeightButton];
-		[self updateRelativeEnergyButtonWithRate:span.weightPerDay];
-		[self updateDateButtonWithDate:span.endDate];
-		[self updatePlanButtonWithDate:span.endDate];
+		if (goal.attained) {
+			dateButton.hidden = YES;
+			planButton.hidden = YES;
+			relativeEnergyButton.hidden = YES;
+		} else {
+			dateButton.hidden = NO;
+			planButton.hidden = NO;
+			relativeEnergyButton.hidden = NO;
+			[self updateDateButtonWithDate:span.endDate];
+			[self updatePlanButtonWithDate:span.endDate];
+			[self updateRelativeEnergyButtonWithRate:span.weightPerDay];
+		}
+	} else {
+		goalGroupView.hidden = YES;
 	}
 	
 	flagGroupView.hidden = NO;
