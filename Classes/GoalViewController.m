@@ -177,8 +177,14 @@
 		self.title = NSLocalizedString(@"Goal", @"Goal view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"Clear Goal nav button") style:UIBarButtonItemStyleBordered target:self action:@selector(clearGoal:)] autorelease];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	}
 	return self;
+}
+
+
+- (void)databaseDidChange:(NSNotification *)notification {
+	needsReload = YES;
 }
 
 
@@ -209,9 +215,14 @@
 		} else {
 			[self addNoGoalSection];
 		}
-		[self.tableView reloadData];
+		needsReload = YES;
 		isSetupForGoal = goalDefined;
 		isSetupForBMI = bmiEnabled;
+	}
+	
+	if (needsReload) {
+		[self.tableView reloadData];
+		needsReload = NO;
 	}
 }
 
