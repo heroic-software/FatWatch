@@ -607,8 +607,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			CGContextAddPath(ctxt, unflaggedMarksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
 			CGPathRelease(unflaggedMarksPath);
-			
-			CGContextSetRGBFillColor(ctxt, 0.0, 0.0, 0.0, 1.0); // black for flagged
+
+			CGContextSetRGBFillColor(ctxt, 0.4, 0.4, 0.4, 1.0); // almost-black for flagged
 			CGPathRef flaggedMarksPath = [self newMarksPathUsingFlaggedPoints:YES];
 			CGContextAddPath(ctxt, flaggedMarksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
