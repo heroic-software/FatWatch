@@ -201,15 +201,16 @@ function importReady() {
 		 }
 	 }).change(function(){
 		var samples = FatWatchImport.samples;
-							   if (this.value > 0) {
-							   var text = samples[String(this.value - 1)];
-							   $("#" + this.id + "Format").attr("disabled", false);
-							   $("#" + this.id + "Preview").html(String(text));
-							   } else {
-							   $("#" + this.id + "Format").attr("disabled", true);
-							   $("#" + this.id + "Preview").text('');
-							   }
-							   });
+		if (this.value > 0) {
+			var array = samples[String(this.value - 1)];
+			var text = array.join('<br/>');
+			$("#" + this.id + "Format").attr("disabled", false);
+			$("#" + this.id + "Preview").html(text);
+		} else {
+			$("#" + this.id + "Format").attr("disabled", true);
+			$("#" + this.id + "Preview").text('');
+		}
+	});
 	
 	updateFormValues(FatWatchImport.importDefaults);
 	updateSelectOptions(FatWatch.dateFormats, 'importDateFormat');
