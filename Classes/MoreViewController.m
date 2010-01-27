@@ -326,6 +326,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[NSThread sleepForTimeInterval:3];
 #endif
 	EWExporter *exporter = [[CSVExporter alloc] init];
+	[exporter addBackupFields];
 	[self performSelectorOnMainThread:@selector(mailExport:)
 						   withObject:[NSArray arrayWithObjects:
 									   [exporter contentType],

@@ -9,6 +9,45 @@
 #import "EWExporter.h"
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
+#import "EWWeightFormatter.h"
+
+
+NSDateFormatter *EWDateFormatterGetISO() {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"y-MM-dd"];
+	return [formatter autorelease];
+}
+
+
+NSDateFormatter *EWDateFormatterGetLocal() {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateStyle:NSDateFormatterShortStyle];
+	[formatter setTimeStyle:NSDateFormatterNoStyle];
+	return [formatter autorelease];
+}
+
+
+NSArray *EWFatFormatterNames() {
+	return [NSArray arrayWithObjects:
+			@"Percentage (0...100)", 
+			@"Ratio (0...1)",
+			nil];
+}
+
+
+NSFormatter *EWFatFormatterAtIndex(int index) {
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMinimum:[NSNumber numberWithFloat:0]];
+	[formatter setMaximum:[NSNumber numberWithFloat:1]];
+	if (index == 0) {
+		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
+	}
+	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	[formatter setLocale:locale];
+	[locale release];
+	return [formatter autorelease];
+}
 
 
 @implementation EWExporter
@@ -33,6 +72,39 @@
 	
 	fieldNames[field] = [name copy];
 	fieldFormatters[field] = [formatter retain];
+}
+
+
+- (void)addBackupFields {
+	NSFormatter *weightFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport];
+	
+	[self addField:EWExporterFieldDate 
+			  name:@"Date"
+		 formatter:EWDateFormatterGetISO()];
+	[self addField:EWExporterFieldWeight 
+			  name:@"Weight" 
+		 formatter:weightFormatter];
+	[self addField:EWExporterFieldTrendWeight
+			  name:@"Trend"
+		 formatter:weightFormatter];
+	[self addField:EWExporterFieldFat
+			  name:@"BodyFat"
+		 formatter:EWFatFormatterAtIndex(0)];
+	[self addField:EWExporterFieldFlag0 
+			  name:@"Mark1"
+		 formatter:nil];
+	[self addField:EWExporterFieldFlag1
+			  name:@"Mark2"
+		 formatter:nil];
+	[self addField:EWExporterFieldFlag2 
+			  name:@"Mark3"
+		 formatter:nil];
+	[self addField:EWExporterFieldFlag3 
+			  name:@"Mark4"
+		 formatter:nil];
+	[self addField:EWExporterFieldNote
+			  name:@"Note"
+		 formatter:nil];
 }
 
 

@@ -23,6 +23,12 @@ typedef enum {
 } EWExporterField;
 
 
+NSDateFormatter *EWDateFormatterGetISO();
+NSDateFormatter *EWDateFormatterGetLocal();
+NSArray *EWFatFormatterNames();
+NSFormatter *EWFatFormatterAtIndex(int index);
+
+
 @interface EWExporter : NSObject {
 	int fieldCount;
 	EWExporterField fieldOrder[EWExporterFieldCount];
@@ -35,6 +41,7 @@ typedef enum {
 @property (nonatomic,retain) NSDate *endDate;
 // Public API
 - (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter;
+- (void)addBackupFields;
 - (NSArray *)orderedFieldNames;
 - (void)performExport;
 // Optional Override

@@ -25,7 +25,7 @@
 		<key>exportWeightName</key>
 		<string>Weight</string>
 		<key>exportWeightFormat</key>
-		<string>L</string>
+		<string>0</string>
 		<key>exportTrendWeight</key>
 		<false/>
 		<key>exportTrendWeightName</key>
@@ -33,25 +33,25 @@
 		<key>exportFat</key>
 		<true/>
 		<key>exportFatName</key>
-		<string>Body Fat</string>
+		<string>BodyFat</string>
 		<key>exportFatFormat</key>
-		<string>R</string>
+		<string>0</string>
 		<key>exportFlag1</key>
 		<true/>
 		<key>exportFlag1Name</key>
-		<string>Blue</string>
+		<string>Mark1</string>
 		<key>exportFlag2</key>
 		<true/>
 		<key>exportFlag2Name</key>
-		<string>Red</string>
+		<string>Mark2</string>
 		<key>exportFlag3</key>
 		<true/>
 		<key>exportFlag3Name</key>
-		<string>Green</string>
+		<string>Mark3</string>
 		<key>exportFlag4</key>
 		<true/>
 		<key>exportFlag4Name</key>
-		<string>Yellow</string>
+		<string>Mark4</string>
 		<key>exportNote</key>
 		<true/>
 		<key>exportNoteName</key>

@@ -25,44 +25,6 @@
 #define HTTP_STATUS_NOT_FOUND 404
 
 
-NSDateFormatter *EWDateFormatterGetISO() {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateFormat:@"y-MM-dd"];
-	return [formatter autorelease];
-}
-
-
-NSDateFormatter *EWDateFormatterGetLocal() {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateStyle:NSDateFormatterShortStyle];
-	[formatter setTimeStyle:NSDateFormatterNoStyle];
-	return [formatter autorelease];
-}
-
-
-NSArray *EWFatFormatterNames() {
-	return [NSArray arrayWithObjects:
-			@"Percentage (0...100)", 
-			@"Ratio (0...1)",
-			nil];
-}
-
-
-NSFormatter *EWFatFormatter(NSString *indexString) {
-	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[formatter setMinimum:[NSNumber numberWithFloat:0]];
-	[formatter setMaximum:[NSNumber numberWithFloat:1]];
-	if ([indexString intValue] == 0) {
-		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
-	}
-	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-	[formatter setLocale:locale];
-	[locale release];
-	return [formatter autorelease];
-}
-
-
 static NSString *kEWLastImportKey = @"EWLastImportDate";
 static NSString *kEWLastExportKey = @"EWLastExportDate";
 
@@ -418,7 +380,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[formatterDictionary setObject:wf forKey:@"weight"];
 	[formatterDictionary setObject:wf forKey:@"trendWeight"];
 	
-	NSFormatter *ff = EWFatFormatter([form stringForKey:@"fatFormat"]);
+	NSFormatter *ff = EWFatFormatterAtIndex([[form stringForKey:@"fatFormat"] intValue]);
 	[formatterDictionary setObject:ff forKey:@"fat"];
 		
 	NSArray *order;
@@ -565,7 +527,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[importer setFormatter:wf forField:EWImporterFieldWeight];
 	}
 
-	[importer setFormatter:EWFatFormatter([form stringForKey:@"fatFormat"]) 
+	[importer setFormatter:EWFatFormatterAtIndex([[form stringForKey:@"fatFormat"] intValue]) 
 				  forField:EWImporterFieldFat];
 	
 	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
