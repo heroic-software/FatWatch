@@ -1019,7 +1019,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Resources/DBCreate2.sql",
+				"$(SRCROOT)/Resources/DBCreate3.sql",
 			);
 			name = "Run Script (Create DB)";
 			outputPaths = (
