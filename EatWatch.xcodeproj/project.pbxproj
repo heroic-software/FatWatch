@@ -163,7 +163,7 @@
 			outputFiles = (
 				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
 			);
-			script = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\n$TIDY_CMD $INPUT_FILE_PATH | $GZIP_CMD - > $SOF\n";
+			script = "TIDY_CMD=\"tidy -quiet -utf8 --doctype strict --hide-comments yes --wrap 0 --tidy-mark no\"\nGZIP_CMD=\"gzip -c -9\"\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\n$TIDY_CMD $INPUT_FILE_PATH | $GZIP_CMD - > $SOF";
 		};
 		BC200C7B10F7D81400352A32 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -174,7 +174,7 @@
 			outputFiles = (
 				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
 			);
-			script = "/Users/benzado/bin/jslint/jslint.sh $INPUT_FILE_PATH\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF\n";
+			script = "/Users/benzado/bin/jslint/jslint.sh $INPUT_FILE_PATH\nSOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF";
 		};
 		BC200C7C10F7D81400352A32 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -185,7 +185,29 @@
 			outputFiles = (
 				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_NAME).gz",
 			);
-			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF\n";
+			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF";
+		};
+		BCF67C9F1112144A00C923BF /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.sql";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
+			);
+			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.sql0\n(egrep -v \"(^-- )|(^ *$)\" $INPUT_FILE_PATH; perl -e \"print chr(0);\") >> $SOF";
+		};
+		BCF67CB21112194700C923BF /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.sql";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
+			);
+			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.sql0\n(egrep -v \"(^-- )|(^ *$)\" $INPUT_FILE_PATH; perl -e \"print chr(0);\") >> $SOF";
 		};
 /* End PBXBuildRule section */
 
@@ -880,6 +902,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 			);
 			buildRules = (
+				BCF67C9F1112144A00C923BF /* PBXBuildRule */,
 				BC200C7B10F7D81400352A32 /* PBXBuildRule */,
 				BC200C7C10F7D81400352A32 /* PBXBuildRule */,
 				BC200C6110F7D42800352A32 /* PBXBuildRule */,
@@ -903,6 +926,7 @@
 				BCF52ACD10D066540017C3A1 /* Run Tests */,
 			);
 			buildRules = (
+				BCF67CB21112194700C923BF /* PBXBuildRule */,
 			);
 			dependencies = (
 			);

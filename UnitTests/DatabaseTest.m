@@ -81,13 +81,7 @@
 
 
 - (void)openDatabase {
-	NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"DBCreate2" ofType:@"sql"];
-	STAssertNotNil(path, @"Can't find SQL file");
-	NSMutableData *sqlData = [[NSMutableData alloc] initWithContentsOfFile:path];
-	char zero = 0;
-	[sqlData appendBytes:&zero length:1];
-	testdb = [[EWDatabase alloc] initWithSQL:[sqlData bytes]];
-	[sqlData release];
+	testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate2"];
 	
 	if ([testdb needsUpgrade]) [testdb upgrade];
 	

@@ -32,7 +32,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 + (void)setSharedDatabase:(EWDatabase *)db;
 // Setup
 - (id)initWithFile:(NSString *)path;
-- (id)initWithSQL:(const char *)sql;
+- (id)initWithSQLNamed:(NSString *)sqlName;
 - (void)close;
 - (BOOL)needsUpgrade;
 - (void)upgrade;

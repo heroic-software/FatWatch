@@ -68,10 +68,10 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
-- (id)initWithSQL:(const char *)sql {
+- (id)initWithSQLNamed:(NSString *)sqlName {
 	if (self = [self init]) {
 		db = [[SQLiteDatabase alloc] initInMemory];
-		[db executeSQL:sql];
+		[self executeSQLNamed:sqlName];
 		[self didOpen];
 	}
 	return self;
@@ -503,16 +503,18 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (void)executeSQLNamed:(NSString *)name {
-	const char zero = 0;
-	
 	NSLog(@"Executing SQL %@", name);
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]]; // needed for unit testing
-	NSString *path = [bundle pathForResource:name ofType:@"sql"];
+	NSString *path = [bundle pathForResource:name ofType:@"sql0"];
 	NSAssert1(path != nil, @"Cannot find SQL named %@", name);
-	NSMutableData *sql = [[NSMutableData alloc] initWithContentsOfFile:path];
-	[sql appendBytes:&zero length:1]; // null termination
-	[db executeSQL:[sql bytes]];
-	[sql release];
+	NSData *sql0 = [[NSData alloc] initWithContentsOfFile:path];
+#if TARGET_IPHONE_SIMULATOR
+	char zero;
+	[sql0 getBytes:&zero range:NSMakeRange([sql0 length] - 1, 1)];
+	NSAssert1(zero == 0, @"SQL resource %@ not null terminated!", name);
+#endif
+	[db executeSQL:[sql0 bytes]];
+	[sql0 release];
 }
 
 
