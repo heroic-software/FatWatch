@@ -142,20 +142,22 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		self.tabBarItem.badgeValue = kBadgeValueNoDataToday;
 	}
 	
-	earliestMonth = db.earliestMonth;
-	latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
+	if ((db.earliestMonth != earliestMonth) || (latestMonth == 0)) {
+		earliestMonth = db.earliestMonth;
+		latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
 
-	NSUInteger row, section;
-	section = latestMonth - earliestMonth;
-	if (latestMonth == EWMonthDayGetMonth(today)) {
-		row = EWMonthDayGetDay(today) - 1;
-	} else {
-		row = EWDaysInMonth(latestMonth) - 1;
+		NSUInteger row, section;
+		section = latestMonth - earliestMonth;
+		if (latestMonth == EWMonthDayGetMonth(today)) {
+			row = EWMonthDayGetDay(today) - 1;
+		} else {
+			row = EWDaysInMonth(latestMonth) - 1;
+		}
+		[lastIndexPath release];
+		lastIndexPath = [[NSIndexPath indexPathForRow:row inSection:section] retain];
+		
+		[tableView reloadData];
 	}
-	[lastIndexPath release];
-	lastIndexPath = [[NSIndexPath indexPathForRow:row inSection:section] retain];
-	
-	[tableView reloadData];
 }
 
 
