@@ -41,8 +41,11 @@ static EWDatabase *gSharedDB = nil;
 
 
 + (void)setSharedDatabase:(EWDatabase *)db {
-	NSAssert(gSharedDB == nil, @"Cannot set shared DB twice!");
-	gSharedDB = [db retain];
+	if (db != gSharedDB) {
+		[db retain];
+		[gSharedDB release];
+		gSharedDB = db;
+	}
 }
 
 
@@ -119,6 +122,17 @@ static EWDatabase *gSharedDB = nil;
 	[self flushCache];
 	[db release];
 	db = nil;
+}
+
+
+- (void)dealloc {
+	if (gSharedDB == self) {
+		gSharedDB = nil;
+	}
+	[db release];
+	[monthCache release];
+	[monthCacheLock release];
+	[super dealloc];
 }
 
 
