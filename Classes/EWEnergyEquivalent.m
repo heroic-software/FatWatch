@@ -12,7 +12,21 @@
 
 
 static float gCurrentWeightInKilograms = 0;
-static NSString * const kShortSpace = @"\xe2\x80\x88";
+static NSString * const kShortSpace = @"\xe2\x80\x85"; // four-per-em space
+
+
+NSString *EWEquivalentFormatNumber(float n, NSString *unitName) {
+	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+	[nf setNumberStyle:NSNumberFormatterDecimalStyle];
+	[nf setMaximumFractionDigits:1];
+	[nf setPositiveSuffix:[kShortSpace stringByAppendingString:unitName]];
+	[nf setPositiveInfinitySymbol:
+	 [[nf positiveInfinitySymbol] stringByAppendingString:[nf positiveSuffix]]];
+	NSString *string = [nf stringFromNumber:[NSNumber numberWithFloat:n]];
+	[nf release];
+	return string;
+}
+
 
 
 @implementation EWActivityEquivalent
@@ -40,14 +54,7 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 	// 1 kcal/min = 1 MET * 1 kg * 60min/hr
 	static const float kMinutesPerHour = 60.0f;
 	float energyPerUnit = (mets - 1) * gCurrentWeightInKilograms / kMinutesPerHour;
-	float x = energy / energyPerUnit;
-	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-	[nf setNumberStyle:NSNumberFormatterDecimalStyle];
-	[nf setMaximumFractionDigits:0];
-	[nf setPositiveSuffix:[kShortSpace stringByAppendingString:@"min"]];
-	NSString *string = [nf stringFromNumber:[NSNumber numberWithFloat:x]];
-	[nf release];
-	return string;
+	return EWEquivalentFormatNumber(energy / energyPerUnit, @"min");
 }
 
 - (NSString *)description {
@@ -70,14 +77,7 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 @synthesize value = energyPerUnit;
 
 - (NSString *)stringForEnergy:(float)energy {
-	float x = energy / energyPerUnit;
-	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-	[nf setNumberStyle:NSNumberFormatterDecimalStyle];
-	[nf setMaximumFractionDigits:1];
-	[nf setPositiveSuffix:[kShortSpace stringByAppendingString:unitName]];
-	NSString *string = [nf stringFromNumber:[NSNumber numberWithFloat:x]];
-	[nf release];
-	return string;
+	return EWEquivalentFormatNumber(energy / energyPerUnit, unitName);
 }
 
 - (NSString *)description {
