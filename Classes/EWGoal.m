@@ -56,10 +56,11 @@ static NSString * const kGoalDateKey = @"GoalDate"; // stored as MonthDay
 	
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	
-	NSNumber *startDateNumber = [uds objectForKey:kOldGoalStartDateKey];
-	if (startDateNumber == nil) return;
-	
-	NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDateNumber doubleValue]];
+	// check if we need to upgrade
+	if ([uds objectForKey:kOldGoalWeightChangePerDayKey] == nil) return;
+
+	NSTimeInterval t = [uds doubleForKey:kOldGoalStartDateKey];
+	NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:t];
 	float changePerDay = [uds floatForKey:kOldGoalWeightChangePerDayKey];
 
 	EWMonthDay md = EWMonthDayFromDate(startDate);
@@ -68,13 +69,20 @@ static NSString * const kGoalDateKey = @"GoalDate"; // stored as MonthDay
 	if (startWeight == 0) {
 		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
 		startWeight = [dbm inputTrendOnDay:EWMonthDayGetDay(md)];
+		if (startWeight == 0) {
+			startWeight = [db earliestWeight];
+		}
 	}
 	
-	if (startWeight > 0) {
-		float goalWeight = [uds floatForKey:kGoalWeightKey];
+	float goalWeight = [uds floatForKey:kGoalWeightKey];
+
+	if (startWeight > 0 && goalWeight > 0) {
 		NSTimeInterval seconds = (goalWeight - startWeight) / changePerDay * kSecondsPerDay;
 		NSDate *goalDate = [startDate addTimeInterval:seconds];
 		[uds setInteger:EWMonthDayFromDate(goalDate) forKey:kGoalDateKey];
+	} else {
+		[uds removeObjectForKey:kGoalWeightKey];
+		[uds removeObjectForKey:kGoalDateKey];
 	}
 	
 	[uds removeObjectForKey:kOldGoalStartDateKey];
