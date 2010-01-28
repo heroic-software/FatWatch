@@ -6,8 +6,6 @@
 //  Copyright 2010 Benjamin Ragheb. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "UpgradeViewController.h"
 #import "EWDatabase.h"
 #import "EatWatchAppDelegate.h"

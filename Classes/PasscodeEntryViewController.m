@@ -6,8 +6,6 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "PasscodeEntryViewController.h"
 #import "EatWatchAppDelegate.h"
 

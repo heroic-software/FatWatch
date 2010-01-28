@@ -6,8 +6,6 @@
 //  Copyright Benjamin Ragheb 2008. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "BRColorPalette.h"
 #import "EWDBMonth.h"
 #import "EWDatabase.h"
