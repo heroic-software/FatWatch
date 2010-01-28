@@ -32,10 +32,10 @@ var FWExportPresets = {
 		"exportWeight":true, "exportWeightName":"Weight", "exportWeightFormat":"0",
 		"exportTrendWeight":false,
 		"exportFat":true, "exportFatName":"Body Fat", "exportFatFormat":"0",
-		"exportFlag0":true, "exportFlag0Name":"Blue",
-		"exportFlag1":true, "exportFlag1Name":"Red",
-		"exportFlag2":true, "exportFlag2Name":"Green",
-		"exportFlag3":true,	"exportFlag3Name":"Yellow",
+		"exportFlag0":true, "exportFlag0Name":"Mark1",
+		"exportFlag1":true, "exportFlag1Name":"Mark2",
+		"exportFlag2":true, "exportFlag2Name":"Mark3",
+		"exportFlag3":true,	"exportFlag3Name":"Mark4",
 		"exportNote":true, "exportNoteName":"Note"
 	},
 	"Hacker's Diet Online":{

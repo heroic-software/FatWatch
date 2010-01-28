@@ -30,5 +30,21 @@
 	<string>importNote</string>
 	<key>comment</key>
 	<string>importNote</string>
+	<key>blue</key>
+	<string>importFlag0</string>
+	<key>red</key>
+	<string>importFlag1</string>
+	<key>green</key>
+	<string>importFlag2</string>
+	<key>yellow</key>
+	<string>importFlag3</string>
+	<key>mark1</key>
+	<string>importFlag0</string>
+	<key>mark2</key>
+	<string>importFlag1</string>
+	<key>mark3</key>
+	<string>importFlag2</string>
+	<key>mark4</key>
+	<string>importFlag3</string>
 </dict>
 </plist>
