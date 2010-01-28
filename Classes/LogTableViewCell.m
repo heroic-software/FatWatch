@@ -196,32 +196,39 @@ static NSInteger gAuxiliaryInfoType;
 	CGFloat cellWidth = CGRectGetWidth(self.bounds);
 	CGFloat cellHeight = CGRectGetHeight(self.bounds);
 	
-	const CGFloat dateWidth = 34;
+	static const CGFloat dateWidth = 34;
+	
 	const CGFloat weightX = dateWidth + 4;
-	const CGFloat weightWidth = 133;
+	static const CGFloat weightWidth = 133;
+	
 	const CGFloat auxiliaryX = weightX + weightWidth + 4;
-	const CGFloat auxiliaryWidth = 117;
-	const CGFloat numberRowY = 16;
-	const CGFloat flagWidth = 20;
+	static const CGFloat auxiliaryWidth = 117;
+	
+	static const CGFloat numberRowY = 18;
+	static const CGFloat numberRowHeight = 24;
+	
+	static const CGFloat flagWidth = 20;
 	const CGFloat flagX = cellWidth - flagWidth;
+
 	const CGFloat noteX = dateWidth + 4;
+	const CGFloat noteY = numberRowY + numberRowHeight;
 	const CGFloat noteWidth = cellWidth - noteX - flagWidth;
-	const CGFloat noteHeight = 15;
-	const CGFloat noteY = cellHeight - noteHeight;
+	const CGFloat noteHeight = cellHeight - noteY;
 	
 	BOOL inverse = cell.highlighted || cell.selected;
 	
 	if (day) {
-		if (!inverse) {
+		if (inverse) {
+			[[UIColor whiteColor] set];
+		} else {
 			if (highlightDate) {
-				[[UIColor colorWithWhite:0.8 alpha:1.0] set];
+				[[UIColor colorWithWhite:0.75 alpha:1] set];
 			} else {
 				[cell.tableView.separatorColor set];
 			}
 			UIRectFill(CGRectMake(0, 0, dateWidth, cellHeight));
+			[[UIColor blackColor] set];
 		}
-		
-		[(inverse ? [UIColor whiteColor] : [UIColor blackColor]) set];
 		[weekday drawInRect:CGRectMake(0, 10, dateWidth, 15)
 				   withFont:[UIFont systemFontOfSize:12]
 			  lineBreakMode:UILineBreakModeClip
@@ -235,7 +242,7 @@ static NSInteger gAuxiliaryInfoType;
 	if (dd->scaleWeight > 0) {
 		NSString *scaleWeight = [weightFormatter stringForFloat:dd->scaleWeight];
 		[scaleWeight drawInRect:CGRectMake(weightX, numberRowY, 
-										   weightWidth, 24)
+										   weightWidth, numberRowHeight)
 					   withFont:[UIFont boldSystemFontOfSize:20]
 				  lineBreakMode:UILineBreakModeClip
 					  alignment:UITextAlignmentRight];
@@ -284,7 +291,7 @@ static NSInteger gAuxiliaryInfoType;
 		
 		[auxInfoColor set];
 		[auxInfoString drawInRect:CGRectMake(auxiliaryX, numberRowY, 
-											 auxiliaryWidth, 24)
+											 auxiliaryWidth, numberRowHeight)
 						 withFont:[UIFont systemFontOfSize:20]
 					lineBreakMode:UILineBreakModeClip
 						alignment:UITextAlignmentLeft];
@@ -292,7 +299,7 @@ static NSInteger gAuxiliaryInfoType;
 	
 	if (dd->note) {
 		[(inverse ? [UIColor lightGrayColor] : [UIColor darkGrayColor]) set];
-		[dd->note drawInRect:CGRectMake(noteX, noteY, noteWidth, 15)
+		[dd->note drawInRect:CGRectMake(noteX, noteY, noteWidth, noteHeight)
 					withFont:[UIFont systemFontOfSize:12]
 			   lineBreakMode:UILineBreakModeMiddleTruncation
 				   alignment:UITextAlignmentCenter];
@@ -308,10 +315,10 @@ static NSInteger gAuxiliaryInfoType;
 
 		static const CGFloat R = 5;
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathMoveToPoint(path, NULL,     0,  R);
-		CGPathAddLineToPoint(path, NULL,  R,  0);
-		CGPathAddLineToPoint(path, NULL,  0, -R);
-		CGPathAddLineToPoint(path, NULL, -R,  0);
+		CGPathMoveToPoint(path, NULL,    -R, -R);
+		CGPathAddLineToPoint(path, NULL,  R, -R);
+		CGPathAddLineToPoint(path, NULL,  R,  R);
+		CGPathAddLineToPoint(path, NULL, -R,  R);
 		CGPathCloseSubpath(path);
 		
 		CGContextRef ctxt = UIGraphicsGetCurrentContext();

@@ -83,8 +83,42 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
+
+	// fill table footer view with danger stripe pattern
 	
-	//	UILabel *fortuneLabel = (id)[self.tableView.tableFooterView viewWithTag:240];
+	const CGFloat kSide = CGRectGetHeight(self.tableView.tableFooterView.bounds);
+	
+	UIGraphicsBeginImageContext(CGSizeMake(kSide, kSide));
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	CGContextSetRGBFillColor(context, 1, 1, 1, 1);
+	CGContextFillRect(context, CGRectMake(0, 0, kSide, kSide));
+
+	CGColorRef gray = [self.tableView.separatorColor CGColor];
+	CGContextSetFillColorWithColor(context, gray);
+	CGContextSetStrokeColorWithColor(context, gray);
+
+	CGContextMoveToPoint(context, kSide, 0);
+	CGContextAddLineToPoint(context, 0, kSide);
+	CGContextAddLineToPoint(context, kSide/2, kSide);
+	CGContextAddLineToPoint(context, kSide, kSide/2);
+	CGContextClosePath(context);
+	CGContextFillPath(context);
+	
+	CGContextMoveToPoint(context, 0, 0);
+	CGContextAddLineToPoint(context, kSide/2, 0);
+	CGContextAddLineToPoint(context, 0, kSide/2);
+	CGContextClosePath(context);
+	CGContextFillPath(context);
+	
+	CGContextMoveToPoint(context, 0, kSide - 0.5);
+	CGContextAddLineToPoint(context, kSide, kSide - 0.5);
+	CGContextStrokePath(context);
+	
+	UIImage *pattern = UIGraphicsGetImageFromCurrentImageContext();
+	UIColor *color = [UIColor colorWithPatternImage:pattern];
+	self.tableView.tableFooterView.backgroundColor = color;
+	UIGraphicsEndImageContext();
 }
 
 

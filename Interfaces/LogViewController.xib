@@ -23,7 +23,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUINavigationBar" id="341356768">
@@ -35,6 +35,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{68, 8}, {185, 30}}</string>
 								<reference key="NSSuperview" ref="341356768"/>
+								<reference key="NSWindow"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MSAwAA</bytes>
@@ -73,6 +74,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<array key="IBUIItems">
@@ -99,6 +101,7 @@
 										<int key="NSvFlags">298</int>
 										<string key="NSFrame">{{0, 12}, {320, 21}}</string>
 										<reference key="NSSuperview" ref="874721912"/>
+										<reference key="NSWindow"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -116,6 +119,7 @@
 								</array>
 								<string key="NSFrameSize">{320, 45}</string>
 								<reference key="NSSuperview" ref="670147787"/>
+								<reference key="NSWindow"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="456417543">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -126,35 +130,9 @@
 							<object class="IBUIView" id="209593132">
 								<reference key="NSNextResponder" ref="670147787"/>
 								<int key="NSvFlags">292</int>
-								<array class="NSMutableArray" key="NSSubviews">
-									<object class="IBUILabel" id="338175641">
-										<reference key="NSNextResponder" ref="209593132"/>
-										<int key="NSvFlags">298</int>
-										<string key="NSFrame">{{0, 12}, {320, 21}}</string>
-										<reference key="NSSuperview" ref="209593132"/>
-										<bool key="IBUIOpaque">NO</bool>
-										<bool key="IBUIClipsSubviews">YES</bool>
-										<int key="IBUITag">240</int>
-										<bool key="IBUIUserInteractionEnabled">NO</bool>
-										<string key="IBUIText">DON’T PANIC</string>
-										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Helvetica-Bold</string>
-											<double key="NSSize">17</double>
-											<int key="NSfFlags">16</int>
-										</object>
-										<object class="NSColor" key="IBUITextColor">
-											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MC41AA</bytes>
-											<reference key="NSCustomColorSpace" ref="982924161"/>
-										</object>
-										<nil key="IBUIHighlightedColor"/>
-										<int key="IBUIBaselineAdjustment">1</int>
-										<float key="IBUIMinimumFontSize">10</float>
-										<int key="IBUITextAlignment">1</int>
-									</object>
-								</array>
-								<string key="NSFrame">{{0, 322}, {320, 45}}</string>
+								<string key="NSFrame">{{0, 337}, {320, 30}}</string>
 								<reference key="NSSuperview" ref="670147787"/>
+								<reference key="NSWindow"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -165,6 +143,7 @@
 						</array>
 						<string key="NSFrame">{{0, 44}, {320, 367}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="IBUIBackgroundColor" ref="456417543"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -181,6 +160,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 411}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="IBUIBackgroundColor" ref="456417543"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
@@ -677,22 +658,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<object class="IBObjectRecord">
 						<int key="objectID">65</int>
 						<reference key="object" ref="209593132"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="338175641"/>
-						</array>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="670147787"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">66</int>
-						<reference key="object" ref="338175641"/>
-						<reference key="parent" ref="209593132"/>
 					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
 				<string key="-1.CustomClassName">LogViewController</string>
 				<string key="-2.CustomClassName">UIResponder</string>
-				<string key="1.IBEditorWindowLastContentRect">{{212, 276}, {320, 480}}</string>
+				<string key="1.IBEditorWindowLastContentRect">{{169, 276}, {320, 480}}</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="21.IBEditorWindowLastContentRect">{{491, 311}, {320, 260}}</string>
@@ -721,7 +695,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="65.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
