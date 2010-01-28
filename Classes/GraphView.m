@@ -81,13 +81,14 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	CGContextRelease(ctxt);
 	CGColorSpaceRelease(colorSpace);
 
-	// TODO: confirm this bug on device
+#if TARGET_IPHONE_SIMULATOR
 	// 3.0 CFVersion 478.470000
 	// 3.1 CFVersion 478.520000
 	if (kCFCoreFoundationVersionNumber == 478.47) {
-		CFRetain(CGImageGetDataProvider(mask));
+		CFRetain(CGImageGetDataProvider(imageRef));
 	}
-
+#endif
+	
 	return mask;
 }
 

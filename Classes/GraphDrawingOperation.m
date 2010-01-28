@@ -624,12 +624,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
     CGContextRelease(ctxt);
 
-	// TODO: confirm this bug on device
+#if TARGET_IPHONE_SIMULATOR
 	// 3.0 CFVersion 478.470000
 	// 3.1 CFVersion 478.520000
 	if (kCFCoreFoundationVersionNumber == 478.47) {
 		CFRetain(CGImageGetDataProvider(imageRef));
 	}
+#endif
 
 #if TARGET_IPHONE_SIMULATOR
 	// Simulate iPhone's slow drawing
