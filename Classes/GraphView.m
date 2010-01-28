@@ -85,7 +85,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	// 3.0 CFVersion 478.470000
 	// 3.1 CFVersion 478.520000
 	if (kCFCoreFoundationVersionNumber == 478.47) {
-		CFRetain(CGImageGetDataProvider(imageRef));
+		CFRetain(CGImageGetDataProvider(mask));
 	}
 #endif
 	
