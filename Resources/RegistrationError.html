@@ -7,24 +7,30 @@
 			-webkit-text-size-adjust: none;
 			font-family: Helvetica;
 			font-size: 17px;
-			background: #900;
+			background: #600;
 			color: #fff;
+		}
+		p.error {
+			font-size: 15px;
+			display: none;
+			color: #fcc;
 		}
 	</style>
 	<script type="text/javascript">
 		function setError(m) {
 			var elt = document.getElementById('errmsg');
 			elt.innerText = m;
+			elt.parentNode.style.display = "block";
 		}
 	</script>
 </head>
 <body>
 
-<h1>Error</h1>
+<p><b>You must be connected to the Internet to register FatWatch.</b></p>
 
-<p>You must be connected to the Internet to register FatWatch.</p>
+<p>Please connect and try again.</p>
 
-<p id="errmsg"></p>
+<p class="error">Error: <span id="errmsg"></span></p>
 
 </body>
 </html>
