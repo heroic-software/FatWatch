@@ -27,7 +27,48 @@ static NSString *kWeightDatabaseName = @"WeightData.db";
 static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
+@interface EatWatchAppDelegate ()
+- (NSString *)databasePath;
+@end
+
+
+
+
 @implementation EatWatchAppDelegate
+
+
+- (void)performDebugLaunchActions {
+	static NSString * const kResetDatabaseKey = @"OnLaunchResetDatabase";
+	static NSString * const kResetDefaultsKey = @"OnLaunchResetDefaults";
+	
+	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+	
+	BOOL resetDatabase = [ud boolForKey:kResetDatabaseKey];
+	BOOL resetDefaults = [ud boolForKey:kResetDefaultsKey];
+
+	if (resetDatabase) {
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		NSError *error;
+
+		if ([fileManager removeItemAtPath:[self databasePath] error:&error]) {
+			NSLog(@"Database deleted by request.");
+		} else {
+			NSLog(@"Unable to delete database per request: %@", 
+				  [error localizedDescription]);
+		}
+
+		[ud removeObjectForKey:kResetDatabaseKey];
+	}
+
+	if (resetDefaults) {
+		NSArray *keys = [[[ud dictionaryRepresentation] allKeys] copy];
+		for (NSString *key in keys) {
+			[ud removeObjectForKey:key];
+		}
+		NSLog(@"%d defaults deleted by request.", [keys	count]);
+		[keys release];
+	}
+}
 
 
 - (void)registerDefaultsNamed:(NSString *)name {
@@ -47,23 +88,30 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-- (NSString *)pathOfDatabase {
-    BOOL success;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    
+- (NSString *)databasePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSAssert([paths count], @"Failed to find Documents directory.");
     NSString *documentsDirectory = [paths objectAtIndex:0];
 
 	// Workaround for Beta issue where Documents directory is not created during install.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     if (! [fileManager fileExistsAtPath:documentsDirectory]) {
         BOOL success = [fileManager createDirectoryAtPath:documentsDirectory attributes:nil];
 		NSAssert(success, @"Failed to create Documents directory.");
     }
     
-    NSString *databasePath = [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
-	
+	return [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
+}
+
+
+
+- (NSString *)ensureDatabasePath {
+	NSString *databasePath = [self databasePath];
+    
+	BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+
 	if (! [fileManager fileExistsAtPath:databasePath]) {
 		NSLog(@"Database file not found, creating a new database.");
 		// The writable database does not exist, so copy the template to the appropriate location.
@@ -71,7 +119,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		success = [fileManager copyItemAtPath:templatePath toPath:databasePath error:&error];
 		NSAssert1(success, @"Failed to create database: %@", [error localizedDescription]);
 	}
-
+	
 	return databasePath;
 }
 
@@ -133,7 +181,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	// Haven't loaded the DB yet.
 	if (db == nil) {
-		db = [[EWDatabase alloc] initWithFile:[self pathOfDatabase]];
+		db = [[EWDatabase alloc] initWithFile:[self ensureDatabasePath]];
 		if ([db needsUpgrade]) {
 			launchViewController = [[UpgradeViewController alloc] initWithDatabase:db];
 			[self addViewToWindow:launchViewController.view];
@@ -176,6 +224,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[self performDebugLaunchActions];
+
 	[self registerDefaults];
 	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -37,6 +37,8 @@
 		BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
 		BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11321F1102F0DC00EAC8DA /* AboutViewController.m */; };
 		BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1133351103AE5300EAC8DA /* RegistrationViewController.m */; };
+		BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC14F3C91118C6F300FB9A50 /* Settings.bundle */; };
+		BC14F3D41118C71D00FB9A50 /* InsertDebugSection.xsl in Resources */ = {isa = PBXBuildFile; fileRef = BC14F3D31118C71D00FB9A50 /* InsertDebugSection.xsl */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -45,11 +47,8 @@
 		BC200C7610F7D6F900352A32 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
 		BC200C7D10F7D8B500352A32 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BC200C7E10F7D8B500352A32 /* fatwatch.js in Resources */ = {isa = PBXBuildFile; fileRef = BC04126910DA0DD3008FCB11 /* fatwatch.js */; };
-		BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC24A4970E2487830074FD4C /* Icon.png */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
-		BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */ = {isa = PBXBuildFile; fileRef = BC263C2B0DB56A69007D03F4 /* Root.plist */; };
-		BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */ = {isa = PBXBuildFile; fileRef = BC263C360DB56B9D007D03F4 /* Root.strings */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
@@ -221,32 +220,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		BC263C330DB56AF9007D03F4 /* Copy Files into Settings */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = Settings.bundle;
-			dstSubfolderSpec = 7;
-			files = (
-				BC24A4980E2487830074FD4C /* Icon.png in Copy Files into Settings */,
-				BC263C2F0DB56AE9007D03F4 /* Root.plist in Copy Files into Settings */,
-			);
-			name = "Copy Files into Settings";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC263C650DB57671007D03F4 /* Copy Files into Settings:en */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = Settings.bundle/en.lproj;
-			dstSubfolderSpec = 7;
-			files = (
-				BC263C380DB56BA5007D03F4 /* Root.strings in Copy Files into Settings:en */,
-			);
-			name = "Copy Files into Settings:en";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
@@ -301,14 +274,14 @@
 		BC1133341103AE5300EAC8DA /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = Classes/RegistrationViewController.h; sourceTree = "<group>"; };
 		BC1133351103AE5300EAC8DA /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = Classes/RegistrationViewController.m; sourceTree = "<group>"; };
 		BC11334C1103B7DA00EAC8DA /* RegistrationError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.html; sourceTree = "<group>"; };
+		BC14F3C91118C6F300FB9A50 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		BC14F3D21118C71700FB9A50 /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
+		BC14F3D31118C71D00FB9A50 /* InsertDebugSection.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InsertDebugSection.xsl; sourceTree = "<group>"; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
-		BC24A4970E2487830074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A7510E25DEA60074FD4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogEntryView.xib; sourceTree = "<group>"; };
-		BC263C2B0DB56A69007D03F4 /* Root.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = Root.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
-		BC263C360DB56B9D007D03F4 /* Root.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Root.strings; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
 		BC2806C70E3CF72600986341 /* TabIconGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconGoal.png; sourceTree = "<group>"; };
@@ -408,11 +381,9 @@
 		BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRColorPalette.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
-		BCC9C1190F140547006367AE /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
 		BCD041571108E90D008C735C /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; name = app; path = ../../../pl141/public_html/fatwatch/app; sourceTree = SOURCE_ROOT; };
 		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		BCD44A1D0DBAFC760009A8EC /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.settings"; sourceTree = "<group>"; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
 		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Passcode0.png; sourceTree = "<group>"; };
 		BCD8BE420EF081EC005639DD /* Passcode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Passcode1.png; sourceTree = "<group>"; };
@@ -565,9 +536,9 @@
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BCF52BCF10D075930017C3A1 /* Localizable Resources */,
 				29B97317FDCFA39411CA2CEA /* Images */,
-				BC263C2A0DB56A3B007D03F4 /* Settings */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				BC14F3D51118C72400FB9A50 /* Settings */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
@@ -619,16 +590,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BC263C2A0DB56A3B007D03F4 /* Settings */ = {
+		BC14F3D51118C72400FB9A50 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				BC263C2B0DB56A69007D03F4 /* Root.plist */,
-				BC263C360DB56B9D007D03F4 /* Root.strings */,
-				BCD44A1D0DBAFC760009A8EC /* Debug.plist */,
-				BC24A4970E2487830074FD4C /* Icon.png */,
-				BCC9C1190F140547006367AE /* ExtractDefaults.xsl */,
+				BC14F3C91118C6F300FB9A50 /* Settings.bundle */,
+				BC14F3D21118C71700FB9A50 /* ExtractDefaults.xsl */,
+				BC14F3D31118C71D00FB9A50 /* InsertDebugSection.xsl */,
 			);
-			path = Settings;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		BC51B88B0E3ACACC00D3B4C1 /* BRTables */ = {
@@ -893,10 +862,8 @@
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
-				BC263C330DB56AF9007D03F4 /* Copy Files into Settings */,
-				BC263C650DB57671007D03F4 /* Copy Files into Settings:en */,
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (Create DB) */,
-				BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */,
+				BCC9C1740F14115F006367AE /* Run Script (Settings.bundle stuff) */,
 				BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -1008,6 +975,8 @@
 				BCF67900110D670800C923BF /* TriangleLeft.png in Resources */,
 				BCF67901110D670800C923BF /* TriangleRight.png in Resources */,
 				BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */,
+				BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */,
+				BC14F3D41118C71D00FB9A50 /* InsertDebugSection.xsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,22 +1027,24 @@
 			shellScript = "SQL_FILE=$SCRIPT_INPUT_FILE_0\nDATABASE_FILE=$SCRIPT_OUTPUT_FILE_0\n\necho Reading $SQL_FILE\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
 			showEnvVarsInLog = 0;
 		};
-		BCC9C1740F14115F006367AE /* Run Script (Defaults.plist) */ = {
+		BCC9C1740F14115F006367AE /* Run Script (Settings.bundle stuff) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Settings/ExtractDefaults.xsl",
-				"$(SRCROOT)/Settings/Root.plist",
+				"$(SRCROOT)/Settings.bundle/Root.plist",
+				"$(SRCROOT)/ExtractDefaults.xsl",
+				"$(SRCROOT)/InsertDebugSection.xsl",
 			);
-			name = "Run Script (Defaults.plist)";
+			name = "Run Script (Settings.bundle stuff)";
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Settings.bundle/Root.plist",
 				"$(BUILT_PRODUCTS_DIR)/$(WRAPPER_NAME)/Defaults.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "XSL=$SCRIPT_INPUT_FILE_0\nSETTINGS_PLIST=$SCRIPT_INPUT_FILE_1\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_0\n\n# --novalid prevents DTD loading, which will fail off the Internet\n\nxsltproc --novalid -o $DEFAULTS_PLIST $XSL $SETTINGS_PLIST\nplutil -convert binary1 $DEFAULTS_PLIST\n";
+			shellScript = "SRC=$SCRIPT_INPUT_FILE_0\nDEFAULTS_XSL=$SCRIPT_INPUT_FILE_1\nSETTINGS_XSL=$SCRIPT_INPUT_FILE_2\n\nSETTINGS_PLIST=$SCRIPT_OUTPUT_FILE_0\nDEFAULTS_PLIST=$SCRIPT_OUTPUT_FILE_1\n\nDEBUG_PLIST=$BUILT_PRODUCTS_DIR/$WRAPPER_NAME/Settings.bundle/Debug.plist\n\n# --novalid prevents DTD loading, which will fail off the Internet\n\necho Generating $DEFAULTS_PLIST\nxsltproc --novalid $DEFAULTS_XSL $SRC | \\\n\tplutil -convert binary1 -o $DEFAULTS_PLIST -\n\nif [ \"$CONFIGURATION\" != \"AppStore\" ]; then\n\techo Generating $SETTINGS_PLIST\n\txsltproc --novalid $SETTINGS_XSL $SRC | \\\n\t\tplutil -convert binary1 -o $SETTINGS_PLIST -\nelse\n\techo Removing $DEBUG_PLIST\n\trm $DEBUG_PLIST\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */ = {

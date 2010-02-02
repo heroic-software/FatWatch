@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Title</key>
+	<string>Debug</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -20,8 +22,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>OnLaunchResetDefaults</string>
+			<key>Title</key>
+			<string>Reset Preferences</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
 	</array>
-	<key>Title</key>
-	<string>Debug</string>
 </dict>
 </plist>
