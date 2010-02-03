@@ -15,10 +15,10 @@ static float gCurrentWeightInKilograms = 0;
 static NSString * const kShortSpace = @"\xe2\x80\x85"; // four-per-em space
 
 
-NSString *EWEquivalentFormatNumber(float n, NSString *unitName) {
+NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 	[nf setNumberStyle:NSNumberFormatterDecimalStyle];
-	[nf setMaximumFractionDigits:1];
+	[nf setMaximumFractionDigits:digits];
 	[nf setPositiveSuffix:[kShortSpace stringByAppendingString:unitName]];
 	[nf setPositiveInfinitySymbol:
 	 [[nf positiveInfinitySymbol] stringByAppendingString:[nf positiveSuffix]]];
@@ -54,7 +54,7 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName) {
 	// 1 kcal/min = 1 MET * 1 kg * 60min/hr
 	static const float kMinutesPerHour = 60.0f;
 	float energyPerUnit = (mets - 1) * gCurrentWeightInKilograms / kMinutesPerHour;
-	return EWEquivalentFormatNumber(energy / energyPerUnit, @"min");
+	return EWEquivalentFormatNumber(energy / energyPerUnit, @"min", 0);
 }
 
 - (NSString *)description {
@@ -77,7 +77,7 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName) {
 @synthesize value = energyPerUnit;
 
 - (NSString *)stringForEnergy:(float)energy {
-	return EWEquivalentFormatNumber(energy / energyPerUnit, unitName);
+	return EWEquivalentFormatNumber(energy / energyPerUnit, unitName, 1);
 }
 
 - (NSString *)description {
