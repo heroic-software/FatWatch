@@ -87,6 +87,21 @@
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	[dataArray release];
 	dataArray = [[[EWDatabase sharedDatabase] loadEnergyEquivalents] copy];
+	
+	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 320, 20)];
+	label.opaque = NO;
+	label.backgroundColor = nil;
+	label.shadowColor = [UIColor whiteColor];
+	label.shadowOffset = CGSizeMake(0, 1);
+	label.textColor = [UIColor colorWithRed:0.24 green:0.269 blue:0.344 alpha:1];
+	label.font = [UIFont boldSystemFontOfSize:20];
+	label.text = [self.navigationItem.title stringByAppendingString:@" is equivalent to..."];
+	label.textAlignment = UITextAlignmentCenter;
+	[header addSubview:label];
+	self.tableView.tableHeaderView = header;
+	[label release];
+	[header release];
 }
 
 
