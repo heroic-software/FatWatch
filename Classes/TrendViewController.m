@@ -165,12 +165,28 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 }
 
 
+- (NSString *)stringFromDayCount:(int)dayCount {
+	if (dayCount > 365) {
+		int yearCount = roundf((float)dayCount / 365.25f);
+		if (yearCount == 1) {
+			return @"about a year";
+		} else {
+			return [NSString stringWithFormat:@"about %d years", yearCount];
+		}
+	} else if (dayCount == 1) {
+		return @"1 day";
+	} else {
+		return [NSString stringWithFormat:@"%d days", dayCount];
+	}
+}
+
+
 - (void)updateDateButtonWithDate:(NSDate *)date {
 	if (date) {
 		int dayCount = floor([date timeIntervalSinceNow] / kSecondsPerDay);
 		if (dayCount > 365) {
 			[dateButton setText:@"goal in " forPart:0];
-			[dateButton setText:@"over a year" forPart:1];
+			[dateButton setText:[self stringFromDayCount:dayCount] forPart:1];
 			dateButton.enabled = NO;
 		} else if (showAbsoluteDate) {
 			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -197,17 +213,6 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		[dateButton setText:@"moving away from goal" forPart:1];
 		[dateButton setTextColor:[BRColorPalette colorNamed:@"BadText"] forPart:1];
 		dateButton.enabled = NO;
-	}
-}
-
-
-- (NSString *)stringFromDayCount:(int)dayCount {
-	if (dayCount > 365) {
-		return @"over a year";
-	} else if (dayCount == 1) {
-		return @"1 day";
-	} else {
-		return [NSString stringWithFormat:@"%d days", dayCount];
 	}
 }
 
