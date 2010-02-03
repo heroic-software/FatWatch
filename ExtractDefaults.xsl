@@ -23,13 +23,19 @@
 		doctype-system="http://www.apple.com/DTDs/PropertyList-1.0.dtd"
 		/>
 
-	<xsl:template match="/plist/dict">
+	<!-- remove all text -->
+	<xsl:template match="text()"/>
+	
+	<!-- replace DefaultValues with a key/value pair -->
+	<xsl:template match="dict">
+		<key><xsl:value-of select="key[.='Key']/following-sibling::*[1]"/></key>
+		<xsl:copy-of select="key[.='DefaultValue']/following-sibling::*[1]"/>
+	</xsl:template>
+	
+	<xsl:template match="/">
 		<plist version="1.0">
 		<dict>
-			<xsl:for-each select="array/dict[key='DefaultValue']">
-				<key><xsl:value-of select="key[.='Key']/following-sibling::string"/></key>
-				<xsl:copy-of select="key[.='DefaultValue']/following-sibling::*[1]"/>
-			</xsl:for-each>
+			<xsl:apply-templates select="descendant::key[.='DefaultValue']/.."/>
 		</dict>
 		</plist>
 	</xsl:template>

@@ -24,7 +24,7 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<xsl:template match="array">
+	<xsl:template match="array[preceding-sibling::key='PreferenceSpecifiers']">
 		<array>
 			<xsl:apply-templates select="@*|node()"/>
 			<dict>
