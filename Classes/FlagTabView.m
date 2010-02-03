@@ -26,8 +26,6 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGRect b = self.bounds;
-	[[UIColor groupTableViewBackgroundColor] setFill];
-	UIRectFill(b);
 	[[UIColor whiteColor] setFill];
 	UIRectFill(CGRectInset(tabRect, -10, -10));
 	[[UIColor grayColor] setStroke];
