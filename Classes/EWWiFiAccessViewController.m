@@ -18,6 +18,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
 #import "EWFlagButton.h"
+#import "EWDateFormatter.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -370,10 +371,8 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	NSMutableDictionary *formatterDictionary = [NSMutableDictionary dictionary];
 	
-	NSDateFormatter *df = [[NSDateFormatter alloc] init];
-	[df setDateFormat:[form stringForKey:@"dateFormat"]];
+	NSFormatter *df = [EWDateFormatter formatterWithDateFormat:[form stringForKey:@"dateFormat"]];
 	[formatterDictionary setObject:df forKey:@"date"];
-	[df release];
 	
 	EWWeightUnit weightUnit = [[form stringForKey:@"weightFormat"] intValue];
 	NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport unit:weightUnit];
@@ -417,11 +416,15 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[connection setValue:@"text/plain; charset=utf-8" forResponseHeader:@"Content-Type"];
 		[connection setValue:@"inline" forResponseHeader:@"Content-Disposition"];
 #else
-		NSDateFormatter *isoDF = EWDateFormatterGetISO();
+		NSDateFormatter *isoDF = [[NSDateFormatter alloc] init];
+		[isoDF setDateFormat:@"y-MM-dd"];
+		
 		NSString *contentDisposition = 
 		[NSString stringWithFormat:@"attachment; filename=\"FatWatch-Export-%@.%@\"", 
 		 [isoDF stringFromDate:[NSDate date]],
 		 [exporter fileExtension]];
+		
+		[isoDF release];
 		
 		[connection setValue:[exporter contentType] forResponseHeader:@"Content-Type"];
 		[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];
@@ -515,10 +518,8 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			   forField:EWImporterFieldNote];
 	
 	{
-		NSDateFormatter *df = [[NSDateFormatter alloc] init];
-		[df setDateFormat:[form stringForKey:@"dateFormat"]];
+		NSFormatter *df = [EWDateFormatter formatterWithDateFormat:[form stringForKey:@"dateFormat"]];
 		[importer setFormatter:df forField:EWImporterFieldDate];
-		[df release];
 	}
 	
 	{

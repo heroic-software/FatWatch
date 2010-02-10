@@ -61,6 +61,7 @@
 		BC51B9D20E3B08C500D3B4C1 /* BRTableValueRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */; };
 		BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
+		BC59BDC111232CE400203E22 /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
 		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
 		BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
@@ -309,6 +310,8 @@
 		BC51B9D10E3B08C500D3B4C1 /* BRTableValueRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableValueRow.m; sourceTree = "<group>"; };
 		BC51B9D30E3B0C0200D3B4C1 /* BRTableDatePickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableDatePickerRow.h; sourceTree = "<group>"; };
 		BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableDatePickerRow.m; sourceTree = "<group>"; };
+		BC59BDBF11232CE400203E22 /* EWDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDateFormatter.h; sourceTree = "<group>"; };
+		BC59BDC011232CE400203E22 /* EWDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateFormatter.m; sourceTree = "<group>"; };
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconLog.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
 		BC749EEA10E33EC8001E8030 /* EWTrendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWTrendButton.h; path = Classes/EWTrendButton.h; sourceTree = "<group>"; };
 		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
+		BC7717021122914200E7437B /* FakeUpgrade.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = FakeUpgrade.db; sourceTree = "<group>"; };
+		BC7717031122914200E7437B /* FakeUpgrade.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = FakeUpgrade.plist; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -475,6 +480,8 @@
 				BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */,
 				BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */,
 				BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */,
+				BC59BDBF11232CE400203E22 /* EWDateFormatter.h */,
+				BC59BDC011232CE400203E22 /* EWDateFormatter.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -832,6 +839,8 @@
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
 				BCD042A011097FCA008C735C /* ImportColumns.plist */,
 				BC11334C1103B7DA00EAC8DA /* RegistrationError.html */,
+				BC7717021122914200E7437B /* FakeUpgrade.db */,
+				BC7717031122914200E7437B /* FakeUpgrade.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1153,6 +1162,7 @@
 				BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */,
 				BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */,
 				BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */,
+				BC59BDC111232CE400203E22 /* EWDateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

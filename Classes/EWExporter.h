@@ -23,8 +23,6 @@ typedef enum {
 } EWExporterField;
 
 
-NSDateFormatter *EWDateFormatterGetISO();
-NSDateFormatter *EWDateFormatterGetLocal();
 NSArray *EWFatFormatterNames();
 NSFormatter *EWFatFormatterAtIndex(int index);
 

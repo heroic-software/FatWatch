@@ -36,7 +36,6 @@ typedef struct EWDBDay {
 @property (nonatomic,readonly) EWDBMonth *previous;
 @property (nonatomic,readonly) EWDBMonth *next;
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb;
-- (NSDate *)dateOnDay:(EWDay)day;
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day;
 - (EWDay)firstDayWithWeight;
 - (EWDay)lastDayWithWeight;

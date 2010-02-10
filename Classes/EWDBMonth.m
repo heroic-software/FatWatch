@@ -96,12 +96,6 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (NSDate *)dateOnDay:(EWDay)day {
-	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
-	return EWDateFromMonthAndDay(month, day);
-}
-
-
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day {
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];

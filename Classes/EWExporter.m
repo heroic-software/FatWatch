@@ -10,21 +10,7 @@
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 #import "EWWeightFormatter.h"
-
-
-NSDateFormatter *EWDateFormatterGetISO() {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateFormat:@"y-MM-dd"];
-	return [formatter autorelease];
-}
-
-
-NSDateFormatter *EWDateFormatterGetLocal() {
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateStyle:NSDateFormatterShortStyle];
-	[formatter setTimeStyle:NSDateFormatterNoStyle];
-	return [formatter autorelease];
-}
+#import "EWDateFormatter.h"
 
 
 NSArray *EWFatFormatterNames() {
@@ -80,7 +66,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 	
 	[self addField:EWExporterFieldDate 
 			  name:@"Date"
-		 formatter:EWDateFormatterGetISO()];
+		 formatter:[[[EWISODateFormatter alloc] init] autorelease]];
 	[self addField:EWExporterFieldWeight 
 			  name:@"Weight" 
 		 formatter:weightFormatter];
@@ -165,7 +151,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 				
 				switch (f) {
 					case EWExporterFieldDate:
-						value = [dbm dateOnDay:day];
+						value = [NSNumber numberWithInt:EWMonthDayMake(dbm.month, day)];
 						break;
 					case EWExporterFieldWeight:
 						value = [NSNumber numberWithFloat:dd->scaleWeight];

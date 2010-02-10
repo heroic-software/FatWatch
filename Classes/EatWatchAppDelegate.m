@@ -23,6 +23,9 @@
 #import "UpgradeViewController.h"
 
 
+#define DEBUG_LAUNCH_ACTIONS_ENABLED 1
+
+
 static NSString *kWeightDatabaseName = @"WeightData.db";
 static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
@@ -37,6 +40,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 @implementation EatWatchAppDelegate
 
 
+#if DEBUG_LAUNCH_ACTIONS_ENABLED
 - (void)performDebugLaunchActions {
 	static NSString * const kResetDatabaseKey = @"OnLaunchResetDatabase";
 	static NSString * const kResetDefaultsKey = @"OnLaunchResetDefaults";
@@ -45,19 +49,26 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	BOOL resetDatabase = [ud boolForKey:kResetDatabaseKey];
 	BOOL resetDefaults = [ud boolForKey:kResetDefaultsKey];
-
+	
 	if (resetDatabase) {
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		NSError *error;
-
+		
 		if ([fileManager removeItemAtPath:[self databasePath] error:&error]) {
 			NSLog(@"Database deleted by request.");
 		} else {
-			NSLog(@"Unable to delete database per request: %@", 
-				  [error localizedDescription]);
+			NSLog(@"Unable to delete database: %@", [error localizedDescription]);
 		}
-
 		[ud removeObjectForKey:kResetDatabaseKey];
+
+		NSString *fakeDatabasePath = [[NSBundle mainBundle] pathForResource:@"FakeUpgrade" ofType:@"db"];
+		if (fakeDatabasePath) {
+			if ([fileManager copyItemAtPath:fakeDatabasePath toPath:[self databasePath] error:&error]) {
+				NSLog(@"Using fake database: %@", fakeDatabasePath);
+			} else {
+				NSLog(@"Unable to copy database: %@", [error localizedDescription]);
+			}
+		}
 	}
 
 	if (resetDefaults) {
@@ -67,8 +78,20 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		}
 		NSLog(@"%d defaults deleted by request.", [keys	count]);
 		[keys release];
+		
+		NSString *fakeDefaultsPath = [[NSBundle mainBundle] pathForResource:@"FakeUpgrade" ofType:@"plist"];
+		if (fakeDefaultsPath) {
+			NSDictionary *fakeDefaults = [[NSDictionary alloc] initWithContentsOfFile:fakeDefaultsPath];
+			for (NSString *key in fakeDefaults) {
+				id value = [fakeDefaults objectForKey:key];
+				[ud setObject:value forKey:key];
+				NSLog(@"Fake Preference: %@: %@", key, value);
+			}
+			[fakeDefaults release];
+		}
 	}
 }
+#endif
 
 
 - (void)registerDefaultsNamed:(NSString *)name {
@@ -224,7 +247,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+#if DEBUG_LAUNCH_ACTIONS_ENABLED
 	[self performDebugLaunchActions];
+#endif
 
 	[self registerDefaults];
 	

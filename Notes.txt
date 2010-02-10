@@ -1,7 +1,6 @@
 ICONS
 
 FOOD ITEMS
-martini glass (already have a wine glass and a beer mug)
 candy
 chocolate
 a donut
@@ -10,7 +9,6 @@ potato chips, snack food
 slice of pizza
 hamburger
 french fries
-a slice of bread (atkins)
 
 ACTIVITIES
 car
@@ -82,3 +80,26 @@ About
 
 	[App Store]
 	MetroCost
+
+
+PROFILING CODE
+
+	struct rusage usageBefore, usageAfter;
+
+	if (getrusage(RUSAGE_SELF, &usageBefore)) {
+		NSLog(@"getrusage(before) error: %d", errno);
+	}
+
+	// do a thing
+	
+		if (getrusage(RUSAGE_SELF, &usageAfter)) {
+		NSLog(@"getrusage(after) error: %d", errno);
+	}
+	
+#define ELAPSED_US(A,B) ((1000000 * (A.tv_sec - B.tv_sec)) + (A.tv_usec - B.tv_usec))
+
+	unsigned int user_us = ELAPSED_US(usageAfter.ru_utime, usageBefore.ru_utime);
+	unsigned int sys_us = ELAPSED_US(usageAfter.ru_stime, usageBefore.ru_stime);
+
+	NSLog(@"Export %d us user %d us system", user_us, sys_us);
+	

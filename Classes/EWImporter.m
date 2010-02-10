@@ -136,10 +136,10 @@
 	while (rowArray = [reader readRow]) {
 		rowCount += 1;
 				
-		NSDate *date = [self valueForField:EWImporterFieldDate inArray:rowArray];
-		if (date == nil) continue;
+		NSNumber *monthDay = [self valueForField:EWImporterFieldDate inArray:rowArray];
+		if (monthDay == nil) continue;
 
-		EWMonthDay md = EWMonthDayFromDate(date);
+		EWMonthDay md = [monthDay intValue];
 		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
 		EWDay day = EWMonthDayGetDay(md);
 		EWDBDay dd;

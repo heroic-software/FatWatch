@@ -276,7 +276,7 @@ enum {
 	
 	[self view]; // force load of view
 	
-	NSDate *date = [monthData dateOnDay:day];
+	NSDate *date = EWDateFromMonthAndDay(monthData.month, day);
 	NSDateFormatter *titleFormatter = [[NSDateFormatter alloc] init];
 	[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
