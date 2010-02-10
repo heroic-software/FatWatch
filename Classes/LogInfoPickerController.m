@@ -54,7 +54,7 @@
 
 - (IBAction)toggleDown:(UIButton *)sender {
 	toggleTimerDidFire = NO;
-	[self performSelector:@selector(toggle:) withObject:sender afterDelay:0.5];
+	[self performSelector:@selector(toggle:) withObject:sender afterDelay:0.250];
 }
 
 
