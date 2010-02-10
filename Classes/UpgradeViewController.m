@@ -61,7 +61,7 @@
 - (IBAction)dismissView {
 	[EWDatabase setSharedDatabase:database];
 	id appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate removeLaunchViewWithTransitionType:kCATransitionFade
+	[appDelegate removeLaunchViewWithTransitionType:kCATransitionReveal
 											subType:kCATransitionFromTop];
 }
 
