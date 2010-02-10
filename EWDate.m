@@ -9,9 +9,9 @@
 #import "EWDate.h"
 
 
-const NSInteger kReferenceYear = 2001;
-const NSInteger kReferenceMonth = 1;
-const NSInteger kReferenceDay = 1;
+static const NSInteger kReferenceYear = 2001;
+static const NSInteger kReferenceMonth = 1;
+static const NSInteger kReferenceDay = 1;
 
 
 NSUInteger EWDaysInMonth(EWMonth m) {
@@ -77,17 +77,17 @@ NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 	if (d == 0) return nil;
 	
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-
-	NSDate *refDateGMT = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
-	NSTimeInterval refDateOffset = -[[calendar timeZone] secondsFromGMTForDate:refDateGMT];
-	NSDate *refDate = [refDateGMT addTimeInterval:refDateOffset];
-	
 	NSDateComponents *components = [[NSDateComponents alloc] init];
-	components.month = m;
-	components.day = d - 1;
-	NSDate *theDate = [calendar dateByAddingComponents:components
-												toDate:refDate
-											   options:0];
+
+	NSInteger m0 = (m % 12);
+	if (m0 < 0) m0 += 12;
+	
+	[components setYear:((24012 + m) / 12)];
+	[components setMonth:(m0 + 1)];
+	[components setDay:d];
+	
+	NSDate *theDate = [calendar dateFromComponents:components];
+	
 	[components release];
 	[calendar release];
 	return theDate;
