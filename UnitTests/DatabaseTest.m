@@ -45,7 +45,7 @@
 	for (month = testdb.earliestMonth; month <= testdb.latestMonth; month++) {
 		EWDBMonth *dbm = [testdb getDBMonth:month];
 		[output appendFormat:@"%@ (#%d)\n", 
-		 [df stringFromDate:[dbm dateOnDay:1]],
+		 [df stringFromDate:EWDateFromMonthAndDay(dbm.month, 1)],
 		 month];
 
 		EWDay day = [dbm firstDayWithWeight];
@@ -112,7 +112,7 @@
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
 	const EWDBDay *d = [dbm getDBDayOnDay:day];
-	NSString *note = [NSString stringWithFormat:@"mismatch on %@", [dbm dateOnDay:day]];
+	NSString *note = [NSString stringWithFormat:@"mismatch on %@", EWDateFromMonthAndDay(month, day)];
 	STAssertEquals(weight, d->scaleWeight, note);
 	STAssertEqualsWithAccuracy(trend, d->trendWeight, 0.0001f, note);
 }
