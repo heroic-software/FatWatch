@@ -33,7 +33,6 @@
 					  activitiesTitle,
 					  NSLocalizedString(@"Foods & Nutrients", @"Foods section"),
 					  nil];
-		deletedItemArray = [[NSMutableArray alloc] init];
 		self.title = NSLocalizedString(@"Energy", @"Energy view title");
 		self.navigationItem.title = [energyFormatter stringFromFloat:energy];
 		self.hidesBottomBarWhenPushed = YES;
@@ -134,8 +133,7 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
 	[super setEditing:editing animated:animated];
 	if (!editing && dirty) {
-		[[EWDatabase sharedDatabase] saveEnergyEquivalents:dataArray deletedItems:deletedItemArray];
-		[deletedItemArray removeAllObjects];
+		[[EWDatabase sharedDatabase] saveEnergyEquivalents:dataArray];
 		dirty = NO;
 	}
 
@@ -190,10 +188,8 @@
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSMutableArray *array = [dataArray objectAtIndex:indexPath.section];
-		[deletedItemArray addObject:[array objectAtIndex:indexPath.row]];
 		[array removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 						 withRowAnimation:UITableViewRowAnimationFade];
@@ -243,7 +239,6 @@
 - (void)dealloc {
 	[titleArray release];
 	[dataArray release];
-	[deletedItemArray release];
 	[newEquivalentController release];
     [super dealloc];
 }

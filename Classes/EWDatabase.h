@@ -61,5 +61,5 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (SQLiteStatement *)deleteDayStatement;
 // Energy Equivalents
 - (NSArray *)loadEnergyEquivalents;
-- (void)saveEnergyEquivalents:(NSArray *)dataArray deletedItems:(NSArray *)deletedArray;
+- (void)saveEnergyEquivalents:(NSArray *)dataArray;
 @end

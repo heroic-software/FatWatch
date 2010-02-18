@@ -437,19 +437,20 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
-- (void)saveEnergyEquivalents:(NSArray *)dataArray deletedItems:(NSArray *)deletedArray {
+- (void)saveEnergyEquivalents:(NSArray *)dataArray {
+	SQLiteStatement *selectStmt = [db statementFromSQL:"SELECT id FROM equivalents"];
 	SQLiteStatement *updateStmt = [db statementFromSQL:"UPDATE equivalents SET row=? WHERE id=?"];
 	SQLiteStatement *insertStmt = [db statementFromSQL:"INSERT INTO equivalents (section,row,name,unit,value) VALUES (?,?,?,?,?)"];
 	SQLiteStatement *deleteStmt = [db statementFromSQL:"DELETE FROM equivalents WHERE id=?"];
 	
 	[db beginTransaction];
 	
-	for (id <EWEnergyEquivalent> equiv in deletedArray) {
-		[deleteStmt bindInt:equiv.dbID toParameter:1];
-		[deleteStmt step];
-		[deleteStmt reset];
+	NSMutableSet *deletionCandidateIDSet = [[NSMutableSet alloc] init];
+	while ([selectStmt step]) {
+		int dbID = [selectStmt intValueOfColumn:0];
+		[deletionCandidateIDSet addObject:[NSNumber numberWithInt:dbID]];
 	}
-	
+
 	int section;
 	for (section = 0; section < [dataArray count]; section++) {
 		NSArray *sectionArray = [dataArray objectAtIndex:section];
@@ -471,8 +472,16 @@ static EWDatabase *gSharedDB = nil;
 				[insertStmt reset];
 				equiv.dbID = [db lastInsertRowID];
 			}
+			[deletionCandidateIDSet removeObject:[NSNumber numberWithInt:equiv.dbID]];
 		}
 	}
+	
+	for (NSNumber *dbIDNumber in deletionCandidateIDSet) {
+		[deleteStmt bindInt:[dbIDNumber intValue] toParameter:1];
+		[deleteStmt step];
+		[deleteStmt reset];
+	}
+	[deletionCandidateIDSet release];
 	
 	[db commitTransaction];
 }

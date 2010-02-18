@@ -16,7 +16,6 @@
 	float energy;
 	NSArray *titleArray;
 	NSArray *dataArray;
-	NSMutableArray *deletedItemArray;
 	EWEnergyFormatter *energyFormatter;
 	BOOL dirty;
 	NewEquivalentViewController *newEquivalentController;
