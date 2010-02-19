@@ -134,22 +134,36 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays {
-	const CGFloat kGraphMarginTop = 32.0f;
-	const CGFloat kGraphMarginBottom = 16.0f;
-	
-#if TARGET_IPHONE_SIMULATOR
-	NSLog(@"Weight Range: (%f,%f)", gp->minWeight, gp->maxWeight);
-#endif
+	const CGFloat kGraphMarginTop = 32;
+	const CGFloat kGraphMarginBottom = 16;
+	const CGFloat kGraphMarginRight = 24;
 	
 	// Assumes minWeight and maxWeight have already been set, but need adjusting
 	// Does not set: shouldDrawNoDataWarning
 
-	if ((gp->maxWeight - gp->minWeight) < 0.02) {
-		gp->minWeight -= 1;
-		gp->maxWeight += 1;
+	static float minRange = 0;
+	if (minRange == 0) {
+		switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
+			case EWWeightUnitKilograms:
+				minRange = 2 / kKilogramsPerPound;
+				break;
+			case EWWeightUnitPounds:
+			default:
+				minRange = 2;
+				break;
+		}
+	}
+	if ((gp->maxWeight - gp->minWeight) < minRange) {
+		float centerWeight = 0.5f * (gp->minWeight + gp->maxWeight);
+		gp->minWeight = centerWeight - (0.5f * minRange);
+		gp->maxWeight = centerWeight + (0.5f * minRange);
 	}
 
-	gp->scaleX = size.width / numberOfDays;
+	if (numberOfDays == 1) {
+		gp->scaleX = size.width;
+	} else {
+		gp->scaleX = (size.width - kGraphMarginRight) / numberOfDays;
+	}
 	gp->scaleY = (size.height - (kGraphMarginTop + kGraphMarginBottom)) / (gp->maxWeight - gp->minWeight);
 	gp->minWeight -= (kGraphMarginBottom / gp->scaleY);
 	gp->maxWeight += (kGraphMarginTop / gp->scaleY);
@@ -159,9 +173,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	while (increment < minIncrement) {
 		increment = EWChartWeightIncrementAfterIncrement(increment);
 	}
-	gp->gridIncrementWeight = increment;
-	gp->gridMinWeight = roundf(gp->minWeight / increment) * increment;
-	gp->gridMaxWeight = roundf(gp->maxWeight / increment) * increment;
+	gp->gridIncrement = increment;
+	gp->gridMinWeight = floorf(gp->minWeight / increment) * increment;
 	
 	CGAffineTransform t = CGAffineTransformMakeTranslation(0, size.height);
 	t = CGAffineTransformScale(t, gp->scaleX, -gp->scaleY);
@@ -281,11 +294,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newGridPath {
 	CGMutablePathRef gridPath = CGPathCreateMutable();
-	// vertical lines
 
+	// vertical lines
 	CGFloat x = 0.5;
 	EWMonthDay md = beginMonthDay;
-	
 	while (md <= endMonthDay) {
 		EWMonth month = EWMonthDayGetMonth(md);
 		EWDay day = EWMonthDayGetDay(md);
@@ -302,7 +314,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	// horizontal lines:
 	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
 	float w;
-	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += p->gridIncrementWeight) {
+	for (w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
 		CGPathMoveToPoint(gridPath, &p->t, -0.5, w);
 		CGPathAddLineToPoint(gridPath, &p->t, xMax, w);
 	}
@@ -624,13 +636,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
     CGContextRelease(ctxt);
 
-#if TARGET_IPHONE_SIMULATOR
-	// 3.0 CFVersion 478.470000
-	// 3.1 CFVersion 478.520000
-	if (kCFCoreFoundationVersionNumber == 478.47) {
-		CFRetain(CGImageGetDataProvider(imageRef));
-	}
-#endif
+	BugFixRetainImageDataProvider(imageRef);
 
 #if TARGET_IPHONE_SIMULATOR
 	// Simulate iPhone's slow drawing

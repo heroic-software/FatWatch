@@ -159,8 +159,8 @@ enum {
 	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];
 
 	if (minWeight == 0 || maxWeight == 0) {
-		minWeight = 140;
-		maxWeight = 160;
+		minWeight = 150;
+		maxWeight = 150;
 	}
 	
 	parameters.minWeight = minWeight;
@@ -168,7 +168,7 @@ enum {
 		
 	[GraphDrawingOperation prepareGraphViewInfo:&parameters 
 										forSize:size
-								   numberOfDays:numberOfDays * 1.1];
+								   numberOfDays:numberOfDays];
 	
 	info = malloc(infoCount * sizeof(GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");

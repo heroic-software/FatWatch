@@ -52,7 +52,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	[[UIColor blackColor] setFill];
 	float w;
-	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += p->gridIncrementWeight) {
+	for (w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
 		// draw tick label
 		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
 		CGSize labelSize = [label sizeWithFont:labelFont];
@@ -61,16 +61,17 @@ static const CGFloat gMinorTickWidth = 3.5;
 									  point.y - (labelSize.height / 2),
 									  labelSize.width,
 									  labelSize.height);
-		if (CGRectContainsRect(bounds, labelRect)) {
+		//if (CGRectContainsRect(bounds, labelRect)) {
 			[label drawAtPoint:labelRect.origin withFont:labelFont];
-		}
+		//}
 		// add tick line to path
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
 	// minor ticks
-	for (w = p->gridMinWeight; w < p->gridMaxWeight; w += [[NSUserDefaults standardUserDefaults] weightWholeIncrement]) {
+	float incr = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
+	for (w = p->gridMinWeight; w < p->maxWeight; w += incr) {
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gMinorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);

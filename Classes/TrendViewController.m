@@ -333,7 +333,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		gp->shouldDrawNoDataWarning = YES;
 		[GraphDrawingOperation prepareGraphViewInfo:gp 
 											forSize:graphView.bounds.size
-									   numberOfDays:span.length * 1.2];
+									   numberOfDays:span.length];
 	}
 	
 	graphView.beginMonthDay = EWMonthDayNext(span.beginMonthDay);

@@ -80,15 +80,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	CGGradientRelease(gradient);
 	CGContextRelease(ctxt);
 	CGColorSpaceRelease(colorSpace);
-
-#if TARGET_IPHONE_SIMULATOR
-	// 3.0 CFVersion 478.470000
-	// 3.1 CFVersion 478.520000
-	if (kCFCoreFoundationVersionNumber == 478.47) {
-		CFRetain(CGImageGetDataProvider(mask));
-	}
-#endif
 	
+	BugFixRetainImageDataProvider(mask);
+
 	return mask;
 }
 
