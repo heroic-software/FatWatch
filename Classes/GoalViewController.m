@@ -55,6 +55,26 @@
  */
 
 
+@interface EWRatePickerRow : BRTableNumberPickerRow
+{
+}
+@end
+
+
+@implementation EWRatePickerRow
+- (void)didSelect {
+	if ([self.value floatValue] < 0) {
+		self.minimumValue = -1000 * self.increment;
+		self.maximumValue = -self.increment;
+	} else {
+		self.minimumValue = self.increment;
+		self.maximumValue = 1000 * self.increment;
+	}
+	[super didSelect];
+}
+@end
+
+
 @implementation GoalViewController
 
 
@@ -65,7 +85,10 @@
 }
 
 
-- (void)addWeightRowsToSection:(BRTableSection *)section {
+- (void)addGoalSection {
+	BRTableSection *section = [self addNewSection];
+	section.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
+
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Goal Weight", @"Goal end weight");
 	weightRow.object = [EWGoal sharedGoal];
@@ -116,19 +139,9 @@
 }
 
 
-- (void)addNoGoalSection {
-	BRTableSection *goalSection = [self addNewSection];
-	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
-	
-	[self addWeightRowsToSection:goalSection];
-}
-
-
-- (void)addGoalSection {
-	BRTableSection *goalSection = [self addNewSection];
-	goalSection.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
-
-	[self addWeightRowsToSection:goalSection];
+- (void)addPlanSection {
+	BRTableSection *planSection = [self addNewSection];
+	planSection.headerTitle = NSLocalizedString(@"Plan", @"Goal plan section title");
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
@@ -136,17 +149,10 @@
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	dateRow.minimumDate = EWDateFromMonthDay(EWMonthDayNext(EWMonthDayToday()));
-	[goalSection addRow:dateRow animated:NO];
+	[planSection addRow:dateRow animated:NO];
 	[dateRow release];
-}
 
-
-- (void)addPlanSection {
-	BRTableSection *planSection = [self addNewSection];
-	planSection.headerTitle = NSLocalizedString(@"Plan", @"Goal plan section title");
-	planSection.footerTitle = NSLocalizedString(@"Change the plan to update your goal date.", @"Goal plan section footer");
-	
-	BRTableNumberPickerRow *energyRow = [[BRTableNumberPickerRow alloc] init];
+	BRTableNumberPickerRow *energyRow = [[EWRatePickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
 	energyRow.object = [EWGoal sharedGoal];
 	energyRow.key = @"weightChangePerDay";
@@ -158,7 +164,7 @@
 	[planSection addRow:energyRow animated:NO];
 	[energyRow release];
 	
-	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
+	BRTableNumberPickerRow *weightRow = [[EWRatePickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"weightChangePerDay";
@@ -209,11 +215,9 @@
 	
 	if (needsUpdate) {
 		[self removeAllSections];
+		[self addGoalSection];
 		if (goalDefined) {
-			[self addGoalSection];
 			[self addPlanSection];
-		} else {
-			[self addNoGoalSection];
 		}
 		needsReload = YES;
 		isSetupForGoal = goalDefined;
