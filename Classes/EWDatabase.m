@@ -179,8 +179,7 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
-- (float)latestWeight {
-	EWMonthDay startMonthDay = EWMonthDayToday();
+- (float)trendValueOnMonthDay:(EWMonthDay)startMonthDay {
 	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(startMonthDay)];
 	float w;
 	
@@ -189,6 +188,11 @@ static EWDatabase *gSharedDB = nil;
 	
 	w = [dbm inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
 	return w;
+}
+
+
+- (float)latestWeight {
+	return [self trendValueOnMonthDay:EWMonthDayToday()];
 }
 
 
@@ -253,14 +257,17 @@ static EWDatabase *gSharedDB = nil;
 	NSParameterAssert(maxWeight);
 	
 	SQLiteStatement *stmt;
+	float beginTrend;
 	
 	if (beginMonthDay == 0 || endMonthDay == 0) {
 		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days"];
+		beginTrend = 0;
 	} else {
-		// If time frame is limited, trend should be taken into account.
 		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
 		[stmt bindInt:beginMonthDay toParameter:1];
 		[stmt bindInt:endMonthDay toParameter:2];
+		// If time frame is limited, trend should be taken into account.
+		beginTrend = [self trendValueOnMonthDay:beginMonthDay];
 	}
 	
 	if ([stmt step]) {
@@ -270,6 +277,11 @@ static EWDatabase *gSharedDB = nil;
 	} else {
 		*minWeight = 0;
 		*maxWeight = 0;
+	}
+	
+	if (beginTrend > 0) {
+		*minWeight = MIN(*minWeight, beginTrend);
+		*maxWeight = MAX(*maxWeight, beginTrend);
 	}
 }
 
