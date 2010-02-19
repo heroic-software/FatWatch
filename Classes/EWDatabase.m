@@ -257,15 +257,15 @@ static EWDatabase *gSharedDB = nil;
 	if (beginMonthDay == 0 || endMonthDay == 0) {
 		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days"];
 	} else {
-		// TODO: If time frame is limited, trend will need to be taken into account.
+		// If time frame is limited, trend should be taken into account.
 		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
 		[stmt bindInt:beginMonthDay toParameter:1];
 		[stmt bindInt:endMonthDay toParameter:2];
 	}
 	
 	if ([stmt step]) {
-		*minWeight = [stmt isNullColumn:0] ? 0 : [stmt intValueOfColumn:0];
-		*maxWeight = [stmt isNullColumn:1] ? 0 : [stmt intValueOfColumn:1];
+		*minWeight = [stmt doubleValueOfColumn:0];
+		*maxWeight = [stmt doubleValueOfColumn:1];
 		[stmt reset];
 	} else {
 		*minWeight = 0;
@@ -280,8 +280,8 @@ static EWDatabase *gSharedDB = nil;
 	
 	SQLiteStatement *stmt = [db statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM days"];
 	if ([stmt step]) {
-		*beginMonthDay = [stmt isNullColumn:0] ? 0 : [stmt intValueOfColumn:0];
-		*endMonthDay = [stmt isNullColumn:1] ? 0 : [stmt intValueOfColumn:1];
+		*beginMonthDay = [stmt intValueOfColumn:0];
+		*endMonthDay = [stmt intValueOfColumn:1];
 		[stmt reset];
 	} else {
 		*beginMonthDay = 0;
