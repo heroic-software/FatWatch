@@ -13,9 +13,16 @@
 #import "EWWeightFormatter.h"
 #import "SlopeComputer.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "BRColorPalette.h"
 
 
 static NSOperationQueue *gDrawingQueue = nil;
+
+
+static const CGFloat kGraphMarginTop = 32;
+static const CGFloat kGraphMarginBottom = 24;
+static const CGFloat kGraphMarginRight = 24;
+static const CGFloat kBandHeight = 4;
 
 
 static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
@@ -134,10 +141,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays {
-	const CGFloat kGraphMarginTop = 32;
-	const CGFloat kGraphMarginBottom = 16;
-	const CGFloat kGraphMarginRight = 24;
-	
 	// Assumes minWeight and maxWeight have already been set, but need adjusting
 	// Does not set: shouldDrawNoDataWarning
 
@@ -233,6 +236,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
+	flagData = [[NSMutableData alloc] initWithCapacity:32];
 	
 	EWDBMonth *data = nil;
 	EWMonthDay md;
@@ -246,8 +250,17 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
-			gp.flag = (dd->flags[0] || dd->flags[1] || dd->flags[2] || dd->flags[3]);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
+		}
+		unsigned char flagBits = ((dd->flags[0] ? 1 : 0) |
+								  (dd->flags[1] ? 2 : 0) |
+								  (dd->flags[2] ? 4 : 0) |
+								  (dd->flags[3] ? 8 : 0));
+		if (flagBits) {
+			FlagPoint fp;
+			fp.x = x;
+			fp.bits = flagBits;
+			[flagData appendBytes:&fp length:sizeof(FlagPoint)];
 		}
 		x += 1;
 	}
@@ -375,7 +388,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 }
 
 
-- (CGPathRef)newMarksPathUsingFlaggedPoints:(BOOL)filter {
+- (CGPathRef)newMarksPath {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	const CGFloat markRadius = 0.5 * MIN(kDayWidth, p->scaleX);
@@ -385,18 +398,16 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		const GraphPoint *gp = [pointData bytes];
 		int k;
 		for (k = 0; k < gpCount; k++) {
-			if (gp[k].flag == filter) {
-				CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
-				scalePoint.x = roundf(scalePoint.x);
-				scalePoint.y = roundf(scalePoint.y);
+			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
+			scalePoint.x = roundf(scalePoint.x);
+			scalePoint.y = roundf(scalePoint.y);
 
-				// Rhombus
-				CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
-				CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
-				CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
-				CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
-				CGPathCloseSubpath(path);
-			}
+			// Rhombus
+			CGPathMoveToPoint(path, NULL, scalePoint.x, scalePoint.y + markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x + markRadius, scalePoint.y);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x, scalePoint.y - markRadius);
+			CGPathAddLineToPoint(path, NULL, scalePoint.x - markRadius, scalePoint.y);
+			CGPathCloseSubpath(path);
 		}
 	}
 	
@@ -482,6 +493,37 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGPathAddLineToPoint(path, &p->t, xMax, y);
 	
 	return path;
+}
+
+
+- (void)drawFlagBandsInContext:(CGContextRef)ctxt {
+	const NSUInteger fpCount = [flagData length] / sizeof(FlagPoint);
+	const FlagPoint *fp = [flagData bytes];
+	for (int f = 0; f < 4; f++) {
+		unsigned char mask = (1 << f);
+		CGMutablePathRef flagPath = CGPathCreateMutable();
+		CGRect rect = CGRectMake(0, CGRectGetMaxY(bounds) - (kBandHeight*(4-f)), p->scaleX, kBandHeight);
+		for (int k = 0; k < fpCount; k++) {
+			if (fp[k].bits & mask) {
+				rect.origin.x = ((fp[k].x - 1) * p->scaleX);
+				CGPathAddRect(flagPath, NULL, rect);
+			}
+		}
+		rect.origin.x = 0;
+		rect.size.width = CGRectGetWidth(bounds);
+		
+		NSString *colorName = [NSString stringWithFormat:@"Flag%d", f];
+		UIColor *color = [BRColorPalette colorNamed:colorName];
+		
+		CGContextSetFillColorWithColor(ctxt, [[color colorWithAlphaComponent:0.3] CGColor]);
+		CGContextFillRect(ctxt, rect);
+		
+		CGContextSetFillColorWithColor(ctxt, [color CGColor]);
+		CGContextAddPath(ctxt, flagPath);
+		CGContextFillPath(ctxt);
+		
+		CGPathRelease(flagPath);
+	}
 }
 
 
@@ -607,30 +649,22 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
 		
-		// weight marks: colored centers (white or yellow)
-		// weight marks: outlines and error lines
-
 		if (drawMarks) {
 			CGContextSetLineWidth(ctxt, 1.5f);
-			CGContextSetRGBStrokeColor(ctxt, 0,0,0, 1.0);
-			
-			CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0); // white for unflagged
-			CGPathRef unflaggedMarksPath = [self newMarksPathUsingFlaggedPoints:NO];
-			CGContextAddPath(ctxt, unflaggedMarksPath);
+			CGContextSetRGBStrokeColor(ctxt, 0, 0, 0, 1.0);
+			CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0);
+			CGPathRef marksPath = [self newMarksPath];
+			CGContextAddPath(ctxt, marksPath);
 			CGContextDrawPath(ctxt, kCGPathFillStroke);
-			CGPathRelease(unflaggedMarksPath);
-
-			CGContextSetRGBFillColor(ctxt, 0.4, 0.4, 0.4, 1.0); // almost-black for flagged
-			CGPathRef flaggedMarksPath = [self newMarksPathUsingFlaggedPoints:YES];
-			CGContextAddPath(ctxt, flaggedMarksPath);
-			CGContextDrawPath(ctxt, kCGPathFillStroke);
-			CGPathRelease(flaggedMarksPath);
+			CGPathRelease(marksPath);
 		}
 		
 		CGContextRestoreGState(ctxt);
 	} else if (p->shouldDrawNoDataWarning) {
 		[self drawNoDataWarningInContext:ctxt];
 	}
+	
+	[self drawFlagBandsInContext:ctxt];
 		
     imageRef = CGBitmapContextCreateImage(ctxt);
 
@@ -655,6 +689,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (void)dealloc {
 	CGImageRelease(imageRef);
 	[pointData release];
+	[flagData release];
 	[super dealloc];
 }
 

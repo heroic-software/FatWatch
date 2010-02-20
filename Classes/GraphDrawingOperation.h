@@ -28,8 +28,13 @@ typedef struct {
 typedef struct {
 	CGPoint scale;
 	CGPoint trend;
-	BOOL flag;
 } GraphPoint;
+
+
+typedef struct {
+	CGFloat x;
+	unsigned char bits;
+} FlagPoint;
 
 
 #define kDayWidth 8.0f
@@ -44,6 +49,7 @@ typedef struct {
 	CGRect bounds;
 	CGImageRef imageRef;
 	NSMutableData *pointData;
+	NSMutableData *flagData;
 	NSUInteger dayCount;
 	CGPoint headPoint;
 	CGPoint tailPoint;
