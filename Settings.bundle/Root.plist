@@ -113,6 +113,16 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>CHART_FIT_GOAL</string>
+			<key>Key</key>
+			<string>ChartFitGoal</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>NETWORK</string>
 			<key>Type</key>

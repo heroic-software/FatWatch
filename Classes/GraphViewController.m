@@ -15,6 +15,7 @@
 #import "LogViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
+#import "EWGoal.h"
 
 
 enum {
@@ -161,6 +162,14 @@ enum {
 	if (minWeight == 0 || maxWeight == 0) {
 		minWeight = 150;
 		maxWeight = 150;
+	}
+	
+	if ([[NSUserDefaults standardUserDefaults] fitGoalOnChart]) {
+		EWGoal *goal = [EWGoal sharedGoal];
+		if (goal.defined) {
+			minWeight = MIN(minWeight, goal.endWeight);
+			maxWeight = MAX(maxWeight, goal.endWeight);
+		}
 	}
 	
 	parameters.minWeight = minWeight;

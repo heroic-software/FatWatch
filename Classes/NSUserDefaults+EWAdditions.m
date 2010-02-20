@@ -232,6 +232,11 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 }
 
 
+- (BOOL)fitGoalOnChart {
+	return [self boolForKey:@"ChartFitGoal"];
+}
+
+
 - (BOOL)isLadderEnabled {
 	return [self boolForKey:@"EnableLadder"];
 }

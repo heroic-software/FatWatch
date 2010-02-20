@@ -58,6 +58,7 @@ typedef enum {
 - (BOOL)isNumericFlag:(int)which;
 @property (nonatomic,readonly) BOOL highlightWeekends;
 @property (nonatomic,readonly) BOOL highlightBMIZones;
+@property (nonatomic,readonly) BOOL fitGoalOnChart;
 @property (nonatomic,getter=isLadderEnabled) BOOL ladderEnabled;
 @property (nonatomic,copy) NSDictionary *registration;
 @end
