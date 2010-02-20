@@ -101,8 +101,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	CGRect rect;
 	UIColor *color;
-	
-	CGRect wholeRect = CGRectMake(0, gp->minWeight, width, gp->maxWeight - gp->minWeight);
+	CGFloat bandWeight = ((kBandHeight * 4) / gp->scaleY);
+	CGRect wholeRect = CGRectMake(0,
+								  gp->minWeight + bandWeight,
+								  width,
+								  gp->maxWeight - gp->minWeight - bandWeight);
 	
 	if (w[0] > gp->minWeight) {
 		rect = CGRectMake(0, gp->minWeight, width, w[0] - gp->minWeight);
@@ -524,6 +527,12 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
 		CGPathRelease(flagPath);
 	}
+	CGFloat y = CGRectGetMaxY(bounds) - (kBandHeight * 4) - 0.5;
+	CGContextMoveToPoint(ctxt, 0, y);
+	CGContextAddLineToPoint(ctxt, CGRectGetWidth(bounds), y);
+	CGContextSetLineWidth(ctxt, 1);
+	CGContextSetRGBStrokeColor(ctxt, 0.3, 0.3, 0.3, 1);
+	CGContextStrokePath(ctxt);
 }
 
 
