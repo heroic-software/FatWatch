@@ -204,16 +204,16 @@ static NSInteger gAuxiliaryInfoType;
 	const CGFloat auxiliaryX = weightX + weightWidth + 4;
 	static const CGFloat auxiliaryWidth = 117;
 	
-	static const CGFloat numberRowY = 18;
+	static const CGFloat numberRowY = 13;
 	static const CGFloat numberRowHeight = 24;
 	
 	static const CGFloat flagWidth = 20;
 	const CGFloat flagX = cellWidth - flagWidth;
 
 	const CGFloat noteX = dateWidth + 4;
-	const CGFloat noteY = numberRowY + numberRowHeight;
 	const CGFloat noteWidth = cellWidth - noteX - flagWidth;
-	const CGFloat noteHeight = cellHeight - noteY;
+	const CGFloat noteHeight = 16;
+	const CGFloat noteY = cellHeight - noteHeight;
 	
 	BOOL inverse = cell.highlighted || cell.selected;
 	
@@ -229,11 +229,11 @@ static NSInteger gAuxiliaryInfoType;
 			UIRectFill(CGRectMake(0, 0, dateWidth, cellHeight));
 			[[UIColor blackColor] set];
 		}
-		[weekday drawInRect:CGRectMake(0, 10, dateWidth, 15)
+		[weekday drawInRect:CGRectMake(0, 5, dateWidth, 15)
 				   withFont:[UIFont systemFontOfSize:12]
 			  lineBreakMode:UILineBreakModeClip
 				  alignment:UITextAlignmentCenter];
-		[day drawInRect:CGRectMake(0, 26, dateWidth, 24)
+		[day drawInRect:CGRectMake(0, 21, dateWidth, 24)
 			   withFont:[UIFont systemFontOfSize:20]
 		  lineBreakMode:UILineBreakModeClip 
 			  alignment:UITextAlignmentCenter];
@@ -306,14 +306,15 @@ static NSInteger gAuxiliaryInfoType;
 	}
 	
 	{
+		static const float flagMargin = 4.5;
 		int f;
-		CGRect rect = CGRectMake(flagX, 4, flagWidth, cellHeight);
+		CGRect rect = CGRectMake(flagX, flagMargin, flagWidth, cellHeight);
 
 		rect.origin.x += roundf((flagWidth - 15) / 2);
 		rect.size.width = 15;
-		rect.size.height = 13;
+		rect.size.height = 10;
 
-		static const CGFloat R = 5;
+		const CGFloat R = 5;
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathMoveToPoint(path, NULL,    -R, -R);
 		CGPathAddLineToPoint(path, NULL,  R, -R);
@@ -324,7 +325,11 @@ static NSInteger gAuxiliaryInfoType;
 		CGContextRef ctxt = UIGraphicsGetCurrentContext();
 		CGContextSetLineWidth(ctxt, 1);
 		
-		[(inverse ? [UIColor whiteColor] : [UIColor blackColor]) setStroke];
+		if (inverse) {
+			CGContextSetRGBStrokeColor(ctxt, 1, 1, 1, 1);
+		} else {
+			CGContextSetRGBStrokeColor(ctxt, 0.8, 0.8, 0.8, 1);
+		}
 		
 		for (f = 0; f < 4; f++) {
 			NSString *key = [NSString stringWithFormat:@"Flag%d", f];
@@ -333,7 +338,12 @@ static NSInteger gAuxiliaryInfoType;
 			
 			if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
 				if (inverse) [[UIColor whiteColor] setFill];
-				NSString *string = [NSString stringWithFormat:@"%d", value];
+				NSString *string;
+				if (value) {
+					string = [NSString stringWithFormat:@"%d", value];
+				} else {
+					string = @"\xe2\x97\x86"; // LOZENGE
+				}
 				[string drawInRect:rect 
 						  withFont:[UIFont boldSystemFontOfSize:12]
 					 lineBreakMode:UILineBreakModeClip
