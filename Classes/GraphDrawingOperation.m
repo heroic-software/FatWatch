@@ -502,11 +502,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (void)drawFlagBandsInContext:(CGContextRef)ctxt {
 	const NSUInteger fpCount = [flagData length] / sizeof(FlagPoint);
 	const FlagPoint *fp = [flagData bytes];
-	for (int f = 0; f < 4; f++) {
+	int f;
+	for (f = 0; f < 4; f++) {
 		unsigned char mask = (1 << f);
 		CGMutablePathRef flagPath = CGPathCreateMutable();
 		CGRect rect = CGRectMake(0, CGRectGetMaxY(bounds) - (kBandHeight*(4-f)), p->scaleX, kBandHeight);
-		for (int k = 0; k < fpCount; k++) {
+		int k;
+		for (k = 0; k < fpCount; k++) {
 			if (fp[k].bits & mask) {
 				rect.origin.x = ((fp[k].x - 1) * p->scaleX);
 				CGPathAddRect(flagPath, NULL, rect);
