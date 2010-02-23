@@ -47,7 +47,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 + (UIColor *)backgroundColorForWeight:(float)weight {
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		return [[self colorForWeight:weight] colorWithAlphaComponent:0.4f];
+		return [[self colorForWeight:weight] colorWithAlphaComponent:0.2f];
 	}
 	return [UIColor clearColor];
 }

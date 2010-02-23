@@ -577,7 +577,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	if ([p->regions count] > 0) {
 		static const CGFloat clearColorComponents[] = { 0, 0, 0, 0 };
-		static const CGFloat gradientLocations[] = { 0.4, 1 };
+		static const CGFloat gradientLocations[] = { 0, 1 };
 
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CFMutableArrayRef colorArray = CFArrayCreateMutable(kCFAllocatorDefault, 2, &kCFTypeArrayCallBacks);
