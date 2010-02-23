@@ -603,10 +603,15 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CFRelease(colorArray);
 		CGColorSpaceRelease(colorSpace);
 	}
-		
+
+	const CGFloat kZoomScale = MIN(p->scaleX / kDayWidth, 1.0f);
+	const CGFloat kTrendLineWidth = MAX(2.0f, 3.0f * kZoomScale);
+	const CGFloat kMarkLineWidth = MAX(1.0f, 1.5f * kZoomScale);
+	const CGFloat kErrorLineWidth = MAX(0.5f, 2.0f * kZoomScale);
+	
 	static const CGFloat kDashLengths[] = { 6, 3 };
 	static const int kDashLengthsCount = 2;
-	CGContextSetLineWidth(ctxt, 3);
+	CGContextSetLineWidth(ctxt, kTrendLineWidth);
 	CGContextSetLineDash(ctxt, 6, kDashLengths, kDashLengthsCount);
 	if (showTrajectoryLine) {
 		CGPathRef trajPath = [self newTrajectoryPath];
@@ -636,7 +641,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
 		if (drawMarks) {
 			CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
-			CGContextSetLineWidth(ctxt, 2.0f);
+			CGContextSetLineWidth(ctxt, kErrorLineWidth);
 			CGPathRef errorLinesPath = [self newErrorLinesPath];
 			CGContextAddPath(ctxt, errorLinesPath);
 			CGContextStrokePath(ctxt);
@@ -646,14 +651,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		// trend line
 		
 		CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
-		CGContextSetLineWidth(ctxt, 3.0f);
+		CGContextSetLineWidth(ctxt, kTrendLineWidth);
 		CGPathRef trendPath = [self newTrendPath];
 		CGContextAddPath(ctxt, trendPath);
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
 		
 		if (drawMarks) {
-			CGContextSetLineWidth(ctxt, 1.5f);
+			CGContextSetLineWidth(ctxt, kMarkLineWidth);
 			CGContextSetRGBStrokeColor(ctxt, 0, 0, 0, 1.0);
 			CGContextSetRGBFillColor(ctxt, 1.0, 1.0, 1.0, 1.0);
 			CGPathRef marksPath = [self newMarksPath];
