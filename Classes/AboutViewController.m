@@ -91,6 +91,7 @@
 	row.title = @"Benjamin Ragheb";
 	row.detail = @"Design & Engineering";
 	row.object = [NSURL URLWithString:@"http://www.benzado.com/"];
+	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
 	[row release];
 	
@@ -102,6 +103,7 @@
 	row.title = @"Steve Dressler";
 	row.detail = @"Icon Design";
 	row.object = [NSURL URLWithString:@"http://stevedressler.wordpress.com/"];
+	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
 	[row release];
 		
@@ -113,6 +115,7 @@
 	row.title = @"Joseph Wain";
 	row.detail = @"Glyphish Icon Collection";
 	row.object = [NSURL URLWithString:@"http://glyphish.com/"];
+	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
 	[row release];
 
@@ -121,6 +124,7 @@
 	row.title = @"John Walker";
 	row.detail = @"The Hacker\xe2\x80\x99s Diet";
 	row.object = [NSURL URLWithString:BOOK_WELCOME_URL];
+	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
 	[row release];
 }
@@ -128,13 +132,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[self updateRegistrationInfo];
-}
-
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	// Release any cached data, images, etc that aren't in use.
 }
 
 
