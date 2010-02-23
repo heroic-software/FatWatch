@@ -48,7 +48,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"More", @"More view title");
 		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
-		if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
+		if ([[NSUserDefaults standardUserDefaults] showRegistrationReminder]) {
 			self.tabBarItem.badgeValue = kBadgeValueUnregistered;
 		}
 	}
@@ -251,8 +251,11 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[super viewDidAppear:animated];
 	BRTableSection *aboutSection = [self sectionAtIndex:kSectionAbout];
 	if ([aboutSection numberOfRows] > 1) {
-		if ([[NSUserDefaults standardUserDefaults] registration]) {
+		NSUserDefaults *userDefs = [NSUserDefaults standardUserDefaults];
+		if ([userDefs registration]) {
 			[aboutSection removeRowAtIndex:1 animated:YES];
+		}
+		if (![userDefs showRegistrationReminder]) {
 			self.tabBarItem.badgeValue = nil;
 		}
 	}

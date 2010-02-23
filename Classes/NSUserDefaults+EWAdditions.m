@@ -257,4 +257,14 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 }
 
 
+- (BOOL)showRegistrationReminder {
+	return [self boolForKey:@"RegistrationReminder"];
+}
+
+
+- (void)setShowRegistrationReminder:(BOOL)flag {
+	[self setBool:flag forKey:@"RegistrationReminder"];
+}
+
+
 @end

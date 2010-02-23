@@ -97,15 +97,24 @@ static RegistrationViewController *gSharedController = nil;
 		[errorToDisplay release];
 		errorToDisplay = nil;
 	} else {
-		NSString *isRegistered = [webView stringByEvaluatingJavaScriptFromString:@"isRegistered"];
-		if ([isRegistered boolValue]) {
-			NSString *name = [webView stringByEvaluatingJavaScriptFromString:@"registeredToName"];
-			NSString *email = [webView stringByEvaluatingJavaScriptFromString:@"registeredToEmail"];
-			NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-								  name, @"name",
-								  email, @"email",
-								  nil];
+		NSString *bodyID = [webView stringByEvaluatingJavaScriptFromString:@"document.body.id"];
+		if ([@"registrationForm" isEqualToString:bodyID]) {
+			[[NSUserDefaults standardUserDefaults] setShowRegistrationReminder:NO];
+		}
+		else if ([@"registrationComplete" isEqualToString:bodyID]) {
+			NSString *keyString = [webView stringByEvaluatingJavaScriptFromString:
+								   @"z = [];"
+								   @"for (k in registration) { z.push(k); };"
+								   @"z.join(\"\\0\");"
+								   ];
+			NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+			for (NSString *key in [keyString componentsSeparatedByString:@"\0"]) {
+				NSString *keyPath = [@"registration." stringByAppendingString:key];
+				NSString *eval = [webView stringByEvaluatingJavaScriptFromString:keyPath];
+				[info setObject:eval forKey:key];
+			}
 			[[NSUserDefaults standardUserDefaults] setRegistration:info];
+			[info release];
 		}
 	}
 }

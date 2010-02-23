@@ -61,4 +61,5 @@ typedef enum {
 @property (nonatomic,readonly) BOOL fitGoalOnChart;
 @property (nonatomic,getter=isLadderEnabled) BOOL ladderEnabled;
 @property (nonatomic,copy) NSDictionary *registration;
+@property (nonatomic) BOOL showRegistrationReminder;
 @end
