@@ -41,8 +41,7 @@
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
 	[df setDateFormat:@"yyyy-MM"];
 	
-	EWMonth month;
-	for (month = testdb.earliestMonth; month <= testdb.latestMonth; month++) {
+	for (EWMonth month = testdb.earliestMonth; month <= testdb.latestMonth; month++) {
 		EWDBMonth *dbm = [testdb getDBMonth:month];
 		[output appendFormat:@"%@ (#%d)\n", 
 		 [df stringFromDate:EWDateFromMonthAndDay(dbm.month, 1)],

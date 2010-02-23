@@ -170,8 +170,7 @@ enum {
 
 
 - (IBAction)toggleFlagButton:(UIButton *)sender {
-	int f;
-	for (f = 0; f < 4; f++) {
+	for (int f = 0; f < 4; f++) {
 		if (flagButtons[f] == sender) {
 			if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
 				RungEntryViewController *controller = [[RungEntryViewController alloc] init];
@@ -207,8 +206,7 @@ enum {
 		dbd.scaleFat = 0;
 	}
 	
-	int f;
-	for (f = 0; f < 4; f++) {
+	for (int f = 0; f < 4; f++) {
 		if ([[NSUserDefaults standardUserDefaults] isNumericFlag:f]) {
 			dbd.flags[f] = [[flagButtons[f] titleForState:UIControlStateNormal] intValue];
 		} else {
@@ -319,8 +317,7 @@ enum {
 	
 	[self toggleWeight];
 
-	int f;
-	for (f = 0; f < 4; f++) {
+	for (int f = 0; f < 4; f++) {
 		[self setValue:dd->flags[f] forFlagIndex:f];
 	}
 	

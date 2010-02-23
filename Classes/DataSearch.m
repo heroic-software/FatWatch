@@ -24,15 +24,13 @@
 		const NSUInteger needleLength = [needle length];
 		const NSUInteger needleLastIndex = needleLength - 1;
 
-		NSUInteger i;
-
 		// by default, if we hit a character that isn't in the pattern, we advance the length of the pattern
-		for (i = 0; i < 256; i++) {
+		for (int i = 0; i < 256; i++) {
 			skipTable[i] = needleLength;
 		}
 		
 		// if the character is in the pattern, we only jump ahead so that it may match
-		for (i = 0; i < needleLastIndex; i++) {
+		for (int i = 0; i < needleLastIndex; i++) {
 			skipTable[needleBytes[i]] = needleLastIndex - i;
 		}
 	}

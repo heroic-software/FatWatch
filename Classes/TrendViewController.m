@@ -124,8 +124,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		spanArray = [[TrendSpan computeTrendSpans] copy];
 		int length = [[NSUserDefaults standardUserDefaults] integerForKey:kTrendSpanLengthKey];
 		if (length > 0) {
-			int i;
-			for (i = 0; i < [spanArray count]; i++) {
+			for (int i = 0; i < [spanArray count]; i++) {
 				// Allow length to be off by a few days
 				if (ABS([[spanArray objectAtIndex:i] length] - length) < 7) {
 					spanIndex = i;

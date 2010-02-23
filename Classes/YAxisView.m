@@ -51,8 +51,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	[[UIColor blackColor] setFill];
-	float w;
-	for (w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
+	for (float w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
 		// draw tick label
 		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
 		CGSize labelSize = [label sizeWithFont:labelFont];
@@ -71,7 +70,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 	
 	// minor ticks
 	float incr = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
-	for (w = p->gridMinWeight; w < p->maxWeight; w += incr) {
+	for (float w = p->gridMinWeight; w < p->maxWeight; w += incr) {
 		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gMinorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);

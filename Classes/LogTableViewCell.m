@@ -307,7 +307,6 @@ static NSInteger gAuxiliaryInfoType;
 	
 	{
 		static const float flagMargin = 4.5;
-		int f;
 		CGRect rect = CGRectMake(flagX, flagMargin, flagWidth, cellHeight);
 
 		rect.origin.x += roundf((flagWidth - 15) / 2);
@@ -331,7 +330,7 @@ static NSInteger gAuxiliaryInfoType;
 			CGContextSetRGBStrokeColor(ctxt, 0.8, 0.8, 0.8, 1);
 		}
 		
-		for (f = 0; f < 4; f++) {
+		for (int f = 0; f < 4; f++) {
 			NSString *key = [NSString stringWithFormat:@"Flag%d", f];
 			[[BRColorPalette colorNamed:key] setFill];
 			EWFlagValue value = dd->flags[f];

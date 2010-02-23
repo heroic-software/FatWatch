@@ -62,8 +62,7 @@ enum {
 		scrollingSpanSavedOffset = scrollView.contentOffset;
 	}
 
-	int i;
-	for (i = 0; i < infoCount; i++) {
+	for (int i = 0; i < infoCount; i++) {
 		GraphViewInfo *ginfo = &info[i];
 		[ginfo->view removeFromSuperview];
 		[ginfo->view release];
@@ -185,8 +184,7 @@ enum {
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
 		EWMonth m = db.earliestMonth;
 		CGFloat x = 0;
-		int i;
-		for (i = 0; i < infoCount; i++) {
+		for (int i = 0; i < infoCount; i++) {
 			NSInteger days = EWDaysInMonth(m);
 			CGFloat w = parameters.scaleX * days;
 			
@@ -265,8 +263,7 @@ enum {
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	int index;
-	for (index = 0; index < infoCount; index++) {
+	for (int index = 0; index < infoCount; index++) {
 		GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil && ginfo->imageRef != NULL) {
 			CGImageRelease(ginfo->imageRef);
@@ -412,19 +409,17 @@ enum {
 		}
 	}
 	
-	int index;
-
 	// move non-visible views into cache
-	for (index = minIndex - 1; index >= lastMinIndex; index--) {
+	for (int index = minIndex - 1; index >= lastMinIndex; index--) {
 		[self cacheViewAtIndex:index];
 	}
-	for (index = maxIndex + 1; index <= lastMaxIndex; index++) {
+	for (int index = maxIndex + 1; index <= lastMaxIndex; index++) {
 		[self cacheViewAtIndex:index];
 	}
 
 	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 
-	for (index = minIndex; index <= maxIndex; index++) {
+	for (int index = minIndex; index <= maxIndex; index++) {
 		GraphViewInfo *ginfo = &info[index];
 		if (ginfo->view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];

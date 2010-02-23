@@ -99,11 +99,10 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)updateDigitViews {
-	int i;
 	UIImage *img0 = [UIImage imageNamed:@"Passcode0.png"];
 	UIImage *img1 = [UIImage imageNamed:@"Passcode1.png"];
 	
-	for (i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		UIImageView *digitView = digitViews[i];
 		digitView.image = ([codeField.text length] > i) ? img1 : img0;
 	}

@@ -96,8 +96,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 
 - (NSArray *)orderedFieldNames {
 	NSMutableArray *names = [NSMutableArray array];
-	int i;
-	for (i = 0; i < fieldCount; i++) {
+	for (int i = 0; i < fieldCount; i++) {
 		EWExporterField f = fieldOrder[i];
 		[names addObject:fieldNames[f]];
 	}
@@ -134,18 +133,16 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 	while (dbm && dbm.month <= endMonth) {
 		EWDay firstDay = (dbm.month == beginMonth) ? beginDay : 1;
 		EWDay lastDay = (dbm.month == endMonth) ? endDay : 31;
-		EWDay day;
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		for (day = firstDay; day <= lastDay; day++) {
+		for (EWDay day = firstDay; day <= lastDay; day++) {
 			if (! [dbm hasDataOnDay:day]) continue;
 			
 			const EWDBDay *dd = [dbm getDBDayOnDay:day];
 			
 			[self beginRecord];
 			
-			int i;
-			for (i = 0; i < fieldCount; i++) {
+			for (int i = 0; i < fieldCount; i++) {
 				EWExporterField f = fieldOrder[i];
 				id value;
 				
@@ -250,8 +247,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 
 
 - (void)dealloc {
-	int i;
-	for (i = 0; i < EWExporterFieldCount; i++) {
+	for (int i = 0; i < EWExporterFieldCount; i++) {
 		[fieldNames[i] release];
 		[fieldFormatters[i] release];
 	}

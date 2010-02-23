@@ -114,8 +114,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (EWDay)firstDayWithWeight {
-	int i;
-	for (i = 0; i < 31; i++) {
+	for (int i = 0; i < 31; i++) {
 		if (days[i].scaleWeight > 0) return (i + 1);
 	}
 	return 0;
@@ -123,8 +122,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (EWDay)lastDayWithWeight {
-	int i;
-	for (i = 30; i >= 0; i--) {
+	for (int i = 30; i >= 0; i--) {
 		if (days[i].scaleWeight > 0) return (i + 1);
 	}
 	return 0;
@@ -135,8 +133,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 - (float)inputTrendOnDay:(EWDay)day {
 	// First, search backwards through this month for a trend value.
 	
-	int i;
-	for (i = (day - 1) - 1; i >= 0; i--) {
+	for (int i = (day - 1) - 1; i >= 0; i--) {
 		float trend = days[i].trendWeight;
 		if (trend > 0) return trend;
 	}
@@ -158,26 +155,20 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (float)latestFatBeforeDay:(EWDay)day {
-	int i;
-	
-	for (i = (day - 1) - 1; i >= 0; i--) {
+	for (int i = (day - 1) - 1; i >= 0; i--) {
 		float fat = days[i].scaleFat;
 		if (fat > 0) return fat;
 	}
-
 	return [database latestFatBeforeMonth:month];
 }
 
 
 - (BOOL)didRecordFatBeforeDay:(EWDay)day {
-	int i;
-	
-	for (i = (day - 1) - 1; i >= 0; i--) {
+	for (int i = (day - 1) - 1; i >= 0; i--) {
 		if (days[i].scaleWeight > 0) {
 			return days[i].scaleFat > 0;
 		}
 	}
-	
 	return [database didRecordFatBeforeMonth:month];
 }
 
@@ -231,7 +222,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	
 	SQLiteStatement *insertStmt = [database insertDayStatement];
 	SQLiteStatement *deleteStmt = [database deleteDayStatement];
-	
+
 	int i;
 	UInt32 bits;
 	for (i = 0, bits = dirtyBits; (bits != 0); i++, bits >>= 1) {
@@ -274,7 +265,6 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 - (void)updateTrendsSaveOutput:(BOOL)saveOutput {
 	float tw, tf;
-	int i;
 	
 	SQLiteStatement *stmt = [database selectMonthStatement];
 	[stmt bindInt:month toParameter:1];
@@ -287,7 +277,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		tf = 0;
 	}
 	
-	for (i = 0; i < 31; i++) {
+	for (int i = 0; i < 31; i++) {
 		struct EWDBDay *d = &days[i];
 		EWDBUpdateTrendValue(d->scaleWeight, &d->trendWeight, &tw);
 		EWDBUpdateTrendValue(d->scaleFat, &d->trendFat, &tf);

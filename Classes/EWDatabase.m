@@ -313,8 +313,7 @@ static EWDatabase *gSharedDB = nil;
 - (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)mdStart {
 	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) - 1, 1);
 	EWDBMonth *dbm = nil;
-	EWMonthDay md;
-	for (md = EWMonthDayPrevious(mdStart); md >= mdStop; md = EWMonthDayPrevious(md)) {
+	for (EWMonthDay md = EWMonthDayPrevious(mdStart); md >= mdStop; md = EWMonthDayPrevious(md)) {
 		if (dbm == nil || EWMonthDayGetMonth(md) != dbm.month) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
@@ -329,8 +328,7 @@ static EWDatabase *gSharedDB = nil;
 - (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)mdStart {
 	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) + 1, 31);
 	EWDBMonth *dbm = nil;
-	EWMonthDay md;
-	for (md = EWMonthDayNext(mdStart); md <= mdStop; md = EWMonthDayNext(md)) {
+	for (EWMonthDay md = EWMonthDayNext(mdStart); md <= mdStop; md = EWMonthDayNext(md)) {
 		if (dbm == nil || EWMonthDayGetDay(md) == 1) {
 			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
 		}
@@ -463,11 +461,9 @@ static EWDatabase *gSharedDB = nil;
 		[deletionCandidateIDSet addObject:[NSNumber numberWithInt:dbID]];
 	}
 
-	int section;
-	for (section = 0; section < [dataArray count]; section++) {
+	for (int section = 0; section < [dataArray count]; section++) {
 		NSArray *sectionArray = [dataArray objectAtIndex:section];
-		int row;
-		for (row = 0; row < [sectionArray count]; row++) {
+		for (int row = 0; row < [sectionArray count]; row++) {
 			id <EWEnergyEquivalent> equiv = [sectionArray objectAtIndex:row];
 			if (equiv.dbID > 0) {
 				[updateStmt bindInt:row toParameter:1];

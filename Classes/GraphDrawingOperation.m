@@ -242,8 +242,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	flagData = [[NSMutableData alloc] initWithCapacity:32];
 	
 	EWDBMonth *data = nil;
-	EWMonthDay md;
-	for (md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
+	for (EWMonthDay md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
 		EWDay day = EWMonthDayGetDay(md);
 		if (data == nil || day == 1) {
 			data = [db getDBMonth:EWMonthDayGetMonth(md)];
@@ -329,8 +328,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	// horizontal lines:
 	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
-	float w;
-	for (w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
+	for (float w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
 		CGPathMoveToPoint(gridPath, &p->t, -0.5, w);
 		CGPathAddLineToPoint(gridPath, &p->t, xMax, w);
 	}
@@ -377,8 +375,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			CGPathMoveToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
 		}
 		
-		int k;
-		for (k = 1; k < gpCount; k++) {
+		for (int k = 1; k < gpCount; k++) {
 			CGPathAddLineToPoint(path, &p->t, gp[k].trend.x, gp[k].trend.y);
 		}
 
@@ -399,8 +396,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
-		int k;
-		for (k = 0; k < gpCount; k++) {
+		for (int k = 0; k < gpCount; k++) {
 			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
 			scalePoint.x = roundf(scalePoint.x);
 			scalePoint.y = roundf(scalePoint.y);
@@ -426,8 +422,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
-		int k;
-		for (k = 0; k < gpCount; k++) {
+		for (int k = 0; k < gpCount; k++) {
 			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
 			CGPoint trendPoint = CGPointApplyAffineTransform(gp[k].trend, p->t);
 			
@@ -480,8 +475,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	SlopeComputer *sc = [[SlopeComputer alloc] init];
 	
 	const GraphPoint *gp = [pointData bytes];
-	int k;
-	for (k = 0; k < gpCount; k++) {
+	for (int k = 0; k < gpCount; k++) {
 		[sc addPoint:gp[k].trend];
 	}
 
@@ -502,13 +496,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (void)drawFlagBandsInContext:(CGContextRef)ctxt {
 	const NSUInteger fpCount = [flagData length] / sizeof(FlagPoint);
 	const FlagPoint *fp = [flagData bytes];
-	int f;
-	for (f = 0; f < 4; f++) {
+	for (int f = 0; f < 4; f++) {
 		unsigned char mask = (1 << f);
 		CGMutablePathRef flagPath = CGPathCreateMutable();
 		CGRect rect = CGRectMake(0, CGRectGetMaxY(bounds) - (kBandHeight*(4-f)), p->scaleX, kBandHeight);
-		int k;
-		for (k = 0; k < fpCount; k++) {
+		for (int k = 0; k < fpCount; k++) {
 			if (fp[k].bits & mask) {
 				rect.origin.x = ((fp[k].x - 1) * p->scaleX);
 				CGPathAddRect(flagPath, NULL, rect);

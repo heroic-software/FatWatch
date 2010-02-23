@@ -25,8 +25,7 @@
 	float v = [anObject floatValue];
 	
 	int n = [colors count] - 1;
-	int i;
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		if (v < values[i]) return [colors objectAtIndex:i];
 	}
 	

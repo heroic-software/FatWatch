@@ -29,12 +29,11 @@
 		columnNames = [[reader readRow] copy];
 		
 		NSMutableArray *samples = [[NSMutableArray alloc] init];
-		int c,r;
-		for (c = 0; c < [columnNames count]; c++) {
+		for (int c = 0; c < [columnNames count]; c++) {
 			[samples addObject:[NSMutableArray array]];
 		}
-		for (r = 0; r < 5; r++) {
-			for (c = 0; c < [columnNames count]; c++) {
+		for (int r = 0; r < 5; r++) {
+			for (int c = 0; c < [columnNames count]; c++) {
 				NSString *value = [reader readString];
 				if ([value length] > 0) {
 					[[samples objectAtIndex:c] addObject:value];
@@ -51,7 +50,7 @@
 		NSDictionary *map = [[NSDictionary alloc] initWithContentsOfFile:mapPath];
 		
 		NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
-		for (c = 0; c < [columnNames count]; c++) {
+		for (int c = 0; c < [columnNames count]; c++) {
 			NSString *name = [[columnNames objectAtIndex:c] lowercaseString];
 			NSString *field = [map objectForKey:name];
 			if (field) {
@@ -197,8 +196,7 @@
 	[columnNames release];
 	[sampleValues release];
 	[importDefaults release];
-	int f;
-	for (f = 0; f < EWImporterFieldCount; f++) {
+	for (int f = 0; f < EWImporterFieldCount; f++) {
 		[formatterForField[f] release];
 	}
 	[super dealloc];
