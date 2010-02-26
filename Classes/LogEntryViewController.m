@@ -418,7 +418,7 @@ enum {
 	if (component == 0) {
 		float weight = [self weightForPickerRow:row];
 		label.text = [weightFormatter stringForFloat:weight];
-		label.backgroundColor = [EWWeightFormatter backgroundColorForWeight:weight];
+		label.backgroundColor = [[EWWeightFormatter colorForWeight:weight] colorWithAlphaComponent:0.4f];
 	} else {
 		float bodyFat = [self bodyFatForPickerRow:row];
 		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * bodyFat)];
