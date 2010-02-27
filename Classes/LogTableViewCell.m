@@ -268,17 +268,17 @@ static NSInteger gAuxiliaryInfoType;
 				break;
 			case kFatPercentAuxiliaryInfoType:
 				auxInfoColor = [UIColor darkGrayColor];
-				if (dd->scaleFat > 0) {
+				if (dd->scaleFatRatio > 0) {
 					auxInfoString = [NSString stringWithFormat:@"%.1f%%", 
-									 100.0f * dd->scaleFat];
+									 100.0f * dd->scaleFatRatio];
 				} else {
 					auxInfoString = @"—";
 				}
 				break;
 			case kFatWeightAuxiliaryInfoType:
 				auxInfoColor = [UIColor darkGrayColor];
-				if (dd->scaleFat > 0) {
-					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * dd->scaleFat)];
+				if (dd->scaleFatRatio > 0) {
+					auxInfoString = [weightFormatter stringForFloat:(dd->scaleWeight * dd->scaleFatRatio)];
 				} else {
 					auxInfoString = @"—";
 				}

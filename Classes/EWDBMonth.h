@@ -17,9 +17,9 @@ typedef unsigned char EWFlagValue;
 
 typedef struct EWDBDay {
 	float scaleWeight;
-	float scaleFat; // scaleFat is set => scaleWeight is set
+	float scaleFatRatio; // scaleFat is set => scaleWeight is set
 	float trendWeight;
-	float trendFat;
+	float trendFatWeight;
 	NSString *note;
 	EWFlagValue flags[4];
 } EWDBDay;

@@ -66,7 +66,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			EWDay day = EWMonthDayGetDay([stmt intValueOfColumn:kMonthDayColumn]);
 			EWDBDay *d = [self accessDBDayOnDay:day];
 			d->scaleWeight = [stmt doubleValueOfColumn:kScaleWeightColumn];
-			d->scaleFat = [stmt doubleValueOfColumn:kScaleFatColumn];
+			d->scaleFatRatio = [stmt doubleValueOfColumn:kScaleFatColumn];
 			d->flags[0] = [stmt intValueOfColumn:kFlag0Column];
 			d->flags[1] = [stmt intValueOfColumn:kFlag1Column];
 			d->flags[2] = [stmt intValueOfColumn:kFlag2Column];
@@ -156,7 +156,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 - (float)latestFatBeforeDay:(EWDay)day {
 	for (int i = (day - 1) - 1; i >= 0; i--) {
-		float fat = days[i].scaleFat;
+		float fat = days[i].scaleFatRatio;
 		if (fat > 0) return fat;
 	}
 	return [database latestFatBeforeMonth:month];
@@ -166,7 +166,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 - (BOOL)didRecordFatBeforeDay:(EWDay)day {
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		if (days[i].scaleWeight > 0) {
-			return days[i].scaleFat > 0;
+			return days[i].scaleFatRatio > 0;
 		}
 	}
 	return [database didRecordFatBeforeMonth:month];
@@ -179,7 +179,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (void)setDBDay:(EWDBDay *)src onDay:(EWDay)day {
-	NSParameterAssert((src->scaleFat == 0) || ((src->scaleFat > 0) && (src->scaleWeight > 0)));
+	NSParameterAssert((src->scaleFatRatio == 0) || ((src->scaleFatRatio > 0) && (src->scaleWeight > 0)));
 
 	EWDBDay *dst = [self accessDBDayOnDay:day];
 	
@@ -189,9 +189,9 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		[database didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
-	if (dst->scaleFat != src->scaleFat) {
-		dst->scaleFat = src->scaleFat;
-		dst->trendFat = 0;
+	if (dst->scaleFatRatio != src->scaleFatRatio) {
+		dst->scaleFatRatio = src->scaleFatRatio;
+		dst->trendFatWeight = 0;
 		[database didChangeWeightOnMonthDay:EWMonthDayMake(month, day)];
 	}
 	
@@ -236,8 +236,8 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			} else {
 				[insertStmt bindNullToParameter:kScaleWeightColumn+1];
 			}
-			if (d->scaleFat > 0) {
-				[insertStmt bindDouble:d->scaleFat toParameter:kScaleFatColumn+1];
+			if (d->scaleFatRatio > 0) {
+				[insertStmt bindDouble:d->scaleFatRatio toParameter:kScaleFatColumn+1];
 			} else {
 				[insertStmt bindNullToParameter:kScaleFatColumn+1];
 			}
@@ -280,7 +280,9 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	for (int i = 0; i < 31; i++) {
 		struct EWDBDay *d = &days[i];
 		EWDBUpdateTrendValue(d->scaleWeight, &d->trendWeight, &tw);
-		EWDBUpdateTrendValue(d->scaleFat, &d->trendFat, &tf);
+		if (d->scaleFatRatio > 0) {
+			EWDBUpdateTrendValue(d->scaleFatRatio, &d->trendFatWeight, &tf);
+		}
 	}
 	
 	if (saveOutput) {

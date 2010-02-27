@@ -151,7 +151,7 @@
 		if (value) dd.scaleWeight = [value floatValue];
 		
 		value = [self valueForField:EWImporterFieldFat inArray:rowArray];
-		if (value) dd.scaleFat = [value floatValue];
+		if (value) dd.scaleFatRatio = [value floatValue];
 		
 		value = [self valueForField:EWImporterFieldFlag0 inArray:rowArray];
 		if (value) dd.flags[0] = [value intValue];

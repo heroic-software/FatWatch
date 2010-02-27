@@ -197,13 +197,13 @@ enum {
 	
 	if (weightMode == kModeWeight) {
 		dbd.scaleWeight = [self weightForPickerRow:weightRow];
-		dbd.scaleFat = 0;
+		dbd.scaleFatRatio = 0;
 	} else if (weightMode == kModeWeightAndFat) {
 		dbd.scaleWeight = [self weightForPickerRow:weightRow];
-		dbd.scaleFat = [self bodyFatForPickerRow:fatRow];
+		dbd.scaleFatRatio = [self bodyFatForPickerRow:fatRow];
 	} else {
 		dbd.scaleWeight = 0;
-		dbd.scaleFat = 0;
+		dbd.scaleFatRatio = 0;
 	}
 	
 	for (int f = 0; f < 4; f++) {
@@ -284,7 +284,7 @@ enum {
 	const EWDBDay *dd = [monthData getDBDayOnDay:day];
 
 	weightRow = [self pickerRowForWeight:dd->scaleWeight];
-	fatRow = [self pickerRowForBodyFat:dd->scaleFat];
+	fatRow = [self pickerRowForBodyFat:dd->scaleFatRatio];
 	
 	BOOL weighIn = (![monthData hasDataOnDay:day] &&
 					(EWMonthDayToday() == EWMonthDayMake(monthData.month, day)));

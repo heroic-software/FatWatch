@@ -175,7 +175,7 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (float)earliestFat {
-	return [self floatFromSQL:"SELECT scaleFat FROM days WHERE scaleFat IS NOT NULL ORDER BY monthday LIMIT 1"];
+	return [self floatFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
@@ -197,7 +197,7 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (float)latestFatBeforeMonth:(EWMonth)month {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFat FROM days WHERE scaleFat IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	float fat;
 	
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
@@ -213,7 +213,7 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFat FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	float fat;
 	
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
@@ -384,7 +384,7 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (SQLiteStatement *)selectMonthStatement {
-	return [db statementFromSQL:"SELECT * FROM months WHERE month < ? ORDER BY month DESC LIMIT 1"];
+	return [db statementFromSQL:"SELECT month,outputTrendWeight,outputTrendFatWeight FROM months WHERE month < ? ORDER BY month DESC LIMIT 1"];
 }
 
 
@@ -394,12 +394,12 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (SQLiteStatement *)selectDaysStatement {
-	return [db statementFromSQL:"SELECT * FROM days WHERE monthday BETWEEN ? AND ?"];
+	return [db statementFromSQL:"SELECT monthday,scaleWeight,scaleFatRatio,flag0,flag1,flag2,flag3,note FROM days WHERE monthday BETWEEN ? AND ?"];
 }
 
 
 - (SQLiteStatement *)insertDayStatement {
-	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFat,flag0,flag1,flag2,flag3,note) VALUES (?,?,?,?,?,?,?,?)"];
+	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFatRatio,flag0,flag1,flag2,flag3,note) VALUES (?,?,?,?,?,?,?,?)"];
 }
 
 
@@ -412,7 +412,7 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (NSArray *)loadEnergyEquivalents {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT * FROM equivalents ORDER BY section,row"];
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT id,section,row,name,unit,value FROM equivalents ORDER BY section,row"];
 	NSMutableArray *array0 = [NSMutableArray array];
 	NSMutableArray *array1 = [NSMutableArray array];
 	

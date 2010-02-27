@@ -5,7 +5,7 @@ BEGIN EXCLUSIVE;
 CREATE TABLE days (
 	monthday INTEGER PRIMARY KEY,
 	scaleWeight REAL,
-	scaleFat REAL,
+	scaleFatRatio REAL,
 	flag0 INTEGER,
 	flag1 INTEGER,
 	flag2 INTEGER,
@@ -16,7 +16,7 @@ CREATE TABLE days (
 CREATE TABLE months (
 	month INTEGER PRIMARY KEY,
 	outputTrendWeight REAL,
-	outputTrendFat REAL
+	outputTrendFatWeight REAL
 );
 
 CREATE TABLE equivalents (
@@ -39,6 +39,7 @@ CREATE TEMPORARY TABLE scratch (
 	monthday INTEGER
 );
 
+-- build table of last day of each month
 INSERT INTO scratch (month,monthday)
 	SELECT
 		CAST(monthday/32 AS INTEGER) AS month,
@@ -60,14 +61,14 @@ DROP TABLE weight;
 -- Create Indexes
 
 CREATE INDEX scaleWeightIndex ON days (scaleWeight);
-CREATE INDEX scaleFatIndex ON days (scaleFat);
+CREATE INDEX scaleFatRatioIndex ON days (scaleFatRatio);
 CREATE INDEX flag0Index ON days (flag0);
 CREATE INDEX flag1Index ON days (flag1);
 CREATE INDEX flag2Index ON days (flag2);
 CREATE INDEX flag3Index ON days (flag3);
 
 CREATE INDEX trendWeightIndex ON months (outputTrendWeight);
-CREATE INDEX trendFatIndex ON months (outputTrendFat);
+CREATE INDEX trendFatWeightIndex ON months (outputTrendFatWeight);
 
 CREATE INDEX orderIndex ON equivalents (section,row);
 
