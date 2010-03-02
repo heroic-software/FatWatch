@@ -182,7 +182,7 @@
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"Goal", @"Goal view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"Clear Goal nav button") style:UIBarButtonItemStyleBordered target:self action:@selector(clearGoal:)] autorelease];
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearGoal:)] autorelease];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	}
 	return self;
@@ -223,6 +223,8 @@
 		isSetupForGoal = goalDefined;
 		isSetupForBMI = bmiEnabled;
 	}
+	
+	self.navigationItem.leftBarButtonItem.enabled = goalDefined;
 	
 	if (needsReload) {
 		[self.tableView reloadData];
