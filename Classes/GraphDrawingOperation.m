@@ -467,17 +467,25 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	EWGoal *goal = [EWGoal sharedGoal];
 	if (! goal.defined) return NULL;
-		
-	const GraphPoint *lastGP = [pointData bytes] + [pointData length] - sizeof(GraphPoint);
-	const CGFloat m = [goal weightChangePerDay];	
-	const CGFloat x = lastGP->trend.x + fabsf((lastGP->trend.y - goal.endWeight) / m);
+
+	float goalWeight = goal.endWeight;
 	
+	const GraphPoint *lastGP = [pointData bytes] + [pointData length] - sizeof(GraphPoint);
+
+	if (p->showFatWeight) {
+		float currentNonFatWeight = goal.currentWeight - lastGP->scale.y;
+		goalWeight -= currentNonFatWeight;
+	}
+	
+	const CGFloat m = [goal weightChangePerDay];	
+	const CGFloat x = lastGP->trend.x + fabsf((lastGP->trend.y - goalWeight) / m);
+
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
-	CGPathAddLineToPoint(path, &p->t, x, goal.endWeight);
+	CGPathAddLineToPoint(path, &p->t, x, goalWeight);
 	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
 	if (x < xMax) {
-		CGPathAddLineToPoint(path, &p->t, xMax, goal.endWeight);
+		CGPathAddLineToPoint(path, &p->t, xMax, goalWeight);
 	}		
 	return path;
 }
