@@ -27,6 +27,17 @@ enum {
 };
 
 
+void TrendUpdateMinMax(float a, float b, float *min, float *max) {
+	if (a < b) {
+		if (a < *min) *min = a;
+		if (b > *max) *max = b;
+	} else {
+		if (b < *min) *min = b;
+		if (a > *max) *max = a;
+	}
+}
+
+
 @implementation TrendSpan
 
 
@@ -92,13 +103,16 @@ enum {
 	int previousCount = 1;
 	int x = 0;
 	
-	SlopeComputer *computer = [[SlopeComputer alloc] init];
+	SlopeComputer *totalComputer = [[SlopeComputer alloc] init];
+	SlopeComputer *fatComputer = [[SlopeComputer alloc] init];
 	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(curMonthDay)];
 	
 	float flagCounts[4] = {0,0,0,0};
 	
 	float minWeight = 500;
 	float maxWeight = 0;
+	float minFatWeight = 500;
+	float maxFatWeight = 0;
 	
 	NSMutableArray *computedSpans = [NSMutableArray array];
 	
@@ -114,14 +128,14 @@ enum {
 			if (dbd->flags[3]) flagCounts[3] += 1;
 			
 			if (dbd->scaleWeight > 0) {
-				if (dbd->scaleWeight < dbd->trendWeight) {
-					if (dbd->scaleWeight < minWeight) minWeight = dbd->scaleWeight;
-					if (dbd->trendWeight > maxWeight) maxWeight = dbd->trendWeight;
-				} else {
-					if (dbd->trendWeight < minWeight) minWeight = dbd->trendWeight;
-					if (dbd->scaleWeight > maxWeight) maxWeight = dbd->scaleWeight;
+				TrendUpdateMinMax(dbd->scaleWeight, dbd->trendWeight,
+								  &minWeight, &maxWeight);
+				[totalComputer addPoint:CGPointMake(x, dbd->trendWeight)];
+				if (dbd->scaleFatWeight > 0) {
+					TrendUpdateMinMax(dbd->scaleFatWeight, dbd->trendFatWeight,
+									  &minFatWeight, &maxFatWeight);
+					[fatComputer addPoint:CGPointMake(x, dbd->trendFatWeight)];
 				}
-				[computer addPoint:CGPointMake(x, dbd->trendWeight)];
 			}
 			
 			x += 1;
@@ -131,11 +145,23 @@ enum {
 			}
 		}
 		
-		if (computer.count > previousCount) {
-			previousCount = computer.count;
-			gp->minWeight = minWeight;
-			gp->maxWeight = maxWeight;
-			span.weightPerDay = -computer.slope;
+		// Because every scaleFatWeight implies a scaleWeight, it is always
+		// the case that totalComputer.count >= fatComputer.count.
+		
+		if (totalComputer.count > previousCount) {
+			if (fatComputer.count > previousCount) {
+				previousCount = fatComputer.count;
+				gp->showFatWeight = YES;
+				gp->minWeight = minFatWeight;
+				gp->maxWeight = maxFatWeight;
+				span.weightPerDay = -fatComputer.slope;
+			} else {
+				previousCount = totalComputer.count;
+				gp->showFatWeight = NO;
+				gp->minWeight = minWeight;
+				gp->maxWeight = maxWeight;
+				span.weightPerDay = -totalComputer.slope;
+			}
 			span.flagFrequencies[0] = flagCounts[0] / (float)x;
 			span.flagFrequencies[1] = flagCounts[1] / (float)x;
 			span.flagFrequencies[2] = flagCounts[2] / (float)x;
@@ -143,7 +169,8 @@ enum {
 			[computedSpans addObject:span];
 		}
 	}
-	[computer release];
+	[totalComputer release];
+	[fatComputer release];
 	
 #if TARGET_IPHONE_SIMULATOR
 	for (TrendSpan *span in computedSpans) {
