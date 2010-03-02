@@ -29,7 +29,7 @@
 	
 	EWDBDay dbd;
 	dbd.scaleWeight = 100;
-	dbd.scaleFatRatio = 0;
+	dbd.scaleFatWeight = 0;
 	dbd.flags[0] = 0;
 	dbd.flags[1] = 0;
 	dbd.flags[2] = 0;

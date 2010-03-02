@@ -217,10 +217,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		mdStart = beginMonthDay;
 		// Compute head point, because there is earlier data.
 		EWMonthDay mdHead;
-		const EWDBDay *dbd = [db getMonthDay:&mdHead withWeightBefore:mdStart];
+		const EWDBDay *dbd = [db getMonthDay:&mdHead withWeightBefore:mdStart onlyFat:p->showFatWeight];
 		if (dbd) {
 			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
-			headPoint.y = dbd->trendWeight;
+			headPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
 		}
 	} else {
 		// Otherwise, bump X to compensate.
@@ -234,10 +234,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		mdStop = endMonthDay;
 		// Compute tail point, because there is later data.
 		EWMonthDay mdTail;
-		const EWDBDay *dbd = [db getMonthDay:&mdTail withWeightAfter:mdStop];
+		const EWDBDay *dbd = [db getMonthDay:&mdTail withWeightAfter:mdStop onlyFat:p->showFatWeight];
 		if (dbd) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
-			tailPoint.y = dbd->trendWeight;
+			tailPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
 		}
 	} else {
 		mdStop = p->mdLatest;
@@ -253,9 +253,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			data = [db getDBMonth:EWMonthDayGetMonth(md)];
 		}
 		const EWDBDay *dd = [data getDBDayOnDay:day];
-		if (p->showFatWeight && (dd->scaleFatRatio > 0)) {
+		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
 			GraphPoint gp;
-			gp.scale = CGPointMake(x, dd->scaleWeight * dd->scaleFatRatio);
+			gp.scale = CGPointMake(x, dd->scaleFatWeight);
 			gp.trend = CGPointMake(x, dd->trendFatWeight);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
 		} else if (!p->showFatWeight && (dd->scaleWeight > 0)) {
@@ -624,30 +624,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const CGFloat kMarkLineWidth = MAX(1.0f, 1.5f * kZoomScale);
 	const CGFloat kErrorLineWidth = MAX(0.5f, 2.0f * kZoomScale);
 	
-	static const CGFloat kDashLengths[] = { 6, 3 };
-	static const int kDashLengthsCount = 2;
-	CGContextSetLineWidth(ctxt, kTrendLineWidth);
-	CGContextSetLineDash(ctxt, 6, kDashLengths, kDashLengthsCount);
-	if (showTrajectoryLine) {
-		CGPathRef trajPath = [self newTrajectoryPath];
-		if (trajPath) {
-			CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
-			CGContextAddPath(ctxt, trajPath);
-			CGContextStrokePath(ctxt);
-			CGPathRelease(trajPath);
-		}
-	}
-	if (showGoalLine) {
-		CGPathRef goalPath = [self newGoalPath];
-		if (goalPath) {
-			CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
-			CGContextAddPath(ctxt, goalPath);
-			CGContextStrokePath(ctxt);
-			CGPathRelease(goalPath);
-		}
-	}
-	CGContextSetLineDash(ctxt, 0, NULL, 0);
-
 	if (p->shouldDrawNoDataWarning && [pointData length] == 0) {
 		[self drawNoDataWarningInContext:ctxt];
 	} else {
@@ -665,12 +641,38 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 
 		// trend line
-		CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
+		if (p->showFatWeight) {
+			CGContextSetRGBStrokeColor(ctxt, 0.1,0.1,0.8, 1.0);
+		} else {
+			CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
+		}
 		CGContextSetLineWidth(ctxt, kTrendLineWidth);
 		CGPathRef trendPath = [self newTrendPath];
 		CGContextAddPath(ctxt, trendPath);
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
+		
+		static const CGFloat kDashLengths[] = { 6, 3 };
+		static const int kDashLengthsCount = 2;
+		CGContextSetLineDash(ctxt, 6, kDashLengths, kDashLengthsCount);
+		if (showTrajectoryLine) {
+			CGPathRef trajPath = [self newTrajectoryPath];
+			if (trajPath) {
+				CGContextAddPath(ctxt, trajPath);
+				CGContextStrokePath(ctxt);
+				CGPathRelease(trajPath);
+			}
+		}
+		if (showGoalLine) {
+			CGPathRef goalPath = [self newGoalPath];
+			if (goalPath) {
+				CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.8);
+				CGContextAddPath(ctxt, goalPath);
+				CGContextStrokePath(ctxt);
+				CGPathRelease(goalPath);
+			}
+		}
+		CGContextSetLineDash(ctxt, 0, NULL, 0);
 		
 		if (drawMarks) {
 			CGContextSetLineWidth(ctxt, kMarkLineWidth);

@@ -150,9 +150,12 @@
 		value = [self valueForField:EWImporterFieldWeight inArray:rowArray];
 		if (value) dd.scaleWeight = [value floatValue];
 		
+		// TODO: allow FatWeight and FatRatio importing
 		value = [self valueForField:EWImporterFieldFat inArray:rowArray];
-		if (value) dd.scaleFatRatio = [value floatValue];
-		
+		if (value && dd.scaleWeight > 0) {
+			dd.scaleFatWeight = [value floatValue] / dd.scaleWeight;
+		}
+
 		value = [self valueForField:EWImporterFieldFlag0 inArray:rowArray];
 		if (value) dd.flags[0] = [value intValue];
 		value = [self valueForField:EWImporterFieldFlag1 inArray:rowArray];

@@ -99,12 +99,12 @@ enum {
 }
 
 
-- (NSInteger)pickerRowForBodyFat:(float)bodyFat {
-	return roundf(bodyFat * 1000.0f);
+- (NSInteger)pickerRowForFatRatio:(float)ratio {
+	return roundf(ratio * 1000.0f);
 }
 
 
-- (float)bodyFatForPickerRow:(NSInteger)row {
+- (float)fatRatioForPickerRow:(NSInteger)row {
 	return row / 1000.0f;
 }
 
@@ -197,13 +197,13 @@ enum {
 	
 	if (weightMode == kModeWeight) {
 		dbd.scaleWeight = [self weightForPickerRow:weightRow];
-		dbd.scaleFatRatio = 0;
+		dbd.scaleFatWeight = 0;
 	} else if (weightMode == kModeWeightAndFat) {
 		dbd.scaleWeight = [self weightForPickerRow:weightRow];
-		dbd.scaleFatRatio = [self bodyFatForPickerRow:fatRow];
+		dbd.scaleFatWeight = dbd.scaleWeight * [self fatRatioForPickerRow:fatRow];
 	} else {
 		dbd.scaleWeight = 0;
-		dbd.scaleFatRatio = 0;
+		dbd.scaleFatWeight = 0;
 	}
 	
 	for (int f = 0; f < 4; f++) {
@@ -238,9 +238,9 @@ enum {
 }
 
 
-- (float)chooseDefaultFat {
+- (float)chooseDefaultFatRatio {
 	// no fat today, search earlier
-	float fat = [monthData latestFatBeforeDay:day];
+	float fat = [monthData latestFatRatioBeforeDay:day];
 	if (fat > 0) return fat;
 	
 	// nothing on or earlier, find first
@@ -284,7 +284,12 @@ enum {
 	const EWDBDay *dd = [monthData getDBDayOnDay:day];
 
 	weightRow = [self pickerRowForWeight:dd->scaleWeight];
-	fatRow = [self pickerRowForBodyFat:dd->scaleFatRatio];
+
+	if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
+		fatRow = [self pickerRowForFatRatio:(dd->scaleFatWeight / dd->scaleWeight)];
+	} else {
+		fatRow = 0;
+	}
 	
 	BOOL weighIn = (![monthData hasDataOnDay:day] &&
 					(EWMonthDayToday() == EWMonthDayMake(monthData.month, day)));
@@ -312,7 +317,7 @@ enum {
 	}
 	
 	if (fatRow == 0) {
-		fatRow = [self pickerRowForBodyFat:[self chooseDefaultFat]];
+		fatRow = [self pickerRowForFatRatio:[self chooseDefaultFatRatio]];
 	}
 	
 	[self toggleWeight];
@@ -388,7 +393,7 @@ enum {
 	if (component == 0) {
 		return [self pickerRowForWeight:500.0f];
 	} else {
-		return [self pickerRowForBodyFat:1.0f];
+		return [self pickerRowForFatRatio:1.0f];
 	}
 }
 
@@ -420,8 +425,8 @@ enum {
 		label.text = [weightFormatter stringForFloat:weight];
 		label.backgroundColor = [[EWWeightFormatter colorForWeight:weight] colorWithAlphaComponent:0.4f];
 	} else {
-		float bodyFat = [self bodyFatForPickerRow:row];
-		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * bodyFat)];
+		float fatRatio = [self fatRatioForPickerRow:row];
+		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * fatRatio)];
 		label.backgroundColor = [UIColor clearColor];
 	}
 

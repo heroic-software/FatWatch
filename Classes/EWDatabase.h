@@ -41,13 +41,13 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (float)earliestWeight;
 - (float)earliestFatRatio;
 - (float)latestWeight;
-- (float)latestFatBeforeMonth:(EWMonth)month;
+- (float)latestFatRatioBeforeMonth:(EWMonth)month;
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight onlyFat:(BOOL)onlyFat from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
 - (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;
-- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart;
-- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop;
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart onlyFat:(BOOL)onlyFat;
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop onlyFat:(BOOL)onlyFat;
 - (BOOL)hasDataForToday;
 // Writing
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;

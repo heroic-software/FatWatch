@@ -157,7 +157,8 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 						value = [NSNumber numberWithFloat:dd->trendWeight];
 						break;
 					case EWExporterFieldFat:
-						value = [NSNumber numberWithFloat:dd->scaleFatRatio];
+						// TODO: split into fat weight and ratio
+						value = [NSNumber numberWithFloat:(dd->scaleFatWeight / dd->scaleWeight)];
 						break;
 					case EWExporterFieldFlag0:
 						value = [NSNumber numberWithUnsignedChar:dd->flags[0]];

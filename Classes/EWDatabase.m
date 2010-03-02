@@ -157,7 +157,7 @@ static EWDatabase *gSharedDB = nil;
 
 // Used by LogEntryViewController when choosing default fat ratio. Only called if no weight prior to current day.
 - (float)earliestFatRatio {
-	return [self floatFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL ORDER BY monthday LIMIT 1"];
+	return [self floatFromSQL:"SELECT (scaleFatWeight / scaleWeight) FROM days WHERE scaleFatWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
@@ -170,25 +170,23 @@ static EWDatabase *gSharedDB = nil;
 
 
 // Used by EWDBMonth in latestFatBeforeDay:
-- (float)latestFatBeforeMonth:(EWMonth)month {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
-	float fat;
-	
+- (float)latestFatRatioBeforeMonth:(EWMonth)month {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT (scaleFatWeight / scaleWeight) FROM days WHERE scaleFatWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
 	if ([stmt step]) {
-		fat = [stmt doubleValueOfColumn:0];
+		float r = [stmt doubleValueOfColumn:0];
 		[stmt reset];
+		return r;
 	} else {
-		fat = 0;
+		return 0;
 	}
-	
-	return fat;
 }
 
 
 // Used by EWDBMonth in didRecordFatBeforeDay:
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatWeight FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	float fat;
 	
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
@@ -238,13 +236,13 @@ static EWDatabase *gSharedDB = nil;
 	
 	if (beginMonthDay == 0 || endMonthDay == 0) {
 		if (onlyFat) {
-			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight*scaleFatRatio),MAX(scaleWeight*scaleFatRatio) FROM days"];
+			stmt = [db statementFromSQL:"SELECT MIN(scaleFatWeight),MAX(scaleFatWeight) FROM days"];
 		} else {
 			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days"];
 		}
 	} else {
 		if (onlyFat) {
-			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight*scaleFatRatio),MAX(scaleWeight*scaleFatRatio) FROM days WHERE monthday BETWEEN ? AND ?"];
+			stmt = [db statementFromSQL:"SELECT MIN(scaleFatWeight),MAX(scaleFatWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
 		} else {
 			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
 		}
@@ -292,8 +290,13 @@ static EWDatabase *gSharedDB = nil;
 
 /* Searches for a monthday BEFORE the given monthday where weight was recorded. */
 // Used by GraphDrawingOperation to determine head point locations.
-- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart onlyFat:(BOOL)onlyFat {
+	SQLiteStatement *stmt;
+	if (onlyFat) {
+		stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleFatWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	} else {
+		stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	}
 	[stmt bindInt:mdStart toParameter:1];
 	if ([stmt step]) {
 		*mdHead = [stmt intValueOfColumn:0];
@@ -307,8 +310,13 @@ static EWDatabase *gSharedDB = nil;
 
 /* Searches for a monthday AFTER the given monthday where weight was recorded. */
 // Used by GraphDrawingOperation to determine tail point locations.
-- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday > ? ORDER BY monthday LIMIT 1"];
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop onlyFat:(BOOL)onlyFat {
+	SQLiteStatement *stmt;
+	if (onlyFat) {
+		stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleFatWeight IS NOT NULL AND monthday > ? ORDER BY monthday LIMIT 1"];
+	} else {
+		stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday > ? ORDER BY monthday LIMIT 1"];
+	}
 	[stmt bindInt:mdStop toParameter:1];
 	if ([stmt step]) {
 		*mdTail = [stmt intValueOfColumn:0];
@@ -376,12 +384,12 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (SQLiteStatement *)selectDaysStatement {
-	return [db statementFromSQL:"SELECT monthday,scaleWeight,scaleFatRatio,flag0,flag1,flag2,flag3,note FROM days WHERE monthday BETWEEN ? AND ?"];
+	return [db statementFromSQL:"SELECT monthday,scaleWeight,scaleFatWeight,flag0,flag1,flag2,flag3,note FROM days WHERE monthday BETWEEN ? AND ?"];
 }
 
 
 - (SQLiteStatement *)insertDayStatement {
-	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFatRatio,flag0,flag1,flag2,flag3,note) VALUES (?,?,?,?,?,?,?,?)"];
+	return [db statementFromSQL:"INSERT OR REPLACE INTO days (monthday,scaleWeight,scaleFatWeight,flag0,flag1,flag2,flag3,note) VALUES (?,?,?,?,?,?,?,?)"];
 }
 
 

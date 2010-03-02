@@ -17,7 +17,7 @@ typedef unsigned char EWFlagValue;
 
 typedef struct EWDBDay {
 	float scaleWeight;
-	float scaleFatRatio; // scaleFat is set => scaleWeight is set
+	float scaleFatWeight; // scaleFatWeight is set ONLY IF scaleWeight is set
 	float trendWeight;
 	float trendFatWeight;
 	NSString *note;
@@ -38,7 +38,7 @@ typedef struct EWDBDay {
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb;
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;
-- (float)latestFatBeforeDay:(EWDay)day;
+- (float)latestFatRatioBeforeDay:(EWDay)day;
 - (BOOL)didRecordFatBeforeDay:(EWDay)day;
 - (void)updateTrends;
 - (void)setDBDay:(EWDBDay *)dbd onDay:(EWDay)day;

@@ -5,7 +5,7 @@ BEGIN EXCLUSIVE;
 CREATE TABLE days (
 	monthday INTEGER PRIMARY KEY,
 	scaleWeight REAL,
-	scaleFatRatio REAL,
+	scaleFatWeight REAL,
 	flag0 INTEGER,
 	flag1 INTEGER,
 	flag2 INTEGER,
@@ -61,7 +61,7 @@ DROP TABLE weight;
 -- Create Indexes
 
 CREATE INDEX scaleWeightIndex ON days (scaleWeight);
-CREATE INDEX scaleFatRatioIndex ON days (scaleFatRatio);
+CREATE INDEX scaleFatWeightIndex ON days (scaleFatWeight);
 CREATE INDEX flag0Index ON days (flag0);
 CREATE INDEX flag1Index ON days (flag1);
 CREATE INDEX flag2Index ON days (flag2);

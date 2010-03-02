@@ -53,7 +53,7 @@
 			[output appendFormat:@"  %2d:  %5.1f (%5.1f) %5.1f (%5.1f) 0x%08x \"%@\"\n",
 			 day,
 			 d->scaleWeight, d->trendWeight,
-			 d->scaleFatRatio, d->trendFatWeight,
+			 d->scaleFatWeight, d->trendFatWeight,
 			 d->flags,
 			 d->note];
 		}
