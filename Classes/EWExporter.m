@@ -156,10 +156,16 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 					case EWExporterFieldTrendWeight:
 						value = [NSNumber numberWithFloat:dd->trendWeight];
 						break;
-					case EWExporterFieldFat:
-						// TODO: split into fat weight and ratio
-						value = [NSNumber numberWithFloat:(dd->scaleFatWeight / dd->scaleWeight)];
+					case EWExporterFieldFat: {
+						float ratio;
+						if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
+							ratio = dd->scaleFatWeight / dd->scaleWeight;
+						} else {
+							ratio = 0;
+						}
+						value = [NSNumber numberWithFloat:ratio];
 						break;
+					}
 					case EWExporterFieldFlag0:
 						value = [NSNumber numberWithUnsignedChar:dd->flags[0]];
 						break;
