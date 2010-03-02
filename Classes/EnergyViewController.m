@@ -171,6 +171,15 @@
 }
 
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	if (section == 0) {
+		return NSLocalizedString(@"Amount of energy burned by an activity depends on current body weight.", nil);
+	} else {
+		return nil;
+	}
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
