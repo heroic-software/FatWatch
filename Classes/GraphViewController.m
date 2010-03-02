@@ -226,7 +226,9 @@ enum {
 
 - (void)viewDidLoad {
 	[axisView useParameters:&parameters];
-	spanControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"ChartSelectedSpanIndex"];
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	spanControl.selectedSegmentIndex = [defs integerForKey:@"ChartSelectedSpanIndex"];
+	parameters.showFatWeight = [defs boolForKey:@"ChartShowFat"];
 	[axisView sizeToFit];
 	CGFloat axisViewWidth = CGRectGetWidth(axisView.frame);
 	CGFloat totalWidth = CGRectGetWidth(self.view.bounds);
@@ -405,9 +407,9 @@ enum {
 		copyButtonIndex = -1;
 	}
 	if (parameters.showFatWeight) {
-		toggleButtonIndex = [menu addButtonWithTitle:@"Show Total Weight"];
+		toggleButtonIndex = [menu addButtonWithTitle:@"Switch to Total Weight"];
 	} else {
-		toggleButtonIndex = [menu addButtonWithTitle:@"Show Fat Weight"];
+		toggleButtonIndex = [menu addButtonWithTitle:@"Switch to Fat Weight"];
 	}
 	menu.cancelButtonIndex = [menu addButtonWithTitle:@"Cancel"];
 	[menu showInView:self.view];
@@ -428,6 +430,7 @@ enum {
 	}
 	else if (toggleButtonIndex == buttonIndex) {
 		parameters.showFatWeight = !parameters.showFatWeight;
+		[[NSUserDefaults standardUserDefaults] setBool:parameters.showFatWeight forKey:@"ChartShowFat"];
 		[self databaseDidChange:nil];
 	}
 }
