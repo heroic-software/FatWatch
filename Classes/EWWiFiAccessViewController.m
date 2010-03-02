@@ -505,7 +505,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[importer setColumn:[[form stringForKey:@"weight"] intValue] 
 			   forField:EWImporterFieldWeight];
 	[importer setColumn:[[form stringForKey:@"fat"] intValue] 
-			   forField:EWImporterFieldFat];
+			   forField:EWImporterFieldFatRatio];
 	[importer setColumn:[[form stringForKey:@"flag0"] intValue] 
 			   forField:EWImporterFieldFlag0];
 	[importer setColumn:[[form stringForKey:@"flag1"] intValue] 
@@ -529,7 +529,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	}
 
 	[importer setFormatter:EWFatFormatterAtIndex([[form stringForKey:@"fatFormat"] intValue]) 
-				  forField:EWImporterFieldFat];
+				  forField:EWImporterFieldFatRatio];
 	
 	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
 	

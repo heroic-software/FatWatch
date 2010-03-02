@@ -16,7 +16,7 @@
 typedef enum {
 	EWImporterFieldDate,
 	EWImporterFieldWeight,
-	EWImporterFieldFat,
+	EWImporterFieldFatRatio,
 	EWImporterFieldFlag0,
 	EWImporterFieldFlag1,
 	EWImporterFieldFlag2,
