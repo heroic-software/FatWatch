@@ -25,7 +25,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 @implementation GraphView
 
 
-@synthesize selected;
 @synthesize image;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
@@ -39,14 +38,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		self.backgroundColor = [UIColor whiteColor];
 	}
 	return self;
-}
-
-
-- (void)setSelected:(BOOL)flag {
-	if (selected != flag) {
-		selected = flag;
-		[self setNeedsDisplay];
-	}
 }
 
 
@@ -217,49 +208,10 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		CGContextAddLineToPoint(context, x, y);
 		CGContextStrokePath(context);
 	}
-
-	if (selected) {
-		CGContextSetRGBFillColor(context, 0, 0, 0, 0.2f);
-		CGContextFillRect(context, rect);
-	}
 }
 
 
 #pragma mark Image Export
-
-
-- (void)beginExport {
-	if (image) {
-		exporting = YES;
-		self.selected = YES;
-		[self performSelector:@selector(showExportActionSheet) withObject:nil afterDelay:1];
-	}
-}
-
-
-- (void)cancelExport {
-	if (exporting) {
-		exporting = NO;
-		self.selected = NO;
-		[GraphView cancelPreviousPerformRequestsWithTarget:self selector:@selector(showExportActionSheet) object:nil];
-	}
-}
-
-
-- (void)showExportActionSheet {
-	UIActionSheet *sheet = [[UIActionSheet alloc] init];
-	sheet.delegate = self;
-	[sheet addButtonWithTitle:NSLocalizedString(@"Save Image", @"Save image")];
-	[sheet addButtonWithTitle:NSLocalizedString(@"Copy", @"Copy image")];
-	sheet.cancelButtonIndex = 
-	[sheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel image")];
-	if (self.window) {
-		[sheet showInView:self.window];
-	} else {
-		NSLog(@"Can't show sheet: GraphView.window = nil");
-	}
-	[sheet release];
-}
 
 
 - (UIImage *)exportableImage {
@@ -280,9 +232,11 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	if (yAxisView) {
 		CGRect yAxisBounds = yAxisView.bounds;
 		CGFloat w = CGRectGetWidth(yAxisBounds);
+		CGContextSaveGState(context);
 		CGContextTranslateCTM(context, w, 0);
+		CGContextClipToRect(context, self.bounds);
 		[self drawRect:self.bounds];
-		CGContextTranslateCTM(context, -w, 0);
+		CGContextRestoreGState(context);
 		[yAxisView drawRect:yAxisBounds];
 	} else {
 		[self drawRect:self.bounds];
@@ -303,41 +257,13 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 }
 
 
-- (void)copy:(id)sender {
+- (void)exportImageToPasteboard {
 	[[UIPasteboard generalPasteboard] setImage:[self exportableImage]];
 }
 
 
-#pragma mark UIActionSheetDelegate
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	self.selected = NO;
-	if (buttonIndex == 0) {
-		[self exportImageToSavedPhotos];
-	}
-	else if (buttonIndex == 1) {
-		[self copy:nil];
-	}
-	exporting = NO;
-}
-
-
-#pragma mark UIView Touches
-
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self beginExport];
-}
-
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self cancelExport];
-}
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self cancelExport];
+- (void)copy:(id)sender {
+	[self exportImageToPasteboard];
 }
 
 

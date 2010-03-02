@@ -229,22 +229,31 @@ static EWDatabase *gSharedDB = nil;
 
 
 // Used by GraphViewController when sizing graphs.
-- (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay {
+- (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight onlyFat:(BOOL)onlyFat from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay {
 	NSParameterAssert(minWeight);
 	NSParameterAssert(maxWeight);
 	
 	SQLiteStatement *stmt;
-	float beginTrend;
+	float beginTrend = 0;
 	
 	if (beginMonthDay == 0 || endMonthDay == 0) {
-		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days"];
-		beginTrend = 0;
+		if (onlyFat) {
+			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight*scaleFatRatio),MAX(scaleWeight*scaleFatRatio) FROM days"];
+		} else {
+			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days"];
+		}
 	} else {
-		stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
+		if (onlyFat) {
+			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight*scaleFatRatio),MAX(scaleWeight*scaleFatRatio) FROM days WHERE monthday BETWEEN ? AND ?"];
+		} else {
+			stmt = [db statementFromSQL:"SELECT MIN(scaleWeight),MAX(scaleWeight) FROM days WHERE monthday BETWEEN ? AND ?"];
+		}
 		[stmt bindInt:beginMonthDay toParameter:1];
 		[stmt bindInt:endMonthDay toParameter:2];
 		// If time frame is limited, trend should be taken into account.
-		beginTrend = [self trendValueOnMonthDay:beginMonthDay];
+		if (!onlyFat) {
+			beginTrend = [self trendValueOnMonthDay:beginMonthDay];
+		}
 	}
 	
 	if ([stmt step]) {

@@ -26,7 +26,7 @@ typedef struct {
 } GraphViewInfo;
 
 
-@interface GraphViewController : UIViewController <UIScrollViewDelegate> {
+@interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate> {
 	YAxisView *axisView;
 	UIScrollView *scrollView;
 	UISegmentedControl *spanControl;
@@ -36,10 +36,12 @@ typedef struct {
 	int lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
 	CGPoint scrollingSpanSavedOffset;
+	int saveButtonIndex, copyButtonIndex, toggleButtonIndex;
 }
 @property (nonatomic,retain) IBOutlet YAxisView *axisView;
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutlet UISegmentedControl *spanControl;
 - (void)clearGraphViewInfo;
 - (IBAction)spanSelected:(UISegmentedControl *)sender;
+- (IBAction)showActionMenu:(UIBarButtonItem *)sender;
 @end

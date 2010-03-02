@@ -155,19 +155,23 @@ enum {
 	}
 
 	parameters.shouldDrawNoDataWarning = (infoCount == 1);
-
-	[db getWeightMinimum:&minWeight maximum:&maxWeight from:beginMonthDay to:endMonthDay];
-
+	
+	[db getWeightMinimum:&minWeight maximum:&maxWeight 
+				 onlyFat:parameters.showFatWeight
+					from:beginMonthDay to:endMonthDay];
+	
 	if (minWeight == 0 || maxWeight == 0) {
 		minWeight = 150;
 		maxWeight = 150;
 	}
 	
-	if ([[NSUserDefaults standardUserDefaults] fitGoalOnChart]) {
-		EWGoal *goal = [EWGoal sharedGoal];
-		if (goal.defined) {
-			minWeight = MIN(minWeight, goal.endWeight);
-			maxWeight = MAX(maxWeight, goal.endWeight);
+	if (!parameters.showFatWeight) {
+		if ([[NSUserDefaults standardUserDefaults] fitGoalOnChart]) {
+			EWGoal *goal = [EWGoal sharedGoal];
+			if (goal.defined) {
+				minWeight = MIN(minWeight, goal.endWeight);
+				maxWeight = MAX(maxWeight, goal.endWeight);
+			}
 		}
 	}
 	
@@ -387,6 +391,45 @@ enum {
 	}
 	[[NSUserDefaults standardUserDefaults] setInteger:spanControl.selectedSegmentIndex 
 											   forKey:@"ChartSelectedSpanIndex"];
+}
+
+
+- (IBAction)showActionMenu:(UIBarButtonItem *)sender {
+	UIActionSheet *menu = [[UIActionSheet alloc] init];
+	menu.delegate = self;
+	if (infoCount == 1) {
+		saveButtonIndex = [menu addButtonWithTitle:@"Save Image"];
+		copyButtonIndex = [menu addButtonWithTitle:@"Copy"];
+	} else {
+		saveButtonIndex = -1;
+		copyButtonIndex = -1;
+	}
+	if (parameters.showFatWeight) {
+		toggleButtonIndex = [menu addButtonWithTitle:@"Show Total Weight"];
+	} else {
+		toggleButtonIndex = [menu addButtonWithTitle:@"Show Fat Weight"];
+	}
+	menu.cancelButtonIndex = [menu addButtonWithTitle:@"Cancel"];
+	[menu showInView:self.view];
+	[menu release];
+}
+
+
+#pragma mark UIActionSheetDelegate
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == actionSheet.cancelButtonIndex) return;
+	if (saveButtonIndex == buttonIndex) {
+		[info[0].view exportImageToSavedPhotos];
+	}
+	else if (copyButtonIndex == buttonIndex) {
+		[info[0].view exportImageToPasteboard];
+	}
+	else if (toggleButtonIndex == buttonIndex) {
+		parameters.showFatWeight = !parameters.showFatWeight;
+		[self databaseDidChange:nil];
+	}
 }
 
 

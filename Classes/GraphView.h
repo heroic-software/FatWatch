@@ -12,21 +12,21 @@
 #import "GraphDrawingOperation.h"
 
 
-@interface GraphView : UIView <UIActionSheetDelegate> {
+@interface GraphView : UIView {
 	EWMonthDay beginMonthDay;
 	EWMonthDay endMonthDay;
 	GraphViewParameters *p;
 	CGImageRef image;
 	UIView *yAxisView;
-	BOOL selected;
 	BOOL exporting;
 	BOOL drawBorder;
 }
-@property (nonatomic,getter=isSelected) BOOL selected;
 @property (nonatomic) CGImageRef image;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic,retain) UIView *yAxisView;
 @property (nonatomic) BOOL drawBorder;
+- (void)exportImageToSavedPhotos;
+- (void)exportImageToPasteboard;
 @end

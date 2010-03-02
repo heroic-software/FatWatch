@@ -44,7 +44,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (float)latestFatBeforeMonth:(EWMonth)month;
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
-- (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
+- (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight onlyFat:(BOOL)onlyFat from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
 - (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart;
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop;

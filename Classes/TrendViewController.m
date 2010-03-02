@@ -79,7 +79,6 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	graphView.backgroundColor = [UIColor whiteColor];
 	graphView.drawBorder = YES;
-	graphView.viewController = self;
 	
 	weightChangeButton.enabled = NO;
 	relativeWeightButton.enabled = NO;
