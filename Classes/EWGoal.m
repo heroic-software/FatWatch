@@ -63,10 +63,10 @@ static NSString * const kGoalDateKey = @"GoalDate"; // stored as MonthDay
 	NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:t];
 	float changePerDay = [uds floatForKey:kOldGoalWeightChangePerDayKey];
 
-	EWMonthDay md = EWMonthDayFromDate(startDate);
-	EWDatabase *db = [EWDatabase sharedDatabase];
-	float startWeight = [db trendWeightOnMonthDay:md];
-	if (startWeight == 0) {
+	float startWeight;
+	{
+		EWMonthDay md = EWMonthDayNext(EWMonthDayFromDate(startDate));
+		EWDatabase *db = [EWDatabase sharedDatabase];
 		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
 		startWeight = [dbm inputTrendOnDay:EWMonthDayGetDay(md)];
 		if (startWeight == 0) {

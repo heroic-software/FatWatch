@@ -47,11 +47,7 @@
 		 [df stringFromDate:EWDateFromMonthAndDay(dbm.month, 1)],
 		 month];
 
-		EWDay day = [dbm firstDayWithWeight];
-		if (day == 0) {
-			continue;
-		}
-		for (; day <= [dbm lastDayWithWeight]; day++) {
+		for (EWDay day = 1; day <= 31; day++) {
 			if (![dbm hasDataOnDay:day]) continue;
 			const EWDBDay *d = [dbm getDBDayOnDay:day];
 			[output appendFormat:@"  %2d:  %5.1f (%5.1f) %5.1f (%5.1f) 0x%08x \"%@\"\n",
@@ -84,7 +80,7 @@
 	
 	if ([testdb needsUpgrade]) [testdb upgrade];
 	
-	STAssertEquals(0u, [testdb weightCount], @"should be empty");
+	STAssertTrue([testdb isEmpty], @"should be empty");
 
 	// set up 10 weights
 	[self setWeight:100 onDay:15 inMonth:0];
@@ -132,7 +128,6 @@
 	[self assertWeight:200 andTrend:129.9754 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
-	STAssertEquals(10u, [testdb weightCount], @"10 items");
 	[self closeDatabase];
 }
 
@@ -152,7 +147,6 @@
 	[self assertWeight:200 andTrend:123.1949 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:120.8754 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:128.7879 onDay:15 inMonth:8];
-	STAssertEquals(9u, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 
@@ -173,7 +167,6 @@
 	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
 	[self assertWeight:100 andTrend:130.8520 onDay:11 inMonth:9];
-	STAssertEquals(11u, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -194,7 +187,6 @@
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:165.7199 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:169.1479 onDay:15 inMonth:8];
-	STAssertEquals(11u, [testdb weightCount], @"11 weights");
 	[self closeDatabase];
 }
 
@@ -214,7 +206,6 @@
 	[self assertWeight:200 andTrend:177.8050 onDay:15 inMonth:7];
 	[self assertWeight:100 andTrend:170.0245 onDay:31 inMonth:7];
 	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:8];
-	STAssertEquals(9u, [testdb weightCount], @"9 weights");
 	[self closeDatabase];
 }
 

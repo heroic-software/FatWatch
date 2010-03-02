@@ -80,6 +80,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+// Used by TrendSpan for traversal.
 - (EWDBMonth *)previous {
 	if (month > database.earliestMonth) {
 		return [database getDBMonth:(month - 1)];
@@ -88,6 +89,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+// Used by EWExporter for traversal.
 - (EWDBMonth *)next {
 	if (month < database.latestMonth) {
 		return [database getDBMonth:(month + 1)];
@@ -96,12 +98,14 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+// Used all over the place.
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day {
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];
 }
 
 
+// Used all over the place.
 - (BOOL)hasDataOnDay:(EWDay)day {
 	EWDBDay *d = [self accessDBDayOnDay:day];
 	return (d->scaleWeight > 0 || 
@@ -113,47 +117,31 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (EWDay)firstDayWithWeight {
-	for (int i = 0; i < 31; i++) {
-		if (days[i].scaleWeight > 0) return (i + 1);
-	}
-	return 0;
-}
-
-
-- (EWDay)lastDayWithWeight {
-	for (int i = 30; i >= 0; i--) {
-		if (days[i].scaleWeight > 0) return (i + 1);
-	}
-	return 0;
-}
-
-
 /* Finds the trend value for the first day with data preceding the given day. */
+// Used by EWGoal during upgrade.
+// Used by LogEntryViewController to choose a default weight.
+// Used by EWDatabase to determine trend value on a day.
 - (float)inputTrendOnDay:(EWDay)day {
+	float trend;
 	// First, search backwards through this month for a trend value.
-	
 	for (int i = (day - 1) - 1; i >= 0; i--) {
-		float trend = days[i].trendWeight;
+		trend = days[i].trendWeight;
 		if (trend > 0) return trend;
 	}
-	
 	// If none is found, use the input trend.
-	
 	SQLiteStatement *stmt = [database selectMonthStatement];
 	[stmt bindInt:month toParameter:1];
 	if ([stmt step]) {
-		float trend = [stmt doubleValueOfColumn:1];
+		trend = [stmt doubleValueOfColumn:1];
 		[stmt reset];
-		return trend;
 	}
-
-	// If nothing else, return weight (implies day is first day of data ever)
-
+	if (trend > 0) return trend;
+	// If nothing else, return weight (implies day is <= first day of data ever)
 	return days[day - 1].scaleWeight;
 }
 
 
+// Used by LogEntryViewController to choose a default fat.
 - (float)latestFatBeforeDay:(EWDay)day {
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		float fat = days[i].scaleFatRatio;
@@ -163,6 +151,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+// Used by LogEntryViewController to determine entry mode (W vs W&F)
 - (BOOL)didRecordFatBeforeDay:(EWDay)day {
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		if (days[i].scaleWeight > 0) {
@@ -173,11 +162,14 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+// Used by EWDatabase in updateTrendValues
 - (void)updateTrends {
 	[self updateTrendsSaveOutput:YES];
 }
 
 
+// Used by LogEntryViewController (single edit)
+// Used by EWImporter (bulk edit)
 - (void)setDBDay:(EWDBDay *)src onDay:(EWDay)day {
 	NSParameterAssert((src->scaleFatRatio == 0) || ((src->scaleFatRatio > 0) && (src->scaleWeight > 0)));
 
@@ -280,9 +272,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	for (int i = 0; i < 31; i++) {
 		struct EWDBDay *d = &days[i];
 		EWDBUpdateTrendValue(d->scaleWeight, &d->trendWeight, &tw);
-		if (d->scaleFatRatio > 0) {
-			EWDBUpdateTrendValue(d->scaleFatRatio, &d->trendFatWeight, &tf);
-		}
+		EWDBUpdateTrendValue(d->scaleFatRatio * d->scaleWeight, &d->trendFatWeight, &tf);
 	}
 	
 	if (saveOutput) {
@@ -296,7 +286,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-- (EWDBDay *)accessDBDayOnDay:(EWDay)day { // 
+- (EWDBDay *)accessDBDayOnDay:(EWDay)day {
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];
 }

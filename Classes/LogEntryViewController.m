@@ -244,7 +244,7 @@ enum {
 	if (fat > 0) return fat;
 	
 	// nothing on or earlier, find first
-	fat = [monthData.database earliestFat];
+	fat = [monthData.database earliestFatRatio];
 	if (fat > 0) return fat;
 	
 	return 0.25f;

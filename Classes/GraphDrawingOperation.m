@@ -146,7 +146,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays {
 	// Assumes minWeight and maxWeight have already been set, but need adjusting
 	// Does not set: shouldDrawNoDataWarning
-
+	
 	static float minRange = 0;
 	if (minRange == 0) {
 		switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
@@ -187,7 +187,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	t = CGAffineTransformTranslate(t, -0.5, -gp->minWeight);
 	gp->t = t;
 	
-	[self prepareBMIRegionsForGraphViewParameters:gp];
+	if (gp->showFatWeight) {
+		[self prepareBMIRegionsForGraphViewParameters:gp];
+	}
 	
 	[[EWDatabase sharedDatabase] getEarliestMonthDay:&gp->mdEarliest
 									  latestMonthDay:&gp->mdLatest];
@@ -208,15 +210,17 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	EWDatabase *db = [EWDatabase sharedDatabase];
 	
+	// Is the requested start after actual data starts?
 	if (p->mdEarliest < beginMonthDay) {
-		// If we requested a start after actual data starts, start there.
+		// If so, comply with request.
 		x = 1;
 		mdStart = beginMonthDay;
 		// Compute head point, because there is earlier data.
-		EWMonthDay mdHead = [db monthDayOfWeightBefore:mdStart];
-		if (mdHead != 0) {
+		EWMonthDay mdHead;
+		const EWDBDay *dbd = [db getMonthDay:&mdHead withWeightBefore:mdStart];
+		if (dbd) {
 			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
-			headPoint.y = [db trendWeightOnMonthDay:mdHead];
+			headPoint.y = dbd->trendWeight;
 		}
 	} else {
 		// Otherwise, bump X to compensate.
@@ -229,10 +233,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		// If we requested an end before data ends, stop there.
 		mdStop = endMonthDay;
 		// Compute tail point, because there is later data.
-		EWMonthDay mdTail = [db monthDayOfWeightAfter:mdStop];
-		if (mdTail != 0) {
+		EWMonthDay mdTail;
+		const EWDBDay *dbd = [db getMonthDay:&mdTail withWeightAfter:mdStop];
+		if (dbd) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
-			tailPoint.y = [db trendWeightOnMonthDay:mdTail];
+			tailPoint.y = dbd->trendWeight;
 		}
 	} else {
 		mdStop = p->mdLatest;
@@ -248,7 +253,12 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			data = [db getDBMonth:EWMonthDayGetMonth(md)];
 		}
 		const EWDBDay *dd = [data getDBDayOnDay:day];
-		if (dd->scaleWeight > 0) {
+		if (p->showFatWeight && (dd->scaleFatRatio > 0)) {
+			GraphPoint gp;
+			gp.scale = CGPointMake(x, dd->scaleWeight * dd->scaleFatRatio);
+			gp.trend = CGPointMake(x, dd->trendFatWeight);
+			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
+		} else if (!p->showFatWeight && (dd->scaleWeight > 0)) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
@@ -380,6 +390,11 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 
 		if (tailPoint.y > 0) {
+			CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
+		}
+	} else {
+		if (headPoint.y > 0 && tailPoint.y > 0) {
+			CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
 			CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
 		}
 	}
@@ -632,12 +647,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 	}
 	CGContextSetLineDash(ctxt, 0, NULL, 0);
-	
 
-	if ([pointData length] > 0) {
+	if (p->shouldDrawNoDataWarning && [pointData length] == 0) {
+		[self drawNoDataWarningInContext:ctxt];
+	} else {
 		CGContextSaveGState(ctxt);
 		
-		BOOL drawMarks = (p->scaleX > 3);
+		BOOL drawMarks = (p->scaleX > 3) && ([pointData length] > 0);
 		
 		if (drawMarks) {
 			CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
@@ -649,7 +665,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 
 		// trend line
-		
 		CGContextSetRGBStrokeColor(ctxt, 0.8,0.1,0.1, 1.0);
 		CGContextSetLineWidth(ctxt, kTrendLineWidth);
 		CGPathRef trendPath = [self newTrendPath];
@@ -668,8 +683,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 		
 		CGContextRestoreGState(ctxt);
-	} else if (p->shouldDrawNoDataWarning) {
-		[self drawNoDataWarningInContext:ctxt];
 	}
 	
 	[self drawFlagBandsInContext:ctxt];

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "EWDate.h"
+#import "EWDBMonth.h"
 
 
 @class SQLiteDatabase;
 @class SQLiteStatement;
-@class EWDBMonth;
 
 
 extern NSString * const EWDatabaseDidChangeNotification;
@@ -28,6 +28,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 }
 @property (nonatomic,readonly) EWMonth earliestMonth;
 @property (nonatomic,readonly) EWMonth latestMonth;
+@property (nonatomic,readonly,getter=isEmpty) BOOL empty;
 + (EWDatabase *)sharedDatabase;
 + (void)setSharedDatabase:(EWDatabase *)db;
 // Setup
@@ -37,18 +38,16 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (BOOL)needsUpgrade;
 - (void)upgrade;
 // Reading
-- (NSUInteger)weightCount;
 - (float)earliestWeight;
-- (float)earliestFat;
+- (float)earliestFatRatio;
 - (float)latestWeight;
 - (float)latestFatBeforeMonth:(EWMonth)month;
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
 - (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;
-- (float)trendWeightOnMonthDay:(EWMonthDay)md;
-- (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)md;
-- (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)md;
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart;
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop;
 - (BOOL)hasDataForToday;
 // Writing
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;

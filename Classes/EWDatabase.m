@@ -20,6 +20,8 @@ static EWDatabase *gSharedDB = nil;
 
 
 @interface EWDatabase ()
+- (float)floatFromSQL:(const char *)sql;
+- (float)trendValueOnMonthDay:(EWMonthDay)startMonthDay;
 - (void)didOpen;
 - (void)updateTrendValues;
 - (void)flushCache;
@@ -139,63 +141,35 @@ static EWDatabase *gSharedDB = nil;
 #pragma mark Reading
 
 
-- (NSUInteger)weightCount {
-	NSUInteger count;
-	
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT COUNT(*) FROM days WHERE scaleWeight IS NOT NULL"];
-	if ([stmt step]) {
-		count = [stmt intValueOfColumn:0];
-		[stmt reset];
-	} else {
-		count = 0;
-	}
-
-	return count;
+// Used by app delegate to determine if the database is empty.
+- (BOOL)isEmpty {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT 1 FROM days WHERE scaleWeight IS NOT NULL LIMIT 1"];
+	return ![stmt step];
 }
 
 
-- (float)floatFromSQL:(const char *)sql {
-	float value;
-	
-	SQLiteStatement *stmt = [db statementFromSQL:sql];
-	if ([stmt step]) {
-		value = [stmt doubleValueOfColumn:0];
-		[stmt reset];
-	} else {
-		value = 0;
-	}
-	
-	return value;
-}
-
-
+// Used by LogEntryViewController when choosing default weight. Only called if no weight prior to current day.
+// Used by EWGoal when finding start weight during an upgrade from DBv2.
 - (float)earliestWeight {
 	return [self floatFromSQL:"SELECT scaleWeight FROM days WHERE scaleWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
-- (float)earliestFat {
+// Used by LogEntryViewController when choosing default fat ratio. Only called if no weight prior to current day.
+- (float)earliestFatRatio {
 	return [self floatFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
-- (float)trendValueOnMonthDay:(EWMonthDay)startMonthDay {
-	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(startMonthDay)];
-	float w;
-	
-	w = [dbm getDBDayOnDay:EWMonthDayGetDay(startMonthDay)]->trendWeight;
-	if (w > 0) return w;
-	
-	w = [dbm inputTrendOnDay:EWMonthDayGetDay(startMonthDay)];
-	return w;
-}
-
-
+// Used by EWGoal to determine current weight.
+// Used by TrendViewController to determine current weight for activities.
+// Used by GoalViewController to set default goal weight.
 - (float)latestWeight {
 	return [self trendValueOnMonthDay:EWMonthDayToday()];
 }
 
 
+// Used by EWDBMonth in latestFatBeforeDay:
 - (float)latestFatBeforeMonth:(EWMonth)month {
 	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleFatRatio IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	float fat;
@@ -212,6 +186,7 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
+// Used by EWDBMonth in didRecordFatBeforeDay:
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month {
 	SQLiteStatement *stmt = [db statementFromSQL:"SELECT scaleFatRatio FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
 	float fat;
@@ -228,6 +203,7 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
+// Used all over the place.
 - (EWDBMonth *)getDBMonth:(EWMonth)month {
 	id key = [NSNumber numberWithInt:month];
 	EWDBMonth *dbm = nil;
@@ -252,6 +228,7 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
+// Used by GraphViewController when sizing graphs.
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay {
 	NSParameterAssert(minWeight);
 	NSParameterAssert(maxWeight);
@@ -286,6 +263,8 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
+// Used by GraphDrawingOperation when setting parameters.
+// Used by GraphViewController when sizing "all time" graph.
 - (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay {
 	NSParameterAssert(beginMonthDay);
 	NSParameterAssert(endMonthDay);
@@ -302,43 +281,37 @@ static EWDatabase *gSharedDB = nil;
 }
 
 
-- (float)trendWeightOnMonthDay:(EWMonthDay)md {
-	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-	const EWDBDay *d = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-	return d->trendWeight;
-}
-
-
-/* Searches for a monthday before the given monthday where weight was recorded. Will cross at most one month boundary. */
-- (EWMonthDay)monthDayOfWeightBefore:(EWMonthDay)mdStart {
-	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) - 1, 1);
-	EWDBMonth *dbm = nil;
-	for (EWMonthDay md = EWMonthDayPrevious(mdStart); md >= mdStop; md = EWMonthDayPrevious(md)) {
-		if (dbm == nil || EWMonthDayGetMonth(md) != dbm.month) {
-			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-		}
-		const EWDBDay *dbd = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-		if (dbd->scaleWeight > 0) return md;
+/* Searches for a monthday BEFORE the given monthday where weight was recorded. */
+// Used by GraphDrawingOperation to determine head point locations.
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
+	[stmt bindInt:mdStart toParameter:1];
+	if ([stmt step]) {
+		*mdHead = [stmt intValueOfColumn:0];
+		[stmt reset];
+		EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(*mdHead)];
+		return [dbm getDBDayOnDay:EWMonthDayGetDay(*mdHead)];
 	}
-	return 0;
+	return nil;
 }
 
 
-/* Searches for a monthday after the given monthday where weight was recorded. Will cross at most one month boundary. */
-- (EWMonthDay)monthDayOfWeightAfter:(EWMonthDay)mdStart {
-	EWMonthDay mdStop = EWMonthDayMake(EWMonthDayGetMonth(mdStart) + 1, 31);
-	EWDBMonth *dbm = nil;
-	for (EWMonthDay md = EWMonthDayNext(mdStart); md <= mdStop; md = EWMonthDayNext(md)) {
-		if (dbm == nil || EWMonthDayGetDay(md) == 1) {
-			dbm = [self getDBMonth:EWMonthDayGetMonth(md)];
-		}
-		const EWDBDay *dbd = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-		if (dbd->scaleWeight > 0) return md;
+/* Searches for a monthday AFTER the given monthday where weight was recorded. */
+// Used by GraphDrawingOperation to determine tail point locations.
+- (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop {
+	SQLiteStatement *stmt = [db statementFromSQL:"SELECT monthday FROM days WHERE scaleWeight IS NOT NULL AND monthday > ? ORDER BY monthday LIMIT 1"];
+	[stmt bindInt:mdStop toParameter:1];
+	if ([stmt step]) {
+		*mdTail = [stmt intValueOfColumn:0];
+		[stmt reset];
+		EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(*mdTail)];
+		return [dbm getDBDayOnDay:EWMonthDayGetDay(*mdTail)];
 	}
-	return 0;
+	return nil;
 }
 
 
+// Used by LogViewController when setting reminder badge value
 - (BOOL)hasDataForToday {
 	EWMonthDay today = EWMonthDayToday();
 	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(today)];
@@ -496,6 +469,28 @@ static EWDatabase *gSharedDB = nil;
 
 
 #pragma mark Private Methods
+
+
+- (float)floatFromSQL:(const char *)sql {
+	float value;
+	
+	SQLiteStatement *stmt = [db statementFromSQL:sql];
+	if ([stmt step]) {
+		value = [stmt doubleValueOfColumn:0];
+		[stmt reset];
+	} else {
+		value = 0;
+	}
+	
+	return value;
+}
+
+
+- (float)trendValueOnMonthDay:(EWMonthDay)startMonthDay {
+	EWMonthDay next = EWMonthDayNext(startMonthDay);
+	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(next)];
+	return [dbm inputTrendOnDay:EWMonthDayGetDay(next)];
+}
 
 
 - (void)updateTrendValues {

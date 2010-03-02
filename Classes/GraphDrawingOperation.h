@@ -22,6 +22,7 @@ typedef struct {
 	EWMonthDay mdEarliest;
 	EWMonthDay mdLatest;
 	BOOL shouldDrawNoDataWarning;
+	BOOL showFatWeight;
 } GraphViewParameters;
 
 
@@ -55,6 +56,7 @@ typedef struct {
 	CGPoint tailPoint;
 	BOOL showGoalLine;
 	BOOL showTrajectoryLine;
+	BOOL showFatWeight;
 }
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays;
 @property (nonatomic) EWMonthDay beginMonthDay;

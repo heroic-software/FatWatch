@@ -215,7 +215,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		if (launchViewController) return;
 	}
 	
-	if (([db weightCount] == 0) && !readyToGo) {
+	if ([db isEmpty] && !readyToGo) {
 		// Consider a new data file, prompt user for new units.
 		launchViewController = [[NewDatabaseViewController alloc] init];
 		[self addViewToWindow:launchViewController.view];
