@@ -179,15 +179,16 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	while (increment < minIncrement) {
 		increment = EWChartWeightIncrementAfterIncrement(increment);
 	}
+	CGFloat adjustment = ((kBandHeight * 4 + kGraphMarginBottom) / gp->scaleY);
 	gp->gridIncrement = increment;
-	gp->gridMinWeight = floorf(gp->minWeight / increment) * increment;
+	gp->gridMinWeight = floorf((gp->minWeight + adjustment) / increment) * increment;
 	
 	CGAffineTransform t = CGAffineTransformMakeTranslation(0, size.height);
 	t = CGAffineTransformScale(t, gp->scaleX, -gp->scaleY);
 	t = CGAffineTransformTranslate(t, -0.5, -gp->minWeight);
 	gp->t = t;
 	
-	if (gp->showFatWeight) {
+	if (!gp->showFatWeight) {
 		[self prepareBMIRegionsForGraphViewParameters:gp];
 	}
 	
@@ -298,7 +299,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	if (! [[NSUserDefaults standardUserDefaults] highlightWeekends]) return NULL;
 
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGFloat h = p->maxWeight - p->minWeight;
+	CGFloat bandWeight = ((kBandHeight * 4) / p->scaleY);
+	CGFloat h = p->maxWeight - p->minWeight - bandWeight;
 	
 	NSUInteger wd = EWWeekdayFromMonthAndDay(EWMonthDayGetMonth(beginMonthDay), 
 											 EWMonthDayGetDay(beginMonthDay));
@@ -307,7 +309,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGPathAddRect(path, &p->t, CGRectMake(0.5, p->minWeight, 1, h));
 	}
 	
-	CGRect dayRect = CGRectMake(7.5 - wd, p->minWeight, 2, h);
+	CGRect dayRect = CGRectMake(7.5 - wd, p->minWeight + bandWeight, 2, h);
 	while (dayRect.origin.x < dayCount) {
 		CGPathAddRect(path, &p->t, dayRect);
 		dayRect.origin.x += 7;
@@ -319,7 +321,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newGridPath {
 	CGMutablePathRef gridPath = CGPathCreateMutable();
-
+	const CGFloat bandWeight = ((kBandHeight * 4) / p->scaleY);
+	const CGFloat minY = p->minWeight + bandWeight;
+	const CGFloat maxY = p->maxWeight;
+	
 	// vertical lines
 	CGFloat x = 0.5;
 	EWMonthDay md = beginMonthDay;
@@ -327,8 +332,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		EWMonth month = EWMonthDayGetMonth(md);
 		EWDay day = EWMonthDayGetDay(md);
 		if (day == 1) {
-			CGPathMoveToPoint(gridPath, &p->t, x, p->minWeight);
-			CGPathAddLineToPoint(gridPath, &p->t, x, p->maxWeight);
+			CGPathMoveToPoint(gridPath, &p->t, x, minY);
+			CGPathAddLineToPoint(gridPath, &p->t, x, maxY);
 			x += EWDaysInMonth(month);
 		} else {
 			x += EWDaysInMonth(month) - day + 1;
