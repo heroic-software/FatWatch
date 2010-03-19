@@ -9,6 +9,7 @@
 #import "BRTableButtonRow.h"
 #import "BRTableSection.h"
 #import "BRTableViewController.h"
+#import "BRConfirmationAlert.h"
 
 
 @implementation BRTableButtonRow
@@ -46,7 +47,23 @@
 	else if ([thing isKindOfClass:[NSURL class]]) {
 		UIApplication *app = [UIApplication sharedApplication];
 		if ([app canOpenURL:thing]) {
-			[app openURL:thing];
+			BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
+			alert.title = self.title;
+			if ([[thing scheme] isEqualToString:@"mailto"]) {
+				alert.message = @"Would you like to open Mail?";
+				alert.buttonTitle = @"Open Mail";
+			} else if ([[thing host] isEqualToString:@"itunes.apple.com"]) {
+				alert.message = @"Would you like to open in iTunes?";
+				alert.buttonTitle = @"Open iTunes";
+			} else if ([[thing scheme] isEqualToString:@"http"]) {
+				alert.message = @"Would you like to open this website?";
+				alert.buttonTitle = @"Open Website";
+			} else {
+				alert.message = @"Would you like to open this link?";
+				alert.buttonTitle = @"Open";
+			}
+			[[alert confirmBeforeSendingMessageTo:app] openURL:thing];
+			[alert release];
 			return YES;
 		}
 	}

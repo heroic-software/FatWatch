@@ -27,6 +27,8 @@
 		BC04159A10DE1656008FCB11 /* NSUserDefaults+EWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */; };
 		BC0415B110DE20D7008FCB11 /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
 		BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
+		BC069AEB1153F3BE00377DC1 /* BRInvocationTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */; };
+		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC112E8F1101453200EAC8DA /* FlagIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* FlagIcons */; };
@@ -258,6 +260,10 @@
 		BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatter.m; sourceTree = "<group>"; };
 		BC04162C10DE46E4008FCB11 /* EWWeightChangeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWWeightChangeFormatter.h; sourceTree = "<group>"; };
 		BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightChangeFormatter.m; sourceTree = "<group>"; };
+		BC069AE91153F3BE00377DC1 /* BRInvocationTrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRInvocationTrap.h; sourceTree = "<group>"; };
+		BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRInvocationTrap.m; sourceTree = "<group>"; };
+		BC069AED1153F94600377DC1 /* BRConfirmationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConfirmationAlert.h; sourceTree = "<group>"; };
+		BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConfirmationAlert.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -673,6 +679,10 @@
 				BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */,
 				BC04130C10DB718C008FCB11 /* BRJSON.h */,
 				BC04130D10DB718C008FCB11 /* BRJSON.m */,
+				BC069AE91153F3BE00377DC1 /* BRInvocationTrap.h */,
+				BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */,
+				BC069AED1153F94600377DC1 /* BRConfirmationAlert.h */,
+				BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */,
 			);
 			path = BRViews;
 			sourceTree = "<group>";
@@ -1163,6 +1173,8 @@
 				BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */,
 				BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */,
 				BC59BDC111232CE400203E22 /* EWDateFormatter.m in Sources */,
+				BC069AEB1153F3BE00377DC1 /* BRInvocationTrap.m in Sources */,
+				BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
