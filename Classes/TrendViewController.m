@@ -184,19 +184,19 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	if (date) {
 		int dayCount = floor([date timeIntervalSinceNow] / kSecondsPerDay);
 		if (dayCount > 365) {
-			[dateButton setText:@"goal in " forPart:0];
+			[dateButton setText:@"goal weight in " forPart:0];
 			[dateButton setText:[self stringFromDayCount:dayCount] forPart:1];
 			dateButton.enabled = NO;
 		} else if (showAbsoluteDate) {
 			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 			[formatter setDateStyle:NSDateFormatterLongStyle];
 			[formatter setTimeStyle:NSDateFormatterNoStyle];
-			[dateButton setText:@"goal on " forPart:0];
+			[dateButton setText:@"goal weight on " forPart:0];
 			[dateButton setText:[formatter stringFromDate:date] forPart:1];
 			[formatter release];
 			dateButton.enabled = YES;
 		} else {
-			[dateButton setText:@"goal " forPart:0];
+			[dateButton setText:@"goal weight " forPart:0];
 			if (dayCount == 0) {
 				[dateButton setText:@"today" forPart:1];
 			} else if (dayCount == 1) {
@@ -223,15 +223,15 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	int dayCount = floor(t / kSecondsPerDay);
 	if (dayCount > 0) {
 		[planButton setText:[self stringFromDayCount:dayCount] forPart:0];
-		[planButton setText:@" later than plan" forPart:1];
+		[planButton setText:@" later than goal date" forPart:1];
 		[planButton setTextColor:[BRColorPalette colorNamed:@"WarningText"] forPart:0];
 	} else if (dayCount < 0) {
 		[planButton setText:[self stringFromDayCount:-dayCount] forPart:0];
-		[planButton setText:@" earlier than plan" forPart:1];
+		[planButton setText:@" earlier than goal date" forPart:1];
 		[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
 	} else {
 		[planButton setText:@"on schedule" forPart:0];
-		[planButton setText:@" according to plan" forPart:1];
+		[planButton setText:@" for goal date" forPart:1];
 		[planButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:0];
 	}
 }
@@ -393,6 +393,11 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		[energyChangeButton setText:@"burning " forPart:0];
 		[energyChangeButton setText:@" more than you eat" forPart:2];
 	}
+	
+	[weightChangeButton setText:(span.graphParameters->showFatWeight ?
+								 @" of fat" :
+								 @" of total weight")
+						forPart:2];
 
 	NSNumber *change = [NSNumber numberWithFloat:fabsf(span.weightPerDay)];
 
