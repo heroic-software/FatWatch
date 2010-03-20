@@ -10,6 +10,8 @@
 #import "EWDatabase.h"
 #import "EWWeightFormatter.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "EWGoal.h"
+#import "GraphDrawingOperation.h"
 
 
 static const CGFloat gTickWidth = 6.5;
@@ -40,7 +42,9 @@ static const CGFloat gMinorTickWidth = 3.5;
 	
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
-		
+
+	CGContextRef ctxt = UIGraphicsGetCurrentContext();
+
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
 	CGFloat barX = viewWidth - 0.5;
@@ -76,12 +80,25 @@ static const CGFloat gMinorTickWidth = 3.5;
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
-	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 	CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
 	CGContextSetLineWidth(ctxt, 1);
 	CGContextAddPath(ctxt, tickPath);
 	CGContextStrokePath(ctxt);
-	CFRelease(tickPath);
+	CFRelease(tickPath);	
+
+	// Goal Indicator
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (goal.defined && !p->showFatWeight) {
+		float goalWeight = goal.endWeight;
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, goalWeight), p->t);
+		CGContextMoveToPoint(ctxt, 0, point.y);
+		CGContextAddLineToPoint(ctxt, viewWidth, point.y);
+		
+		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.5);
+		CGContextSetLineWidth(ctxt, 3);
+		CGContextStrokePath(ctxt);
+	}
+	
 }
 
 
