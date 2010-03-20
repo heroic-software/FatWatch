@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -35,7 +36,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -47,7 +48,7 @@
 							<object class="IBUISegmentedControl" id="20948166">
 								<reference key="NSNextResponder" ref="549168467"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 8}, {413, 30}}</string>
+								<string key="NSFrame">{{12, 8}, {314, 30}}</string>
 								<reference key="NSSuperview" ref="549168467"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -56,9 +57,9 @@
 								<int key="IBSelectedSegmentIndex">0</int>
 								<object class="NSArray" key="IBSegmentTitles">
 									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>Past Month</string>
-									<string>Past Quarter</string>
-									<string>Past Year</string>
+									<string>Month</string>
+									<string>Quarter</string>
+									<string>Year</string>
 									<string>All Time</string>
 									<string>Browse</string>
 								</object>
@@ -95,6 +96,42 @@
 									<reference ref="4"/>
 								</object>
 							</object>
+							<object class="IBUISegmentedControl" id="305927422">
+								<reference key="NSNextResponder" ref="549168467"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{336, 8}, {89, 30}}</string>
+								<reference key="NSSuperview" ref="549168467"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<int key="IBSegmentControlStyle">2</int>
+								<int key="IBNumberOfSegments">2</int>
+								<int key="IBSelectedSegmentIndex">0</int>
+								<object class="NSArray" key="IBSegmentTitles">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>Total</string>
+									<string>Fat</string>
+								</object>
+								<object class="NSMutableArray" key="IBSegmentWidths">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<real value="0.0"/>
+									<real value="0.0"/>
+								</object>
+								<object class="NSMutableArray" key="IBSegmentEnabledStates">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="YES"/>
+									<boolean value="YES"/>
+								</object>
+								<object class="NSMutableArray" key="IBSegmentContentOffsets">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>{0, 0}</string>
+									<string>{0, 0}</string>
+								</object>
+								<object class="NSMutableArray" key="IBSegmentImages">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<reference ref="4"/>
+									<reference ref="4"/>
+								</object>
+							</object>
 						</object>
 						<string key="NSFrame">{{0, 256}, {480, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
@@ -105,6 +142,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIBarButtonItem" id="70229006">
 								<reference key="IBUICustomView" ref="20948166"/>
+								<reference key="IBUIToolbar" ref="549168467"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="520205333">
+								<reference key="IBUICustomView" ref="305927422"/>
 								<reference key="IBUIToolbar" ref="549168467"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="592278023">
@@ -145,6 +186,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 300}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -213,6 +255,31 @@
 					</object>
 					<int key="connectionID">24</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">typeControl</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="305927422"/>
+					</object>
+					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">typeSelected:</string>
+						<reference key="source" ref="305927422"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">29</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">actionButtonItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="335550917"/>
+					</object>
+					<int key="connectionID">30</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -251,8 +318,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="70229006"/>
-							<reference ref="592278023"/>
 							<reference ref="335550917"/>
+							<reference ref="520205333"/>
+							<reference ref="592278023"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -286,7 +354,21 @@
 						<reference key="parent" ref="549168467"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
+						<int key="objectID">26</int>
+						<reference key="object" ref="520205333"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="305927422"/>
+						</object>
+						<reference key="parent" ref="549168467"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="305927422"/>
+						<reference key="parent" ref="520205333"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
 						<reference key="object" ref="592278023"/>
 						<reference key="parent" ref="549168467"/>
 					</object>
@@ -304,7 +386,8 @@
 					<string>13.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
-					<string>23.IBPluginDependency</string>
+					<string>25.IBPluginDependency</string>
+					<string>27.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 				</object>
@@ -312,9 +395,10 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>GraphViewController</string>
 					<string>UIResponder</string>
-					<string>{{178, 133}, {480, 320}}</string>
+					<string>{{36, 436}, {480, 320}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>YAxisView</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -339,7 +423,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">30</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -353,10 +437,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>showActionMenu:</string>
 							<string>spanSelected:</string>
+							<string>typeSelected:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIBarButtonItem</string>
+							<string>UISegmentedControl</string>
 							<string>UISegmentedControl</string>
 						</object>
 					</object>
@@ -364,14 +450,18 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>actionButtonItem</string>
 							<string>axisView</string>
 							<string>scrollView</string>
 							<string>spanControl</string>
+							<string>typeControl</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
 							<string>YAxisView</string>
 							<string>UIScrollView</string>
+							<string>UISegmentedControl</string>
 							<string>UISegmentedControl</string>
 						</object>
 					</object>

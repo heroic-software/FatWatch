@@ -27,12 +27,18 @@ enum {
 };
 
 
+static NSString * const kSelectedSpanIndexKey = @"ChartSelectedSpanIndex";
+static NSString * const kShowFatKey = @"ChartShowFat";
+
+
 @implementation GraphViewController
 
 
 @synthesize axisView;
 @synthesize scrollView;
 @synthesize spanControl;
+@synthesize typeControl;
+@synthesize actionButtonItem;
 
 
 - (id)init {
@@ -131,6 +137,7 @@ enum {
 		NSInteger spanIndex = spanControl.selectedSegmentIndex;
 		
 		if (spanIndex == kSpanAll) {
+			// Total range, regardless of fat/total setting.
 			[db getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
 			if (beginMonthDay == 0 || endMonthDay == 0) {
 				beginMonthDay = EWMonthDayToday();
@@ -150,8 +157,6 @@ enum {
 			endMonthDay = EWMonthDayToday();
 			beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
 		}
-
-//		endMonthDay = EWMonthDayNext(EWMonthDayNext(EWMonthDayNext(endMonthDay)));
 	}
 
 	parameters.shouldDrawNoDataWarning = (infoCount == 1);
@@ -227,8 +232,9 @@ enum {
 - (void)viewDidLoad {
 	[axisView useParameters:&parameters];
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	spanControl.selectedSegmentIndex = [defs integerForKey:@"ChartSelectedSpanIndex"];
-	parameters.showFatWeight = [defs boolForKey:@"ChartShowFat"];
+	spanControl.selectedSegmentIndex = [defs integerForKey:kSelectedSpanIndexKey];
+	parameters.showFatWeight = [defs boolForKey:kShowFatKey];
+	typeControl.selectedSegmentIndex = parameters.showFatWeight ? 1 : 0;
 	[axisView sizeToFit];
 	CGFloat axisViewWidth = CGRectGetWidth(axisView.frame);
 	CGFloat totalWidth = CGRectGetWidth(self.view.bounds);
@@ -245,6 +251,7 @@ enum {
 	[self prepareGraphViewInfo];
 	[axisView setNeedsDisplay];
 	[self scrollViewDidScroll:scrollView];
+	actionButtonItem.enabled = (infoCount == 1);
 }
 
 
@@ -392,25 +399,24 @@ enum {
 		[scrollView flashScrollIndicators];
 	}
 	[[NSUserDefaults standardUserDefaults] setInteger:spanControl.selectedSegmentIndex 
-											   forKey:@"ChartSelectedSpanIndex"];
+											   forKey:kSelectedSpanIndexKey];
+}
+
+
+- (IBAction)typeSelected:(UISegmentedControl *)sender {
+	parameters.showFatWeight = (typeControl.selectedSegmentIndex == 1);
+	[self databaseDidChange:nil];
+	[[NSUserDefaults standardUserDefaults] setBool:parameters.showFatWeight 
+											forKey:kShowFatKey];
 }
 
 
 - (IBAction)showActionMenu:(UIBarButtonItem *)sender {
+	if (infoCount != 1) return;
 	UIActionSheet *menu = [[UIActionSheet alloc] init];
 	menu.delegate = self;
-	if (infoCount == 1) {
-		saveButtonIndex = [menu addButtonWithTitle:@"Save Image"];
-		copyButtonIndex = [menu addButtonWithTitle:@"Copy"];
-	} else {
-		saveButtonIndex = -1;
-		copyButtonIndex = -1;
-	}
-	if (parameters.showFatWeight) {
-		toggleButtonIndex = [menu addButtonWithTitle:@"Switch to Total Weight"];
-	} else {
-		toggleButtonIndex = [menu addButtonWithTitle:@"Switch to Fat Weight"];
-	}
+	saveButtonIndex = [menu addButtonWithTitle:@"Save Image"];
+	copyButtonIndex = [menu addButtonWithTitle:@"Copy"];
 	menu.cancelButtonIndex = [menu addButtonWithTitle:@"Cancel"];
 	[menu showInView:self.view];
 	[menu release];
@@ -427,11 +433,6 @@ enum {
 	}
 	else if (copyButtonIndex == buttonIndex) {
 		[info[0].view exportImageToPasteboard];
-	}
-	else if (toggleButtonIndex == buttonIndex) {
-		parameters.showFatWeight = !parameters.showFatWeight;
-		[[NSUserDefaults standardUserDefaults] setBool:parameters.showFatWeight forKey:@"ChartShowFat"];
-		[self databaseDidChange:nil];
 	}
 }
 

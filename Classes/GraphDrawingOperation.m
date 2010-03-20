@@ -78,6 +78,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (void)enqueue {
 	if (gDrawingQueue == nil) {
 		gDrawingQueue = [[NSOperationQueue alloc] init];
+		// Limit to one thread at a time, partially because iPhone can't handle
+		// more, partially because our database code isn't as thread-safe as it
+		// ought to be.
+		[gDrawingQueue setMaxConcurrentOperationCount:1];
 	}
 	
 	[gDrawingQueue addOperation:self];
@@ -478,8 +482,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const GraphPoint *lastGP = [pointData bytes] + [pointData length] - sizeof(GraphPoint);
 
 	if (p->showFatWeight) {
-		float currentNonFatWeight = goal.currentWeight - lastGP->scale.y;
-		goalWeight -= currentNonFatWeight;
+		float currentLeanWeight = goal.currentWeight - lastGP->scale.y;
+		goalWeight -= currentLeanWeight;
 	}
 	
 	const CGFloat m = [goal weightChangePerDay];	
