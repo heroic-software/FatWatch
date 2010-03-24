@@ -5,8 +5,6 @@ DELETE FROM equivalents;
 -- Activities
 -- http://riskfactor.cancer.gov/tools/atus-met/met.php
 
-INSERT INTO equivalents VALUES (NULL, 0,0, "doing nothing",NULL,1);
-INSERT INTO equivalents VALUES (NULL, 0,1, "bowling",NULL,3.0);
 INSERT INTO equivalents VALUES (NULL, 0,2, "walking",NULL,3.8);
 INSERT INTO equivalents VALUES (NULL, 0,3, "dancing",NULL,4.5);
 INSERT INTO equivalents VALUES (NULL, 0,4, "hiking",NULL,6.0);
