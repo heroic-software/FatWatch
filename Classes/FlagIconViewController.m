@@ -137,7 +137,7 @@
 - (IBAction)explainLadder:(UIButton *)sender {
 	NSURL *bookURL = [NSURL URLWithString:BOOK_EXERCISE_URL];
 	BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
-	alert.title = @"Hacker’s Diet: Exercise";
+	alert.title = @"Exercise Ladder";
 	alert.message = @"Do you want to open this website?";
 	alert.buttonTitle = @"Website";
 	[[alert confirmBeforeSendingMessageTo:[UIApplication sharedApplication]] openURL:bookURL];

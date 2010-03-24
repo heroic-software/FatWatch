@@ -83,27 +83,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
-
-	// fill table footer view with gradient
-	const CGFloat kSide = CGRectGetHeight(self.tableView.tableFooterView.bounds);
-	
-	UIGraphicsBeginImageContext(CGSizeMake(1, kSide));
-	CGContextRef context = UIGraphicsGetCurrentContext();
-
-	CGColorRef gray = [self.tableView.separatorColor CGColor];
-	const CGFloat grayValue = CGColorGetComponents(gray)[0];
-	const CGFloat components[4] = { grayValue, 1, 1, 1 };
-	const CGFloat locations[2] = { 0, 1 };
-	CGColorSpaceRef space = CGColorSpaceCreateDeviceGray();
-	CGGradientRef gradient = CGGradientCreateWithColorComponents(space, components, locations, 2);
-	CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, kSide), 0);
-	CGGradientRelease(gradient);
-	CGColorSpaceRelease(space);
-	
-	UIImage *pattern = UIGraphicsGetImageFromCurrentImageContext();
-	UIColor *patternColor = [UIColor colorWithPatternImage:pattern];
-	self.tableView.tableFooterView.backgroundColor = patternColor;
-	UIGraphicsEndImageContext();
 }
 
 

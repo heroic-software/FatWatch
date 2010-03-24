@@ -333,23 +333,33 @@ enum {
 - (void)keyboardWillShow:(NSNotification *)notice {
 	NSValue *kbBoundsValue = [[notice userInfo] objectForKey:UIKeyboardBoundsUserInfoKey];
 	float kbHeight = CGRectGetHeight([kbBoundsValue CGRectValue]);
-	float viewHeight = CGRectGetHeight(self.view.frame) - 44;
+	float navHeight = CGRectGetHeight(self.navigationBar.bounds);
 	
+	CGRect newFrame = self.view.bounds;
+	newFrame.origin.y += navHeight;
+	newFrame.size.height -= (navHeight + kbHeight);
+		
 	[UIView beginAnimations:@"keyboardWillShow" context:nil];
 	[UIView setAnimationDuration:0.3];
 	weightControl.alpha = 0;
 	weightContainerView.alpha = 0;
-	annotationContainerView.frame = CGRectMake(0, 44, 320, viewHeight - kbHeight);
+	annotationContainerView.frame = newFrame;
 	[UIView commitAnimations];
 }
 
 
 - (void)keyboardWillHide:(NSNotification *)notice {
+	float y = CGRectGetMaxY(weightContainerView.frame);
+	
+	CGRect newFrame = self.view.bounds;
+	newFrame.origin.y = y;
+	newFrame.size.height -= y;
+
 	[UIView beginAnimations:@"keyboardWillHide" context:nil];
 	[UIView setAnimationDuration:0.3];
 	weightControl.alpha = 1;
 	weightContainerView.alpha = 1;
-	annotationContainerView.frame = CGRectMake(0, 305, 320, 155);
+	annotationContainerView.frame = newFrame;
 	[UIView commitAnimations];
 }
 

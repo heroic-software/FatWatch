@@ -30,7 +30,8 @@ static BOOL autorotationDisabled = NO;
 
 - (void)loadView {
 	UIView *rootView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	rootView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+	rootView.autoresizingMask = (UIViewAutoresizingFlexibleHeight |
+								 UIViewAutoresizingFlexibleWidth);
 	rootView.autoresizesSubviews = YES;
 	rootView.backgroundColor = [UIColor blackColor];
 
