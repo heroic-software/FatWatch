@@ -89,12 +89,15 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	UIFont *boldFont = [UIFont boldSystemFontOfSize:17];
 	[weightChangeButton setFont:boldFont forPart:1];
+	[weightChangeButton setFont:boldFont forPart:3];
 	[energyChangeButton setFont:boldFont forPart:1];
 	[relativeWeightButton setFont:boldFont forPart:0];
 	[dateButton setFont:boldFont forPart:1];
 	[planButton setFont:boldFont forPart:0];
 	[relativeEnergyButton setFont:boldFont forPart:0];
 	[relativeEnergyButton setFont:boldFont forPart:1];
+
+	[weightChangeButton setText:@" of " forPart:2];
 
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self 
@@ -394,10 +397,17 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		[energyChangeButton setText:@" more than you eat" forPart:2];
 	}
 	
-	[weightChangeButton setText:(span.graphParameters->showFatWeight ?
-								 @" of fat" :
-								 @" of total weight")
-						forPart:2];
+	NSString *weightChangeText;
+	UIColor *weightChangeColor;
+	if (span.graphParameters->showFatWeight) {
+		weightChangeText = @"fat";
+		weightChangeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.8 alpha:1];
+	} else {
+		weightChangeText = @"total weight";
+		weightChangeColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.1 alpha:1];
+	}
+	[weightChangeButton setText:weightChangeText forPart:3];
+	[weightChangeButton setTextColor:weightChangeColor forPart:3];
 
 	NSNumber *change = [NSNumber numberWithFloat:fabsf(span.weightPerDay)];
 
