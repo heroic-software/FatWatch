@@ -351,9 +351,15 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	NSString *body = [NSString stringWithFormat:
 					  NSLocalizedString(@"ExportEmailBodyFormat", nil),
 					  [[UIDevice currentDevice] name]];
+
+	NSDictionary *info = [[NSUserDefaults standardUserDefaults] registration];
+	NSString *toRecipient = [info objectForKey:@"email"];
 	
 	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
 	[mail setMailComposeDelegate:self];
+	if (toRecipient) {
+		[mail setToRecipients:[NSArray arrayWithObject:toRecipient]];
+	}
 	[mail setSubject:@"FatWatch Export"];
 	[mail setMessageBody:body isHTML:YES];
 	[mail addAttachmentData:data mimeType:contentType fileName:fileName];
