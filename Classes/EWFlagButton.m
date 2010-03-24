@@ -36,7 +36,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 + (NSString *)iconNameForFlagIndex:(int)flagIndex {
 	if ([[NSUserDefaults standardUserDefaults] isNumericFlag:flagIndex]) {
-		return @"300-ladder";
+		return @"450-ladder";
 	}
 	NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
 	return [[NSUserDefaults standardUserDefaults] stringForKey:key];
