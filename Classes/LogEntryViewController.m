@@ -65,6 +65,10 @@ enum {
 
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+								  UIViewAutoresizingFlexibleHeight);
+	
 	flagButtons[0] = flag0Button;
 	flagButtons[1] = flag1Button;
 	flagButtons[2] = flag2Button;

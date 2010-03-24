@@ -74,6 +74,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+								  UIViewAutoresizingFlexibleHeight);
 	
 	UIButton *button = infoPickerController.infoTypeButton;
 	[self setButton:button backgroundImageNamed:@"NavButton0.png" 
