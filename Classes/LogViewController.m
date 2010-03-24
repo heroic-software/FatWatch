@@ -159,7 +159,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	if (scrollDestination != 0) {
 		[tableView numberOfSections]; // Implicitly performs a conditional reload.
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
-						 atScrollPosition:UITableViewScrollPositionNone
+						 atScrollPosition:UITableViewScrollPositionMiddle
 								 animated:animated];
 		scrollDestination = 0;
 	}
@@ -192,7 +192,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	}
 	NSIndexPath *path = [self indexPathForMonthDay:md];
 	[tableView scrollToRowAtIndexPath:path
-					 atScrollPosition:UITableViewScrollPositionNone
+					 atScrollPosition:UITableViewScrollPositionMiddle
 							 animated:YES];
 }
 
