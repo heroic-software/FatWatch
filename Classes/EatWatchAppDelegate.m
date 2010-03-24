@@ -24,7 +24,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
-#define DEBUG_LAUNCH_ACTIONS_ENABLED 1
+#define DEBUG_LAUNCH_ACTIONS_ENABLED 0
 
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
