@@ -10,6 +10,7 @@
 #import "FlagTabView.h"
 #import "EWFlagButton.h"
 #import "NSUserDefaults+EWAdditions.h"
+#import "BRConfirmationAlert.h"
 
 
 #if TARGET_IPHONE_SIMULATOR
@@ -135,7 +136,12 @@
 
 - (IBAction)explainLadder:(UIButton *)sender {
 	NSURL *bookURL = [NSURL URLWithString:BOOK_EXERCISE_URL];
-	[[UIApplication sharedApplication] openURL:bookURL];
+	BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
+	alert.title = @"Hacker’s Diet: Exercise";
+	alert.message = @"Do you want to open this website?";
+	alert.buttonTitle = @"Website";
+	[[alert confirmBeforeSendingMessageTo:[UIApplication sharedApplication]] openURL:bookURL];
+	[alert release];
 }
 
 
