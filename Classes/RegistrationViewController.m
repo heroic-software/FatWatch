@@ -11,9 +11,9 @@
 
 
 #if TARGET_IPHONE_SIMULATOR
-#define REGISTRATION_URL @"http://fatwatchapp.test/app/register.html"
+#define REGISTRATION_URL @"http://fatwatchapp.test/register/"
 #else
-#define REGISTRATION_URL @"http://www.fatwatchapp.com/app/register.html"
+#define REGISTRATION_URL @"http://www.fatwatchapp.com/register/"
 #endif
 
 

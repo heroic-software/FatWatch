@@ -200,7 +200,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	twitterRow.titleAlignment = UITextAlignmentCenter;
 	twitterRow.object = [NSArray arrayWithObjects:
 						 [NSURL URLWithString:@"tweetie://user?screen_name=FatWatch"],
-						 // [NSURL URLWithString:@"echofon:///user_timeline?FatWatch"],
+						 [NSURL URLWithString:@"echofon:///user_timeline?FatWatch"],
 						 [NSURL URLWithString:@"x-birdfeed://user?screen_name=FatWatch"],
 						 [NSURL URLWithString:@"http://twitter.com/FatWatch"],
 						 nil];
@@ -213,13 +213,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch", @"Support email URL")];
 	[supportSection addRow:emailRow animated:NO];
 	[emailRow release];
-	
-	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
-	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
-	reviewRow.titleAlignment = UITextAlignmentCenter;
-	reviewRow.object = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=285580720&type=Purple+Software"];
-	[supportSection addRow:reviewRow animated:NO];
-	[reviewRow release];
 }
 
 

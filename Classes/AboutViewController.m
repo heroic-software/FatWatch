@@ -13,9 +13,9 @@
 
 
 #if TARGET_IPHONE_SIMULATOR
-#define BOOK_WELCOME_URL @"http://fatwatchapp.test/app/book-welcome"
+#define BOOK_WELCOME_URL @"http://fatwatchapp.test/goto/hackdiet-contents"
 #else
-#define BOOK_WELCOME_URL @"http://www.fatwatchapp.com/app/book-welcome"
+#define BOOK_WELCOME_URL @"http://www.fatwatchapp.com/goto/hackdiet-contents"
 #endif
 
 
@@ -69,6 +69,13 @@
 	[verSection addRow:versionRow animated:NO];
 	[versionRow release];
 	
+	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
+	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
+	reviewRow.titleAlignment = UITextAlignmentCenter;
+	reviewRow.object = [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=285580720"];
+	[verSection addRow:reviewRow animated:NO];
+	[reviewRow release];
+
 	BRTableSection *section;
 	BRTableButtonRow *row;
 	

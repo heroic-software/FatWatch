@@ -13,9 +13,9 @@
 
 
 #if TARGET_IPHONE_SIMULATOR
-#define BOOK_EXERCISE_URL @"http://fatwatchapp.test/app/book-exercise"
+#define BOOK_EXERCISE_URL @"http://fatwatchapp.test/goto/hackdiet-exercise"
 #else
-#define BOOK_EXERCISE_URL @"http://www.fatwatchapp.com/app/book-exercise"
+#define BOOK_EXERCISE_URL @"http://www.fatwatchapp.com/goto/hackdiet-exercise"
 #endif
 
 

@@ -10,12 +10,19 @@
 #import "BRTableSection.h"
 #import "BRTableViewController.h"
 #import "BRConfirmationAlert.h"
+#import "BRActivityView.h"
+
+
+static BRActivityView *gLoadingView = nil;
 
 
 @implementation BRTableButtonRow
 
 
-@synthesize target, action, disabled;
+@synthesize target;
+@synthesize action;
+@synthesize disabled;
+@synthesize followURLRedirects;
 
 
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction {
@@ -25,6 +32,78 @@
 	row.action = anAction;
 	return [row autorelease];
 }
+
+
+- (void)showActivityView {
+	if (gLoadingView) return;
+	gLoadingView = [[BRActivityView alloc] init];
+	gLoadingView.message = @"Loading";
+	[gLoadingView showInView:self.section.controller.view.window];
+}
+
+
+- (void)hideActivityView {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showActivityView) object:nil];
+	[gLoadingView dismiss];
+	[gLoadingView release];
+	gLoadingView = nil;
+}
+
+
+- (BOOL)openURL:(NSURL *)url {
+	if (self.followURLRedirects) {
+		NSURLRequest *request = [NSURLRequest requestWithURL:url];
+		[NSURLConnection connectionWithRequest:request delegate:self];
+		[self performSelector:@selector(showActivityView) withObject:nil afterDelay:0.2];
+		return YES;
+	} else {
+		return [[UIApplication sharedApplication] openURL:url];
+	}
+}
+
+
+- (BRConfirmationAlert *)confirmationAlertForURL:(NSURL *)url {
+	BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
+	alert.title = self.title;
+	if ([[url scheme] isEqualToString:@"mailto"]) {
+		alert.message = @"Would you like to open Mail?";
+		alert.buttonTitle = @"Mail";
+	} else if ([[url scheme] isEqualToString:@"itms-apps"]) {
+		alert.message = @"Would you like to open the App Store?";
+		alert.buttonTitle = @"App Store";
+	} else if ([[url scheme] hasPrefix:@"http"]) {
+		alert.message = @"Would you like to open this website?";
+		alert.buttonTitle = @"Website";
+	} else {
+		alert.message = @"Would you like to open this link?";
+		alert.buttonTitle = @"Open";
+	}
+	return [alert autorelease];
+}
+
+
+- (BOOL)openThing:(id)thing {
+	if ([thing isKindOfClass:[NSArray class]]) {
+		for (id subthing in thing) {
+			if ([self openThing:subthing]) return YES;
+		}
+	}
+	else if ([thing isKindOfClass:[NSURL class]]) {
+		if ([[UIApplication sharedApplication] canOpenURL:thing]) {
+			BRConfirmationAlert *alert = [self confirmationAlertForURL:thing];
+			[[alert confirmBeforeSendingMessageTo:self] openURL:thing];
+			return YES;
+		}
+	}
+	else if ([thing isKindOfClass:[UIViewController class]]) {
+		[self.section.controller presentViewController:thing forRow:self];
+		return YES;
+	}
+	return NO;
+}
+
+
+#pragma mark BRTableRow
 
 
 - (NSString *)reuseableCellIdentifier {
@@ -38,51 +117,51 @@
 }
 
 
-- (BOOL)openThing:(id)thing {
-	if ([thing isKindOfClass:[NSArray class]]) {
-		for (id subthing in thing) {
-			if ([self openThing:subthing]) return YES;
-		}
-	}
-	else if ([thing isKindOfClass:[NSURL class]]) {
-		UIApplication *app = [UIApplication sharedApplication];
-		if ([app canOpenURL:thing]) {
-			BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
-			alert.title = self.title;
-			if ([[thing scheme] isEqualToString:@"mailto"]) {
-				alert.message = @"Would you like to open Mail?";
-				alert.buttonTitle = @"Open Mail";
-			} else if ([[thing host] isEqualToString:@"itunes.apple.com"]) {
-				alert.message = @"Would you like to open in iTunes?";
-				alert.buttonTitle = @"Open iTunes";
-			} else if ([[thing scheme] isEqualToString:@"http"]) {
-				alert.message = @"Would you like to open this website?";
-				alert.buttonTitle = @"Open Website";
-			} else {
-				alert.message = @"Would you like to open this link?";
-				alert.buttonTitle = @"Open";
-			}
-			[[alert confirmBeforeSendingMessageTo:app] openURL:thing];
-			[alert release];
-			return YES;
-		}
-	}
-	else if ([thing isKindOfClass:[UIViewController class]]) {
-		[self.section.controller presentViewController:thing forRow:self];
-		return YES;
-	}
-	return NO;
-}
-
-
 - (void)didSelect {
 	[self deselectAnimated:YES];
 	if (disabled) return;
 	if (self.target) {
 		[self.target performSelector:self.action withObject:self];
 	} else {
-		[self openThing:self.object];
+		if (! [self openThing:self.object]) {
+			NSLog(@"Warning: nothing on device to open row object %@",
+				  self.object);
+		}
 	}
+}
+
+
+#pragma mark NSURLConnection
+// http://developer.apple.com/iphone/library/qa/qa2008/qa1629.html
+
+
+// If the URL resulted in a redirect, update target to be the new URL.
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+	if ([response URL]) {
+		self.object = [response URL];
+		NSLog(@"Updating URL for \"%@\" to %@", self.title, self.object);
+	}
+    return request;
+}
+
+
+// The URL successfully loaded, so pass it along to the system.
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[self hideActivityView];
+    [[UIApplication sharedApplication] openURL:self.object];
+}
+
+
+// The URL failed to load.
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[self hideActivityView];
+	UIAlertView *alert = [[UIAlertView alloc] init];
+	alert.title = self.title;
+	alert.message = [NSString stringWithFormat:@"Cannot open URL (%@).",
+					 [error localizedDescription]];
+	[alert addButtonWithTitle:@"Dismiss"];
+	[alert show];
+	[alert release];
 }
 
 

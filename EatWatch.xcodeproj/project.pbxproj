@@ -12,6 +12,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		BC0052B71159AD8A00DEE9AD /* BRActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0052B61159AD8A00DEE9AD /* BRActivityView.m */; };
 		BC0211F70DC15D9800BA97BB /* NewDatabaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */; };
 		BC02490C10F40C8700BED779 /* EnergyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02490B10F40C8700BED779 /* EnergyViewController.m */; };
 		BC02492910F4159E00BED779 /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
@@ -233,6 +234,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		BC0052B51159AD8A00DEE9AD /* BRActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRActivityView.h; sourceTree = "<group>"; };
+		BC0052B61159AD8A00DEE9AD /* BRActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRActivityView.m; sourceTree = "<group>"; };
 		BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewDatabaseViewController.h; path = Classes/NewDatabaseViewController.h; sourceTree = "<group>"; };
 		BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewDatabaseViewController.m; path = Classes/NewDatabaseViewController.m; sourceTree = "<group>"; };
 		BC02490A10F40C8700BED779 /* EnergyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnergyViewController.h; path = Classes/EnergyViewController.h; sourceTree = "<group>"; };
@@ -392,7 +395,6 @@
 		BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRColorPalette.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
-		BCD041571108E90D008C735C /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; name = app; path = ../../../pl141/public_html/fatwatch/app; sourceTree = SOURCE_ROOT; };
 		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
@@ -556,7 +558,6 @@
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
-				BCD041571108E90D008C735C /* app */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 			);
 			name = CustomTemplate;
@@ -683,6 +684,8 @@
 				BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */,
 				BC069AED1153F94600377DC1 /* BRConfirmationAlert.h */,
 				BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */,
+				BC0052B51159AD8A00DEE9AD /* BRActivityView.h */,
+				BC0052B61159AD8A00DEE9AD /* BRActivityView.m */,
 			);
 			path = BRViews;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				BC59BDC111232CE400203E22 /* EWDateFormatter.m in Sources */,
 				BC069AEB1153F3BE00377DC1 /* BRInvocationTrap.m in Sources */,
 				BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */,
+				BC0052B71159AD8A00DEE9AD /* BRActivityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
