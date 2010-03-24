@@ -125,6 +125,8 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 								key, [fields objectForKey:key]];
 				[webView stringByEvaluatingJavaScriptFromString:js];
 			}
+			
+			[fields release];
 
 			[defs setShowRegistrationReminder:NO];
 		}
