@@ -28,6 +28,15 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 @implementation NSUserDefaults (EWAdditions)
 
 
+- (void)registerDefaultsNamed:(NSString *)name {
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+	NSAssert1(path != nil, @"registration domain defaults plist '%@' is missing", name);
+	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	[self registerDefaults:dict];
+	[dict release];
+}
+
+
 #pragma mark Weight Unit
 
 
@@ -244,6 +253,16 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 - (void)setLadderEnabled:(BOOL)doit {
 	[self setBool:doit forKey:@"EnableLadder"];
+}
+
+
+- (NSDate *)firstLaunchDate {
+	return [self objectForKey:@"FirstLaunchDate"];
+}
+
+
+- (void)setFirstLaunchDate {
+	[self setObject:[NSDate date] forKey:@"FirstLaunchDate"];
 }
 
 

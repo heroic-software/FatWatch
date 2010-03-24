@@ -33,6 +33,7 @@ typedef enum {
 
 
 @interface NSUserDefaults (EWAdditions)
+- (void)registerDefaultsNamed:(NSString *)name;
 + (NSArray *)weightUnitsForDisplay;
 + (NSArray *)weightUnitsForExport;
 + (NSString *)nameForWeightUnit:(NSNumber *)weightUnitID;
@@ -56,6 +57,8 @@ typedef enum {
 - (float)defaultWeightChange;
 - (float)heightIncrement;
 - (BOOL)isNumericFlag:(int)which;
+- (NSDate *)firstLaunchDate;
+- (void)setFirstLaunchDate;
 @property (nonatomic,readonly) BOOL highlightWeekends;
 @property (nonatomic,readonly) BOOL highlightBMIZones;
 @property (nonatomic,readonly) BOOL fitGoalOnChart;

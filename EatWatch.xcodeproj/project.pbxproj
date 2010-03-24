@@ -413,6 +413,7 @@
 		BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEquivalentViewController.m; path = Classes/NewEquivalentViewController.m; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
+		BCE4786E1159E0FC00B577F1 /* fatwatchapp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fatwatchapp; path = ../../../nsfn/sites/fatwatchapp; sourceTree = SOURCE_ROOT; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
 		BCE6075410E0227000819E77 /* RungEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RungEntryViewController.h; path = Classes/RungEntryViewController.h; sourceTree = "<group>"; };
 		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; };
@@ -559,6 +560,7 @@
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
+				BCE4786E1159E0FC00B577F1 /* fatwatchapp */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";

@@ -89,6 +89,11 @@ static RegistrationViewController *gSharedController = nil;
 }
 
 
+void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
+	if (object) [dict setObject:object forKey:key];
+}
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView {
 	[[self activityView] stopAnimating];
 	if (errorToDisplay) {
@@ -99,7 +104,29 @@ static RegistrationViewController *gSharedController = nil;
 	} else {
 		NSString *bodyID = [webView stringByEvaluatingJavaScriptFromString:@"document.body.id"];
 		if ([@"registrationForm" isEqualToString:bodyID]) {
-			[[NSUserDefaults standardUserDefaults] setShowRegistrationReminder:NO];
+			NSMutableDictionary *fields = [[NSMutableDictionary alloc] init];
+			
+			NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+			EWSafeDictionarySet(fields, @"bundle_version", [infoDictionary objectForKey:@"CFBundleVersion"]);
+
+			UIDevice *device = [UIDevice currentDevice];
+			EWSafeDictionarySet(fields, @"system_name", [device systemName]);
+			EWSafeDictionarySet(fields, @"system_version", [device systemVersion]);
+			EWSafeDictionarySet(fields, @"device_model", [device model]);
+			EWSafeDictionarySet(fields, @"device_udid", [device uniqueIdentifier]);
+			
+			NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+			EWSafeDictionarySet(fields, @"first_launch", [defs firstLaunchDate]);
+			EWSafeDictionarySet(fields, @"system_languages", [[defs arrayForKey:@"AppleLanguages"] componentsJoinedByString:@","]);
+
+			for (NSString *key in fields) {
+				NSString *js = [NSString stringWithFormat:
+								@"document.forms[0].elements[\"rg[%@]\"].value=\"%@\";",
+								key, [fields objectForKey:key]];
+				[webView stringByEvaluatingJavaScriptFromString:js];
+			}
+
+			[defs setShowRegistrationReminder:NO];
 		}
 		else if ([@"registrationComplete" isEqualToString:bodyID]) {
 			NSString *keyString = [webView stringByEvaluatingJavaScriptFromString:

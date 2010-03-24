@@ -21,6 +21,7 @@
 #import "RootViewController.h"
 #import "TrendViewController.h"
 #import "UpgradeViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
 
 
 #define DEBUG_LAUNCH_ACTIONS_ENABLED 1
@@ -94,18 +95,11 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 #endif
 
 
-- (void)registerDefaultsNamed:(NSString *)name {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
-	NSAssert1(path != nil, @"registration domain defaults plist '%@' is missing", name);
-	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-	[[NSUserDefaults standardUserDefaults] registerDefaults:dict];
-	[dict release];
-}
-
-
 - (void)registerDefaults {
-	[self registerDefaultsNamed:@"Defaults"];
-	[self registerDefaultsNamed:@"MoreDefaults"];
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	if ([defs firstLaunchDate] == nil) [defs setFirstLaunchDate];
+	[defs registerDefaultsNamed:@"Defaults"];
+	[defs registerDefaultsNamed:@"MoreDefaults"];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"ColorPalette" ofType:@"plist"];
 	[[BRColorPalette sharedPalette] addColorsFromFile:path];
 }
