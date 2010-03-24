@@ -41,7 +41,6 @@
 		BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11321F1102F0DC00EAC8DA /* AboutViewController.m */; };
 		BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1133351103AE5300EAC8DA /* RegistrationViewController.m */; };
 		BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC14F3C91118C6F300FB9A50 /* Settings.bundle */; };
-		BC14F3D41118C71D00FB9A50 /* InsertDebugSection.xsl in Resources */ = {isa = PBXBuildFile; fileRef = BC14F3D31118C71D00FB9A50 /* InsertDebugSection.xsl */; };
 		BC1F83B90DB150B800DA88E6 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
 		BC200C6410F7D66F00352A32 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = BC04126110DA0D32008FCB11 /* import.html */; };
 		BC200C7310F7D6F900352A32 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47221A0DE368170081F576 /* home.html */; };
@@ -1000,7 +999,6 @@
 				BCF67901110D670800C923BF /* TriangleRight.png in Resources */,
 				BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */,
 				BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */,
-				BC14F3D41118C71D00FB9A50 /* InsertDebugSection.xsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
