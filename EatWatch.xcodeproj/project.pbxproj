@@ -126,6 +126,12 @@
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
 		BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6082410E03E7F00819E77 /* EWImporter.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
+		BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
+		BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
+		BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
+		BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
+		BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
+		BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
@@ -422,6 +428,7 @@
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
+		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -650,6 +657,7 @@
 				BC910BC90E385C0F007B7941 /* EWDateTest.m */,
 				BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */,
 				BCF67C2C1111749700C923BF /* EWGoalTest.m */,
+				BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1011,6 +1019,7 @@
 				BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */,
 				BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */,
 				BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
+				BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,6 +1214,11 @@
 				BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */,
 				BCF67C2D1111749700C923BF /* EWGoalTest.m in Sources */,
 				BCF67C30111175FB00C923BF /* EWGoal.m in Sources */,
+				BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */,
+				BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */,
+				BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */,
+				BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */,
+				BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1321,7 +1335,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD269AEC-3E91-4F92-9D54-A6D313E9BB68";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.1;
 			};
 			name = AdHoc;
 		};
@@ -1349,7 +1363,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EE480A3-9698-45DA-9D06-109F575D0FD5";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.1;
 			};
 			name = AppStore;
 		};
@@ -1458,7 +1472,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos3.1;
 			};
 			name = Debug;
 		};

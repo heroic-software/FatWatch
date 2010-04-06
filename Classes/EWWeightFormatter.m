@@ -36,6 +36,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 
 + (UIColor *)colorForWeight:(float)weight {
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled] == NO) {
+		return nil;
+	}
 	float height = [[NSUserDefaults standardUserDefaults] height];
 	float BMI = (weight * kKilogramsPerPound) / (height * height);
 	if (BMI < 18.5f) return [BRColorPalette colorNamed:@"BMIUnderweight"];
@@ -46,25 +49,28 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 
 + (UIColor *)backgroundColorForWeight:(float)weight {
-	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		return [[self colorForWeight:weight] colorWithAlphaComponent:0.2f];
+	UIColor *color = [self colorForWeight:weight];
+	if (color) {
+		return [color colorWithAlphaComponent:0.2f];
+	} else {
+		return [UIColor clearColor];
 	}
-	return [UIColor clearColor];
 }
 
 
 + (NSUInteger)fractionDigitsForStyle:(EWWeightFormatterStyle)style {
 	switch (style) {
 		case EWWeightFormatterStyleDisplay:
+		case EWWeightFormatterStyleExport:
 			return [[NSUserDefaults standardUserDefaults] scaleIncrementFractionDigits];
 		case EWWeightFormatterStyleWhole:
 		case EWWeightFormatterStyleGraph:
 			return 0;
 		case EWWeightFormatterStyleVariance:
-		case EWWeightFormatterStyleExport:
-		default:
 			return 1;
 	}
+	NSAssert1(NO, @"fractionDigitsForStyle:%d unexpected", style);
+	return -1;
 }
 
 
@@ -113,7 +119,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	
 	NSUInteger fd = [self fractionDigitsForStyle:style];
 	
-	if (unit == EWWeightUnitStones && style != EWWeightFormatterStyleVariance) {
+	if (unit == EWWeightUnitStones && 
+		style != EWWeightFormatterStyleVariance &&
+		style != EWWeightFormatterStyleExport) {
 		BRMixedNumberFormatter *fmtr = 
 		[BRMixedNumberFormatter poundsAsStonesFormatterWithFractionDigits:fd];
 		if (style == EWWeightFormatterStyleGraph) {
