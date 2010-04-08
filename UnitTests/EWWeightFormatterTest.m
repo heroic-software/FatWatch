@@ -254,8 +254,8 @@
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
 	
 	color = [EWWeightFormatter colorForWeight:100];
-	STAssertNil(color, @"color when BMI disabled");
-	color = [EWWeightFormatter backgroundColorForWeight:100];
+	STAssertEqualObjects(color, [UIColor clearColor], @"foreground color when BMI disabled");
+	color = [EWWeightFormatter colorForWeight:100 alpha:0.2f];
 	STAssertEqualObjects(color, [UIColor clearColor], @"background color when BMI disabled");
 	
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:YES];

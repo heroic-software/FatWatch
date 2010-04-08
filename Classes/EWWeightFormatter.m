@@ -37,7 +37,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 + (UIColor *)colorForWeight:(float)weight {
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled] == NO) {
-		return nil;
+		return [UIColor clearColor];
 	}
 	float height = [[NSUserDefaults standardUserDefaults] height];
 	float BMI = (weight * kKilogramsPerPound) / (height * height);
@@ -48,13 +48,11 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 }
 
 
-+ (UIColor *)backgroundColorForWeight:(float)weight {
-	UIColor *color = [self colorForWeight:weight];
-	if (color) {
-		return [color colorWithAlphaComponent:0.2f];
-	} else {
++ (UIColor *)colorForWeight:(float)weight alpha:(float)alpha {
+	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled] == NO) {
 		return [UIColor clearColor];
 	}
+	return [[self colorForWeight:weight] colorWithAlphaComponent:alpha];
 }
 
 

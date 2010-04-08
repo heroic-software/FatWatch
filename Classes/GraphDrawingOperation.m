@@ -115,7 +115,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		rect = CGRectMake(0, gp->minWeight, width, w[0] - gp->minWeight);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [EWWeightFormatter backgroundColorForWeight:gp->minWeight];
+			color = [EWWeightFormatter colorForWeight:gp->minWeight alpha:0.2f];
 			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
@@ -123,14 +123,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	rect = CGRectMake(0, w[0], width, w[1] - w[0]);
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
-		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[0]+w[1])];
+		color = [EWWeightFormatter colorForWeight:0.5f*(w[0]+w[1]) alpha:0.2f];
 		[regions addObject:GraphRegionMake(rect, color)];
 	}
 	
 	rect = CGRectMake(0, w[1], width, w[2] - w[1]);
 	rect = CGRectIntersection(wholeRect, rect);
 	if (!CGRectIsEmpty(rect)) {
-		color = [EWWeightFormatter backgroundColorForWeight:0.5f*(w[1]+w[2])];
+		color = [EWWeightFormatter colorForWeight:0.5f*(w[1]+w[2]) alpha:0.2f];
 		[regions addObject:GraphRegionMake(rect, color)];
 	}
 	
@@ -138,7 +138,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		rect = CGRectMake(0, w[2], width, gp->maxWeight - w[2]);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [EWWeightFormatter backgroundColorForWeight:gp->maxWeight];
+			color = [EWWeightFormatter colorForWeight:gp->maxWeight alpha:0.2f];
 			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
