@@ -16,10 +16,10 @@
 
 
 enum {
-	kVarianceAuxiliaryInfoType,
-	kBMIAuxiliaryInfoType,
-	kFatPercentAuxiliaryInfoType,
-	kFatWeightAuxiliaryInfoType
+	kAuxiliaryInfoTypeVariance,
+	kAuxiliaryInfoTypeBMI,
+	kAuxiliaryInfoTypeFatPercent,
+	kAuxiliaryInfoTypeFatWeight
 };
 
 
@@ -27,6 +27,9 @@ NSString * const kLogCellReuseIdentifier = @"LogCell";
 
 static NSString * const AuxiliaryInfoTypeKey = @"AuxiliaryInfoType";
 static NSString * const AuxiliaryInfoTypeChangedNotification = @"AuxiliaryInfoTypeChanged";
+
+static NSString * const kLozengeString = @"\xe2\x97\x86"; // LOZENGE
+static NSString * const kEmDashString = @"\xe2\x80\x95"; // HORIZONTAL BAR
 
 static NSInteger gAuxiliaryInfoType;
 
@@ -40,9 +43,9 @@ static NSInteger gAuxiliaryInfoType;
 
 
 + (NSInteger)auxiliaryInfoType {
-	if (gAuxiliaryInfoType == kBMIAuxiliaryInfoType) {
+	if (gAuxiliaryInfoType == kAuxiliaryInfoTypeBMI) {
 		if (![[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-			[self setAuxiliaryInfoType:kVarianceAuxiliaryInfoType];
+			[self setAuxiliaryInfoType:kAuxiliaryInfoTypeVariance];
 		}
 	}
 	return gAuxiliaryInfoType;
@@ -58,10 +61,10 @@ static NSInteger gAuxiliaryInfoType;
 
 + (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType {
 	switch (infoType) {
-		case kVarianceAuxiliaryInfoType: return @"Variance";
-		case kBMIAuxiliaryInfoType: return @"BMI";
-		case kFatPercentAuxiliaryInfoType: return @"Body Fat Percentage";
-		case kFatWeightAuxiliaryInfoType: return @"Body Fat Weight";
+		case kAuxiliaryInfoTypeVariance: return @"Variance";
+		case kAuxiliaryInfoTypeBMI: return @"BMI";
+		case kAuxiliaryInfoTypeFatPercent: return @"Body Fat Percentage";
+		case kAuxiliaryInfoTypeFatWeight: return @"Body Fat Weight";
 		default: return @"Unknown";
 	}
 }
@@ -69,12 +72,12 @@ static NSInteger gAuxiliaryInfoType;
 
 + (NSArray *)availableAuxiliaryInfoTypes {
 	NSMutableArray *array = [NSMutableArray array];
-	[array addObject:[NSNumber numberWithInt:kVarianceAuxiliaryInfoType]];
+	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeVariance]];
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		[array addObject:[NSNumber numberWithInt:kBMIAuxiliaryInfoType]];
+		[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeBMI]];
 	}
-	[array addObject:[NSNumber numberWithInt:kFatPercentAuxiliaryInfoType]];
-	[array addObject:[NSNumber numberWithInt:kFatWeightAuxiliaryInfoType]];
+	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeFatPercent]];
+	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeFatWeight]];
 	return array;
 }
 
@@ -240,55 +243,80 @@ static NSInteger gAuxiliaryInfoType;
 	}
 	
 	if (dd->scaleWeight > 0) {
-		NSString *scaleWeight = [weightFormatter stringForFloat:dd->scaleWeight];
-		[scaleWeight drawInRect:CGRectMake(weightX, numberRowY, 
-										   weightWidth, numberRowHeight)
-					   withFont:[UIFont boldSystemFontOfSize:20]
-				  lineBreakMode:UILineBreakModeClip
-					  alignment:UITextAlignmentRight];
-		
-		NSString *auxInfoString;
-		UIColor *auxInfoColor;
-
+		NSString *mainInfoString;
 		switch (gAuxiliaryInfoType) {
-			case kVarianceAuxiliaryInfoType:
-			{
-				float weightDiff = dd->scaleWeight - dd->trendWeight;
-				auxInfoColor = (weightDiff > 0
-								? [BRColorPalette colorNamed:@"BadText"]
-								: [BRColorPalette colorNamed:@"GoodText"]);
-				auxInfoString = [varianceFormatter stringForFloat:weightDiff];
-			}
-				break;
-			case kBMIAuxiliaryInfoType:
-			{
-				auxInfoColor = [EWWeightFormatter colorForWeight:dd->scaleWeight];
-				auxInfoString = [bmiFormatter stringForFloat:dd->scaleWeight];
-			}
-				break;
-			case kFatPercentAuxiliaryInfoType:
-				auxInfoColor = [UIColor darkGrayColor];
+			case kAuxiliaryInfoTypeFatWeight:
 				if (dd->scaleFatWeight > 0) {
-					auxInfoString = [NSString stringWithFormat:@"%.1f%%", 
-									 100.0f * (dd->scaleFatWeight / dd->scaleWeight)];
+					mainInfoString = [weightFormatter stringForFloat:dd->scaleFatWeight];
 				} else {
-					auxInfoString = @"—";
-				}
-				break;
-			case kFatWeightAuxiliaryInfoType:
-				auxInfoColor = [UIColor darkGrayColor];
-				if (dd->scaleFatWeight > 0) {
-					auxInfoString = [weightFormatter stringForFloat:dd->scaleFatWeight];
-				} else {
-					auxInfoString = @"—";
+					mainInfoString = kEmDashString;
 				}
 				break;
 			default:
+				mainInfoString = [weightFormatter stringForFloat:dd->scaleWeight];
+				break;
+		}
+
+		NSString *auxInfoString;
+		UIColor *auxInfoColor;
+		switch (gAuxiliaryInfoType) {
+			case kAuxiliaryInfoTypeVariance:
+			{
+				float diff = dd->scaleWeight - dd->trendWeight;
+				auxInfoColor = [BRColorPalette colorNamed:((diff < 0)
+														   ? @"BadText"
+														   : @"GoodText")];
+				auxInfoString = [varianceFormatter stringForFloat:diff];
+				break;
+			}
+			case kAuxiliaryInfoTypeBMI:
+			{
+				auxInfoColor = [EWWeightFormatter colorForWeight:dd->scaleWeight];
+				auxInfoString = [bmiFormatter stringForFloat:dd->scaleWeight];
+				break;
+			}
+			case kAuxiliaryInfoTypeFatPercent:
+			{
+				auxInfoColor = [UIColor darkGrayColor];
+				if (dd->scaleFatWeight > 0) {
+					NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+					[nf setNumberStyle:NSNumberFormatterPercentStyle];
+					[nf setMaximumFractionDigits:1];
+					[nf setMinimumFractionDigits:1];
+					auxInfoString = [nf stringForFloat:(dd->scaleFatWeight / dd->scaleWeight)];
+					[nf release];
+				} else {
+					auxInfoString = kEmDashString;
+				}
+				break;
+			}
+			case kAuxiliaryInfoTypeFatWeight:
+			{
+				if (dd->scaleFatWeight > 0) {
+					float diff = dd->scaleFatWeight - dd->trendFatWeight;
+					auxInfoColor = [BRColorPalette colorNamed:((diff < 0)
+															   ? @"BadText"
+															   : @"GoodText")];
+					auxInfoString = [varianceFormatter stringForFloat:diff];
+				} else {
+					auxInfoColor = nil;
+					auxInfoString = nil;
+				}
+				break;
+			}
+			default:
+			{
 				auxInfoColor = [UIColor blackColor];
 				auxInfoString = [NSString stringWithFormat:@"¿%d?", gAuxiliaryInfoType];
 				break;
+			}
 		}
 		
+		[mainInfoString drawInRect:CGRectMake(weightX, numberRowY, 
+											  weightWidth, numberRowHeight)
+						  withFont:[UIFont boldSystemFontOfSize:20]
+					 lineBreakMode:UILineBreakModeClip
+						 alignment:UITextAlignmentRight];
 		[auxInfoColor set];
 		[auxInfoString drawInRect:CGRectMake(auxiliaryX, numberRowY, 
 											 auxiliaryWidth, numberRowHeight)
@@ -341,7 +369,7 @@ static NSInteger gAuxiliaryInfoType;
 				if (value) {
 					string = [NSString stringWithFormat:@"%d", value];
 				} else {
-					string = @"\xe2\x97\x86"; // LOZENGE
+					string = kLozengeString;
 				}
 				[string drawInRect:rect 
 						  withFont:[UIFont boldSystemFontOfSize:12]
