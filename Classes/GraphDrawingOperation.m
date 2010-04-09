@@ -21,7 +21,7 @@ static NSOperationQueue *gDrawingQueue = nil;
 
 static const CGFloat kGraphMarginTop = 32;
 static const CGFloat kGraphMarginBottom = 24;
-static const CGFloat kGraphMarginRight = 24;
+static const CGFloat kGraphMarginRight = 96;
 static const CGFloat kBandHeight = 4;
 
 
