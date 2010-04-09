@@ -52,7 +52,8 @@
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
-		BC2DAF9C116EFB1300FC43C5 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAF9B116EFB1300FC43C5 /* Lock.png */; };
+		BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCA116F83C300FC43C5 /* Lock0.png */; };
+		BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCB116F83C300FC43C5 /* Lock1.png */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
@@ -302,7 +303,8 @@
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
 		BC2806C70E3CF72600986341 /* TabIconGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconGoal.png; sourceTree = "<group>"; };
 		BC2CBA860EC989DA002087B7 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		BC2DAF9B116EFB1300FC43C5 /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
+		BC2DAFCA116F83C300FC43C5 /* Lock0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock0.png; sourceTree = "<group>"; };
+		BC2DAFCB116F83C300FC43C5 /* Lock1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock1.png; sourceTree = "<group>"; };
 		BC3384010DE78303001F1052 /* DatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseTest.m; sourceTree = "<group>"; };
 		BC4722230DE368C80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importPending.html; sourceTree = "<group>"; };
@@ -596,7 +598,8 @@
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
 				BC909D660F16F8CC0090472C /* Default.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
-				BC2DAF9B116EFB1300FC43C5 /* Lock.png */,
+				BC2DAFCA116F83C300FC43C5 /* Lock0.png */,
+				BC2DAFCB116F83C300FC43C5 /* Lock1.png */,
 				BCF67AFE1110CA6100C923BF /* DangerBar.png */,
 				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
 				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
@@ -1010,7 +1013,8 @@
 				BCF67901110D670800C923BF /* TriangleRight.png in Resources */,
 				BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */,
 				BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */,
-				BC2DAF9C116EFB1300FC43C5 /* Lock.png in Resources */,
+				BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */,
+				BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

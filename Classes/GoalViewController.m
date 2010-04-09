@@ -142,6 +142,7 @@
 - (void)addPlanSection {
 	BRTableSection *planSection = [self addNewSection];
 	planSection.headerTitle = NSLocalizedString(@"Plan", @"Goal plan section title");
+	planSection.footerTitle = NSLocalizedString(@"Unlocked values are updated as your weight changes. Edit a value to lock it.", @"Goal plan section footer");
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
@@ -241,17 +242,18 @@
 		BRTableRow *dateRow = [planSection rowAtIndex:0];
 		BRTableRow *rateRow1 = [planSection rowAtIndex:1];
 		BRTableRow *rateRow2 = [planSection rowAtIndex:2];
-		UIImage *lockImage = [UIImage imageNamed:@"Lock.png"];
+		UIImage *lock0Image = [UIImage imageNamed:@"Lock0.png"];
+		UIImage *lock1Image = [UIImage imageNamed:@"Lock1.png"];
 		switch ([[EWGoal sharedGoal] state]) {
 			case EWGoalStateFixedDate:
-				dateRow.image = lockImage;
-				rateRow1.image = nil;
-				rateRow2.image = nil;
+				dateRow.image = lock1Image;
+				rateRow1.image = lock0Image;
+				rateRow2.image = lock0Image;
 				break;
 			case EWGoalStateFixedRate:
-				dateRow.image = nil;
-				rateRow1.image = lockImage;
-				rateRow2.image = lockImage;
+				dateRow.image = lock0Image;
+				rateRow1.image = lock1Image;
+				rateRow2.image = lock1Image;
 			default:
 				break;
 		}
