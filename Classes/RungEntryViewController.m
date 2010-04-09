@@ -100,11 +100,21 @@ static unsigned short EWLadder[48][5] = {
 
 
 - (void)updateRungControls {
+	BOOL isIntroductoryLadder = rung < 16;
+	
 	rungLabel.text = [NSString stringWithFormat:@"Rung %d", rung];
-	ladderLabel.text = (rung < 16) ? @"Introductory Ladder" : @"Lifetime Ladder";
 	[rungControl setEnabled:(rung > 1) forSegmentAtIndex:0];
 	[rungControl setEnabled:(rung < 48) forSegmentAtIndex:1];
-	
+
+	UILabel *setsLabelLabel = (UILabel *)[self.view viewWithTag:757];
+	if (isIntroductoryLadder) {
+		ladderLabel.text = NSLocalizedString(@"Introductory Ladder", nil);
+		setsLabelLabel.text = NSLocalizedString(@"sets of 75 steps, 7 jumps", nil);
+	} else {
+		ladderLabel.text = NSLocalizedString(@"Lifetime Ladder", nil);
+		setsLabelLabel.text = NSLocalizedString(@"sets of 75 steps, 10 jumps", nil);
+	}
+
 	unsigned short *n = EWLadder[rung - 1];
 	unsigned short sets = n[EWLadderSteps] / 75;
 	unsigned short extra = n[EWLadderSteps] % 75;
@@ -165,19 +175,33 @@ static unsigned short EWLadder[48][5] = {
 #pragma mark Cleanup
 
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	// Release any cached data, images, etc that aren't in use.
-}
-
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+	self.rungControl = nil;
+	self.rungLabel = nil;
+	self.ladderLabel = nil;
+	self.bendLabel = nil;
+	self.sitUpLabel = nil;
+	self.legLiftLabel = nil;
+	self.pushUpLabel = nil;
+	self.stepsLabel = nil;
+	self.setsLabel = nil;
+	self.extraStepsLabel = nil;
+	[super viewDidUnload];
 }
 
 
 - (void)dealloc {
+	[key release];
+	[rungControl release];
+	[rungLabel release];
+	[ladderLabel release];
+	[bendLabel release];
+	[sitUpLabel release];
+	[legLiftLabel release];
+	[pushUpLabel release];
+	[stepsLabel release];
+	[setsLabel release];
+	[extraStepsLabel release];
     [super dealloc];
 }
 
