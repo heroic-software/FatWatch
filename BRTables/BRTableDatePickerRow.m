@@ -157,7 +157,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
-	datePicker.date = row.value;
+	// Clamp date value to defined range.
+	NSDate *date = row.value;
+	if (row.minimumDate) date = [date laterDate:row.minimumDate];
+	if (row.maximumDate) date = [date earlierDate:row.maximumDate];
+	datePicker.date = date;
 	datePicker.minimumDate = row.minimumDate;
 	datePicker.maximumDate = row.maximumDate;
 }

@@ -235,6 +235,30 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[self updateTableSections];
+	
+	if ([self numberOfSections] >= 2) {
+		BRTableSection *planSection = [self sectionAtIndex:1];
+		BRTableRow *dateRow = [planSection rowAtIndex:0];
+		BRTableRow *rateRow1 = [planSection rowAtIndex:1];
+		BRTableRow *rateRow2 = [planSection rowAtIndex:2];
+		UIImage *lockImage = [UIImage imageNamed:@"Lock.png"];
+		switch ([[EWGoal sharedGoal] state]) {
+			case EWGoalStateFixedDate:
+				dateRow.image = lockImage;
+				rateRow1.image = nil;
+				rateRow2.image = nil;
+				break;
+			case EWGoalStateFixedRate:
+				dateRow.image = nil;
+				rateRow1.image = lockImage;
+				rateRow2.image = lockImage;
+			default:
+				break;
+		}
+		[dateRow configureCell:[dateRow cell]];
+		[rateRow1 configureCell:[rateRow1 cell]];
+		[rateRow2 configureCell:[rateRow2 cell]];
+	}
 }
 
 

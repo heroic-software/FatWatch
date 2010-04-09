@@ -74,6 +74,7 @@
 
 
 - (void)configureCell:(UITableViewCell *)cell {
+	[super configureCell:cell];
 	id value = self.value;
 	if (value) {
 		cell.textLabel.text = [self stringForValue:value];
@@ -82,9 +83,6 @@
 		cell.textLabel.text = self.title;
 		cell.textLabel.textColor = [UIColor grayColor];
 	}
-	cell.textLabel.textAlignment = self.titleAlignment;
-	cell.accessoryType = self.accessoryType;
-	cell.accessoryView = self.accessoryView;
 }
 
 

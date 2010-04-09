@@ -13,6 +13,14 @@
 extern NSString * const EWGoalDidChangeNotification;
 
 
+typedef enum {
+	EWGoalStateUndefined,
+	EWGoalStateFixedDate,
+	EWGoalStateFixedRate,
+	EWGoalStateInvalid = -1
+} EWGoalState;
+
+
 @interface EWGoal : NSObject {
 
 }
@@ -20,15 +28,16 @@ extern NSString * const EWGoalDidChangeNotification;
 + (void)deleteGoal;
 + (EWGoal *)sharedGoal;
 
+@property (readonly) EWGoalState state;
 @property (readonly,getter=isDefined) BOOL defined;
 @property (readonly,getter=isAttained) BOOL attained;
 
 @property (readonly) float currentWeight;
 
-@property (retain) NSDate *endDate;
 @property float endWeight;
 @property (retain) NSNumber *endWeightNumber;
 
+@property (retain) NSDate *endDate;
 @property float weightChangePerDay;
 
 - (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay;
