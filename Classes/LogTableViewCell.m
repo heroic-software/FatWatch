@@ -263,7 +263,7 @@ static NSInteger gAuxiliaryInfoType;
 			case kAuxiliaryInfoTypeVariance:
 			{
 				float diff = dd->scaleWeight - dd->trendWeight;
-				auxInfoColor = [BRColorPalette colorNamed:((diff < 0)
+				auxInfoColor = [BRColorPalette colorNamed:((diff > 0)
 														   ? @"BadText"
 														   : @"GoodText")];
 				auxInfoString = [varianceFormatter stringForFloat:diff];
@@ -294,7 +294,7 @@ static NSInteger gAuxiliaryInfoType;
 			{
 				if (dd->scaleFatWeight > 0) {
 					float diff = dd->scaleFatWeight - dd->trendFatWeight;
-					auxInfoColor = [BRColorPalette colorNamed:((diff < 0)
+					auxInfoColor = [BRColorPalette colorNamed:((diff > 0)
 															   ? @"BadText"
 															   : @"GoodText")];
 					auxInfoString = [varianceFormatter stringForFloat:diff];
