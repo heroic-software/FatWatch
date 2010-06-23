@@ -13,7 +13,7 @@
 
 @protocol MicroWebServerDelegate;
 
-@interface MicroWebServer : NSObject {
+@interface MicroWebServer : NSObject <NSNetServiceDelegate> {
 	NSString *name;
 	CFSocketRef listenSocket;
 	NSNetService *netService;
