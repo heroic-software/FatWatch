@@ -268,6 +268,7 @@ enum {
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self
 			   selector:@selector(keyboardWillShow:)
@@ -389,6 +390,7 @@ enum {
 - (void)viewWillDisappear:(BOOL)animated {
 	[noteView resignFirstResponder];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super viewWillDisappear:animated];
 }
 
 
