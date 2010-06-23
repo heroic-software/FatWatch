@@ -109,17 +109,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSAssert([paths count], @"Failed to find Documents directory.");
     NSString *documentsDirectory = [paths objectAtIndex:0];
-
-	// Workaround for Beta issue where Documents directory is not created during install.
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (! [fileManager fileExistsAtPath:documentsDirectory]) {
-        BOOL success = [fileManager createDirectoryAtPath:documentsDirectory attributes:nil];
-		NSAssert(success, @"Failed to create Documents directory.");
-    }
-    
 	return [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
 }
-
 
 
 - (NSString *)ensureDatabasePath {
