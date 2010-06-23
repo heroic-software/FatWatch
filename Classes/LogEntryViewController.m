@@ -255,6 +255,18 @@ enum {
 }
 
 
+- (void)layoutSubviewsWithoutKeyboard {
+	CGFloat y = CGRectGetMaxY(weightContainerView.frame);
+	CGRect newFrame = self.view.bounds;
+	if (newFrame.origin.y == y) return;
+	newFrame.origin.y = y;
+	newFrame.size.height -= y;
+	weightControl.alpha = 1;
+	weightContainerView.alpha = 1;
+	annotationContainerView.frame = newFrame;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
 	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	[center addObserver:self
@@ -266,6 +278,7 @@ enum {
 				   name:UIKeyboardWillHideNotification
 				 object:nil];
 	
+	[self layoutSubviewsWithoutKeyboard];
 	[weightPickerView becomeFirstResponder];
 	[[weightContainerView layer] removeAnimationForKey:kCATransition];
 }
@@ -334,17 +347,30 @@ enum {
 }
 
 
+- (void)prepareAnimationsWithUserInfo:(NSDictionary *)userInfo {
+	NSNumber *value;
+	
+	value = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+	[UIView setAnimationCurve:[value intValue]];
+	
+	value = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+	[UIView setAnimationDuration:[value doubleValue]];
+}
+
+
 - (void)keyboardWillShow:(NSNotification *)notice {
-	NSValue *kbBoundsValue = [[notice userInfo] objectForKey:UIKeyboardBoundsUserInfoKey];
-	float kbHeight = CGRectGetHeight([kbBoundsValue CGRectValue]);
-	float navHeight = CGRectGetHeight(self.navigationBar.bounds);
+	CGRect kbFrameScreen = [[[notice userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+	CGRect kbFrameWindow = [self.view.window convertRect:kbFrameScreen fromWindow:nil];
+	CGRect kbFrame = [self.view convertRect:kbFrameWindow fromView:nil];
+
+	CGFloat navHeight = CGRectGetHeight(self.navigationBar.bounds);
 	
 	CGRect newFrame = self.view.bounds;
 	newFrame.origin.y += navHeight;
-	newFrame.size.height -= (navHeight + kbHeight);
+	newFrame.size.height -= (navHeight + CGRectGetHeight(kbFrame));
 		
 	[UIView beginAnimations:@"keyboardWillShow" context:nil];
-	[UIView setAnimationDuration:0.3];
+	[self prepareAnimationsWithUserInfo:[notice userInfo]];
 	weightControl.alpha = 0;
 	weightContainerView.alpha = 0;
 	annotationContainerView.frame = newFrame;
@@ -353,17 +379,9 @@ enum {
 
 
 - (void)keyboardWillHide:(NSNotification *)notice {
-	float y = CGRectGetMaxY(weightContainerView.frame);
-	
-	CGRect newFrame = self.view.bounds;
-	newFrame.origin.y = y;
-	newFrame.size.height -= y;
-
 	[UIView beginAnimations:@"keyboardWillHide" context:nil];
-	[UIView setAnimationDuration:0.3];
-	weightControl.alpha = 1;
-	weightContainerView.alpha = 1;
-	annotationContainerView.frame = newFrame;
+	[self prepareAnimationsWithUserInfo:[notice userInfo]];
+	[self layoutSubviewsWithoutKeyboard];
 	[UIView commitAnimations];
 }
 
