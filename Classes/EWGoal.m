@@ -187,7 +187,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 
 - (BOOL)isAttained {
 	@synchronized (self) {
-		return fabsf([self currentWeight] - self.endWeight) < 1.4f;
+		return fabsf([self currentWeight] - self.endWeight) < 0.5f;
 	}
 	return NO;
 }
