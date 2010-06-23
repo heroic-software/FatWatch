@@ -155,7 +155,8 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	if (scrollDestination != 0) {
 		[tableView numberOfSections]; // Implicitly performs a conditional reload.
 		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
@@ -163,10 +164,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 								 animated:animated];
 		scrollDestination = 0;
 	}
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
 	if (tableSelection) {
 		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
@@ -181,6 +178,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		EWMonthDay md = [self monthDayForIndexPath:path];
 		[LogViewController setCurrentMonthDay:md];
 	}
+	[super viewWillDisappear:animated];
 }
 
 
