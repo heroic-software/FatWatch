@@ -66,6 +66,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 @synthesize showTrajectoryLine;
 
 
+- (id)init {
+	if (self = [super init]) {
+		scale = [[UIScreen mainScreen] scale];
+	}
+	return self;
+}
+
+
 #pragma mark Queue
 
 
@@ -565,8 +573,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (CGContextRef)newBitmapContext {
 	static const size_t bitsPerComponent = 8;
 	static const size_t bytesPerPixel = 4;
-	const size_t pixelsWide = CGRectGetWidth(bounds);
-	const size_t pixelsHigh = CGRectGetHeight(bounds);
+	const size_t pixelsWide = scale * CGRectGetWidth(bounds);
+	const size_t pixelsHigh = scale * CGRectGetHeight(bounds);
 	const size_t bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -574,7 +582,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGColorSpaceRelease(colorSpace);
 	
 	CGContextTranslateCTM(ctxt, 0, pixelsHigh);
-	CGContextScaleCTM(ctxt, 1, -1);
+	CGContextScaleCTM(ctxt, scale, -scale);
 	
 	return ctxt;
 }

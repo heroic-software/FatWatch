@@ -48,6 +48,7 @@ typedef struct {
 	EWMonthDay endMonthDay;
 	GraphViewParameters *p;
 	CGRect bounds;
+	CGFloat scale;
 	CGImageRef imageRef;
 	NSMutableData *pointData;
 	NSMutableData *flagData;
