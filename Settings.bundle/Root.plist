@@ -120,7 +120,7 @@
 			<key>Key</key>
 			<string>ChartFitGoal</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Title</key>
