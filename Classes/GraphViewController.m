@@ -365,6 +365,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
 	GraphViewInfo *ginfo = &info[operation.index];
+	// FIXME: ginfo could have been deallocated before this method is called.
 	if (ginfo->operation == operation && ![operation isCancelled]) {
 		CGImageRelease(ginfo->imageRef);
 		ginfo->imageRef = CGImageRetain(operation.imageRef);
