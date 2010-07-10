@@ -7,7 +7,6 @@
 //
 
 #import "GraphView.h"
-#import "GraphDrawingOperation.h"
 
 
 static const CGFloat kLabelOffsetX = 2;
