@@ -54,7 +54,12 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 	// 1 kcal/min = 1 MET * 1 kg * 60min/hr
 	static const float kMinutesPerHour = 60.0f;
 	float energyPerUnit = (mets - 1) * gCurrentWeightInKilograms / kMinutesPerHour;
-	return EWEquivalentFormatNumber(energy / energyPerUnit, @"min", 0);
+	float minutes = energy / energyPerUnit;
+	if (minutes < 100) {
+		return EWEquivalentFormatNumber(minutes, @"min", 0);
+	} else {
+		return EWEquivalentFormatNumber(minutes / 60.0f, @"hrs", 1);
+	}
 }
 
 - (NSString *)description {
