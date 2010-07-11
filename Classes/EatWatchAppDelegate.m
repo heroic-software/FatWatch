@@ -231,7 +231,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 #pragma mark UIApplicationDelegate
 
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
 #if DEBUG_LAUNCH_ACTIONS_ENABLED
 	[self performDebugLaunchActions];
 #endif
@@ -248,6 +249,18 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	}
 	
     [window makeKeyAndVisible];
+	
+	return YES;
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	[[EWDatabase sharedDatabase] close];
+}
+
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+	[[EWDatabase sharedDatabase] reopen];
 }
 
 

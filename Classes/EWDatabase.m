@@ -63,7 +63,8 @@ static EWDatabase *gSharedDB = nil;
 
 - (id)initWithFile:(NSString *)path {
 	if (self = [self init]) {
-		db = [[SQLiteDatabase alloc] initWithFile:path];
+		dbPath = [path copy];
+		db = [[SQLiteDatabase alloc] initWithFile:dbPath];
 		[self didOpen];
 	}
 	return self;
@@ -124,6 +125,14 @@ static EWDatabase *gSharedDB = nil;
 	[self flushCache];
 	[db release];
 	db = nil;
+}
+
+
+- (void)reopen {
+	NSAssert(dbPath, @"Only file-based databases may be reopened.");
+	NSAssert(db == nil, @"Must close database before reopening.");
+	db = [[SQLiteDatabase alloc] initWithFile:dbPath];
+	[self didOpen];
 }
 
 

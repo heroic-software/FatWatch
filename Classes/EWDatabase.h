@@ -19,6 +19,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 
 
 @interface EWDatabase : NSObject {
+	NSString *dbPath;
 	SQLiteDatabase *db;
 	NSMutableDictionary *monthCache;
 	NSLock *monthCacheLock;
@@ -35,6 +36,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (id)initWithFile:(NSString *)path;
 - (id)initWithSQLNamed:(NSString *)sqlName;
 - (void)close;
+- (void)reopen;
 - (BOOL)needsUpgrade;
 - (void)upgrade;
 // Reading
