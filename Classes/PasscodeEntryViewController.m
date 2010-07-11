@@ -163,6 +163,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	navBar.hidden = NO;
 	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
 	[codeField becomeFirstResponder];
@@ -170,6 +171,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[codeField becomeFirstResponder];
 }
 
@@ -223,8 +225,13 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	navBar.hidden = YES;
-	digitGroupView.frame = CGRectMake(0, 69, 320, 79);
+	[super viewWillAppear:animated];
+	navBar.hidden = NO;
+	UINavigationItem *item = [navBar topItem];
+	item.leftBarButtonItem = nil;
+	item.title = @"FatWatch";
+	navBar.tintColor = [UIColor colorWithRed:0.894 green:0 blue:0.02 alpha:1];
+	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
 	[codeField becomeFirstResponder];
 }
 
