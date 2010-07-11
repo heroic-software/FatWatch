@@ -95,7 +95,7 @@
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
 	weightRow.increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
-	weightRow.minimumValue = 0;
+	weightRow.minimumValue = 10;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
