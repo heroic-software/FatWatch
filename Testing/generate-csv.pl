@@ -51,6 +51,7 @@ for (my $t = $begin_time; $t < $end_time; $t += $ONE_DAY) {
 	if (it_happens($weight_probability)) {
 		my $jitter = 1 - rand(2);
 		$weight = ($weight_max - $weight_min) * 0.5 * (sin($t) + 1) + $weight_min + $jitter;
+		$weight = sprintf("%.1f", $weight);
 	} else {
 		$weight = undef;
 	}

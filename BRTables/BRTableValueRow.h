@@ -21,6 +21,7 @@
 	id <BRColorFormatter> textColorFormatter;
 	id <BRColorFormatter> backgroundColorFormatter;
 	BOOL disabled;
+	NSString *valueDescription;
 }
 @property (nonatomic,retain) NSString *key;
 @property (nonatomic,retain) NSFormatter *formatter;
@@ -28,4 +29,5 @@
 @property (nonatomic,retain) id <BRColorFormatter> backgroundColorFormatter;
 @property (nonatomic) BOOL disabled;
 @property (nonatomic,retain) id value;
+@property (nonatomic,retain) NSString *valueDescription;
 @end

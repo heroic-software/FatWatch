@@ -146,6 +146,7 @@
 	
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
+	dateRow.valueDescription = NSLocalizedString(@"Select the date you want to reach your goal by.\n\nThe energy and weight rates will be updated to match.", @"Goal end date description");
 	dateRow.object = [EWGoal sharedGoal];
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -155,6 +156,7 @@
 
 	BRTableNumberPickerRow *energyRow = [[EWRatePickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
+	energyRow.valueDescription = NSLocalizedString(@"Select the daily energy deficit or surplus you plan to keep.\n\nThe goal date and weight rate will be updated to match.", @"Goal plan energy description");
 	energyRow.object = [EWGoal sharedGoal];
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay] autorelease];
@@ -167,6 +169,7 @@
 	
 	BRTableNumberPickerRow *weightRow = [[EWRatePickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
+	weightRow.valueDescription = NSLocalizedString(@"Select the weekly weight loss or gain you want to keep.\n\nThe goal date and energy rate will be updated to match.", @"Goal plan weight description");
 	weightRow.object = [EWGoal sharedGoal];
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek] autorelease];

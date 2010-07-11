@@ -9,13 +9,7 @@
 #import "BRTableDatePickerRow.h"
 #import "BRTableSection.h"
 #import "BRTableViewController.h"
-
-
-@interface BRDatePickerViewController : UIViewController {
-	BRTableDatePickerRow *row;
-}
-- (id)initWithRow:(BRTableDatePickerRow *)aRow;
-@end
+#import "BRPickerViewController.h"
 
 
 @implementation BRTableDatePickerRow
@@ -90,92 +84,6 @@
 	BRDatePickerViewController *controller = [[BRDatePickerViewController alloc] initWithRow:self];
 	[self.section.controller presentViewController:controller forRow:self];
 	[controller release];
-}
-
-
-@end
-
-
-
-@implementation BRDatePickerViewController
-
-
-- (id)initWithRow:(BRTableDatePickerRow *)aRow {
-	if ([super initWithNibName:nil bundle:nil]) {
-		row = [aRow retain];
-		self.title = row.title;
-		self.hidesBottomBarWhenPushed = YES;
-	}
-	return self;
-}
-
-
-- (void)dealloc {
-	[row release];
-	[super dealloc];
-}
-
-
-- (void)loadView {
-	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	view.backgroundColor = [UIColor colorWithRed:0.158739604791 green:0.165285725185 blue:0.220828564889 alpha:1];
-	
-	UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 216)];
-	datePicker.tag = 411;
-	datePicker.datePickerMode = row.datePickerMode;
-	[view addSubview:datePicker];
-	[datePicker release];
-	
-	if (self.navigationController) {
-		UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
-		self.navigationItem.leftBarButtonItem = cancelItem;
-		[cancelItem release];
-		
-		UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(okAction:)];
-		self.navigationItem.rightBarButtonItem = doneItem;
-		[doneItem release];
-	} else {
-		UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-		[cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
-		[cancelButton setFrame:CGRectMake(10, 480-10-50-10-50, 300, 50)];
-		cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-		[view addSubview:cancelButton];
-		
-		UIButton *okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[okButton setTitle:[NSString stringWithFormat:@"Set %@", row.title] forState:UIControlStateNormal];
-		[okButton addTarget:self action:@selector(okAction:) forControlEvents:UIControlEventTouchUpInside];
-		[okButton setFrame:CGRectMake(10, 480-10-50, 300, 50)];
-		okButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-		[view addSubview:okButton];
-	}	
-	self.view = view;
-	[view release];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
-	// Clamp date value to defined range.
-	NSDate *date = row.value;
-	if (row.minimumDate) date = [date laterDate:row.minimumDate];
-	if (row.maximumDate) date = [date earlierDate:row.maximumDate];
-	datePicker.date = date;
-	datePicker.minimumDate = row.minimumDate;
-	datePicker.maximumDate = row.maximumDate;
-}
-
-
-- (void)okAction:(id)sender {
-	UIDatePicker *datePicker = (UIDatePicker *)[self.view viewWithTag:411];
-	row.value = datePicker.date;
-	[row.section.controller dismissViewController:self forRow:row];
-}
-
-
-- (void)cancelAction:(id)sender {
-	[row.section.controller dismissViewController:self forRow:row];
 }
 
 

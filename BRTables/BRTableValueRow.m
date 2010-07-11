@@ -12,9 +12,12 @@
 @implementation BRTableValueRow
 
 
-@synthesize key, formatter, disabled;
+@synthesize key;
+@synthesize formatter;
+@synthesize disabled;
 @synthesize textColorFormatter;
 @synthesize backgroundColorFormatter;
+@synthesize valueDescription;
 
 
 - (void)dealloc {
