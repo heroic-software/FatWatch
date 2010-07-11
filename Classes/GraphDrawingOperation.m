@@ -666,6 +666,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		}
 
 		// trend line
+		
+		CGContextSetLineCap(ctxt, kCGLineCapRound);
+
 		if (p->showFatWeight) {
 			CGContextSetRGBStrokeColor(ctxt, 0.1,0.1,0.8, 1.0);
 		} else {
@@ -677,9 +680,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
 		
-		static const CGFloat kDashLengths[] = { 6, 3 };
+		static const CGFloat kDashLengths[] = { 3, 6 };
 		static const int kDashLengthsCount = 2;
-		CGContextSetLineDash(ctxt, 6, kDashLengths, kDashLengthsCount);
+		CGContextSetLineDash(ctxt, 3, kDashLengths, kDashLengthsCount);
 		if (showTrajectoryLine) {
 			CGPathRef trajPath = [self newTrajectoryPath];
 			if (trajPath) {
