@@ -185,7 +185,7 @@
 - (id)init {
 	if ([super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"Goal", @"Goal view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal.png"];
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal"];
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearGoal:)] autorelease];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	}
@@ -245,8 +245,8 @@
 		BRTableRow *dateRow = [planSection rowAtIndex:0];
 		BRTableRow *rateRow1 = [planSection rowAtIndex:1];
 		BRTableRow *rateRow2 = [planSection rowAtIndex:2];
-		UIImage *lock0Image = [UIImage imageNamed:@"Lock0.png"];
-		UIImage *lock1Image = [UIImage imageNamed:@"Lock1.png"];
+		UIImage *lock0Image = [UIImage imageNamed:@"Lock0"];
+		UIImage *lock1Image = [UIImage imageNamed:@"Lock1"];
 		switch ([[EWGoal sharedGoal] state]) {
 			case EWGoalStateFixedDate:
 				dateRow.image = lock1Image;

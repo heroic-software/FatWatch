@@ -48,7 +48,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (id)init {
 	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
 		self.title = NSLocalizedString(@"Log", @"Log view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog.png"];
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog"];
 		scrollDestination = EWMonthDayToday();
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
@@ -78,9 +78,9 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 								  UIViewAutoresizingFlexibleHeight);
 	
 	UIButton *button = infoPickerController.infoTypeButton;
-	[self setButton:button backgroundImageNamed:@"NavButton0.png" 
+	[self setButton:button backgroundImageNamed:@"NavButton0" 
 		   forState:UIControlStateNormal];
-	[self setButton:button backgroundImageNamed:@"NavButton1.png" 
+	[self setButton:button backgroundImageNamed:@"NavButton1" 
 		   forState:UIControlStateHighlighted];
 	
 	[infoPickerController setSuperview:self.tabBarController.view];

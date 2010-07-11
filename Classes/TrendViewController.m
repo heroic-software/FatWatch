@@ -52,14 +52,14 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 - (id)init {
 	if (self = [super initWithNibName:@"TrendView" bundle:nil]) {
 		self.title = NSLocalizedString(@"Trends", @"Trends view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend.png"];
+		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend"];
 		
-		UIImage *previousImage = [UIImage imageNamed:@"TriangleLeft.png"];
+		UIImage *previousImage = [UIImage imageNamed:@"TriangleLeft"];
 		UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:previousImage style:UIBarButtonItemStyleBordered target:self action:@selector(previousSpan:)];
 		self.navigationItem.leftBarButtonItem = previousItem;
 		[previousItem release];
 
-		UIImage *nextImage = [UIImage imageNamed:@"TriangleRight.png"];
+		UIImage *nextImage = [UIImage imageNamed:@"TriangleRight"];
 		UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:nextImage style:UIBarButtonItemStyleBordered target:self action:@selector(nextSpan:)];
 		self.navigationItem.rightBarButtonItem = nextItem;
 		[nextItem release];
