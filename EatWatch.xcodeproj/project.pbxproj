@@ -100,6 +100,14 @@
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
 		BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */; };
+		BCBEE94711E9A67800CE86A5 /* TabIconGoal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */; };
+		BCBEE94811E9A67800CE86A5 /* TabIconTrend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */; };
+		BCBEE95B11E9AA5200CE86A5 /* Passcode0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */; };
+		BCBEE95D11E9AA5800CE86A5 /* Passcode1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */; };
+		BCBEE95F11E9AA6000CE86A5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */; };
+		BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */; };
+		BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */; };
+		BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97911E9B39500CE86A5 /* Default@2x.png */; };
 		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
@@ -392,6 +400,14 @@
 		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
 		BCBEE7C811E9267B00CE86A5 /* BRPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewController.h; sourceTree = "<group>"; };
 		BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPickerViewController.m; sourceTree = "<group>"; };
+		BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabIconGoal@2x.png"; sourceTree = "<group>"; };
+		BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabIconTrend@2x.png"; sourceTree = "<group>"; };
+		BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Passcode0@2x.png"; sourceTree = "<group>"; };
+		BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Passcode1@2x.png"; sourceTree = "<group>"; };
+		BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton0@2x.png"; sourceTree = "<group>"; };
+		BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton1@2x.png"; sourceTree = "<group>"; };
+		BCBEE97911E9B39500CE86A5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BCC485D410F2700300563776 /* NavButton0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton0.png; sourceTree = "<group>"; };
 		BCC485D510F2700300563776 /* NavButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton1.png; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
@@ -593,14 +609,22 @@
 			isa = PBXGroup;
 			children = (
 				BCC485D410F2700300563776 /* NavButton0.png */,
+				BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */,
 				BCC485D510F2700300563776 /* NavButton1.png */,
+				BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */,
 				BCD8BE410EF081EC005639DD /* Passcode0.png */,
+				BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */,
 				BCD8BE420EF081EC005639DD /* Passcode1.png */,
+				BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */,
 				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
 				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
+				BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */,
 				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
+				BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */,
 				BC909D660F16F8CC0090472C /* Default.png */,
+				BCBEE97911E9B39500CE86A5 /* Default@2x.png */,
 				BC24A4990E24879D0074FD4C /* Icon.png */,
+				BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */,
 				BC2DAFCA116F83C300FC43C5 /* Lock0.png */,
 				BC2DAFCB116F83C300FC43C5 /* Lock1.png */,
 				BCF67AFE1110CA6100C923BF /* DangerBar.png */,
@@ -1020,6 +1044,14 @@
 				BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */,
 				BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */,
 				BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */,
+				BCBEE94711E9A67800CE86A5 /* TabIconGoal@2x.png in Resources */,
+				BCBEE94811E9A67800CE86A5 /* TabIconTrend@2x.png in Resources */,
+				BCBEE95B11E9AA5200CE86A5 /* Passcode0@2x.png in Resources */,
+				BCBEE95D11E9AA5800CE86A5 /* Passcode1@2x.png in Resources */,
+				BCBEE95F11E9AA6000CE86A5 /* Icon@2x.png in Resources */,
+				BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */,
+				BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */,
+				BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

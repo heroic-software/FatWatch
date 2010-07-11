@@ -100,7 +100,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 + (NSArray *)computeTrendSpans {
 	EWMonthDay curMonthDay = EWMonthDayToday();
-	int previousCount = 1;
+	int previousCount = 4; // means you need at least five weights to compute trends
 	int x = 0;
 	
 	SlopeComputer *totalComputer = [[SlopeComputer alloc] init];

@@ -8,8 +8,6 @@
 	<string>${BUNDLE_DISPLAY_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string>Icon.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>${BUNDLE_IDENTIFIER}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
