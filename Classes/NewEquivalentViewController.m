@@ -47,6 +47,13 @@
 }
 
 
+- (void)validateForm {
+	UIBarButtonItem *saveButton = self.navigationItem.rightBarButtonItem;
+	saveButton.enabled = [self isValid];
+	validationPending = NO;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
@@ -63,10 +70,10 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	[nameField becomeFirstResponder];
 	nameField.text = nil;
 	energyField.text = nil;
 	[self changeMetValue:nil];
+	self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 
@@ -84,6 +91,7 @@
 	[oldView removeFromSuperview];
 	newView.frame = groupHostView.bounds;
 	[groupHostView addSubview:newView];
+	[self validateForm];
 }
 
 
@@ -125,6 +133,14 @@
 #pragma mark UITextFieldDelegate
 
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if (!validationPending) {
+		[self performSelector:@selector(validateForm) withObject:nil afterDelay:0.1];
+	}
+	return YES;
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if (textField == nameField) {
 		[nameField resignFirstResponder];
@@ -138,8 +154,9 @@
 		[unitField becomeFirstResponder];
 	}
 	else if (textField == unitField) {
-		[self saveAction:nil];
+		[nameField becomeFirstResponder];
 	}
+	[self validateForm];
 	return NO;
 }
 

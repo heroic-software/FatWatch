@@ -22,6 +22,7 @@
 	UIView *foodGroupView;
 	UISegmentedControl *typeControl;
 	id <EWEnergyEquivalent> newEquivalent;
+	BOOL validationPending;
 }
 @property (nonatomic,retain) id <EWEnergyEquivalent> newEquivalent;
 @property (nonatomic,retain) IBOutlet UITextField *nameField;
