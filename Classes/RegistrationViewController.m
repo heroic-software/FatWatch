@@ -35,14 +35,30 @@ static RegistrationViewController *gSharedController = nil;
     if (self = [super initWithNibName:nil bundle:nil]) {
 		self.title = NSLocalizedString(@"Product Registration", nil);
 		self.hidesBottomBarWhenPushed = YES;
-		
-		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-		self.navigationItem.rightBarButtonItem = activityItem;
-		[activityItem release];
-		[activityView release];
     }
     return self;
+}
+
+
+- (void)setIsLoading:(BOOL)flag {
+	UIBarButtonItem *item;
+	if (flag) {
+		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		item = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+		[activityView startAnimating];
+		[activityView release];
+	} else {
+		item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction:)];
+	}
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];
+}
+
+
+- (void)refreshAction:(id)sender {
+	NSURL *url = [NSURL URLWithString:REGISTRATION_URL];
+	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	[webView loadRequest:request];
 }
 
 
@@ -64,20 +80,10 @@ static RegistrationViewController *gSharedController = nil;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-	NSURL *url = [NSURL URLWithString:REGISTRATION_URL];
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	[webView loadRequest:request];
-}
-
-
-- (void)viewDidDisappear:(BOOL)animated {
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-}
-
-
-- (UIActivityIndicatorView *)activityView {
-	return (id)self.navigationItem.rightBarButtonItem.customView;
+- (void)viewDidAppear:(BOOL)animated {
+	if (webView.request == nil) {
+		[self refreshAction:nil];
+	}
 }
 
 
@@ -85,7 +91,7 @@ static RegistrationViewController *gSharedController = nil;
 
 
 - (void)webViewDidStartLoad:(UIWebView *)aWebView {
-	[[self activityView] startAnimating];
+	[self setIsLoading:YES];
 }
 
 
@@ -95,7 +101,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView {
-	[[self activityView] stopAnimating];
+	[self setIsLoading:NO];
 	if (errorToDisplay) {
 		NSString *script = [NSString stringWithFormat:@"setError(\"%@\");", [[errorToDisplay localizedDescription] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
 		[webView stringByEvaluatingJavaScriptFromString:script];
