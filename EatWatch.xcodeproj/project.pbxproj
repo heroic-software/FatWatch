@@ -108,6 +108,11 @@
 		BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */; };
 		BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */; };
 		BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97911E9B39500CE86A5 /* Default@2x.png */; };
+		BCBEE9E811EAE5B600CE86A5 /* TriangleUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */; };
+		BCBEE9EC11EAE5C500CE86A5 /* TriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */; };
+		BCBEE9ED11EAE5C500CE86A5 /* TriangleLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */; };
+		BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */; };
+		BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */; };
 		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
@@ -408,6 +413,11 @@
 		BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton0@2x.png"; sourceTree = "<group>"; };
 		BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton1@2x.png"; sourceTree = "<group>"; };
 		BCBEE97911E9B39500CE86A5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleUp@2x.png"; sourceTree = "<group>"; };
+		BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleDown@2x.png"; sourceTree = "<group>"; };
+		BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleLeft@2x.png"; sourceTree = "<group>"; };
+		BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleRight@2x.png"; sourceTree = "<group>"; };
+		BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lock1@2x.png"; sourceTree = "<group>"; };
 		BCC485D410F2700300563776 /* NavButton0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton0.png; sourceTree = "<group>"; };
 		BCC485D510F2700300563776 /* NavButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton1.png; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
@@ -627,11 +637,16 @@
 				BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */,
 				BC2DAFCA116F83C300FC43C5 /* Lock0.png */,
 				BC2DAFCB116F83C300FC43C5 /* Lock1.png */,
+				BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */,
 				BCF67AFE1110CA6100C923BF /* DangerBar.png */,
 				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
+				BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */,
 				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
+				BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */,
 				BCF678FE110D670800C923BF /* TriangleLeft.png */,
+				BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */,
 				BCF678FF110D670800C923BF /* TriangleRight.png */,
+				BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1052,6 +1067,11 @@
 				BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */,
 				BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */,
 				BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */,
+				BCBEE9E811EAE5B600CE86A5 /* TriangleUp@2x.png in Resources */,
+				BCBEE9EC11EAE5C500CE86A5 /* TriangleDown@2x.png in Resources */,
+				BCBEE9ED11EAE5C500CE86A5 /* TriangleLeft@2x.png in Resources */,
+				BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */,
+				BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
