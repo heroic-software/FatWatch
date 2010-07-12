@@ -370,7 +370,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1.0, -1.0));
 	CGContextSelectFont(ctxt, "Helvetica-Bold", fontSize, kCGEncodingMacRoman);
 	
-	NSString *warningString = NSLocalizedString(@"no weight to display", @"Empty chart message");
+	NSString *warningString = NSLocalizedString(@"nothing to display", @"Empty chart message");
 	NSData *text = [warningString dataUsingEncoding:NSMacOSRomanStringEncoding];
 	
 	CGPoint leftPoint = CGContextGetTextPosition(ctxt);
