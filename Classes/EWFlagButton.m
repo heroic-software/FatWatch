@@ -55,7 +55,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 - (UIImage *)backgroundImageWithColor:(UIColor *)color icon:(UIImage *)iconImage {
 	CGRect bounds = self.bounds;
-	UIGraphicsBeginImageContext(bounds.size);
+	UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0.0);
 	[color setFill];
 	UIRectFill(bounds);
 	[[UIColor blackColor] setStroke];
