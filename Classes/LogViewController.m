@@ -175,9 +175,10 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (scrollDestination != 0) {
+		NSIndexPath *path = [self indexPathForMonthDay:scrollDestination];
 		[tableView reloadData];
-		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
-						 atScrollPosition:UITableViewScrollPositionMiddle
+		[tableView scrollToRowAtIndexPath:path
+						 atScrollPosition:UITableViewScrollPositionBottom
 								 animated:NO];
 		scrollDestination = 0;
 	}
@@ -214,7 +215,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)tabBarItemDoubleTapped {
 	[tableView scrollToRowAtIndexPath:lastIndexPath 
-					 atScrollPosition:UITableViewScrollPositionMiddle
+					 atScrollPosition:UITableViewScrollPositionBottom
 							 animated:YES];
 }
 
