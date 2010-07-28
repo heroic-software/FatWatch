@@ -61,7 +61,7 @@ static NSInteger gAuxiliaryInfoType;
 
 + (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType {
 	switch (infoType) {
-		case kAuxiliaryInfoTypeVariance: return @"Variance";
+		case kAuxiliaryInfoTypeVariance: return @"Weight & Variance";
 		case kAuxiliaryInfoTypeBMI: return @"BMI";
 		case kAuxiliaryInfoTypeFatPercent: return @"Body Fat Percentage";
 		case kAuxiliaryInfoTypeFatWeight: return @"Body Fat Weight";
