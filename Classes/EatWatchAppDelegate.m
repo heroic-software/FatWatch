@@ -170,7 +170,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	tabBarController.viewControllers = [NSArray arrayWithObjects:logController, trendNavController, goalNavController, moreNavController, nil];
 
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	tabBarController.selectedIndex = [defs integerForKey:kSelectedTabIndex];
+	lastTapTabIndex = [defs integerForKey:kSelectedTabIndex];
+	tabBarController.selectedIndex = lastTapTabIndex;
 	
 	rootViewController = [[RootViewController alloc] init];
 	rootViewController.portraitViewController = tabBarController;
