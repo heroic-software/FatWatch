@@ -195,7 +195,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	}
 
 	if (p) {
-		if (p->scaleX < 1) {
+		if (p->scaleX * 30 < 28) {
 			[self drawYearLabels];
 		} else {
 			[self drawMonthLabels];
