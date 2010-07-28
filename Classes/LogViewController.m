@@ -49,7 +49,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
 		self.title = NSLocalizedString(@"Log", @"Log view title");
 		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog"];
-		scrollDestination = EWMonthDayToday();
 
 		sectionTitleFormatter = [[NSDateFormatter alloc] init];
 		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
@@ -69,22 +68,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	UIImage *base = [UIImage imageNamed:name];
 	UIImage *image = [base stretchableImageWithLeftCapWidth:5 topCapHeight:6];
 	[button setBackgroundImage:image forState:state];
-}
-
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
-								  UIViewAutoresizingFlexibleHeight);
-	
-	UIButton *button = infoPickerController.infoTypeButton;
-	[self setButton:button backgroundImageNamed:@"NavButton0" 
-		   forState:UIControlStateNormal];
-	[self setButton:button backgroundImageNamed:@"NavButton1" 
-		   forState:UIControlStateHighlighted];
-	
-	[infoPickerController setSuperview:self.tabBarController.view];
-	[datePickerController setSuperview:self.tabBarController.view];
 }
 
 
@@ -155,33 +138,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	if (scrollDestination != 0) {
-		[tableView numberOfSections]; // Implicitly performs a conditional reload.
-		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
-						 atScrollPosition:UITableViewScrollPositionMiddle
-								 animated:animated];
-		scrollDestination = 0;
-	}
-	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
-	if (tableSelection) {
-		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
-	}
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-	NSArray *visibleRows = [tableView indexPathsForVisibleRows];
-	if ([visibleRows count] > 0) {
-		NSIndexPath *path = [visibleRows objectAtIndex:0];
-		EWMonthDay md = [self monthDayForIndexPath:path];
-		[LogViewController setCurrentMonthDay:md];
-	}
-	[super viewWillDisappear:animated];
-}
-
-
 - (void)scrollToDate:(NSDate *)date {
 	EWMonthDay md = EWMonthDayFromDate(date);
 	if (earliestMonth > EWMonthDayGetMonth(md)) {
@@ -192,6 +148,64 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 	[tableView scrollToRowAtIndexPath:path
 					 atScrollPosition:UITableViewScrollPositionMiddle
 							 animated:YES];
+}
+
+
+#pragma mark UIViewController
+
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+								  UIViewAutoresizingFlexibleHeight);
+	
+	UIButton *button = infoPickerController.infoTypeButton;
+	[self setButton:button backgroundImageNamed:@"NavButton0" 
+		   forState:UIControlStateNormal];
+	[self setButton:button backgroundImageNamed:@"NavButton1" 
+		   forState:UIControlStateHighlighted];
+	
+	[infoPickerController setSuperview:self.tabBarController.view];
+	[datePickerController setSuperview:self.tabBarController.view];
+
+	scrollDestination = EWMonthDayToday();
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	if (scrollDestination != 0) {
+		[tableView reloadData];
+		[tableView scrollToRowAtIndexPath:[self indexPathForMonthDay:scrollDestination]
+						 atScrollPosition:UITableViewScrollPositionMiddle
+								 animated:NO];
+		scrollDestination = 0;
+	}
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
+	if (tableSelection) {
+		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
+	}
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	NSArray *visibleRows = [tableView indexPathsForVisibleRows];
+	if ([visibleRows count] > 0) {
+		NSIndexPath *path = [visibleRows objectAtIndex:0];
+		EWMonthDay md = [self monthDayForIndexPath:path];
+		[LogViewController setCurrentMonthDay:md];
+	}
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 }
 
 

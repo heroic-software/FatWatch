@@ -44,21 +44,25 @@ static BOOL autorotationDisabled = NO;
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	[currentViewController viewWillAppear:animated];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[currentViewController viewDidAppear:animated];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	[currentViewController viewWillDisappear:animated];
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	[currentViewController viewDidDisappear:animated];
 }
 
