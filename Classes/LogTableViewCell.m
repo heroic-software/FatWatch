@@ -19,7 +19,9 @@ enum {
 	kAuxiliaryInfoTypeVariance,
 	kAuxiliaryInfoTypeBMI,
 	kAuxiliaryInfoTypeFatPercent,
-	kAuxiliaryInfoTypeFatWeight
+	kAuxiliaryInfoTypeFatWeight,
+	kAuxiliaryInfoTypeTrend,
+	kNumberOfAuxiliaryInfoTypes
 };
 
 
@@ -42,11 +44,19 @@ static NSInteger gAuxiliaryInfoType;
 }
 
 
++ (BOOL)isAuxiliaryInfoTypeEnabled:(NSInteger)infoType {
+	switch (infoType) {
+		case kAuxiliaryInfoTypeBMI:
+			return [[NSUserDefaults standardUserDefaults] isBMIEnabled];
+		default:
+			return YES;
+	}
+}
+
+
 + (NSInteger)auxiliaryInfoType {
-	if (gAuxiliaryInfoType == kAuxiliaryInfoTypeBMI) {
-		if (![[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-			[self setAuxiliaryInfoType:kAuxiliaryInfoTypeVariance];
-		}
+	if (![self isAuxiliaryInfoTypeEnabled:gAuxiliaryInfoType]) {
+		[self setAuxiliaryInfoType:kAuxiliaryInfoTypeVariance];
 	}
 	return gAuxiliaryInfoType;
 }
@@ -62,9 +72,10 @@ static NSInteger gAuxiliaryInfoType;
 + (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType {
 	switch (infoType) {
 		case kAuxiliaryInfoTypeVariance: return @"Weight & Variance";
-		case kAuxiliaryInfoTypeBMI: return @"BMI";
+		case kAuxiliaryInfoTypeBMI: return @"Weight & BMI";
 		case kAuxiliaryInfoTypeFatPercent: return @"Body Fat Percentage";
 		case kAuxiliaryInfoTypeFatWeight: return @"Body Fat Weight";
+		case kAuxiliaryInfoTypeTrend: return @"Weight & Trend";
 		default: return @"Unknown";
 	}
 }
@@ -72,12 +83,11 @@ static NSInteger gAuxiliaryInfoType;
 
 + (NSArray *)availableAuxiliaryInfoTypes {
 	NSMutableArray *array = [NSMutableArray array];
-	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeVariance]];
-	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeBMI]];
+	for (NSInteger t = 0; t < kNumberOfAuxiliaryInfoTypes; t++) {
+		if ([self isAuxiliaryInfoTypeEnabled:t]) {
+			[array addObject:[NSNumber numberWithInt:t]];
+		}
 	}
-	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeFatPercent]];
-	[array addObject:[NSNumber numberWithInt:kAuxiliaryInfoTypeFatWeight]];
 	return array;
 }
 
@@ -267,6 +277,15 @@ static NSInteger gAuxiliaryInfoType;
 														   ? @"BadText"
 														   : @"GoodText")];
 				auxInfoString = [varianceFormatter stringForFloat:diff];
+				break;
+			}
+			case kAuxiliaryInfoTypeTrend:
+			{
+				float diff = dd->scaleWeight - dd->trendWeight;
+				auxInfoColor = [BRColorPalette colorNamed:((diff > 0)
+														   ? @"BadText"
+														   : @"GoodText")];
+				auxInfoString = [weightFormatter stringForFloat:dd->trendWeight];
 				break;
 			}
 			case kAuxiliaryInfoTypeBMI:
