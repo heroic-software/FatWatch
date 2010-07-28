@@ -79,7 +79,11 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 - (void)drawYearLabels {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	formatter.dateFormat = @"y";
+	if (p->scaleX * 365 < 45) {
+		formatter.dateFormat = @"’yy";
+	} else {
+		formatter.dateFormat = @"y";
+	}
 	
 	[[UIColor blackColor] setFill];
 	
