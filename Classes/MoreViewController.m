@@ -68,7 +68,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRTableSection *aboutSection = [self addNewSection];
 	
 	BRTableButtonRow *aboutRow = [[BRTableButtonRow alloc] init];
-	aboutRow.title = NSLocalizedString(@"About", nil);
+	aboutRow.title = NSLocalizedString(@"About FatWatch", nil);
 	aboutRow.object = [[[AboutViewController alloc] init] autorelease];
 	aboutRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[aboutSection addRow:aboutRow animated:NO];
