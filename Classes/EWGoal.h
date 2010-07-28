@@ -11,6 +11,8 @@
 
 
 extern NSString * const EWGoalDidChangeNotification;
+extern float gGoalBandHeight;
+extern float gGoalBandHalfHeight;
 
 
 typedef enum {

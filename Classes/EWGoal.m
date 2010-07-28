@@ -18,6 +18,8 @@ static const float kDefaultWeightChangePerDay = 0.5f / 7; // half lb / week
 
 
 NSString * const EWGoalDidChangeNotification = @"EWGoalDidChange";
+float gGoalBandHeight;
+float gGoalBandHalfHeight;
 
 
 static NSString * const kGoalWeightKey = @"GoalWeight";
@@ -92,12 +94,24 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 }
 
 
++ (void)initBandHeight {
+	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+	if ([uds weightUnit] == EWWeightUnitKilograms) {
+		gGoalBandHeight = 2.2f / kKilogramsPerPound;
+	} else {
+		gGoalBandHeight = 5.0f;
+	}
+	gGoalBandHalfHeight = 0.5f * gGoalBandHeight;
+}
+
+
 + (EWGoal *)sharedGoal {
 	static EWGoal *goal = nil;
 	
 	if (goal == nil) {
 		[self fixHeightIfNeeded];
 		[self upgradeDefaultsIfNeeded];
+		[self initBandHeight];
 		goal = [[EWGoal alloc] init];
 	}
 	
@@ -185,11 +199,36 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 #pragma mark -
 
 
+/* How do we know when we have attained our goal? This menthod used to employ a
+ naïve comparison between the latest trend value and the goal weight. That 
+ method would display "goal attained" before crossing the goal line.
+ 
+ Now we check the past week (7 days) to see if the trend line has stayed within
+ a five-pound band around the goal line. If there are at least four measurements
+ and none stray outside the band, then the goal is attained. */
+
 - (BOOL)isAttained {
+	int weightCount = 0;
 	@synchronized (self) {
-		return fabsf([self currentWeight] - self.endWeight) < 0.5f;
+		EWMonthDay md = EWMonthDayToday();
+		EWDatabase *db = [EWDatabase sharedDatabase];
+		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+		float goalWeight = self.endWeight;
+		for (int count = 0; count < 7; count++, md = EWMonthDayPrevious(md)) {
+			if (EWMonthDayGetMonth(md) != dbm.month) {
+				dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+			}
+			const EWDBDay *day = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
+			if (day->trendWeight > 0) {
+				weightCount += 1;
+				if (fabsf(day->trendWeight - goalWeight) > gGoalBandHalfHeight) {
+					// Crossing outside the band is immediate disqualification.
+					return NO;
+				}
+			}
+		}
 	}
-	return NO;
+	return (weightCount >= 4);
 }
 
 

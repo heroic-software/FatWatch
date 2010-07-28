@@ -45,6 +45,26 @@ static const CGFloat gMinorTickWidth = 3.5;
 
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 
+	// Goal Indicator
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (goal.defined && !p->showFatWeight) {
+		float goalWeight = goal.endWeight;
+		CGRect band = CGRectApplyAffineTransform(CGRectMake(0, goalWeight - gGoalBandHalfHeight, 
+															1, gGoalBandHeight),
+												 p->t);
+		band.origin.x = 0;
+		band.size.width = viewWidth;
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.1);
+		CGContextFillRect(ctxt, band);
+		
+		CGFloat y = CGRectGetMidY(band);
+		CGContextMoveToPoint(ctxt, 0, y);
+		CGContextAddLineToPoint(ctxt, viewWidth, y);
+		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.5);
+		CGContextSetLineWidth(ctxt, 2);
+		CGContextStrokePath(ctxt);
+	}
+
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
 	CGFloat barX = viewWidth - 0.5;
@@ -85,20 +105,6 @@ static const CGFloat gMinorTickWidth = 3.5;
 	CGContextAddPath(ctxt, tickPath);
 	CGContextStrokePath(ctxt);
 	CFRelease(tickPath);	
-
-	// Goal Indicator
-	EWGoal *goal = [EWGoal sharedGoal];
-	if (goal.defined && !p->showFatWeight) {
-		float goalWeight = goal.endWeight;
-		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, goalWeight), p->t);
-		CGContextMoveToPoint(ctxt, 0, point.y);
-		CGContextAddLineToPoint(ctxt, viewWidth, point.y);
-		
-		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.5);
-		CGContextSetLineWidth(ctxt, 3);
-		CGContextStrokePath(ctxt);
-	}
-	
 }
 
 

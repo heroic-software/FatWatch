@@ -478,6 +478,18 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 }
 
 
+- (CGPathRef)newGoalBandPath {
+	EWGoal *goal = [EWGoal sharedGoal];
+	if (! goal.defined) return NULL;
+	float goalWeight = goal.endWeight;
+	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
+	CGRect rect = CGRectMake(0, goalWeight - gGoalBandHalfHeight, width, gGoalBandHeight);
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathAddRect(path, &p->t, rect);
+	return path;
+}
+
+
 - (CGPathRef)newGoalPath {
 	// we need at least one graph point
 	if ([pointData length] < sizeof(GraphPoint)) return NULL;
@@ -552,7 +564,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		NSString *colorName = [NSString stringWithFormat:@"Flag%d", f];
 		UIColor *color = [BRColorPalette colorNamed:colorName];
 		
-		CGContextSetFillColorWithColor(ctxt, [[color colorWithAlphaComponent:0.3] CGColor]);
+		CGContextSetFillColorWithColor(ctxt, [[color colorWithAlphaComponent:0.2] CGColor]);
 		CGContextFillRect(ctxt, rect);
 		
 		CGContextSetFillColorWithColor(ctxt, [color CGColor]);
@@ -580,6 +592,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	CGContextRef ctxt = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	CGColorSpaceRelease(colorSpace);
+
+	CGContextSetRGBFillColor(ctxt, 1, 1, 1, 1);
+	CGContextFillRect(ctxt, CGRectMake(0, 0, pixelsWide, pixelsHigh));
 	
 	CGContextTranslateCTM(ctxt, 0, pixelsHigh);
 	CGContextScaleCTM(ctxt, scale, -scale);
@@ -594,18 +609,36 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGContextRef ctxt = [self newBitmapContext];
 	NSAssert(ctxt, @"could not create bitmap context");
 
-	// shaded background to show weekends
+	// Clip to Avoid Flag Bands
+	
+	CGContextSaveGState(ctxt);
+	CGRect clipRect = bounds;
+	clipRect.size.height -= 4 * kBandHeight;
+	CGContextClipToRect(ctxt, clipRect);
+	
+	// Background: Shade Weekend Regions
 	
 	CGPathRef weekendsBackgroundPath = [self newWeekendsBackgroundPath];
 	if (weekendsBackgroundPath) {
 		CGContextAddPath(ctxt, weekendsBackgroundPath);
-		CGContextSetRGBFillColor(ctxt, 0.9,0.9,0.9, 1.0);
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.1);
 		CGContextFillPath(ctxt);
 		CGPathRelease(weekendsBackgroundPath);
 	}
+
+	// Background: Goal Band
 	
-	// vertical grid line to indicate start of month
-	// horizontal grid lines at weight intervals
+	CGPathRef goalBandPath = [self newGoalBandPath];
+	if (goalBandPath) {
+		CGContextAddPath(ctxt, goalBandPath);
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.1);
+		CGContextFillPath(ctxt);
+		CGPathRelease(goalBandPath);
+	}
+	
+	// Background: Grid Lines
+	// Vertical grid line to indicate start of month.
+	// Horizontal grid lines at weight intervals.
 	
 	CGPathRef gridPath = [self newGridPath];
 	CGContextAddPath(ctxt, gridPath);
@@ -613,7 +646,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGContextStrokePath(ctxt);
 	CGPathRelease(gridPath);
 
-	// shade based on BMI
+	// Background: Colored BMI Zones
 	
 	if ([p->regions count] > 0) {
 		static const CGFloat clearColorComponents[] = { 0, 0, 0, 0 };
@@ -643,18 +676,23 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CFRelease(colorArray);
 		CGColorSpaceRelease(colorSpace);
 	}
-
+	
+	// Foreground
+	
 	const CGFloat kZoomScale = MIN(p->scaleX / kDayWidth, 1.0f);
 	const CGFloat kTrendLineWidth = MAX(2.0f, 3.0f * kZoomScale);
 	const CGFloat kMarkLineWidth = MAX(1.0f, 1.5f * kZoomScale);
 	const CGFloat kErrorLineWidth = MAX(0.5f, 2.0f * kZoomScale);
 	
 	if (p->shouldDrawNoDataWarning && [pointData length] == 0) {
+		// Message: nothing to display
 		[self drawNoDataWarningInContext:ctxt];
 	} else {
 		CGContextSaveGState(ctxt);
-		
+
 		BOOL drawMarks = (p->scaleX > 3) && ([pointData length] > 0);
+
+		// Foreground: Draw Floater/Sinker Lines
 		
 		if (drawMarks) {
 			CGContextSetRGBStrokeColor(ctxt, 0.5,0.5,0.5, 1.0);
@@ -665,7 +703,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 			CGPathRelease(errorLinesPath);
 		}
 
-		// trend line
+		// Foreground: Draw Trend Line
 		
 		CGContextSetLineCap(ctxt, kCGLineCapRound);
 
@@ -680,9 +718,12 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGContextStrokePath(ctxt);
 		CGPathRelease(trendPath);
 		
+		// Foreground: Draw Trajectory Line
+		
 		static const CGFloat kDashLengths[] = { 3, 6 };
 		static const int kDashLengthsCount = 2;
 		CGContextSetLineDash(ctxt, 3, kDashLengths, kDashLengthsCount);
+
 		if (showTrajectoryLine) {
 			CGPathRef trajPath = [self newTrajectoryPath];
 			if (trajPath) {
@@ -691,6 +732,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 				CGPathRelease(trajPath);
 			}
 		}
+		
+		// Foreground: Draw Goal Line
+		
 		if (showGoalLine) {
 			CGPathRef goalPath = [self newGoalPath];
 			if (goalPath) {
@@ -700,7 +744,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 				CGPathRelease(goalPath);
 			}
 		}
+		
 		CGContextSetLineDash(ctxt, 0, NULL, 0);
+		
+		// Draw Weight Marks
 		
 		if (drawMarks) {
 			CGContextSetLineWidth(ctxt, kMarkLineWidth);
@@ -714,6 +761,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
 		CGContextRestoreGState(ctxt);
 	}
+	
+	// Restore Clipping to Draw Flag Bands
+	
+	CGContextRestoreGState(ctxt);
+	
+	
+	// Draw Flag Bands
 	
 	[self drawFlagBandsInContext:ctxt];
 		

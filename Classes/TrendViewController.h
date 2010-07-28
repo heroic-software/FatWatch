@@ -34,6 +34,7 @@
 	UILabel *flag2Label;
 	UILabel *flag3Label;
 	UIView *messageGroupView;
+	UIView *goalAttainedView;
 }
 @property (nonatomic,retain) IBOutlet GraphView	*graphView;
 @property (nonatomic,retain) IBOutlet UIView *changeGroupView;
@@ -50,6 +51,7 @@
 @property (nonatomic,retain) IBOutlet UILabel *flag2Label;
 @property (nonatomic,retain) IBOutlet UILabel *flag3Label;
 @property (nonatomic,retain) IBOutlet UIView *messageGroupView;
+@property (nonatomic,retain) IBOutlet UIView *goalAttainedView;
 - (IBAction)showEnergyEquivalents:(id)sender;
 - (IBAction)toggleDateFormat:(id)sender;
 @end

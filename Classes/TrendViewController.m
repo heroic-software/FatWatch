@@ -47,6 +47,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 @synthesize flag2Label;
 @synthesize flag3Label;
 @synthesize messageGroupView;
+@synthesize goalAttainedView;
 
 
 - (id)init {
@@ -76,6 +77,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (void)viewDidLoad {
 	goalGroupView.backgroundColor = self.view.backgroundColor;
+	goalAttainedView.backgroundColor = self.view.backgroundColor;
 	
 	graphView.backgroundColor = [UIColor whiteColor];
 	graphView.drawBorder = YES;
@@ -146,24 +148,16 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (void)updateRelativeWeightButton {
 	EWGoal *goal = [EWGoal sharedGoal];
-	
-	if ([goal isAttained]) {
-		[relativeWeightButton setText:@"goal attained" forPart:0];
-		[relativeWeightButton setText:@"" forPart:1];
-		[relativeWeightButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] 
-								   forPart:0];
-	} else {
-		float weightToGo = goal.endWeight - goal.currentWeight;
-		EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:
-								 EWWeightFormatterStyleDisplay];
-		[relativeWeightButton setText:[wf stringForFloat:fabsf(weightToGo)] 
-							  forPart:0];
-		[relativeWeightButton setText:((weightToGo > 0) ?
-									   @" to gain" :
-									   @" to lose")
-							  forPart:1];
-		[relativeWeightButton setTextColor:[UIColor blackColor] forPart:0];
-	}
+	float weightToGo = goal.endWeight - goal.currentWeight;
+	EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:
+							 EWWeightFormatterStyleDisplay];
+	[relativeWeightButton setText:[wf stringForFloat:fabsf(weightToGo)] 
+						  forPart:0];
+	[relativeWeightButton setText:((weightToGo > 0) ?
+								   @" to gain" :
+								   @" to lose")
+						  forPart:1];
+	[relativeWeightButton setTextColor:[UIColor blackColor] forPart:0];
 }
 
 
@@ -424,18 +418,26 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	EWGoal *goal = [EWGoal sharedGoal];
 	if (goal.defined) {
 		goalGroupView.hidden = NO;
-		[self updateRelativeWeightButton];
 		if (goal.attained) {
+			goalAttainedView.hidden = NO;
+			if ([goalAttainedView superview] == nil) {
+				goalAttainedView.frame = goalGroupView.bounds;
+				[goalGroupView addSubview:goalAttainedView];
+			}
 			dateButton.hidden = YES;
 			planButton.hidden = YES;
 			relativeEnergyButton.hidden = YES;
+			relativeWeightButton.hidden = YES;
 		} else {
+			goalAttainedView.hidden = YES;
 			dateButton.hidden = NO;
 			planButton.hidden = NO;
 			relativeEnergyButton.hidden = NO;
+			relativeWeightButton.hidden = NO;
 			[self updateDateButtonWithDate:span.endDate];
 			[self updatePlanButtonWithDate:span.endDate];
 			[self updateRelativeEnergyButtonWithRate:span.weightPerDay];
+			[self updateRelativeWeightButton];
 		}
 	} else {
 		goalGroupView.hidden = YES;
@@ -528,6 +530,8 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	[flag1Label release];
 	[flag2Label release];
 	[flag3Label release];
+	[messageGroupView release];
+	[goalAttainedView release];
 	[super dealloc];
 }
 
