@@ -273,8 +273,22 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
+	NSUInteger thisTapTabIndex = tabBarController.selectedIndex;
+	
+	if (lastTapTabIndex != thisTapTabIndex) {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+		[defs setInteger:tabBarController.selectedIndex forKey:kSelectedTabIndex];
+		lastTapTabIndex = thisTapTabIndex;
+		lastTapTime = [NSDate timeIntervalSinceReferenceDate];
+	} else {
+		NSTimeInterval thisTapTime = [NSDate timeIntervalSinceReferenceDate];
+		if (thisTapTime - lastTapTime < 0.3) {
+			if ([viewController respondsToSelector:@selector(tabBarItemDoubleTapped)]) {
+				[viewController tabBarItemDoubleTapped];
+			}
+		}
+		lastTapTime = thisTapTime;
+	}
 }
 
 

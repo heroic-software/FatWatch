@@ -195,6 +195,16 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
+#pragma mark Tab Bar Double Tap
+
+
+- (void)tabBarItemDoubleTapped {
+	[tableView scrollToRowAtIndexPath:lastIndexPath 
+					 atScrollPosition:UITableViewScrollPositionMiddle
+							 animated:YES];
+}
+
+
 #pragma mark UITableViewDataSource (Required)
 
 

@@ -10,11 +10,19 @@
 
 @class RootViewController;
 
+
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	RootViewController *rootViewController;
 	UIViewController *launchViewController;
 	BOOL readyToGo;
+	NSUInteger lastTapTabIndex;
+	NSTimeInterval lastTapTime;
 }
 - (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
+@end
+
+
+@interface UIViewController (DoubleTapDetection)
+- (void)tabBarItemDoubleTapped;
 @end
