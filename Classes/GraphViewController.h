@@ -12,7 +12,9 @@
 #import "GraphView.h"
 #import "GraphDrawingOperation.h"
 
+
 @class YAxisView;
+@class EWDatabase;
 
 
 typedef struct {
@@ -27,6 +29,7 @@ typedef struct {
 
 
 @interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate> {
+	EWDatabase *database;
 	YAxisView *axisView;
 	UIScrollView *scrollView;
 	UISegmentedControl *spanControl;
@@ -40,6 +43,7 @@ typedef struct {
 	CGPoint scrollingSpanSavedOffset;
 	int saveButtonIndex, copyButtonIndex;
 }
+@property (nonatomic,retain) EWDatabase *database;
 @property (nonatomic,retain) IBOutlet YAxisView *axisView;
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutlet UISegmentedControl *spanControl;

@@ -54,7 +54,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 }
 
 
-+ (void)upgradeDefaultsIfNeeded {
++ (void)upgradeDefaultsIfNeededDatabase:(EWDatabase *)db {
 	static NSString * const kOldGoalStartDateKey = @"GoalStartDate";
 	static NSString * const kOldGoalWeightChangePerDayKey = @"GoalWeightChangePerDay";
 	
@@ -70,7 +70,6 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 	float startWeight;
 	{
 		EWMonthDay md = EWMonthDayNext(EWMonthDayFromDate(startDate));
-		EWDatabase *db = [EWDatabase sharedDatabase];
 		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
 		startWeight = [dbm inputTrendOnDay:EWMonthDayGetDay(md)];
 		if (startWeight == 0) {
@@ -105,20 +104,6 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 }
 
 
-+ (EWGoal *)sharedGoal {
-	static EWGoal *goal = nil;
-	
-	if (goal == nil) {
-		[self fixHeightIfNeeded];
-		[self upgradeDefaultsIfNeeded];
-		[self initBandHeight];
-		goal = [[EWGoal alloc] init];
-	}
-	
-	return goal;
-}
-
-
 + (void)deleteGoal {
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	[uds removeObjectForKey:kGoalWeightKey];
@@ -145,11 +130,39 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 }
 
 
+#pragma mark Instance
+
+
+- (id)initWithDatabase:(EWDatabase *)db {
+	static BOOL firstInstance = YES;
+	
+	NSParameterAssert(db != nil);
+
+	if (firstInstance) {
+		[EWGoal fixHeightIfNeeded];
+		[EWGoal upgradeDefaultsIfNeededDatabase:db];
+		[EWGoal initBandHeight];
+		firstInstance = NO;
+	}
+	
+	if (self = [super init]) {
+		database = [db retain];
+	}
+	return self;
+}
+
+
+- (void)dealloc {
+	[database release];
+	[super dealloc];
+}
+
+
 #pragma mark Helper Methods
 
 
 - (float)currentWeight {
-	float w = [[EWDatabase sharedDatabase] latestWeight];
+	float w = [database latestWeight];
 	if (w > 0) return w;
 
 	// this means the database is empty, so we'll just return the goal weight
@@ -211,12 +224,11 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 	int weightCount = 0;
 	@synchronized (self) {
 		EWMonthDay md = EWMonthDayToday();
-		EWDatabase *db = [EWDatabase sharedDatabase];
-		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+		EWDBMonth *dbm = [database getDBMonth:EWMonthDayGetMonth(md)];
 		float goalWeight = self.endWeight;
 		for (int count = 0; count < 7; count++, md = EWMonthDayPrevious(md)) {
 			if (EWMonthDayGetMonth(md) != dbm.month) {
-				dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+				dbm = [database getDBMonth:EWMonthDayGetMonth(md)];
 			}
 			const EWDBDay *day = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
 			if (day->trendWeight > 0) {

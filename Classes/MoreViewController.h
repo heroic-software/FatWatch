@@ -11,6 +11,11 @@
 #import "BRTableViewController.h"
 
 
+@class EWDatabase;
+
+
 @interface MoreViewController : BRTableViewController <MFMailComposeViewControllerDelegate> {
+	EWDatabase *database;
 }
+@property (nonatomic,retain) EWDatabase *database;
 @end

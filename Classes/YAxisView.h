@@ -10,8 +10,13 @@
 #import "GraphDrawingOperation.h"
 
 
+@class EWDatabase;
+
+
 @interface YAxisView : UIView {
+	EWDatabase *database;
 	GraphViewParameters *p;
 }
+@property (nonatomic,retain) EWDatabase *database;
 - (void)useParameters:(GraphViewParameters *)parameters;
 @end

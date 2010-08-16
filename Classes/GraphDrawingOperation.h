@@ -10,6 +10,9 @@
 #import "EWDate.h"
 
 
+@class EWDatabase;
+
+
 typedef struct {
 	float minWeight;
 	float maxWeight;
@@ -44,6 +47,7 @@ typedef struct {
 @interface GraphDrawingOperation : NSOperation {
 	id delegate;
 	int index;
+	EWDatabase *database;
 	EWMonthDay beginMonthDay;
 	EWMonthDay endMonthDay;
 	GraphViewParameters *p;
@@ -59,7 +63,8 @@ typedef struct {
 	BOOL showTrajectoryLine;
 	BOOL showFatWeight;
 }
-+ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays;
++ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays database:(EWDatabase *)db;
+@property (nonatomic,retain) EWDatabase *database;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,assign) id delegate;

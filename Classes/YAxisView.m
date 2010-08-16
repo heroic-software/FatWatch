@@ -21,6 +21,9 @@ static const CGFloat gMinorTickWidth = 3.5;
 @implementation YAxisView
 
 
+@synthesize database;
+
+
 - (void)useParameters:(GraphViewParameters *)parameters {
 	p = parameters;
 }
@@ -46,7 +49,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
 
 	// Goal Indicator
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (goal.defined && !p->showFatWeight) {
 		float goalWeight = goal.endWeight;
 		CGRect band = CGRectApplyAffineTransform(CGRectMake(0, goalWeight - gGoalBandHalfHeight, 
@@ -64,6 +67,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 		CGContextSetLineWidth(ctxt, 2);
 		CGContextStrokePath(ctxt);
 	}
+	[goal release];
 
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
@@ -105,6 +109,12 @@ static const CGFloat gMinorTickWidth = 3.5;
 	CGContextAddPath(ctxt, tickPath);
 	CGContextStrokePath(ctxt);
 	CFRelease(tickPath);	
+}
+
+
+- (void)dealloc {
+	[database release];
+	[super dealloc];
 }
 
 

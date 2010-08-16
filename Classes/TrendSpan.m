@@ -44,6 +44,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 @synthesize title;
 @synthesize length;
 @synthesize weightPerDay;
+@synthesize endDate;
 @dynamic flagFrequencies;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
@@ -98,14 +99,15 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 }
 
 
-+ (NSArray *)computeTrendSpans {
++ (NSArray *)computeTrendSpansFromDatabase:(EWDatabase *)db {
 	EWMonthDay curMonthDay = EWMonthDayToday();
 	int previousCount = 3; // means you need at least four weights to compute trends
 	int x = 0;
 	
 	SlopeComputer *totalComputer = [[SlopeComputer alloc] init];
 	SlopeComputer *fatComputer = [[SlopeComputer alloc] init];
-	EWDBMonth *data = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(curMonthDay)];
+	EWDBMonth *data = [db getDBMonth:EWMonthDayGetMonth(curMonthDay)];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:db];
 	
 	float flagCounts[4] = {0,0,0,0};
 	
@@ -162,6 +164,17 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 				gp->maxWeight = maxWeight;
 				span.weightPerDay = -totalComputer.slope;
 			}
+			
+			// TODO: Update if goal changes
+			if (span.weightPerDay != 0) {
+				NSDate *date = [goal endDateWithWeightChangePerDay:span.weightPerDay];
+				if ([date timeIntervalSinceNow] < 0) {
+					span.endDate = nil;
+				} else {
+					span.endDate = date;
+				}
+			}
+			
 			span.flagFrequencies[0] = flagCounts[0] / (float)x;
 			span.flagFrequencies[1] = flagCounts[1] / (float)x;
 			span.flagFrequencies[2] = flagCounts[2] / (float)x;
@@ -178,22 +191,8 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	}
 #endif
 	
+	[goal release];
 	return computedSpans;
-}
-
-
-- (NSDate *)endDate {
-	if (self.weightPerDay == 0) {
-		return nil;
-	}
-	
-	EWGoal *g = [EWGoal sharedGoal];
-	NSDate *endDate = [g endDateWithWeightChangePerDay:self.weightPerDay];
-	if ([endDate timeIntervalSinceNow] < 0) {
-		return nil;
-	} else {
-		return endDate;
-	}
 }
 
 
@@ -227,6 +226,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 - (void)dealloc {
 	[title release];
+	[endDate release];
 	CGImageRelease(graphImageRef);
 	[graphOperation release];
 	[graphParameters.regions release];

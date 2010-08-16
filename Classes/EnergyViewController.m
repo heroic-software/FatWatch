@@ -18,11 +18,12 @@
 @implementation EnergyViewController
 
 
-- (id)initWithWeight:(float)aWeight andChangePerDay:(float)rate {
+- (id)initWithWeight:(float)aWeight andChangePerDay:(float)rate database:(EWDatabase *)db {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		energyFormatter = [[EWEnergyFormatter alloc] init];
 		weight = aWeight;
 		energy = kCaloriesPerPound * rate;
+		database = [db retain];
 		
 		EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
 		NSString *activitiesTitle = [NSString stringWithFormat:@"%@ (%@)",
@@ -85,7 +86,7 @@
     [super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	[dataArray release];
-	dataArray = [[[EWDatabase sharedDatabase] loadEnergyEquivalents] copy];
+	dataArray = [[database loadEnergyEquivalents] copy];
 	
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 320, 20)];
@@ -133,7 +134,7 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
 	[super setEditing:editing animated:animated];
 	if (!editing && dirty) {
-		[[EWDatabase sharedDatabase] saveEnergyEquivalents:dataArray];
+		[database saveEnergyEquivalents:dataArray];
 		dirty = NO;
 	}
 
@@ -246,6 +247,7 @@
 
 
 - (void)dealloc {
+	[database release];
 	[titleArray release];
 	[dataArray release];
 	[newEquivalentController release];

@@ -136,7 +136,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoWeighIn"]) return;
 	
 	EWMonthDay today = EWMonthDayToday();
-	EWDBMonth *dbm = [[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(today)];
+	EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(today)];
 	EWDay day = EWMonthDayGetDay(today);
 	if (![dbm hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
@@ -153,11 +153,17 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)setupRootView {
-	UIViewController *logController = [[[LogViewController alloc] init] autorelease];
-	UIViewController *trendController = [[[TrendViewController alloc] init] autorelease];
-	UIViewController *moreController = [[[MoreViewController alloc] init] autorelease];
-	UIViewController *goalController = [[[GoalViewController alloc] init] autorelease];
-	UIViewController *graphController = [[[GraphViewController alloc] init] autorelease];
+	LogViewController *logController = [[[LogViewController alloc] init] autorelease];
+	TrendViewController *trendController = [[[TrendViewController alloc] init] autorelease];
+	MoreViewController *moreController = [[[MoreViewController alloc] init] autorelease];
+	GoalViewController *goalController = [[[GoalViewController alloc] init] autorelease];
+	GraphViewController *graphController = [[[GraphViewController alloc] init] autorelease];
+	
+	logController.database = db;
+	trendController.database = db;
+	moreController.database = db;
+	goalController.database = db;
+	graphController.database = db;
 	
 	UINavigationController *trendNavController = [[[UINavigationController alloc] initWithRootViewController:trendController] autorelease];
 	
@@ -185,8 +191,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 - (void)continuePostLaunch {
 	// Won't get here until passcode authorized.
-
-	EWDatabase *db = [EWDatabase sharedDatabase];
 	
 	// Haven't loaded the DB yet.
 	if (db == nil) {
@@ -194,10 +198,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		if ([db needsUpgrade]) {
 			launchViewController = [[UpgradeViewController alloc] initWithDatabase:db];
 			[self addViewToWindow:launchViewController.view];
-		} else {
-			[EWDatabase setSharedDatabase:db];
 		}
-		[db release];
 		if (launchViewController) return;
 	}
 	
@@ -256,17 +257,17 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	[[EWDatabase sharedDatabase] close];
+	[db close];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	[[EWDatabase sharedDatabase] reopen];
+	[db reopen];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	[[EWDatabase sharedDatabase] close];
+	[db close];
 }
 
 
@@ -297,6 +298,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)dealloc {
+	[db release];
     [window release];
     [rootViewController release];
 	[launchViewController release];

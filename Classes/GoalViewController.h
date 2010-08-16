@@ -10,9 +10,14 @@
 #import "BRTableViewController.h"
 #import "EWDate.h"
 
+@class EWDatabase;
+@class EWGoal;
 
 @interface GoalViewController : BRTableViewController <UIActionSheetDelegate> {
+	EWDatabase *database;
+	EWGoal *goal;
 	BOOL isSetupForGoal, isSetupForBMI;
 	BOOL needsReload;
 }
+@property (nonatomic,retain) EWDatabase *database;
 @end

@@ -78,6 +78,9 @@
 @implementation GoalViewController
 
 
+@synthesize database;
+
+
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setPositiveFormat:NSLocalizedString(@"BMI 0.0", @"BMI format")];
@@ -88,10 +91,10 @@
 - (void)addGoalSection {
 	BRTableSection *section = [self addNewSection];
 	section.headerTitle = NSLocalizedString(@"Goal", @"Goal end section title");
-
+	
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Goal Weight", @"Goal end weight");
-	weightRow.object = [EWGoal sharedGoal];
+	weightRow.object = goal;
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
 	weightRow.increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
@@ -99,7 +102,7 @@
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	float w = [[EWDatabase sharedDatabase] latestWeight];
+	float w = [database latestWeight];
 	if (w == 0) w = 150;
 	weightRow.defaultValue = [NSNumber numberWithFloat:w];
 	
@@ -147,7 +150,7 @@
 	BRTableDatePickerRow *dateRow = [[BRTableDatePickerRow alloc] init];
 	dateRow.title = NSLocalizedString(@"Goal Date", @"Goal end date");
 	dateRow.valueDescription = NSLocalizedString(@"Select the date you want to reach your goal by.\n\nThe energy and weight rates will be updated to match.", @"Goal end date description");
-	dateRow.object = [EWGoal sharedGoal];
+	dateRow.object = goal;
 	dateRow.key = @"endDate";
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	dateRow.minimumDate = EWDateFromMonthDay(EWMonthDayNext(EWMonthDayToday()));
@@ -157,7 +160,7 @@
 	BRTableNumberPickerRow *energyRow = [[EWRatePickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
 	energyRow.valueDescription = NSLocalizedString(@"Select the daily energy deficit or surplus you plan to keep.\n\nThe goal date and weight rate will be updated to match.", @"Goal plan energy description");
-	energyRow.object = [EWGoal sharedGoal];
+	energyRow.object = goal;
 	energyRow.key = @"weightChangePerDay";
 	energyRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay] autorelease];
 	energyRow.increment = [EWWeightChangeFormatter energyChangePerDayIncrement];
@@ -170,7 +173,7 @@
 	BRTableNumberPickerRow *weightRow = [[EWRatePickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
 	weightRow.valueDescription = NSLocalizedString(@"Select the weekly weight loss or gain you want to keep.\n\nThe goal date and energy rate will be updated to match.", @"Goal plan weight description");
-	weightRow.object = [EWGoal sharedGoal];
+	weightRow.object = goal;
 	weightRow.key = @"weightChangePerDay";
 	weightRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek] autorelease];
 	weightRow.increment = [EWWeightChangeFormatter weightChangePerWeekIncrement];
@@ -211,7 +214,9 @@
 	// no goal set: 1 sections (goal)
 	// goal set: 2 sections (goal, plan)
 	
-	BOOL goalDefined = [[EWGoal sharedGoal] isDefined];
+	NSAssert(goal, @"goal not initialized");
+
+	BOOL goalDefined = [goal isDefined];
 	BOOL bmiEnabled = [[NSUserDefaults standardUserDefaults] isBMIEnabled];
 	BOOL needsUpdate = ((goalDefined != isSetupForGoal) || 
 						(bmiEnabled != isSetupForBMI) ||
@@ -238,6 +243,11 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	if (goal == nil) {
+		NSAssert(database, @"no database set!");
+		goal = [[EWGoal alloc] initWithDatabase:database];
+	}
+	
 	[self updateTableSections];
 	
 	if ([self numberOfSections] >= 2) {
@@ -247,7 +257,7 @@
 		BRTableRow *rateRow2 = [planSection rowAtIndex:2];
 		UIImage *lock0Image = [UIImage imageNamed:@"Lock0"];
 		UIImage *lock1Image = [UIImage imageNamed:@"Lock1"];
-		switch ([[EWGoal sharedGoal] state]) {
+		switch ([goal state]) {
 			case EWGoalStateFixedDate:
 				dateRow.image = lock1Image;
 				rateRow1.image = lock0Image;
@@ -297,6 +307,15 @@
 		[EWGoal deleteGoal];
 		[self updateTableSections];
 	}
+}
+
+
+#pragma mark Cleanup
+
+
+- (void)dealloc {
+	[database release];
+	[super dealloc];
 }
 
 

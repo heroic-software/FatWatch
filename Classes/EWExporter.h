@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+@class EWDatabase;
+
+
 typedef enum {
 	EWExporterFieldDate,
 	EWExporterFieldWeight,
@@ -41,7 +44,7 @@ NSFormatter *EWFatFormatterAtIndex(int index);
 - (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter;
 - (void)addBackupFields;
 - (NSArray *)orderedFieldNames;
-- (void)performExport;
+- (void)performExportOfDatabase:(EWDatabase *)db;
 // Optional Override
 - (void)beginRecord;
 - (void)endRecord;
@@ -50,5 +53,5 @@ NSFormatter *EWFatFormatterAtIndex(int index);
 - (NSString *)fileExtension;
 - (NSString *)contentType;
 - (void)exportField:(EWExporterField)field formattedValue:(NSString *)string;
-- (NSData *)exportedData;
+- (NSData *)dataExportedFromDatabase:(EWDatabase *)db;
 @end

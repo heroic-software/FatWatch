@@ -23,12 +23,14 @@ typedef enum {
 } EWGoalState;
 
 
-@interface EWGoal : NSObject {
+@class EWDatabase;
 
+
+@interface EWGoal : NSObject {
+	EWDatabase *database;
 }
 
 + (void)deleteGoal;
-+ (EWGoal *)sharedGoal;
 
 @property (readonly) EWGoalState state;
 @property (readonly,getter=isDefined) BOOL defined;
@@ -42,6 +44,7 @@ typedef enum {
 @property (retain) NSDate *endDate;
 @property float weightChangePerDay;
 
+- (id)initWithDatabase:(EWDatabase *)db;
 - (NSDate *)endDateWithWeightChangePerDay:(float)weightChangePerDay;
 
 @end

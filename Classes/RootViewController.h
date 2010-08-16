@@ -15,6 +15,6 @@
 	UIViewController *currentViewController;
 }
 + (void)setAutorotationEnabled:(BOOL)flag;
-@property (nonatomic,retain) UIViewController *portraitViewController;
-@property (nonatomic,retain) UIViewController *landscapeViewController;
+@property (nonatomic,retain) IBOutlet UIViewController *portraitViewController;
+@property (nonatomic,retain) IBOutlet UIViewController *landscapeViewController;
 @end

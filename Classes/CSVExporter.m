@@ -33,7 +33,7 @@
 }
 
 
-- (NSData *)exportedData {
+- (NSData *)dataExportedFromDatabase:(EWDatabase *)db {
 	writer = [[CSVWriter alloc] init];
 		
 	// Header Row
@@ -43,7 +43,7 @@
 	}
 	[writer endRow];
 	
-	[self performExport];
+	[self performExportOfDatabase:db];
 		
 	NSData *data = [[writer data] retain];
 	

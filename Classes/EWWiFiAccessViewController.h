@@ -13,6 +13,7 @@
 
 @class BRReachability;
 @class MicroWebServer;
+@class EWDatabase;
 
 
 #define kEWReadyAddressTag 101
@@ -24,6 +25,7 @@
 
 
 @interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate,EWImporterDelegate> {
+	EWDatabase *database;
 	UILabel *statusLabel;
 	UIActivityIndicatorView *activityView;
 	UIView *detailView;
@@ -41,6 +43,7 @@
 	// Import State
 	EWImporter *importer;
 }
+@property (nonatomic,retain) EWDatabase *database;
 @property (nonatomic,retain) IBOutlet UILabel *statusLabel;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;
 @property (nonatomic,retain) IBOutlet UIView *detailView;

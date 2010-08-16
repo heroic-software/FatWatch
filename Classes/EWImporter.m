@@ -91,17 +91,17 @@
 }
 
 
-- (BOOL)performImport {
+- (BOOL)performImportToDatabase:(EWDatabase *)db {
 	importing = YES;
 	rowCount = 0;
 	importedCount = 0;
 	
 	if (self.deleteFirst) {
 		[EWGoal deleteGoal];
-		[[EWDatabase sharedDatabase] deleteAllData];
+		[db deleteAllData];
 	}
 	
-	[self performSelector:@selector(continueImport) withObject:nil afterDelay:0];
+	[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:0];
 	return YES;
 }
 
@@ -127,8 +127,7 @@
 }
 
 
-- (void)continueImport {
-	EWDatabase *db = [EWDatabase sharedDatabase];
+- (void)continueImportToDatabase:(EWDatabase *)db {
 	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
 
 	NSArray *rowArray;
@@ -174,20 +173,20 @@
 		if ([recessDate timeIntervalSinceNow] < 0) {
 			[delegate importer:self importProgress:reader.progress];
 #if TARGET_IPHONE_SIMULATOR
-			[self performSelector:@selector(continueImport) withObject:nil afterDelay:1];
+			[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:1];
 #else
-			[self performSelector:@selector(continueImport) withObject:nil afterDelay:0];
+			[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:0];
 #endif
 			return;
 		}
 	}
 
-	[self concludeImport];
+	[self concludeImportToDatabase:db];
 }
 
 
-- (void)concludeImport {
-	[[EWDatabase sharedDatabase] commitChanges];
+- (void)concludeImportToDatabase:(EWDatabase *)db {
+	[db commitChanges];
 	importing = NO;
 	[delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
 }

@@ -104,9 +104,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 }
 
 
-- (void)performExport {
-	EWDatabase *db = [EWDatabase sharedDatabase];
-
+- (void)performExportOfDatabase:(EWDatabase *)db {
 	EWMonth beginMonth, endMonth;
 	EWDay beginDay, endDay;
 	
@@ -244,7 +242,7 @@ NSFormatter *EWFatFormatterAtIndex(int index) {
 }
 
 
-- (NSData *)exportedData {
+- (NSData *)dataExportedFromDatabase:(EWDatabase *)db {
 	NSAssert(NO, @"must override");
 	return nil;
 }

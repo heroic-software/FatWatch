@@ -40,6 +40,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
+@synthesize database;
 @synthesize tableView;
 @synthesize infoPickerController;
 @synthesize datePickerController;
@@ -73,6 +74,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[database release];
 	[tableView release];
 	[infoPickerController release];
 	[lastIndexPath release];
@@ -83,17 +85,16 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)databaseDidChange:(NSNotification *)notice {
 	EWMonthDay today = EWMonthDayToday();
-	EWDatabase *db = [EWDatabase sharedDatabase];
 
-	if ([db hasDataForToday]) {
+	if ([database hasDataForToday]) {
 		self.tabBarItem.badgeValue = nil;
 	} else {
 		self.tabBarItem.badgeValue = kBadgeValueNoDataToday;
 	}
 	
-	if ((db.earliestMonth != earliestMonth) || (latestMonth == 0)) {
-		earliestMonth = db.earliestMonth;
-		latestMonth = MAX(db.latestMonth, EWMonthDayGetMonth(today));
+	if ((database.earliestMonth != earliestMonth) || (latestMonth == 0)) {
+		earliestMonth = database.earliestMonth;
+		latestMonth = MAX(database.latestMonth, EWMonthDayGetMonth(today));
 
 		NSUInteger row, section;
 		section = latestMonth - earliestMonth;
@@ -141,7 +142,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 - (void)scrollToDate:(NSDate *)date {
 	EWMonthDay md = EWMonthDayFromDate(date);
 	if (earliestMonth > EWMonthDayGetMonth(md)) {
-		[[EWDatabase sharedDatabase] getDBMonth:EWMonthDayGetMonth(md)];
+		[database getDBMonth:EWMonthDayGetMonth(md)];
 		[self databaseDidChange:nil];
 	}
 	NSIndexPath *path = [self indexPathForMonthDay:md];
@@ -262,7 +263,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		cell.tableView = self.tableView;
 	}
 	
-	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:[self monthForSection:indexPath.section]];
+	EWDBMonth *monthData = [database getDBMonth:[self monthForSection:indexPath.section]];
 	EWDay day = 1 + indexPath.row;
 	[cell updateWithMonthData:monthData day:day];
 	
@@ -275,7 +276,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	EWMonth month = [self monthForSection:indexPath.section];
-	EWDBMonth *monthData = [[EWDatabase sharedDatabase] getDBMonth:month];
+	EWDBMonth *monthData = [database getDBMonth:month];
 	EWDay day = 1 + indexPath.row;
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
 	[controller configureForDay:day dbMonth:monthData];

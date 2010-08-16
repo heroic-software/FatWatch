@@ -11,6 +11,7 @@
 
 @class CSVReader;
 @class EWImporter;
+@class EWDatabase;
 
 
 typedef enum {
@@ -51,7 +52,7 @@ typedef enum {
 - (NSDictionary *)infoForJavaScript;
 - (void)setColumn:(int)column forField:(EWImporterField)field;
 - (void)setFormatter:(NSFormatter *)formatter forField:(EWImporterField)field;
-- (BOOL)performImport;
-- (void)continueImport;
-- (void)concludeImport;
+- (BOOL)performImportToDatabase:(EWDatabase *)db;
+- (void)continueImportToDatabase:(EWDatabase *)db;
+- (void)concludeImportToDatabase:(EWDatabase *)db;
 @end

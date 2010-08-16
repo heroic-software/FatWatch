@@ -44,6 +44,9 @@ static NSString * const kBadgeValueUnregistered = @"!";
 @implementation MoreViewController
 
 
+@synthesize database;
+
+
 - (id)init {
 	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.title = NSLocalizedString(@"More", @"More view title");
@@ -57,6 +60,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 - (void)dealloc {
+	[database release];
 	[super dealloc];
 }
 
@@ -166,13 +170,18 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRTableSection *dataSection = [self addNewSection];
 	dataSection.headerTitle = NSLocalizedString(@"Data", @"Data section title");
 	
+	EWWiFiAccessViewController *wifi = [[EWWiFiAccessViewController alloc] init];
+	wifi.database = database;
+	
 	BRTableButtonRow *webServerRow = [[BRTableButtonRow alloc] init];
 	webServerRow.title = NSLocalizedString(@"Import/Export via Wi-Fi", @"Wi-Fi button");
 	webServerRow.titleAlignment = UITextAlignmentLeft;
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	webServerRow.object = [[[EWWiFiAccessViewController alloc] init] autorelease];
+	webServerRow.object = wifi;
 	[dataSection addRow:webServerRow animated:NO];
 	[webServerRow release];
+	
+	[wifi release];
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"Export via Email", @"Export as email attachment button");
@@ -326,11 +335,12 @@ static NSString * const kBadgeValueUnregistered = @"!";
 #endif
 	EWExporter *exporter = [[CSVExporter alloc] init];
 	[exporter addBackupFields];
+	NSData *data = [exporter dataExportedFromDatabase:database];
 	[self performSelectorOnMainThread:@selector(mailExport:)
 						   withObject:[NSArray arrayWithObjects:
 									   [exporter contentType],
 									   [exporter fileExtension],
-									   [exporter exportedData],
+									   data,
 									   nil]
 						waitUntilDone:NO];
 	[exporter release];

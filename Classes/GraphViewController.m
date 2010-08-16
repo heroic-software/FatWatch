@@ -34,6 +34,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 @implementation GraphViewController
 
 
+@synthesize database;
 @synthesize axisView;
 @synthesize scrollView;
 @synthesize spanControl;
@@ -50,6 +51,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)dealloc {
+	[database release];
 	[axisView release];
 	[scrollView release];
 	[spanControl release];
@@ -110,7 +112,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 - (void)prepareGraphViewInfo {
 	[GraphDrawingOperation flushQueue];
 
-	EWDatabase *db = [EWDatabase sharedDatabase];
 	float minWeight, maxWeight;
 	EWMonthDay beginMonthDay, endMonthDay;
 	
@@ -118,10 +119,10 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	NSInteger numberOfDays;
 
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
-		infoCount = db.latestMonth - db.earliestMonth + 1;
+		infoCount = database.latestMonth - database.earliestMonth + 1;
 		NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
 		if (infoCount == 1) {
-			numberOfDays = EWDaysInMonth(db.earliestMonth);
+			numberOfDays = EWDaysInMonth(database.earliestMonth);
 		} else {
 			numberOfDays = 1;
 			size.width = kDayWidth;
@@ -138,7 +139,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		
 		if (spanIndex == kSpanAll) {
 			// Total range, regardless of fat/total setting.
-			[db getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
+			[database getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
 			if (beginMonthDay == 0 || endMonthDay == 0) {
 				beginMonthDay = EWMonthDayToday();
 				endMonthDay = beginMonthDay;
@@ -161,9 +162,9 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 	parameters.shouldDrawNoDataWarning = (infoCount == 1);
 	
-	[db getWeightMinimum:&minWeight maximum:&maxWeight 
-				 onlyFat:parameters.showFatWeight
-					from:beginMonthDay to:endMonthDay];
+	[database getWeightMinimum:&minWeight maximum:&maxWeight 
+					   onlyFat:parameters.showFatWeight
+						  from:beginMonthDay to:endMonthDay];
 	
 	if (minWeight == 0 || maxWeight == 0) {
 		minWeight = 150;
@@ -172,11 +173,12 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	
 	if (!parameters.showFatWeight) {
 		if ([[NSUserDefaults standardUserDefaults] fitGoalOnChart]) {
-			EWGoal *goal = [EWGoal sharedGoal];
+			EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 			if (goal.defined) {
 				minWeight = MIN(minWeight, goal.endWeight);
 				maxWeight = MAX(maxWeight, goal.endWeight);
 			}
+			[goal release];
 		}
 	}
 	
@@ -185,13 +187,14 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		
 	[GraphDrawingOperation prepareGraphViewInfo:&parameters 
 										forSize:size
-								   numberOfDays:numberOfDays];
+								   numberOfDays:numberOfDays
+									   database:database];
 	
 	info = malloc(infoCount * sizeof(GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
-		EWMonth m = db.earliestMonth;
+		EWMonth m = database.earliestMonth;
 		CGFloat x = 0;
 		for (int i = 0; i < infoCount; i++) {
 			NSInteger days = EWDaysInMonth(m);
@@ -230,6 +233,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)viewDidLoad {
+	axisView.database = database;
 	[axisView useParameters:&parameters];
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	spanControl.selectedSegmentIndex = [defs integerForKey:kSelectedSpanIndexKey];
@@ -348,6 +352,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	
 	if (ginfo->imageRef == NULL && ginfo->operation == nil) {
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
+		operation.database = database;
 		operation.delegate = self;
 		operation.index = index;
 		operation.p = &parameters;

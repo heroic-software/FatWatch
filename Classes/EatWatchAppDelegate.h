@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class RootViewController;
-
+@class EWDatabase;
 
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
@@ -18,6 +18,7 @@
 	BOOL readyToGo;
 	NSUInteger lastTapTabIndex;
 	NSTimeInterval lastTapTime;
+	EWDatabase *db;
 }
 - (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
 @end

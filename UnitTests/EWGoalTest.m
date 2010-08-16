@@ -24,8 +24,6 @@
 
 - (void)testUpgrade {
 	EWDatabase *testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate3"];
-	[EWDatabase setSharedDatabase:testdb];
-	[testdb release];
 	
 	EWDBDay dbd;
 	dbd.scaleWeight = 100;
@@ -45,7 +43,7 @@
 	[ud setFloat:90 forKey:@"GoalWeight"];
 	
 	NSLog(@"BEFORE %@", [ud dictionaryRepresentation]);
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:testdb];
 	NSLog(@"AFTER %@", [ud dictionaryRepresentation]);
 	
 	STAssertNil([ud objectForKey:@"GoalStartDate"], @"start date removed");
@@ -55,7 +53,8 @@
 	STAssertEquals(goal.currentWeight, 100.0f, @"current weight");
 	STAssertEquals(goal.endWeight, 90.0f, @"goal weight");
 
-	[EWDatabase setSharedDatabase:nil];
+	[goal release];
+	[testdb release];
 }
 
 

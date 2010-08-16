@@ -10,10 +10,14 @@
 #import "GraphDrawingOperation.h"
 
 
+@class EWDatabase;
+
+
 @interface TrendSpan : NSObject {
 	NSString *title;
 	NSInteger length;
 	float weightPerDay;
+	NSDate *endDate;
 	float flagFrequencies[4];
 	EWMonthDay beginMonthDay;
 	EWMonthDay endMonthDay;
@@ -21,11 +25,11 @@
 	NSOperation *graphOperation;
 	GraphViewParameters graphParameters;
 }
-+ (NSArray *)computeTrendSpans;
++ (NSArray *)computeTrendSpansFromDatabase:(EWDatabase *)db;
 @property (nonatomic,retain) NSString *title;
 @property (nonatomic) NSInteger length;
 @property (nonatomic) float weightPerDay;
-@property (nonatomic,readonly) NSDate *endDate;
+@property (nonatomic,retain) NSDate *endDate;
 @property (nonatomic,readonly) float *flagFrequencies;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;

@@ -222,7 +222,7 @@ enum {
 	
 	[monthData setDBDay:&dbd onDay:day];
 
-	[[EWDatabase sharedDatabase] commitChanges];
+	[monthData.database commitChanges];
 	
 	[self dismissModalViewControllerAnimated:YES];
 }

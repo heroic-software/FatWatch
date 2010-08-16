@@ -16,9 +16,6 @@
 NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
-static EWDatabase *gSharedDB = nil;
-
-
 @interface EWDatabase ()
 - (float)floatFromSQL:(const char *)sql;
 - (float)trendValueOnMonthDay:(EWMonthDay)startMonthDay;
@@ -37,22 +34,8 @@ static EWDatabase *gSharedDB = nil;
 @synthesize latestMonth;
 
 
-+ (EWDatabase *)sharedDatabase {
-	return gSharedDB;
-}
-
-
-+ (void)setSharedDatabase:(EWDatabase *)db {
-	if (db != gSharedDB) {
-		[db retain];
-		[gSharedDB release];
-		gSharedDB = db;
-	}
-}
-
-
 - (id)init {
-	if ([super init]) {
+	if (self = [super init]) {
 		monthCacheLock = [[NSLock alloc] init];
 		[monthCacheLock setName:@"monthCacheLock"];
 		monthCache = [[NSMutableDictionary alloc] init];
@@ -137,9 +120,6 @@ static EWDatabase *gSharedDB = nil;
 
 
 - (void)dealloc {
-	if (gSharedDB == self) {
-		gSharedDB = nil;
-	}
 	[db release];
 	[monthCache release];
 	[monthCacheLock release];

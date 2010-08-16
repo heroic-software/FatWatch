@@ -55,6 +55,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 @implementation GraphDrawingOperation
 
 
+@synthesize database;
 @synthesize delegate;
 @synthesize index;
 @synthesize p;
@@ -155,7 +156,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 }
 
 
-+ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays {
++ (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays database:(EWDatabase *)db {
 	// Assumes minWeight and maxWeight have already been set, but need adjusting
 	// Does not set: shouldDrawNoDataWarning
 	
@@ -204,8 +205,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		[self prepareBMIRegionsForGraphViewParameters:gp];
 	}
 	
-	[[EWDatabase sharedDatabase] getEarliestMonthDay:&gp->mdEarliest
-									  latestMonthDay:&gp->mdLatest];
+	[db getEarliestMonthDay:&gp->mdEarliest latestMonthDay:&gp->mdLatest];
 }
 
 
@@ -220,9 +220,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	EWMonthDay mdStart; // first point to draw
 	EWMonthDay mdStop; // last point to draw
 	CGFloat x;
-	
-	EWDatabase *db = [EWDatabase sharedDatabase];
-	
+		
 	// Is the requested start after actual data starts?
 	if (p->mdEarliest < beginMonthDay) {
 		// If so, comply with request.
@@ -230,7 +228,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		mdStart = beginMonthDay;
 		// Compute head point, because there is earlier data.
 		EWMonthDay mdHead;
-		const EWDBDay *dbd = [db getMonthDay:&mdHead withWeightBefore:mdStart onlyFat:p->showFatWeight];
+		const EWDBDay *dbd = [database getMonthDay:&mdHead withWeightBefore:mdStart onlyFat:p->showFatWeight];
 		if (dbd) {
 			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
 			headPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
@@ -247,7 +245,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		mdStop = endMonthDay;
 		// Compute tail point, because there is later data.
 		EWMonthDay mdTail;
-		const EWDBDay *dbd = [db getMonthDay:&mdTail withWeightAfter:mdStop onlyFat:p->showFatWeight];
+		const EWDBDay *dbd = [database getMonthDay:&mdTail withWeightAfter:mdStop onlyFat:p->showFatWeight];
 		if (dbd) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
 			tailPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
@@ -263,7 +261,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	for (EWMonthDay md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
 		EWDay day = EWMonthDayGetDay(md);
 		if (data == nil || day == 1) {
-			data = [db getDBMonth:EWMonthDayGetMonth(md)];
+			data = [database getDBMonth:EWMonthDayGetMonth(md)];
 		}
 		const EWDBDay *dd = [data getDBDayOnDay:day];
 		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
@@ -479,13 +477,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 - (CGPathRef)newGoalBandPath {
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (! goal.defined) return NULL;
 	float goalWeight = goal.endWeight;
 	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
 	CGRect rect = CGRectMake(0, goalWeight - gGoalBandHalfHeight, width, gGoalBandHeight);
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathAddRect(path, &p->t, rect);
+	[goal release];
 	return path;
 }
 
@@ -494,7 +493,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	// we need at least one graph point
 	if ([pointData length] < sizeof(GraphPoint)) return NULL;
 	
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (! goal.defined) return NULL;
 
 	float goalWeight = goal.endWeight;
@@ -515,7 +514,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5;
 	if (x < xMax) {
 		CGPathAddLineToPoint(path, &p->t, xMax, goalWeight);
-	}		
+	}
+	
+	[goal release];
 	return path;
 }
 
@@ -604,6 +605,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 - (void)main {
+	NSAssert(database, @"no database set!");
+	
 	[self computePoints];
 	
 	CGContextRef ctxt = [self newBitmapContext];
@@ -795,6 +798,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGImageRelease(imageRef);
 	[pointData release];
 	[flagData release];
+	[database release];
 	[super dealloc];
 }
 

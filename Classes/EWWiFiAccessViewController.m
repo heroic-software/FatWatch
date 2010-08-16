@@ -39,6 +39,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 @implementation EWWiFiAccessViewController
 
 
+@synthesize database;
 @synthesize statusLabel;
 @synthesize activityView;
 @synthesize detailView;
@@ -60,6 +61,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)dealloc {
+	[database release];
 	[activeDetailView release];
 	[activityView release];
 	[detailView release];
@@ -405,7 +407,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	[form release];
 	
-	NSData *data = [exporter exportedData];
+	NSData *data = [exporter dataExportedFromDatabase:database];
 	
 	if (data) {
 		[self setCurrentDateForKey:kEWLastExportKey];
@@ -535,7 +537,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	[form release];
 	
-	if ([importer performImport]) {
+	if ([importer performImportToDatabase:database]) {
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 		[self displayDetailView:progressDetailView];
 		[self sendHTMLResourceNamed:@"importAccepted" toConnection:connection];

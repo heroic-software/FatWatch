@@ -32,6 +32,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 @implementation TrendViewController
 
 
+@synthesize database;
 @synthesize graphView;
 @synthesize changeGroupView;
 @synthesize weightChangeButton;
@@ -126,7 +127,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (void)viewWillAppear:(BOOL)animated {
 	if (spanArray == nil) {
-		spanArray = [[TrendSpan computeTrendSpans] copy];
+		spanArray = [[TrendSpan computeTrendSpansFromDatabase:database] copy];
 		int length = [[NSUserDefaults standardUserDefaults] integerForKey:kTrendSpanLengthKey];
 		if (length > 0) {
 			for (int i = 0; i < [spanArray count]; i++) {
@@ -147,7 +148,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 - (void)updateRelativeWeightButton {
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	float weightToGo = goal.endWeight - goal.currentWeight;
 	EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:
 							 EWWeightFormatterStyleDisplay];
@@ -158,6 +159,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 								   @" to lose")
 						  forPart:1];
 	[relativeWeightButton setTextColor:[UIColor blackColor] forPart:0];
+	[goal release];
 }
 
 
@@ -216,7 +218,9 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 - (void)updatePlanButtonWithDate:(NSDate *)date {
 	planButton.hidden = (date == nil);
 	if (date == nil) return;
-	NSTimeInterval t = [date timeIntervalSinceDate:[[EWGoal sharedGoal] endDate]];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
+	NSTimeInterval t = [date timeIntervalSinceDate:[goal endDate]];
+	[goal release];
 	int dayCount = floor(t / kSecondsPerDay);
 	if (dayCount > 0) {
 		[planButton setText:[self stringFromDayCount:dayCount] forPart:0];
@@ -235,7 +239,9 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 - (void)updateRelativeEnergyButtonWithRate:(float)rate {
-	float plan = [[EWGoal sharedGoal] weightChangePerDay];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
+	float plan = [goal weightChangePerDay];
+	[goal release];
 /*
  plan		rate	R-P
  ***		***		 ~0		following plan						G
@@ -329,7 +335,8 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		gp->shouldDrawNoDataWarning = YES;
 		[GraphDrawingOperation prepareGraphViewInfo:gp 
 											forSize:graphView.bounds.size
-									   numberOfDays:span.length];
+									   numberOfDays:span.length
+										   database:database];
 	}
 	
 	graphView.beginMonthDay = EWMonthDayNext(span.beginMonthDay);
@@ -340,6 +347,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	if (span.graphImageRef == nil && span.graphOperation == nil) {
 		GraphDrawingOperation *op = [[GraphDrawingOperation alloc] init];
+		op.database = database;
 		op.delegate = self;
 		op.index = spanIndex;
 		op.p = graphView.p;
@@ -415,7 +423,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
 	[ef release];
 	
-	EWGoal *goal = [EWGoal sharedGoal];
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (goal.defined) {
 		goalGroupView.hidden = NO;
 		if (goal.attained) {
@@ -442,6 +450,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	} else {
 		goalGroupView.hidden = YES;
 	}
+	[goal release];
 	
 	flagGroupView.hidden = NO;
 	NSNumberFormatter *pf = [[NSNumberFormatter alloc] init];
@@ -495,15 +504,16 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	float rate = span.weightPerDay;
 	
 	if (sender == relativeEnergyButton) {
-		float plan = [[EWGoal sharedGoal] weightChangePerDay];
+		EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
+		float plan = [goal weightChangePerDay];
 		rate = fabsf(rate - plan);
+		[goal release];
 	} else {
 		rate = fabsf(rate);
 	}
 
-	float weight = [[EWDatabase sharedDatabase] latestWeight];
-	EnergyViewController *ctrlr = [[EnergyViewController alloc] initWithWeight:weight
-															   andChangePerDay:rate];
+	float weight = [database latestWeight];
+	EnergyViewController *ctrlr = [[EnergyViewController alloc] initWithWeight:weight andChangePerDay:rate database:database];
 	[self.navigationController pushViewController:ctrlr animated:YES];
 	[ctrlr release];
 }
@@ -519,6 +529,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 - (void)dealloc {
+	[database release];
 	[weightChangeButton release];
 	[energyChangeButton release];
 	[goalGroupView release];

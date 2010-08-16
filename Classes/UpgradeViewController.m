@@ -51,7 +51,6 @@
 
 
 - (void)didUpgrade {
-	[database upgrade];
 	titleLabel.text = NSLocalizedString(@"Upgrade Complete", @"Upgrade complete title");
 	[activityView stopAnimating];
 	dismissButton.hidden = NO;
@@ -59,7 +58,6 @@
 
 
 - (IBAction)dismissView {
-	[EWDatabase setSharedDatabase:database];
 	id appDelegate = [[UIApplication sharedApplication] delegate];
 	[appDelegate removeLaunchViewWithTransitionType:kCATransitionReveal
 											subType:kCATransitionFromTop];

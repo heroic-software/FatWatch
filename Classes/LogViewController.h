@@ -15,9 +15,11 @@
 @class LogInfoPickerController;
 @class LogDatePickerController;
 @class EWDBMonth;
+@class EWDatabase;
 
 
 @interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	EWDatabase *database;
 	UITableView *tableView;
 	NSDateFormatter *sectionTitleFormatter;
 	EWMonth earliestMonth, latestMonth;
@@ -28,6 +30,7 @@
 }
 + (void)setCurrentMonthDay:(EWMonthDay)monthday;
 + (EWMonthDay)currentMonthDay;
+@property (nonatomic,retain) EWDatabase *database;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet LogInfoPickerController *infoPickerController;
 @property (nonatomic,retain) IBOutlet LogDatePickerController *datePickerController;

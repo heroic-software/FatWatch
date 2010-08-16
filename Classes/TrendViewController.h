@@ -12,9 +12,11 @@
 
 @class EWTrendButton;
 @class GraphView;
+@class EWDatabase;
 
 
 @interface TrendViewController : UIViewController {
+	EWDatabase *database;
 	NSArray *spanArray;
 	int spanIndex;
 	BOOL showAbsoluteDate;
@@ -36,6 +38,7 @@
 	UIView *messageGroupView;
 	UIView *goalAttainedView;
 }
+@property (nonatomic,retain) EWDatabase *database;
 @property (nonatomic,retain) IBOutlet GraphView	*graphView;
 @property (nonatomic,retain) IBOutlet UIView *changeGroupView;
 @property (nonatomic,retain) IBOutlet EWTrendButton *weightChangeButton;

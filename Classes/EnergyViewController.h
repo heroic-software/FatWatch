@@ -10,8 +10,10 @@
 
 @class EWEnergyFormatter;
 @class NewEquivalentViewController;
+@class EWDatabase;
 
 @interface EnergyViewController : UITableViewController {
+	EWDatabase *database;
 	float weight;
 	float energy;
 	NSArray *titleArray;
@@ -20,5 +22,5 @@
 	BOOL dirty;
 	NewEquivalentViewController *newEquivalentController;
 }
-- (id)initWithWeight:(float)weight andChangePerDay:(float)rate;
+- (id)initWithWeight:(float)weight andChangePerDay:(float)rate database:(EWDatabase *)db;
 @end
