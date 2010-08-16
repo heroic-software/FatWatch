@@ -185,17 +185,6 @@
 }
 
 
-- (id)init {
-	if ([super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"Goal", @"Goal view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconGoal"];
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearGoal:)] autorelease];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
-	}
-	return self;
-}
-
-
 - (void)databaseDidChange:(NSNotification *)notification {
 	needsReload = YES;
 }
@@ -206,6 +195,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseDidChange:) name:EWDatabaseDidChangeNotification object:nil];
 	self.tableView.scrollEnabled = NO;
 }
 
@@ -287,7 +277,7 @@
 #pragma mark Clearing
 
 
-- (void)clearGoal:(id)sender {
+- (IBAction)clearGoal:(id)sender {
 	UIActionSheet *sheet = [[UIActionSheet alloc] init];
 	sheet.delegate = self;
 

@@ -20,6 +20,7 @@
 	NSTimeInterval lastTapTime;
 	EWDatabase *db;
 }
+@property (nonatomic,retain) IBOutlet RootViewController *rootViewController;
 - (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
 @end
 

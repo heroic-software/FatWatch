@@ -54,6 +54,7 @@
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
 		BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCA116F83C300FC43C5 /* Lock0.png */; };
 		BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCB116F83C300FC43C5 /* Lock1.png */; };
+		BC4A0ED11218E08400459C52 /* RootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4A0ED01218E08400459C52 /* RootView.xib */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
 		BC51B8920E3ACACC00D3B4C1 /* BRTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B88D0E3ACACC00D3B4C1 /* BRTableRow.m */; };
@@ -324,6 +325,7 @@
 		BC4722230DE368C80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importNoData.html; sourceTree = "<group>"; };
+		BC4A0ED01218E08400459C52 /* RootView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootView.xib; path = Interfaces/RootView.xib; sourceTree = "<group>"; };
 		BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LogViewController.xib; path = Interfaces/LogViewController.xib; sourceTree = "<group>"; };
 		BC4F26790EDE67900010B5BE /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRTextView.h; path = Classes/BRTextView.h; sourceTree = "<group>"; };
 		BC4F267A0EDE67900010B5BE /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRTextView.m; path = Classes/BRTextView.m; sourceTree = "<group>"; };
@@ -773,6 +775,7 @@
 			children = (
 				BCABE03F0DD932A100DE580A /* RootViewController.h */,
 				BCABE0400DD932A100DE580A /* RootViewController.m */,
+				BC4A0ED01218E08400459C52 /* RootView.xib */,
 				BC0211F50DC15D9800BA97BB /* NewDatabaseViewController.h */,
 				BC0211F60DC15D9800BA97BB /* NewDatabaseViewController.m */,
 				BCDFBCF310F8049A00FA0C93 /* UpgradeViewController.h */,
@@ -1076,6 +1079,7 @@
 				BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */,
 				BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */,
 				BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */,
+				BC4A0ED11218E08400459C52 /* RootView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,8 +14,16 @@
 @implementation BRTableViewController
 
 
+- (id)initWithCoder:(NSCoder *)aDecoder	{
+	if (self = [super initWithCoder:aDecoder]) {
+		sections = [[NSMutableArray alloc] init];
+	}
+	return self;
+}
+
+
 - (id)initWithStyle:(UITableViewStyle)style {
-	if ([super initWithStyle:style]) {
+	if (self = [super initWithStyle:style]) {
 		sections = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -155,30 +163,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)sectionIndex {
 	BRTableSection *section = [sections	objectAtIndex:sectionIndex];
 	return section.footerTitle;
-}
-
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
 }
 
 

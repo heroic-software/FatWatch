@@ -51,25 +51,6 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 @synthesize goalAttainedView;
 
 
-- (id)init {
-	if (self = [super initWithNibName:@"TrendView" bundle:nil]) {
-		self.title = NSLocalizedString(@"Trends", @"Trends view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconTrend"];
-		
-		UIImage *previousImage = [UIImage imageNamed:@"TriangleLeft"];
-		UIBarButtonItem *previousItem = [[UIBarButtonItem alloc] initWithImage:previousImage style:UIBarButtonItemStyleBordered target:self action:@selector(previousSpan:)];
-		self.navigationItem.leftBarButtonItem = previousItem;
-		[previousItem release];
-
-		UIImage *nextImage = [UIImage imageNamed:@"TriangleRight"];
-		UIBarButtonItem *nextItem = [[UIBarButtonItem alloc] initWithImage:nextImage style:UIBarButtonItemStyleBordered target:self action:@selector(nextSpan:)];
-		self.navigationItem.rightBarButtonItem = nextItem;
-		[nextItem release];
-	}
-	return self;
-}
-
-
 - (void)databaseDidChange:(NSNotification *)notice {
 	[spanArray release];
 	spanArray = nil;
@@ -115,13 +96,6 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			   selector:@selector(databaseDidChange:)
 				   name:EWGoalDidChangeNotification 
 				 object:nil];
-	
-	[self.view addSubview:messageGroupView];
-	messageGroupView.hidden = YES;
-	CGRect frame = messageGroupView.frame;
-	frame.origin.x = 0;
-	frame.origin.y = CGRectGetMinY(changeGroupView.frame);
-	messageGroupView.frame = frame;
 }
 
 
@@ -483,7 +457,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 #pragma mark Actions
 
 
-- (void)previousSpan:(id)sender {
+- (IBAction)previousSpan:(id)sender {
 	if (spanIndex > 0) {
 		spanIndex -= 1;
 		[self updateControls];
@@ -491,7 +465,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 }
 
 
-- (void)nextSpan:(id)sender {
+- (IBAction)nextSpan:(id)sender {
 	if (spanIndex + 1 < [spanArray count]) {
 		spanIndex += 1;
 		[self updateControls];

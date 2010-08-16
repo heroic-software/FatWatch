@@ -47,15 +47,11 @@ static NSString * const kBadgeValueUnregistered = @"!";
 @synthesize database;
 
 
-- (id)init {
-	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = NSLocalizedString(@"More", @"More view title");
-		self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0] autorelease];
-		if ([[NSUserDefaults standardUserDefaults] showRegistrationReminder]) {
-			self.tabBarItem.badgeValue = kBadgeValueUnregistered;
-		}
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	if ([[NSUserDefaults standardUserDefaults] showRegistrationReminder]) {
+		self.tabBarItem.badgeValue = kBadgeValueUnregistered;
 	}
-	return self;
 }
 
 

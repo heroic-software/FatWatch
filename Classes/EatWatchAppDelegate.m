@@ -41,6 +41,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 @implementation EatWatchAppDelegate
 
 
+@synthesize rootViewController;
+
+
 #if DEBUG_LAUNCH_ACTIONS_ENABLED
 - (void)performDebugLaunchActions {
 	static NSString * const kResetDatabaseKey = @"OnLaunchResetDatabase";
@@ -153,38 +156,16 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)setupRootView {
-	LogViewController *logController = [[[LogViewController alloc] init] autorelease];
-	TrendViewController *trendController = [[[TrendViewController alloc] init] autorelease];
-	MoreViewController *moreController = [[[MoreViewController alloc] init] autorelease];
-	GoalViewController *goalController = [[[GoalViewController alloc] init] autorelease];
-	GraphViewController *graphController = [[[GraphViewController alloc] init] autorelease];
-	
-	logController.database = db;
-	trendController.database = db;
-	moreController.database = db;
-	goalController.database = db;
-	graphController.database = db;
-	
-	UINavigationController *trendNavController = [[[UINavigationController alloc] initWithRootViewController:trendController] autorelease];
-	
-	UINavigationController *goalNavController = [[[UINavigationController alloc] initWithRootViewController:goalController] autorelease];
-	
-	UINavigationController *moreNavController = [[[UINavigationController alloc] initWithRootViewController:moreController] autorelease];
-	
-	UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-	tabBarController.delegate = self;
-	tabBarController.viewControllers = [NSArray arrayWithObjects:logController, trendNavController, goalNavController, moreNavController, nil];
+	NSDictionary *externals = [NSDictionary dictionaryWithObject:db forKey:@"Database"];
+	NSDictionary *options = [NSDictionary dictionaryWithObject:externals forKey:UINibExternalObjects];
+	[[NSBundle mainBundle] loadNibNamed:@"RootView" owner:self options:options];
 
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	lastTapTabIndex = [defs integerForKey:kSelectedTabIndex];
+	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
 	tabBarController.selectedIndex = lastTapTabIndex;
-	
-	rootViewController = [[RootViewController alloc] init];
-	rootViewController.portraitViewController = tabBarController;
-	rootViewController.landscapeViewController = graphController;
-	
+
 	[self addViewToWindow:rootViewController.view];
-	
 	[self autoWeighInIfEnabled];
 }
 

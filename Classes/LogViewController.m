@@ -46,22 +46,17 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 @synthesize datePickerController;
 
 
-- (id)init {
-	if (self = [super initWithNibName:@"LogViewController" bundle:nil]) {
-		self.title = NSLocalizedString(@"Log", @"Log view title");
-		self.tabBarItem.image = [UIImage imageNamed:@"TabIconLog"];
-
-		sectionTitleFormatter = [[NSDateFormatter alloc] init];
-		sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
-		sectionTitleFormatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(databaseDidChange:) 
-													 name:EWDatabaseDidChangeNotification 
-												   object:nil];
-		[self databaseDidChange:nil];
-	}
-	return self;
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	sectionTitleFormatter = [[NSDateFormatter alloc] init];
+	sectionTitleFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
+	sectionTitleFormatter.dateFormat = NSLocalizedString(@"MMMM y", @"Month Year date format");
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(databaseDidChange:) 
+												 name:EWDatabaseDidChangeNotification 
+											   object:nil];
+	[self databaseDidChange:nil];
 }
 
 
@@ -157,6 +152,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
 	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 								  UIViewAutoresizingFlexibleHeight);
 	

@@ -38,7 +38,7 @@
 	UIView *messageGroupView;
 	UIView *goalAttainedView;
 }
-@property (nonatomic,retain) EWDatabase *database;
+@property (nonatomic,retain) IBOutlet EWDatabase *database;
 @property (nonatomic,retain) IBOutlet GraphView	*graphView;
 @property (nonatomic,retain) IBOutlet UIView *changeGroupView;
 @property (nonatomic,retain) IBOutlet EWTrendButton *weightChangeButton;
@@ -57,4 +57,6 @@
 @property (nonatomic,retain) IBOutlet UIView *goalAttainedView;
 - (IBAction)showEnergyEquivalents:(id)sender;
 - (IBAction)toggleDateFormat:(id)sender;
+- (IBAction)previousSpan:(id)sender;
+- (IBAction)nextSpan:(id)sender;
 @end

@@ -30,7 +30,7 @@
 }
 + (void)setCurrentMonthDay:(EWMonthDay)monthday;
 + (EWMonthDay)currentMonthDay;
-@property (nonatomic,retain) EWDatabase *database;
+@property (nonatomic,retain) IBOutlet EWDatabase *database;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet LogInfoPickerController *infoPickerController;
 @property (nonatomic,retain) IBOutlet LogDatePickerController *datePickerController;
