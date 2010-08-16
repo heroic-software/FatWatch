@@ -82,7 +82,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 
 	if (startWeight > 0 && goalWeight > 0) {
 		NSTimeInterval seconds = (goalWeight - startWeight) / changePerDay * kSecondsPerDay;
-		NSDate *goalDate = [startDate addTimeInterval:seconds];
+		NSDate *goalDate = [startDate dateByAddingTimeInterval:seconds];
 		[uds setInteger:EWMonthDayFromDate(goalDate) forKey:kGoalDateKey];
 	} else {
 		[uds removeObjectForKey:kGoalWeightKey];
@@ -319,7 +319,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 			float weightChange = self.endWeight - [self currentWeight];
 			NSTimeInterval seconds = (weightChange / delta) * kSecondsPerDay;
 			NSDate *todayDate = EWDateFromMonthDay(EWMonthDayToday());
-			date = [todayDate addTimeInterval:seconds];
+			date = [todayDate dateByAddingTimeInterval:seconds];
 		}
 	}
 	return date;
