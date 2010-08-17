@@ -178,11 +178,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		gp->maxWeight = centerWeight + (0.5f * minRange);
 	}
 
-	if (numberOfDays == 1) {
-		gp->scaleX = size.width;
-	} else {
+	if (numberOfDays > 0) {
 		gp->scaleX = (size.width - kGraphMarginRight) / numberOfDays;
 	}
+	
 	gp->scaleY = (size.height - (kGraphMarginTop + kGraphMarginBottom)) / (gp->maxWeight - gp->minWeight);
 	gp->minWeight -= (kGraphMarginBottom / gp->scaleY);
 	gp->maxWeight += (kGraphMarginTop / gp->scaleY);

@@ -107,40 +107,37 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)prepareGraphViewInfo {
+	static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
+
 	[GraphDrawingOperation flushQueue];
 
 	float minWeight, maxWeight;
 	EWMonthDay beginMonthDay, endMonthDay;
 	
+	// Total range, regardless of fat/total setting.
+	[database getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
+	if (beginMonthDay == 0 || endMonthDay == 0) {
+		beginMonthDay = EWMonthDayToday();
+		endMonthDay = beginMonthDay;
+	}
+	
 	CGSize size = scrollView.bounds.size;
 	NSInteger numberOfDays;
 
-	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
-		infoCount = database.latestMonth - database.earliestMonth + 1;
+	NSInteger spanIndex = spanControl.selectedSegmentIndex;
+	if (spanIndex == kSpanScrolling) {
+		infoCount = EWMonthDayGetMonth(endMonthDay) - EWMonthDayGetMonth(beginMonthDay) + 1;
 		NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
 		if (infoCount == 1) {
-			numberOfDays = EWDaysInMonth(database.earliestMonth);
+			parameters.scaleX = size.width / EWDaysInMonth(EWMonthDayGetMonth(beginMonthDay));
 		} else {
-			numberOfDays = 1;
-			size.width = kDayWidth;
+			parameters.scaleX = kDayWidth;
 		}
-
-		beginMonthDay = 0;
-		endMonthDay = 0;
+		numberOfDays = 0; // do not set scaleX
+		endMonthDay = 0; // useful hint to getWeightMinimum:maximum:
 	} else {
-		static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
-
 		infoCount = 1;
-
-		NSInteger spanIndex = spanControl.selectedSegmentIndex;
-		
 		if (spanIndex == kSpanAll) {
-			// Total range, regardless of fat/total setting.
-			[database getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
-			if (beginMonthDay == 0 || endMonthDay == 0) {
-				beginMonthDay = EWMonthDayToday();
-				endMonthDay = beginMonthDay;
-			}
 			numberOfDays = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 		} else {
 			if (spanIndex == kSpan30Days) {
@@ -150,7 +147,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 			} else { // if (spanIndex == kSpanYear) {
 				numberOfDays = 365;
 			}
-			
 			NSTimeInterval t = numberOfDays * kSecondsPerDay;
 			endMonthDay = EWMonthDayToday();
 			beginMonthDay = EWMonthDayFromDate([NSDate dateWithTimeIntervalSinceNow:-t]);
@@ -190,8 +186,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	info = malloc(infoCount * sizeof(GraphViewInfo));
 	NSAssert(info, @"could not allocate memory for GraphViewInfo");
 	
-	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
-		EWMonth m = database.earliestMonth;
+	if (spanIndex == kSpanScrolling) {
+		EWMonth m = EWMonthDayGetMonth(beginMonthDay);
 		CGFloat x = 0;
 		for (int i = 0; i < infoCount; i++) {
 			NSInteger days = EWDaysInMonth(m);
