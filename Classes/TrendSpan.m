@@ -165,7 +165,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 				span.weightPerDay = -totalComputer.slope;
 			}
 			
-			// TODO: Update if goal changes
+			// Because of this, spans will have to be regenerated if goal changes.
 			if (span.weightPerDay != 0) {
 				NSDate *date = [goal endDateWithWeightChangePerDay:span.weightPerDay];
 				if ([date timeIntervalSinceNow] < 0) {

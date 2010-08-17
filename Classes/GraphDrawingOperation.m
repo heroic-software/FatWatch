@@ -634,7 +634,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGPathRef goalBandPath = [self newGoalBandPath];
 	if (goalBandPath) {
 		CGContextAddPath(ctxt, goalBandPath);
-		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.1);
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2);
 		CGContextFillPath(ctxt);
 		CGPathRelease(goalBandPath);
 	}
@@ -645,7 +645,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	CGPathRef gridPath = [self newGridPath];
 	CGContextAddPath(ctxt, gridPath);
-	CGContextSetRGBStrokeColor(ctxt, 0.8,0.8,0.8, 1.0);
+	CGContextSetRGBStrokeColor(ctxt, 0,0,0, 0.1);
 	CGContextStrokePath(ctxt);
 	CGPathRelease(gridPath);
 

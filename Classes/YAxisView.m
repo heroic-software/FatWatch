@@ -57,7 +57,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 												 p->t);
 		band.origin.x = 0;
 		band.size.width = viewWidth;
-		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.1);
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2);
 		CGContextFillRect(ctxt, band);
 		
 		CGFloat y = CGRectGetMidY(band);
