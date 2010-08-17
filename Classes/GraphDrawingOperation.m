@@ -204,7 +204,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		[self prepareBMIRegionsForGraphViewParameters:gp];
 	}
 	
-	[db getEarliestMonthDay:&gp->mdEarliest latestMonthDay:&gp->mdLatest];
+	[db getEarliestMonthDay:&gp->mdEarliest latestMonthDay:&gp->mdLatest filter:EWDatabaseFilterNone];
 }
 
 

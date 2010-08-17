@@ -114,8 +114,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	float minWeight, maxWeight;
 	EWMonthDay beginMonthDay, endMonthDay;
 	
-	// Total range, regardless of fat/total setting.
-	[database getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay];
+	EWDatabaseFilter filter = parameters.showFatWeight ? EWDatabaseFilterWeightAndFat : EWDatabaseFilterWeight;
+	[database getEarliestMonthDay:&beginMonthDay latestMonthDay:&endMonthDay filter:filter];
 	if (beginMonthDay == 0 || endMonthDay == 0) {
 		beginMonthDay = EWMonthDayToday();
 		endMonthDay = beginMonthDay;

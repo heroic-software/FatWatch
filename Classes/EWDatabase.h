@@ -18,6 +18,13 @@
 extern NSString * const EWDatabaseDidChangeNotification;
 
 
+typedef enum {
+	EWDatabaseFilterNone,
+	EWDatabaseFilterWeight,
+	EWDatabaseFilterWeightAndFat
+} EWDatabaseFilter;
+
+
 @interface EWDatabase : NSObject {
 	NSString *dbPath;
 	SQLiteDatabase *db;
@@ -45,7 +52,7 @@ extern NSString * const EWDatabaseDidChangeNotification;
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight onlyFat:(BOOL)onlyFat from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;
-- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay;
+- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay filter:(EWDatabaseFilter)filter;
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart onlyFat:(BOOL)onlyFat;
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop onlyFat:(BOOL)onlyFat;
 - (BOOL)hasDataForToday;

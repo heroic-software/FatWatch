@@ -261,11 +261,27 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 // Used by GraphDrawingOperation when setting parameters.
 // Used by GraphViewController when sizing "all time" graph.
-- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay {
+- (void)getEarliestMonthDay:(EWMonthDay *)beginMonthDay latestMonthDay:(EWMonthDay *)endMonthDay filter:(EWDatabaseFilter)filter {
 	NSParameterAssert(beginMonthDay);
 	NSParameterAssert(endMonthDay);
 	
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT MIN(monthday),MAX(monthday) FROM days"];
+	char *sql = NULL;
+	
+	switch (filter) {
+		case EWDatabaseFilterNone:
+			sql = "SELECT MIN(monthday),MAX(monthday) FROM days";
+			break;
+		case EWDatabaseFilterWeight:
+			sql = "SELECT MIN(monthday),MAX(monthday) FROM days WHERE scaleWeight IS NOT NULL";
+			break;
+		case EWDatabaseFilterWeightAndFat:
+			sql = "SELECT MIN(monthday),MAX(monthday) FROM days WHERE scaleFatWeight IS NOT NULL";
+			break;
+	}
+	
+	NSAssert1(sql, @"invalid filter parameter %d", filter);
+	
+	SQLiteStatement *stmt = [db statementFromSQL:sql];
 	if ([stmt step]) {
 		*beginMonthDay = [stmt intValueOfColumn:0];
 		*endMonthDay = [stmt intValueOfColumn:1];
