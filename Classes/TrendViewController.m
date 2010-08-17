@@ -356,8 +356,8 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	UINavigationItem *navItem = self.navigationItem;
 	navItem.title = span.title;
-	navItem.leftBarButtonItem.enabled = (spanIndex > 0);
-	navItem.rightBarButtonItem.enabled = (spanIndex + 1 < [spanArray count]);
+	navItem.leftBarButtonItem.enabled = (spanIndex + 1 < [spanArray count]);
+	navItem.rightBarButtonItem.enabled = (spanIndex > 0);
 
 	[self updateGraph];
 	
