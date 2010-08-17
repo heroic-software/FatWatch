@@ -23,11 +23,6 @@ static BOOL autorotationDisabled = NO;
 }
 
 
-- (id)init {
-	return [super initWithNibName:nil bundle:nil];
-}
-
-
 - (void)loadView {
 	UIView *rootView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	rootView.autoresizingMask = (UIViewAutoresizingFlexibleHeight |
@@ -86,11 +81,15 @@ static BOOL autorotationDisabled = NO;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 	[currentViewController viewWillDisappear:YES];
 	[currentViewController.view removeFromSuperview];
+	UIStatusBarStyle style;
 	if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+		style = UIStatusBarStyleDefault;
 		currentViewController = portraitViewController;
 	} else {
+		style = UIStatusBarStyleBlackOpaque;
 		currentViewController = landscapeViewController;
 	}
+	[[UIApplication sharedApplication] setStatusBarStyle:style animated:YES];
 	[currentViewController viewWillAppear:YES];
 	CATransition *animation = [CATransition animation];
 	[animation setType:kCATransitionFade];

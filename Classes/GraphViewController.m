@@ -42,11 +42,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 @synthesize actionButtonItem;
 
 
-- (id)init {
-	if ([super initWithNibName:@"GraphView" bundle:nil]) {
-		cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
-	}
-	return self;
+- (void)awakeFromNib {
+	cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
 }
 
 
@@ -240,9 +237,10 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	parameters.showFatWeight = [defs boolForKey:kShowFatKey];
 	typeControl.selectedSegmentIndex = parameters.showFatWeight ? 1 : 0;
 	[axisView sizeToFit];
+	// adjust width of scrollView to be flush against axisView
+	CGRect frame = scrollView.frame;
 	CGFloat axisViewWidth = CGRectGetWidth(axisView.frame);
 	CGFloat totalWidth = CGRectGetWidth(self.view.bounds);
-	CGRect frame = scrollView.frame;
 	frame.origin.x = axisViewWidth;
 	frame.size.width = totalWidth - axisViewWidth;
 	scrollView.frame = frame;
@@ -369,8 +367,10 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
+	// This method may be called after info has been deallocated. Be careful!
+	if (info == NULL) return;
+	if (infoCount <= operation.index) return;
 	GraphViewInfo *ginfo = &info[operation.index];
-	// FIXME: ginfo could have been deallocated before this method is called.
 	if (ginfo->operation == operation && ![operation isCancelled]) {
 		CGImageRelease(ginfo->imageRef);
 		ginfo->imageRef = CGImageRetain(operation.imageRef);
@@ -384,17 +384,20 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[self startObservingDatabase];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	[self stopObservingDatabase];
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	[self clearGraphViewInfo];
 }
 
