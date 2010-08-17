@@ -181,6 +181,14 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
+- (void)prepareProgressDetailView {
+	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
+	titleLabel.text = @"Importing";
+	[[progressDetailView viewWithTag:kEWProgressDetailTag] setHidden:YES];
+	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:YES];
+}
+
+
 #pragma mark IBAction
 
 
@@ -539,6 +547,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	if ([importer performImportToDatabase:database]) {
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+		[self prepareProgressDetailView];
 		[self displayDetailView:progressDetailView];
 		[self sendHTMLResourceNamed:@"importAccepted" toConnection:connection];
 	} else {
@@ -566,9 +575,9 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 
 	// \xc2\xa0 : NO-BREAK SPACE
 	if (importedCount > 0) {
-		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d\xc2\xa0measurements out of %d\xc2\xa0rows.", @"After import, count of lines read and imported."), 
+		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d\xc2\xa0measurements;\n%d\xc2\xa0lines ignored.", @"After import, count of lines read and ignored."), 
 			   importedCount,
-			   rowCount];
+			   rowCount - importedCount];
 	} else {
 		msg = [NSString stringWithFormat:NSLocalizedString(@"Read %d\xc2\xa0rows but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported."),
 			   rowCount];
