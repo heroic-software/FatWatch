@@ -11,6 +11,13 @@
 #import "EatWatchAppDelegate.h"
 
 
+@interface UpgradeViewController ()
+- (void)doUpgrade:(id)nothing;
+- (void)didUpgrade;
+@end
+
+
+
 @implementation UpgradeViewController
 
 
@@ -20,7 +27,7 @@
 
 
 - (id)initWithDatabase:(EWDatabase *)db {
-    if (self = [super initWithNibName:@"UpgradeView" bundle:nil]) {
+    if ((self = [super initWithNibName:@"UpgradeView" bundle:nil])) {
         database = [db retain];
     }
     return self;

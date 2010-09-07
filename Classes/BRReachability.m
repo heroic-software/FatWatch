@@ -31,7 +31,7 @@ void BRReachabilityCallback(SCNetworkReachabilityRef target,
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		struct sockaddr_in zeroAddress;
 
 		bzero(&zeroAddress, sizeof(zeroAddress));

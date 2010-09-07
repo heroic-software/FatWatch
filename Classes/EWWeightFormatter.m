@@ -66,8 +66,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 			return 0;
 		case EWWeightFormatterStyleVariance:
 			return 1;
+		default:
+			NSAssert1(NO, @"fractionDigitsForStyle:%d unexpected", style);
 	}
-	NSAssert1(NO, @"fractionDigitsForStyle:%d unexpected", style);
 	return -1;
 }
 

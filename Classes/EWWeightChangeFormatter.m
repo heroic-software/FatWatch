@@ -20,9 +20,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 + (float)energyChangePerDayIncrement {
 	switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
 		case EWEnergyUnitCalories:
-			return 10.0 / kCaloriesPerPound; // 10 cal/day
+			return 10 / kCaloriesPerPound; // 10 cal/day
 		case EWEnergyUnitKilojoules:
-			return 50.0 / kKilojoulesPerPound; // 40 kJ/day
+			return 50 / kKilojoulesPerPound; // 40 kJ/day
 		default:
 			return 0;
 	}
@@ -33,9 +33,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
 		case EWWeightUnitPounds:
 		case EWWeightUnitStones:
-			return 0.05 / 7.0; // 0.05 lbs/week / 7 days/week
+			return 0.05f / 7; // 0.05 lbs/week / 7 days/week
 		case EWWeightUnitKilograms:
-			return 0.01 / kKilogramsPerPound / 7.0; // 0.01 kgs/week / 7 day/week / X kg/lb
+			return 0.01f / kKilogramsPerPound / 7; // 0.01 kgs/week / 7 day/week / X kg/lb
 		default:
 			return 0;
 	}
@@ -69,6 +69,8 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"lbs/week", @"pounds per week")]];
 			[self setMultiplier:[NSNumber numberWithFloat:7.0f]];
 			break;
+		default:
+			NSAssert(NO, @"unexpected weight unit");
 	}
 	[self setNegativeSuffix:[self positiveSuffix]];
 	[self setMinimumFractionDigits:2];
@@ -77,7 +79,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 
 - (id)initWithStyle:(EWWeightChangeFormatterStyle)style {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		[self setNumberStyle:NSNumberFormatterDecimalStyle];
 		switch (style) {
 			case EWWeightChangeFormatterStyleEnergyPerDay:

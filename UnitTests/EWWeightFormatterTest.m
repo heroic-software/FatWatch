@@ -58,9 +58,9 @@
 }
 
 - (void)testStyleDisplayUnitStones {
-	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"1.0", 100.2, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
-	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"0.1", 100.2, @"7" SHORT_SPACE @"st 2.2" SHORT_SPACE @"lb");
-	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"0.01", 100.2, @"7" SHORT_SPACE @"st 2.20" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"1.0", 100.2f, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"0.1", 100.2f, @"7" SHORT_SPACE @"st 2.2" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleDisplay, EWWeightUnitStones, @"0.01", 100.2f, @"7" SHORT_SPACE @"st 2.20" SHORT_SPACE @"lb");
 }
 
 - (void)testStyleDisplayUnitGrams {
@@ -110,9 +110,9 @@
 }
 
 - (void)testStyleWholeUnitStones {
-	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"1.0", 100.2, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
-	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"0.1", 100.2, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
-	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"0.01", 100.2, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"1.0", 100.2f, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"0.1", 100.2f, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
+	TestFormatStyleUnit(EWWeightFormatterStyleWhole, EWWeightUnitStones, @"0.01", 100.2f, @"7" SHORT_SPACE @"st 2" SHORT_SPACE @"lb");
 }
 
 - (void)testStyleWholeUnitGrams {
@@ -138,9 +138,9 @@
 }
 
 - (void)testStyleGraphUnitStones {
-	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"1.0", 100.2, @"7,2");
-	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"0.1", 100.2, @"7,2");
-	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"0.01", 100.2, @"7,2");
+	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"1.0", 100.2f, @"7,2");
+	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"0.1", 100.2f, @"7,2");
+	TestFormatStyleUnit(EWWeightFormatterStyleGraph, EWWeightUnitStones, @"0.01", 100.2f, @"7,2");
 }
 
 - (void)testStyleGraphUnitGrams {
@@ -154,27 +154,27 @@
 
 
 - (void)testStyleExportUnitPounds {
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"1.0", 123.432, @"123");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"0.1", 123.432, @"123.4");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"0.01", 123.432, @"123.43");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"1.0", 123.432f, @"123");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"0.1", 123.432f, @"123.4");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitPounds, @"0.01", 123.432f, @"123.43");
 }
 
 - (void)testStyleExportUnitKilograms {
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"1.0", 123.432, @"56");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"0.1", 123.432, @"56.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"0.01", 123.432, @"55.99");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"1.0", 123.432f, @"56");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"0.1", 123.432f, @"56.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitKilograms, @"0.01", 123.432f, @"55.99");
 }
 
 - (void)testStyleExportUnitStones {
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"1.0", 123.432, @"123");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"0.1", 123.432, @"123.4");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"0.01", 123.432, @"123.43");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"1.0", 123.432f, @"123");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"0.1", 123.432f, @"123.4");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitStones, @"0.01", 123.432f, @"123.43");
 }
 
 - (void)testStyleExportUnitGrams {
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"1.0", 123.432, @"55988");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"0.1", 123.432, @"55987.8");
-	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"0.01", 123.432, @"55987.81");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"1.0", 123.432f, @"55988");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"0.1", 123.432f, @"55987.8");
+	TestFormatStyleUnit(EWWeightFormatterStyleExport, EWWeightUnitGrams, @"0.01", 123.432f, @"55987.81");
 }
 
 
@@ -183,30 +183,30 @@
 
 - (void)testStyleBMIUnitPounds {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"1.0", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"0.1", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"0.01", 123.432, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"1.0", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"0.1", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitPounds, @"0.01", 123.432f, @"14.0");
 }
 
 - (void)testStyleBMIUnitKilograms {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"1.0", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"0.1", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"0.01", 123.432, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"1.0", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"0.1", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitKilograms, @"0.01", 123.432f, @"14.0");
 }
 
 - (void)testStyleBMIUnitStones {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"1.0", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"0.1", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"0.01", 123.432, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"1.0", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"0.1", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitStones, @"0.01", 123.432f, @"14.0");
 }
 
 - (void)testStyleBMIUnitGrams {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"1.0", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"0.1", 123.432, @"14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"0.01", 123.432, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"1.0", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"0.1", 123.432f, @"14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMI, EWWeightUnitGrams, @"0.01", 123.432f, @"14.0");
 }
 
 
@@ -215,30 +215,30 @@
 
 - (void)testStyleBMILabeledUnitPounds {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"1.0", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"0.1", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"0.01", 123.432, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"1.0", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"0.1", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitPounds, @"0.01", 123.432f, @"BMI 14.0");
 }
 
 - (void)testStyleBMILabeledUnitKilograms {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"1.0", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"0.1", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"0.01", 123.432, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"1.0", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"0.1", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitKilograms, @"0.01", 123.432f, @"BMI 14.0");
 }
 
 - (void)testStyleBMILabeledUnitStones {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"1.0", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"0.1", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"0.01", 123.432, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"1.0", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"0.1", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitStones, @"0.01", 123.432f, @"BMI 14.0");
 }
 
 - (void)testStyleBMILabeledUnitGrams {
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"1.0", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"0.1", 123.432, @"BMI 14.0");
-	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"0.01", 123.432, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"1.0", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"0.1", 123.432f, @"BMI 14.0");
+	TestFormatStyleUnit(EWWeightFormatterStyleBMILabeled, EWWeightUnitGrams, @"0.01", 123.432f, @"BMI 14.0");
 }
 
 

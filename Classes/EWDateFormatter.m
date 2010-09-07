@@ -21,7 +21,7 @@
 }
 
 - (id)initWithDateFormat:(NSString *)format {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		realFormatter = [[NSDateFormatter alloc] init];
 		[realFormatter setDateFormat:format];
 	}

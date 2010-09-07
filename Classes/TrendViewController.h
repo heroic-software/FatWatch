@@ -18,7 +18,7 @@
 @interface TrendViewController : UIViewController {
 	EWDatabase *database;
 	NSArray *spanArray;
-	int spanIndex;
+	NSUInteger spanIndex;
 	BOOL showAbsoluteDate;
 	GraphViewParameters graphParams;
 	GraphView *graphView;

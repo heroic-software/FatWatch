@@ -104,7 +104,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		spanArray = [[TrendSpan computeTrendSpansFromDatabase:database] copy];
 		int length = [[NSUserDefaults standardUserDefaults] integerForKey:kTrendSpanLengthKey];
 		if (length > 0) {
-			for (int i = 0; i < [spanArray count]; i++) {
+			for (NSUInteger i = 0; i < [spanArray count]; i++) {
 				// Allow length to be off by a few days
 				if (ABS([[spanArray objectAtIndex:i] length] - length) < 7) {
 					spanIndex = i;
@@ -155,7 +155,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (void)updateDateButtonWithDate:(NSDate *)date {
 	if (date) {
-		int dayCount = floor([date timeIntervalSinceNow] / kSecondsPerDay);
+		int dayCount = (int)floor([date timeIntervalSinceNow] / kSecondsPerDay);
 		if (dayCount > 365) {
 			[dateButton setText:@"goal weight in " forPart:0];
 			[dateButton setText:[self stringFromDayCount:dayCount] forPart:1];
@@ -195,7 +195,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	NSTimeInterval t = [date timeIntervalSinceDate:[goal endDate]];
 	[goal release];
-	int dayCount = floor(t / kSecondsPerDay);
+	int dayCount = (int)floor(t / kSecondsPerDay);
 	if (dayCount > 0) {
 		[planButton setText:[self stringFromDayCount:dayCount] forPart:0];
 		[planButton setText:@" later than goal date" forPart:1];
@@ -377,10 +377,10 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	UIColor *weightChangeColor;
 	if (span.graphParameters->showFatWeight) {
 		weightChangeText = @"fat";
-		weightChangeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.8 alpha:1];
+		weightChangeColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.8f alpha:1];
 	} else {
 		weightChangeText = @"total weight";
-		weightChangeColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.1 alpha:1];
+		weightChangeColor = [UIColor colorWithRed:0.8f green:0.1f blue:0.1f alpha:1];
 	}
 	[weightChangeButton setText:weightChangeText forPart:3];
 	[weightChangeButton setTextColor:weightChangeColor forPart:3];

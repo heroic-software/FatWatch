@@ -41,6 +41,14 @@ enum {
 static NSString * const kBadgeValueUnregistered = @"!";
 
 
+@interface MoreViewController ()
+- (void)showWeightChart:(BRTableButtonRow *)sender;
+- (void)emailExport:(BRTableButtonRow *)sender;
+- (void)doExport:(id)arg;
+- (void)mailExport:(NSArray *)args;
+@end
+
+
 @implementation MoreViewController
 
 
@@ -77,7 +85,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
 		BRTableButtonRow *registerRow = [[BRTableButtonRow alloc] init];
 		registerRow.title = NSLocalizedString(@"Register Now", nil);
-		registerRow.titleColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
+		registerRow.titleColor = [UIColor colorWithRed:0.9f green:0 blue:0 alpha:1];
 		registerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		registerRow.object = [RegistrationViewController sharedController];
 		[aboutSection addRow:registerRow animated:NO];
@@ -93,7 +101,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRColorPalette *palette = [BRColorPalette sharedPalette];
 
 	CGSize imageSize = CGSizeMake(4*width + 3*space, width);
-	UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+	UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
 	[[UIColor blackColor] setStroke];
 	
 	CGRect rect = CGRectMake(0, 0, width, width);

@@ -29,7 +29,7 @@
 {
 	double Sxx = sumXsquared - sumX * sumX / count;
 	double Sxy = sumXY - sumX * sumY / count;
-	return Sxy / Sxx;
+	return (float)(Sxy / Sxx);
 }
 
 

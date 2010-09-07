@@ -204,9 +204,9 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	switch ([self weightUnit]) {
 		case EWWeightUnitPounds:
 		case EWWeightUnitStones:
-			return -(1.0 / 7.0); // 1 lb/wk
+			return -(1.0f / 7.0f); // 1 lb/wk
 		case EWWeightUnitKilograms:
-			return -(0.5 / 7.0) / kKilogramsPerPound; // 0.5 kg/wk
+			return -(0.5f / 7.0f) / kKilogramsPerPound; // 0.5 kg/wk
 		default:
 			return 0;
 	}
@@ -217,9 +217,9 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	switch ([self weightUnit]) {
 		case EWWeightUnitPounds:
 		case EWWeightUnitStones:
-			return 0.0254;
+			return 0.0254f;
 		case EWWeightUnitKilograms:
-			return 0.01;
+			return 0.01f;
 		default:
 			return 0;
 	}

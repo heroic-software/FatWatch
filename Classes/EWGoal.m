@@ -145,7 +145,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 		firstInstance = NO;
 	}
 	
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		database = [db retain];
 	}
 	return self;
@@ -369,7 +369,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 			NSDate *todayDate = EWDateFromMonthDay(EWMonthDayToday());
 			NSTimeInterval seconds = [goalDate timeIntervalSinceDate:todayDate];
 			float weightChange = self.endWeight - [self currentWeight];
-			delta = weightChange / (seconds / kSecondsPerDay);
+			delta = weightChange / (float)(seconds / kSecondsPerDay);
 		}
 	}
 	return delta;

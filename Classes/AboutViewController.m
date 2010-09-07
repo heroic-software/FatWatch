@@ -23,7 +23,7 @@
 
 
 - (id)init {
-	if (self = [super initWithStyle:UITableViewStyleGrouped]) {
+	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
 		self.title = NSLocalizedString(@"About", @"About view title");
 		self.hidesBottomBarWhenPushed = YES;
 	}
@@ -84,7 +84,7 @@
 	
 	row = [[BRTableButtonRow alloc] init];
 	row.title = @"Unregistered";
-	row.titleColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
+	row.titleColor = [UIColor colorWithRed:0.9f green:0 blue:0 alpha:1];
 	row.object = [RegistrationViewController sharedController];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];

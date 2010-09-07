@@ -38,12 +38,12 @@ typedef enum {
 	NSArray *columnNames;
 	NSArray *sampleValues;
 	NSDictionary *importDefaults;
-	int columnForField[EWImporterFieldCount];
+	NSUInteger columnForField[EWImporterFieldCount];
 	NSFormatter *formatterForField[EWImporterFieldCount];
 	id <EWImporterDelegate> delegate;
 	BOOL deleteFirst;
 	BOOL importing;
-	int rowCount, importedCount;
+	NSUInteger rowCount, importedCount;
 }
 @property (nonatomic,assign) id <EWImporterDelegate> delegate;
 @property (nonatomic) BOOL deleteFirst;

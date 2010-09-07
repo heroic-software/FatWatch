@@ -65,8 +65,8 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		while ([stmt step]) {
 			EWDay day = EWMonthDayGetDay([stmt intValueOfColumn:kMonthDayColumn]);
 			EWDBDay *d = [self accessDBDayOnDay:day];
-			d->scaleWeight = [stmt doubleValueOfColumn:kScaleWeightColumn];
-			d->scaleFatWeight = [stmt doubleValueOfColumn:kScaleFatColumn];
+			d->scaleWeight = [stmt floatValueOfColumn:kScaleWeightColumn];
+			d->scaleFatWeight = [stmt floatValueOfColumn:kScaleFatColumn];
 			d->flags[0] = [stmt intValueOfColumn:kFlag0Column];
 			d->flags[1] = [stmt intValueOfColumn:kFlag1Column];
 			d->flags[2] = [stmt intValueOfColumn:kFlag2Column];
@@ -132,7 +132,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	SQLiteStatement *stmt = [database selectMonthStatement];
 	[stmt bindInt:month toParameter:1];
 	if ([stmt step]) {
-		trend = [stmt doubleValueOfColumn:1];
+		trend = [stmt floatValueOfColumn:1];
 		[stmt reset];
 	}
 	if (trend > 0) return trend;
@@ -219,7 +219,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	int i;
 	UInt32 bits;
 	for (i = 0, bits = dirtyBits; (bits != 0); i++, bits >>= 1) {
-		if (bits & 1 == 0) continue;
+		if ((bits & 1) == 0) continue;
 		EWDay day = i + 1;
 		if ([self hasDataOnDay:day]) {
 			struct EWDBDay *d = &days[i];
@@ -262,8 +262,8 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	SQLiteStatement *stmt = [database selectMonthStatement];
 	[stmt bindInt:month toParameter:1];
 	if ([stmt step]) {
-		tw = [stmt doubleValueOfColumn:1];
-		tf = [stmt doubleValueOfColumn:2];
+		tw = [stmt floatValueOfColumn:1];
+		tf = [stmt floatValueOfColumn:2];
 		[stmt reset];
 	} else {
 		tw = 0;

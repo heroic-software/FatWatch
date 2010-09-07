@@ -14,8 +14,8 @@
 #import "GraphDrawingOperation.h"
 
 
-static const CGFloat gTickWidth = 6.5;
-static const CGFloat gMinorTickWidth = 3.5;
+static const CGFloat gTickWidth = 6.5f;
+static const CGFloat gMinorTickWidth = 3.5f;
 
 
 @implementation YAxisView
@@ -57,13 +57,13 @@ static const CGFloat gMinorTickWidth = 3.5;
 												 p->t);
 		band.origin.x = 0;
 		band.size.width = viewWidth;
-		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2);
+		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2f);
 		CGContextFillRect(ctxt, band);
 		
 		CGFloat y = CGRectGetMidY(band);
 		CGContextMoveToPoint(ctxt, 0, y);
 		CGContextAddLineToPoint(ctxt, viewWidth, y);
-		CGContextSetRGBStrokeColor(ctxt, 0.0, 0.6, 0.0, 0.5);
+		CGContextSetRGBStrokeColor(ctxt, 0.0f, 0.6f, 0.0f, 0.5f);
 		CGContextSetLineWidth(ctxt, 2);
 		CGContextStrokePath(ctxt);
 	}
@@ -71,7 +71,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
-	CGFloat barX = viewWidth - 0.5;
+	CGFloat barX = viewWidth - 0.5f;
 	CGPathMoveToPoint(tickPath, NULL, barX, CGRectGetMinY(bounds));
 	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
 
@@ -104,7 +104,7 @@ static const CGFloat gMinorTickWidth = 3.5;
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
-	CGContextSetGrayStrokeColor(ctxt, 0.0, 1.0);
+	CGContextSetGrayStrokeColor(ctxt, 0, 1);
 	CGContextSetLineWidth(ctxt, 1);
 	CGContextAddPath(ctxt, tickPath);
 	CGContextStrokePath(ctxt);

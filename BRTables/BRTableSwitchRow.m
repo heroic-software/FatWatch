@@ -9,6 +9,12 @@
 #import "BRTableSwitchRow.h"
 
 
+@interface BRTableSwitchRow ()
+- (void)toggleSwitch:(UISwitch *)sender;
+@end
+
+
+
 @implementation BRTableSwitchRow
 
 
@@ -16,7 +22,7 @@
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		UISwitch *control = [[UISwitch alloc] init];
 		[control addTarget:self 

@@ -11,8 +11,8 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
-static const float kMaximumHeight = 3.00;
-static const float kDefaultHeight = 1.70;
+static const float kMaximumHeight = 3.00f;
+static const float kDefaultHeight = 1.70f;
 
 @implementation HeightEntryViewController
 

@@ -35,7 +35,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		monthCacheLock = [[NSLock alloc] init];
 		[monthCacheLock setName:@"monthCacheLock"];
 		monthCache = [[NSMutableDictionary alloc] init];
@@ -45,7 +45,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 - (id)initWithFile:(NSString *)path {
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		dbPath = [path copy];
 		db = [[SQLiteDatabase alloc] initWithFile:dbPath];
 		[self didOpen];
@@ -55,7 +55,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 - (id)initWithSQLNamed:(NSString *)sqlName {
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		db = [[SQLiteDatabase alloc] initInMemory];
 		[self executeSQLNamed:sqlName];
 		[self didOpen];
@@ -164,7 +164,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
 	if ([stmt step]) {
-		float r = [stmt doubleValueOfColumn:0];
+		float r = [stmt floatValueOfColumn:0];
 		[stmt reset];
 		return r;
 	} else {
@@ -180,7 +180,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	
 	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
 	if ([stmt step]) {
-		fat = [stmt doubleValueOfColumn:0];
+		fat = [stmt floatValueOfColumn:0];
 		[stmt reset];
 	} else {
 		fat = 0;
@@ -244,8 +244,8 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	}
 	
 	if ([stmt step]) {
-		*minWeight = [stmt doubleValueOfColumn:0];
-		*maxWeight = [stmt doubleValueOfColumn:1];
+		*minWeight = [stmt floatValueOfColumn:0];
+		*maxWeight = [stmt floatValueOfColumn:1];
 		[stmt reset];
 	} else {
 		*minWeight = 0;
@@ -427,7 +427,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		equiv.dbID = [stmt intValueOfColumn:0];
 		equiv.name = [stmt stringValueOfColumn:3];
 		equiv.unitName = [stmt stringValueOfColumn:4];
-		equiv.value = [stmt doubleValueOfColumn:5];
+		equiv.value = [stmt floatValueOfColumn:5];
 		
 		[equiv release];
 	}
@@ -456,13 +456,13 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		[deletionCandidateIDSet addObject:[NSNumber numberWithInt:dbID]];
 	}
 
-	for (int section = 0; section < [dataArray count]; section++) {
+	for (NSUInteger section = 0; section < [dataArray count]; section++) {
 		NSArray *sectionArray = [dataArray objectAtIndex:section];
-		for (int row = 0; row < [sectionArray count]; row++) {
+		for (NSUInteger row = 0; row < [sectionArray count]; row++) {
 			id <EWEnergyEquivalent> equiv = [sectionArray objectAtIndex:row];
 			if (equiv.dbID > 0) {
 				[updateStmt bindInt:row toParameter:1];
-				[updateStmt bindInt:equiv.dbID toParameter:2];
+				[updateStmt bindInt64:equiv.dbID toParameter:2];
 				[updateStmt step];
 				[updateStmt reset];
 			} else {
@@ -475,7 +475,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 				[insertStmt reset];
 				equiv.dbID = [db lastInsertRowID];
 			}
-			[deletionCandidateIDSet removeObject:[NSNumber numberWithInt:equiv.dbID]];
+			[deletionCandidateIDSet removeObject:[NSNumber numberWithLongLong:equiv.dbID]];
 		}
 	}
 	
@@ -498,7 +498,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	
 	SQLiteStatement *stmt = [db statementFromSQL:sql];
 	if ([stmt step]) {
-		value = [stmt doubleValueOfColumn:0];
+		value = [stmt floatValueOfColumn:0];
 		[stmt reset];
 	} else {
 		value = 0;

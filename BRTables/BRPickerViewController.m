@@ -66,9 +66,9 @@ static const int kBRPickerViewTag = 411;
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, viewHeight)];
 	view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 							 UIViewAutoresizingFlexibleHeight);
-	view.backgroundColor = [UIColor colorWithRed:0.158739604791 
-										   green:0.165285725185 
-											blue:0.220828564889
+	view.backgroundColor = [UIColor colorWithRed:0.158739604791f
+										   green:0.165285725185f
+											blue:0.220828564889f
 										   alpha:1];
 	
 	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
@@ -146,12 +146,12 @@ static const int kBRPickerViewTag = 411;
 	} else {
 		f = [row.defaultValue floatValue];
 	}
-	NSInteger index = roundf((f - row.minimumValue) / row.increment);
+	NSInteger i = roundf((f - row.minimumValue) / row.increment);
 	UIPickerView *pickerView = [self pickerView];
-	if (index >= [pickerView numberOfRowsInComponent:0]) {
-		index = [pickerView numberOfRowsInComponent:0] - 1;
+	if (i >= [pickerView numberOfRowsInComponent:0]) {
+		i = [pickerView numberOfRowsInComponent:0] - 1;
 	}
-	[pickerView selectRow:index inComponent:0 animated:NO];
+	[pickerView selectRow:i inComponent:0 animated:NO];
 }
 
 #pragma mark BRPickerViewController

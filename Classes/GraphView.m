@@ -14,9 +14,9 @@ static const CGFloat kLabelOffsetY = 0;
 
 
 void GraphViewDrawPattern(void *info, CGContextRef context) {
-	CGContextSetGrayFillColor(context, 0.9, 1.0);
-	CGContextSetGrayStrokeColor(context, 0.8, 1.0);
-	CGContextAddRect(context, CGRectMake(0.5, 0.5, kDayWidth, kDayWidth));
+	CGContextSetGrayFillColor(context, 0.9f, 1.0f);
+	CGContextSetGrayStrokeColor(context, 0.8f, 1.0f);
+	CGContextAddRect(context, CGRectMake(0.5f, 0.5f, kDayWidth, kDayWidth));
 	CGContextDrawPath(context, kCGPathFillStroke);
 }
 
@@ -188,7 +188,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		
 		CGColorSpaceRef space = CGColorSpaceCreatePattern(NULL);
 		CGContextSetFillColorSpace(context, space);
-		const CGFloat alpha[] = { 1.0 };
+		const CGFloat alpha[] = { 1.0f };
 		CGContextSetFillPattern(context, pattern, alpha);
 		CGContextFillRect(context, self.bounds);
 		CGColorSpaceRelease(space);
@@ -203,7 +203,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	}
 	
 	if (drawBorder) {
-		CGFloat y = CGRectGetMaxY(self.bounds) - 0.5;
+		CGFloat y = CGRectGetMaxY(self.bounds) - 0.5f;
 		CGFloat x = CGRectGetMaxX(self.bounds);
 		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
 		CGContextSetLineWidth(context, 1);
@@ -224,7 +224,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		contextRect.size.width += CGRectGetWidth(yAxisView.bounds);
 	}
 	
-	UIGraphicsBeginImageContextWithOptions(contextRect.size, YES, 0.0);
+	UIGraphicsBeginImageContextWithOptions(contextRect.size, YES, 0);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSetRGBFillColor(context, 1, 1, 1, 1);
 	CGContextFillRect(context, contextRect);

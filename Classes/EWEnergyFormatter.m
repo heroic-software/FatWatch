@@ -17,7 +17,7 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
 			case EWEnergyUnitKilojoules:
 				[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ", @"kilojoule suffix")]];

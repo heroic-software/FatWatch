@@ -17,7 +17,7 @@
 
 
 - (id)init {
-    if (self = [super initWithFrame:CGRectMake(0, 0, 100, 100)]) {
+    if ((self = [super initWithFrame:CGRectMake(0, 0, 100, 100)])) {
 		self.autoresizesSubviews = YES;
 		self.opaque = NO;
 		

@@ -12,6 +12,12 @@
 static BRPopUpViewController *gPoppedUpViewController = nil;
 
 
+@interface BRPopUpViewController ()
+- (void)animationDidStop:(NSString *)animID finished:(BOOL)flag context:(void *)context;
+@end
+
+
+
 @implementation BRPopUpViewController
 
 

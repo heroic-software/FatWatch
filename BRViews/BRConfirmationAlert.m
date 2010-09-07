@@ -10,10 +10,15 @@
 #import "BRInvocationTrap.h"
 
 
+@interface BRConfirmationAlert ()
+- (void)showAlertForInvocation:(NSInvocation *)anInvocation;
+@end
+
+
 @implementation BRConfirmationAlert
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		alertView = [[UIAlertView alloc] init];
 		alertView.delegate = self;
 	}

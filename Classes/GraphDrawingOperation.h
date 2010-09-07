@@ -46,7 +46,7 @@ typedef struct {
 
 @interface GraphDrawingOperation : NSOperation {
 	id delegate;
-	int index;
+	unsigned int index;
 	EWDatabase *database;
 	EWMonthDay beginMonthDay;
 	EWMonthDay endMonthDay;
@@ -68,7 +68,7 @@ typedef struct {
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,assign) id delegate;
-@property (nonatomic) int index;
+@property (nonatomic) unsigned int index;
 @property (nonatomic) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
 @property (nonatomic) BOOL showGoalLine;

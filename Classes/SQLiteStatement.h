@@ -19,6 +19,7 @@
 }
 // Parameters are 1-based indexes
 - (void)bindInt:(int)value toParameter:(int)param;
+- (void)bindInt64:(sqlite_int64)value toParameter:(int)param;
 - (void)bindDouble:(double)value toParameter:(int)param;
 - (void)bindString:(NSString *)value toParameter:(int)param;
 - (void)bindNullToParameter:(int)param;
@@ -28,5 +29,6 @@
 - (NSString *)stringValueOfColumn:(int)column;
 - (int)intValueOfColumn:(int)column;
 - (double)doubleValueOfColumn:(int)column;
+- (float)floatValueOfColumn:(int)column;
 - (void)reset;
 @end

@@ -38,10 +38,10 @@ typedef struct {
 	GraphViewInfo *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
-	int lastMinIndex, lastMaxIndex;
+	NSUInteger lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
 	CGPoint scrollingSpanSavedOffset;
-	int saveButtonIndex, copyButtonIndex;
+	NSInteger saveButtonIndex, copyButtonIndex;
 }
 @property (nonatomic,retain) IBOutlet EWDatabase *database;
 @property (nonatomic,retain) IBOutlet YAxisView *axisView;

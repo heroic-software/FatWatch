@@ -114,18 +114,18 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	context.release = NULL;
 	context.copyDescription = NULL;
 	
-	CFSocketRef socket = CFSocketCreate(kCFAllocatorDefault, 
-										PF_INET, 
-										SOCK_STREAM, 
-										IPPROTO_TCP, 
-										kCFSocketAcceptCallBack, 
-										&MicroSocketCallback,
-										&context);
-	if (socket == NULL) return NULL;
+	CFSocketRef theSocket = CFSocketCreate(kCFAllocatorDefault, 
+										   PF_INET, 
+										   SOCK_STREAM, 
+										   IPPROTO_TCP, 
+										   kCFSocketAcceptCallBack, 
+										   &MicroSocketCallback,
+										   &context);
+	if (theSocket == NULL) return NULL;
 	
-	CFRunLoopSourceRef runLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, socket, 0);
+	CFRunLoopSourceRef runLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, theSocket, 0);
 	if (runLoopSource == NULL) {
-		CFRelease(socket);
+		CFRelease(theSocket);
 		return NULL;
 	}
 	CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
@@ -141,21 +141,21 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	// Wrap the native address structure for CFSocketCreate.
 	CFDataRef addressData = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8*)&addr4, sizeof(addr4), kCFAllocatorNull);
 	if (addressData == NULL) {
-		CFRelease(socket);
+		CFRelease(theSocket);
 		return NULL;
 	}
 	
 	CFSocketError err;
 	
 	// Set the local binding which causes the socket to start listening.
-	err = CFSocketSetAddress(socket, addressData);
+	err = CFSocketSetAddress(theSocket, addressData);
 	CFRelease(addressData);
 	if (err != kCFSocketSuccess) {
-		CFRelease(socket);
+		CFRelease(theSocket);
 		return NULL;
 	}
 	
-	return socket;
+	return theSocket;
 }
 
 
@@ -335,7 +335,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 //	}
 	
 	NSString *contentLengthStr = [self stringForRequestHeader:@"Content-Length"];
-	NSInteger contentLength = [contentLengthStr integerValue];
+	NSUInteger contentLength = [contentLengthStr integerValue];
 	if (contentLength > 0) {
 		NSData *bodyData = [self requestBodyData];
 //		NSLog(@"content length is %d and we got %d", contentLength, [bodyData length]);
@@ -384,26 +384,30 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (NSDateFormatter *)httpDateFormatter {
 	// Thanks http://blog.mro.name/2009/08/nsdateformatter-http-header/
 	if (httpDateFormatterArray == nil) {
+		NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+		NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+		
 		NSDateFormatter *rfc1123 = [[NSDateFormatter alloc] init];
-		rfc1123.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-		rfc1123.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
+		rfc1123.timeZone = timeZone;
+		rfc1123.locale = locale;
 		rfc1123.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
 		
 		NSDateFormatter *rfc850 = [[NSDateFormatter alloc] init];
-		rfc850.timeZone = rfc1123.timeZone;
-		rfc850.locale = rfc1123.locale;
+		rfc850.timeZone = timeZone;
+		rfc850.locale = locale;
 		rfc850.dateFormat = @"EEEE',' dd'-'MMM'-'yy HH':'mm':'ss z";
 		
-		NSDateFormatter *asctime = [[NSDateFormatter alloc] init];
-		asctime.timeZone = rfc1123.timeZone;
-		asctime.locale = rfc1123.locale;
-		asctime.dateFormat = @"EEE MMM d HH':'mm':'ss yyyy";
+		NSDateFormatter *atime = [[NSDateFormatter alloc] init];
+		atime.timeZone = timeZone;
+		atime.locale = locale;
+		atime.dateFormat = @"EEE MMM d HH':'mm':'ss yyyy";
 		
-		httpDateFormatterArray = [[NSArray alloc] initWithObjects:rfc1123, rfc850, asctime, nil];
+		httpDateFormatterArray = [[NSArray alloc] initWithObjects:rfc1123, rfc850, atime, nil];
 		
 		[rfc1123 release];
 		[rfc850 release];
-		[asctime release];
+		[atime release];
+		[locale release];
 	}
 	return [httpDateFormatterArray objectAtIndex:0];
 }

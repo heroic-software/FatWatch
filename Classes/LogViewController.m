@@ -112,10 +112,10 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
-	NSInteger section = MIN((EWMonthDayGetMonth(monthday) - earliestMonth), 
-							[self numberOfSectionsInTableView:tableView] - 1);
-	NSInteger row = MIN((EWMonthDayGetDay(monthday) - 1), 
-						[self tableView:tableView numberOfRowsInSection:section] - 1);
+	EWMonth month = EWMonthDayGetMonth(monthday);
+	EWDay day = EWMonthDayGetDay(monthday);
+	NSUInteger section = MIN((month - earliestMonth), [self numberOfSectionsInTableView:tableView] - 1);
+	NSUInteger row = MIN(day, (NSUInteger)[self tableView:tableView numberOfRowsInSection:section]) - 1;
 	return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
@@ -226,7 +226,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == [lastIndexPath section]) {
+	if ((NSUInteger)section == [lastIndexPath section]) {
 		return [lastIndexPath row] + 1;
 	} else {
 		EWMonth month = [self monthForSection:section];

@@ -15,7 +15,7 @@
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder	{
-	if (self = [super initWithCoder:aDecoder]) {
+	if ((self = [super initWithCoder:aDecoder])) {
 		sections = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -23,7 +23,7 @@
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
-	if (self = [super initWithStyle:style]) {
+	if ((self = [super initWithStyle:style])) {
 		sections = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -45,8 +45,8 @@
 	[sections addObject:tableSection];
 	[tableSection didAddToController:self];
 	if (animated) {
-		NSIndexSet *index = [NSIndexSet indexSetWithIndex:([sections count] - 1)];
-		[self.tableView insertSections:index withRowAnimation:UITableViewRowAnimationFade];
+		NSIndexSet *set = [NSIndexSet indexSetWithIndex:([sections count] - 1)];
+		[self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
@@ -63,13 +63,13 @@
 	if (animated) {
 		[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 	}
-	NSUInteger index = [indexSet lastIndex];
-	while (index != NSNotFound) {
-		BRTableSection *section = [sections objectAtIndex:index];
+	NSUInteger i = [indexSet lastIndex];
+	while (i != NSNotFound) {
+		BRTableSection *section = [sections objectAtIndex:i];
 		[section willRemoveFromController];
 		[[section retain] autorelease];
-		[sections removeObjectAtIndex:index];
-		index = [indexSet indexLessThanIndex:index];
+		[sections removeObjectAtIndex:i];
+		i = [indexSet indexLessThanIndex:i];
 	}
 }
 
@@ -80,8 +80,8 @@
 }
 
 
-- (BRTableSection *)sectionAtIndex:(NSUInteger)index {
-	return [sections objectAtIndex:index];
+- (BRTableSection *)sectionAtIndex:(NSUInteger)i {
+	return [sections objectAtIndex:i];
 }
 
 

@@ -102,9 +102,9 @@
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	float w = [database latestWeight];
-	if (w == 0) w = 150;
-	weightRow.defaultValue = [NSNumber numberWithFloat:w];
+	float weight = [database latestWeight];
+	if (weight == 0) weight = 150;
+	weightRow.defaultValue = [NSNumber numberWithFloat:weight];
 	
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
@@ -115,10 +115,10 @@
 		[EWWeightFormatter getBMIWeights:w];
 		BRColorPalette *palette = [BRColorPalette sharedPalette];
 		NSArray *colorArray = [NSArray arrayWithObjects:
-							   [[palette colorNamed:@"BMIUnderweight"] colorWithAlphaComponent:0.4],
-							   [[palette colorNamed:@"BMINormal"] colorWithAlphaComponent:0.4],
-							   [[palette colorNamed:@"BMIOverweight"] colorWithAlphaComponent:0.4],
-							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4],
+							   [[palette colorNamed:@"BMIUnderweight"] colorWithAlphaComponent:0.4f],
+							   [[palette colorNamed:@"BMINormal"] colorWithAlphaComponent:0.4f],
+							   [[palette colorNamed:@"BMIOverweight"] colorWithAlphaComponent:0.4f],
+							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4f],
 							   nil];
 		BRRangeColorFormatter *colorFormatter = [[BRRangeColorFormatter alloc] initWithColors:colorArray forValues:w];
 		weightRow.backgroundColorFormatter = colorFormatter;

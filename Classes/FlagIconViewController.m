@@ -20,6 +20,11 @@
 #endif
 
 
+@interface FlagIconViewController ()
+- (IBAction)iconButtonAction:(UIButton *)sender;
+@end
+
+
 @implementation FlagIconViewController
 
 
@@ -30,7 +35,7 @@
 
 
 - (id)init {
-    if (self = [super initWithNibName:@"FlagIconView" bundle:nil]) {
+    if ((self = [super initWithNibName:@"FlagIconView" bundle:nil])) {
 		self.title = NSLocalizedString(@"Marks", nil);
 		self.hidesBottomBarWhenPushed = YES;
 	}

@@ -67,9 +67,9 @@
 	int quo = floorf(value / divisor);
 	float rem = fmodf(value, divisor);
 	
-	NSString *quotient = [self.quotientFormatter stringFromNumber:[NSNumber numberWithInt:quo]];
-	NSString *remainder = [self.remainderFormatter stringFromNumber:[NSNumber numberWithFloat:rem]];
-	return [NSString stringWithFormat:formatString, quotient, remainder];
+	NSString *quostr = [self.quotientFormatter stringFromNumber:[NSNumber numberWithInt:quo]];
+	NSString *remstr = [self.remainderFormatter stringFromNumber:[NSNumber numberWithFloat:rem]];
+	return [NSString stringWithFormat:formatString, quostr, remstr];
 }
 
 

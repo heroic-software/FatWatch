@@ -11,7 +11,7 @@
 
 void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 	// (x,y) is the tip of the arrow
-	static const CGFloat R = 4.5;
+	static const CGFloat R = 4.5f;
 	static const CGFloat W = 3;
 	CGContextSaveGState(ctxt);
 	CGContextMoveToPoint(ctxt, x-R, y-R);
@@ -43,7 +43,7 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 }
 
 
-- (NSMutableDictionary *)infoForPart:(int)part {
+- (NSMutableDictionary *)infoForPart:(NSUInteger)part {
 	if (part < [partArray count]) {
 		return [partArray objectAtIndex:part];
 	}
@@ -92,7 +92,7 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 	const CGFloat minFontSize = 6.0f;
 	
 	if (self.highlighted) {
-		[[UIColor colorWithRed:0.2 green:0.2 blue:1 alpha:1] setFill];
+		[[UIColor colorWithRed:0.2f green:0.2f blue:1 alpha:1] setFill];
 		UIRectFill(self.bounds);
 		[[UIColor whiteColor] setFill]; // for text
 	}
@@ -105,7 +105,7 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 		if (self.highlighted) {
 			CGContextSetRGBStrokeColor(ctxt, 1, 1, 1, 1);
 		} else {
-			CGContextSetRGBStrokeColor(ctxt, 0.5, 0.5, 0.5, 1);
+			CGContextSetRGBStrokeColor(ctxt, 0.5f, 0.5f, 0.5f, 1);
 		}
 		
 		CGFloat x = CGRectGetMaxX(self.bounds) - marginSize.width;

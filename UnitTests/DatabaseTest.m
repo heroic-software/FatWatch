@@ -118,16 +118,16 @@
 	// verify trends
 	STAssertEquals(0.0f, [[testdb getDBMonth:0] inputTrendOnDay:14], @"before first trend");
 	STAssertEquals(100.0f, [[testdb getDBMonth:0] inputTrendOnDay:15], @"first trend");
-	[self assertWeight:100 andTrend:100.0000 onDay:15 inMonth:0];
-	[self assertWeight:200 andTrend:110.0000 onDay:18 inMonth:0];
-	[self assertWeight:100 andTrend:109.0000 onDay: 6 inMonth:3];
-	[self assertWeight:200 andTrend:118.1000 onDay: 7 inMonth:3];
-	[self assertWeight:100 andTrend:116.2900 onDay:29 inMonth:4];
-	[self assertWeight:200 andTrend:124.6610 onDay:30 inMonth:4];
-	[self assertWeight:100 andTrend:122.1949 onDay: 1 inMonth:7];
-	[self assertWeight:200 andTrend:129.9754 onDay:15 inMonth:7];
-	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
-	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
+	[self assertWeight:100 andTrend:100.0000f onDay:15 inMonth:0];
+	[self assertWeight:200 andTrend:110.0000f onDay:18 inMonth:0];
+	[self assertWeight:100 andTrend:109.0000f onDay: 6 inMonth:3];
+	[self assertWeight:200 andTrend:118.1000f onDay: 7 inMonth:3];
+	[self assertWeight:100 andTrend:116.2900f onDay:29 inMonth:4];
+	[self assertWeight:200 andTrend:124.6610f onDay:30 inMonth:4];
+	[self assertWeight:100 andTrend:122.1949f onDay: 1 inMonth:7];
+	[self assertWeight:200 andTrend:129.9754f onDay:15 inMonth:7];
+	[self assertWeight:100 andTrend:126.9778f onDay:31 inMonth:7];
+	[self assertWeight:200 andTrend:134.2800f onDay:15 inMonth:8];
 	[self closeDatabase];
 }
 
@@ -137,16 +137,16 @@
 	// delete one weight and verify trends
 	[self setWeight:0 onDay:30 inMonth:4];
 	[self commitDatabase];
-	[self assertWeight:100 andTrend:100.0000 onDay:15 inMonth:0];
-	[self assertWeight:200 andTrend:110.0000 onDay:18 inMonth:0];
-	[self assertWeight:100 andTrend:109.0000 onDay: 6 inMonth:3];
-	[self assertWeight:200 andTrend:118.1000 onDay: 7 inMonth:3];
-	[self assertWeight:100 andTrend:116.2900 onDay:29 inMonth:4];
-	[self assertWeight:  0 andTrend:  0      onDay:30 inMonth:4];
-	[self assertWeight:100 andTrend:114.6610 onDay: 1 inMonth:7];
-	[self assertWeight:200 andTrend:123.1949 onDay:15 inMonth:7];
-	[self assertWeight:100 andTrend:120.8754 onDay:31 inMonth:7];
-	[self assertWeight:200 andTrend:128.7879 onDay:15 inMonth:8];
+	[self assertWeight:100 andTrend:100.0000f onDay:15 inMonth:0];
+	[self assertWeight:200 andTrend:110.0000f onDay:18 inMonth:0];
+	[self assertWeight:100 andTrend:109.0000f onDay: 6 inMonth:3];
+	[self assertWeight:200 andTrend:118.1000f onDay: 7 inMonth:3];
+	[self assertWeight:100 andTrend:116.2900f onDay:29 inMonth:4];
+	[self assertWeight:  0 andTrend:  0       onDay:30 inMonth:4];
+	[self assertWeight:100 andTrend:114.6610f onDay: 1 inMonth:7];
+	[self assertWeight:200 andTrend:123.1949f onDay:15 inMonth:7];
+	[self assertWeight:100 andTrend:120.8754f onDay:31 inMonth:7];
+	[self assertWeight:200 andTrend:128.7879f onDay:15 inMonth:8];
 	[self closeDatabase];
 }
 
@@ -156,17 +156,17 @@
 	// append one weight and verify trends
 	[self setWeight:100 onDay:11 inMonth:9];
 	[self commitDatabase];
-	[self assertWeight:100 andTrend:100.0000 onDay:15 inMonth:0];
-	[self assertWeight:200 andTrend:110.0000 onDay:18 inMonth:0];
-	[self assertWeight:100 andTrend:109.0000 onDay: 6 inMonth:3];
-	[self assertWeight:200 andTrend:118.1000 onDay: 7 inMonth:3];
-	[self assertWeight:100 andTrend:116.2900 onDay:29 inMonth:4];
-	[self assertWeight:200 andTrend:124.6610 onDay:30 inMonth:4];
-	[self assertWeight:100 andTrend:122.1949 onDay: 1 inMonth:7];
-	[self assertWeight:200 andTrend:129.9754 onDay:15 inMonth:7];
-	[self assertWeight:100 andTrend:126.9778 onDay:31 inMonth:7];
-	[self assertWeight:200 andTrend:134.2800 onDay:15 inMonth:8];
-	[self assertWeight:100 andTrend:130.8520 onDay:11 inMonth:9];
+	[self assertWeight:100 andTrend:100.0000f onDay:15 inMonth:0];
+	[self assertWeight:200 andTrend:110.0000f onDay:18 inMonth:0];
+	[self assertWeight:100 andTrend:109.0000f onDay: 6 inMonth:3];
+	[self assertWeight:200 andTrend:118.1000f onDay: 7 inMonth:3];
+	[self assertWeight:100 andTrend:116.2900f onDay:29 inMonth:4];
+	[self assertWeight:200 andTrend:124.6610f onDay:30 inMonth:4];
+	[self assertWeight:100 andTrend:122.1949f onDay: 1 inMonth:7];
+	[self assertWeight:200 andTrend:129.9754f onDay:15 inMonth:7];
+	[self assertWeight:100 andTrend:126.9778f onDay:31 inMonth:7];
+	[self assertWeight:200 andTrend:134.2800f onDay:15 inMonth:8];
+	[self assertWeight:100 andTrend:130.8520f onDay:11 inMonth:9];
 	[self closeDatabase];
 }
 
@@ -176,17 +176,17 @@
 	// prepend one weight and verify trends
 	[self setWeight:200 onDay:8 inMonth:-2];
 	[self commitDatabase];
-	[self assertWeight:200 andTrend:200.0000 onDay: 8 inMonth:-2];
-	[self assertWeight:100 andTrend:190.0000 onDay:15 inMonth:0];
-	[self assertWeight:200 andTrend:191.0000 onDay:18 inMonth:0];
-	[self assertWeight:100 andTrend:181.9000 onDay: 6 inMonth:3];
-	[self assertWeight:200 andTrend:183.7099 onDay: 7 inMonth:3];
-	[self assertWeight:100 andTrend:175.3389 onDay:29 inMonth:4];
-	[self assertWeight:200 andTrend:177.8050 onDay:30 inMonth:4];
-	[self assertWeight:100 andTrend:170.0245 onDay: 1 inMonth:7];
-	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:7];
-	[self assertWeight:100 andTrend:165.7199 onDay:31 inMonth:7];
-	[self assertWeight:200 andTrend:169.1479 onDay:15 inMonth:8];
+	[self assertWeight:200 andTrend:200.0000f onDay: 8 inMonth:-2];
+	[self assertWeight:100 andTrend:190.0000f onDay:15 inMonth:0];
+	[self assertWeight:200 andTrend:191.0000f onDay:18 inMonth:0];
+	[self assertWeight:100 andTrend:181.9000f onDay: 6 inMonth:3];
+	[self assertWeight:200 andTrend:183.7099f onDay: 7 inMonth:3];
+	[self assertWeight:100 andTrend:175.3389f onDay:29 inMonth:4];
+	[self assertWeight:200 andTrend:177.8050f onDay:30 inMonth:4];
+	[self assertWeight:100 andTrend:170.0245f onDay: 1 inMonth:7];
+	[self assertWeight:200 andTrend:173.0221f onDay:15 inMonth:7];
+	[self assertWeight:100 andTrend:165.7199f onDay:31 inMonth:7];
+	[self assertWeight:200 andTrend:169.1479f onDay:15 inMonth:8];
 	[self closeDatabase];
 }
 
@@ -196,16 +196,16 @@
 	// delete first weight and verify trends
 	[self setWeight:0 onDay:15 inMonth:0];
 	[self commitDatabase];
-	[self assertWeight:  0 andTrend:  0      onDay:15 inMonth:0];
-	[self assertWeight:200 andTrend:200.0000 onDay:18 inMonth:0];
-	[self assertWeight:100 andTrend:190.0000 onDay: 6 inMonth:3];
-	[self assertWeight:200 andTrend:191.0000 onDay: 7 inMonth:3];
-	[self assertWeight:100 andTrend:181.9000 onDay:29 inMonth:4];
-	[self assertWeight:200 andTrend:183.7099 onDay:30 inMonth:4];
-	[self assertWeight:100 andTrend:175.3389 onDay: 1 inMonth:7];
-	[self assertWeight:200 andTrend:177.8050 onDay:15 inMonth:7];
-	[self assertWeight:100 andTrend:170.0245 onDay:31 inMonth:7];
-	[self assertWeight:200 andTrend:173.0221 onDay:15 inMonth:8];
+	[self assertWeight:  0 andTrend:  0       onDay:15 inMonth:0];
+	[self assertWeight:200 andTrend:200.0000f onDay:18 inMonth:0];
+	[self assertWeight:100 andTrend:190.0000f onDay: 6 inMonth:3];
+	[self assertWeight:200 andTrend:191.0000f onDay: 7 inMonth:3];
+	[self assertWeight:100 andTrend:181.9000f onDay:29 inMonth:4];
+	[self assertWeight:200 andTrend:183.7099f onDay:30 inMonth:4];
+	[self assertWeight:100 andTrend:175.3389f onDay: 1 inMonth:7];
+	[self assertWeight:200 andTrend:177.8050f onDay:15 inMonth:7];
+	[self assertWeight:100 andTrend:170.0245f onDay:31 inMonth:7];
+	[self assertWeight:200 andTrend:173.0221f onDay:15 inMonth:8];
 	[self closeDatabase];
 }
 

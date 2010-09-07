@@ -232,7 +232,7 @@
 	if (![self nextRow]) return nil;
 	NSMutableArray *rowArray = [[NSMutableArray alloc] init];
 	NSString *string;
-	while (string = [self readString]) {
+	while ((string = [self readString])) {
 		[rowArray addObject:string];
 	}
 	return [rowArray autorelease];

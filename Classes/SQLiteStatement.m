@@ -28,6 +28,12 @@
 }
 
 
+- (void)bindInt64:(sqlite_int64)value toParameter:(int)param {
+	int r = sqlite3_bind_int64(statement, param, value);
+	NSAssert1(r == SQLITE_OK, @"SQLite bind_int64 error: %d", r);
+}
+
+
 - (void)bindDouble:(double)value toParameter:(int)param {
 	int r = sqlite3_bind_double(statement, param, value);
 	NSAssert1(r == SQLITE_OK, @"SQLite bind_double error: %d", r);
@@ -90,6 +96,11 @@
 
 - (double)doubleValueOfColumn:(int)column {
 	return sqlite3_column_double(statement, column);
+}
+
+
+- (float)floatValueOfColumn:(int)column {
+	return (float)sqlite3_column_double(statement, column);
 }
 
 

@@ -30,5 +30,5 @@
 - (void)executeSQL:(const char *)sql;
 - (void)beginTransaction;
 - (void)commitTransaction;
-- (int)lastInsertRowID;
+- (sqlite3_int64)lastInsertRowID;
 @end

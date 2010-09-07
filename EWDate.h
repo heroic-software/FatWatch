@@ -13,7 +13,7 @@
 
 typedef NSInteger EWMonthDay;
 typedef NSInteger EWMonth;
-typedef NSInteger EWDay;
+typedef NSUInteger EWDay;
 
 EW_INLINE EWMonthDay EWMonthDayMake(EWMonth m, EWDay d) { return (m << 5) | d; }
 EW_INLINE EWMonth EWMonthDayGetMonth(EWMonthDay md) { return md >> 5; }

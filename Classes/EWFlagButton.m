@@ -22,6 +22,11 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 }
 
 
+@interface EWFlagButton ()
+- (void)flagIconDidChange:(NSNotification *)notification;
+@end
+
+
 @implementation EWFlagButton
 
 
@@ -55,14 +60,14 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 - (UIImage *)backgroundImageWithColor:(UIColor *)color icon:(UIImage *)iconImage {
 	CGRect bounds = self.bounds;
-	UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0.0);
+	UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0);
 	[color setFill];
 	UIRectFill(bounds);
 	[[UIColor blackColor] setStroke];
 	UIRectFrame(bounds);
 	if (iconImage) {
 		CGRect iconRect = BRRectOfSizeCenteredInRect(iconImage.size, bounds);
-		[iconImage drawInRect:iconRect blendMode:kCGBlendModeCopy alpha:0.5];
+		[iconImage drawInRect:iconRect blendMode:kCGBlendModeCopy alpha:0.5f];
 	}
 	UIImage *backgroundImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();

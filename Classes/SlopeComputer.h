@@ -11,9 +11,9 @@
 
 @interface SlopeComputer : NSObject {
 	double sumX, sumY, sumXsquared, sumXY;
-	unsigned int count;
+	NSUInteger count;
 }
 - (void)addPoint:(CGPoint)point;
-@property (nonatomic,readonly) unsigned int count;
+@property (nonatomic,readonly) NSUInteger count;
 @property (nonatomic,readonly) float slope;
 @end

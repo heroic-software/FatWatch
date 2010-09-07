@@ -23,17 +23,17 @@
 
 
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding {
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		reader = [[CSVReader alloc] initWithData:aData encoding:anEncoding];
 		
 		columnNames = [[reader readRow] copy];
 		
 		NSMutableArray *samples = [[NSMutableArray alloc] init];
-		for (int c = 0; c < [columnNames count]; c++) {
+		for (NSUInteger c = 0; c < [columnNames count]; c++) {
 			[samples addObject:[NSMutableArray array]];
 		}
-		for (int r = 0; r < 5; r++) {
-			for (int c = 0; c < [columnNames count]; c++) {
+		for (NSUInteger r = 0; r < 5; r++) {
+			for (NSUInteger c = 0; c < [columnNames count]; c++) {
 				NSString *value = [reader readString];
 				if ([value length] > 0) {
 					[[samples objectAtIndex:c] addObject:value];
@@ -50,7 +50,7 @@
 		NSDictionary *map = [[NSDictionary alloc] initWithContentsOfFile:mapPath];
 		
 		NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
-		for (int c = 0; c < [columnNames count]; c++) {
+		for (NSUInteger c = 0; c < [columnNames count]; c++) {
 			NSString *name = [[columnNames objectAtIndex:c] lowercaseString];
 			NSString *field = [map objectForKey:name];
 			if (field) {
@@ -107,10 +107,10 @@
 
 
 - (id)valueForField:(EWImporterField)field inArray:(NSArray *)rowArray {
-	int index = columnForField[field] - 1;
-	if (index < 0) return nil; // no column selected
-	if (index >= [rowArray count]) return nil; // not enough data in row
-	id value = [rowArray objectAtIndex:index];
+	NSUInteger i = columnForField[field] - 1;
+	if (i < 0) return nil; // no column selected
+	if (i >= [rowArray count]) return nil; // not enough data in row
+	id value = [rowArray objectAtIndex:i];
 	if ([value length] == 0) return nil; // no value
 	NSFormatter *formatter = formatterForField[field];
 	if (formatter) {
@@ -131,7 +131,7 @@
 	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
 
 	NSArray *rowArray;
-	while (rowArray = [reader readRow]) {
+	while ((rowArray = [reader readRow])) {
 		rowCount += 1;
 				
 		NSNumber *monthDay = [self valueForField:EWImporterFieldDate inArray:rowArray];

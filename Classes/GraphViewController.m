@@ -67,7 +67,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		scrollingSpanSavedOffset = scrollView.contentOffset;
 	}
 
-	for (int i = 0; i < infoCount; i++) {
+	for (unsigned int i = 0; i < infoCount; i++) {
 		GraphViewInfo *ginfo = &info[i];
 		[ginfo->view removeFromSuperview];
 		[ginfo->view release];
@@ -189,7 +189,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	if (spanIndex == kSpanScrolling) {
 		EWMonth m = EWMonthDayGetMonth(beginMonthDay);
 		CGFloat x = 0;
-		for (int i = 0; i < infoCount; i++) {
+		for (unsigned int i = 0; i < infoCount; i++) {
 			NSInteger days = EWDaysInMonth(m);
 			CGFloat w = parameters.scaleX * days;
 			
@@ -274,8 +274,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	for (int index = 0; index < infoCount; index++) {
-		GraphViewInfo *ginfo = &info[index];
+	for (unsigned int i = 0; i < infoCount; i++) {
+		GraphViewInfo *ginfo = &info[i];
 		if (ginfo->view == nil && ginfo->imageRef != NULL) {
 			CGImageRelease(ginfo->imageRef);
 			ginfo->imageRef = NULL;
@@ -284,28 +284,28 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (int)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
+- (NSUInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
 	int leftIndex = 0;
 	int rightIndex = infoCount;
 	while (leftIndex < rightIndex) {
-		int index = (leftIndex + rightIndex) / 2;
-		CGFloat leftX = info[index].offsetX;
+		unsigned int i = (leftIndex + rightIndex) / 2;
+		CGFloat leftX = info[i].offsetX;
 		if (x >= leftX) {
-			if (index + 1 == infoCount) {
+			if (i + 1 == infoCount) {
 				// x is to the right of the last view, we're done
 				return infoCount - 1;
 			} 
-			CGFloat rightX = info[index + 1].offsetX;
+			CGFloat rightX = info[i + 1].offsetX;
 			if (x < rightX) {
-				return index;
+				return i;
 			}
-			leftIndex = index + 1;
+			leftIndex = i + 1;
 		} else {
 			if (index == 0) {
 				// x is to the left of the first view, we're done
 				return 0;
 			}
-			rightIndex = index;
+			rightIndex = i;
 		}
 	}
 	return 0;
@@ -317,9 +317,9 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (void)cacheViewAtIndex:(int)index {
-	if (index < 0 || index >= infoCount) return;
-	GraphViewInfo *ginfo = &info[index];
+- (void)cacheViewAtIndex:(unsigned int)i {
+	if (i < 0 || i >= infoCount) return;
+	GraphViewInfo *ginfo = &info[i];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];
 		[ginfo->view release];
@@ -335,8 +335,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (void)updateViewAtIndex:(int)index {
-	GraphViewInfo *ginfo = &info[index];
+- (void)updateViewAtIndex:(unsigned int)i {
+	GraphViewInfo *ginfo = &info[i];
 
 	ginfo->view.beginMonthDay = ginfo->beginMonthDay;
 	ginfo->view.endMonthDay = ginfo->endMonthDay;
@@ -348,12 +348,12 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
 		operation.database = database;
 		operation.delegate = self;
-		operation.index = index;
+		operation.index = i;
 		operation.p = &parameters;
 		operation.bounds = ginfo->view.bounds;
 		operation.beginMonthDay = ginfo->beginMonthDay;
 		operation.endMonthDay = ginfo->endMonthDay;
-		operation.showGoalLine = (index == infoCount - 1);
+		operation.showGoalLine = (i == infoCount - 1);
 		operation.showTrajectoryLine = (infoCount == 1);
 		
 		ginfo->operation = operation;
@@ -448,8 +448,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
 	CGFloat minX = scrollView.contentOffset.x;
 	CGFloat maxX = minX + CGRectGetWidth(scrollView.frame);
-	int minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
-	int maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
+	NSUInteger minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
+	NSUInteger maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
 	
 	// Stop now if the visible set of months hasn't changed.
 	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) {
@@ -462,17 +462,17 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	}
 	
 	// move non-visible views into cache
-	for (int index = minIndex - 1; index >= lastMinIndex; index--) {
-		[self cacheViewAtIndex:index];
+	for (NSUInteger i = minIndex - 1; i >= lastMinIndex; i--) {
+		[self cacheViewAtIndex:i];
 	}
-	for (int index = maxIndex + 1; index <= lastMaxIndex; index++) {
-		[self cacheViewAtIndex:index];
+	for (NSUInteger i = maxIndex + 1; i <= lastMaxIndex; i++) {
+		[self cacheViewAtIndex:i];
 	}
 
 	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 
-	for (int index = minIndex; index <= maxIndex; index++) {
-		GraphViewInfo *ginfo = &info[index];
+	for (NSUInteger i = minIndex; i <= maxIndex; i++) {
+		GraphViewInfo *ginfo = &info[i];
 		if (ginfo->view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];
 			if (view) {
@@ -485,7 +485,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 				[scrollView insertSubview:ginfo->view atIndex:0];
 			}
 			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, graphHeight)];
-			[self updateViewAtIndex:index];
+			[self updateViewAtIndex:i];
 		}
 	}
 

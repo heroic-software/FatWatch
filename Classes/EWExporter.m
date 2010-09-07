@@ -21,12 +21,12 @@ NSArray *EWFatFormatterNames() {
 }
 
 
-NSFormatter *EWFatFormatterAtIndex(int index) {
+NSFormatter *EWFatFormatterAtIndex(int i) {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimum:[NSNumber numberWithFloat:0]];
 	[formatter setMaximum:[NSNumber numberWithFloat:1]];
-	if (index == 0) {
+	if (i == 0) {
 		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
 	}
 	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];

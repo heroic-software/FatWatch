@@ -20,6 +20,11 @@
 static RegistrationViewController *gSharedController = nil;
 
 
+@interface RegistrationViewController ()
+- (void)refreshAction:(id)sender;
+@end
+
+
 @implementation RegistrationViewController
 
 
@@ -32,7 +37,7 @@ static RegistrationViewController *gSharedController = nil;
 
 
 - (id)init {
-    if (self = [super initWithNibName:nil bundle:nil]) {
+    if ((self = [super initWithNibName:nil bundle:nil])) {
 		self.title = NSLocalizedString(@"Product Registration", nil);
 		self.hidesBottomBarWhenPushed = YES;
     }

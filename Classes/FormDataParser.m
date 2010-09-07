@@ -44,7 +44,7 @@
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		dictionary = [[NSMutableDictionary alloc] init];
 	}
 	return self;
@@ -52,7 +52,7 @@
 
 
 - (id)initWithData:(NSData *)data {
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		[self parseURLEncodedFormData:data];
 	}
 	return self;
@@ -60,7 +60,7 @@
 
 
 - (id)initWithConnection:(MicroWebConnection *)theConnection {
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		connection = [theConnection retain];
 		if ([[connection requestMethod] isEqualToString:@"POST"]) {
 			NSString *contentType = [connection stringForRequestHeader:@"Content-Type"];

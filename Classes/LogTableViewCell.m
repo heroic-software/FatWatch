@@ -36,6 +36,7 @@ static NSString * const kEmDashString = @"\xe2\x80\x95"; // HORIZONTAL BAR
 static NSInteger gAuxiliaryInfoType;
 
 
+
 @implementation LogTableViewCell
 
 
@@ -169,7 +170,7 @@ static NSInteger gAuxiliaryInfoType;
 
 
 - (id)initWithFrame:(CGRect)frame {
-	if (self = [super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
 		varianceFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance] retain];
 		[self bmiStatusDidChange:nil];
@@ -235,7 +236,7 @@ static NSInteger gAuxiliaryInfoType;
 			[[UIColor whiteColor] set];
 		} else {
 			if (highlightDate) {
-				[[UIColor colorWithWhite:0.75 alpha:1] set];
+				[[UIColor colorWithWhite:0.75f alpha:1] set];
 			} else {
 				[cell.tableView.separatorColor set];
 			}
@@ -353,12 +354,12 @@ static NSInteger gAuxiliaryInfoType;
 	}
 	
 	{
-		static const float flagMargin = 4.5;
-		CGRect rect = CGRectMake(flagX, flagMargin, flagWidth, cellHeight);
+		static const float flagMargin = 4.5f;
+		CGRect flagRect = CGRectMake(flagX, flagMargin, flagWidth, cellHeight);
 
-		rect.origin.x += roundf((flagWidth - 15) / 2);
-		rect.size.width = 15;
-		rect.size.height = 10;
+		flagRect.origin.x += roundf((flagWidth - 15) / 2);
+		flagRect.size.width = 15;
+		flagRect.size.height = 10;
 
 		const CGFloat R = 5;
 		CGMutablePathRef path = CGPathCreateMutable();
@@ -374,7 +375,7 @@ static NSInteger gAuxiliaryInfoType;
 		if (inverse) {
 			CGContextSetRGBStrokeColor(ctxt, 1, 1, 1, 1);
 		} else {
-			CGContextSetRGBStrokeColor(ctxt, 0.8, 0.8, 0.8, 1);
+			CGContextSetRGBStrokeColor(ctxt, 0.8f, 0.8f, 0.8f, 1);
 		}
 		
 		for (int f = 0; f < 4; f++) {
@@ -390,19 +391,19 @@ static NSInteger gAuxiliaryInfoType;
 				} else {
 					string = kLozengeString;
 				}
-				[string drawInRect:rect 
+				[string drawInRect:flagRect 
 						  withFont:[UIFont boldSystemFontOfSize:12]
 					 lineBreakMode:UILineBreakModeClip
 						 alignment:UITextAlignmentCenter];
 			}
 			else {
 				CGContextSaveGState(ctxt);
-				CGContextTranslateCTM(ctxt, CGRectGetMidX(rect), CGRectGetMidY(rect));
+				CGContextTranslateCTM(ctxt, CGRectGetMidX(flagRect), CGRectGetMidY(flagRect));
 				CGContextAddPath(ctxt, path);
 				CGContextDrawPath(ctxt, value ? kCGPathFillStroke : kCGPathStroke);
 				CGContextRestoreGState(ctxt);
 			}
-			rect.origin.y += rect.size.height;
+			flagRect.origin.y += flagRect.size.height;
 		}
 	}
 }

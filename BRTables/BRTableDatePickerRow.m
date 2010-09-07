@@ -45,7 +45,7 @@
 	if ([self isValueInRange]) {
 		return [super titleColor];
 	} else {
-		return [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
+		return [UIColor colorWithRed:0.9f green:0 blue:0 alpha:1];
 	}
 }
 

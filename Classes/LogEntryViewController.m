@@ -26,6 +26,12 @@ enum {
 };
 
 
+@interface LogEntryViewController ()
+- (void)keyboardWillShow:(NSNotification *)notice;
+- (void)keyboardWillHide:(NSNotification *)notice;
+@end
+
+
 @implementation LogEntryViewController
 
 
@@ -55,7 +61,7 @@ enum {
 
 
 - (id)init {
-	if (self = [super initWithNibName:@"LogEntryView" bundle:nil]) {
+	if ((self = [super initWithNibName:@"LogEntryView" bundle:nil])) {
 		scaleIncrement = [[NSUserDefaults standardUserDefaults] weightIncrement];
 		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");

@@ -26,6 +26,7 @@ extern NSString * const kLogCellReuseIdentifier;
 + (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType;
 + (NSArray *)availableAuxiliaryInfoTypes;
 - (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day;
+- (void)auxiliaryInfoTypeChanged:(NSNotification *)notification;
 @end
 
 
@@ -45,4 +46,5 @@ extern NSString * const kLogCellReuseIdentifier;
 @property (nonatomic) const EWDBDay *dd;
 @property (nonatomic) BOOL highlightDate;
 - (void)bmiStatusDidChange:(NSNotification *)notification;
+- (void)flagIconDidChange:(NSNotification *)notification;
 @end

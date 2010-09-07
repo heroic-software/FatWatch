@@ -19,7 +19,7 @@
 
 
 - (id)initWithWeight:(float)aWeight andChangePerDay:(float)rate database:(EWDatabase *)db {
-    if (self = [super initWithStyle:UITableViewStyleGrouped]) {
+    if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
 		energyFormatter = [[EWEnergyFormatter alloc] init];
 		weight = aWeight;
 		energy = kCaloriesPerPound * rate;
@@ -94,7 +94,7 @@
 	label.backgroundColor = nil;
 	label.shadowColor = [UIColor whiteColor];
 	label.shadowOffset = CGSizeMake(0, 1);
-	label.textColor = [UIColor colorWithRed:0.24 green:0.269 blue:0.344 alpha:1];
+	label.textColor = [UIColor colorWithRed:0.24f green:0.269f blue:0.344f alpha:1];
 	label.font = [UIFont boldSystemFontOfSize:20];
 	label.text = [self.navigationItem.title stringByAppendingString:@" is equivalent to..."];
 	label.textAlignment = UITextAlignmentCenter;

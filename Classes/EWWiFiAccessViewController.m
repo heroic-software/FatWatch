@@ -32,6 +32,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 @interface EWWiFiAccessViewController ()
 - (void)displayDetailView:(UIView *)detailView;
+- (void)detailViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 @end
 
 
@@ -52,7 +53,7 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (id)init {
-    if (self = [super initWithNibName:@"EWWiFiAccessView" bundle:nil]) {
+    if ((self = [super initWithNibName:@"EWWiFiAccessView" bundle:nil])) {
 		self.title = @"Wi-Fi Import/Export";
 		self.hidesBottomBarWhenPushed = YES;
     }
@@ -624,14 +625,14 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 
 
 - (void)handleWebConnection:(MicroWebConnection *)connection {
-	NSString *path = [[connection requestURL] path];
-	
 	if (webResources == nil) {
 		NSString *p = [[NSBundle mainBundle] pathForResource:@"WebResources" ofType:@"plist"];
 		webResources = [[NSDictionary alloc] initWithContentsOfFile:p];
 	}
 	
-	NSDictionary *rsrc = [webResources objectForKey:path];
+	NSString *requestPath = [[connection requestURL] path];
+	NSDictionary *rsrc = [webResources objectForKey:requestPath];
+	
 	if (rsrc) {
 		NSString *action = [rsrc objectForKey:@"Action"];
 		if (action) {

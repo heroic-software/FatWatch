@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SQLiteDatabase.h"
 
 
 @protocol EWEnergyEquivalent <NSObject>
-@property (nonatomic) int dbID;
+@property (nonatomic) sqlite_int64 dbID;
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *unitName;
 @property (nonatomic) float value;
@@ -19,7 +20,7 @@
 
 
 @interface EWActivityEquivalent : NSObject <EWEnergyEquivalent> {
-	int dbID;
+	sqlite_int64 dbID;
 	NSString *name;
 	float mets;
 }
@@ -28,7 +29,7 @@
 
 
 @interface EWFoodEquivalent : NSObject <EWEnergyEquivalent> {
-	int dbID;
+	sqlite_int64 dbID;
 	NSString *name;
 	float energyPerUnit;
 	NSString *unitName;

@@ -50,8 +50,8 @@
 }
 
 
-- (BRTableRow *)rowAtIndex:(NSUInteger)index {
-	return [rows objectAtIndex:index];
+- (BRTableRow *)rowAtIndex:(NSUInteger)rowIndex {
+	return [rows objectAtIndex:rowIndex];
 }
 
 
@@ -71,18 +71,18 @@
 }
 
 
-- (void)removeRowAtIndex:(NSUInteger)index animated:(BOOL)animated {
-	[[rows objectAtIndex:index] willRemoveFromSection];
-	[rows removeObjectAtIndex:index];
+- (void)removeRowAtIndex:(NSUInteger)rowIndex animated:(BOOL)animated {
+	[[rows objectAtIndex:rowIndex] willRemoveFromSection];
+	[rows removeObjectAtIndex:rowIndex];
 	if (animated) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:[controller indexOfSection:self]];
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:[controller indexOfSection:self]];
 		[controller.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
 
-- (UITableViewCell *)cellForRowAtIndex:(NSUInteger)index {
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:[controller indexOfSection:self]];
+- (UITableViewCell *)cellForRowAtIndex:(NSUInteger)rowIndex {
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:[controller indexOfSection:self]];
 	return [controller.tableView cellForRowAtIndexPath:indexPath];
 }
 
@@ -93,14 +93,14 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell forRowAtIndex:(NSUInteger)index {
-	[[self rowAtIndex:index] configureCell:cell];
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndex:(NSUInteger)rowIndex {
+	[[self rowAtIndex:rowIndex] configureCell:cell];
 }
 
 
-- (void)didSelectRowAtIndex:(NSUInteger)index {
+- (void)didSelectRowAtIndex:(NSUInteger)rowIndex {
 	// retain the row because it might be removing itself from the table
-	BRTableRow *row = [[self rowAtIndex:index] retain];
+	BRTableRow *row = [[self rowAtIndex:rowIndex] retain];
 	[row didSelect];
 	[row release];
 }
@@ -123,9 +123,9 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell forRowAtIndex:(NSUInteger)index {
-	[super configureCell:cell forRowAtIndex:index];
-	if (index == selectedIndex) {
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndex:(NSUInteger)rowIndex {
+	[super configureCell:cell forRowAtIndex:rowIndex];
+	if (rowIndex == (NSUInteger)selectedIndex) {
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	} else {
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -133,12 +133,12 @@
 }
 
 
-- (void)didSelectRowAtIndex:(NSUInteger)index {
+- (void)didSelectRowAtIndex:(NSUInteger)rowIndex {
 	if (selectedIndex >= 0) {
 		UITableViewCell *oldCell = [self cellForRowAtIndex:selectedIndex];
 		oldCell.accessoryType = UITableViewCellAccessoryNone;
 	}
-	selectedIndex = index;
+	selectedIndex = rowIndex;
 	UITableViewCell *cell = [self cellForRowAtIndex:selectedIndex];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	[super didSelectRowAtIndex:selectedIndex];

@@ -11,8 +11,9 @@
 #import "SQLiteStatement.h"
 
 
-@interface SQLiteStatement (Private)
+@interface SQLiteStatement ()
 - (id)initWithDatabase:(SQLiteDatabase *)db stmt:(sqlite3_stmt *)stmt;
+- (void)didReceiveMemoryWarning:(NSNotification *)notification;
 @end
 
 
@@ -129,7 +130,7 @@ int SQLiteProgressHandler(void *user) {
 }
 
 
-- (int)lastInsertRowID {
+- (sqlite3_int64)lastInsertRowID {
 	return sqlite3_last_insert_rowid(database);
 }
 
@@ -147,7 +148,7 @@ int SQLiteProgressHandler(void *user) {
 	
 	int i = 0;
 	sqlite3_stmt *stmt = NULL;
-	while (stmt = sqlite3_next_stmt(database, stmt)) {
+	while ((stmt = sqlite3_next_stmt(database, stmt))) {
 		[out appendFormat:@"\n  %2d: \"%s\"", ++i, sqlite3_sql(stmt)];
 	}
 	

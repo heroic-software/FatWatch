@@ -9,6 +9,13 @@
 #import "NewEquivalentViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 
+
+@interface NewEquivalentViewController ()
+- (IBAction)saveAction:(id)sender;
+- (IBAction)cancelAction:(id)sender;
+@end
+
+
 @implementation NewEquivalentViewController
 
 
@@ -26,7 +33,7 @@
 
 
 - (id)init {
-    if (self = [super initWithNibName:@"NewEquivalentView" bundle:nil]) {
+    if ((self = [super initWithNibName:@"NewEquivalentView" bundle:nil])) {
 		self.title = NSLocalizedString(@"Add Equivalent", @"new equivalent view title");
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)] autorelease];
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)] autorelease];

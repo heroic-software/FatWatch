@@ -31,10 +31,10 @@
 	[[UIColor grayColor] setStroke];
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
-	const CGFloat xL = CGRectGetMinX(tabRect)-10.5;
-	const CGFloat xR = CGRectGetMaxX(tabRect)+10.5;
-	const CGFloat yT = CGRectGetMinY(tabRect)-10.5;
-	const CGFloat yB = CGRectGetMaxY(b)-0.5;
+	const CGFloat xL = CGRectGetMinX(tabRect)-10.5f;
+	const CGFloat xR = CGRectGetMaxX(tabRect)+10.5f;
+	const CGFloat yT = CGRectGetMinY(tabRect)-10.5f;
+	const CGFloat yB = CGRectGetMaxY(b)-0.5f;
 	
 	CGContextMoveToPoint(context, CGRectGetMinX(b), yB);
 	CGContextAddLineToPoint(context, xL, yB);

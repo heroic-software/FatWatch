@@ -36,6 +36,12 @@ NSString *kPasscodeKey = @"Passcode";
 @end
 
 
+@interface PasscodeEntryViewController ()
+- (void)messageDelayDidEnd:(NSNumber *)shouldDismiss;
+@end
+
+
+
 @implementation PasscodeEntryViewController
 
 
@@ -102,7 +108,7 @@ NSString *kPasscodeKey = @"Passcode";
 	UIImage *img0 = [UIImage imageNamed:@"Passcode0"];
 	UIImage *img1 = [UIImage imageNamed:@"Passcode1"];
 	
-	for (int i = 0; i < 4; i++) {
+	for (NSUInteger i = 0; i < 4; i++) {
 		UIImageView *digitView = digitViews[i];
 		digitView.image = ([codeField.text length] > i) ? img1 : img0;
 	}
@@ -230,7 +236,7 @@ NSString *kPasscodeKey = @"Passcode";
 	UINavigationItem *item = [navBar topItem];
 	item.leftBarButtonItem = nil;
 	item.title = @"FatWatch";
-	navBar.tintColor = [UIColor colorWithRed:0.894 green:0 blue:0.02 alpha:1];
+	navBar.tintColor = [UIColor colorWithRed:0.894f green:0 blue:0.02f alpha:1];
 	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
 	[codeField becomeFirstResponder];
 }

@@ -12,6 +12,11 @@
 #import "NewDatabaseViewController.h"
 
 
+@interface NewDatabaseViewController ()
+- (void)dismissView:(BRTableButtonRow *)sender;
+@end
+
+
 @implementation NewDatabaseViewController
 
 
@@ -30,7 +35,7 @@
 			row.object = weightUnit;
 			[section addRow:row animated:NO];
 			[row release];
-			if ([weightUnit intValue] == selectedWeightUnit) {
+			if ([weightUnit unsignedIntValue] == selectedWeightUnit) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
@@ -46,7 +51,7 @@
 			row.object = energyUnit;
 			[section addRow:row animated:NO];
 			[row release];
-			if ([energyUnit intValue] == selectedEnergyUnit) {
+			if ([energyUnit unsignedIntValue] == selectedEnergyUnit) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
