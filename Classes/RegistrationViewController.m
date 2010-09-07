@@ -163,7 +163,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 - (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {
 	[errorToDisplay release];
 	errorToDisplay = [error retain];
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"RegistrationError" ofType:@"html"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"RegistrationError" ofType:@"htm"];
 	NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
 	[webView loadRequest:[NSURLRequest requestWithURL:url]];
 	[url release];
