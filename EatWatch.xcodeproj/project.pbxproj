@@ -382,6 +382,12 @@
 		BC8B86080DDF920100045F01 /* CSVWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVWriter.m; path = Classes/CSVWriter.m; sourceTree = "<group>"; };
 		BC8B86120DDF9D5A00045F01 /* CSVReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSVReader.h; path = Classes/CSVReader.h; sourceTree = "<group>"; };
 		BC8B86130DDF9D5A00045F01 /* CSVReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVReader.m; path = Classes/CSVReader.m; sourceTree = "<group>"; };
+		BC8DB3671235512D0043B43A /* General.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = General.js; sourceTree = "<group>"; };
+		BC8DB3681235518D0043B43A /* Testing.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Testing.js; sourceTree = "<group>"; };
+		BC8DB36A123551A20043B43A /* FatWatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FatWatch.js; sourceTree = "<group>"; };
+		BC8DB36B123551AD0043B43A /* Screenshots.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Screenshots.js; sourceTree = "<group>"; };
+		BC8DB36C1235561B0043B43A /* ResetDefaults.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ResetDefaults.sh; sourceTree = "<group>"; };
+		BC8DB36D123557F30043B43A /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
@@ -588,6 +594,7 @@
 				BCEADAD60DE29D1B0017495E /* Web */,
 				BCF52C7010D0AE590017C3A1 /* Data */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				BC8DB3661235512D0043B43A /* UIAutomation */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC2CBA860EC989DA002087B7 /* Entitlements.plist */,
 				BC0410F010D9D532008FCB11 /* FakeValues.js */,
@@ -731,6 +738,19 @@
 				BCF329740EFF629500D31E49 /* GraphView.xib */,
 			);
 			name = Chart;
+			sourceTree = "<group>";
+		};
+		BC8DB3661235512D0043B43A /* UIAutomation */ = {
+			isa = PBXGroup;
+			children = (
+				BC8DB3681235518D0043B43A /* Testing.js */,
+				BC8DB36A123551A20043B43A /* FatWatch.js */,
+				BC8DB3671235512D0043B43A /* General.js */,
+				BC8DB36B123551AD0043B43A /* Screenshots.js */,
+				BC8DB36D123557F30043B43A /* Defaults.plist */,
+				BC8DB36C1235561B0043B43A /* ResetDefaults.sh */,
+			);
+			path = UIAutomation;
 			sourceTree = "<group>";
 		};
 		BC9A2E820F15B41B00A284E7 /* BRViews */ = {

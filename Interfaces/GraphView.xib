@@ -337,6 +337,7 @@
 						<int key="objectID">9</int>
 						<reference key="object" ref="20948166"/>
 						<reference key="parent" ref="70229006"/>
+						<string key="objectName">Span</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">13</int>
@@ -365,6 +366,7 @@
 						<int key="objectID">25</int>
 						<reference key="object" ref="305927422"/>
 						<reference key="parent" ref="520205333"/>
+						<string key="objectName">Type</string>
 					</object>
 				</array>
 			</object>
