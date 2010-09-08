@@ -11,17 +11,28 @@
 @class RootViewController;
 @class EWDatabase;
 
+
+typedef enum {
+	EWLaunchSequenceStageDebug = 1,
+	EWLaunchSequenceStageAuthorize,
+	EWLaunchSequenceStageUpgrade,
+	EWLaunchSequenceStageNewDatabase,
+	EWLaunchSequenceStageComplete
+} EWLaunchSequenceStage;
+
+
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	RootViewController *rootViewController;
 	UIViewController *launchViewController;
-	BOOL readyToGo;
 	NSUInteger lastTapTabIndex;
 	NSTimeInterval lastTapTime;
 	EWDatabase *db;
+	EWLaunchSequenceStage launchStage;
 }
 @property (nonatomic,retain) IBOutlet RootViewController *rootViewController;
-- (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType;
+- (NSString *)databasePath;
+- (void)continueLaunchSequence;
 @end
 
 

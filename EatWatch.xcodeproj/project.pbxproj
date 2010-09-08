@@ -88,10 +88,13 @@
 		BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
 		BC8B86090DDF920100045F01 /* CSVWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86080DDF920100045F01 /* CSVWriter.m */; };
 		BC8B86140DDF9D5A00045F01 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
-		BC8DB51A1236C5090043B43A /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5161236C5090043B43A /* Defaults.plist */; };
-		BC8DB51B1236C5090043B43A /* jquery.js.gz in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5171236C5090043B43A /* jquery.js.gz */; };
-		BC8DB51C1236C5090043B43A /* RegistrationError.htm in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5181236C5090043B43A /* RegistrationError.htm */; };
-		BC8DB51D1236C5090043B43A /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5191236C5090043B43A /* WeightData.db */; };
+		BC8DB56B1236EE480043B43A /* DebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8DB56A1236EE480043B43A /* DebugViewController.m */; };
+		BC8DB5DA1237179A0043B43A /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5161236C5090043B43A /* Defaults.plist */; };
+		BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5171236C5090043B43A /* jquery.js.gz */; };
+		BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5181236C5090043B43A /* RegistrationError.htm */; };
+		BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5191236C5090043B43A /* WeightData.db */; };
+		BC8DB5DE1237179A0043B43A /* WeightDataV1.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BC123714EF0043B43A /* WeightDataV1.db */; };
+		BC8DB5DF1237179A0043B43A /* WeightDataV2.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BD123714EF0043B43A /* WeightDataV2.db */; };
 		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
@@ -256,7 +259,7 @@
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatWatchAppDelegate.m; sourceTree = "<group>"; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FatWatch-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* FatWatch-Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FatWatch-Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
@@ -371,8 +374,6 @@
 		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
 		BC749EEA10E33EC8001E8030 /* EWTrendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWTrendButton.h; path = Classes/EWTrendButton.h; sourceTree = "<group>"; };
 		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
-		BC7717021122914200E7437B /* FakeUpgrade.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = FakeUpgrade.db; sourceTree = "<group>"; };
-		BC7717031122914200E7437B /* FakeUpgrade.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = FakeUpgrade.plist; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
@@ -391,10 +392,14 @@
 		BC8DB36B123551AD0043B43A /* Screenshots.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Screenshots.js; sourceTree = "<group>"; };
 		BC8DB36C1235561B0043B43A /* ResetDefaults.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ResetDefaults.sh; sourceTree = "<group>"; };
 		BC8DB36D123557F30043B43A /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		BC8DB5161236C5090043B43A /* Defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Defaults.plist; path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/Defaults.plist"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC8DB5171236C5090043B43A /* jquery.js.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; name = jquery.js.gz; path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/jquery.js.gz"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC8DB5181236C5090043B43A /* RegistrationError.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = RegistrationError.htm; path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/RegistrationError.htm"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC8DB5191236C5090043B43A /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = WeightData.db; path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/WeightData.db"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC8DB5161236C5090043B43A /* Defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Defaults.plist; sourceTree = "<group>"; };
+		BC8DB5171236C5090043B43A /* jquery.js.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = jquery.js.gz; sourceTree = "<group>"; };
+		BC8DB5181236C5090043B43A /* RegistrationError.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.htm; sourceTree = "<group>"; };
+		BC8DB5191236C5090043B43A /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
+		BC8DB5691236EE480043B43A /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugViewController.h; path = Classes/DebugViewController.h; sourceTree = "<group>"; };
+		BC8DB56A1236EE480043B43A /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugViewController.m; path = Classes/DebugViewController.m; sourceTree = "<group>"; };
+		BC8DB5BC123714EF0043B43A /* WeightDataV1.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightDataV1.db; sourceTree = "<group>"; };
+		BC8DB5BD123714EF0043B43A /* WeightDataV2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightDataV2.db; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
@@ -577,7 +582,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */,
+				1D6058910D05DD3D006BFB54 /* FatWatch-Beta.app */,
 				BCF52ACF10D066540017C3A1 /* UnitTests.octest */,
 			);
 			name = Products;
@@ -610,7 +615,7 @@
 				BCF52BCF10D075930017C3A1 /* Localizable Resources */,
 				29B97317FDCFA39411CA2CEA /* Images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				BC8DB52F1236C6840043B43A /* Generated Files */,
+				BC8DB52F1236C6840043B43A /* DerivedSources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				BC14F3D51118C72400FB9A50 /* Settings */,
 				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
@@ -760,16 +765,19 @@
 			path = UIAutomation;
 			sourceTree = "<group>";
 		};
-		BC8DB52F1236C6840043B43A /* Generated Files */ = {
+		BC8DB52F1236C6840043B43A /* DerivedSources */ = {
 			isa = PBXGroup;
 			children = (
 				BC8DB5161236C5090043B43A /* Defaults.plist */,
 				BC8DB5171236C5090043B43A /* jquery.js.gz */,
 				BC8DB5181236C5090043B43A /* RegistrationError.htm */,
 				BC8DB5191236C5090043B43A /* WeightData.db */,
+				BC8DB5BC123714EF0043B43A /* WeightDataV1.db */,
+				BC8DB5BD123714EF0043B43A /* WeightDataV2.db */,
 			);
-			name = "Generated Files";
-			sourceTree = "<group>";
+			name = DerivedSources;
+			path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		BC9A2E820F15B41B00A284E7 /* BRViews */ = {
 			isa = PBXGroup;
@@ -819,6 +827,8 @@
 				BCDFBCF310F8049A00FA0C93 /* UpgradeViewController.h */,
 				BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */,
 				BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */,
+				BC8DB5691236EE480043B43A /* DebugViewController.h */,
+				BC8DB56A1236EE480043B43A /* DebugViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -955,8 +965,6 @@
 				BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */,
 				BCD042A011097FCA008C735C /* ImportColumns.plist */,
 				BC11334C1103B7DA00EAC8DA /* RegistrationError.html */,
-				BC7717021122914200E7437B /* FakeUpgrade.db */,
-				BC7717031122914200E7437B /* FakeUpgrade.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -989,8 +997,8 @@
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (WeightData.db) */,
 				BC8DB5081236C3840043B43A /* Run Script (Defaults.plist) */,
 				BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */,
-				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 			);
 			buildRules = (
@@ -1004,7 +1012,7 @@
 			);
 			name = FatWatch;
 			productName = EatWatch;
-			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch-Beta.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BCF52ACE10D066540017C3A1 /* UnitTests */ = {
@@ -1118,10 +1126,12 @@
 				BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */,
 				BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */,
 				BC4A0ED11218E08400459C52 /* RootView.xib in Resources */,
-				BC8DB51A1236C5090043B43A /* Defaults.plist in Resources */,
-				BC8DB51B1236C5090043B43A /* jquery.js.gz in Resources */,
-				BC8DB51C1236C5090043B43A /* RegistrationError.htm in Resources */,
-				BC8DB51D1236C5090043B43A /* WeightData.db in Resources */,
+				BC8DB5DA1237179A0043B43A /* Defaults.plist in Resources */,
+				BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */,
+				BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */,
+				BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */,
+				BC8DB5DE1237179A0043B43A /* WeightDataV1.db in Resources */,
+				BC8DB5DF1237179A0043B43A /* WeightDataV2.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,14 +1191,18 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Resources/DBCreate3.sql",
+				"$(SRCROOT)/Resources/DBCreate2.sql",
+				"$(SRCROOT)/Resources/DBCreate1.sql",
 			);
 			name = "Run Script (WeightData.db)";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/WeightData.db",
+				"$(DERIVED_FILE_DIR)/WeightDataV2.db",
+				"$(DERIVED_FILE_DIR)/WeightDataV1.db",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SQL_FILE=$SCRIPT_INPUT_FILE_0\nDATABASE_FILE=$SCRIPT_OUTPUT_FILE_0\n\necho Reading $SQL_FILE\necho Generating $DATABASE_FILE\n\nif [ -e $DATABASE_FILE ]; then rm $DATABASE_FILE; fi\nsqlite3 $DATABASE_FILE < $SQL_FILE\nexit $?\n";
+			shellScript = "function doBuild {\n\tlocal SIF=$1\n\tlocal SOF=$2\n\techo Reading $SIF\n\techo Generating $SOF\n\tif [ -e $SOF ]; then rm $SOF; fi\n\tsqlite3 $SOF < $SIF\n}\n\nfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\tSIF=${!SIF_NAME}\n\tSOF=${!SOF_NAME}\n\tcase \"$ACTION\" in\n\t\tbuild)\n\t\t\tdoBuild $SIF $SOF\n\t\t\t;;\n\t\tclean)\n\t\t\trm -v $SOF\n\t\t\t;;\n\tesac\ndone\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */ = {
@@ -1302,6 +1316,7 @@
 				BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */,
 				BC0052B71159AD8A00DEE9AD /* BRActivityView.m in Sources */,
 				BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */,
+				BC8DB56B1236EE480043B43A /* DebugViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,6 +1448,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Debug";
@@ -1478,6 +1494,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Beta";
@@ -1522,6 +1539,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
 				PRODUCT_NAME = FatWatch;

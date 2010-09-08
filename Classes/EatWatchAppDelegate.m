@@ -7,6 +7,7 @@
 //
 
 #import "BRColorPalette.h"
+#import "DebugViewController.h"
 #import "EWDBMonth.h"
 #import "EWDatabase.h"
 #import "EWDate.h"
@@ -16,86 +17,22 @@
 #import "LogEntryViewController.h"
 #import "LogViewController.h"
 #import "MoreViewController.h"
+#import "NSUserDefaults+EWAdditions.h"
 #import "NewDatabaseViewController.h"
 #import "PasscodeEntryViewController.h"
 #import "RootViewController.h"
 #import "TrendViewController.h"
 #import "UpgradeViewController.h"
-#import "NSUserDefaults+EWAdditions.h"
-
-
-#define DEBUG_LAUNCH_ACTIONS_ENABLED 0
 
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
 static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
-@interface EatWatchAppDelegate ()
-- (NSString *)databasePath;
-@end
-
-
-
-
 @implementation EatWatchAppDelegate
 
 
 @synthesize rootViewController;
-
-
-#if DEBUG_LAUNCH_ACTIONS_ENABLED
-- (void)performDebugLaunchActions {
-	static NSString * const kResetDatabaseKey = @"OnLaunchResetDatabase";
-	static NSString * const kResetDefaultsKey = @"OnLaunchResetDefaults";
-	
-	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	
-	BOOL resetDatabase = [ud boolForKey:kResetDatabaseKey];
-	BOOL resetDefaults = [ud boolForKey:kResetDefaultsKey];
-	
-	if (resetDatabase) {
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSError *error;
-		
-		if ([fileManager removeItemAtPath:[self databasePath] error:&error]) {
-			NSLog(@"Database deleted by request.");
-		} else {
-			NSLog(@"Unable to delete database: %@", [error localizedDescription]);
-		}
-		[ud removeObjectForKey:kResetDatabaseKey];
-
-		NSString *fakeDatabasePath = [[NSBundle mainBundle] pathForResource:@"FakeUpgrade" ofType:@"db"];
-		if (fakeDatabasePath) {
-			if ([fileManager copyItemAtPath:fakeDatabasePath toPath:[self databasePath] error:&error]) {
-				NSLog(@"Using fake database: %@", fakeDatabasePath);
-			} else {
-				NSLog(@"Unable to copy database: %@", [error localizedDescription]);
-			}
-		}
-	}
-
-	if (resetDefaults) {
-		NSArray *keys = [[[ud dictionaryRepresentation] allKeys] copy];
-		for (NSString *key in keys) {
-			[ud removeObjectForKey:key];
-		}
-		NSLog(@"%d defaults deleted by request.", [keys	count]);
-		[keys release];
-		
-		NSString *fakeDefaultsPath = [[NSBundle mainBundle] pathForResource:@"FakeUpgrade" ofType:@"plist"];
-		if (fakeDefaultsPath) {
-			NSDictionary *fakeDefaults = [[NSDictionary alloc] initWithContentsOfFile:fakeDefaultsPath];
-			for (NSString *key in fakeDefaults) {
-				id value = [fakeDefaults objectForKey:key];
-				[ud setObject:value forKey:key];
-				NSLog(@"Fake Preference: %@: %@", key, value);
-			}
-			[fakeDefaults release];
-		}
-	}
-}
-#endif
 
 
 - (void)registerDefaults {
@@ -149,65 +86,99 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-- (void)addViewToWindow:(UIView *)view {
-	view.frame = [[UIScreen mainScreen] applicationFrame];
-	[window addSubview:view];
+- (void)launchStageDebug {
+#if DEBUG_LAUNCH_STAGE_ENABLED
+	launchViewController = [[DebugViewController alloc] init];
+#endif
 }
 
 
-- (void)setupRootView {
+- (void)launchStageAuthorize {
+	if ([PasscodeEntryViewController authorizationRequired]) {
+		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
+	}
+}
+
+
+- (void)launchStageUpgrade {
+	NSAssert(db == nil, @"DB already loaded before upgrade stage");
+	db = [[EWDatabase alloc] initWithFile:[self ensureDatabasePath]];
+	if ([db needsUpgrade]) {
+		launchViewController = [[UpgradeViewController alloc] initWithDatabase:db];
+	}
+}
+
+
+- (void)launchStageNewDatabase {
+	if ([db isEmpty]) {
+		// Consider a new data file, prompt user for new units.
+		launchViewController = [[NewDatabaseViewController alloc] init];
+	}
+}
+
+
+- (void)launchStageComplete {
 	NSDictionary *externals = [NSDictionary dictionaryWithObject:db forKey:@"Database"];
 	NSDictionary *options = [NSDictionary dictionaryWithObject:externals forKey:UINibExternalObjects];
 	[[NSBundle mainBundle] loadNibNamed:@"RootView" owner:self options:options];
-
+	
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	lastTapTabIndex = [defs integerForKey:kSelectedTabIndex];
 	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
 	tabBarController.selectedIndex = lastTapTabIndex;
-
-	[self addViewToWindow:rootViewController.view];
-	[self autoWeighInIfEnabled];
+	
+	launchViewController = [rootViewController retain];
 }
 
 
-- (void)continuePostLaunch {
-	// Won't get here until passcode authorized.
+- (void)continueLaunchSequence {
+	NSString *transitionType = nil;
+	NSString *transitionSubtype = nil;
 	
-	// Haven't loaded the DB yet.
-	if (db == nil) {
-		db = [[EWDatabase alloc] initWithFile:[self ensureDatabasePath]];
-		if ([db needsUpgrade]) {
-			launchViewController = [[UpgradeViewController alloc] initWithDatabase:db];
-			[self addViewToWindow:launchViewController.view];
+	if (launchViewController != nil) {
+		[launchViewController.view removeFromSuperview];
+		[launchViewController autorelease];
+		launchViewController = nil;
+		switch (launchStage) {
+			case EWLaunchSequenceStageDebug:
+			case EWLaunchSequenceStageAuthorize:
+			case EWLaunchSequenceStageUpgrade:
+				transitionType = kCATransitionReveal;
+				transitionSubtype = kCATransitionFromTop;
+				break;
+			case EWLaunchSequenceStageNewDatabase:
+				transitionType = kCATransitionPush;
+				transitionSubtype = kCATransitionFromRight;
+				break;
+			case EWLaunchSequenceStageComplete:
+				break;
 		}
-		if (launchViewController) return;
 	}
 	
-	if ([db isEmpty] && !readyToGo) {
-		// Consider a new data file, prompt user for new units.
-		launchViewController = [[NewDatabaseViewController alloc] init];
-		[self addViewToWindow:launchViewController.view];
-		readyToGo = YES;
-	} else {
-		[self setupRootView];
-	}
-}
+	do {
+		launchStage += 1;
+		switch (launchStage) {
+			case EWLaunchSequenceStageDebug: [self launchStageDebug]; break;
+			case EWLaunchSequenceStageAuthorize: [self launchStageAuthorize]; break;
+			case EWLaunchSequenceStageUpgrade: [self launchStageUpgrade]; break;
+			case EWLaunchSequenceStageNewDatabase: [self launchStageNewDatabase]; break;
+			case EWLaunchSequenceStageComplete: [self launchStageComplete]; break;
+		}
+	} while (launchViewController == nil);
+	
+	UIView *view = launchViewController.view;
+	view.frame = [[UIScreen mainScreen] applicationFrame];
+	[window addSubview:view];
+	
+	if (launchStage == EWLaunchSequenceStageComplete) [self autoWeighInIfEnabled];
 
-
-- (void)removeLaunchViewWithTransitionType:(NSString *)type subType:(NSString *)subType {
 	CATransition *animation = [CATransition animation];
-	[animation setType:type];
-	[animation setSubtype:subType];
-	[animation setDuration:0.3];
-	
-	[launchViewController.view removeFromSuperview];
-	[launchViewController autorelease];
-	launchViewController = nil;
-
-	[self continuePostLaunch];
-	
+	[animation setType:transitionType];
+	[animation setSubtype:transitionSubtype];
+	[animation setDuration:0.250];
 	[[window layer] addAnimation:animation forKey:nil];
 }
+
 
 
 
@@ -215,24 +186,10 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-#if DEBUG_LAUNCH_ACTIONS_ENABLED
-	[self performDebugLaunchActions];
-#endif
-
 	[self registerDefaults];
-	
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
-	if ([PasscodeEntryViewController authorizationRequired]) {
-		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
-		[self addViewToWindow:launchViewController.view];
-	} else {
-		[self continuePostLaunch];
-	}
-	
+	[self continueLaunchSequence];
     [window makeKeyAndVisible];
-	
 	return YES;
 }
 

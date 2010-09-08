@@ -266,10 +266,7 @@ NSString *kPasscodeKey = @"Passcode";
 		smallLabel.hidden = YES;
 		return;
 	}
-	
-	id appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate removeLaunchViewWithTransitionType:kCATransitionReveal 
-											subType:kCATransitionFromTop];
+	[(id)[[UIApplication sharedApplication] delegate] continueLaunchSequence];
 }
 
 

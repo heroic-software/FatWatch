@@ -105,9 +105,7 @@
 	section = (id)[self sectionAtIndex:2];
 	[ud setScaleIncrement:[[section selectedRow] object]];
 
-	id appDelegate = [[UIApplication sharedApplication] delegate];
-	[appDelegate removeLaunchViewWithTransitionType:kCATransitionPush 
-											subType:kCATransitionFromRight];
+	[(id)[[UIApplication sharedApplication] delegate] continueLaunchSequence];
 }
 
 
