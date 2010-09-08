@@ -11,8 +11,7 @@
 			<string key="NS.object.0">117</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="65"/>
-			<integer value="45"/>
+			<integer value="4"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -29,7 +28,7 @@
 			</object>
 			<object class="IBUIView" id="191373211">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">256</int>
+				<int key="NSvFlags">258</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUINavigationBar" id="341356768">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -37,7 +36,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIButton" id="1002675723">
 								<reference key="NSNextResponder" ref="341356768"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{67, 7}, {185, 30}}</string>
 								<reference key="NSSuperview" ref="341356768"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -102,7 +101,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIView" id="874721912">
 								<reference key="NSNextResponder" ref="670147787"/>
-								<int key="NSvFlags">290</int>
+								<int key="NSvFlags">258</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUILabel" id="894120336">
 										<reference key="NSNextResponder" ref="874721912"/>
@@ -137,7 +136,7 @@
 							</object>
 							<object class="IBUIView" id="209593132">
 								<reference key="NSNextResponder" ref="670147787"/>
-								<int key="NSvFlags">266</int>
+								<int key="NSvFlags">258</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUILabel" id="772786426">
 										<reference key="NSNextResponder" ref="209593132"/>
@@ -258,7 +257,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="509159092">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIToolbar" id="921530215">
@@ -346,7 +345,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 260}</string>
-				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MSAwAA</bytes>
@@ -731,7 +729,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
 				<string key="-1.CustomClassName">LogViewController</string>
 				<string key="-2.CustomClassName">UIResponder</string>
-				<string key="1.IBEditorWindowLastContentRect">{{103, 253}, {320, 480}}</string>
+				<string key="1.IBEditorWindowLastContentRect">{{937, 492}, {320, 480}}</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="21.IBEditorWindowLastContentRect">{{491, 311}, {320, 260}}</string>
@@ -818,6 +816,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">EWDatabase</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/EWDatabase.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">LogDatePickerController</string>
 					<string key="superclassName">BRPopUpViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
@@ -898,11 +904,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<string key="className">LogViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="database">EWDatabase</string>
 						<string key="datePickerController">LogDatePickerController</string>
 						<string key="infoPickerController">LogInfoPickerController</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="database">
+							<string key="name">database</string>
+							<string key="candidateClassName">EWDatabase</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="datePickerController">
 							<string key="name">datePickerController</string>
 							<string key="candidateClassName">LogDatePickerController</string>

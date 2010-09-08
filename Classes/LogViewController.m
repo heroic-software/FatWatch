@@ -134,6 +134,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
+// Called by the date picker popup
 - (void)scrollToDate:(NSDate *)date {
 	EWMonthDay md = EWMonthDayFromDate(date);
 	if (earliestMonth > EWMonthDayGetMonth(md)) {
@@ -169,21 +170,18 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	if (scrollDestination != 0) {
-		NSIndexPath *path = [self indexPathForMonthDay:scrollDestination];
+		// If we do this in viewWillAppear:, we are sometimes off by 20px,
+		// because the view is resized between 'WillAppear and 'DidAppear:.
 		[tableView reloadData];
+		NSIndexPath *path = [self indexPathForMonthDay:scrollDestination];
 		[tableView scrollToRowAtIndexPath:path
 						 atScrollPosition:UITableViewScrollPositionBottom
 								 animated:NO];
 		scrollDestination = 0;
 	}
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
 	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
 	if (tableSelection) {
 		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
