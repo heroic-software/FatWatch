@@ -284,7 +284,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (NSUInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
+- (NSInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
 	int leftIndex = 0;
 	int rightIndex = infoCount;
 	while (leftIndex < rightIndex) {
@@ -448,8 +448,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
 	CGFloat minX = scrollView.contentOffset.x;
 	CGFloat maxX = minX + CGRectGetWidth(scrollView.frame);
-	NSUInteger minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
-	NSUInteger maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
+	NSInteger minIndex = [self indexOfGraphViewInfoAtOffsetX:minX];
+	NSInteger maxIndex = [self indexOfGraphViewInfoAtOffsetX:maxX];
 	
 	// Stop now if the visible set of months hasn't changed.
 	if ((minIndex == lastMinIndex) && (maxIndex == lastMaxIndex)) {
@@ -462,16 +462,16 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	}
 	
 	// move non-visible views into cache
-	for (NSUInteger i = minIndex - 1; i >= lastMinIndex; i--) {
+	for (NSInteger i = minIndex - 1; i >= lastMinIndex; i--) {
 		[self cacheViewAtIndex:i];
 	}
-	for (NSUInteger i = maxIndex + 1; i <= lastMaxIndex; i++) {
+	for (NSInteger i = maxIndex + 1; i <= lastMaxIndex; i++) {
 		[self cacheViewAtIndex:i];
 	}
 
 	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 
-	for (NSUInteger i = minIndex; i <= maxIndex; i++) {
+	for (NSInteger i = minIndex; i <= maxIndex; i++) {
 		GraphViewInfo *ginfo = &info[i];
 		if (ginfo->view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];

@@ -38,7 +38,7 @@ typedef struct {
 	GraphViewInfo *info;
 	size_t infoCount;
 	NSMutableArray *cachedGraphViews;
-	NSUInteger lastMinIndex, lastMaxIndex;
+	NSInteger lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
 	CGPoint scrollingSpanSavedOffset;
 	NSInteger saveButtonIndex, copyButtonIndex;
