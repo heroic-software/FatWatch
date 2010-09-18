@@ -80,24 +80,6 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
-// Used by TrendSpan for traversal.
-- (EWDBMonth *)previous {
-	if (month > database.earliestMonth) {
-		return [database getDBMonth:(month - 1)];
-	}
-	return nil;
-}
-
-
-// Used by EWExporter for traversal.
-- (EWDBMonth *)next {
-	if (month < database.latestMonth) {
-		return [database getDBMonth:(month + 1)];
-	}
-	return nil;
-}
-
-
 // Used all over the place.
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day {
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);

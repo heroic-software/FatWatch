@@ -43,8 +43,6 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 }
 @property (nonatomic,readonly) EWDatabase *database;
 @property (nonatomic,readonly) EWMonth month;
-@property (nonatomic,readonly) EWDBMonth *previous;
-@property (nonatomic,readonly) EWDBMonth *next;
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb;
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;
