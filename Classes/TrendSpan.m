@@ -8,6 +8,7 @@
 
 #import "BRColorPalette.h"
 #import "EWDBMonth.h"
+#import "EWDBIterator.h"
 #import "EWDatabase.h"
 #import "EWDate.h"
 #import "EWGoal.h"
@@ -100,13 +101,11 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 
 + (NSArray *)computeTrendSpansFromDatabase:(EWDatabase *)db {
-	EWMonthDay curMonthDay = EWMonthDayToday();
 	NSUInteger previousCount = 3; // means you need at least four weights to compute trends
 	int x = 0;
 	
 	SlopeComputer *totalComputer = [[SlopeComputer alloc] init];
 	SlopeComputer *fatComputer = [[SlopeComputer alloc] init];
-	EWDBMonth *data = [db getDBMonth:EWMonthDayGetMonth(curMonthDay)];
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:db];
 	
 	float flagCounts[4] = {0,0,0,0};
@@ -118,12 +117,14 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	
 	NSMutableArray *computedSpans = [NSMutableArray array];
 	
+	EWDBIterator *it = [db iterator];
+	it.latestMonthDay = EWMonthDayToday();
+	const EWDBDay *dbd = [it previousDBDay];
+
 	for (TrendSpan *span in [self trendSpanArray]) {
 		GraphViewParameters *gp = span.graphParameters;
 		
-		while ((curMonthDay > span.beginMonthDay) && (data != nil)) {
-			const EWDBDay *dbd = [data getDBDayOnDay:EWMonthDayGetDay(curMonthDay)];
-
+		while ((it.currentMonthDay > span.beginMonthDay) && (dbd != NULL)) {
 			if (dbd->flags[0]) flagCounts[0] += 1;
 			if (dbd->flags[1]) flagCounts[1] += 1;
 			if (dbd->flags[2]) flagCounts[2] += 1;
@@ -141,10 +142,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 			}
 			
 			x += 1;
-			curMonthDay = EWMonthDayPrevious(curMonthDay);
-			if (data.month != EWMonthDayGetMonth(curMonthDay)) {
-				data = data.previous;
-			}
+			dbd = [it previousDBDay];
 		}
 		
 		// Because every scaleFatWeight implies a scaleWeight, it is always
