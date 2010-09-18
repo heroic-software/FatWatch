@@ -18,7 +18,7 @@
 
 - (id)init {
 	if ((self = [super initWithNibName:nil bundle:nil])) {
-		NSArray *allPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"db" inDirectory:nil];
+		NSArray *allPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"profile.db" inDirectory:nil];
 		NSMutableArray *names = [NSMutableArray arrayWithCapacity:[allPaths count]];
 		for (NSString *path in allPaths) {
 			NSString *basename = [path lastPathComponent];
@@ -152,7 +152,7 @@
 	buttonFrame.origin.y += buttonFrame.size.height;
 
 	button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[button setTitle:@"None of the Above" forState:UIControlStateNormal];
+	[button setTitle:@"Normal Launch" forState:UIControlStateNormal];
 	[button setFrame:CGRectInset(buttonFrame, 8, 4)];
 	[button addTarget:self action:@selector(doCancel) forControlEvents:UIControlEventTouchUpInside];
 	[button setAutoresizingMask:mask];

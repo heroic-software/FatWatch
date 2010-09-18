@@ -96,8 +96,8 @@
 		BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5171236C5090043B43A /* jquery.js.gz */; };
 		BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5181236C5090043B43A /* RegistrationError.htm */; };
 		BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5191236C5090043B43A /* WeightData.db */; };
-		BC8DB5DE1237179A0043B43A /* WeightDataV1.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BC123714EF0043B43A /* WeightDataV1.db */; };
-		BC8DB5DF1237179A0043B43A /* WeightDataV2.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BD123714EF0043B43A /* WeightDataV2.db */; };
+		BC8DB5DE1237179A0043B43A /* Empty-DBv1.profile.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */; };
+		BC8DB5DF1237179A0043B43A /* Empty-DBv2.profile.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */; };
 		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
@@ -404,8 +404,8 @@
 		BC8DB5191236C5090043B43A /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
 		BC8DB5691236EE480043B43A /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugViewController.h; path = Classes/DebugViewController.h; sourceTree = "<group>"; };
 		BC8DB56A1236EE480043B43A /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugViewController.m; path = Classes/DebugViewController.m; sourceTree = "<group>"; };
-		BC8DB5BC123714EF0043B43A /* WeightDataV1.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightDataV1.db; sourceTree = "<group>"; };
-		BC8DB5BD123714EF0043B43A /* WeightDataV2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightDataV2.db; sourceTree = "<group>"; };
+		BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Empty-DBv1.profile.db"; sourceTree = "<group>"; };
+		BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Empty-DBv2.profile.db"; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
@@ -779,8 +779,8 @@
 				BC8DB5171236C5090043B43A /* jquery.js.gz */,
 				BC8DB5181236C5090043B43A /* RegistrationError.htm */,
 				BC8DB5191236C5090043B43A /* WeightData.db */,
-				BC8DB5BC123714EF0043B43A /* WeightDataV1.db */,
-				BC8DB5BD123714EF0043B43A /* WeightDataV2.db */,
+				BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */,
+				BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */,
 			);
 			name = DerivedSources;
 			path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources";
@@ -1139,8 +1139,8 @@
 				BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */,
 				BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */,
 				BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */,
-				BC8DB5DE1237179A0043B43A /* WeightDataV1.db in Resources */,
-				BC8DB5DF1237179A0043B43A /* WeightDataV2.db in Resources */,
+				BC8DB5DE1237179A0043B43A /* Empty-DBv1.profile.db in Resources */,
+				BC8DB5DF1237179A0043B43A /* Empty-DBv2.profile.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,12 +1206,12 @@
 			name = "Run Script (WeightData.db)";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/WeightData.db",
-				"$(DERIVED_FILE_DIR)/WeightDataV2.db",
-				"$(DERIVED_FILE_DIR)/WeightDataV1.db",
+				"$(DERIVED_FILE_DIR)/Empty-DBv2.profile.db",
+				"$(DERIVED_FILE_DIR)/Empty-DBv1.profile.db",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "function doBuild {\n\tlocal SIF=$1\n\tlocal SOF=$2\n\techo Reading $SIF\n\techo Generating $SOF\n\tif [ -e $SOF ]; then rm $SOF; fi\n\tsqlite3 $SOF < $SIF\n}\n\nfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\tSIF=${!SIF_NAME}\n\tSOF=${!SOF_NAME}\n\tcase \"$ACTION\" in\n\t\tbuild)\n\t\t\tdoBuild $SIF $SOF\n\t\t\t;;\n\t\tclean)\n\t\t\trm -v $SOF\n\t\t\t;;\n\tesac\ndone\n";
+			shellScript = "function doBuild {\n\tlocal SIF=$1\n\tlocal SOF=$2\n\techo Creating $SOF from $SIF\n\tif [ -e $SOF ]; then rm $SOF; fi\n\tsqlite3 $SOF < $SIF\n}\n\nfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\tSIF=${!SIF_NAME}\n\tSOF=${!SOF_NAME}\n\tcase \"$ACTION\" in\n\t\tbuild)\n\t\t\tdoBuild $SIF $SOF\n\t\t\t;;\n\t\tclean)\n\t\t\trm -v $SOF\n\t\t\t;;\n\tesac\ndone\n";
 			showEnvVarsInLog = 0;
 		};
 		BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */ = {
@@ -1503,6 +1503,10 @@
 				BUNDLE_DISPLAY_NAME = "FatWatch β";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
 				COPY_PHASE_STRIP = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = (
+					"*.profile.db",
+					"*.profile.plist",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
@@ -1548,6 +1552,10 @@
 				BUNDLE_DISPLAY_NAME = FatWatch;
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				COPY_PHASE_STRIP = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = (
+					"*.profile.db",
+					"*.profile.plist",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
