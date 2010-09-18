@@ -30,6 +30,8 @@
 		BC04162E10DE46E4008FCB11 /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
 		BC069AEB1153F3BE00377DC1 /* BRInvocationTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */; };
 		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
+		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
+		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC112E8F1101453200EAC8DA /* FlagIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* FlagIcons */; };
@@ -244,16 +246,6 @@
 		};
 /* End PBXBuildRule section */
 
-/* Begin PBXContainerItemProxy section */
-		BCF52AEB10D067170017C3A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BCF52ACE10D066540017C3A1;
-			remoteInfo = UnitTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
@@ -297,6 +289,8 @@
 		BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRInvocationTrap.m; sourceTree = "<group>"; };
 		BC069AED1153F94600377DC1 /* BRConfirmationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConfirmationAlert.h; sourceTree = "<group>"; };
 		BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConfirmationAlert.m; sourceTree = "<group>"; };
+		BC08CA2F12444822006208A9 /* EWDBIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBIterator.h; sourceTree = "<group>"; };
+		BC08CA3012444822006208A9 /* EWDBIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBIterator.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -596,6 +590,7 @@
 				BC9A2E820F15B41B00A284E7 /* BRViews */,
 				BC51B88B0E3ACACC00D3B4C1 /* BRTables */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				BCF52C7010D0AE590017C3A1 /* Data */,
 				BCABE0480DD9373B00DE580A /* View Controllers */,
 				BCABE0470DD9372000DE580A /* Log */,
 				BCB36E090ECEDFAB00AAB7DF /* Weigh-in */,
@@ -604,7 +599,6 @@
 				BCB349910E6FE8CE000DF454 /* More */,
 				BC82AEA70E6FC7F900E2A693 /* Chart */,
 				BCEADAD60DE29D1B0017495E /* Web */,
-				BCF52C7010D0AE590017C3A1 /* Data */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				BC8DB3661235512D0043B43A /* UIAutomation */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -980,6 +974,8 @@
 				BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */,
 				BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */,
 				BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */,
+				BC08CA2F12444822006208A9 /* EWDBIterator.h */,
+				BC08CA3012444822006208A9 /* EWDBIterator.m */,
 				BC02496110F419F600BED779 /* EWEnergyEquivalent.h */,
 				BC02496210F419F600BED779 /* EWEnergyEquivalent.m */,
 			);
@@ -1008,7 +1004,6 @@
 				BC200C6110F7D42800352A32 /* PBXBuildRule */,
 			);
 			dependencies = (
-				BCF52AEC10D067170017C3A1 /* PBXTargetDependency */,
 			);
 			name = FatWatch;
 			productName = EatWatch;
@@ -1317,6 +1312,7 @@
 				BC0052B71159AD8A00DEE9AD /* BRActivityView.m in Sources */,
 				BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */,
 				BC8DB56B1236EE480043B43A /* DebugViewController.m in Sources */,
+				BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1348,18 +1344,11 @@
 				BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */,
 				BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */,
 				BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */,
+				BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BCF52AEC10D067170017C3A1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BCF52ACE10D066540017C3A1 /* UnitTests */;
-			targetProxy = BCF52AEB10D067170017C3A1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BC04126110DA0D32008FCB11 /* import.html */ = {

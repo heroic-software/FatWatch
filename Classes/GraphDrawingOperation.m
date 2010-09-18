@@ -8,6 +8,7 @@
 
 #import "GraphDrawingOperation.h"
 #import "EWDatabase.h"
+#import "EWDBIterator.h"
 #import "EWDBMonth.h"
 #import "EWGoal.h"
 #import "EWWeightFormatter.h"
@@ -256,13 +257,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	flagData = [[NSMutableData alloc] initWithCapacity:32];
 	
-	EWDBMonth *data = nil;
-	for (EWMonthDay md = mdStart; md <= mdStop; md = EWMonthDayNext(md)) {
-		EWDay day = EWMonthDayGetDay(md);
-		if (data == nil || day == 1) {
-			data = [database getDBMonth:EWMonthDayGetMonth(md)];
-		}
-		const EWDBDay *dd = [data getDBDayOnDay:day];
+	EWDBIterator *it = [database iteratorWithMonthDay:mdStart];
+	while (it.currentMonthDay <= mdStop) {
+		const EWDBDay *dd = [it nextDBDay];
+		if (dd == nil) break;
 		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleFatWeight);

@@ -7,6 +7,7 @@
 //
 
 #import "EWDatabase.h"
+#import "EWDBIterator.h"
 #import "EWDBMonth.h"
 #import "SQLiteDatabase.h"
 #import "SQLiteStatement.h"
@@ -338,6 +339,14 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	EWMonthDay today = EWMonthDayToday();
 	EWDBMonth *dbm = [self getDBMonth:EWMonthDayGetMonth(today)];
 	return [dbm hasDataOnDay:EWMonthDayGetDay(today)];
+}
+
+
+- (EWDBIterator *)iteratorWithMonthDay:(EWMonthDay)initialMonthDay
+{
+	EWDBIterator *it = [[EWDBIterator alloc] initWithDatabase:self];
+	it.currentMonthDay = initialMonthDay;
+	return [it autorelease];
 }
 
 
