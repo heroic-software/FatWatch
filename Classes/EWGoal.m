@@ -7,6 +7,7 @@
 //
 
 #import "EWDBMonth.h"
+#import "EWDBIterator.h"
 #import "EWDatabase.h"
 #import "EWGoal.h"
 #import "EWWeightFormatter.h"
@@ -223,17 +224,14 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 - (BOOL)isAttained {
 	int weightCount = 0;
 	@synchronized (self) {
-		EWMonthDay md = EWMonthDayToday();
-		EWDBMonth *dbm = [database getDBMonth:EWMonthDayGetMonth(md)];
+		EWDBIterator *it = [database iterator];
+		it.latestMonthDay = EWMonthDayToday();
 		float goalWeight = self.endWeight;
-		for (int count = 0; count < 7; count++, md = EWMonthDayPrevious(md)) {
-			if (EWMonthDayGetMonth(md) != dbm.month) {
-				dbm = [database getDBMonth:EWMonthDayGetMonth(md)];
-			}
-			const EWDBDay *day = [dbm getDBDayOnDay:EWMonthDayGetDay(md)];
-			if (day->trendWeight > 0) {
+		for (int count = 0; count < 7; count++) {
+			const EWDBDay *dd = [it previousDBDay];
+			if (dd->trendWeight > 0) {
 				weightCount += 1;
-				if (fabsf(day->trendWeight - goalWeight) > gGoalBandHalfHeight) {
+				if (fabsf(dd->trendWeight - goalWeight) > gGoalBandHalfHeight) {
 					// Crossing outside the band is immediate disqualification.
 					return NO;
 				}

@@ -342,12 +342,9 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
-- (EWDBIterator *)iteratorWithMonthDay:(EWMonthDay)initialMonthDay
+- (EWDBIterator *)iterator
 {
-	EWDBIterator *it = [[EWDBIterator alloc] initWithDatabase:self];
-	it.earliestMonthDay = initialMonthDay;
-	it.latestMonthDay = EWMonthDayToday();
-	return [it autorelease];
+	return [[[EWDBIterator alloc] initWithDatabase:self] autorelease];
 }
 
 

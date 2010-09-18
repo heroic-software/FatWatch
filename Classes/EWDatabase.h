@@ -57,7 +57,7 @@ typedef enum {
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdHead withWeightBefore:(EWMonthDay)mdStart onlyFat:(BOOL)onlyFat;
 - (const EWDBDay *)getMonthDay:(EWMonthDay *)mdTail withWeightAfter:(EWMonthDay)mdStop onlyFat:(BOOL)onlyFat;
 - (BOOL)hasDataForToday;
-- (EWDBIterator *)iteratorWithMonthDay:(EWMonthDay)initialMonthDay;
+- (EWDBIterator *)iterator;
 // Writing
 - (void)didChangeWeightOnMonthDay:(EWMonthDay)monthday;
 - (void)commitChanges;

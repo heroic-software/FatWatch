@@ -119,7 +119,8 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 		endMonthDay = EWMonthDayMake(db.latestMonth, 31);
 	}
 
-	EWDBIterator *it = [db iteratorWithMonthDay:beginMonthDay];
+	EWDBIterator *it = [db iterator];
+	it.earliestMonthDay = beginMonthDay;
 	it.latestMonthDay = endMonthDay;
 	it.skipEmptyRecords = YES;
 	const EWDBDay *dd;

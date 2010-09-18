@@ -257,7 +257,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
 	flagData = [[NSMutableData alloc] initWithCapacity:32];
 	
-	EWDBIterator *it = [database iteratorWithMonthDay:mdStart];
+	EWDBIterator *it = [database iterator];
+	it.earliestMonthDay = mdStart;
 	it.latestMonthDay = mdStop;
 	it.skipEmptyRecords = YES;
 	const EWDBDay *dd;

@@ -24,6 +24,8 @@
 {
 	if ((self = [super init])) {
 		database = [db retain];
+		earliestMonthDay = EWMonthDayMake(database.earliestMonth, 1);
+		latestMonthDay = EWMonthDayMake(database.latestMonth, 31);
 	}
 	return self;
 }
@@ -54,7 +56,7 @@
 }
 
 
-- (const EWDBDay *)nextDBDay // return current, then increment
+- (const EWDBDay *)nextDBDay
 {
 	NSAssert(earliestMonthDay != 0, @"Iterator earliestMonthDay not set");
 	NSAssert(latestMonthDay != 0, @"Iterator latestMonthDay not set");
@@ -72,7 +74,7 @@
 }
 
 
-- (const EWDBDay *)previousDBDay // return current, then decrement
+- (const EWDBDay *)previousDBDay
 {
 	NSAssert(earliestMonthDay != 0, @"Iterator earliestMonthDay not set");
 	NSAssert(latestMonthDay != 0, @"Iterator latestMonthDay not set");
