@@ -25,6 +25,16 @@ typedef struct EWDBDay {
 } EWDBDay;
 
 
+EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
+	return !(d->scaleWeight > 0 || 
+			 d->flags[0] != 0 ||
+			 d->flags[1] != 0 ||
+			 d->flags[2] != 0 ||
+			 d->flags[3] != 0 ||
+			 d->note != nil);
+}
+
+
 @interface EWDBMonth : NSObject {
 	EWDatabase *database;
 	EWMonth month;

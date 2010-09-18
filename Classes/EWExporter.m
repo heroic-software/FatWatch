@@ -8,6 +8,7 @@
 
 #import "EWExporter.h"
 #import "EWDatabase.h"
+#import "EWDBIterator.h"
 #import "EWDBMonth.h"
 #import "EWWeightFormatter.h"
 #import "EWDateFormatter.h"
@@ -105,97 +106,85 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 
 
 - (void)performExportOfDatabase:(EWDatabase *)db {
-	EWMonth beginMonth, endMonth;
-	EWDay beginDay, endDay;
-	
+	EWMonthDay beginMonthDay, endMonthDay;
+
 	if (beginDate) {
-		EWMonthDay beginMD = EWMonthDayFromDate(beginDate);
-		beginMonth = EWMonthDayGetMonth(beginMD);
-		beginDay = EWMonthDayGetDay(beginMD);
+		beginMonthDay = EWMonthDayFromDate(beginDate);
 	} else {
-		beginMonth = db.earliestMonth;
-		beginDay = 1;
+		beginMonthDay = EWMonthDayMake(db.earliestMonth, 1);
+	}
+	if (endDate) {
+		endMonthDay = EWMonthDayFromDate(endDate);
+	} else {
+		endMonthDay = EWMonthDayMake(db.latestMonth, 31);
 	}
 
-	if (endDate) {
-		EWMonthDay endMD = EWMonthDayFromDate(endDate);
-		endMonth = EWMonthDayGetMonth(endMD);
-		endDay = EWMonthDayGetDay(endMD);
-	} else {
-		endMonth = db.latestMonth;
-		endDay = 31;
-	}
+	EWDBIterator *it = [db iteratorWithMonthDay:beginMonthDay];
+	it.latestMonthDay = endMonthDay;
+	it.skipEmptyRecords = YES;
+	const EWDBDay *dd;
+
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	int poolLaps = 0;
 	
-	EWDBMonth *dbm = [db getDBMonth:beginMonth];
-	
-	while (dbm && dbm.month <= endMonth) {
-		EWDay firstDay = (dbm.month == beginMonth) ? beginDay : 1;
-		EWDay lastDay = (dbm.month == endMonth) ? endDay : 31;
-		
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		for (EWDay day = firstDay; day <= lastDay; day++) {
-			if (! [dbm hasDataOnDay:day]) continue;
+	while ((dd = [it nextDBDay])) {
+		[self beginRecord];
+		for (int i = 0; i < fieldCount; i++) {
+			EWExporterField f = fieldOrder[i];
+			id value;
 			
-			const EWDBDay *dd = [dbm getDBDayOnDay:day];
-			
-			[self beginRecord];
-			
-			for (int i = 0; i < fieldCount; i++) {
-				EWExporterField f = fieldOrder[i];
-				id value;
-				
-				switch (f) {
-					case EWExporterFieldDate:
-						value = [NSNumber numberWithInt:EWMonthDayMake(dbm.month, day)];
-						break;
-					case EWExporterFieldWeight:
-						value = [NSNumber numberWithFloat:dd->scaleWeight];
-						break;
-					case EWExporterFieldTrendWeight:
-						value = [NSNumber numberWithFloat:dd->trendWeight];
-						break;
-					case EWExporterFieldFat: {
-						float ratio;
-						if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
-							ratio = dd->scaleFatWeight / dd->scaleWeight;
-						} else {
-							ratio = 0;
-						}
-						value = [NSNumber numberWithFloat:ratio];
-						break;
+			switch (f) {
+				case EWExporterFieldDate:
+					value = [NSNumber numberWithInt:it.currentMonthDay];
+					break;
+				case EWExporterFieldWeight:
+					value = [NSNumber numberWithFloat:dd->scaleWeight];
+					break;
+				case EWExporterFieldTrendWeight:
+					value = [NSNumber numberWithFloat:dd->trendWeight];
+					break;
+				case EWExporterFieldFat: {
+					float ratio;
+					if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
+						ratio = dd->scaleFatWeight / dd->scaleWeight;
+					} else {
+						ratio = 0;
 					}
-					case EWExporterFieldFlag0:
-						value = [NSNumber numberWithUnsignedChar:dd->flags[0]];
-						break;
-					case EWExporterFieldFlag1:
-						value = [NSNumber numberWithUnsignedChar:dd->flags[1]];
-						break;
-					case EWExporterFieldFlag2:
-						value = [NSNumber numberWithUnsignedChar:dd->flags[2]];
-						break;
-					case EWExporterFieldFlag3:
-						value = [NSNumber numberWithUnsignedChar:dd->flags[3]];
-						break;
-					case EWExporterFieldNote:
-						value = dd->note;
-						break;
-					default:
-						value = nil;
-						break;
+					value = [NSNumber numberWithFloat:ratio];
+					break;
 				}
-				
-				[self exportField:f value:value];
+				case EWExporterFieldFlag0:
+					value = [NSNumber numberWithUnsignedChar:dd->flags[0]];
+					break;
+				case EWExporterFieldFlag1:
+					value = [NSNumber numberWithUnsignedChar:dd->flags[1]];
+					break;
+				case EWExporterFieldFlag2:
+					value = [NSNumber numberWithUnsignedChar:dd->flags[2]];
+					break;
+				case EWExporterFieldFlag3:
+					value = [NSNumber numberWithUnsignedChar:dd->flags[3]];
+					break;
+				case EWExporterFieldNote:
+					value = dd->note;
+					break;
+				default:
+					value = nil;
+					break;
 			}
-			
-			[self endRecord];
+
+			[self exportField:f value:value];
 		}
-		[pool drain];
-		
-		dbm = dbm.next;
-#if TARGET_IPHONE_SIMULATOR
-		[NSThread sleepForTimeInterval:1.0/12.0];
-#endif
+		[self endRecord];
+		// TODO: test to figure out best lap count
+		if (poolLaps < 64) {
+			poolLaps += 1;
+		} else {
+			[pool drain];
+			pool = [[NSAutoreleasePool alloc] init];
+		}
 	}
+	[pool release];
 }
 
 

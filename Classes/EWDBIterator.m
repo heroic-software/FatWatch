@@ -15,6 +15,9 @@
 
 
 @synthesize currentMonthDay;
+@synthesize earliestMonthDay;
+@synthesize latestMonthDay;
+@synthesize skipEmptyRecords;
 
 
 - (id)initWithDatabase:(EWDatabase *)db
@@ -45,18 +48,44 @@
 }
 
 
+- (BOOL)shouldSkipDBDay:(const EWDBDay *)dd
+{
+	return skipEmptyRecords && EWDBDayIsEmpty(dd);
+}
+
+
 - (const EWDBDay *)nextDBDay // return current, then increment
 {
-	const EWDBDay *dd = [self currentDBDay];
-	currentMonthDay = EWMonthDayNext(currentMonthDay);
+	NSAssert(earliestMonthDay != 0, @"Iterator earliestMonthDay not set");
+	NSAssert(latestMonthDay != 0, @"Iterator latestMonthDay not set");
+	const EWDBDay *dd;
+	do {
+		if (currentMonthDay == 0) {
+			currentMonthDay = earliestMonthDay;
+		} else {
+			currentMonthDay = EWMonthDayNext(currentMonthDay);
+		}
+		if (currentMonthDay > latestMonthDay) return NULL;
+		dd = [self currentDBDay];
+	} while ([self shouldSkipDBDay:dd]);
 	return dd;
 }
 
 
 - (const EWDBDay *)previousDBDay // return current, then decrement
 {
-	const EWDBDay *dd = [self currentDBDay];
-	currentMonthDay = EWMonthDayPrevious(currentMonthDay);
+	NSAssert(earliestMonthDay != 0, @"Iterator earliestMonthDay not set");
+	NSAssert(latestMonthDay != 0, @"Iterator latestMonthDay not set");
+	const EWDBDay *dd;
+	do {
+		if (currentMonthDay == 0) {
+			currentMonthDay = latestMonthDay;
+		} else {
+			currentMonthDay = EWMonthDayPrevious(currentMonthDay);
+		}			
+		if (currentMonthDay < earliestMonthDay) return NULL;
+		dd = [self currentDBDay];
+	} while ([self shouldSkipDBDay:dd]);
 	return dd;
 }
 

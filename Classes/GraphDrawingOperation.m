@@ -258,9 +258,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	flagData = [[NSMutableData alloc] initWithCapacity:32];
 	
 	EWDBIterator *it = [database iteratorWithMonthDay:mdStart];
-	while (it.currentMonthDay <= mdStop) {
-		const EWDBDay *dd = [it nextDBDay];
-		if (dd == nil) break;
+	it.latestMonthDay = mdStop;
+	it.skipEmptyRecords = YES;
+	const EWDBDay *dd;
+	while ((dd = [it nextDBDay])) {
 		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleFatWeight);

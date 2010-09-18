@@ -108,12 +108,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 // Used all over the place.
 - (BOOL)hasDataOnDay:(EWDay)day {
 	EWDBDay *d = [self accessDBDayOnDay:day];
-	return (d->scaleWeight > 0 || 
-			d->flags[0] != 0 ||
-			d->flags[1] != 0 ||
-			d->flags[2] != 0 ||
-			d->flags[3] != 0 ||
-			d->note != nil);
+	return !EWDBDayIsEmpty(d);
 }
 
 

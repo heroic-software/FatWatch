@@ -18,9 +18,15 @@
 	EWDatabase *database;
 	EWDBMonth *dbm;
 	EWMonthDay currentMonthDay;
+	EWMonthDay earliestMonthDay;
+	EWMonthDay latestMonthDay;
+	BOOL skipEmptyRecords;
 }
-@property (nonatomic) EWMonthDay currentMonthDay;
+@property (nonatomic,readonly) EWMonthDay currentMonthDay;
+@property (nonatomic) EWMonthDay earliestMonthDay;
+@property (nonatomic) EWMonthDay latestMonthDay;
+@property (nonatomic) BOOL skipEmptyRecords;
 - (id)initWithDatabase:(EWDatabase *)db;
-- (const EWDBDay *)nextDBDay; // return current, then increment
-- (const EWDBDay *)previousDBDay; // return current, then decrement
+- (const EWDBDay *)nextDBDay;
+- (const EWDBDay *)previousDBDay;
 @end
