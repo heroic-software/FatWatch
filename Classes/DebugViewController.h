@@ -10,12 +10,15 @@
 
 
 #if XCODE_CONFIGURATION_Debug
-
 #define DEBUG_LAUNCH_STAGE_ENABLED 1
+#endif
+
+
+#if DEBUG_LAUNCH_STAGE_ENABLED
 
 @interface DebugViewController : UIViewController {
 	NSArray *profileNames;
 }
 @end
 
-#endif // XCODE_CONFIGURATION
+#endif // DEBUG_LAUNCH_STAGE_ENABLED
