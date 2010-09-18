@@ -32,6 +32,7 @@
 		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
 		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
+		BC08CB1B124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC112E8F1101453200EAC8DA /* FlagIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* FlagIcons */; };
@@ -246,6 +247,16 @@
 		};
 /* End PBXBuildRule section */
 
+/* Begin PBXContainerItemProxy section */
+		BC08CBCC12453DAF006208A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF52ACE10D066540017C3A1 /* UnitTests */;
+			remoteInfo = UnitTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
@@ -291,6 +302,7 @@
 		BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConfirmationAlert.m; sourceTree = "<group>"; };
 		BC08CA2F12444822006208A9 /* EWDBIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBIterator.h; sourceTree = "<group>"; };
 		BC08CA3012444822006208A9 /* EWDBIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBIterator.m; sourceTree = "<group>"; };
+		BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Xcode324iOS41TestSuiteWorkaround.m; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -625,6 +637,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */,
 				32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */,
 				BC1F83B70DB150B800DA88E6 /* EWDate.h */,
 				BC1F83B80DB150B800DA88E6 /* EWDate.m */,
@@ -1004,6 +1017,7 @@
 				BC200C6110F7D42800352A32 /* PBXBuildRule */,
 			);
 			dependencies = (
+				BC08CBCD12453DAF006208A9 /* PBXTargetDependency */,
 			);
 			name = FatWatch;
 			productName = EatWatch;
@@ -1345,10 +1359,19 @@
 				BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */,
 				BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */,
 				BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */,
+				BC08CB1B124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC08CBCD12453DAF006208A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCF52ACE10D066540017C3A1 /* UnitTests */;
+			targetProxy = BC08CBCC12453DAF006208A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BC04126110DA0D32008FCB11 /* import.html */ = {
@@ -1548,6 +1571,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1573,6 +1597,7 @@
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1598,6 +1623,7 @@
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
