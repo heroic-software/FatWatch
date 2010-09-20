@@ -18,7 +18,7 @@
 
 - (id)init {
 	if ((self = [super initWithNibName:nil bundle:nil])) {
-		NSArray *allPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"profile.db" inDirectory:nil];
+		NSArray *allPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"test.db" inDirectory:nil];
 		NSMutableArray *names = [NSMutableArray arrayWithCapacity:[allPaths count]];
 		for (NSString *path in allPaths) {
 			NSString *basename = [path lastPathComponent];

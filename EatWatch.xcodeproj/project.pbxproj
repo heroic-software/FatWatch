@@ -33,6 +33,10 @@
 		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CB1B124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */; };
+		BC08CC8C12472285006208A9 /* validate-db.rb in Resources */ = {isa = PBXBuildFile; fileRef = BC08CC8B12472285006208A9 /* validate-db.rb */; };
+		BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0B12481DAF006208A9 /* v1.test.db */; };
+		BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0C12481DAF006208A9 /* v2.test.db */; };
+		BC08CD1012481DAF006208A9 /* v3.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0D12481DAF006208A9 /* v3.test.db */; };
 		BC0CE2F90DDB732000AB8899 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */; };
 		BC0CE4630DDC0F6300AB8899 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC112E8F1101453200EAC8DA /* FlagIcons in Resources */ = {isa = PBXBuildFile; fileRef = BC112E8E1101453200EAC8DA /* FlagIcons */; };
@@ -96,8 +100,6 @@
 		BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5171236C5090043B43A /* jquery.js.gz */; };
 		BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5181236C5090043B43A /* RegistrationError.htm */; };
 		BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5191236C5090043B43A /* WeightData.db */; };
-		BC8DB5DE1237179A0043B43A /* Empty-DBv1.profile.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */; };
-		BC8DB5DF1237179A0043B43A /* Empty-DBv2.profile.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */; };
 		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
@@ -303,6 +305,12 @@
 		BC08CA2F12444822006208A9 /* EWDBIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBIterator.h; sourceTree = "<group>"; };
 		BC08CA3012444822006208A9 /* EWDBIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBIterator.m; sourceTree = "<group>"; };
 		BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Xcode324iOS41TestSuiteWorkaround.m; sourceTree = "<group>"; };
+		BC08CC2B124581BD006208A9 /* wifi-import.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = "wifi-import.rb"; sourceTree = "<group>"; };
+		BC08CC3312458259006208A9 /* make-history.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "make-history.rb"; sourceTree = "<group>"; };
+		BC08CC8B12472285006208A9 /* validate-db.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "validate-db.rb"; sourceTree = "<group>"; };
+		BC08CD0B12481DAF006208A9 /* v1.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v1.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v1.test.db"; sourceTree = "<absolute>"; };
+		BC08CD0C12481DAF006208A9 /* v2.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v2.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v2.test.db"; sourceTree = "<absolute>"; };
+		BC08CD0D12481DAF006208A9 /* v3.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v3.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v3.test.db"; sourceTree = "<absolute>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -404,8 +412,6 @@
 		BC8DB5191236C5090043B43A /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
 		BC8DB5691236EE480043B43A /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugViewController.h; path = Classes/DebugViewController.h; sourceTree = "<group>"; };
 		BC8DB56A1236EE480043B43A /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugViewController.m; path = Classes/DebugViewController.m; sourceTree = "<group>"; };
-		BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Empty-DBv1.profile.db"; sourceTree = "<group>"; };
-		BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Empty-DBv2.profile.db"; sourceTree = "<group>"; };
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
@@ -696,12 +702,23 @@
 		BC08CC0B124549D6006208A9 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				BC08CC2F124581E3006208A9 /* Utilities */,
 				BC8DB3661235512D0043B43A /* UIAutomation */,
 				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 				BC0410F010D9D532008FCB11 /* FakeValues.js */,
 				BC04126E10DA12DB008FCB11 /* FakeImport.js */,
 			);
 			name = Testing;
+			sourceTree = "<group>";
+		};
+		BC08CC2F124581E3006208A9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BC08CC2B124581BD006208A9 /* wifi-import.rb */,
+				BC08CC3312458259006208A9 /* make-history.rb */,
+				BC08CC8B12472285006208A9 /* validate-db.rb */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		BC14F3D51118C72400FB9A50 /* Settings */ = {
@@ -792,8 +809,9 @@
 				BC8DB5171236C5090043B43A /* jquery.js.gz */,
 				BC8DB5181236C5090043B43A /* RegistrationError.htm */,
 				BC8DB5191236C5090043B43A /* WeightData.db */,
-				BC8DB5BC123714EF0043B43A /* Empty-DBv1.profile.db */,
-				BC8DB5BD123714EF0043B43A /* Empty-DBv2.profile.db */,
+				BC08CD0B12481DAF006208A9 /* v1.test.db */,
+				BC08CD0C12481DAF006208A9 /* v2.test.db */,
+				BC08CD0D12481DAF006208A9 /* v3.test.db */,
 			);
 			name = DerivedSources;
 			path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources";
@@ -1023,6 +1041,7 @@
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FatWatch" */;
 			buildPhases = (
 				BC9BDEAE0DA9D16A0004E70C /* Run Script (WeightData.db) */,
+				BC08CD0112481C74006208A9 /* Run Script (Test Data) */,
 				BC8DB5081236C3840043B43A /* Run Script (Defaults.plist) */,
 				BCEBA8060E691F6F0078D7B5 /* Run Script (Copy & Rename) */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -1158,8 +1177,10 @@
 				BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */,
 				BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */,
 				BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */,
-				BC8DB5DE1237179A0043B43A /* Empty-DBv1.profile.db in Resources */,
-				BC8DB5DF1237179A0043B43A /* Empty-DBv2.profile.db in Resources */,
+				BC08CC8C12472285006208A9 /* validate-db.rb in Resources */,
+				BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */,
+				BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */,
+				BC08CD1012481DAF006208A9 /* v3.test.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,6 +1200,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BC08CD0112481C74006208A9 /* Run Script (Test Data) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Utilities/make-history.rb",
+			);
+			name = "Run Script (Test Data)";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/v1.test.db",
+				"$(DERIVED_FILE_DIR)/v2.test.db",
+				"$(DERIVED_FILE_DIR)/v3.test.db",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/Utilities\n\n./make-history.rb --format=sql1 | sqlite3 ${DERIVED_FILE_DIR}/v1.test.db\n./make-history.rb --format=sql2 | sqlite3 ${DERIVED_FILE_DIR}/v2.test.db\n./make-history.rb --format=sql3 | sqlite3 ${DERIVED_FILE_DIR}/v3.test.db\n";
+			showEnvVarsInLog = 0;
+		};
 		BC200C3210F7250200352A32 /* Warn about TODOs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1219,14 +1259,10 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Resources/DBCreate3.sql",
-				"$(SRCROOT)/Resources/DBCreate2.sql",
-				"$(SRCROOT)/Resources/DBCreate1.sql",
 			);
 			name = "Run Script (WeightData.db)";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/WeightData.db",
-				"$(DERIVED_FILE_DIR)/Empty-DBv2.profile.db",
-				"$(DERIVED_FILE_DIR)/Empty-DBv1.profile.db",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1474,12 +1510,20 @@
 				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
 				COPY_PHASE_STRIP = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = (
+					"*.test.db",
+					"*.test.plist",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
+				INCLUDED_SOURCE_FILE_NAMES = (
+					"*.test.db",
+					"*.test.plist",
+				);
 				INFOPLIST_FILE = Info.plist;
 				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Debug";
@@ -1523,8 +1567,8 @@
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
 				COPY_PHASE_STRIP = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = (
-					"*.profile.db",
-					"*.profile.plist",
+					"*.test.db",
+					"*.test.plist",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1572,8 +1616,8 @@
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				COPY_PHASE_STRIP = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = (
-					"*.profile.db",
-					"*.profile.plist",
+					"*.test.db",
+					"*.test.plist",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

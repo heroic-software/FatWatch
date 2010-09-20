@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require 'sqlite3'
+require 'optparse'
+
+$db = SQLite3::Database.new(ARGV[0])
+$epsilon = 1e-12
+
+def update_trend(t,v)
+	return v if t.nil?
+	return t if v.nil?
+	return (0.1 * v) + (0.9 * t)
+end
+
+def compare_floats(found, expected, what)
+	delta = (found - expected).abs
+	if delta > $epsilon then
+		puts "#{what}: found #{found}; expected #{expected}; delta #{delta}"
+	end
+end
+
+def validate_1
+	puts "dataversion: 1"
+	# validate trend values
+end
+
+def validate_2
+	puts "dataversion: 2, same as:"
+	validate_1
+	# validate trend values
+	# ensure no rows with all NULL values
+end
+
+def validate_3
+	puts "dataversion: 3"
+	rows = $db.execute("SELECT MAX(monthday) AS m FROM days GROUP BY monthday >> 5 ORDER BY m")
+	lastdays = rows.flatten
+	i = 0
+	
+	trendWeight = nil
+	trendFatWeight = nil
+	$db.execute("SELECT * FROM days ORDER BY monthday ASC") do |row|
+		monthday = row[0]
+		trendWeight = update_trend(trendWeight, row[1])
+		trendFatWeight = update_trend(trendFatWeight, row[2])
+		if monthday == lastdays[i] then
+			month = monthday >> 5
+			x = $db.get_first_row("SELECT * FROM months WHERE month = ?", month)
+			if x.nil? then
+				puts "ERROR: months table missing row for month = #{month}" 
+			else
+				compare_floats(x[1], trendWeight, "Weight trend for month #{month}")
+				compare_floats(x[2], trendFatWeight, "Weight trend for month #{month}")
+			end
+			i += 1
+		end
+	end
+end
+
+dataversion = $db.get_first_value("SELECT value FROM metadata WHERE name = 'dataversion'")
+
+case dataversion
+when 1
+	validate_1
+when 2
+	validate_2
+when 3
+	validate_3
+else
+	raise "Invalid dataversion (#{dataversion})"
+end
+
