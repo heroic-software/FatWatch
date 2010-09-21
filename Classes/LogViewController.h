@@ -18,7 +18,7 @@
 @class EWDatabase;
 
 
-@interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface LogViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate> {
 	EWDatabase *database;
 	UITableView *tableView;
 	NSDateFormatter *sectionTitleFormatter;

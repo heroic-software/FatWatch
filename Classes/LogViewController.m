@@ -17,6 +17,7 @@
 
 
 static NSString * const kBadgeValueNoDataToday = @"!";
+static NSString	* const kCellFlashAnimationID = @"LogCellFlash";
 
 
 @interface LogViewController ()
@@ -126,11 +127,35 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 }
 
 
-- (NSDate *)currentDate {
+- (NSIndexPath *)indexPathForMiddle {
 	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
-	NSIndexPath *indexPath = [indexPathArray lastObject];
+	NSUInteger middleIndex = [indexPathArray count] / 2;
+	return [indexPathArray objectAtIndex:middleIndex];
+}
+
+
+- (NSDate *)currentDate {
+	NSIndexPath	*indexPath = [self indexPathForMiddle];
 	return EWDateFromMonthAndDay([self monthForSection:indexPath.section], 
 								 indexPath.row + 1);
+}
+
+
+- (void)deselectSelectedRow {
+	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
+	if (tableSelection) {
+		[tableView deselectRowAtIndexPath:tableSelection animated:YES];
+	}
+}
+
+
+- (void)flashAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if ([kCellFlashAnimationID isEqualToString:animationID]) {
+		UITableViewCell *cell = (UITableViewCell *)context;
+		[cell setHighlighted:NO animated:YES];
+		[cell release];
+	}
 }
 
 
@@ -141,10 +166,41 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		[database getDBMonth:EWMonthDayGetMonth(md)];
 		[self databaseDidChange:nil];
 	}
-	NSIndexPath *path = [self indexPathForMonthDay:md];
-	[tableView scrollToRowAtIndexPath:path
-					 atScrollPosition:UITableViewScrollPositionMiddle
-							 animated:YES];
+	
+	/* We want to flash the row that the user picked. In most cases, we will
+	 call selectRowAtIndexPath: to take care of the scrolling and the
+	 highlighting, and undo the change in scrollViewDidEndScrollingAnimation:.
+	 However, if the table does not scroll (because the user picked a date in 
+	 the middle of the view), the delegate method will not be called, and the
+	 cell will remain highlighted. To avoid this problem, we animate the 
+	 highlight ourselves in this situation.
+	 */
+
+	NSIndexPath *middlePath = [self indexPathForMiddle];
+	NSIndexPath *targetPath = [self indexPathForMonthDay:md];
+	
+	if ([targetPath isEqual:middlePath]) {
+		UITableViewCell *cell = [tableView cellForRowAtIndexPath:targetPath];
+		[UIView beginAnimations:kCellFlashAnimationID context:[cell retain]];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(flashAnimationDidStop:finished:context:)];
+		[cell setHighlighted:YES];
+		[UIView commitAnimations];
+	} else {
+		[tableView selectRowAtIndexPath:targetPath 
+							   animated:YES
+						 scrollPosition:UITableViewScrollPositionMiddle];
+	}
+}
+													  
+
+#pragma mark UIScrollViewDelegate
+
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+	// Deselect in response to a scrollToDate: selection.
+	[self deselectSelectedRow];
 }
 
 
@@ -182,10 +238,7 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 								 animated:NO];
 		scrollDestination = 0;
 	}
-	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
-	if (tableSelection) {
-		[tableView deselectRowAtIndexPath:tableSelection animated:animated];
-	}
+	[self deselectSelectedRow];
 }
 
 
