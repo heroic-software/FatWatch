@@ -40,35 +40,31 @@ static const CGFloat gMinorTickWidth = 3.5f;
 }
 
 
+- (void)drawLabelForWeight:(float)w formatter:(NSFormatter *)formatter font:(UIFont *)labelFont
+{
+	const CGRect bounds = self.bounds;
+	const CGFloat viewWidth = CGRectGetWidth(bounds);
+	NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
+	CGSize labelSize = [label sizeWithFont:labelFont];
+	CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+	CGRect labelRect = CGRectMake(viewWidth - labelSize.width - gTickWidth, 
+								  point.y - (labelSize.height / 2),
+								  labelSize.width,
+								  labelSize.height);
+	//if (CGRectContainsRect(bounds, labelRect)) {
+		[label drawAtPoint:labelRect.origin withFont:labelFont];
+	//}
+}
+
+
 - (void)drawRect:(CGRect)rect {
 	NSAssert(p != NULL, @"Attempt to draw Y-axis view before parameters are set.");
 	
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
-
+	
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
-
-	// Goal Indicator
-	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
-	if (goal.defined && !p->showFatWeight) {
-		float goalWeight = goal.endWeight;
-		CGRect band = CGRectApplyAffineTransform(CGRectMake(0, goalWeight - gGoalBandHalfHeight, 
-															1, gGoalBandHeight),
-												 p->t);
-		band.origin.x = 0;
-		band.size.width = viewWidth;
-		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2f);
-		CGContextFillRect(ctxt, band);
-		
-		CGFloat y = CGRectGetMidY(band);
-		CGContextMoveToPoint(ctxt, 0, y);
-		CGContextAddLineToPoint(ctxt, viewWidth, y);
-		CGContextSetRGBStrokeColor(ctxt, 0.0f, 0.6f, 0.0f, 0.5f);
-		CGContextSetLineWidth(ctxt, 2);
-		CGContextStrokePath(ctxt);
-	}
-	[goal release];
-
+	
 	// vertical line at the right side
 	CGMutablePathRef tickPath = CGPathCreateMutable();
 	CGFloat barX = viewWidth - 0.5f;
@@ -76,22 +72,14 @@ static const CGFloat gMinorTickWidth = 3.5f;
 	CGPathAddLineToPoint(tickPath, NULL, barX, CGRectGetMaxY(bounds));
 
 	// draw labels
-	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
+	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	[[UIColor blackColor] setFill];
 	for (float w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
 		// draw tick label
-		NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
-		CGSize labelSize = [label sizeWithFont:labelFont];
-		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
-		CGRect labelRect = CGRectMake(viewWidth - labelSize.width - gTickWidth, 
-									  point.y - (labelSize.height / 2),
-									  labelSize.width,
-									  labelSize.height);
-		//if (CGRectContainsRect(bounds, labelRect)) {
-			[label drawAtPoint:labelRect.origin withFont:labelFont];
-		//}
+		[self drawLabelForWeight:w formatter:formatter font:labelFont];
 		// add tick line to path
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
@@ -109,6 +97,60 @@ static const CGFloat gMinorTickWidth = 3.5f;
 	CGContextAddPath(ctxt, tickPath);
 	CGContextStrokePath(ctxt);
 	CFRelease(tickPath);	
+
+	// Goal Indicator
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
+	if (goal.defined && !p->showFatWeight) {
+		static const CGFloat dashLengths[] = { 4, 4 };
+		
+		float goalWeight = goal.endWeight;
+		CGRect band = CGRectApplyAffineTransform(CGRectMake(0, goalWeight - gGoalBandHalfHeight, 
+															1, gGoalBandHeight),
+												 p->t);
+		band.origin.x = 0;
+		band.size.width = viewWidth;
+		
+		CGContextSaveGState(ctxt);
+		{
+			CGFloat y;
+									
+			y = CGRectGetMidY(band);
+			const CGFloat kTabHalfHeight = 0.6f * [UIFont systemFontSize];
+			const CGFloat xLeft = viewWidth - 1.5f * gTickWidth;
+			const CGFloat xRight = viewWidth;
+			const CGFloat yTop = y - kTabHalfHeight;
+			const CGFloat yBottom = y + kTabHalfHeight;
+			CGContextMoveToPoint(ctxt, xRight, y);
+			CGContextAddCurveToPoint(ctxt, xLeft, y, xRight, yTop, xLeft, yTop);
+			CGContextAddLineToPoint(ctxt, 0, yTop);
+			CGContextAddLineToPoint(ctxt, 0, yBottom);
+			CGContextAddLineToPoint(ctxt, xLeft, yBottom);
+			CGContextAddCurveToPoint(ctxt, xRight, yBottom, xLeft, y, xRight, y);
+			
+			CGContextSetRGBFillColor(ctxt, 0.0f, 0.6f, 0.0f, 1);
+			CGContextFillPath(ctxt);
+			
+			y = CGRectGetMinY(band);
+			CGContextMoveToPoint(ctxt, 0, y);
+			CGContextAddLineToPoint(ctxt, viewWidth, y);
+			
+			y = CGRectGetMaxY(band);
+			CGContextMoveToPoint(ctxt, 0, y);
+			CGContextAddLineToPoint(ctxt, viewWidth, y);
+			
+			CGContextSetLineWidth(ctxt, 1);
+			CGContextSetLineDash(ctxt, -viewWidth, dashLengths, 2);
+			CGContextSetRGBStrokeColor(ctxt, 0.0f, 0.6f, 0.0f, 1);
+			CGContextStrokePath(ctxt);
+
+			// draw text
+			[[UIColor whiteColor] set];
+			[self drawLabelForWeight:goalWeight formatter:formatter 
+								font:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]];
+		}
+		CGContextRestoreGState(ctxt);
+	}
+	[goal release];
 }
 
 

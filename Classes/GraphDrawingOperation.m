@@ -479,11 +479,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (! goal.defined) return NULL;
 	float goalWeight = goal.endWeight;
-	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
-	CGRect rect = CGRectMake(0, goalWeight - gGoalBandHalfHeight, width, gGoalBandHeight);
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddRect(path, &p->t, rect);
 	[goal release];
+	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, &p->t, 0, goalWeight - gGoalBandHalfHeight);
+	CGPathAddLineToPoint(path, &p->t, width, goalWeight - gGoalBandHalfHeight);
+	CGPathMoveToPoint(path, &p->t, 0, goalWeight + gGoalBandHalfHeight);
+	CGPathAddLineToPoint(path, &p->t, width, goalWeight + gGoalBandHalfHeight);
 	return path;
 }
 
@@ -632,10 +634,15 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	CGPathRef goalBandPath = [self newGoalBandPath];
 	if (goalBandPath) {
+		static const CGFloat dashLengths[] = { 4, 4 };
+		
+		CGContextSaveGState(ctxt);
 		CGContextAddPath(ctxt, goalBandPath);
-		CGContextSetRGBFillColor(ctxt, 0,0,0, 0.2f);
-		CGContextFillPath(ctxt);
+		CGContextSetRGBStrokeColor(ctxt, 0,0,0, 0.8f);
+		CGContextSetLineDash(ctxt, 0, dashLengths, 2);
+		CGContextStrokePath(ctxt);
 		CGPathRelease(goalBandPath);
+		CGContextRestoreGState(ctxt);
 	}
 	
 	// Background: Grid Lines
