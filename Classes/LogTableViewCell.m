@@ -255,21 +255,39 @@ static NSInteger gAuxiliaryInfoType;
 	
 	if (dd->scaleWeight > 0) {
 		NSString *mainInfoString;
+		UIColor *mainInfoColor;
+
 		switch (gAuxiliaryInfoType) {
 			case kAuxiliaryInfoTypeFatWeight:
+			{
 				if (dd->scaleFatWeight > 0) {
 					mainInfoString = [weightFormatter stringForFloat:dd->scaleFatWeight];
 				} else {
 					mainInfoString = kEmDashString;
 				}
+				mainInfoColor = [UIColor blackColor];
 				break;
-			default:
+			}
+			case kAuxiliaryInfoTypeTrend:
+			{
 				mainInfoString = [weightFormatter stringForFloat:dd->scaleWeight];
+				float diff = dd->scaleWeight - dd->trendWeight;
+				mainInfoColor = [BRColorPalette colorNamed:((diff > 0)
+															? @"BadText"
+															: @"GoodText")];
 				break;
+			}
+			default:
+			{
+				mainInfoString = [weightFormatter stringForFloat:dd->scaleWeight];
+				mainInfoColor = [UIColor blackColor];
+				break;
+			}
 		}
 
 		NSString *auxInfoString;
 		UIColor *auxInfoColor;
+		
 		switch (gAuxiliaryInfoType) {
 			case kAuxiliaryInfoTypeVariance:
 			{
@@ -282,10 +300,7 @@ static NSInteger gAuxiliaryInfoType;
 			}
 			case kAuxiliaryInfoTypeTrend:
 			{
-				float diff = dd->scaleWeight - dd->trendWeight;
-				auxInfoColor = [BRColorPalette colorNamed:((diff > 0)
-														   ? @"BadText"
-														   : @"GoodText")];
+				auxInfoColor = [UIColor darkGrayColor];
 				auxInfoString = [weightFormatter stringForFloat:dd->trendWeight];
 				break;
 			}
@@ -332,6 +347,7 @@ static NSInteger gAuxiliaryInfoType;
 			}
 		}
 		
+		[mainInfoColor set];
 		[mainInfoString drawInRect:CGRectMake(weightX, numberRowY, 
 											  weightWidth, numberRowHeight)
 						  withFont:[UIFont boldSystemFontOfSize:20]
