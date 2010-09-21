@@ -21,7 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.2</string>
+	<string>2.1</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>©2008-2010 Benjamin Ragheb</string>
 	<key>UIApplicationExitsOnSuspend</key>
