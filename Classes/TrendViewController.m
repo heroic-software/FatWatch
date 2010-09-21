@@ -8,6 +8,7 @@
 
 #import "TrendViewController.h"
 #import "EWDatabase.h"
+#import "EWDBIterator.h"
 #import "EWTrendButton.h"
 #import "EWGoal.h"
 #import "TrendSpan.h"
@@ -25,6 +26,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 @interface TrendViewController ()
+- (void)updateGoalState;
 - (void)updateControls;
 @end
 
@@ -111,6 +113,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 				}
 			}
 		}
+		[self updateGoalState];
 	}
 	[self updateControls];
 }
@@ -351,6 +354,75 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 }
 
 
+/* How do we know when we have attained our goal? This menthod used to employ a
+ naïve comparison between the latest trend value and the goal weight. That 
+ method would display "goal attained" before the real weight had crossed the
+ goal line.
+ 
+ Now we scan backwards and ask the following questions:
+ 
+ (1) Has the trend line crossed the goal line?
+ 
+ (2) Has the trend line crossed outside the 5 lb goal band?
+ 
+ If (2) comes before (1), the goal has been attained. Otherwise, it has not.
+ This indicates the trend line has entered the goal zone and is staying around
+ it. */
+
+- (void)updateGoalState {
+	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
+
+	if (! goal.defined) {
+		goalState = TrendGoalStateUndefined;
+		[goal release];
+		return;
+	}
+	
+	float goalWeight = goal.endWeight;
+	
+	[goal release];
+	
+	// Scan backwards, see what happens first.
+	
+	BOOL trendAboveGoal = NO;
+	BOOL trendBelowGoal = NO;
+	BOOL trendOutsideBand = NO;
+	NSUInteger loopLimit = 360;
+	
+	EWDBIterator *it = [database iterator];
+	it.latestMonthDay = EWMonthDayToday();
+	const EWDBDay *dd;
+	while ((dd = [it previousDBDay]) && (loopLimit--)) {
+		if (dd->trendWeight > 0) {
+			float delta = goalWeight - dd->trendWeight;
+			if (delta > 0) {
+				trendBelowGoal = YES;
+				if (trendAboveGoal) break;
+			} else {
+				trendAboveGoal = YES;
+				if (trendBelowGoal) break;
+			}
+			if (fabsf(delta) > gGoalBandHalfHeight) {
+				trendOutsideBand = YES;
+				break;
+			}
+		}
+	}
+	
+	if (trendOutsideBand) {
+		// We most recently were outside the band without crossing the line.
+		goalState = TrendGoalStateDefined;
+	} else if (trendAboveGoal && trendBelowGoal) {
+		// We most recently crossed the line without leaving the band.
+		goalState = TrendGoalStateAttained;
+	} else {
+		// We ran out of data (or got tired of looking) so let's count it.
+		goalState = TrendGoalStateAttained;
+	}
+}
+
+
+
 - (void)updateControlsWithSpan:(TrendSpan *)span {
 	[[NSUserDefaults standardUserDefaults] setInteger:span.length forKey:kTrendSpanLengthKey];
 	
@@ -397,20 +469,12 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
 	[ef release];
 	
-	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
-	if (goal.defined) {
-		goalGroupView.hidden = NO;
-		if (goal.attained) {
-			goalAttainedView.hidden = NO;
-			if ([goalAttainedView superview] == nil) {
-				goalAttainedView.frame = goalGroupView.bounds;
-				[goalGroupView addSubview:goalAttainedView];
-			}
-			dateButton.hidden = YES;
-			planButton.hidden = YES;
-			relativeEnergyButton.hidden = YES;
-			relativeWeightButton.hidden = YES;
-		} else {
+	switch (goalState) {
+		case TrendGoalStateUndefined:
+			goalGroupView.hidden = YES;
+			break;
+		case TrendGoalStateDefined:
+			goalGroupView.hidden = NO;
 			goalAttainedView.hidden = YES;
 			dateButton.hidden = NO;
 			planButton.hidden = NO;
@@ -420,11 +484,20 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			[self updatePlanButtonWithDate:span.endDate];
 			[self updateRelativeEnergyButtonWithRate:span.weightPerDay];
 			[self updateRelativeWeightButton];
-		}
-	} else {
-		goalGroupView.hidden = YES;
+			break;
+		case TrendGoalStateAttained:
+			goalGroupView.hidden = NO;
+			goalAttainedView.hidden = NO;
+			if ([goalAttainedView superview] == nil) {
+				goalAttainedView.frame = goalGroupView.bounds;
+				[goalGroupView addSubview:goalAttainedView];
+			}
+			dateButton.hidden = YES;
+			planButton.hidden = YES;
+			relativeEnergyButton.hidden = YES;
+			relativeWeightButton.hidden = YES;
+			break;
 	}
-	[goal release];
 	
 	flagGroupView.hidden = NO;
 	NSNumberFormatter *pf = [[NSNumberFormatter alloc] init];

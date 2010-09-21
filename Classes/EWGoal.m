@@ -213,38 +213,6 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 #pragma mark -
 
 
-/* How do we know when we have attained our goal? This menthod used to employ a
- naïve comparison between the latest trend value and the goal weight. That 
- method would display "goal attained" before crossing the goal line.
- 
- Now we check the past week (7 days) to see if the trend line has stayed within
- a five-pound band around the goal line. If there are at least four measurements
- and none stray outside the band, then the goal is attained. */
-
-- (BOOL)isAttained {
-	int weightCount = 0;
-	@synchronized (self) {
-		EWDBIterator *it = [database iterator];
-		it.latestMonthDay = EWMonthDayToday();
-		float goalWeight = self.endWeight;
-		for (int count = 0; count < 7; count++) {
-			const EWDBDay *dd = [it previousDBDay];
-			if (dd->trendWeight > 0) {
-				weightCount += 1;
-				if (fabsf(dd->trendWeight - goalWeight) > gGoalBandHalfHeight) {
-					// Crossing outside the band is immediate disqualification.
-					return NO;
-				}
-			}
-		}
-	}
-	return (weightCount >= 4);
-}
-
-
-#pragma mark -
-
-
 - (float)endWeight {
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	@synchronized (self) {

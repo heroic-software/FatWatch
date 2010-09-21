@@ -15,6 +15,13 @@
 @class EWDatabase;
 
 
+typedef enum {
+	TrendGoalStateUndefined,
+	TrendGoalStateDefined,
+	TrendGoalStateAttained
+} TrendGoalState;
+
+
 @interface TrendViewController : UIViewController {
 	EWDatabase *database;
 	NSArray *spanArray;
@@ -37,6 +44,7 @@
 	UILabel *flag3Label;
 	UIView *messageGroupView;
 	UIView *goalAttainedView;
+	TrendGoalState goalState;
 }
 @property (nonatomic,retain) IBOutlet EWDatabase *database;
 @property (nonatomic,retain) IBOutlet GraphView	*graphView;

@@ -34,7 +34,6 @@ typedef enum {
 
 @property (readonly) EWGoalState state;
 @property (readonly,getter=isDefined) BOOL defined;
-@property (readonly,getter=isAttained) BOOL attained;
 
 @property (readonly) float currentWeight;
 
