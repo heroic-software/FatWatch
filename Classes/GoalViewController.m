@@ -101,6 +101,7 @@
 	weightRow.minimumValue = 10;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	weightRow.valueDescription = NSLocalizedString(@"To attain your goal, you must maintain your weight such that the trend line stays close to the weight you select.\n\nSimply seeing the number on the scale is good, but not enough.", @"Goal weight description");
 
 	float weight = [database latestWeight];
 	if (weight == 0) weight = 150;
