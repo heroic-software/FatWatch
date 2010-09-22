@@ -94,6 +94,7 @@
 	
 	BRTableNumberPickerRow *weightRow = [[BRTableNumberPickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Goal Weight", @"Goal end weight");
+	weightRow.valueDescription = NSLocalizedString(@"To attain your goal, you must maintain your weight so that the trend line stays close to the weight you select.", @"Goal weight description");
 	weightRow.object = goal;
 	weightRow.key = @"endWeightNumber";
 	weightRow.formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleWhole];
@@ -101,7 +102,6 @@
 	weightRow.minimumValue = 10;
 	weightRow.maximumValue = 500;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	weightRow.valueDescription = NSLocalizedString(@"To attain your goal, you must maintain your weight such that the trend line stays close to the weight you select.\n\nSimply seeing the number on the scale is good, but not enough.", @"Goal weight description");
 
 	float weight = [database latestWeight];
 	if (weight == 0) weight = 150;
@@ -111,7 +111,6 @@
 	[weightRow release];
 	
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		
 		float w[3];
 		[EWWeightFormatter getBMIWeights:w];
 		BRColorPalette *palette = [BRColorPalette sharedPalette];
@@ -125,15 +124,18 @@
 		weightRow.backgroundColorFormatter = colorFormatter;
 		[colorFormatter release];
 
+		NSNumberFormatter *bmiFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
+		const float bmiMultiplier = [[bmiFormatter multiplier] floatValue];
+
 		BRTableNumberPickerRow *bmiRow = [[BRTableNumberPickerRow alloc] init];
 		bmiRow.title = NSLocalizedString(@"Goal BMI", @"Goal end BMI");
+		bmiRow.valueDescription = NSLocalizedString(@"Remember that BMI only compares height and weight and does not take individual body composition into account.", @"Goal BMI description");
 		bmiRow.object = weightRow.object;
 		bmiRow.key = weightRow.key;
-		bmiRow.minimumValue = weightRow.minimumValue;
-		bmiRow.maximumValue = weightRow.maximumValue;
-		NSNumberFormatter *bmiFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
+		bmiRow.minimumValue = weightRow.minimumValue / bmiMultiplier;
+		bmiRow.maximumValue = weightRow.maximumValue / bmiMultiplier;
 		bmiRow.formatter = bmiFormatter;
-		bmiRow.increment = 0.5f / [[bmiFormatter multiplier] floatValue];
+		bmiRow.increment = 0.1f / bmiMultiplier;
 		bmiRow.backgroundColorFormatter = weightRow.backgroundColorFormatter;
 		bmiRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		bmiRow.defaultValue = weightRow.defaultValue;
