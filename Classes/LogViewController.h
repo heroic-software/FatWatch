@@ -28,8 +28,6 @@
 	LogInfoPickerController *infoPickerController;
 	LogDatePickerController *datePickerController;
 }
-+ (void)setCurrentMonthDay:(EWMonthDay)monthday;
-+ (EWMonthDay)currentMonthDay;
 @property (nonatomic,retain) IBOutlet EWDatabase *database;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet LogInfoPickerController *infoPickerController;

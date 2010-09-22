@@ -12,7 +12,6 @@
 #import "EWDate.h"
 #import "EWDatabase.h"
 #import "YAxisView.h"
-#import "LogViewController.h"
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
 #import "EWGoal.h"
@@ -29,6 +28,13 @@ enum {
 
 static NSString * const kSelectedSpanIndexKey = @"ChartSelectedSpanIndex";
 static NSString * const kShowFatKey = @"ChartShowFat";
+
+
+@interface GraphViewController ()
+- (NSInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x;
+- (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month;
+@end
+
 
 
 @implementation GraphViewController
@@ -63,8 +69,10 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	[GraphDrawingOperation flushQueue];
 	
 	if (infoCount > 1) {
-		// If we are switching away from the 'Browse' view, save the offset
-		scrollingSpanSavedOffset = scrollView.contentOffset;
+		CGFloat offsetX = scrollView.contentOffset.x;
+		NSInteger k = [self indexOfGraphViewInfoAtOffsetX:offsetX];
+		scrollingSpanSavedMonth = EWMonthDayGetMonth(info[k].beginMonthDay);
+		scrollingSpanSavedOffsetX = offsetX - info[k].offsetX;
 	}
 
 	for (unsigned int i = 0; i < infoCount; i++) {
@@ -85,25 +93,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 #pragma mark Sync Scrolling
-
-
-- (void)syncScrollViewToLogView {
-	EWMonthDay md = [LogViewController currentMonthDay];
-	if (md == 0) {
-		[scrollView setContentOffset:scrollingSpanSavedOffset animated:NO];
-		return;
-	}
-	
-	EWMonth month = EWMonthDayGetMonth(md);
-	int i = month - EWMonthDayGetMonth(info[0].beginMonthDay);
-	CGFloat offsetDay = EWMonthDayGetDay(md) / EWDaysInMonth(month);
-
-	CGRect scrollRect = scrollView.bounds;
-	scrollRect.origin.x = info[i].offsetX + offsetDay;
-	[scrollView scrollRectToVisible:scrollRect animated:NO];
-	
-	[LogViewController setCurrentMonthDay:0];
-}
 
 
 - (void)prepareGraphViewInfo {
@@ -204,9 +193,16 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 			m += 1;
 			x += w;
 		}
-
+		
+		CGFloat offsetX;
+		if (scrollingSpanSavedOffsetX < 0) {
+			offsetX = x - CGRectGetWidth(scrollView.bounds);
+		} else {
+			NSInteger k = [self indexOfGraphViewInfoForMonth:scrollingSpanSavedMonth];
+			offsetX = info[k].offsetX + scrollingSpanSavedOffsetX;
+		}
 		scrollView.contentSize = CGSizeMake(x, CGRectGetHeight(scrollView.bounds));
-		[self syncScrollViewToLogView];
+		[scrollView setContentOffset:CGPointMake(offsetX, 0) animated:NO];
 	} else {
 		info[0].beginMonthDay = beginMonthDay;
 		info[0].endMonthDay = endMonthDay;
@@ -226,6 +222,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)viewDidLoad {
+	isLoading = YES; // prevents segmented controls from calling databaseDidChange:
 	axisView.database = database;
 	[axisView useParameters:&parameters];
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
@@ -240,6 +237,8 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	frame.origin.x = axisViewWidth;
 	frame.size.width = totalWidth - axisViewWidth;
 	scrollView.frame = frame;
+	scrollingSpanSavedOffsetX = -1; // indicate first load
+	isLoading = NO;
 }
 
 
@@ -312,8 +311,9 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (int)indexOfGraphViewInfoForMonth:(EWMonth)month {
-	return month - EWMonthDayGetMonth(info[0].beginMonthDay);
+- (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month {
+	NSInteger i = (month - EWMonthDayGetMonth(info[0].beginMonthDay));
+	return MAX(0, MIN(i, (NSInteger)(infoCount - 1)));
 }
 
 
@@ -399,6 +399,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (IBAction)spanSelected:(UISegmentedControl *)sender {
+	if (isLoading) return;
 	[self databaseDidChange:nil];
 	if (spanControl.selectedSegmentIndex == kSpanScrolling) {
 		[scrollView flashScrollIndicators];
@@ -409,6 +410,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (IBAction)typeSelected:(UISegmentedControl *)sender {
+	if (isLoading) return;
 	parameters.showFatWeight = (typeControl.selectedSegmentIndex == 1);
 	[self databaseDidChange:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:parameters.showFatWeight 

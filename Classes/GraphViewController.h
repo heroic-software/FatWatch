@@ -29,6 +29,7 @@ typedef struct {
 
 
 @interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate> {
+	BOOL isLoading;
 	EWDatabase *database;
 	YAxisView *axisView;
 	UIScrollView *scrollView;
@@ -40,7 +41,8 @@ typedef struct {
 	NSMutableArray *cachedGraphViews;
 	NSInteger lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
-	CGPoint scrollingSpanSavedOffset;
+	EWMonth scrollingSpanSavedMonth;
+	CGFloat scrollingSpanSavedOffsetX;
 	NSInteger saveButtonIndex, copyButtonIndex;
 }
 @property (nonatomic,retain) IBOutlet EWDatabase *database;

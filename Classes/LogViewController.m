@@ -25,20 +25,7 @@ static NSString	* const kCellFlashAnimationID = @"LogCellFlash";
 @end
 
 
-static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
-
-
 @implementation LogViewController
-
-
-+ (void)setCurrentMonthDay:(EWMonthDay)monthday {
-	gCurrentMonthDay = monthday;
-}
-
-
-+ (EWMonthDay)currentMonthDay {
-	return gCurrentMonthDay;
-}
 
 
 @synthesize database;
@@ -129,8 +116,12 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 
 - (NSIndexPath *)indexPathForMiddle {
 	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
-	NSUInteger middleIndex = [indexPathArray count] / 2;
-	return [indexPathArray objectAtIndex:middleIndex];
+	if ([indexPathArray count] > 0) {
+		NSUInteger middleIndex = [indexPathArray count] / 2;
+		return [indexPathArray objectAtIndex:middleIndex];
+	} else {
+		return nil;
+	}
 }
 
 
@@ -239,22 +230,6 @@ static EWMonthDay gCurrentMonthDay = 0; // for sync with chart
 		scrollDestination = 0;
 	}
 	[self deselectSelectedRow];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	NSArray *visibleRows = [tableView indexPathsForVisibleRows];
-	if ([visibleRows count] > 0) {
-		NSIndexPath *path = [visibleRows objectAtIndex:0];
-		EWMonthDay md = [self monthDayForIndexPath:path];
-		[LogViewController setCurrentMonthDay:md];
-	}
-}
-
-
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
 }
 
 
