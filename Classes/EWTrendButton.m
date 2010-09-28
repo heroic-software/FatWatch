@@ -7,6 +7,7 @@
 //
 
 #import "EWTrendButton.h"
+#import "BRRoundRectView.h"
 
 
 void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
@@ -28,7 +29,7 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 @implementation EWTrendButton
 
 
-@synthesize showsDisclosureIndicator;
+@synthesize accessoryType;
 
 
 - (void)awakeFromNib {
@@ -99,20 +100,35 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 	
 	CGFloat remainingWidth = CGRectGetWidth(self.bounds) - (2*marginSize.width);
 	
-	if (showsDisclosureIndicator) {
+	if (self.enabled && accessoryType != EWTrendButtonAccessoryNone) {
 		CGContextRef ctxt = UIGraphicsGetCurrentContext();
 		
 		if (self.highlighted) {
 			CGContextSetRGBStrokeColor(ctxt, 1, 1, 1, 1);
+			CGContextSetRGBFillColor(ctxt, 1, 1, 1, 1);
 		} else {
 			CGContextSetRGBStrokeColor(ctxt, 0.5f, 0.5f, 0.5f, 1);
+			CGContextSetRGBFillColor(ctxt, 0.5f, 0.5f, 0.5f, 1);
 		}
 		
 		CGFloat x = CGRectGetMaxX(self.bounds) - marginSize.width;
 		CGFloat y = CGRectGetMidY(self.bounds);
-		
-		BRDrawDisclosureIndicator(ctxt, x, y);
-		
+		if (accessoryType == EWTrendButtonAccessoryDisclosureIndicator) {
+			BRDrawDisclosureIndicator(ctxt, x, y);
+		}
+		else if (accessoryType == EWTrendButtonAccessoryToggle) {
+			CGRect box = CGRectMake(x - 5.5f, y - 6, 7, 13);
+			CGPathRef path = BRPathCreateRoundRect(box, 1);
+			CGContextAddPath(ctxt, path);
+			CGContextStrokePath(ctxt);
+			CGPathRelease(path);
+			
+			box.size.height = 8;
+			if (self.selected) box.origin.y = y - 1;
+			
+			CGContextAddRect(ctxt, CGRectInset(box, 1.5f, 1.5f));
+			CGContextFillPath(ctxt);
+		}	
 		remainingWidth -= 12;
 	}
 	

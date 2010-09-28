@@ -71,8 +71,11 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	relativeWeightButton.enabled = NO;
 	planButton.enabled = NO;
 	
-	energyChangeButton.showsDisclosureIndicator = YES;
-	relativeEnergyButton.showsDisclosureIndicator = YES;
+	energyChangeButton.accessoryType = EWTrendButtonAccessoryDisclosureIndicator;
+	relativeEnergyButton.accessoryType = EWTrendButtonAccessoryDisclosureIndicator;
+	
+	dateButton.accessoryType = EWTrendButtonAccessoryToggle;
+	weightChangeButton.accessoryType = EWTrendButtonAccessoryToggle;
 	
 	UIFont *boldFont = [UIFont boldSystemFontOfSize:17];
 	[weightChangeButton setFont:boldFont forPart:1];
@@ -175,6 +178,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 			[dateButton setText:[formatter stringFromDate:date] forPart:1];
 			[formatter release];
 			dateButton.enabled = YES;
+			dateButton.selected = showAbsoluteDate;
 		} else {
 			[dateButton setText:@"goal weight " forPart:0];
 			if (dayCount == 0) {
@@ -185,6 +189,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 				[dateButton setText:[NSString stringWithFormat:@"in %d days", dayCount] forPart:1];
 			}
 			dateButton.enabled = YES;
+			dateButton.selected = showAbsoluteDate;
 		}
 		[dateButton setTextColor:[UIColor blackColor] forPart:1];
 	} else {
@@ -248,7 +253,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		[relativeEnergyButton setText:@"following plan" forPart:1];
 		[relativeEnergyButton setText:@"" forPart:2];
 		[relativeEnergyButton setTextColor:[BRColorPalette colorNamed:@"GoodText"] forPart:1];
-		relativeEnergyButton.showsDisclosureIndicator = NO;
 		relativeEnergyButton.enabled = NO;
 		return;
 	}
@@ -302,7 +306,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	[relativeEnergyButton setText:[wf stringForFloat:fabsf(gap)] forPart:1];
 	[relativeEnergyButton setTextColor:energyColor forPart:1];
 	[wf release];
-	relativeEnergyButton.showsDisclosureIndicator = YES;
 	relativeEnergyButton.enabled = YES;
 }
 
@@ -484,6 +487,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	}
 	[weightChangeButton setText:weightChangeText forPart:3];
 	[weightChangeButton setTextColor:weightChangeColor forPart:3];
+	[weightChangeButton setSelected:showFat];
 
 	NSNumber *change = [NSNumber numberWithFloat:fabsf(showFat ? span.fatWeightPerDay : span.totalWeightPerDay)];
 
@@ -551,6 +555,9 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		navItem.title = @"Not Enough Data";
 		navItem.leftBarButtonItem.enabled = NO;
 		navItem.rightBarButtonItem.enabled = NO;
+		// An import could have removed data where there was data before.
+		graphView.image = nil;
+		[graphView setNeedsDisplay];
 		changeGroupView.hidden = YES;
 		goalGroupView.hidden = YES;
 		flagGroupView.hidden = YES;

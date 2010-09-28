@@ -9,12 +9,19 @@
 #import <UIKit/UIKit.h>
 
 
+typedef enum {
+	EWTrendButtonAccessoryNone,
+	EWTrendButtonAccessoryDisclosureIndicator,
+	EWTrendButtonAccessoryToggle
+} EWTrendButtonAccessoryType;
+
+
 @interface EWTrendButton : UIControl {
 	NSMutableArray *partArray;
 	CGSize marginSize;
-	BOOL showsDisclosureIndicator;
+	EWTrendButtonAccessoryType accessoryType;
 }
-@property (nonatomic) BOOL showsDisclosureIndicator;
+@property (nonatomic) EWTrendButtonAccessoryType accessoryType;
 - (void)setText:(NSString *)text forPart:(int)part;
 - (void)setTextColor:(UIColor *)color forPart:(int)part;
 - (void)setFont:(UIFont *)font forPart:(int)part;

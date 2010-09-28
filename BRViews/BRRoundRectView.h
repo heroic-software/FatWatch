@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
+CGPathRef BRPathCreateRoundRect(CGRect rect, CGFloat radius);
+
+	
 @interface BRRoundRectView : UIView {
 
 }
