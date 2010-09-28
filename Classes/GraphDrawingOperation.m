@@ -477,7 +477,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newGoalBandPath {
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
-	if (! goal.defined) return NULL;
+	if (! goal.defined) {
+		[goal release];
+		return NULL;
+	}
 	float goalWeight = goal.endWeight;
 	[goal release];
 	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
@@ -495,7 +498,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	if ([pointData length] < sizeof(GraphPoint)) return NULL;
 	
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
-	if (! goal.defined) return NULL;
+	if (! goal.defined) {
+		[goal release];
+		return NULL;
+	}
 
 	float goalWeight = goal.endWeight;
 	
