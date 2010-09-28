@@ -18,16 +18,6 @@
 #import "TrendSpan.h"
 
 
-enum {
-	kTrendSpanRowWeightChangeTotal,
-	kTrendSpanRowWeightChangeRate,
-	kTrendSpanRowEnergyChangeRate,
-	kTrendSpanRowGoalDate,
-	kTrendSpanRowGoalPlan,
-	kTrendSpanRowCount
-};
-
-
 void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	if (a < b) {
 		if (a < *min) *min = a;
@@ -43,15 +33,25 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 
 @synthesize title;
-@synthesize length;
-@synthesize weightPerDay;
-@synthesize endDate;
-@dynamic flagFrequencies;
 @synthesize beginMonthDay;
 @synthesize endMonthDay;
-@synthesize graphImageRef;
-@synthesize graphOperation;
-@dynamic graphParameters;
+@dynamic length;
+@dynamic flagFrequencies;
+@synthesize totalWeightPerDay;
+@synthesize totalEndDate;
+@dynamic totalGraphParameters;
+@synthesize totalGraphOperation;
+@synthesize totalGraphImageRef;
+@synthesize fatWeightPerDay;
+@synthesize fatEndDate;
+@dynamic fatGraphParameters;
+@synthesize fatGraphOperation;
+@synthesize fatGraphImageRef;
+
+
+- (NSInteger)length {
+	return EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
+}
 
 
 - (float *)flagFrequencies {
@@ -59,17 +59,32 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 }
 
 
-- (GraphViewParameters *)graphParameters {
-	return &graphParameters;
+- (GraphViewParameters *)totalGraphParameters {
+	return &totalGraphParameters;
 }
 
 
-- (void)setGraphImageRef:(CGImageRef)imgRef {
-	if (graphImageRef != imgRef) {
-		CGImageRetain(imgRef);
-		CGImageRelease(graphImageRef);
-		graphImageRef = imgRef;
+- (GraphViewParameters *)fatGraphParameters {
+	return &fatGraphParameters;
+}
+
+
+- (void)setImageRef:(CGImageRef *)member toValue:(CGImageRef)value {
+	if (*member != value) {
+		CGImageRetain(value);
+		CGImageRelease(*member);
+		*member = value;
 	}
+}
+
+
+- (void)setTotalGraphImageRef:(CGImageRef)imgRef {
+	[self setImageRef:&totalGraphImageRef toValue:imgRef];
+}
+
+
+- (void)setFatGraphImageRef:(CGImageRef)imgRef {
+	[self setImageRef:&fatGraphImageRef toValue:imgRef];
 }
 
 
@@ -90,7 +105,6 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 		NSDate *beginDate = [calendar dateByAddingComponents:dc toDate:now options:0];
 		span.beginMonthDay = EWMonthDayFromDate(beginDate);
 		span.endMonthDay = EWMonthDayToday();
-		span.length = EWDaysBetweenMonthDays(span.beginMonthDay, span.endMonthDay);
 		[spanArray addObject:span];
 		[span release];
 	}
@@ -122,8 +136,6 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	const EWDBDay *dbd = [it previousDBDay];
 
 	for (TrendSpan *span in [self trendSpanArray]) {
-		GraphViewParameters *gp = span.graphParameters;
-		
 		while ((it.currentMonthDay > span.beginMonthDay) && (dbd != NULL)) {
 			if (dbd->flags[0]) flagCounts[0] += 1;
 			if (dbd->flags[1]) flagCounts[1] += 1;
@@ -149,35 +161,47 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 		// the case that totalComputer.count >= fatComputer.count.
 		
 		if (totalComputer.count > previousCount) {
-			if (fatComputer.count > previousCount) {
-				previousCount = fatComputer.count;
-				gp->showFatWeight = YES;
-				gp->minWeight = minFatWeight;
-				gp->maxWeight = maxFatWeight;
-				span.weightPerDay = -fatComputer.slope;
-			} else {
-				previousCount = totalComputer.count;
-				gp->showFatWeight = NO;
-				gp->minWeight = minWeight;
-				gp->maxWeight = maxWeight;
-				span.weightPerDay = -totalComputer.slope;
-			}
+			GraphViewParameters *gp;
+			
+			gp = span.totalGraphParameters;
+			gp->showFatWeight = NO;
+			gp->minWeight = minWeight;
+			gp->maxWeight = maxWeight;
+			span.totalWeightPerDay = -totalComputer.slope;
+
+			gp = span.fatGraphParameters;
+			gp->showFatWeight = YES;
+			gp->minWeight = minFatWeight;
+			gp->maxWeight = maxFatWeight;
+			span.fatWeightPerDay = -fatComputer.slope;
 			
 			// Because of this, spans will have to be regenerated if goal changes.
-			if (span.weightPerDay != 0) {
-				NSDate *date = [goal endDateWithWeightChangePerDay:span.weightPerDay];
+			if (span.totalWeightPerDay != 0) {
+				NSDate *date = [goal endDateWithWeightChangePerDay:span.totalWeightPerDay];
 				if ([date timeIntervalSinceNow] < 0) {
-					span.endDate = nil;
+					span.totalEndDate = nil;
 				} else {
-					span.endDate = date;
+					span.totalEndDate = date;
 				}
 			}
 			
-			span.flagFrequencies[0] = flagCounts[0] / (float)x;
-			span.flagFrequencies[1] = flagCounts[1] / (float)x;
-			span.flagFrequencies[2] = flagCounts[2] / (float)x;
-			span.flagFrequencies[3] = flagCounts[3] / (float)x;
+			if (span.fatWeightPerDay != 0) {
+				NSDate *date = [goal endDateWithWeightChangePerDay:span.fatWeightPerDay];
+				if ([date timeIntervalSinceNow] < 0) {
+					span.fatEndDate = nil;
+				} else {
+					span.fatEndDate = date;
+				}
+			}
+
+			float *flagFreq = span.flagFrequencies;
+			flagFreq[0] = flagCounts[0] / (float)x;
+			flagFreq[1] = flagCounts[1] / (float)x;
+			flagFreq[2] = flagCounts[2] / (float)x;
+			flagFreq[3] = flagCounts[3] / (float)x;
+			
 			[computedSpans addObject:span];
+			previousCount = totalComputer.count;
 		}
 	}
 	[totalComputer release];
@@ -200,13 +224,15 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 			@"\tfrom %@\n"
 			@"\t  to %@\n"
 			@"\t len %d\n"
-			@"\t slp %f lbs/wk\n"
+			@"\t slp %f lbs/wk total\n"
+			@"\t slp %f lbs/wk fat\n"
 			@">",
 			self.title,
 			EWDateFromMonthDay(self.beginMonthDay),
 			EWDateFromMonthDay(self.endMonthDay),
 			self.length,
-			self.weightPerDay * 7.f
+			self.totalWeightPerDay * 7.f,
+			self.fatWeightPerDay * 7.f
 			];
 }
 
@@ -224,10 +250,14 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 - (void)dealloc {
 	[title release];
-	[endDate release];
-	CGImageRelease(graphImageRef);
-	[graphOperation release];
-	[graphParameters.regions release];
+	[totalEndDate release];
+	[fatEndDate release];
+	CGImageRelease(totalGraphImageRef);
+	CGImageRelease(fatGraphImageRef);
+	[totalGraphOperation release];
+	[fatGraphOperation release];
+	[totalGraphParameters.regions release];
+	[fatGraphParameters.regions release];
 	[super dealloc];
 }
 

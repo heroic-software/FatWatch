@@ -26,6 +26,7 @@ typedef enum {
 	EWDatabase *database;
 	NSArray *spanArray;
 	NSUInteger spanIndex;
+	BOOL showFat;
 	BOOL showAbsoluteDate;
 	GraphViewParameters graphParams;
 	GraphView *graphView;
@@ -65,6 +66,7 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UIView *goalAttainedView;
 - (IBAction)showEnergyEquivalents:(id)sender;
 - (IBAction)toggleDateFormat:(id)sender;
+- (IBAction)toggleTotalOrFat:(id)sender;
 - (IBAction)previousSpan:(id)sender;
 - (IBAction)nextSpan:(id)sender;
 @end

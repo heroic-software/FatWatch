@@ -23,6 +23,8 @@
 
 static const NSTimeInterval kSecondsPerDay = 60 * 60 * 24;
 static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
+static NSString * const kTrendShowFatKey = @"TrendViewControllerShowFat";
+static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbsoluteDate";
 
 
 @interface TrendViewController ()
@@ -66,7 +68,6 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	graphView.backgroundColor = [UIColor whiteColor];
 	graphView.drawBorder = YES;
 	
-	weightChangeButton.enabled = NO;
 	relativeWeightButton.enabled = NO;
 	planButton.enabled = NO;
 	
@@ -102,9 +103,12 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 - (void)viewWillAppear:(BOOL)animated {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	showFat = [userDefaults boolForKey:kTrendShowFatKey];
+	showAbsoluteDate = [userDefaults boolForKey:kTrendShowAbsoluteDateKey];
 	if (spanArray == nil) {
 		spanArray = [[TrendSpan computeTrendSpansFromDatabase:database] copy];
-		int length = [[NSUserDefaults standardUserDefaults] integerForKey:kTrendSpanLengthKey];
+		int length = [userDefaults integerForKey:kTrendSpanLengthKey];
 		if (length > 0) {
 			for (NSUInteger i = 0; i < [spanArray count]; i++) {
 				// Allow length to be off by a few days
@@ -306,8 +310,20 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 - (void)updateGraph {
 	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
 	
-	GraphViewParameters *gp = span.graphParameters;
+	GraphViewParameters *gp;
+	GraphDrawingOperation *op;
+	CGImageRef imgRef;
 	
+	if (showFat) {
+		gp = span.fatGraphParameters;
+		op = (GraphDrawingOperation *)span.fatGraphOperation;
+		imgRef = span.fatGraphImageRef;
+	} else {
+		gp = span.totalGraphParameters;
+		op = (GraphDrawingOperation *)span.totalGraphOperation;
+		imgRef = span.totalGraphImageRef;
+	}
+		
 	if (!gp->shouldDrawNoDataWarning) {
 		gp->shouldDrawNoDataWarning = YES;
 		[GraphDrawingOperation prepareGraphViewInfo:gp 
@@ -319,11 +335,11 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	graphView.beginMonthDay = EWMonthDayNext(span.beginMonthDay);
 	graphView.endMonthDay = span.endMonthDay;
 	graphView.p = gp;
-	graphView.image = span.graphImageRef;
+	graphView.image = imgRef;
 	[graphView setNeedsDisplay];
 	
-	if (span.graphImageRef == nil && span.graphOperation == nil) {
-		GraphDrawingOperation *op = [[GraphDrawingOperation alloc] init];
+	if (imgRef == nil && op == nil) {
+		op = [[GraphDrawingOperation alloc] init];
 		op.database = database;
 		op.delegate = self;
 		op.index = spanIndex;
@@ -333,7 +349,11 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 		op.endMonthDay = graphView.endMonthDay;
 		op.showGoalLine = YES;
 		op.showTrajectoryLine = YES;
-		span.graphOperation = op;
+		if (showFat) {
+			span.fatGraphOperation = op;
+		} else {
+			span.totalGraphOperation = op;
+		}
 		[op enqueue];
 		[op release];
 	}
@@ -341,15 +361,23 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
+	if ([operation isCancelled]) return;
 	TrendSpan *span = [spanArray objectAtIndex:operation.index];
-	
-	if (span.graphOperation == operation && ![operation isCancelled]) {
-		span.graphImageRef = operation.imageRef;
-		if (operation.index == spanIndex) {
-			[graphView setImage:span.graphImageRef];
-			[graphView setNeedsDisplay];
-		}
-		span.graphOperation = nil;
+	BOOL isFat = operation.p->showFatWeight;
+
+	// Display now, if needed
+	if (operation.index == spanIndex && isFat == showFat) {
+		[graphView setImage:operation.imageRef];
+		[graphView setNeedsDisplay];
+	}
+
+	if (span.totalGraphOperation == operation) {
+		span.totalGraphImageRef = operation.imageRef;
+		span.totalGraphOperation = nil;
+	}
+	else if (span.fatGraphOperation == operation) {
+		span.fatGraphImageRef = operation.imageRef;
+		span.fatGraphOperation = nil;
 	}
 }
 
@@ -435,7 +463,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	changeGroupView.hidden = NO;
 
-	if (span.weightPerDay > 0) {
+	if ((showFat ? span.fatWeightPerDay : span.totalWeightPerDay) > 0) {
 		[weightChangeButton setText:@"gaining " forPart:0];
 		[energyChangeButton setText:@"eating " forPart:0];
 		[energyChangeButton setText:@" more than you burn" forPart:2];
@@ -447,7 +475,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	
 	NSString *weightChangeText;
 	UIColor *weightChangeColor;
-	if (span.graphParameters->showFatWeight) {
+	if (showFat) {
 		weightChangeText = @"fat";
 		weightChangeColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.8f alpha:1];
 	} else {
@@ -457,7 +485,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 	[weightChangeButton setText:weightChangeText forPart:3];
 	[weightChangeButton setTextColor:weightChangeColor forPart:3];
 
-	NSNumber *change = [NSNumber numberWithFloat:fabsf(span.weightPerDay)];
+	NSNumber *change = [NSNumber numberWithFloat:fabsf(showFat ? span.fatWeightPerDay : span.totalWeightPerDay)];
 
 	NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
 	[wf setPositivePrefix:@""];
@@ -474,17 +502,21 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 			goalGroupView.hidden = YES;
 			break;
 		case TrendGoalStateDefined:
+		{
+			NSDate *endDate = showFat ? span.fatEndDate : span.totalEndDate;
+			float rate = showFat ? span.fatWeightPerDay : span.totalWeightPerDay;
 			goalGroupView.hidden = NO;
 			goalAttainedView.hidden = YES;
 			dateButton.hidden = NO;
 			planButton.hidden = NO;
 			relativeEnergyButton.hidden = NO;
 			relativeWeightButton.hidden = NO;
-			[self updateDateButtonWithDate:span.endDate];
-			[self updatePlanButtonWithDate:span.endDate];
-			[self updateRelativeEnergyButtonWithRate:span.weightPerDay];
+			[self updateDateButtonWithDate:endDate];
+			[self updatePlanButtonWithDate:endDate];
+			[self updateRelativeEnergyButtonWithRate:rate];
 			[self updateRelativeWeightButton];
 			break;
+		}
 		case TrendGoalStateAttained:
 			goalGroupView.hidden = NO;
 			goalAttainedView.hidden = NO;
@@ -548,7 +580,7 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (IBAction)showEnergyEquivalents:(id)sender {
 	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
-	float rate = span.weightPerDay;
+	float rate = showFat ? span.fatWeightPerDay : span.totalWeightPerDay;
 	
 	if (sender == relativeEnergyButton) {
 		EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
@@ -568,6 +600,16 @@ static NSString * const kTrendSpanLengthKey = @"TrendSpanLength";
 
 - (IBAction)toggleDateFormat:(id)sender {
 	showAbsoluteDate = !showAbsoluteDate;
+	[[NSUserDefaults standardUserDefaults] setBool:showAbsoluteDate 
+											forKey:kTrendShowAbsoluteDateKey];
+	[self updateControls];
+}
+
+
+- (IBAction)toggleTotalOrFat:(id)sender {
+	showFat = !showFat;
+	[[NSUserDefaults standardUserDefaults] setBool:showFat
+											forKey:kTrendShowFatKey];
 	[self updateControls];
 }
 
