@@ -1215,7 +1215,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${SRCROOT}/Utilities\n\n./make-history.rb --format=sql1 | sqlite3 ${DERIVED_FILE_DIR}/v1.test.db\n./make-history.rb --format=sql2 | sqlite3 ${DERIVED_FILE_DIR}/v2.test.db\n./make-history.rb --format=sql3 | sqlite3 ${DERIVED_FILE_DIR}/v3.test.db\n";
+			shellScript = "cd ${SRCROOT}/Utilities\n\nfunction make_it {\n\tlocal FORMAT=$1\n\tlocal DBFILE=${DERIVED_FILE_DIR}/$2\n\n\tif [ -e $DBFILE ]; then rm $DBFILE; fi\n\t./make-history.rb --format=$FORMAT | sqlite3 $DBFILE\n}\n\nmake_it sql1 v1.test.db\nmake_it sql2 v2.test.db\nmake_it sql3 v3.test.db\n";
 			showEnvVarsInLog = 0;
 		};
 		BC200C3210F7250200352A32 /* Warn about TODOs */ = {
