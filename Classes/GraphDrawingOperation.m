@@ -363,7 +363,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (void)drawNoDataWarningInContext:(CGContextRef)ctxt {
 	const CGFloat fontSize = 30;
 	
-	CGContextSetGrayFillColor(ctxt, 0.3f, 1);
+	CGContextSetGrayFillColor(ctxt, 0.6f, 1);
 	CGContextSetTextMatrix(ctxt, CGAffineTransformMakeScale(1, -1));
 	CGContextSelectFont(ctxt, "Helvetica-Bold", fontSize, kCGEncodingMacRoman);
 	
