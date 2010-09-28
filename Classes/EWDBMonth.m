@@ -99,7 +99,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 // Used by LogEntryViewController to choose a default weight.
 // Used by EWDatabase to determine trend value on a day.
 - (float)inputTrendOnDay:(EWDay)day {
-	float trend;
+	float trend = 0;
 	// First, search backwards through this month for a trend value.
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		trend = days[i].trendWeight;
