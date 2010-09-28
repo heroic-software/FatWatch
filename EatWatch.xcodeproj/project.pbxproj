@@ -254,7 +254,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BCF52ACE10D066540017C3A1 /* UnitTests */;
+			remoteGlobalIDString = BCF52ACE10D066540017C3A1;
 			remoteInfo = UnitTests;
 		};
 /* End PBXContainerItemProxy section */
@@ -308,9 +308,9 @@
 		BC08CC2B124581BD006208A9 /* wifi-import.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = "wifi-import.rb"; sourceTree = "<group>"; };
 		BC08CC3312458259006208A9 /* make-history.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "make-history.rb"; sourceTree = "<group>"; };
 		BC08CC8B12472285006208A9 /* validate-db.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "validate-db.rb"; sourceTree = "<group>"; };
-		BC08CD0B12481DAF006208A9 /* v1.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v1.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v1.test.db"; sourceTree = "<absolute>"; };
-		BC08CD0C12481DAF006208A9 /* v2.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v2.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v2.test.db"; sourceTree = "<absolute>"; };
-		BC08CD0D12481DAF006208A9 /* v3.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = v3.test.db; path = "/Build/Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources/v3.test.db"; sourceTree = "<absolute>"; };
+		BC08CD0B12481DAF006208A9 /* v1.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = v1.test.db; sourceTree = "<group>"; };
+		BC08CD0C12481DAF006208A9 /* v2.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = v2.test.db; sourceTree = "<group>"; };
+		BC08CD0D12481DAF006208A9 /* v3.test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = v3.test.db; sourceTree = "<group>"; };
 		BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC0CE4160DDBE10F00AB8899 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/home.html; sourceTree = "<group>"; };
 		BC0CE4610DDC0F6300AB8899 /* DataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSearch.h; path = Classes/DataSearch.h; sourceTree = "<group>"; };
@@ -814,8 +814,7 @@
 				BC08CD0D12481DAF006208A9 /* v3.test.db */,
 			);
 			name = DerivedSources;
-			path = "../../Intermediate/EatWatch.build/Debug-iphonesimulator/FatWatch.build/DerivedSources";
-			sourceTree = BUILT_PRODUCTS_DIR;
+			sourceTree = DERIVED_FILE_DIR;
 		};
 		BC9A2E820F15B41B00A284E7 /* BRViews */ = {
 			isa = PBXGroup;
