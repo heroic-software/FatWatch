@@ -3,18 +3,25 @@ require 'sqlite3'
 require 'optparse'
 
 $db = SQLite3::Database.new(ARGV[0])
-$epsilon = 1e-12
+$epsilon = 1e-4
 
 def update_trend(t,v)
-	return v if t.nil?
-	return t if v.nil?
+	return v if (t.nil? or t == 0)
+	return t if (v.nil? or v == 0)
 	return (0.1 * v) + (0.9 * t)
 end
 
 def compare_floats(found, expected, what)
-	delta = (found - expected).abs
-	if delta > $epsilon then
-		puts "#{what}: found #{found}; expected #{expected}; delta #{delta}"
+	return if (found.nil? or found == 0) and (expected.nil? or expected == 0)
+	if (found.nil? or found == 0) then
+		puts "#{what}: found nil; expected #{expected}"
+	elsif (expected.nil? or expected == 0) then
+		puts "#{what}: found #{found}; expected nil"
+	else
+		delta = (found - expected).abs
+		if delta > $epsilon then
+			puts "#{what}: found #{found}; expected #{expected}; delta #{delta}"
+		end
 	end
 end
 
@@ -49,7 +56,7 @@ def validate_3
 				puts "ERROR: months table missing row for month = #{month}" 
 			else
 				compare_floats(x[1], trendWeight, "Weight trend for month #{month}")
-				compare_floats(x[2], trendFatWeight, "Weight trend for month #{month}")
+				compare_floats(x[2], trendFatWeight, "Fat trend for month #{month}")
 			end
 			i += 1
 		end
