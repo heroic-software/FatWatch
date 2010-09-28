@@ -453,6 +453,63 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 }
 
 
+- (void)updateWeightChangeButtonWithRate:(float)weightPerDay {
+	NSString *weightChangeText;
+	UIColor *weightChangeColor;
+	if (showFat) {
+		weightChangeText = @"fat";
+		weightChangeColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.8f alpha:1];
+	} else {
+		weightChangeText = @"total weight";
+		weightChangeColor = [UIColor colorWithRed:0.8f green:0.1f blue:0.1f alpha:1];
+	}
+
+	[weightChangeButton setText:weightChangeText forPart:3];
+	[weightChangeButton setTextColor:weightChangeColor forPart:3];
+	[weightChangeButton setSelected:showFat];
+	
+	NSString *part0Text;
+	NSString *part1Text;
+	
+	if (isnan(weightPerDay)) {
+		part0Text = @"";
+		part1Text = @"insufficient measurements";
+	} else {
+		if (weightPerDay > 0) {
+			part0Text = @"gaining ";
+		} else {
+			part0Text = @"losing ";
+		}
+		NSNumber *change = [NSNumber numberWithFloat:fabsf(weightPerDay)];
+		NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
+		[wf setPositivePrefix:@""];
+		part1Text = [wf stringForObjectValue:change];
+		[wf release];
+	}
+	[weightChangeButton setText:part0Text forPart:0];
+	[weightChangeButton setText:part1Text forPart:1];
+}
+
+
+- (void)updateEnergyChangeButtonWithRate:(float)weightPerDay {
+	energyChangeButton.hidden = isnan(weightPerDay);
+	if (energyChangeButton.hidden) return;
+
+	if (weightPerDay > 0) {
+		[energyChangeButton setText:@"eating " forPart:0];
+		[energyChangeButton setText:@" more than you burn" forPart:2];
+	} else {
+		[energyChangeButton setText:@"burning " forPart:0];
+		[energyChangeButton setText:@" more than you eat" forPart:2];
+	}
+	NSNumber *change = [NSNumber numberWithFloat:fabsf(weightPerDay)];
+	NSNumberFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
+	[ef setPositivePrefix:@""];
+	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
+	[ef release];
+	
+}
+
 
 - (void)updateControlsWithSpan:(TrendSpan *)span {
 	[[NSUserDefaults standardUserDefaults] setInteger:span.length forKey:kTrendSpanLengthKey];
@@ -463,76 +520,53 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	navItem.rightBarButtonItem.enabled = (spanIndex > 0);
 
 	[self updateGraph];
-	
+
+	float weightPerDay = (showFat ? span.fatWeightPerDay : span.totalWeightPerDay);
+		 
 	changeGroupView.hidden = NO;
-
-	if ((showFat ? span.fatWeightPerDay : span.totalWeightPerDay) > 0) {
-		[weightChangeButton setText:@"gaining " forPart:0];
-		[energyChangeButton setText:@"eating " forPart:0];
-		[energyChangeButton setText:@" more than you burn" forPart:2];
+	
+	[self updateWeightChangeButtonWithRate:weightPerDay];
+	[self updateEnergyChangeButtonWithRate:weightPerDay];
+	
+	if (isnan(weightPerDay)) {
+		goalGroupView.hidden = YES;
 	} else {
-		[weightChangeButton setText:@"losing " forPart:0];
-		[energyChangeButton setText:@"burning " forPart:0];
-		[energyChangeButton setText:@" more than you eat" forPart:2];
-	}
-	
-	NSString *weightChangeText;
-	UIColor *weightChangeColor;
-	if (showFat) {
-		weightChangeText = @"fat";
-		weightChangeColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.8f alpha:1];
-	} else {
-		weightChangeText = @"total weight";
-		weightChangeColor = [UIColor colorWithRed:0.8f green:0.1f blue:0.1f alpha:1];
-	}
-	[weightChangeButton setText:weightChangeText forPart:3];
-	[weightChangeButton setTextColor:weightChangeColor forPart:3];
-	[weightChangeButton setSelected:showFat];
-
-	NSNumber *change = [NSNumber numberWithFloat:fabsf(showFat ? span.fatWeightPerDay : span.totalWeightPerDay)];
-
-	NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
-	[wf setPositivePrefix:@""];
-	[weightChangeButton setText:[wf stringForObjectValue:change] forPart:1];
-	[wf release];
-	
-	NSNumberFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
-	[ef setPositivePrefix:@""];
-	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
-	[ef release];
-	
-	switch (goalState) {
-		case TrendGoalStateUndefined:
-			goalGroupView.hidden = YES;
-			break;
-		case TrendGoalStateDefined:
-		{
-			NSDate *endDate = showFat ? span.fatEndDate : span.totalEndDate;
-			float rate = showFat ? span.fatWeightPerDay : span.totalWeightPerDay;
-			goalGroupView.hidden = NO;
-			goalAttainedView.hidden = YES;
-			dateButton.hidden = NO;
-			planButton.hidden = NO;
-			relativeEnergyButton.hidden = NO;
-			relativeWeightButton.hidden = NO;
-			[self updateDateButtonWithDate:endDate];
-			[self updatePlanButtonWithDate:endDate];
-			[self updateRelativeEnergyButtonWithRate:rate];
-			[self updateRelativeWeightButton];
-			break;
-		}
-		case TrendGoalStateAttained:
-			goalGroupView.hidden = NO;
-			goalAttainedView.hidden = NO;
-			if ([goalAttainedView superview] == nil) {
-				goalAttainedView.frame = goalGroupView.bounds;
-				[goalGroupView addSubview:goalAttainedView];
+		switch (goalState) {
+			case TrendGoalStateUndefined:
+			{
+				goalGroupView.hidden = YES;
+				break;
 			}
-			dateButton.hidden = YES;
-			planButton.hidden = YES;
-			relativeEnergyButton.hidden = YES;
-			relativeWeightButton.hidden = YES;
-			break;
+			case TrendGoalStateDefined:
+			{
+				NSDate *endDate = showFat ? span.fatEndDate : span.totalEndDate;
+				goalGroupView.hidden = NO;
+				goalAttainedView.hidden = YES;
+				dateButton.hidden = NO;
+				planButton.hidden = NO;
+				relativeEnergyButton.hidden = NO;
+				relativeWeightButton.hidden = NO;
+				[self updateDateButtonWithDate:endDate];
+				[self updatePlanButtonWithDate:endDate];
+				[self updateRelativeEnergyButtonWithRate:weightPerDay];
+				[self updateRelativeWeightButton];
+				break;
+			}
+			case TrendGoalStateAttained:
+			{
+				goalGroupView.hidden = NO;
+				goalAttainedView.hidden = NO;
+				if ([goalAttainedView superview] == nil) {
+					goalAttainedView.frame = goalGroupView.bounds;
+					[goalGroupView addSubview:goalAttainedView];
+				}
+				dateButton.hidden = YES;
+				planButton.hidden = YES;
+				relativeEnergyButton.hidden = YES;
+				relativeWeightButton.hidden = YES;
+				break;
+			}
+		}
 	}
 	
 	flagGroupView.hidden = NO;
