@@ -14,7 +14,7 @@ static const NSInteger kReferenceMonth = 1;
 static const NSInteger kReferenceDay = 1;
 
 
-NSUInteger EWDaysInMonth(EWMonth m) {
+NSInteger EWDaysInMonth(EWMonth m) {
 	static NSUInteger dayCount[12] = {
 		31, 28, 31, // Jan Feb Mar
 		30, 31, 30, // Apr May Jun

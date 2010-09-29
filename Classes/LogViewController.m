@@ -105,7 +105,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	EWMonth month = EWMonthDayGetMonth(monthday);
 	EWDay day = EWMonthDayGetDay(monthday);
 	NSUInteger section = MIN((month - earliestMonth), [self numberOfSectionsInTableView:tableView] - 1);
-	NSUInteger row = MIN(day, (NSUInteger)[self tableView:tableView numberOfRowsInSection:section]) - 1;
+	NSUInteger row = MIN(day, [self tableView:tableView numberOfRowsInSection:section]) - 1;
 	return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
