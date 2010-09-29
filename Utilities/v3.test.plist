@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AutoWeighIn</key>
+	<false/>
+	<key>AuxiliaryInfoType</key>
+	<integer>0</integer>
+	<key>ChartFitGoal</key>
+	<false/>
+	<key>ChartSelectedSpanIndex</key>
+	<integer>0</integer>
+	<key>ChartShowFat</key>
+	<false/>
+	<key>EnableLadder</key>
+	<false/>
+	<key>EWFixedBug0000017</key>
+	<true/>
+	<key>EWLastImportDate</key>
+	<date>2010-08-23T03:22:35Z</date>
+	<key>FirstLaunchDate</key>
+	<date>2010-08-17T03:57:47Z</date>
+	<key>GoalRate</key>
+	<real>-0.07142857</real>
+	<key>GoalWeight</key>
+	<integer>0</integer>
+	<key>GoalDate</key>
+	<integer>0</integer>
+	<key>HighlightBMIZones</key>
+	<true/>
+	<key>HighlightWeekends</key>
+	<true/>
+	<key>MWSPublishNetService</key>
+	<true/>
+	<key>RegistrationReminder</key>
+	<false/>
+	<key>RegistrationInfo</key>
+	<dict>
+		<key>name</key>
+		<string>John Example</string>
+		<key>email</key>
+		<string>john@example.com</string>
+	</dict>
+	<key>ScaleIncrement</key>
+	<string>0.10</string>
+	<key>SelectedTabIndex</key>
+	<integer>0</integer>
+	<key>TrendSpanLength</key>
+	<integer>7</integer>
+	<key>TrendViewControllerShowAbsoluteDate</key>
+	<false/>
+	<key>TrendViewControllerShowFat</key>
+	<false/>
+	<key>LogViewControllerHideBadge</key>
+	<true/>
+	<key>BMIEnabled</key>
+	<false/>
+	<key>Flag0Image</key>
+	<string>120-dumbbell</string>
+	<key>Flag1Image</key>
+	<string>310-forkandknife</string>
+	<key>Flag2Image</key>
+	<string>430-suitcase</string>
+</dict>
+</plist>

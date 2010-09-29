@@ -10,7 +10,7 @@ end
 
 class Generator
 	def initialize
-		@all_notes = ['note a', 'note b', 'note c']
+		@all_notes = ['late at work', 'new running shoes', 'skipped breakfast']
 	end
 	
 	def random(lo, hi)
@@ -61,12 +61,12 @@ class Generator
 				}
 				
 				if quantum(0.9) then # weigh today?
-					weight = @weight + (random(-30, 30) / 10.0)
+					weight = @weight + (random(-100, 100) / 50.0)
 					@weight_trend = update_trend(@weight_trend, weight)
 					row[:weight] = weight
 					row[:weight_trend] = @weight_trend
 					if quantum(0.9) then # also fat today?
-						fat = @fat + (random(-10, 10) / 10.0)
+						fat = @fat + (random(-100, 100) / 100.0)
 						@fat_trend = update_trend(@fat_trend, fat)
 						row[:fat] = fat
 						row[:fat_trend] = @fat_trend
@@ -87,12 +87,12 @@ class Generator
 		print_header
 		plan = [
 			# day count, weight change, fat change
-			[30, -0.8],
-			[60, +0.2],
-			[40, -0.8],
-			[90, +0.3],
-			[40, -1.0],
-			[33, -0.5]
+			[ 60, -0.8],
+			[120, +0.2],
+			[ 80, -0.8],
+			[180, +0.3],
+			[ 80, -1.0],
+			[ 66, -0.5]
 		]
 		day_count = 0
 		plan.each { |a| day_count += a[0] }

@@ -54,23 +54,27 @@
 
 - (void)resetDefaultsNamed:(NSString *)name {
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	NSArray *keys = [[[ud dictionaryRepresentation] allKeys] copy];
-	for (NSString *key in keys) {
-		[ud removeObjectForKey:key];
-	}
-	NSLog(@"%d defaults deleted by request.", [keys	count]);
-	[keys release];
-	
 	if (name) {
 		NSString *srcPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
-		NSDictionary *srcDict = [[NSDictionary alloc] initWithContentsOfFile:srcPath];
-		for (NSString *key in srcDict) {
-			id value = [srcDict objectForKey:key];
-			[ud setObject:value forKey:key];
-			NSLog(@"Loading default: '%@' = %@", key, value);
+		if (srcPath) {
+			NSLog(@"Loading user defaults from: %@", srcPath);
+			NSDictionary *srcDict = [[NSDictionary alloc] initWithContentsOfFile:srcPath];
+			for (NSString *key in srcDict) {
+				id value = [srcDict objectForKey:key];
+				[ud setObject:value forKey:key];
+			}
+			[srcDict release];
+		} else {
+			NSLog(@"No defaults to load for '%@'", name);
 		}
-		[srcDict release];
-	}
+	} else {
+		NSLog(@"Deleting all user defaults.");
+		NSArray *keys = [[[ud dictionaryRepresentation] allKeys] copy];
+		for (NSString *key in keys) {
+			[ud removeObjectForKey:key];
+		}
+		[keys release];
+	}		
 }
 
 

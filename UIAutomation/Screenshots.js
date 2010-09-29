@@ -16,21 +16,7 @@
  Fit Goal on Chart: off
  Registered: yes
  */
-
-function resetPreferences()
-{
-	var app = UIATarget.localTarget().frontMostApp();
-	app.setPreferenceValueForKey(false, "AutoWeighIn");
-	app.setPreferenceValueForKey(0, "AuxiliaryInfoType");
-	app.setPreferenceValueForKey(false, "EnableLadder");
-	app.setPreferenceValueForKey(0, "GoalWeight");
-	app.setPreferenceValueForKey({ name: "John Example", email: "john@example.com" }, "RegistrationInfo");
-	app.setPreferenceValueForKey(false, "RegistrationReminder");
-	app.setPreferenceValueForKey(0, "SelectedTabIndex");
-	app.setPreferenceValueForKey(7, "TrendSpanLength");
-	app.setPreferenceValueForKey(8, "LastSavedRung");
-}
-
+ 
 function takeScreenshotsMore()
 {
 	tapTabMore();
@@ -150,19 +136,13 @@ function takeScreenshotsChart()
 }
 
 try {
-//	takeScreenshotsMore();
+    tapButtonWithName("v3.test");
+	takeScreenshotsMore();
 	takeScreenshotsTrendsAndGoal();
-//	takeScreenshotsLog();
-//	takeScreenshotsChart();	
-//	resetPreferences();
+	takeScreenshotsLog();
+	takeScreenshotsChart();	
 } catch (e) {
 	UIALogger.logError(e);
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();
 	mainWindow.logElementTree();
 }
-
-//screen_settings.png
-//screen_settings_energy.png
-//screen_settings_menu.png
-//screen_settings_precision.png
-//screen_settings_weight.png

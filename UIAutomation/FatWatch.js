@@ -43,9 +43,9 @@ function tapNavigationBarButtonRight() {
 	button.waitForInvalid();
 }
 
-function tapNavigationBarButtonSave() { tapNavigationBarButtonRight(); }
-function tapNavigationBarButtonCancel() { tapNavigationBarButtonLeft(); }
-function tapNavigationBarButtonBack() { tapNavigationBarButtonLeft(); }
+tapNavigationBarButtonSave = tapNavigationBarButtonRight
+tapNavigationBarButtonCancel = tapNavigationBarButtonLeft
+tapNavigationBarButtonBack = tapNavigationBarButtonLeft
 
 function enableSwitchForTableRowWithName(name) {
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();
@@ -173,17 +173,26 @@ function tapTableRowLast() {
 	cell.waitForInvalid();
 }
 
+function tapSegmentedControlAtSegmentIndex(control, index) {
+	var count = control.buttons().length;
+	var x = (index + 0.5) / count;
+	var x1 = x - 0.01;
+	var x2 = x + 0.01;
+	UIALogger.logMessage("For i=" + index + " dragging around x=" + x);
+	control.dragInsideWithOptions({startOffset:{x:x1,y:0.5},endOffset:{x:x2,y:0.5}});
+	UIATarget.localTarget().delay(1);
+	UIALogger.logMessage("Switched to Segment: " + control.selectedButton().name());
+}
+
 function tapWeighInType(index) {
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();
 	var control = mainWindow.segmentedControls()[0];
-	control.buttons()[index].tap();
-	UIATarget.localTarget().delay(2);
-	UIALogger.logMessage("Switch to Entry: " + control.selectedButton().name());
+	tapSegmentedControlAtSegmentIndex(control, index);
 }
 
-function tapWeighInTypeWeightAndFat() { tapWeighInType(1); }
-function tapWeighInTypeWeightOnly() { tapWeighInType(2); }
-function tapWeighInTypeNone() { tapWeighInType(0); }
+function tapWeighInTypeWeightAndFat() { tapWeighInType(0); }
+function tapWeighInTypeWeightOnly() { tapWeighInType(1); }
+function tapWeighInTypeNone() { tapWeighInType(2); }
 
 function tapWeighInMarkBlue() { tapButtonWithName("Blue Mark"); }
 function tapWeighInMarkRed() { tapButtonWithName("Red Mark"); }
@@ -242,31 +251,24 @@ function tapChartSpanAtIndex(index) {
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();
 	var toolbar = mainWindow.toolbar();
 	var control = toolbar.segmentedControls()[0];
-	var button = control.buttons()[index];
-	if (button.toString() == "[object UIAElementNil]") {
-		throw ("Can't find " + index);
-	}
-	button.tap();
-	UIALogger.logMessage("Span: " + control.selectedButton().name());
+	tapSegmentedControlAtSegmentIndex(control, index);
 }
 
-function tapChartSpanMonth() { tapChartSpanAtIndex(3); }
-function tapChartSpanQuarter() { tapChartSpanAtIndex(2); }
-function tapChartSpanYear() { tapChartSpanAtIndex(1); }
-function tapChartSpanAll() { tapChartSpanAtIndex(4); }
-function tapChartSpanBrowse() { tapChartSpanAtIndex(0); }
+function tapChartSpanMonth() { tapChartSpanAtIndex(0); }
+function tapChartSpanQuarter() { tapChartSpanAtIndex(1); }
+function tapChartSpanYear() { tapChartSpanAtIndex(2); }
+function tapChartSpanAll() { tapChartSpanAtIndex(3); }
+function tapChartSpanBrowse() { tapChartSpanAtIndex(4); }
 
 function tapChartTypeAtIndex(index) {
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();
 	var toolbar = mainWindow.toolbar();
 	var control = toolbar.segmentedControls()[1];
-	var button = control.buttons()[index];
-	button.tap();
-	UIALogger.logMessage("Type: " + control.selectedButton().name());
+	tapSegmentedControlAtSegmentIndex(control, index);
 }
 
-function tapChartTypeTotal() { tapChartTypeAtIndex(1); }
-function tapChartTypeFat() { tapChartTypeAtIndex(0); }
+function tapChartTypeTotal() { tapChartTypeAtIndex(0); }
+function tapChartTypeFat() { tapChartTypeAtIndex(1); }
 
 function tapChartActionButton() {
 	var mainWindow = UIATarget.localTarget().frontMostApp().mainWindow();

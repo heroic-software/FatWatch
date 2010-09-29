@@ -18,6 +18,7 @@
 
 static NSString * const kBadgeValueNoDataToday = @"!";
 static NSString	* const kCellFlashAnimationID = @"LogCellFlash";
+static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 @interface LogViewController ()
@@ -72,7 +73,8 @@ static NSString	* const kCellFlashAnimationID = @"LogCellFlash";
 	if ([database hasDataForToday]) {
 		self.tabBarItem.badgeValue = nil;
 	} else {
-		self.tabBarItem.badgeValue = kBadgeValueNoDataToday;
+		BOOL showBadge = ![[NSUserDefaults standardUserDefaults] boolForKey:kHideBadgeKey];
+		if (showBadge) self.tabBarItem.badgeValue = kBadgeValueNoDataToday;
 	}
 	
 	if ((database.earliestMonth != earliestMonth) || (latestMonth == 0)) {

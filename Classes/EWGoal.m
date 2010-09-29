@@ -188,14 +188,15 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 - (EWGoalState)state {
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	@synchronized (self) {
-		if ([uds objectForKey:kGoalWeightKey] == nil) {
+		// Allow goal weight to be present, but zero; for easier automation testing.
+		if ([uds floatForKey:kGoalWeightKey] <= 0) {
 			return EWGoalStateUndefined;
-		}
-		if ([uds objectForKey:kGoalDateKey] != nil) {
-			return EWGoalStateFixedDate;
 		}
 		if ([uds objectForKey:kGoalRateKey] != nil) {
 			return EWGoalStateFixedRate;
+		}
+		if ([uds objectForKey:kGoalDateKey] != nil) {
+			return EWGoalStateFixedDate;
 		}
 	}
 	return EWGoalStateInvalid;

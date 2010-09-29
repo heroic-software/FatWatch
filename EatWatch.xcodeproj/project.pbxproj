@@ -127,6 +127,7 @@
 		BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */; };
 		BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */; };
 		BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */; };
+		BCC054761252A6810094B607 /* v3.test.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC054751252A6810094B607 /* v3.test.plist */; };
 		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
@@ -452,6 +453,7 @@
 		BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleRight@2x.png"; sourceTree = "<group>"; };
 		BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lock1@2x.png"; sourceTree = "<group>"; };
 		BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DangerBar@2x.png"; sourceTree = "<group>"; };
+		BCC054751252A6810094B607 /* v3.test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = v3.test.plist; sourceTree = "<group>"; };
 		BCC485D410F2700300563776 /* NavButton0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton0.png; sourceTree = "<group>"; };
 		BCC485D510F2700300563776 /* NavButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton1.png; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 		BC08CC2F124581E3006208A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				BCC054751252A6810094B607 /* v3.test.plist */,
 				BC08CC2B124581BD006208A9 /* wifi-import.rb */,
 				BC08CC3312458259006208A9 /* make-history.rb */,
 				BC08CC8B12472285006208A9 /* validate-db.rb */,
@@ -1180,6 +1183,7 @@
 				BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */,
 				BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */,
 				BC08CD1012481DAF006208A9 /* v3.test.db in Resources */,
+				BCC054761252A6810094B607 /* v3.test.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
