@@ -248,8 +248,8 @@
 		BRTableRow *dateRow = [planSection rowAtIndex:0];
 		BRTableRow *rateRow1 = [planSection rowAtIndex:1];
 		BRTableRow *rateRow2 = [planSection rowAtIndex:2];
-		UIImage *lock0Image = [UIImage imageNamed:@"Lock0"];
-		UIImage *lock1Image = [UIImage imageNamed:@"Lock1"];
+		UIImage *lock0Image = [UIImage imageNamed:@"Lock0.png"];
+		UIImage *lock1Image = [UIImage imageNamed:@"Lock1.png"];
 		switch ([goal state]) {
 			case EWGoalStateFixedDate:
 				dateRow.image = lock1Image;
