@@ -260,7 +260,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	EWDBIterator *it = [database iterator];
 	it.earliestMonthDay = mdStart;
 	it.latestMonthDay = mdStop;
-	it.skipEmptyRecords = YES;
+	it.skipEmptyRecords = NO;
 	const EWDBDay *dd;
 	while ((dd = [it nextDBDay])) {
 		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
