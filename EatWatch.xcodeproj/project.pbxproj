@@ -1510,6 +1510,7 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
 				COPY_PHASE_STRIP = NO;
@@ -1528,6 +1529,7 @@
 					"*.test.plist",
 				);
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Debug";
 			};
@@ -1566,6 +1568,7 @@
 		BC2CBA710EC988A8002087B7 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = "FatWatch β";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
 				COPY_PHASE_STRIP = YES;
@@ -1578,6 +1581,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Beta";
 			};
@@ -1615,6 +1619,7 @@
 		BCDCEB800E28150A00185857 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = FatWatch;
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				COPY_PHASE_STRIP = YES;
@@ -1627,6 +1632,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
 				PRODUCT_NAME = FatWatch;
 			};
