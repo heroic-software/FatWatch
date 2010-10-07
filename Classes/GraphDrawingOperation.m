@@ -598,7 +598,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const size_t bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	CGContextRef ctxt = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
+	void *data = malloc(bitmapBytesPerRow * pixelsHigh);
+	CGContextRef ctxt = CGBitmapContextCreate(data, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast);
 	CGColorSpaceRelease(colorSpace);
 
 	CGContextSetRGBFillColor(ctxt, 1, 1, 1, 1);
@@ -788,7 +789,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
     imageRef = CGBitmapContextCreateImage(ctxt);
 
+	void *data = CGBitmapContextGetData(ctxt);
     CGContextRelease(ctxt);
+	free(data);
 
 	BugFixRetainImageDataProvider(imageRef);
 

@@ -57,7 +57,8 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	size_t bitmapBytesPerRow   = (pixelsWide * bytesPerPixel);
 
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-	CGContextRef ctxt = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
+	void *data = malloc(bitmapBytesPerRow * pixelsHigh);
+	CGContextRef ctxt = CGBitmapContextCreate(data, pixelsWide, pixelsHigh, bitsPerComponent, bitmapBytesPerRow, colorSpace, kCGImageAlphaNone);
 
 	static const CGFloat fadeWidth = 8;
 	static const CGFloat components[] = { 1, 1, 0, 1 };
@@ -69,6 +70,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 	CGGradientRelease(gradient);
 	CGContextRelease(ctxt);
+	free(data);
 	CGColorSpaceRelease(colorSpace);
 	
 	BugFixRetainImageDataProvider(mask);
