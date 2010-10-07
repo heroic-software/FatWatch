@@ -15,7 +15,7 @@
 	UIScrollView *iconArea;
 	UIView *enableLadderView;
 	UIView *disableLadderView;
-	NSArray *iconPaths;
+	NSArray *iconNames;
 	int flagIndex;
 	UIView *iconView;
 	CGPoint contentOffsets[4];

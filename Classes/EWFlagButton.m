@@ -30,6 +30,45 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 @implementation EWFlagButton
 
 
++ (NSArray *)allIconNames {
+	NSArray *allPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"FlagIcons"];
+	NSMutableSet *set = [NSMutableSet setWithCapacity:[allPaths count]];
+	
+	for (NSString *path in allPaths) {
+		if ([path hasSuffix:@"@2x.png"]) continue;
+		[set addObject:[[path lastPathComponent] stringByDeletingPathExtension]];
+	}
+	
+	NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+	return [set sortedArrayUsingDescriptors:[NSArray arrayWithObject:desc]];
+}
+
+
++ (UIImage *)imageForIconName:(NSString *)iconName {
+	if ([[UIScreen mainScreen] scale] > 1.0f) {
+		NSString *name2x = [iconName stringByAppendingString:@"@2x"];
+		NSString *path = [[NSBundle mainBundle] pathForResource:name2x
+														 ofType:@"png"
+													inDirectory:@"FlagIcons"];
+		if (path) {
+			UIImage *image2x = [UIImage imageWithContentsOfFile:path];
+			return [UIImage imageWithCGImage:[image2x CGImage] 
+									   scale:2.0f
+								 orientation:UIImageOrientationUp];
+		}
+	}
+
+	NSString *iconPath = [[NSBundle mainBundle] pathForResource:iconName 
+														 ofType:@"png"
+													inDirectory:@"FlagIcons"];
+	if (iconPath) {
+		return [UIImage imageWithContentsOfFile:iconPath];
+	}
+
+	return nil;
+}
+
+
 + (void)updateIconName:(NSString *)name forFlagIndex:(int)flagIndex {
 	if (name) {
 		NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
@@ -76,14 +115,18 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 
 - (CGImageRef)newMaskFromImage:(UIImage *)image {
+	CGFloat scale = [[UIScreen mainScreen] scale];
 	CGRect bounds = self.bounds;
 	CGRect iconRect = BRRectOfSizeCenteredInRect(image.size, bounds);
-	size_t width = bounds.size.width;
-	size_t height = bounds.size.height;
+	size_t width = bounds.size.width * scale;
+	size_t height = bounds.size.height * scale;
 	size_t bitsPerComponent = 8;
 	size_t bytesPerRow = width;
 	CGColorSpaceRef graySpace = CGColorSpaceCreateDeviceGray();
-	CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, graySpace, kCGImageAlphaNone);
+	void *data = malloc(height * bytesPerRow);
+	CGContextRef context = CGBitmapContextCreate(data, width, height, bitsPerComponent, bytesPerRow, graySpace, kCGImageAlphaNone);
+	
+	CGContextScaleCTM(context, scale, scale);
 	
 	CGContextSetGrayFillColor(context, 1, 1);
 	CGContextFillRect(context, bounds);
@@ -92,6 +135,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 	CGImageRef maskImageRef = CGBitmapContextCreateImage(context);
 	
 	CGContextRelease(context);
+	free(data);
 	CGColorSpaceRelease(graySpace);
 	
 	return maskImageRef;
@@ -100,10 +144,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 - (UIImage *)iconImageForFlagIndex:(int)flagIndex {
 	NSString *iconName = [EWFlagButton iconNameForFlagIndex:flagIndex];
-	NSString *iconPath = [[NSBundle mainBundle] pathForResource:iconName 
-														 ofType:@"png"
-													inDirectory:@"FlagIcons"];
-	return [[[UIImage alloc] initWithContentsOfFile:iconPath] autorelease];
+	return [EWFlagButton imageForIconName:iconName];
 }
 
 

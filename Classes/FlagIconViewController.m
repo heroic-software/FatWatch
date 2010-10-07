@@ -46,17 +46,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	if (iconPaths == nil) {
-		iconPaths = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"FlagIcons"] copy];
+	if (iconNames == nil) {
+		iconNames = [[EWFlagButton allIconNames] copy];
 	}
 	
 	const CGFloat w = CGRectGetWidth(iconArea.bounds);
-	const CGFloat h = 18 + 60 * ceilf([iconPaths count] / 5.0f);
+	const CGFloat h = 18 + 60 * ceilf([iconNames count] / 5.0f);
 	iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
 	
 	int i = 0;
-	for (NSString *path in iconPaths) {
-		UIImage *image = [UIImage imageWithContentsOfFile:path];
+	for (NSString *name in iconNames) {
+		UIImage *image = [EWFlagButton imageForIconName:name];
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = i;
 		button.frame = CGRectMake(18+60*(i%5), 18+60*(i/5), 42, 42);
@@ -133,8 +133,7 @@
 
 
 - (IBAction)iconButtonAction:(UIButton *)sender {
-	NSString *path = [iconPaths objectAtIndex:sender.tag];
-	NSString *name = [[path lastPathComponent] stringByDeletingPathExtension];
+	NSString *name = [iconNames objectAtIndex:sender.tag];
 	[EWFlagButton updateIconName:name forFlagIndex:flagIndex];
 }
 
@@ -168,7 +167,7 @@
 	[iconArea release];
 	[enableLadderView release];
 	[disableLadderView release];
-	[iconPaths release];
+	[iconNames release];
     [super dealloc];
 }
 
