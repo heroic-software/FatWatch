@@ -101,7 +101,11 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRColorPalette *palette = [BRColorPalette sharedPalette];
 
 	CGSize imageSize = CGSizeMake(4*width + 3*space, width);
-	UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+	if (UIGraphicsBeginImageContextWithOptions) {
+		UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+	} else {
+		UIGraphicsBeginImageContext(imageSize);
+	}
 	[[UIColor blackColor] setStroke];
 	
 	CGRect rect = CGRectMake(0, 0, width, width);

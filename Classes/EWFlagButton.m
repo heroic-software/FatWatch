@@ -39,13 +39,25 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 		[set addObject:[[path lastPathComponent] stringByDeletingPathExtension]];
 	}
 	
-	NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-	return [set sortedArrayUsingDescriptors:[NSArray arrayWithObject:desc]];
+	NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
+	NSArray *sortDescriptors = [NSArray arrayWithObject:desc];
+	[desc release];
+	
+	if ([set respondsToSelector:@selector(sortedArrayUsingDescriptors:)]) {
+		return [set sortedArrayUsingDescriptors:sortDescriptors];
+	} else {
+		NSMutableArray *allNames = [[set allObjects] mutableCopy];
+		[allNames sortUsingDescriptors:sortDescriptors];
+		return [allNames autorelease];
+	}
 }
 
 
 + (UIImage *)imageForIconName:(NSString *)iconName {
-	if ([[UIScreen mainScreen] scale] > 1.0f) {
+	UIScreen *screen = [UIScreen mainScreen];
+	if ([screen respondsToSelector:@selector(scale)] && 
+		[screen scale] > 1.0f &&
+		[UIImage respondsToSelector:@selector(imageWithCGImage:scale:orientation:)]) {
 		NSString *name2x = [iconName stringByAppendingString:@"@2x"];
 		NSString *path = [[NSBundle mainBundle] pathForResource:name2x
 														 ofType:@"png"
@@ -99,7 +111,11 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 - (UIImage *)backgroundImageWithColor:(UIColor *)color icon:(UIImage *)iconImage {
 	CGRect bounds = self.bounds;
-	UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0);
+	if (UIGraphicsBeginImageContextWithOptions) {
+		UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0);
+	} else {
+		UIGraphicsBeginImageContext(bounds.size);
+	}
 	[color setFill];
 	UIRectFill(bounds);
 	[[UIColor blackColor] setStroke];
@@ -115,7 +131,8 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 
 - (CGImageRef)newMaskFromImage:(UIImage *)image {
-	CGFloat scale = [[UIScreen mainScreen] scale];
+	UIScreen *screen = [UIScreen mainScreen];
+	CGFloat scale = [screen respondsToSelector:@selector(scale)] ? [screen scale] : 1.0f;
 	CGRect bounds = self.bounds;
 	CGRect iconRect = BRRectOfSizeCenteredInRect(image.size, bounds);
 	size_t width = bounds.size.width * scale;

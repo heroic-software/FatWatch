@@ -226,7 +226,11 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		contextRect.size.width += CGRectGetWidth(yAxisView.bounds);
 	}
 	
-	UIGraphicsBeginImageContextWithOptions(contextRect.size, YES, 0);
+	if (UIGraphicsBeginImageContextWithOptions) {
+		UIGraphicsBeginImageContextWithOptions(contextRect.size, YES, 0);
+	} else {
+		UIGraphicsBeginImageContext(contextRect.size);
+	}
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSetRGBFillColor(context, 1, 1, 1, 1);
 	CGContextFillRect(context, contextRect);

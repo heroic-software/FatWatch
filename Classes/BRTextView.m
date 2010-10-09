@@ -18,7 +18,11 @@
 		UIFont *font = self.font;
 		NSString *placeholderText = @"Note";
 		CGSize size = [placeholderText sizeWithFont:font];
-		UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+		if (UIGraphicsBeginImageContextWithOptions) {
+			UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+		} else {
+			UIGraphicsBeginImageContext(size);
+		}
 		[self.backgroundColor setFill];
 		UIRectFill(CGRectMake(0, 0, size.width, size.height));
 		[[UIColor grayColor] setFill];

@@ -70,7 +70,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (id)init {
 	if ((self = [super init])) {
-		scale = [[UIScreen mainScreen] scale];
+		UIScreen *screen = [UIScreen mainScreen];
+		scale = [screen respondsToSelector:@selector(scale)] ? [screen scale] : 1.0f;
 	}
 	return self;
 }
