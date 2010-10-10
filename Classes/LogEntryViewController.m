@@ -366,7 +366,21 @@ enum {
 
 
 - (void)keyboardWillShow:(NSNotification *)notice {
-	CGRect kbFrameScreen = [[[notice userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+	NSDictionary *info = [notice userInfo];
+
+	CGRect kbFrameScreen;
+	
+	NSValue *value;
+	if ((value = [info objectForKey:UIKeyboardFrameEndUserInfoKey])) {
+		kbFrameScreen = [value CGRectValue];
+	} else {
+		// Deprecated as of iOS 3.2
+		kbFrameScreen = [[info objectForKey:UIKeyboardBoundsUserInfoKey] CGRectValue];
+		CGPoint center = [[info objectForKey:UIKeyboardCenterEndUserInfoKey] CGPointValue];
+		kbFrameScreen.origin.x = center.x - 0.5f * kbFrameScreen.size.width;
+		kbFrameScreen.origin.y = center.y - 0.5f * kbFrameScreen.size.height;
+	}
+
 	CGRect kbFrameWindow = [self.view.window convertRect:kbFrameScreen fromWindow:nil];
 	CGRect kbFrame = [self.view convertRect:kbFrameWindow fromView:nil];
 
@@ -377,7 +391,7 @@ enum {
 	newFrame.size.height -= (navHeight + CGRectGetHeight(kbFrame));
 		
 	[UIView beginAnimations:@"keyboardWillShow" context:nil];
-	[self prepareAnimationsWithUserInfo:[notice userInfo]];
+	[self prepareAnimationsWithUserInfo:info];
 	weightControl.alpha = 0;
 	weightContainerView.alpha = 0;
 	annotationContainerView.frame = newFrame;
