@@ -115,6 +115,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 		[errorToDisplay release];
 		errorToDisplay = nil;
 	} else {
+		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 		NSString *bodyID = [webView stringByEvaluatingJavaScriptFromString:@"document.body.id"];
 		if ([@"registrationForm" isEqualToString:bodyID]) {
 			NSMutableDictionary *fields = [[NSMutableDictionary alloc] init];
@@ -128,7 +129,6 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			EWSafeDictionarySet(fields, @"device_model", [device model]);
 			EWSafeDictionarySet(fields, @"device_udid", [device uniqueIdentifier]);
 			
-			NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 			EWSafeDictionarySet(fields, @"first_launch", [defs firstLaunchDate]);
 			EWSafeDictionarySet(fields, @"system_languages", [[defs arrayForKey:@"AppleLanguages"] componentsJoinedByString:@","]);
 
@@ -155,7 +155,10 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 				NSString *eval = [webView stringByEvaluatingJavaScriptFromString:keyPath];
 				[info setObject:eval forKey:key];
 			}
-			[[NSUserDefaults standardUserDefaults] setRegistration:info];
+			[defs setRegistration:info];
+			// Clear the reminder here too in case we are reusing a registration
+			// and never see the form.
+			[defs setShowRegistrationReminder:NO];
 			[info release];
 		}
 	}
