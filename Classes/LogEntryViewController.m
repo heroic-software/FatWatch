@@ -370,9 +370,8 @@ enum {
 
 	CGRect kbFrameScreen;
 	
-	NSValue *value;
-	if ((value = [info objectForKey:UIKeyboardFrameEndUserInfoKey])) {
-		kbFrameScreen = [value CGRectValue];
+	if (&UIKeyboardFrameEndUserInfoKey != nil) {
+		kbFrameScreen = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 	} else {
 		// Deprecated as of iOS 3.2
 		kbFrameScreen = [[info objectForKey:UIKeyboardBoundsUserInfoKey] CGRectValue];
