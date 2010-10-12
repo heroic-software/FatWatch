@@ -58,7 +58,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	if ([[NSUserDefaults standardUserDefaults] showRegistrationReminder]) {
-		self.tabBarItem.badgeValue = kBadgeValueUnregistered;
+		self.parentViewController.tabBarItem.badgeValue = kBadgeValueUnregistered;
 	}
 }
 
@@ -267,7 +267,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 			[aboutSection removeRowAtIndex:1 animated:YES];
 		}
 		if (![userDefs showRegistrationReminder]) {
-			self.tabBarItem.badgeValue = nil;
+			self.parentViewController.tabBarItem.badgeValue = nil;
 		}
 	}
 }
