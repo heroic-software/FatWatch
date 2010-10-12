@@ -11,9 +11,9 @@
 
 
 #if TARGET_IPHONE_SIMULATOR
-#define REGISTRATION_URL @"http://fatwatchapp.test/register/"
+#define REGISTRATION_URL_PREFIX @"http://fatwatchapp.test/register/?check="
 #else
-#define REGISTRATION_URL @"http://www.fatwatchapp.com/register/"
+#define REGISTRATION_URL_PREFIX @"http://www.fatwatchapp.com/register/?check="
 #endif
 
 
@@ -61,7 +61,9 @@ static RegistrationViewController *gSharedController = nil;
 
 
 - (void)refreshAction:(id)sender {
-	NSURL *url = [NSURL URLWithString:REGISTRATION_URL];
+	NSString *udid = [[UIDevice currentDevice] uniqueIdentifier];
+	NSString *urlStr = [REGISTRATION_URL_PREFIX stringByAppendingString:udid];
+	NSURL *url = [NSURL URLWithString:urlStr];
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	[webView loadRequest:request];
 }
