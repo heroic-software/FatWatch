@@ -9,15 +9,6 @@
 #import "BRPopUpViewController.h"
 
 
-static BRPopUpViewController *gPoppedUpViewController = nil;
-
-
-@interface BRPopUpViewController ()
-- (void)animationDidStop:(NSString *)animID finished:(BOOL)flag context:(void *)context;
-@end
-
-
-
 @implementation BRPopUpViewController
 
 
@@ -44,16 +35,7 @@ static BRPopUpViewController *gPoppedUpViewController = nil;
 
 
 - (IBAction)show:(UIButton *)sender {
-	if (gPoppedUpViewController != nil) {
-		if ([gPoppedUpViewController canHide]) {
-			[gPoppedUpViewController hideAnimated:YES];
-		} else {
-			return;
-		}
-	}
 	[self showAnimated:YES];
-	showButton = [sender retain];
-	[showButton setEnabled:NO];
 }
 
 
@@ -71,22 +53,47 @@ static BRPopUpViewController *gPoppedUpViewController = nil;
 }
 
 
+- (void)showImmediately {
+    [self willShow];
+    [superview addSubview:screenButton];
+    screenButton.alpha = 0.4f;
+    [superview addSubview:view];
+    CGRect newFrame = view.frame;
+    newFrame.origin.y = CGRectGetMaxY(superview.bounds) - CGRectGetHeight(newFrame);
+    view.frame = newFrame;
+}
+
+
+- (void)moveOffstage {
+    CGRect newFrame = view.frame;
+    newFrame.origin.y = CGRectGetMaxY(superview.bounds);
+    view.frame = newFrame;
+    screenButton.alpha = 0;
+}
+
+
+- (void)hideImmediately {
+    [view removeFromSuperview];
+    [screenButton removeFromSuperview];
+    [self didHide];
+}
+
+
 - (void)showAnimated:(BOOL)animated {
 	if (self.visible) return;
+    if (screenButton == nil) {
+        screenButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        screenButton.backgroundColor = [UIColor blackColor];
+        [screenButton addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    screenButton.frame = superview.bounds;
 	if (animated) {
-		CGRect startFrame = view.frame;
-		startFrame.origin.y = CGRectGetMaxY(superview.bounds);
-		view.frame = startFrame;
-		[UIView beginAnimations:@"BRPopUpShow" context:nil];
-		[self showAnimated:NO];
-		[UIView commitAnimations];
+        [self moveOffstage];
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            [self showImmediately];
+        }];
 	} else {
-		[self willShow];
-		gPoppedUpViewController = self;
-		[superview addSubview:view];
-		CGRect newFrame = view.frame;
-		newFrame.origin.y = CGRectGetMaxY(superview.bounds) - CGRectGetHeight(newFrame);
-		view.frame = newFrame;
+        [self showImmediately];
 	}
 }
 
@@ -94,28 +101,21 @@ static BRPopUpViewController *gPoppedUpViewController = nil;
 - (void)hideAnimated:(BOOL)animated {
 	if (!self.visible) return;
 	if (animated) {
-		[UIView beginAnimations:@"BRPopUpHide" context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-		CGRect newFrame = view.frame;
-		newFrame.origin.y = CGRectGetMaxY(superview.bounds);
-		view.frame = newFrame;
-		[UIView commitAnimations];
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            [self moveOffstage];
+        } completion:^(BOOL finished) {
+            [self hideImmediately];
+        }];
 	} else {
-		[view removeFromSuperview];
-		if (gPoppedUpViewController == self) gPoppedUpViewController = nil;
-		[showButton setEnabled:YES];
-		[showButton release];
-		showButton = nil;
-		[self didHide];
+        [self hideImmediately];
 	}
 }
 
 
-- (void)animationDidStop:(NSString *)animID finished:(BOOL)flag context:(void *)context {
-	if ([animID isEqualToString:@"BRPopUpHide"]) {
-		[self hideAnimated:NO];
-	}
+- (void)dealloc
+{
+    [screenButton release];
+    [super dealloc];
 }
 
 

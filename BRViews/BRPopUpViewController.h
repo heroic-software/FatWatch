@@ -12,7 +12,7 @@
 @interface BRPopUpViewController : NSObject {
 	UIView *view;
 	UIView *superview;
-	id showButton;
+    UIButton *screenButton;
 }
 @property (nonatomic,readonly,getter=isVisible) BOOL visible;
 @property (nonatomic,retain) IBOutlet UIView *view;
