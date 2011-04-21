@@ -26,6 +26,18 @@ enum {
 };
 
 
+static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve curve)
+{
+    switch (curve) {
+        case UIViewAnimationCurveEaseIn: return UIViewAnimationOptionCurveEaseIn;
+        case UIViewAnimationCurveEaseInOut: return UIViewAnimationOptionCurveEaseInOut;
+        case UIViewAnimationCurveEaseOut: return UIViewAnimationOptionCurveEaseOut;
+        case UIViewAnimationCurveLinear: return UIViewAnimationOptionCurveLinear;
+    }
+    return 0;
+}
+
+
 @interface LogEntryViewController ()
 - (void)keyboardWillShow:(NSNotification *)notice;
 - (void)keyboardWillHide:(NSNotification *)notice;
@@ -365,21 +377,23 @@ enum {
 }
 
 
+- (void)animateWithKeyboardInfo:(NSDictionary *)info
+                     animations:(void (^)(void))animations {
+    NSTimeInterval duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    UIViewAnimationOptions options = BRViewAnimationOptionForCurve(curve);
+    [UIView animateWithDuration:duration
+                          delay:0
+                        options:options
+                     animations:animations
+                     completion:NULL];
+}
+
+
 - (void)keyboardWillShow:(NSNotification *)notice {
 	NSDictionary *info = [notice userInfo];
 
-	CGRect kbFrameScreen;
-	
-	if (&UIKeyboardFrameEndUserInfoKey != nil) {
-		kbFrameScreen = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-	} else {
-		// Deprecated as of iOS 3.2
-		kbFrameScreen = [[info objectForKey:UIKeyboardBoundsUserInfoKey] CGRectValue];
-		CGPoint center = [[info objectForKey:UIKeyboardCenterEndUserInfoKey] CGPointValue];
-		kbFrameScreen.origin.x = center.x - 0.5f * kbFrameScreen.size.width;
-		kbFrameScreen.origin.y = center.y - 0.5f * kbFrameScreen.size.height;
-	}
-
+	CGRect kbFrameScreen = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 	CGRect kbFrameWindow = [self.view.window convertRect:kbFrameScreen fromWindow:nil];
 	CGRect kbFrame = [self.view convertRect:kbFrameWindow fromView:nil];
 
@@ -388,21 +402,19 @@ enum {
 	CGRect newFrame = self.view.bounds;
 	newFrame.origin.y += navHeight;
 	newFrame.size.height -= (navHeight + CGRectGetHeight(kbFrame));
-		
-	[UIView beginAnimations:@"keyboardWillShow" context:nil];
-	[self prepareAnimationsWithUserInfo:info];
-	weightControl.alpha = 0;
-	weightContainerView.alpha = 0;
-	annotationContainerView.frame = newFrame;
-	[UIView commitAnimations];
+
+    [self animateWithKeyboardInfo:info animations:^(void) {
+        weightControl.alpha = 0;
+        weightContainerView.alpha = 0;
+        annotationContainerView.frame = newFrame;
+    }];
 }
 
 
 - (void)keyboardWillHide:(NSNotification *)notice {
-	[UIView beginAnimations:@"keyboardWillHide" context:nil];
-	[self prepareAnimationsWithUserInfo:[notice userInfo]];
-	[self layoutSubviewsWithoutKeyboard];
-	[UIView commitAnimations];
+    [self animateWithKeyboardInfo:[notice userInfo] animations:^(void) {
+        [self layoutSubviewsWithoutKeyboard];
+    }];
 }
 
 
