@@ -109,13 +109,13 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 	if (webServer == nil) {
 		webServer = [[MicroWebServer alloc] init];
 		NSString *devName = [[UIDevice currentDevice] name];
 		webServer.name = [NSString stringWithFormat:@"FatWatch (%@)", devName];
 		webServer.delegate = self;
 	}
-	
 	if (reachability == nil) {
 		reachability = [[BRReachability alloc] init];
 		reachability.delegate = self;
@@ -124,13 +124,17 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	
 	
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 	[RootViewController setAutorotationEnabled:NO];
 	[self updateLastImportExportLabels];
 	[reachability startMonitoring];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 	[reachability stopMonitoring];
 	[webServer stop];
 	statusLabel.text = @"Off";

@@ -141,6 +141,20 @@ static unsigned short EWLadder[48][5] = {
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+}
+
+
 #pragma mark IBAction
 
 
