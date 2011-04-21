@@ -92,9 +92,24 @@
 #pragma mark UIPickerViewDelegate
 
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	int auxInfoType = [[infoTypeArray objectAtIndex:row] intValue];
-	return [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)rowView
+{
+    UILabel *label;
+
+    if ([rowView isKindOfClass:[UILabel class]]) {
+        label = (UILabel *)rowView;
+    } else {
+        label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        label.backgroundColor = nil;
+        label.opaque = NO;
+        label.font = [UIFont boldSystemFontOfSize:20];
+    }
+
+    int auxInfoType = [[infoTypeArray objectAtIndex:row] intValue];
+    label.text = [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
+    [label sizeToFit];
+    
+    return label;
 }
 
 

@@ -187,10 +187,13 @@ static const int kBRPickerViewTag = 411;
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 44)] autorelease];
+        CGRect frame = CGRectZero;
+        frame.size = [pickerView rowSizeForComponent:component];
+		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
-		label.backgroundColor = [UIColor clearColor];
+		label.backgroundColor = nil;
+        label.opaque = NO;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 	
@@ -200,7 +203,7 @@ static const int kBRPickerViewTag = 411;
 	
 	if (row.textColorFormatter) {
 		label.textColor = [row.textColorFormatter colorForObjectValue:number];
-	}
+    }
 	
 	if (row.backgroundColorFormatter) {
 		label.backgroundColor = [row.backgroundColorFormatter colorForObjectValue:number];

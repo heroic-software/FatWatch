@@ -103,16 +103,19 @@ static const float kDefaultHeight = 1.70f;
 }
 
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)pickerRow forComponent:(NSInteger)component reusingView:(UIView *)view {
+- (UIView *)pickerView:(UIPickerView *)aPickerView viewForRow:(NSInteger)pickerRow forComponent:(NSInteger)component reusingView:(UIView *)view {
 	UILabel *label;
 	
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 44)] autorelease];
+        CGRect frame = CGRectZero;
+        frame.size = [pickerView rowSizeForComponent:component];
+		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
-		label.backgroundColor = [UIColor clearColor];
+		label.backgroundColor = nil;
+        label.opaque = NO;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 	
