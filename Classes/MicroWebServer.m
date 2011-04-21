@@ -105,8 +105,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 @synthesize running;
 
 
-- (CFSocketRef)newSocket {
-	
+- (CFSocketRef)newSocketForPort:(in_port_t)port {
 	CFSocketContext context;
 	context.version = 0;
 	context.info = self;
@@ -135,7 +134,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	memset(&addr4, 0, sizeof(addr4));
 	addr4.sin_len = sizeof(addr4);
 	addr4.sin_family = AF_INET;
-	addr4.sin_port = htons(INADDR_ANY);
+	addr4.sin_port = htons(port);
 	addr4.sin_addr.s_addr = htonl(INADDR_ANY);
 	
 	// Wrap the native address structure for CFSocketCreate.
@@ -206,7 +205,10 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	
 	if (running) return; // ignore if already running
 			
-	listenSocket = [self newSocket];
+	listenSocket = [self newSocketForPort:1234];
+	if (listenSocket == NULL) {
+        listenSocket = [self newSocketForPort:INADDR_ANY];
+    }
 	if (listenSocket == NULL) return;
 
 	running = YES;
