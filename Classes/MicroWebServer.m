@@ -516,7 +516,15 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (void)respondWithRedirectToPath:(NSString *)path {
-	NSURL *rootURL = webServer.rootURL;
+    NSURL *rootURL;
+    
+    NSString *host = [self stringForRequestHeader:@"Host"];
+    if (host) {
+        rootURL = [NSURL URLWithString:[@"http://" stringByAppendingString:host]];
+    } else {
+        rootURL = [webServer rootURL];
+    }
+    
 	NSAssert(rootURL, @"Must have a root URL");
 	NSURL *url = [NSURL URLWithString:path relativeToURL:rootURL];
 	[self respondWithRedirectToURL:url];
