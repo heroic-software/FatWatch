@@ -99,32 +99,43 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 // Used by LogEntryViewController to choose a default weight.
 // Used by EWDatabase to determine trend value on a day.
 - (float)inputTrendOnDay:(EWDay)day {
-	float trend = 0;
 	// First, search backwards through this month for a trend value.
 	for (int i = (day - 1) - 1; i >= 0; i--) {
-		trend = days[i].trendWeight;
+		float trend = days[i].trendWeight;
 		if (trend > 0) return trend;
 	}
 	// If none is found, use the input trend.
 	SQLiteStatement *stmt = [database selectMonthStatement];
 	[stmt bindInt:month toParameter:1];
 	if ([stmt step]) {
-		trend = [stmt floatValueOfColumn:1];
+		float trend = [stmt floatValueOfColumn:1];
 		[stmt reset];
+        return trend;
 	}
-	if (trend > 0) return trend;
 	// If nothing else, return weight (implies day is <= first day of data ever)
 	return days[day - 1].scaleWeight;
 }
 
 
 // Used by LogEntryViewController to choose a default fat.
-- (float)latestFatRatioBeforeDay:(EWDay)day {
-	for (int i = (day - 1) - 1; i >= 0; i--) {
-		float fat = days[i].scaleFatWeight;
-		if (fat > 0) return (fat / days[i].scaleWeight);
-	}
-	return [database latestFatRatioBeforeMonth:month];
+- (float)inputFatTrendOnDay:(EWDay)day {
+    // First, search backwards through this month for a trend value.
+    for (int i = (day - 1) - 1; i >= 0; i--) {
+        if (days[i].trendFatWeight > 0) {
+            float trend = days[i].trendFatWeight;
+            if (trend > 0) return trend;
+        }
+    }
+    // If none is found, use the input trend
+    SQLiteStatement *stmt = [database selectMonthStatement];
+    [stmt bindInt:month toParameter:1];
+    if ([stmt step]) {
+        float fat = [stmt floatValueOfColumn:2];
+        [stmt reset];
+        return fat;
+    }
+    // If nothing else, return scale (in case day is <= first day of data)
+    return days[day - 1].scaleFatWeight;
 }
 
 

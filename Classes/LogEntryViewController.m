@@ -16,7 +16,9 @@
 #import "EWFlagButton.h"
 
 
-const CGFloat kWeightPickerComponentWidth = 320 - 88;
+static const CGFloat kWeightPickerComponentWidth = 320 - 88;
+static const float kDefaultWeight = 200.0f;
+static const float kDefaultFatRatio = 0.25f;
 
 
 enum {
@@ -256,20 +258,21 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	if (weight > 0) return weight;
 
 	// database is empty!
-	return 200.0f;
+	return kDefaultWeight;
 }
 
 
-- (float)chooseDefaultFatRatio {
+- (float)chooseDefaultFatWeight {
 	// no fat today, search earlier
-	float fat = [monthData latestFatRatioBeforeDay:day];
-	if (fat > 0) return fat;
+	float fatWeight = [monthData inputFatTrendOnDay:day];
+	if (fatWeight > 0) return fatWeight;
 	
 	// nothing on or earlier, find first
-	fat = [monthData.database earliestFatRatio];
-	if (fat > 0) return fat;
+	fatWeight = [monthData.database earliestFatWeight];
+	if (fatWeight > 0) return fatWeight;
 	
-	return 0.25f;
+    // database is empty
+	return 0;
 }
 
 
@@ -308,7 +311,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	[monthData release];
 	monthData = [aDBMonth retain];
 	
-	[self view]; // force load of view
+	[self view]; // force the view to load
 	
 	NSDate *date = EWDateFromMonthAndDay(monthData.month, day);
 	NSDateFormatter *titleFormatter = [[NSDateFormatter alloc] init];
@@ -316,53 +319,60 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
 	navigationBar.topItem.title = [titleFormatter stringFromDate:date];
 	[titleFormatter release];
+    
+    BOOL isEmpty = ![monthData hasDataOnDay:day];
+    BOOL isToday = (EWMonthDayToday() == EWMonthDayMake(monthData.month, day));
+    
+    const EWDBDay *dd = [monthData getDBDayOnDay:day];
 
-	const EWDBDay *dd = [monthData getDBDayOnDay:day];
-
-	weightRow = [self pickerRowForWeight:dd->scaleWeight];
-
-	if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
-		fatRow = [self pickerRowForFatRatio:(dd->scaleFatWeight / dd->scaleWeight)];
-	} else {
-		fatRow = 0;
-	}
-	
-	BOOL weighIn = (![monthData hasDataOnDay:day] &&
-					(EWMonthDayToday() == EWMonthDayMake(monthData.month, day)));
-
-	if (weighIn) {
-		if ([monthData didRecordFatBeforeDay:day]) {
-			weightMode = kModeWeightAndFat;
-		} else {
-			weightMode = kModeWeight;
-		}
-	} else {
-		if (fatRow > 0) {
-			weightMode = kModeWeightAndFat;
-		} else if (weightRow > 0) {
-			weightMode = kModeWeight;
-		} else {
-			weightMode = kModeNone;
-		}
-	}
-	
-	weightControl.selectedSegmentIndex = weightMode;
-
-	if (weightRow == 0) {
-		weightRow = [self pickerRowForWeight:[self chooseDefaultWeight]];
-	}
-	
-	if (fatRow == 0) {
-		fatRow = [self pickerRowForFatRatio:[self chooseDefaultFatRatio]];
-	}
-	
-	[self toggleWeight];
-
+    // 1/5: Set Mode
+    
+    if (isEmpty && isToday) {
+        // This is a weigh-in, show pickers based on previous entry:
+        if ([monthData didRecordFatBeforeDay:day]) {
+            weightMode = kModeWeightAndFat;
+        } else {
+            weightMode = kModeWeight;
+        }
+    } else {
+        // This is an edit, show pickers based on data
+        if (dd->scaleFatWeight > 0) {
+            weightMode = kModeWeightAndFat;
+        } else if (dd->scaleWeight > 0) {
+            weightMode = kModeWeight;
+        } else {
+            weightMode = kModeNone;
+        }
+    }
+    
+    // 2/5: Set Weight Picker
+    
+    float weight = [self chooseDefaultWeight];
+    weightRow = [self pickerRowForWeight:weight];
+    
+    // 3/5: Set Fat Picker
+    
+    float fatWeight = [self chooseDefaultFatWeight];
+    if (fatWeight > 0) {
+        fatRow = [self pickerRowForFatRatio:(fatWeight / weight)];
+    } else {
+        fatRow = [self pickerRowForFatRatio:kDefaultFatRatio];
+    }
+    
+    // 4/5: Set Marks
+    
 	for (int f = 0; f < 4; f++) {
 		[self setValue:dd->flags[f] forFlagIndex:f];
 	}
-	
-	noteView.text = dd->note;
+
+    // 5/5: Set Note
+    
+    noteView.text = dd->note;
+
+    // Update views
+
+	weightControl.selectedSegmentIndex = weightMode;
+	[self toggleWeight];
 }
 
 
@@ -478,10 +488,13 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
-		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+        CGRect frame = CGRectZero;
+        frame.size = [pickerView rowSizeForComponent:component];
+		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
+        label.opaque = NO;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 	
@@ -492,7 +505,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	} else {
 		float fatRatio = [self fatRatioForPickerRow:row];
 		label.text = [NSString stringWithFormat:@"%0.1f%%", (100.0f * fatRatio)];
-		label.backgroundColor = [UIColor clearColor];
+		label.backgroundColor = nil;
 	}
 
 	return label;

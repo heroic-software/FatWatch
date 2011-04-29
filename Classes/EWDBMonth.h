@@ -46,7 +46,7 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb;
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;
-- (float)latestFatRatioBeforeDay:(EWDay)day;
+- (float)inputFatTrendOnDay:(EWDay)day;
 - (BOOL)didRecordFatBeforeDay:(EWDay)day;
 - (void)updateTrends;
 - (void)setDBDay:(EWDBDay *)dbd onDay:(EWDay)day;

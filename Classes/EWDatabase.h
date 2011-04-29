@@ -47,9 +47,8 @@ typedef enum {
 - (void)upgrade;
 // Reading
 - (float)earliestWeight;
-- (float)earliestFatRatio;
+- (float)earliestFatWeight;
 - (float)latestWeight;
-- (float)latestFatRatioBeforeMonth:(EWMonth)month;
 - (BOOL)didRecordFatBeforeMonth:(EWMonth)month;
 - (EWDBMonth *)getDBMonth:(EWMonth)month;
 - (void)getWeightMinimum:(float *)minWeight maximum:(float *)maxWeight onlyFat:(BOOL)onlyFat from:(EWMonthDay)beginMonthDay to:(EWMonthDay)endMonthDay;

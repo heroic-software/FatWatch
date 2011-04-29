@@ -146,8 +146,8 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 // Used by LogEntryViewController when choosing default fat ratio. Only called if no weight prior to current day.
-- (float)earliestFatRatio {
-	return [self floatFromSQL:"SELECT (scaleFatWeight / scaleWeight) FROM days WHERE scaleFatWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
+- (float)earliestFatWeight {
+	return [self floatFromSQL:"SELECT scaleFatWeight FROM days WHERE scaleFatWeight IS NOT NULL ORDER BY monthday LIMIT 1"];
 }
 
 
@@ -156,21 +156,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 // Used by GoalViewController to set default goal weight.
 - (float)latestWeight {
 	return [self trendValueOnMonthDay:EWMonthDayToday()];
-}
-
-
-// Used by EWDBMonth in latestFatBeforeDay:
-- (float)latestFatRatioBeforeMonth:(EWMonth)month {
-	SQLiteStatement *stmt = [db statementFromSQL:"SELECT (scaleFatWeight / scaleWeight) FROM days WHERE scaleFatWeight IS NOT NULL AND monthday < ? ORDER BY monthday DESC LIMIT 1"];
-
-	[stmt bindInt:EWMonthDayMake(month, 1) toParameter:1];
-	if ([stmt step]) {
-		float r = [stmt floatValueOfColumn:0];
-		[stmt reset];
-		return r;
-	} else {
-		return 0;
-	}
 }
 
 
