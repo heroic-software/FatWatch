@@ -7,6 +7,7 @@
 //
 
 #import "BRTableViewController.h"
+#import <objc/runtime.h>
 
 
 @implementation BRTableRow
@@ -58,7 +59,8 @@
 
 
 - (NSString *)reuseableCellIdentifier {
-	return [NSString stringWithFormat:@"BRTableRowCell:%d", cellStyle];
+    const char *name = class_getName([self class]);
+	return [NSString stringWithFormat:@"%s:%d", name, cellStyle];
 }
 
 

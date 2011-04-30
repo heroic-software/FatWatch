@@ -106,11 +106,6 @@ static BRActivityView *gLoadingView = nil;
 #pragma mark BRTableRow
 
 
-- (NSString *)reuseableCellIdentifier {
-	return [NSString stringWithFormat:@"BRTableButtonRowCell:%d", self.cellStyle];
-}
-
-
 - (void)configureCell:(UITableViewCell *)cell {
 	[super configureCell:cell];
 	cell.textLabel.textColor = self.disabled ? [UIColor grayColor] : self.titleColor;
