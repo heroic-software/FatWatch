@@ -30,6 +30,13 @@ static NSString *kEWLastImportKey = @"EWLastImportDate";
 static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
+@interface MicroWebConnection (EWAdditions)
+- (void)sendNotFoundError;
+- (void)sendFileAtPath:(NSString *)path contentType:(NSString *)contentType;
+- (void)sendHTMLResourceNamed:(NSString *)name;
+@end
+
+
 @interface EWWiFiAccessViewController ()
 - (void)displayDetailView:(UIView *)detailView;
 - (void)detailViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
@@ -202,65 +209,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-#pragma mark Web Server Stuff
-
-
-- (void)sendNotFoundErrorToConnection:(MicroWebConnection *)connection {
-	[connection beginResponseWithStatus:HTTP_STATUS_NOT_FOUND];
-	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection endResponseWithBodyString:@"Resource Not Found"];
-}
-
-
-- (void)sendFileAtPath:(NSString *)path contentType:(NSString *)contentType toConnection:(MicroWebConnection *)connection {
-
-	if (path == nil) {
-		[self sendNotFoundErrorToConnection:connection];
-		return;
-	}
-	
-	NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
-	NSDate *lastModifiedDate = [attrs fileModificationDate];
-
-	NSDate *ifModifiedSinceDate = [connection dateForRequestHeader:@"If-Modified-Since"];
-	if (ifModifiedSinceDate &&
-		[ifModifiedSinceDate compare:lastModifiedDate] != NSOrderedAscending) {
-		[connection beginResponseWithStatus:HTTP_STATUS_NOT_MODIFIED];
-		[connection endResponseWithBodyData:[NSData data]];
-		return;
-	}
-	
-	[connection beginResponseWithStatus:HTTP_STATUS_OK];
-	[connection setValue:contentType forResponseHeader:@"Content-Type"];
-	[connection setValue:lastModifiedDate forResponseHeader:@"Last-Modified"];
-	
-	if ([path hasSuffix:@".gz"]) {
-		[connection setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
-	}
-	
-	NSData *contentData;
-	
-	if ([contentType isEqualToString:@"image/png"]) {
-		UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-		contentData = [UIImagePNGRepresentation(image) retain];
-		[image release];
-	} else {
-		contentData = [[NSData alloc] initWithContentsOfFile:path];
-	}
-	
-	[connection endResponseWithBodyData:contentData];
-	[contentData release];
-}
-
-
-- (void)sendHTMLResourceNamed:(NSString *)name toConnection:(MicroWebConnection *)connection {
-	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html.gz"];
-	[self sendFileAtPath:path 
-			 contentType:@"text/html; charset=utf-8"
-			toConnection:connection];
-}
-
-
 #pragma mark Web Server Actions
 
 
@@ -354,7 +302,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSString *path = [[NSBundle mainBundle] pathForResource:name
 													 ofType:@"png"
 												inDirectory:@"FlagIcons"];
-	[self sendFileAtPath:path contentType:@"image/png" toConnection:connection];
+	[connection sendFileAtPath:path contentType:@"image/png"];
 }
 
 
@@ -457,7 +405,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 - (void)receiveUpload:(MicroWebConnection *)connection {
 	if (importer) {
 		if (importer.importing) {
-			[self sendHTMLResourceNamed:@"importPending" toConnection:connection];
+			[connection sendHTMLResourceNamed:@"importPending"];
 			return;
 		} else {
 			[importer release];
@@ -471,7 +419,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[form release];
 	
 	if (data == nil) {
-		[self sendHTMLResourceNamed:@"importNoData" toConnection:connection];
+		[connection sendHTMLResourceNamed:@"importNoData"];
 		return;
 	}
 
@@ -554,7 +502,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 		[self prepareProgressDetailView];
 		[self displayDetailView:progressDetailView];
-		[self sendHTMLResourceNamed:@"importAccepted" toConnection:connection];
+		[connection sendHTMLResourceNamed:@"importAccepted"];
 	} else {
 		[connection respondWithErrorMessage:@"Importer Problem!"];
 	}
@@ -645,12 +593,10 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		} else {
 			NSString *path = [[NSBundle mainBundle] pathForResource:[rsrc objectForKey:@"Name"]
 															 ofType:[rsrc objectForKey:@"Type"]];
-			[self sendFileAtPath:path 
-					 contentType:[rsrc objectForKey:@"Content-Type"]
-					toConnection:connection];
+            [connection sendFileAtPath:path contentType:[rsrc objectForKey:@"Content-Type"]];
 		}
 	} else {
-		[self sendNotFoundErrorToConnection:connection];
+        [connection sendNotFoundError];
 	}
 }
 
@@ -686,5 +632,63 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	}
 }
 
+
+@end
+
+
+@implementation MicroWebConnection (EWAdditions)
+
+- (void)sendNotFoundError
+{
+	[self beginResponseWithStatus:HTTP_STATUS_NOT_FOUND];
+	[self setValue:@"text/plain" forResponseHeader:@"Content-Type"];
+	[self endResponseWithBodyString:@"Resource Not Found"];
+}
+
+- (void)sendFileAtPath:(NSString *)path contentType:(NSString *)contentType
+{
+    if (path == nil) {
+        [self sendNotFoundError];
+        return;
+    }
+	
+	NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+	NSDate *lastModifiedDate = [attrs fileModificationDate];
+    
+	NSDate *ifModifiedSinceDate = [self dateForRequestHeader:@"If-Modified-Since"];
+	if (ifModifiedSinceDate &&
+		[ifModifiedSinceDate compare:lastModifiedDate] != NSOrderedAscending) {
+		[self beginResponseWithStatus:HTTP_STATUS_NOT_MODIFIED];
+		[self endResponseWithBodyData:[NSData data]];
+		return;
+	}
+	
+	[self beginResponseWithStatus:HTTP_STATUS_OK];
+	[self setValue:contentType forResponseHeader:@"Content-Type"];
+	[self setValue:lastModifiedDate forResponseHeader:@"Last-Modified"];
+	
+	if ([path hasSuffix:@".gz"]) {
+		[self setValue:@"gzip" forResponseHeader:@"Content-Encoding"];
+	}
+	
+	NSData *contentData;
+	
+	if ([contentType isEqualToString:@"image/png"]) {
+		UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+		contentData = [UIImagePNGRepresentation(image) retain];
+		[image release];
+	} else {
+		contentData = [[NSData alloc] initWithContentsOfFile:path];
+	}
+	
+	[self endResponseWithBodyData:contentData];
+	[contentData release];
+}
+
+- (void)sendHTMLResourceNamed:(NSString *)name
+{
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"html.gz"];
+	[self sendFileAtPath:path contentType:@"text/html; charset=utf-8"];
+}
 
 @end
