@@ -19,15 +19,12 @@
 #import "EWWeightFormatter.h"
 #import "EWFlagButton.h"
 #import "EWDateFormatter.h"
+#import "ImportViewController.h"
 
 
 #define HTTP_STATUS_OK 200
 #define HTTP_STATUS_NOT_MODIFIED 304
 #define HTTP_STATUS_NOT_FOUND 404
-
-
-static NSString *kEWLastImportKey = @"EWLastImportDate";
-static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 
 @interface MicroWebConnection (EWAdditions)
@@ -52,8 +49,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 @synthesize detailView;
 @synthesize inactiveDetailView;
 @synthesize activeDetailView;
-@synthesize progressDetailView;
-@synthesize progressView;
 @synthesize lastImportLabel;
 @synthesize lastExportLabel;
 
@@ -76,8 +71,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	[inactiveDetailView release];
 	[lastExportLabel release];
 	[lastImportLabel release];
-	[progressDetailView release];
-	[progressView release];
 	[reachability release];
 	[statusLabel release];
 	[webResources release];
@@ -107,13 +100,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-- (void)setCurrentDateForKey:(NSString *)key {
-	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
-	[uds setObject:[NSDate date] forKey:key];
-	[self updateLastImportExportLabels];
-}
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	if (webServer == nil) {
@@ -131,21 +117,34 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-	[RootViewController setAutorotationEnabled:NO];
-	[self updateLastImportExportLabels];
-	[reachability startMonitoring];
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    [self updateLastImportExportLabels];
+    // If `importer` is nil, the view is being displayed for the first time, so
+    // we set up shop. Otherwise, we an ImportViewController has just been
+    // dismissed, and there is nothing to do but clean up.
+    if (importer == nil) {
+        [RootViewController setAutorotationEnabled:NO];
+        [reachability startMonitoring];
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    } else {
+        [importer release];
+        importer = nil;
+    }
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-	[reachability stopMonitoring];
-	[webServer stop];
-	statusLabel.text = @"Off";
-	[self displayDetailView:nil];
-	[RootViewController setAutorotationEnabled:YES];
+    // If `importer` is nil, the view is being popped off the navigation stack
+    // and it's time to clean up. Otherwise, an ImportViewController has just
+    // been pushed on top of it and there is nothing we need to do.
+    if (importer == nil) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+        [reachability stopMonitoring];
+        [webServer stop];
+        statusLabel.text = @"Off";
+        [self displayDetailView:nil];
+        [RootViewController setAutorotationEnabled:YES];
+    }
 }
 
 
@@ -159,8 +158,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 	self.detailView = nil;
 	self.inactiveDetailView = nil;
 	self.activeDetailView = nil;
-	self.progressDetailView = nil;
-	self.progressView = nil;
 	self.lastImportLabel = nil;
 	self.lastExportLabel = nil;
 }
@@ -184,22 +181,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
         }
         [viewArray release];
     }];
-}
-
-
-- (void)prepareProgressDetailView {
-	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
-	titleLabel.text = @"Importing";
-	[[progressDetailView viewWithTag:kEWProgressDetailTag] setHidden:YES];
-	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:YES];
-}
-
-
-#pragma mark IBAction
-
-
-- (IBAction)dismissProgressView {
-	[self displayDetailView:activeDetailView];
 }
 
 
@@ -365,7 +346,9 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSData *data = [exporter dataExportedFromDatabase:database];
 	
 	if (data) {
-		[self setCurrentDateForKey:kEWLastExportKey];
+        NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
+        [uds setObject:[NSDate date] forKey:kEWLastExportKey];
+        [self updateLastImportExportLabels];
 
 		[connection beginResponseWithStatus:HTTP_STATUS_OK];
 
@@ -418,7 +401,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	}
 
 	importer = [[EWImporter alloc] initWithData:data encoding:encoding];
-	importer.delegate = self;
 		
 	[connection respondWithRedirectToPath:@"/import"];
 }
@@ -457,22 +439,25 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		return;
 	}
 	
-	[importer setColumn:[[form stringForKey:@"date"] intValue] 
-			   forField:EWImporterFieldDate];
-	[importer setColumn:[[form stringForKey:@"weight"] intValue] 
-			   forField:EWImporterFieldWeight];
-	[importer setColumn:[[form stringForKey:@"fat"] intValue] 
-			   forField:EWImporterFieldFatRatio];
-	[importer setColumn:[[form stringForKey:@"flag0"] intValue] 
-			   forField:EWImporterFieldFlag0];
-	[importer setColumn:[[form stringForKey:@"flag1"] intValue] 
-			   forField:EWImporterFieldFlag1];
-	[importer setColumn:[[form stringForKey:@"flag2"] intValue] 
-			   forField:EWImporterFieldFlag2];
-	[importer setColumn:[[form stringForKey:@"flag3"] intValue] 
-			   forField:EWImporterFieldFlag3];
-	[importer setColumn:[[form stringForKey:@"note"] intValue] 
-			   forField:EWImporterFieldNote];
+    {
+        int c;
+        c = [[form stringForKey:@"date"] intValue];
+        [importer setColumn:c forField:EWImporterFieldDate];
+        c = [[form stringForKey:@"weight"] intValue];
+        [importer setColumn:c forField:EWImporterFieldWeight];
+        c = [[form stringForKey:@"fat"] intValue];
+        [importer setColumn:c forField:EWImporterFieldFatRatio];
+        c = [[form stringForKey:@"flag0"] intValue];
+        [importer setColumn:c forField:EWImporterFieldFlag0];
+        c = [[form stringForKey:@"flag1"] intValue];
+        [importer setColumn:c forField:EWImporterFieldFlag1];
+        c = [[form stringForKey:@"flag2"] intValue];
+        [importer setColumn:c forField:EWImporterFieldFlag2];
+        c = [[form stringForKey:@"flag3"] intValue];
+        [importer setColumn:c forField:EWImporterFieldFlag3];
+        c = [[form stringForKey:@"note"] intValue];
+        [importer setColumn:c forField:EWImporterFieldNote];
+    }
 	
 	{
 		NSFormatter *df = [EWDateFormatter formatterWithDateFormat:[form stringForKey:@"dateFormat"]];
@@ -491,57 +476,12 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
 	
 	[form release];
-	
-	if ([importer performImportToDatabase:database]) {
-		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-		[self prepareProgressDetailView];
-		[self displayDetailView:progressDetailView];
-		[connection sendHTMLResourceNamed:@"importAccepted"];
-	} else {
-		[connection respondWithErrorMessage:@"Importer Problem!"];
-	}
-}
-
-
-#pragma mark EWImporterDelegate
-
-
-- (void)importer:(EWImporter *)anImporter importProgress:(float)progress {
-	progressView.progress = progress;
-}
-
-
-- (void)importer:(EWImporter *)anImporter didImportNumberOfMeasurements:(int)importedCount outOfNumberOfRows:(int)rowCount {
-	
-	[importer autorelease];
-	importer = nil;
-
-	[self setCurrentDateForKey:kEWLastImportKey];
-	
-	NSString *msg;
-
-	// \xc2\xa0 : NO-BREAK SPACE
-	if (importedCount > 0) {
-		msg = [NSString stringWithFormat:NSLocalizedString(@"Imported %d\xc2\xa0measurements;\n%d\xc2\xa0lines ignored.", @"After import, count of lines read and ignored."), 
-			   importedCount,
-			   rowCount - importedCount];
-	} else {
-		msg = [NSString stringWithFormat:NSLocalizedString(@"Read %d\xc2\xa0rows but no measurements were found. The file may not be in the correct format.", @"After import, count of lines read, nothing imported."),
-			   rowCount];
-	}
-
-	progressView.progress = 1.0f;
-
-	UILabel *titleLabel = (id)[progressDetailView viewWithTag:kEWProgressTitleTag];
-	titleLabel.text = @"Done";
-
-	UILabel *detailLabel = (id)[progressDetailView viewWithTag:kEWProgressDetailTag];
-	detailLabel.text = msg;
-	detailLabel.hidden = NO;
-
-	[[progressDetailView viewWithTag:kEWProgressButtonTag] setHidden:NO];
-
-	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+    ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:database];
+    [self presentModalViewController:importView animated:YES];
+    [importView release];
+    
+    [connection sendHTMLResourceNamed:@"importAccepted"];
 }
 
 
@@ -585,8 +525,9 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			[self performSelector:NSSelectorFromString(action) 
 					   withObject:connection];
 		} else {
-			NSString *path = [[NSBundle mainBundle] pathForResource:[rsrc objectForKey:@"Name"]
-															 ofType:[rsrc objectForKey:@"Type"]];
+			NSString *path = [[NSBundle mainBundle] 
+                              pathForResource:[rsrc objectForKey:@"Name"]
+                              ofType:[rsrc objectForKey:@"Type"]];
             [connection sendFileAtPath:path contentType:[rsrc objectForKey:@"Content-Type"]];
 		}
 	} else {

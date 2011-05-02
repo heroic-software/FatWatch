@@ -12,6 +12,17 @@
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 #import "EWGoal.h"
+#import "EWDateFormatter.h"
+#import "EWExporter.h"
+
+
+NSString * const kEWLastImportKey = @"EWLastImportDate";
+NSString * const kEWLastExportKey = @"EWLastExportDate";
+
+
+@interface EWImporter ()
+- (void)continueImportToDatabase:(EWDatabase *)db;
+@end
 
 
 @implementation EWImporter
@@ -20,6 +31,8 @@
 @synthesize delegate;
 @synthesize deleteFirst;
 @synthesize importing;
+@synthesize columnNames;
+@synthesize columnDefaults = importDefaults;
 
 
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding {
@@ -67,6 +80,65 @@
 }
 
 
+- (void)autodetectFields {
+    NSNumber *idx;
+    
+    idx = [importDefaults objectForKey:@"importDate"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldDate];
+        NSFormatter *df = [[EWISODateFormatter alloc] init];
+        [self setFormatter:df forField:EWImporterFieldDate];
+        [df release];
+    }
+    
+    idx = [importDefaults objectForKey:@"importWeight"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldWeight];
+        NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport];
+        [self setFormatter:wf forField:EWImporterFieldWeight];
+    }
+    
+    idx = [importDefaults objectForKey:@"importFat"];
+    if (idx) {
+        NSUInteger i = [idx unsignedIntegerValue];
+        [self setColumn:i forField:EWImporterFieldFatRatio];
+        float v = [[[sampleValues objectAtIndex:i] lastObject] floatValue];
+        NSFormatter *ff;
+        if (v == 0 || v > 1) {
+            ff = EWFatFormatterAtIndex(0); // percentage (0%-100%)
+        } else {
+            ff = EWFatFormatterAtIndex(1); // ratio (0-1)
+        }
+        [self setFormatter:ff forField:EWImporterFieldFatRatio];
+    }
+    
+    idx = [importDefaults objectForKey:@"importFlag0"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldFlag0];
+    }
+    
+    idx = [importDefaults objectForKey:@"importFlag1"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldFlag1];
+    }
+
+    idx = [importDefaults objectForKey:@"importFlag2"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldFlag2];
+    }
+
+    idx = [importDefaults objectForKey:@"importFlag3"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldFlag3];
+    }
+
+    idx = [importDefaults objectForKey:@"importNote"];
+    if (idx) {
+        [self setColumn:[idx integerValue] forField:EWImporterFieldNote];
+    }
+}
+
+
 - (NSDictionary *)infoForJavaScript {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			columnNames, @"columns",
@@ -93,15 +165,11 @@
 
 - (BOOL)performImportToDatabase:(EWDatabase *)db {
 	importing = YES;
-	rowCount = 0;
-	importedCount = 0;
-	
-	if (self.deleteFirst) {
-		[EWGoal deleteGoal];
-		[db deleteAllData];
-	}
-	
-	[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:0];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        [self continueImportToDatabase:db];
+    });
+
 	return YES;
 }
 
@@ -127,8 +195,16 @@
 
 
 - (void)continueImportToDatabase:(EWDatabase *)db {
-	NSDate *recessDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
-
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSDate *updateDate = [NSDate date];
+	NSUInteger rowCount = 0;
+	NSUInteger importedCount = 0;
+	
+	if (self.deleteFirst) {
+		[EWGoal deleteGoal];
+		[db deleteAllData];
+	}
+	
 	NSArray *rowArray;
 	while ((rowArray = [reader readRow])) {
 		rowCount += 1;
@@ -169,25 +245,28 @@
 
 		importedCount += 1;
 
-		if ([recessDate timeIntervalSinceNow] < 0) {
-			[delegate importer:self importProgress:reader.progress];
+		if ([updateDate timeIntervalSinceNow] < 0) {
+            float progress = reader.progress;
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [delegate importer:self importProgress:progress];
+            });
 #if TARGET_IPHONE_SIMULATOR
-			[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:1];
-#else
-			[self performSelector:@selector(continueImportToDatabase:) withObject:db afterDelay:0];
+            [NSThread sleepForTimeInterval:0.1];
 #endif
-			return;
-		}
+            [pool drain];
+            pool = [[NSAutoreleasePool alloc] init];
+            updateDate = [NSDate dateWithTimeIntervalSinceNow:0.05];
+        }
 	}
 
-	[self concludeImportToDatabase:db];
-}
-
-
-- (void)concludeImportToDatabase:(EWDatabase *)db {
-	[db commitChanges];
-	importing = NO;
-	[delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
+    [db commitChanges];
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        importing = NO;
+        [delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
+    });
+    
+    [pool release];
 }
 
 

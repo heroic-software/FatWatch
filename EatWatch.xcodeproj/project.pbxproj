@@ -52,8 +52,6 @@
 		BC200C7410F7D6F900352A32 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
 		BC200C7510F7D6F900352A32 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
 		BC200C7610F7D6F900352A32 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
-		BC200C7D10F7D8B500352A32 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
-		BC200C7E10F7D8B500352A32 /* fatwatch.js in Resources */ = {isa = PBXBuildFile; fileRef = BC04126910DA0DD3008FCB11 /* fatwatch.js */; };
 		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
 		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
@@ -88,6 +86,8 @@
 		BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC710E31E9D001E8030 /* TriangleUp.png */; };
 		BC749EEC10E33EC8001E8030 /* EWTrendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BC749EEB10E33EC8001E8030 /* EWTrendButton.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
+		BC7D4A90136E38BD005DC3CA /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */; };
+		BC7D4A93136E3931005DC3CA /* ImportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC7D4A92136E3931005DC3CA /* ImportView.xib */; };
 		BC8272DD0D9EAF8900A24663 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */; };
 		BC82AE9A0E6FC77200E2A693 /* GraphDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */; };
 		BC82AF330E6FD13A00E2A693 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC263E820DB6665E007D03F4 /* GraphView.m */; };
@@ -126,6 +126,9 @@
 		BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */; };
 		BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */; };
 		BCC054761252A6810094B607 /* v3.test.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC054751252A6810094B607 /* v3.test.plist */; };
+		BCC0D3EC147879CE0080D403 /* browser-detect.js in Resources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
+		BCC0D3ED147879DF0080D403 /* fatwatch.js in Resources */ = {isa = PBXBuildFile; fileRef = BC04126910DA0DD3008FCB11 /* fatwatch.js */; };
+		BCC0D3EE147879EC0080D403 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
@@ -155,7 +158,6 @@
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
 		BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6082410E03E7F00819E77 /* EWImporter.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
-		BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
 		BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
 		BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
 		BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
@@ -389,6 +391,9 @@
 		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
+		BC7D4A8E136E38BD005DC3CA /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportViewController.h; sourceTree = "<group>"; };
+		BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportViewController.m; sourceTree = "<group>"; };
+		BC7D4A92136E3931005DC3CA /* ImportView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImportView.xib; path = Interfaces/ImportView.xib; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
 		BC82AE980E6FC77200E2A693 /* GraphDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphDrawingOperation.h; path = Classes/GraphDrawingOperation.h; sourceTree = "<group>"; };
@@ -958,6 +963,9 @@
 				BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */,
 				BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */,
 				BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */,
+				BC7D4A8E136E38BD005DC3CA /* ImportViewController.h */,
+				BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */,
+				BC7D4A92136E3931005DC3CA /* ImportView.xib */,
 				BC04131510DB8024008FCB11 /* CSVExporter.h */,
 				BC04131610DB8024008FCB11 /* CSVExporter.m */,
 				BC04131810DB804B008FCB11 /* EWExporter.h */,
@@ -1123,8 +1131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC200C7D10F7D8B500352A32 /* fatwatch.css in Resources */,
-				BC200C7E10F7D8B500352A32 /* fatwatch.js in Resources */,
 				BC200C7310F7D6F900352A32 /* home.html in Resources */,
 				BC200C7410F7D6F900352A32 /* importPending.html in Resources */,
 				BC200C7510F7D6F900352A32 /* importNoData.html in Resources */,
@@ -1191,6 +1197,10 @@
 				BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */,
 				BC08CD1012481DAF006208A9 /* v3.test.db in Resources */,
 				BCC054761252A6810094B607 /* v3.test.plist in Resources */,
+				BC7D4A93136E3931005DC3CA /* ImportView.xib in Resources */,
+				BCC0D3EE147879EC0080D403 /* fatwatch.css in Resources */,
+				BCC0D3EC147879CE0080D403 /* browser-detect.js in Resources */,
+				BCC0D3ED147879DF0080D403 /* fatwatch.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1392,7 +1402,7 @@
 				BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */,
 				BC8DB56B1236EE480043B43A /* DebugViewController.m in Sources */,
 				BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */,
-				BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */,
+				BC7D4A90136E38BD005DC3CA /* ImportViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

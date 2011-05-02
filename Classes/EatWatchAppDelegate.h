@@ -29,6 +29,7 @@ typedef enum {
 	NSTimeInterval lastTapTime;
 	EWDatabase *db;
 	EWLaunchSequenceStage launchStage;
+    NSData *dataToImport;
 }
 @property (nonatomic,retain) IBOutlet RootViewController *rootViewController;
 - (NSString *)databasePath;

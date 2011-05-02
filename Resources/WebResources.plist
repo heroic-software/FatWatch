@@ -104,5 +104,14 @@
 		<key>Action</key>
 		<string>sendFlagImage:</string>
 	</dict>
+	<key>/browser-detect.js</key>
+	<dict>
+		<key>Name</key>
+		<string>browser-detect</string>
+		<key>Type</key>
+		<string>js.gz</string>
+		<key>Content-Type</key>
+		<string>text/javascript; charset=utf-8</string>
+	</dict>
 </dict>
 </plist>

@@ -14,6 +14,10 @@
 @class EWDatabase;
 
 
+NSString * const kEWLastImportKey;
+NSString * const kEWLastExportKey;
+
+
 typedef enum {
 	EWImporterFieldDate,
 	EWImporterFieldWeight,
@@ -43,16 +47,16 @@ typedef enum {
 	id <EWImporterDelegate> delegate;
 	BOOL deleteFirst;
 	BOOL importing;
-	NSUInteger rowCount, importedCount;
 }
 @property (nonatomic,assign) id <EWImporterDelegate> delegate;
 @property (nonatomic) BOOL deleteFirst;
 @property (nonatomic,readonly,getter=isImporting) BOOL importing;
+@property (nonatomic,readonly) NSArray *columnNames;
+@property (nonatomic,readonly) NSDictionary *columnDefaults;
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding;
+- (void)autodetectFields;
 - (NSDictionary *)infoForJavaScript;
 - (void)setColumn:(int)column forField:(EWImporterField)field;
 - (void)setFormatter:(NSFormatter *)formatter forField:(EWImporterField)field;
 - (BOOL)performImportToDatabase:(EWDatabase *)db;
-- (void)continueImportToDatabase:(EWDatabase *)db;
-- (void)concludeImportToDatabase:(EWDatabase *)db;
 @end

@@ -38,21 +38,21 @@
 		<string>BodyFat</string>
 		<key>exportFatFormat</key>
 		<string>0</string>
+		<key>exportFlag0</key>
+		<true/>
+		<key>exportFlag0Name</key>
+		<string>Mark1</string>
 		<key>exportFlag1</key>
 		<true/>
 		<key>exportFlag1Name</key>
-		<string>Mark1</string>
+		<string>Mark2</string>
 		<key>exportFlag2</key>
 		<true/>
 		<key>exportFlag2Name</key>
-		<string>Mark2</string>
+		<string>Mark3</string>
 		<key>exportFlag3</key>
 		<true/>
 		<key>exportFlag3Name</key>
-		<string>Mark3</string>
-		<key>exportFlag4</key>
-		<true/>
-		<key>exportFlag4Name</key>
 		<string>Mark4</string>
 		<key>exportNote</key>
 		<true/>

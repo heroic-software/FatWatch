@@ -23,6 +23,9 @@
 #import "RootViewController.h"
 #import "TrendViewController.h"
 #import "UpgradeViewController.h"
+#import "EWImporter.h"
+#import "ImportViewController.h"
+#import "EWDateFormatter.h"
 
 
 static NSString *kWeightDatabaseName = @"WeightData.db";
@@ -128,6 +131,20 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	tabBarController.selectedIndex = lastTapTabIndex;
 	
 	launchViewController = [rootViewController retain];
+    
+    if (dataToImport) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            EWImporter *importer = [[EWImporter alloc] initWithData:dataToImport encoding:NSUTF8StringEncoding];
+            [importer autodetectFields];
+            ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:db];
+            importView.promptBeforeImport = YES;
+            [window.rootViewController presentModalViewController:importView animated:YES];
+            [importView release];
+            [importer release];
+            [dataToImport release];
+            dataToImport = nil;
+        });
+    }
 }
 
 
@@ -166,9 +183,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		}
 	} while (launchViewController == nil);
 	
-	UIView *view = launchViewController.view;
-	view.frame = [[UIScreen mainScreen] applicationFrame];
-	[window addSubview:view];
+    window.rootViewController = launchViewController;
 	
 	if (launchStage == EWLaunchSequenceStageComplete) [self autoWeighInIfEnabled];
 
@@ -180,12 +195,11 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-
-
 #pragma mark UIApplicationDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
 	[self registerDefaults];
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[self continueLaunchSequence];
@@ -194,17 +208,27 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 }
 
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    dataToImport = [[NSData alloc] initWithContentsOfURL:url];
+    return YES;
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
 	[db close];
 }
 
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
 	[db reopen];
 }
 
 
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)applicationWillTerminate:(UIApplication *)application
+{
 	[db close];
 }
 

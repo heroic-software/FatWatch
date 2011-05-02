@@ -19,20 +19,13 @@
 #define kEWReadyAddressTag 101
 #define kEWReadyNameTag 102
 
-#define kEWProgressTitleTag 401
-#define kEWProgressDetailTag 402
-#define kEWProgressButtonTag 403
-
-
-@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate,EWImporterDelegate> {
+@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate> {
 	EWDatabase *database;
 	UILabel *statusLabel;
 	UIActivityIndicatorView *activityView;
 	UIView *detailView;
 	UIView *inactiveDetailView;
 	UIView *activeDetailView;
-	UIView *progressDetailView;
-	UIProgressView *progressView;
 	UILabel *lastImportLabel;
 	UILabel *lastExportLabel;
 	// Not NIB Stuff
@@ -49,9 +42,6 @@
 @property (nonatomic,retain) IBOutlet UIView *detailView;
 @property (nonatomic,retain) IBOutlet UIView *inactiveDetailView;
 @property (nonatomic,retain) IBOutlet UIView *activeDetailView;
-@property (nonatomic,retain) IBOutlet UIView *progressDetailView;
-@property (nonatomic,retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic,retain) IBOutlet UILabel *lastImportLabel;
 @property (nonatomic,retain) IBOutlet UILabel *lastExportLabel;
-- (IBAction)dismissProgressView;
 @end

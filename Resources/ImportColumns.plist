@@ -2,42 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>date</key>
-	<string>importDate</string>
-	<key>weight</key>
-	<string>importWeight</string>
-	<key>fat</key>
-	<string>importFat</string>
+	<key>blue</key>
+	<string>importFlag0</string>
 	<key>body fat</key>
 	<string>importFat</string>
 	<key>bodyfat</key>
 	<string>importFat</string>
-	<key>flag</key>
-	<string>importFlag0</string>
 	<key>check</key>
-	<string>importFlag0</string>
-	<key>mark</key>
 	<string>importFlag0</string>
 	<key>checkmark</key>
 	<string>importFlag0</string>
-	<key>rung</key>
-	<string>importFlag3</string>
+	<key>comment</key>
+	<string>importNote</string>
+	<key>date</key>
+	<string>importDate</string>
 	<key>exercise rung</key>
 	<string>importFlag3</string>
 	<key>exerciserung</key>
 	<string>importFlag3</string>
-	<key>note</key>
-	<string>importNote</string>
-	<key>comment</key>
-	<string>importNote</string>
-	<key>blue</key>
+	<key>fat</key>
+	<string>importFat</string>
+	<key>flag</key>
 	<string>importFlag0</string>
-	<key>red</key>
-	<string>importFlag1</string>
 	<key>green</key>
 	<string>importFlag2</string>
-	<key>yellow</key>
-	<string>importFlag3</string>
+	<key>mark</key>
+	<string>importFlag0</string>
 	<key>mark1</key>
 	<string>importFlag0</string>
 	<key>mark2</key>
@@ -45,6 +35,24 @@
 	<key>mark3</key>
 	<string>importFlag2</string>
 	<key>mark4</key>
+	<string>importFlag3</string>
+	<key>note</key>
+	<string>importNote</string>
+	<key>red</key>
+	<string>importFlag1</string>
+	<key>rung</key>
+	<string>importFlag3</string>
+	<key>weight</key>
+	<string>importWeight</string>
+	<key>yellow</key>
+	<string>importFlag3</string>
+	<key>flag1</key>
+	<string>importFlag0</string>
+	<key>flag2</key>
+	<string>importFlag1</string>
+	<key>flag3</key>
+	<string>importFlag2</string>
+	<key>flag4</key>
 	<string>importFlag3</string>
 </dict>
 </plist>
