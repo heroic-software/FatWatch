@@ -39,7 +39,6 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 @interface EWWiFiAccessViewController ()
 - (void)displayDetailView:(UIView *)detailView;
-- (void)detailViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 @end
 
 
@@ -172,24 +171,19 @@ static NSString *kEWLastExportKey = @"EWLastExportDate";
 
 - (void)displayDetailView:(UIView *)view {
 	view.alpha = 0;
-	[UIView beginAnimations:@"DetailTransition" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(detailViewTransitionDidStop:finished:context:)];
-	for (UIView *otherView in [detailView subviews]) {
-		otherView.alpha = 0;
-	}
-	[detailView addSubview:view];
-	view.alpha = 1;
-	[UIView commitAnimations];
-}
-
-
-- (void)detailViewTransitionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-	NSArray *viewArray = [[detailView subviews] copy];
-	for (UIView *view in viewArray) {
-		if (view.alpha == 0) [view removeFromSuperview];
-	}
-	[viewArray release];
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        for (UIView *otherView in [detailView subviews]) {
+            otherView.alpha = 0;
+        }
+        [detailView addSubview:view];
+        view.alpha = 1;
+    } completion:^(BOOL finished) {
+        NSArray *viewArray = [[detailView subviews] copy];
+        for (UIView *subview in viewArray) {
+            if (subview.alpha == 0) [subview removeFromSuperview];
+        }
+        [viewArray release];
+    }];
 }
 
 

@@ -64,7 +64,7 @@ static BRActivityView *gLoadingView = nil;
 
 - (BRConfirmationAlert *)confirmationAlertForURL:(NSURL *)url {
 	BRConfirmationAlert *alert = [[BRConfirmationAlert alloc] init];
-	alert.title = self.title;
+	alert.title = [url host];
 	if ([[url scheme] isEqualToString:@"mailto"]) {
 		alert.message = @"Would you like to open Mail?";
 		alert.buttonTitle = @"Mail";

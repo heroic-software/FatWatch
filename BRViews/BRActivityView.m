@@ -75,10 +75,10 @@
 	self.alpha = 0;
 	
 	[view addSubview:self];
-	[UIView beginAnimations:nil context:nil];
-	self.transform = CGAffineTransformIdentity;
-	self.alpha = 1;
-	[UIView commitAnimations];
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        self.transform = CGAffineTransformIdentity;
+        self.alpha = 1;
+    }];
 
 	UIActivityIndicatorView *activityIndicator = (UIActivityIndicatorView *)[self viewWithTag:kActivityIndicatorTag];
 	[activityIndicator startAnimating];

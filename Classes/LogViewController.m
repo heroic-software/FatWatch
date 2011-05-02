@@ -142,16 +142,6 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 }
 
 
-- (void)flashAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-	if ([kCellFlashAnimationID isEqualToString:animationID]) {
-		UITableViewCell *cell = (UITableViewCell *)context;
-		[cell setHighlighted:NO animated:YES];
-		[cell release];
-	}
-}
-
-
 // Called by the date picker popup
 - (void)scrollToDate:(NSDate *)date {
 	EWMonthDay md = EWMonthDayFromDate(date);
@@ -174,11 +164,11 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	
 	if ([targetPath isEqual:middlePath]) {
 		UITableViewCell *cell = [tableView cellForRowAtIndexPath:targetPath];
-		[UIView beginAnimations:kCellFlashAnimationID context:[cell retain]];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(flashAnimationDidStop:finished:context:)];
-		[cell setHighlighted:YES];
-		[UIView commitAnimations];
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            [cell setHighlighted:YES];
+        } completion:^(BOOL finished) {
+            [cell setHighlighted:NO animated:YES];
+        }];
 	} else {
 		[tableView selectRowAtIndexPath:targetPath 
 							   animated:YES
