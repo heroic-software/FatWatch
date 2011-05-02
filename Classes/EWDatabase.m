@@ -188,9 +188,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 			dbm = [[EWDBMonth alloc] initWithMonth:month database:self];
 			[monthCache setObject:dbm forKey:key];
 			[dbm release];
-#if TARGET_IPHONE_SIMULATOR
-			NSLog(@"Month Cache: %d records", [monthCache count]);
-#endif
 		}
 		if (month < earliestMonth) earliestMonth = month;
 		if (month > latestMonth) latestMonth = month;
@@ -523,6 +520,9 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 - (void)flushCache {
 	[monthCacheLock lock];
+    [monthCache enumerateKeysAndObjectsUsingBlock:^(id key, id dbm, BOOL *stop) {
+        [dbm invalidate];
+    }];
 	[monthCache	removeAllObjects];
 	[monthCacheLock unlock];
 }

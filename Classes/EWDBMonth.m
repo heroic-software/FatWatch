@@ -50,12 +50,14 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 @synthesize database;
 @synthesize month;
+@synthesize valid;
 
 
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb {
 	if ([self init]) {
 		database = [ewdb retain];
 		month = m;
+        valid = YES;
 		
 		SQLiteStatement *stmt;
 
@@ -75,13 +77,14 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 		}
 
 		[self updateTrendsSaveOutput:NO];
-	}
+    }
 	return self;
 }
 
 
 // Used all over the place.
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];
 }
@@ -99,6 +102,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 // Used by LogEntryViewController to choose a default weight.
 // Used by EWDatabase to determine trend value on a day.
 - (float)inputTrendOnDay:(EWDay)day {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
 	// First, search backwards through this month for a trend value.
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		float trend = days[i].trendWeight;
@@ -119,6 +123,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 // Used by LogEntryViewController to choose a default fat.
 - (float)inputFatTrendOnDay:(EWDay)day {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
     // First, search backwards through this month for a trend value.
     for (int i = (day - 1) - 1; i >= 0; i--) {
         if (days[i].trendFatWeight > 0) {
@@ -141,6 +146,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 // Used by LogEntryViewController to determine entry mode (W vs W&F)
 - (BOOL)didRecordFatBeforeDay:(EWDay)day {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
 	for (int i = (day - 1) - 1; i >= 0; i--) {
 		if (days[i].scaleWeight > 0) {
 			return days[i].scaleFatWeight > 0;
@@ -241,10 +247,17 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 }
 
 
+- (void)invalidate
+{
+    valid = NO;
+}
+
+
 #pragma mark Private Methods
 
 
 - (void)updateTrendsSaveOutput:(BOOL)saveOutput {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
 	float tw, tf;
 	
 	SQLiteStatement *stmt = [database selectMonthStatement];
@@ -276,6 +289,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (EWDBDay *)accessDBDayOnDay:(EWDay)day {
+    NSAssert(valid, @"Using an invalid EWDBMonth object!");
 	NSAssert1(day >= 1 && day <= 31, @"Day out of range: %d", day);
 	return &days[day - 1];
 }

@@ -40,9 +40,11 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 	EWMonth month;
 	struct EWDBDay days[31];
 	UInt32 dirtyBits;
+    BOOL valid;
 }
 @property (nonatomic,readonly) EWDatabase *database;
 @property (nonatomic,readonly) EWMonth month;
+@property (nonatomic,readonly,getter = isValid) BOOL valid;
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb;
 - (const EWDBDay *)getDBDayOnDay:(EWDay)day;
 - (float)inputTrendOnDay:(EWDay)day;
@@ -52,4 +54,5 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 - (void)setDBDay:(EWDBDay *)dbd onDay:(EWDay)day;
 - (BOOL)hasDataOnDay:(EWDay)day;
 - (BOOL)commitChanges;
+- (void)invalidate;
 @end
