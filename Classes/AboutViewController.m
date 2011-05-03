@@ -12,11 +12,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 
 
-#if TARGET_IPHONE_SIMULATOR
-#define BOOK_WELCOME_URL @"http://fatwatchapp.test/goto/hackdiet-contents"
-#else
-#define BOOK_WELCOME_URL @"http://www.fatwatchapp.com/goto/hackdiet-contents"
-#endif
+#define BOOK_WELCOME_URL @"http://www.fatwatchapp.com/goto/hackdiet"
 
 
 @implementation AboutViewController
