@@ -1,0 +1,1 @@
+../Resources/browser-detect.js

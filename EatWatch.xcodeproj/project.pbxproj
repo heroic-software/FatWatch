@@ -161,6 +161,7 @@
 		BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
 		BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
+		BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
@@ -493,6 +494,7 @@
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
 		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
+		BCEBD472136F7FA0005C1D05 /* browser-detect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "browser-detect.js"; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -989,6 +991,7 @@
 				BC14F3D51118C72400FB9A50 /* Settings */,
 				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
 				BC04126910DA0DD3008FCB11 /* fatwatch.js */,
+				BCEBD472136F7FA0005C1D05 /* browser-detect.js */,
 				BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */,
 				BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */,
 				BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */,
@@ -1270,7 +1273,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/jQuery/jquery-1.3.2.min.js",
+				"$(SRCROOT)/jQuery/jquery-1.5.2.min.js",
 				"$(SRCROOT)/Resources/RegistrationError.html",
 			);
 			name = "Run Script (Copy & Rename)";
@@ -1377,6 +1380,7 @@
 				BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */,
 				BC8DB56B1236EE480043B43A /* DebugViewController.m in Sources */,
 				BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */,
+				BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

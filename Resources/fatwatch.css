@@ -18,6 +18,10 @@ h2 {
 	border-bottom: 1px solid #c00;
 }
 
+li {
+    margin: 12px 0;
+}
+
 form {
 	margin-bottom: 12px;
 }
@@ -30,12 +34,20 @@ form {
 	font-size: small;
 }
 
+a {
+    color: #00f;
+}
+
+a:visited {
+    color: #00c;
+}
+
 a.selected {
 	background-color: #fcc;
 }
 
-strong {
-	background-color: #fcc;
+.hilite {
+    background-color: #ffc;
 }
 
 .hint {

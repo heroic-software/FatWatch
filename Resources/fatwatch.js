@@ -139,6 +139,14 @@ function homeReady() {
 	$("#sendButton").attr('value', 'Send to ' + FatWatch.deviceModel);
 	$("#helpMailLink").attr('href', mailURL);
 	
+    if (BrowserDetect.browser == 'Safari') { $(".ua-safari").addClass('hilite'); }
+    else if (BrowserDetect.browser == 'Firefox') { $(".ua-firefox").addClass('hilite'); }
+    else if (BrowserDetect.browser == 'Explorer') { $(".ua-msie").addClass('hilite'); }
+
+    if (BrowserDetect.OS == 'Windows') { $(".os-windows").addClass('hilite'); }
+    else if (BrowserDetect.OS == 'Mac') { $(".os-mac").addClass('hilite'); }
+    else if (BrowserDetect.OS == 'Linux') { $(".os-linux").addClass('hilite'); }
+    
 	configureTabs();
 	
 	// Export Form Formats

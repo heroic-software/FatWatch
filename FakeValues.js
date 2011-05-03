@@ -1,8 +1,8 @@
 // For testing the HTML files outside of the app.
 
 var FatWatch={
-	"deviceName":"Ben\u2019s Mac",
-	"deviceModel":"MacBook Jr",
+	"deviceName":"Ben\u2019s MacBook",
+	"deviceModel":"MacBook Pro",
 	"version":"1.5\u2202",
 	"copyright":"FatWatch 1.5\u2202 (0) 2008-2009 Benjamin Ragheb",
 	"dateFormats":[{"value":"y-MM-dd",
