@@ -1,3 +1,5 @@
+/*jshint browser:true, strict:false, eqeqeq:false, laxbreak:true, plusplus:false, curly:false */
+
 // http://www.quirksmode.org/js/detect.html
 // May 2, 2011
 
@@ -33,7 +35,7 @@ var BrowserDetect = {
 			subString: "Chrome",
 			identity: "Chrome"
 		},
-		{ 	string: navigator.userAgent,
+		{	string: navigator.userAgent,
 			subString: "OmniWeb",
 			versionSearch: "OmniWeb/",
 			identity: "OmniWeb"

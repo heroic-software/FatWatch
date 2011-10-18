@@ -1,4 +1,5 @@
-/*global document,$,FatWatch,FatWatchImport */
+/*jshint browser:true, jquery:true, strict:false, devel:true */
+/*global BrowserDetect:false, FatWatch:false, FatWatchImport:false */
 
 
 var FWExportPresets = {
@@ -84,13 +85,14 @@ function configureTabs() {
 		defaultTab = ':first';
 	}
 	
-	$("a.tablink").click(function (event) {
-						 tabContainers.hide().filter(this.hash).show();
-						 $("a.tablink")
-						 .removeClass('selected')
-						 .filter('[href=' + this.hash + ']')
-						 .addClass('selected');
-						 }).filter(defaultTab).click();
+    var clickHandler = function (event) {
+        tabContainers.hide().filter(this.hash).show();
+        $("a.tablink")
+        .removeClass('selected')
+        .filter('[href=' + this.hash + ']')
+        .addClass('selected');
+    };
+	$("a.tablink").click(clickHandler).filter(defaultTab).click();
 }
 
 
@@ -100,28 +102,34 @@ function updateSelectOptions(formats, eltId) {
 		selectElt.removeChild(selectElt.lastChild);
 	}
 	for (var i in formats) {
-		var optionInfo = formats[i];
-		var optionElt = document.createElement("option");
-		optionElt.value = optionInfo.value;
-		optionElt.innerHTML = optionInfo.label;
-		selectElt.appendChild(optionElt);
+        if (formats.hasOwnProperty(i)) {
+            var optionInfo = formats[i];
+            var optionElt = document.createElement("option");
+            optionElt.value = optionInfo.value;
+            optionElt.innerHTML = optionInfo.label;
+            selectElt.appendChild(optionElt);
+        }
 	}
 }
 
 
 function updateFormValues(defaults) {
 	for (var eltId in defaults) {
-		var value = defaults[eltId];
-		var elt = document.getElementById(eltId);
-		if (elt === null) {
-			console.log("Warning: no such element " + eltId);
-		}
-		else if (elt.type === "checkbox") {
-			elt.checked = value;
-		}
-		else {
-			elt.value = value;
-		}
+        if (defaults.hasOwnProperty(eltId)) {
+            var value = defaults[eltId];
+            var elt = document.getElementById(eltId);
+            if (elt === null) {
+                if (console) {
+                    console.log("Warning: no such element " + eltId);
+                }
+            }
+            else if (elt.type === "checkbox") {
+                elt.checked = value;
+            }
+            else {
+                elt.value = value;
+            }
+        }
 	}
 }
 
@@ -139,13 +147,13 @@ function homeReady() {
 	$("#sendButton").attr('value', 'Send to ' + FatWatch.deviceModel);
 	$("#helpMailLink").attr('href', mailURL);
 	
-    if (BrowserDetect.browser == 'Safari') { $(".ua-safari").addClass('hilite'); }
-    else if (BrowserDetect.browser == 'Firefox') { $(".ua-firefox").addClass('hilite'); }
-    else if (BrowserDetect.browser == 'Explorer') { $(".ua-msie").addClass('hilite'); }
+    if (BrowserDetect.browser === 'Safari') { $(".ua-safari").addClass('hilite'); }
+    else if (BrowserDetect.browser === 'Firefox') { $(".ua-firefox").addClass('hilite'); }
+    else if (BrowserDetect.browser === 'Explorer') { $(".ua-msie").addClass('hilite'); }
 
-    if (BrowserDetect.OS == 'Windows') { $(".os-windows").addClass('hilite'); }
-    else if (BrowserDetect.OS == 'Mac') { $(".os-mac").addClass('hilite'); }
-    else if (BrowserDetect.OS == 'Linux') { $(".os-linux").addClass('hilite'); }
+    if (BrowserDetect.OS === 'Windows') { $(".os-windows").addClass('hilite'); }
+    else if (BrowserDetect.OS === 'Mac') { $(".os-mac").addClass('hilite'); }
+    else if (BrowserDetect.OS === 'Linux') { $(".os-linux").addClass('hilite'); }
     
 	configureTabs();
 	
@@ -160,11 +168,13 @@ function homeReady() {
 	// Preset Links
 	var presetContainer = document.getElementById('exportPresets');
 	for (var presetName in FWExportPresets) {
-		presetContainer.appendChild(document.createTextNode(", "));
-		var link = document.createElement('a');
-		link.href = '#';
-		link.appendChild(document.createTextNode(presetName));
-		presetContainer.appendChild(link);
+        if (FWExportPresets.hasOwnProperty(presetName)) {
+            presetContainer.appendChild(document.createTextNode(", "));
+            var link = document.createElement('a');
+            link.href = '#';
+            link.appendChild(document.createTextNode(presetName));
+            presetContainer.appendChild(link);
+        }
 	}
 	
 	var exportCheckboxes = $('#export form :checkbox');
@@ -198,16 +208,19 @@ function homeReady() {
 function importReady() {
 	performTextSubstitution();
 	
-	$('select').each(function () {
-		 if (this.id.indexOf("Format") > 0) { return; }
-		 var columns = FatWatchImport.columns;
-		 for (var i in columns) {
-			 var optionElt = document.createElement("option");
-			 optionElt.innerHTML = columns[i];
-			 optionElt.value = parseInt(i,10) + 1;
-			 this.appendChild(optionElt);
-		 }
-	 }).change(function(){
+    var xxx = function () {
+        if (this.id.indexOf("Format") > 0) { return; }
+        var columns = FatWatchImport.columns;
+        for (var i in columns) {
+            if (columns.hasOwnProperty(i)) {
+                var optionElt = document.createElement("option");
+                optionElt.innerHTML = columns[i];
+                optionElt.value = parseInt(i,10) + 1;
+                this.appendChild(optionElt);
+            }
+        }
+    };
+    var changeHandler = function(){
 		var samples = FatWatchImport.samples;
 		if (this.value > 0) {
 			var array = samples[String(this.value - 1)];
@@ -218,7 +231,8 @@ function importReady() {
 			$("#" + this.id + "Format").attr("disabled", true);
 			$("#" + this.id + "Preview").text('');
 		}
-	});
+	};
+	$('select').each(xxx).change(changeHandler);
 	
 	updateFormValues(FatWatchImport.importDefaults);
 	updateSelectOptions(FatWatch.dateFormats, 'importDateFormat');
