@@ -7,3 +7,5 @@
     #import <UIKit/UIKit.h>
 	#import <QuartzCore/QuartzCore.h>
 #endif
+
+#define MINMAX(N,X,C)	({ __typeof__(N) __n = (N); __typeof__(X) __x = (X); __typeof__(C) __c = (C); __c < __n ? __n : (__c > __x ? __x : __c); })

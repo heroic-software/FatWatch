@@ -24,7 +24,7 @@
 	id <EWEnergyEquivalent> newEquivalent;
 	BOOL validationPending;
 }
-@property (nonatomic,retain) id <EWEnergyEquivalent> newEquivalent;
+@property (nonatomic,retain,getter=equivalent,setter=setEquivalent:) id <EWEnergyEquivalent> newEquivalent;
 @property (nonatomic,retain) IBOutlet UITextField *nameField;
 @property (nonatomic,retain) IBOutlet UITextField *energyField;
 @property (nonatomic,retain) IBOutlet UITextField *unitField;

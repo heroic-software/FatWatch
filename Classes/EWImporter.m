@@ -108,7 +108,6 @@
 
 - (id)valueForField:(EWImporterField)field inArray:(NSArray *)rowArray {
 	NSUInteger i = columnForField[field] - 1;
-	if (i < 0) return nil; // no column selected
 	if (i >= [rowArray count]) return nil; // not enough data in row
 	id value = [rowArray objectAtIndex:i];
 	if ([value length] == 0) return nil; // no value

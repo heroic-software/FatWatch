@@ -254,7 +254,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if ((NSUInteger)section == [lastIndexPath section]) {
+	if (section == [lastIndexPath section]) {
 		return [lastIndexPath row] + 1;
 	} else {
 		EWMonth month = [self monthForSection:section];

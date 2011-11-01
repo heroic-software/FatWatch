@@ -209,7 +209,7 @@
 
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row < [[dataArray objectAtIndex:indexPath.section] count];
+    return indexPath.row < (NSInteger)[[dataArray objectAtIndex:indexPath.section] count];
 }
 
 
@@ -225,7 +225,7 @@
 		return [NSIndexPath indexPathForRow:0
 								  inSection:sourceIndexPath.section];
 	}
-	else if (proposedDestinationIndexPath.row < [array count]) {
+	else if (proposedDestinationIndexPath.row < (NSInteger)[array count]) {
 		return proposedDestinationIndexPath;
 	} else {
 		return [NSIndexPath indexPathForRow:([array count] - 1) 

@@ -34,7 +34,7 @@ void MicroReadStreamCallback(CFReadStreamRef stream, CFStreamEventType eventType
 			[connection readStreamHasBytesAvailable];
 			break;
 		default:
-			NSLog(@"WARNING: Unhandled read stream event %d", eventType);
+			NSLog(@"WARNING: Unhandled read stream event %lu", eventType);
 			break;
 	}
 }
@@ -47,7 +47,7 @@ void MicroWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType eventTy
 			[connection writeStreamCanAcceptBytes];
 			break;
 		default:
-			NSLog(@"WARNING: Unhandled write stream event %d", eventType);
+			NSLog(@"WARNING: Unhandled write stream event %lu", eventType);
 			break;
 	}
 }
@@ -317,7 +317,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		} else if (dataLength == 0) {
 			return YES; // end of stream
 		} else {
-			NSLog(@"CFReadStreamRead: returned %d", dataLength);
+			NSLog(@"CFReadStreamRead: returned %ld", dataLength);
 			return YES;
 		}
 	} while (CFReadStreamHasBytesAvailable(readStream));
@@ -374,7 +374,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	buffer += (bufferLength - responseBytesRemaining);
 	CFIndex bytesWritten = CFWriteStreamWrite(writeStream, buffer, responseBytesRemaining);
 	if (bytesWritten < 0) {
-		NSLog(@"CFWriteStreamWrite: returned %d", bytesWritten);
+		NSLog(@"CFWriteStreamWrite: returned %ld", bytesWritten);
 		return;
 	}
 	responseBytesRemaining -= bytesWritten;

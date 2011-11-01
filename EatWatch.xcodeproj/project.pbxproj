@@ -32,7 +32,6 @@
 		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
 		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
-		BC08CB1B124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */; };
 		BC08CC8C12472285006208A9 /* validate-db.rb in Resources */ = {isa = PBXBuildFile; fileRef = BC08CC8B12472285006208A9 /* validate-db.rb */; };
 		BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0B12481DAF006208A9 /* v1.test.db */; };
 		BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0C12481DAF006208A9 /* v2.test.db */; };
@@ -305,7 +304,6 @@
 		BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConfirmationAlert.m; sourceTree = "<group>"; };
 		BC08CA2F12444822006208A9 /* EWDBIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBIterator.h; sourceTree = "<group>"; };
 		BC08CA3012444822006208A9 /* EWDBIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBIterator.m; sourceTree = "<group>"; };
-		BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Xcode324iOS41TestSuiteWorkaround.m; sourceTree = "<group>"; };
 		BC08CC2B124581BD006208A9 /* wifi-import.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = "wifi-import.rb"; sourceTree = "<group>"; };
 		BC08CC3312458259006208A9 /* make-history.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "make-history.rb"; sourceTree = "<group>"; };
 		BC08CC8B12472285006208A9 /* validate-db.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "validate-db.rb"; sourceTree = "<group>"; };
@@ -436,7 +434,6 @@
 		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
 		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
-		BCBA50760FE49B7300EAD2F3 /* build.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
 		BCBEE7C811E9267B00CE86A5 /* BRPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewController.h; sourceTree = "<group>"; };
 		BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPickerViewController.m; sourceTree = "<group>"; };
 		BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabIconGoal@2x.png"; sourceTree = "<group>"; };
@@ -487,7 +484,6 @@
 		BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEquivalentViewController.m; path = Classes/NewEquivalentViewController.m; sourceTree = "<group>"; };
 		BCE21B1E0E3BAFCE00E94F6C /* BRTableNumberPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableNumberPickerRow.h; sourceTree = "<group>"; };
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
-		BCE4786E1159E0FC00B577F1 /* fatwatchapp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fatwatchapp; path = /Users/benzado/nsfn/sites/fatwatchapp; sourceTree = "<absolute>"; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
 		BCE6075410E0227000819E77 /* RungEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RungEntryViewController.h; path = Classes/RungEntryViewController.h; sourceTree = "<group>"; };
 		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; };
@@ -515,7 +511,6 @@
 		BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBMonth.m; sourceTree = "<group>"; };
 		BCF678FE110D670800C923BF /* TriangleLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleLeft.png; sourceTree = "<group>"; };
 		BCF678FF110D670800C923BF /* TriangleRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleRight.png; sourceTree = "<group>"; };
-		BCF6797E110E5F7400C923BF /* build.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = build.properties; sourceTree = "<group>"; };
 		BCF67AFE1110CA6100C923BF /* DangerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DangerBar.png; sourceTree = "<group>"; };
 		BCF67C2C1111749700C923BF /* EWGoalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoalTest.m; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
@@ -609,15 +604,12 @@
 				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
 				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
 				BCF387020E693F7100816C14 /* Test Plan.txt */,
-				BCBA50760FE49B7300EAD2F3 /* build.xml */,
-				BCF6797E110E5F7400C923BF /* build.properties */,
 				BC08CC0A12454985006208A9 /* Code */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BC08CC0B124549D6006208A9 /* Testing */,
 				BC8DB52F1236C6840043B43A /* DerivedSources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				BCE4786E1159E0FC00B577F1 /* fatwatchapp */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -625,7 +617,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BC08CB1A124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m */,
 				32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */,
 				BC1F83B70DB150B800DA88E6 /* EWDate.h */,
 				BC1F83B80DB150B800DA88E6 /* EWDate.m */,
@@ -1089,6 +1080,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
@@ -1104,8 +1098,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCF52ACE10D066540017C3A1 /* UnitTests */,
 				1D6058900D05DD3D006BFB54 /* FatWatch */,
+				BCF52ACE10D066540017C3A1 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1417,7 +1411,6 @@
 				BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */,
 				BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */,
 				BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */,
-				BC08CB1B124537C1006208A9 /* Xcode324iOS41TestSuiteWorkaround.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1518,8 +1511,6 @@
 					"*.test.db",
 					"*.test.plist",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
@@ -1530,7 +1521,6 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Debug";
 			};
 			name = Debug;
@@ -1541,8 +1531,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1559,9 +1548,8 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD269AEC-3E91-4F92-9D54-A6D313E9BB68";
-				SDKROOT = iphoneos4.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
 			};
 			name = AdHoc;
 		};
@@ -1576,13 +1564,11 @@
 					"*.test.db",
 					"*.test.plist",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				PREBINDING = NO;
 				PRODUCT_NAME = "FatWatch-Beta";
 			};
 			name = AdHoc;
@@ -1592,8 +1578,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ragheb";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1610,9 +1595,8 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1EE480A3-9698-45DA-9D06-109F575D0FD5";
-				SDKROOT = iphoneos4.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
 			};
 			name = AppStore;
 		};
@@ -1627,13 +1611,11 @@
 					"*.test.db",
 					"*.test.plist",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				PREBINDING = NO;
 				PRODUCT_NAME = FatWatch;
 			};
 			name = AppStore;
@@ -1648,7 +1630,6 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -1661,7 +1642,6 @@
 					"-framework",
 					UIKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1675,7 +1655,6 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
@@ -1687,7 +1666,6 @@
 					"-framework",
 					UIKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1701,7 +1679,6 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
@@ -1713,7 +1690,6 @@
 					"-framework",
 					UIKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1726,7 +1702,6 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUILD_NUMBER = 0;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1744,8 +1719,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};

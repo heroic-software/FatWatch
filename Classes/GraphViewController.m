@@ -313,12 +313,12 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month {
 	NSInteger i = (month - EWMonthDayGetMonth(info[0].beginMonthDay));
-	return MAX(0, MIN(i, (NSInteger)(infoCount - 1)));
+    return MINMAX(0, i, (NSInteger)infoCount - 1);
 }
 
 
 - (void)cacheViewAtIndex:(unsigned int)i {
-	if (i < 0 || i >= infoCount) return;
+	if (i >= infoCount) return;
 	GraphViewInfo *ginfo = &info[i];
 	if (ginfo->view != nil) {
 		[cachedGraphViews addObject:ginfo->view];

@@ -289,7 +289,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 
 #if TARGET_IPHONE_SIMULATOR
-	NSLog(@"%@\nFrom %@ (%@)\n  To %@ (%@)\nHead %@\nTail %@\nPnts %d",
+	NSLog(@"%@\nFrom %@ (%@)\n  To %@ (%@)\nHead %@\nTail %@\nPnts %lu",
 		  self,
 		  EWDateFromMonthDay(mdStart), EWDateFromMonthDay(beginMonthDay),
 		  EWDateFromMonthDay(mdStop), EWDateFromMonthDay(endMonthDay),
