@@ -32,7 +32,6 @@
 		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
 		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
-		BC08CC8C12472285006208A9 /* validate-db.rb in Resources */ = {isa = PBXBuildFile; fileRef = BC08CC8B12472285006208A9 /* validate-db.rb */; };
 		BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0B12481DAF006208A9 /* v1.test.db */; };
 		BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0C12481DAF006208A9 /* v2.test.db */; };
 		BC08CD1012481DAF006208A9 /* v3.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0D12481DAF006208A9 /* v3.test.db */; };
@@ -1173,7 +1172,6 @@
 				BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */,
 				BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */,
 				BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */,
-				BC08CC8C12472285006208A9 /* validate-db.rb in Resources */,
 				BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */,
 				BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */,
 				BC08CD1012481DAF006208A9 /* v3.test.db in Resources */,
