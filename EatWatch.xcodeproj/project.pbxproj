@@ -155,13 +155,13 @@
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
 		BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6082410E03E7F00819E77 /* EWImporter.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
+		BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
 		BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
 		BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
 		BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
 		BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
 		BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
-		BCEBD473136F7FA0005C1D05 /* browser-detect.js in Sources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
 		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
 		BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
@@ -493,8 +493,8 @@
 		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
-		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCEBD472136F7FA0005C1D05 /* browser-detect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "browser-detect.js"; sourceTree = "<group>"; };
+		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
 		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1522,18 +1522,17 @@
 					"*.test.plist",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "FatWatch-Debug";
 			};
 			name = Debug;
 		};
-		BC2CBA700EC988A8002087B7 /* AdHoc */ = {
+		BCDCEB7F0E28150A00185857 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0;
-				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 31;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1553,56 +1552,9 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
-			name = AdHoc;
+			name = Release;
 		};
-		BC2CBA710EC988A8002087B7 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLY_RULES_IN_COPY_FILES = YES;
-				BUNDLE_DISPLAY_NAME = "FatWatch β";
-				BUNDLE_IDENTIFIER = com.benzado.FatWatch.beta;
-				COPY_PHASE_STRIP = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = (
-					"*.test.db",
-					"*.test.plist",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
-				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				PRODUCT_NAME = "FatWatch-Beta";
-			};
-			name = AdHoc;
-		};
-		BCDCEB7F0E28150A00185857 /* AppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-			};
-			name = AppStore;
-		};
-		BCDCEB800E28150A00185857 /* AppStore */ = {
+		BCDCEB800E28150A00185857 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
@@ -1617,10 +1569,10 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = FatWatch;
 			};
-			name = AppStore;
+			name = Release;
 		};
 		BCF52AD110D066550017C3A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1649,7 +1601,7 @@
 			};
 			name = Debug;
 		};
-		BCF52AD210D066550017C3A1 /* AdHoc */ = {
+		BCF52AD310D066550017C3A1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1671,39 +1623,15 @@
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;
 			};
-			name = AdHoc;
-		};
-		BCF52AD310D066550017C3A1 /* AppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_NAME = UnitTests;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = AppStore;
+			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				BUILD_NUMBER = 0;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 31;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1732,31 +1660,28 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
-				BC2CBA710EC988A8002087B7 /* AdHoc */,
-				BCDCEB800E28150A00185857 /* AppStore */,
+				BCDCEB800E28150A00185857 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AppStore;
+			defaultConfigurationName = Release;
 		};
 		BCF52AD410D066550017C3A1 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCF52AD110D066550017C3A1 /* Debug */,
-				BCF52AD210D066550017C3A1 /* AdHoc */,
-				BCF52AD310D066550017C3A1 /* AppStore */,
+				BCF52AD310D066550017C3A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AppStore;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
-				BC2CBA700EC988A8002087B7 /* AdHoc */,
-				BCDCEB7F0E28150A00185857 /* AppStore */,
+				BCDCEB7F0E28150A00185857 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AppStore;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
