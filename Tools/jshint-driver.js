@@ -1,4 +1,5 @@
 /*global JSHINT, readline, print, quit */
+"use strict";
 
 function main(argv) {
     var path = argv[0];
@@ -52,7 +53,7 @@ function main(argv) {
     shadow: false, // don't warn about variable shadowing
     sub: false, // don't warn about using [] notation where . notation works
     supernew: false, // don't warn about weird constructors
-    validthis: false, // don't warn about using this outside of a constructor
+    validthis: false // don't warn about using this outside of a constructor
     };
     
     if (!JSHINT(input, options)) {
