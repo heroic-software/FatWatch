@@ -3,8 +3,8 @@
 var FatWatch={
 	"deviceName":"Ben\u2019s MacBook",
 	"deviceModel":"MacBook Pro",
-	"version":"1.5\u2202",
-	"copyright":"FatWatch 1.5\u2202 (0) 2008-2009 Benjamin Ragheb",
+	"version":"x.y\u2202",
+	"copyright":"FatWatch x.y\u2202 (z) 1977 Heroic Software Inc",
 	"dateFormats":[{"value":"y-MM-dd",
 				   "label":"2009-12-14"},
 				   {"value":"M/d/yy",

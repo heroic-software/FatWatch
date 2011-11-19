@@ -240,16 +240,19 @@
 	<p>
 		Because FatWatch generates a new web address each time you enable Wi-Fi Import/Export, <span class="hilite">bookmarking this page will not work.</span>  You can still save yourself some typing, however, because FatWatch advertises the address of this page to your local network using <a href="http://en.wikipedia.org/wiki/Bonjour_(software)">Bonjour</a>.
 	</p>
+    <ul>
+        <li class="os-mac">On Mac OS X there is no need to do anything, Bonjour is built-in.</li>
+        <li class="os-windows">On Windows, you may have Bonjour if you have iTunes. (<a href="http://support.apple.com/kb/HT2703">Here is how to tell if it is installed.</a>) If you don’t, you can install <a href="http://support.apple.com/downloads/Bonjour_for_Windows">Bonjour Print Services for Windows</a>.</li>
+        <li class="os-linux">On Linux, you can install <a href="http://avahi.org/">Avahi</a>. (Or, if your <span class="deviceModel">device</span> is jailbroken, you could use <code>ssh</code> to copy the app’s database file. This is unsupported and should only be attempted by <code>31337 h4x0rs</code>.)</li>
+    </ul>
     <p>
-        <span class="os-mac">Mac has Bonjour built-in.</span> <span class="os-windows">On Windows, you need to install <a href="http://support.apple.com/downloads/Bonjour_for_Windows">Bonjour Print Services for Windows</a>.</span> (If you use iTunes, you may already have Bonjour. <a href="http://support.apple.com/kb/HT2703">Here is how to tell if it is installed.</a>)
-    </p>
-    <p class="os-linux">
-        If you use Linux I assume your <span class="deviceModel">device</span> is jailbroken, and that you have already used <code>ssh</code> to directly copy the app’s database file.
+        Once your computer has Bonjour support, how you find websites depends on your browser:
     </p>
     <ul>
         <li class="ua-safari">Safari users: you can find advertised websites by selecting Show All Bookmarks from the Bookmarks menu, then selecting Bonjour in the collections list.</li>
         <li class="ua-firefox">Firefox users: you can find advertised websites by installing <a href="https://addons.mozilla.org/en-US/firefox/addon/dnssd/">a browser extension</a>.</li>
-        <li class="ua-msie">Internet Explorer users: a plug-in to display advertised websites is bundled with <a href="http://support.apple.com/downloads/Bonjour_for_Windows">Bonjour Print Services for Windows</a>.</li>
+        <li class="ua-chrome">Chrome users: you can find advertised websites by installing <a href="http://dnssd.me/">a browser extension</a>.</li>
+        <li class="ua-msie">Internet Explorer users: a plug-in to display advertised websites is bundled with Apple’s <a href="http://support.apple.com/downloads/Bonjour_for_Windows">Bonjour Print Services for Windows</a>.</li>
 	</ul>
 	</div>
 

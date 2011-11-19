@@ -149,6 +149,7 @@ function homeReady() {
 	
     if (BrowserDetect.browser === 'Safari') { $(".ua-safari").addClass('hilite'); }
     else if (BrowserDetect.browser === 'Firefox') { $(".ua-firefox").addClass('hilite'); }
+    else if (BrowserDetect.browser === 'Chrome') { $(".ua-chrome").addClass('hilite'); }
     else if (BrowserDetect.browser === 'Explorer') { $(".ua-msie").addClass('hilite'); }
 
     if (BrowserDetect.OS === 'Windows') { $(".os-windows").addClass('hilite'); }
