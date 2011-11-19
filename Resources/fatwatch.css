@@ -26,6 +26,13 @@ form {
 	margin-bottom: 12px;
 }
 
+p.bigbutton {
+    text-align: center;
+}
+p.bigbutton input[type=submit] {
+    font-size: large;
+}
+
 #footer {
 	border-top: 2px solid #c00;
 }
