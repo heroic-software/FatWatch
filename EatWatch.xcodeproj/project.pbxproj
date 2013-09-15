@@ -331,7 +331,6 @@
 		BC11334C1103B7DA00EAC8DA /* RegistrationError.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RegistrationError.html; sourceTree = "<group>"; };
 		BC14F3C91118C6F300FB9A50 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		BC14F3D21118C71700FB9A50 /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
-		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWDate.h; path = Classes/EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWDate.m; path = Classes/EWDate.m; sourceTree = "<group>"; };
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -425,7 +424,6 @@
 		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRoundRectView.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate2.sql; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; wrapsLines = 1; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
 		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; };
 		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/GraphViewController.h; sourceTree = "<group>"; };
@@ -472,7 +470,6 @@
 		BCC4E99810D6207B00E4C1A3 /* BRColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRColorPalette.h; sourceTree = "<group>"; };
 		BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRColorPalette.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BCC943F80EEA634700D267A7 /* Roadmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Roadmap.txt; sourceTree = "<group>"; };
 		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
@@ -503,7 +500,6 @@
 		BCEBD472136F7FA0005C1D05 /* browser-detect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "browser-detect.js"; sourceTree = "<group>"; };
 		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
-		BCF387020E693F7100816C14 /* Test Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test Plan.txt"; sourceTree = "<group>"; };
 		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF52AD010D066540017C3A1 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatterTest.m; sourceTree = "<group>"; };
@@ -608,10 +604,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				BCA7D0B10D9DF81700C6B7D9 /* Notes.txt */,
-				BCC943F80EEA634700D267A7 /* Roadmap.txt */,
-				BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */,
-				BCF387020E693F7100816C14 /* Test Plan.txt */,
 				BC08CC0A12454985006208A9 /* Code */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BC08CC0B124549D6006208A9 /* Testing */,
