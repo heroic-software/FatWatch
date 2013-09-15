@@ -273,7 +273,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (id)initWithServer:(MicroWebServer *)server readStream:(CFReadStreamRef)newReadStream writeStream:(CFWriteStreamRef)newWriteStream {
-	if ([super init]) {
+	if ((self = [super init])) {
 		webServer = server;
 		readStream = newReadStream;
 		writeStream = newWriteStream;

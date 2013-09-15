@@ -33,7 +33,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 - (id)initWithFrame:(CGRect)frame {
-	if ([super initWithFrame:frame]) {
+	if ((self = [super initWithFrame:frame])) {
 		self.backgroundColor = [UIColor whiteColor];
 	}
 	return self;
@@ -73,8 +73,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	free(data);
 	CGColorSpaceRelease(colorSpace);
 	
-	BugFixRetainImageDataProvider(mask);
-
 	return mask;
 }
 

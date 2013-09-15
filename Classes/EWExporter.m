@@ -164,7 +164,7 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 					value = @(dd->flags[3]);
 					break;
 				case EWExporterFieldNote:
-					value = dd->note;
+					value = (NSString *)dd->note;
 					break;
 				default:
 					value = nil;

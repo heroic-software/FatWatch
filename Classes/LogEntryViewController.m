@@ -238,8 +238,8 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 		}
 	}
 	
-	dbd.note = noteView.text;
-	
+	dbd.note = CFStringCreateCopy(kCFAllocatorDefault, (CFStringRef)noteView.text);
+
 	[monthData setDBDay:&dbd onDay:day];
 
 	[monthData.database commitChanges];
@@ -367,7 +367,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
     // 5/5: Set Note
     
-    noteView.text = dd->note;
+    noteView.text = (NSString *)dd->note;
 
     // Update views
 

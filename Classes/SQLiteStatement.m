@@ -14,7 +14,7 @@
 
 
 - (id)initWithDatabase:(SQLiteDatabase *)db stmt:(sqlite3_stmt *)stmt {
-	if ([super init]) {
+	if ((self = [super init])) {
 		database = [db retain];
 		statement = stmt;
 	}

@@ -237,7 +237,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 		if (value) dd.flags[3] = [value intValue];
 
 		value = [self valueForField:EWImporterFieldNote inArray:rowArray];
-		if (value) dd.note = value;
+		if (value) dd.note = (CFStringRef)value;
 		
 		[dbm setDBDay:&dd onDay:day];
 

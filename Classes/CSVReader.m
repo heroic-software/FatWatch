@@ -29,7 +29,7 @@
 
 
 - (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding {
-	if ([super init]) {
+	if ((self = [super init])) {
 		data = [csvData retain];
 		dataEncoding = encoding;
 	}

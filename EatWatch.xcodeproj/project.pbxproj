@@ -143,6 +143,7 @@
 		BCC4E99110D61FE600E4C1A3 /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCC4E99A10D6207B00E4C1A3 /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
 		BCC860670DD6C6360034EE2D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC860660DD6C6360034EE2D /* QuartzCore.framework */; };
+		BCCD7E6817E65E4300621F41 /* GraphSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCD7E6717E65E4300621F41 /* GraphSegment.m */; };
 		BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCD042A011097FCA008C735C /* ImportColumns.plist */; };
 		BCD2D23710EAADD700C1117F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2D23610EAADD700C1117F /* MessageUI.framework */; };
 		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
@@ -454,6 +455,8 @@
 		BCC4E99810D6207B00E4C1A3 /* BRColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRColorPalette.h; sourceTree = "<group>"; };
 		BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRColorPalette.m; sourceTree = "<group>"; };
 		BCC860660DD6C6360034EE2D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BCCD7E6617E65E4300621F41 /* GraphSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphSegment.h; path = Classes/GraphSegment.h; sourceTree = "<group>"; };
+		BCCD7E6717E65E4300621F41 /* GraphSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphSegment.m; path = Classes/GraphSegment.m; sourceTree = "<group>"; };
 		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 				BC82AE990E6FC77200E2A693 /* GraphDrawingOperation.m */,
 				BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */,
 				BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */,
+				BCCD7E6617E65E4300621F41 /* GraphSegment.h */,
+				BCCD7E6717E65E4300621F41 /* GraphSegment.m */,
 				BCF329740EFF629500D31E49 /* GraphView.xib */,
 			);
 			name = Chart;
@@ -1306,6 +1311,7 @@
 				BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */,
 				BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */,
 				BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */,
+				BCCD7E6817E65E4300621F41 /* GraphSegment.m in Sources */,
 				BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */,
 				BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */,
 				BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */,

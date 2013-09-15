@@ -77,6 +77,7 @@
     self.importProgressView.progress = 0;
     self.detailLabel.text = msg;
     self.okButton.hidden = YES;
+    [msg release];
 }
 
 - (void)viewDidAppear:(BOOL)animated

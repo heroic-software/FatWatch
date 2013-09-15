@@ -20,7 +20,7 @@ typedef struct EWDBDay {
 	float scaleFatWeight; // scaleFatWeight is set ONLY IF scaleWeight is set
 	float trendWeight;
 	float trendFatWeight;
-	NSString *note;
+	CFStringRef note;
 	EWFlagValue flags[4];
 } EWDBDay;
 
@@ -31,7 +31,7 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 			 d->flags[1] != 0 ||
 			 d->flags[2] != 0 ||
 			 d->flags[3] != 0 ||
-			 d->note != nil);
+			 d->note != NULL);
 }
 
 

@@ -15,6 +15,7 @@
 #import "NSUserDefaults+EWAdditions.h"
 #import "EWWeightFormatter.h"
 #import "EWGoal.h"
+#import "GraphSegment.h"
 
 
 enum {
@@ -59,33 +60,25 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	[scrollView release];
 	[spanControl release];
 	[cachedGraphViews release];
-	[self clearGraphViewInfo];
+	[self clearGraphSegments];
 	[super dealloc];
 }
 
 
-- (void)clearGraphViewInfo {
-	if (info == nil) return;
+- (void)clearGraphSegments {
+	if (graphSegments == nil) return;
 	[GraphDrawingOperation flushQueue];
 	
-	if (infoCount > 1) {
+	if ([graphSegments count] > 1) {
 		CGFloat offsetX = scrollView.contentOffset.x;
 		NSInteger k = [self indexOfGraphViewInfoAtOffsetX:offsetX];
-		scrollingSpanSavedMonth = EWMonthDayGetMonth(info[k].beginMonthDay);
-		scrollingSpanSavedOffsetX = offsetX - info[k].offsetX;
+        GraphSegment *segment = graphSegments[k];
+		scrollingSpanSavedMonth = EWMonthDayGetMonth(segment.beginMonthDay);
+		scrollingSpanSavedOffsetX = offsetX - segment.offsetX;
 	}
 
-	for (unsigned int i = 0; i < infoCount; i++) {
-		GraphViewInfo *ginfo = &info[i];
-		[ginfo->view removeFromSuperview];
-		[ginfo->view release];
-		CGImageRelease(ginfo->imageRef);
-		[ginfo->operation cancel];
-		[ginfo->operation release];
-	}
-	free(info);
-	info = NULL;
-	infoCount = 0;
+    [graphSegments release];
+    graphSegments = nil;
 	
 	[parameters.regions release];
 	parameters.regions = nil;
@@ -112,6 +105,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	
 	CGSize size = scrollView.bounds.size;
 	NSInteger numberOfDays;
+    NSUInteger infoCount;
 
 	NSInteger spanIndex = spanControl.selectedSegmentIndex;
 	if (spanIndex == kSpanScrolling) {
@@ -171,51 +165,59 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 										forSize:size
 								   numberOfDays:numberOfDays
 									   database:database];
-	
-	info = malloc(infoCount * sizeof(GraphViewInfo));
-	NSAssert(info, @"could not allocate memory for GraphViewInfo");
-	
+
 	if (spanIndex == kSpanScrolling) {
 		EWMonth m = EWMonthDayGetMonth(beginMonthDay);
 		CGFloat x = 0;
-		for (unsigned int i = 0; i < infoCount; i++) {
+        NSMutableArray *info = [[NSMutableArray alloc] initWithCapacity:infoCount];
+		for (NSUInteger i = 0; i < infoCount; i++) {
 			NSInteger days = EWDaysInMonth(m);
 			CGFloat w = parameters.scaleX * days;
-			
-			info[i].beginMonthDay = EWMonthDayMake(m, 1);
-			info[i].endMonthDay = EWMonthDayMake(m, days);
-			info[i].offsetX = x;
-			info[i].width = w; 
-			info[i].view = nil;
-			info[i].imageRef = NULL;
-			info[i].operation = nil;
-			
+
+			GraphSegment *segment = [[GraphSegment alloc] init];
+            {
+                segment.beginMonthDay = EWMonthDayMake(m, 1);
+                segment.endMonthDay = EWMonthDayMake(m, days);
+                segment.offsetX = x;
+                segment.width = w;
+                segment.view = nil;
+                segment.imageRef = NULL;
+                segment.operation = nil;
+            }
+            [info addObject:segment];
+            [segment release];
 			m += 1;
 			x += w;
 		}
+        graphSegments = [info copy];
+        [info release];
 		
 		CGFloat offsetX;
 		if (scrollingSpanSavedOffsetX < 0) {
 			offsetX = x - CGRectGetWidth(scrollView.bounds);
 		} else {
 			NSInteger k = [self indexOfGraphViewInfoForMonth:scrollingSpanSavedMonth];
-			offsetX = info[k].offsetX + scrollingSpanSavedOffsetX;
+            GraphSegment *segment = graphSegments[k];
+			offsetX = segment.offsetX + scrollingSpanSavedOffsetX;
 		}
 		scrollView.contentSize = CGSizeMake(x, CGRectGetHeight(scrollView.bounds));
 		[scrollView setContentOffset:CGPointMake(offsetX, 0) animated:NO];
 	} else {
-		info[0].beginMonthDay = beginMonthDay;
-		info[0].endMonthDay = endMonthDay;
-		info[0].offsetX = 0;
-		info[0].width = CGRectGetWidth(scrollView.bounds);
-		info[0].view = nil;
-		info[0].imageRef = NULL;
-		info[0].operation = nil;
+        GraphSegment *segment = [[GraphSegment alloc] init];
+		segment.beginMonthDay = beginMonthDay;
+		segment.endMonthDay = endMonthDay;
+		segment.offsetX = 0;
+		segment.width = CGRectGetWidth(scrollView.bounds);
+		segment.view = nil;
+		segment.imageRef = NULL;
+		segment.operation = nil;
+        graphSegments = [@[ segment ] retain];
+        [segment release];
 		
 		scrollView.contentSize = scrollView.bounds.size;
 		[scrollView setContentOffset:CGPointZero animated:NO];
 	}
-	
+
 	lastMinIndex = -1;
 	lastMaxIndex = 0;
 }
@@ -244,11 +246,11 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)databaseDidChange:(NSNotification *)notice {
 	[self view]; // make sure view is loaded
-	[self clearGraphViewInfo];
+	[self clearGraphSegments];
 	[self prepareGraphViewInfo];
 	[axisView setNeedsDisplay];
 	[self scrollViewDidScroll:scrollView];
-	actionButtonItem.enabled = (infoCount == 1);
+	actionButtonItem.enabled = ([graphSegments count] == 1);
 }
 
 
@@ -273,28 +275,26 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	for (unsigned int i = 0; i < infoCount; i++) {
-		GraphViewInfo *ginfo = &info[i];
-		if (ginfo->view == nil && ginfo->imageRef != NULL) {
-			CGImageRelease(ginfo->imageRef);
-			ginfo->imageRef = NULL;
-		}
-	}
+    for (GraphSegment *segment in graphSegments) {
+        if (segment.view == nil && segment.imageRef != NULL) {
+            segment.imageRef = NULL;
+        }
+    }
 }
 
 
 - (NSInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
 	int leftIndex = 0;
-	int rightIndex = infoCount;
+	int rightIndex = [graphSegments count];
 	while (leftIndex < rightIndex) {
 		unsigned int i = (leftIndex + rightIndex) / 2;
-		CGFloat leftX = info[i].offsetX;
+		CGFloat leftX = ((GraphSegment *)graphSegments[i]).offsetX;
 		if (x >= leftX) {
-			if (i + 1 == infoCount) {
+			if (i + 1 == [graphSegments count]) {
 				// x is to the right of the last view, we're done
-				return infoCount - 1;
+				return [graphSegments count] - 1;
 			} 
-			CGFloat rightX = info[i + 1].offsetX;
+			CGFloat rightX = ((GraphSegment *)graphSegments[i + 1]).offsetX;
 			if (x < rightX) {
 				return i;
 			}
@@ -312,51 +312,49 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month {
-	NSInteger i = (month - EWMonthDayGetMonth(info[0].beginMonthDay));
-    return MINMAX(0, i, (NSInteger)infoCount - 1);
+    GraphSegment *segment0 = graphSegments[0];
+	NSInteger i = (month - EWMonthDayGetMonth(segment0.beginMonthDay));
+    return MINMAX(0, i, (NSInteger)[graphSegments count] - 1);
 }
 
 
 - (void)cacheViewAtIndex:(unsigned int)i {
-	if (i >= infoCount) return;
-	GraphViewInfo *ginfo = &info[i];
-	if (ginfo->view != nil) {
-		[cachedGraphViews addObject:ginfo->view];
-		[ginfo->view release];
-		ginfo->view = nil;
-
+	if (i >= [graphSegments count]) return;
+    GraphSegment *segment = graphSegments[i];
+	if (segment.view != nil) {
+		[cachedGraphViews addObject:segment.view];
+		segment.view = nil;
 		// if we haven't started rendering, don't bother
-		if (ginfo->operation != nil && ![ginfo->operation isExecuting]) {
-			[ginfo->operation cancel];
-			[ginfo->operation release];
-			ginfo->operation = nil;
+		if (segment.operation != nil && ![segment.operation isExecuting]) {
+			[segment.operation cancel];
+			segment.operation = nil;
 		}
 	}
 }
 
 
 - (void)updateViewAtIndex:(unsigned int)i {
-	GraphViewInfo *ginfo = &info[i];
+    GraphSegment *segment = graphSegments[i];
 
-	ginfo->view.beginMonthDay = ginfo->beginMonthDay;
-	ginfo->view.endMonthDay = ginfo->endMonthDay;
-	ginfo->view.p = &parameters;
-	ginfo->view.image = ginfo->imageRef;
-	[ginfo->view setNeedsDisplay];
+	segment.view.beginMonthDay = segment.beginMonthDay;
+	segment.view.endMonthDay = segment.endMonthDay;
+	segment.view.p = &parameters;
+	segment.view.image = segment.imageRef;
+	[segment.view setNeedsDisplay];
 	
-	if (ginfo->imageRef == NULL && ginfo->operation == nil) {
+	if (segment.imageRef == NULL && segment.operation == nil) {
 		GraphDrawingOperation *operation = [[GraphDrawingOperation alloc] init];
 		operation.database = database;
 		operation.delegate = self;
 		operation.index = i;
 		operation.p = &parameters;
-		operation.bounds = ginfo->view.bounds;
-		operation.beginMonthDay = ginfo->beginMonthDay;
-		operation.endMonthDay = ginfo->endMonthDay;
-		operation.showGoalLine = (i == infoCount - 1);
-		operation.showTrajectoryLine = (infoCount == 1);
+		operation.bounds = segment.view.bounds;
+		operation.beginMonthDay = segment.beginMonthDay;
+		operation.endMonthDay = segment.endMonthDay;
+		operation.showGoalLine = (i == [graphSegments count] - 1);
+		operation.showTrajectoryLine = ([graphSegments count] == 1);
 		
-		ginfo->operation = operation;
+		segment.operation = operation;
 		[operation enqueue];
 	}
 }
@@ -364,18 +362,16 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
 	// This method may be called after info has been deallocated. Be careful!
-	if (info == NULL) return;
-	if (infoCount <= operation.index) return;
-	GraphViewInfo *ginfo = &info[operation.index];
-	if (ginfo->operation == operation && ![operation isCancelled]) {
-		CGImageRelease(ginfo->imageRef);
-		ginfo->imageRef = CGImageRetain(operation.imageRef);
-		if (ginfo->view) {
-			[ginfo->view setImage:ginfo->imageRef];
-			[ginfo->view setNeedsDisplay];
+	if (graphSegments == nil) return;
+	if ([graphSegments count] <= operation.index) return;
+    GraphSegment *segment = graphSegments[operation.index];
+	if (segment.operation == operation && ![operation isCancelled]) {
+		segment.imageRef = operation.imageRef;
+		if (segment.view) {
+			[segment.view setImage:segment.imageRef];
+			[segment.view setNeedsDisplay];
 		}
-		[ginfo->operation release];
-		ginfo->operation = nil;
+		segment.operation = nil;
 	}
 }
 
@@ -394,7 +390,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
-	[self clearGraphViewInfo];
+	[self clearGraphSegments];
 }
 
 
@@ -419,7 +415,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (IBAction)showActionMenu:(UIBarButtonItem *)sender {
-	if (infoCount != 1) return;
+	if ([graphSegments count] != 1) return;
 	UIActionSheet *menu = [[UIActionSheet alloc] init];
 	menu.delegate = self;
 	saveButtonIndex = [menu addButtonWithTitle:@"Save Image"];
@@ -435,11 +431,12 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == actionSheet.cancelButtonIndex) return;
+    GraphSegment *segment0 = graphSegments[0];
 	if (saveButtonIndex == buttonIndex) {
-		[info[0].view exportImageToSavedPhotos];
+		[segment0.view exportImageToSavedPhotos];
 	}
 	else if (copyButtonIndex == buttonIndex) {
-		[info[0].view exportImageToPasteboard];
+		[segment0.view exportImageToPasteboard];
 	}
 }
 
@@ -474,19 +471,19 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	CGFloat graphHeight = CGRectGetHeight(scrollView.bounds);
 
 	for (NSInteger i = minIndex; i <= maxIndex; i++) {
-		GraphViewInfo *ginfo = &info[i];
-		if (ginfo->view == nil) {
+        GraphSegment *segment = graphSegments[i];
+		if (segment.view == nil) {
 			GraphView *view = [cachedGraphViews lastObject];
 			if (view) {
-				ginfo->view = [view retain];
+				segment.view = view;
 				[cachedGraphViews removeLastObject];
 			} else {
-				ginfo->view = [[GraphView alloc] init];
-				ginfo->view.yAxisView = axisView;
+				segment.view = [[[GraphView alloc] init] autorelease];
+				segment.view.yAxisView = axisView;
 				// insert subview at the back, so it doesn't overlap the scroll indicator
-				[scrollView insertSubview:ginfo->view atIndex:0];
+				[scrollView insertSubview:segment.view atIndex:0];
 			}
-			[ginfo->view setFrame:CGRectMake(ginfo->offsetX, 0, ginfo->width, graphHeight)];
+			[segment.view setFrame:CGRectMake(segment.offsetX, 0, segment.width, graphHeight)];
 			[self updateViewAtIndex:i];
 		}
 	}

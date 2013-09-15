@@ -42,7 +42,7 @@ static const float kDefaultHeight = 1.70f;
 
 
 - (id)init {
-	if ([super initWithNibName:@"HeightEntryView" bundle:nil]) {
+	if ((self = [super initWithNibName:@"HeightEntryView" bundle:nil])) {
 		formatter = [[self heightFormatter] retain];
 		increment = [[NSUserDefaults standardUserDefaults] heightIncrement];
 	}

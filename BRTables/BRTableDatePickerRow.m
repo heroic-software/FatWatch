@@ -19,7 +19,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		self.datePickerMode = UIDatePickerModeDate;
 	}

@@ -98,7 +98,7 @@ static NSInteger gAuxiliaryInfoType;
 
 
 - (id)init {
-	if ([super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kLogCellReuseIdentifier]) {
+	if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kLogCellReuseIdentifier])) {
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
 		[self.contentView addSubview:logContentView];
 		[logContentView release];
@@ -363,10 +363,11 @@ static NSInteger gAuxiliaryInfoType;
 	
 	if (dd->note) {
 		[(inverse ? [UIColor lightGrayColor] : [UIColor darkGrayColor]) set];
-		[dd->note drawInRect:CGRectMake(noteX, noteY, noteWidth, noteHeight)
-					withFont:[UIFont systemFontOfSize:12]
-			   lineBreakMode:UILineBreakModeMiddleTruncation
-				   alignment:UITextAlignmentCenter];
+        NSString *note = (NSString *)dd->note;
+		[note drawInRect:CGRectMake(noteX, noteY, noteWidth, noteHeight)
+                withFont:[UIFont systemFontOfSize:12]
+           lineBreakMode:UILineBreakModeMiddleTruncation
+               alignment:UITextAlignmentCenter];
 	}
 	
 	{

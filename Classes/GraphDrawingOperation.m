@@ -794,11 +794,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
     CGContextRelease(ctxt);
 	free(data);
 
-	BugFixRetainImageDataProvider(imageRef);
-
 #if TARGET_IPHONE_SIMULATOR
 	// Simulate iPhone's slow drawing
-	[NSThread sleepForTimeInterval:0.5];
+	[NSThread sleepForTimeInterval:0.1];
 #endif
 	
 	[delegate performSelectorOnMainThread:@selector(drawingOperationComplete:) 

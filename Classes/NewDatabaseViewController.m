@@ -21,7 +21,7 @@
 
 
 - (id)init {
-	if ([super initWithStyle:UITableViewStyleGrouped]) {
+	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
 
 		NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 		BRTableRadioSection *section;

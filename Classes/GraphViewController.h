@@ -17,17 +17,6 @@
 @class EWDatabase;
 
 
-typedef struct {
-	EWMonthDay beginMonthDay;
-	EWMonthDay endMonthDay;
-	CGFloat offsetX;
-	CGFloat width;
-	GraphView *view;
-	CGImageRef imageRef;
-	GraphDrawingOperation *operation;
-} GraphViewInfo;
-
-
 @interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate> {
 	BOOL isLoading;
 	EWDatabase *database;
@@ -36,8 +25,7 @@ typedef struct {
 	UISegmentedControl *spanControl;
 	UISegmentedControl *typeControl;
 	UIBarButtonItem *actionButtonItem;
-	GraphViewInfo *info;
-	size_t infoCount;
+    NSArray *graphSegments;
 	NSMutableArray *cachedGraphViews;
 	NSInteger lastMinIndex, lastMaxIndex;
 	GraphViewParameters parameters;
@@ -51,7 +39,7 @@ typedef struct {
 @property (nonatomic,retain) IBOutlet UISegmentedControl *spanControl;
 @property (nonatomic,retain) IBOutlet UISegmentedControl *typeControl;
 @property (nonatomic,retain) IBOutlet UIBarButtonItem *actionButtonItem;
-- (void)clearGraphViewInfo;
+- (void)clearGraphSegments;
 - (IBAction)spanSelected:(UISegmentedControl *)sender;
 - (IBAction)typeSelected:(UISegmentedControl *)sender;
 - (IBAction)showActionMenu:(UIBarButtonItem *)sender;

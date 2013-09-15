@@ -55,7 +55,7 @@ int SQLiteProgressHandler(void *user) {
 
 
 - (id)initWithFile:(NSString *)path {
-	if ([self init]) {
+	if ((self = [self init])) {
 		int r = sqlite3_open([path fileSystemRepresentation], &database);
 		NSAssert1(r == SQLITE_OK, @"Failed to open database: %s", sqlite3_errmsg(database));
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];

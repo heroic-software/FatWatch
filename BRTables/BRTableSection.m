@@ -20,7 +20,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		rows = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -116,7 +116,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		selectedIndex = -1;
 	}
 	return self;

@@ -12,7 +12,7 @@
 @implementation BRRangeColorFormatter
 
 - (id)initWithColors:(NSArray *)colorArray forValues:(float *)valueArray {
-	if ([super init]) {
+	if ((self = [super init])) {
 		colors = [colorArray copy];
 		size_t size = ([colors count] - 1) * sizeof(float);
 		values = malloc(size);

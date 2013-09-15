@@ -19,7 +19,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		self.minimumValue = 0;
 		self.maximumValue = 100;
 		self.increment = 1;

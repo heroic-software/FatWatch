@@ -16,7 +16,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		data = [[NSMutableData alloc] init];
 		quotedCharSet = [[NSCharacterSet characterSetWithCharactersInString:@",\r\n\""] retain];
 	}

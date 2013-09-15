@@ -223,7 +223,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		attemptsRemaining = 4;
 	}
 	return self;

@@ -54,7 +54,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb {
-	if ([self init]) {
+	if ((self = [self init])) {
 		database = [ewdb retain];
 		month = m;
         valid = YES;
@@ -73,7 +73,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			d->flags[1] = [stmt intValueOfColumn:kFlag1Column];
 			d->flags[2] = [stmt intValueOfColumn:kFlag2Column];
 			d->flags[3] = [stmt intValueOfColumn:kFlag3Column];
-			d->note = [[stmt stringValueOfColumn:kNoteColumn] copy];
+			d->note = (CFStringRef)[[stmt stringValueOfColumn:kNoteColumn] copy];
 		}
 
 		[self updateTrendsSaveOutput:NO];
@@ -188,13 +188,13 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 	dst->flags[3] = src->flags[3];
 	
 	if (dst->note != src->note) {
-		id oldNote = dst->note;
-		if ([src->note length] > 0) {
-			dst->note = [src->note copy];
+		CFStringRef oldNote = dst->note;
+		if (src->note != NULL && CFStringGetLength(src->note) > 0) {
+			dst->note = CFStringCreateCopy(kCFAllocatorDefault, src->note);
 		} else {
-			dst->note = nil;
+			dst->note = NULL;
 		}
-		[oldNote release];
+        if (oldNote) CFRelease(oldNote);
 	}
 
 	EWSetBit(dirtyBits, day - 1);
@@ -232,7 +232,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			[insertStmt bindInt:d->flags[1] toParameter:kFlag1Column+1];
 			[insertStmt bindInt:d->flags[2] toParameter:kFlag2Column+1];
 			[insertStmt bindInt:d->flags[3] toParameter:kFlag3Column+1];
-			[insertStmt bindString:d->note toParameter:kNoteColumn+1];
+			[insertStmt bindString:(NSString *)d->note toParameter:kNoteColumn+1];
 			[insertStmt step];
 			[insertStmt reset];
 		} else {

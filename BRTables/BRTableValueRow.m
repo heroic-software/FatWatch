@@ -45,7 +45,7 @@
 - (void)setKey:(NSString *)newKey {
 	if ([self.key isEqualToString:newKey]) return;
 
-	NSString *oldKey = self.key;
+	NSString *oldKey = key;
 	if (oldKey != nil && self.object != nil) {
 		[self.object removeObserver:self forKeyPath:oldKey];
 	}

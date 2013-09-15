@@ -41,7 +41,7 @@
 
 
 - (id)init {
-	if ([super init]) {
+	if ((self = [super init])) {
 		self.titleAlignment = UITextAlignmentLeft;
 		self.titleColor = [UIColor blackColor];
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;

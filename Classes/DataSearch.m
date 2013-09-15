@@ -14,7 +14,7 @@
 @implementation DataSearch
 
 - (id)initWithData:(NSData *)haystackData patternData:(NSData *)needleData {
-	if ([super init]) {
+	if ((self = [super init])) {
 		NSAssert([needleData length], @"pattern must be at least one byte");
 		
 		haystack = [haystackData retain];

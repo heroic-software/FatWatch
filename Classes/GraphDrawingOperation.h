@@ -82,16 +82,3 @@ typedef struct {
 @interface NSObject (GraphDrawingOperationDelegate)
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation;
 @end
-
-
-#if TARGET_IPHONE_SIMULATOR
-// 3.0 CFVersion 478.470000
-// 3.1 CFVersion 478.520000
-#define BugFixRetainImageDataProvider(img) \
-	if (kCFCoreFoundationVersionNumber == 478.47) { \
-		CGDataProviderRef dp = CGImageGetDataProvider(img); \
-		if (dp) CFRetain(dp); \
-	}
-#else
-#define BugFixRetainImageDataProvider(img)
-#endif

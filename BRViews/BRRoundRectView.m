@@ -35,7 +35,7 @@ CGPathRef BRPathCreateRoundRect(CGRect rect, CGFloat radius) {
 
 
 - (id)initWithCoder:(NSCoder *)coder {
-	if ([super initWithCoder:coder]) {
+	if ((self = [super initWithCoder:coder])) {
 		self.backgroundColor = [UIColor clearColor];
 		self.opaque = NO;
 		self.contentMode = UIViewContentModeRedraw;
