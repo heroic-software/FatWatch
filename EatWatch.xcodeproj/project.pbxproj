@@ -332,8 +332,8 @@
 		BC14F3C91118C6F300FB9A50 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		BC14F3D21118C71700FB9A50 /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
 		BC1DE01D0E91FC6C002684E7 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
-		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDate.h; sourceTree = "<group>"; };
-		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDate.m; sourceTree = "<group>"; };
+		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWDate.h; path = Classes/EWDate.h; sourceTree = "<group>"; };
+		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWDate.m; path = Classes/EWDate.m; sourceTree = "<group>"; };
 		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A7510E25DEA60074FD4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogEntryView.xib; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
@@ -391,8 +391,8 @@
 		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
-		BC7D4A8E136E38BD005DC3CA /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportViewController.h; sourceTree = "<group>"; };
-		BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportViewController.m; sourceTree = "<group>"; };
+		BC7D4A8E136E38BD005DC3CA /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportViewController.h; path = Classes/ImportViewController.h; sourceTree = "<group>"; };
+		BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportViewController.m; path = Classes/ImportViewController.m; sourceTree = "<group>"; };
 		BC7D4A92136E3931005DC3CA /* ImportView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImportView.xib; path = Interfaces/ImportView.xib; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
