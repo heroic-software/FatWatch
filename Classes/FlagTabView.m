@@ -13,7 +13,7 @@
 
 
 - (void)awakeFromNib {
-	UIView *view = [self.subviews objectAtIndex:0];
+	UIView *view = (self.subviews)[0];
 	[self selectTabAroundRect:[view frame]];
 }
 

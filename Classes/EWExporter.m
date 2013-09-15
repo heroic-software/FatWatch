@@ -15,20 +15,17 @@
 
 
 NSArray *EWFatFormatterNames() {
-	return [NSArray arrayWithObjects:
-			@"Percentage (0...100)", 
-			@"Ratio (0...1)",
-			nil];
+	return @[@"Percentage (0...100)", @"Ratio (0...1)"];
 }
 
 
 NSFormatter *EWFatFormatterAtIndex(int i) {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[formatter setMinimum:[NSNumber numberWithFloat:0]];
-	[formatter setMaximum:[NSNumber numberWithFloat:1]];
+	[formatter setMinimum:@0.0f];
+	[formatter setMaximum:@1.0f];
 	if (i == 0) {
-		[formatter setMultiplier:[NSNumber numberWithFloat:100]];
+		[formatter setMultiplier:@100.0f];
 	}
 	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	[formatter setLocale:locale];
@@ -136,13 +133,13 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 			
 			switch (f) {
 				case EWExporterFieldDate:
-					value = [NSNumber numberWithInt:it.currentMonthDay];
+					value = @(it.currentMonthDay);
 					break;
 				case EWExporterFieldWeight:
-					value = [NSNumber numberWithFloat:dd->scaleWeight];
+					value = @(dd->scaleWeight);
 					break;
 				case EWExporterFieldTrendWeight:
-					value = [NSNumber numberWithFloat:dd->trendWeight];
+					value = @(dd->trendWeight);
 					break;
 				case EWExporterFieldFat: {
 					float ratio;
@@ -151,20 +148,20 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 					} else {
 						ratio = 0;
 					}
-					value = [NSNumber numberWithFloat:ratio];
+					value = @(ratio);
 					break;
 				}
 				case EWExporterFieldFlag0:
-					value = [NSNumber numberWithUnsignedChar:dd->flags[0]];
+					value = @(dd->flags[0]);
 					break;
 				case EWExporterFieldFlag1:
-					value = [NSNumber numberWithUnsignedChar:dd->flags[1]];
+					value = @(dd->flags[1]);
 					break;
 				case EWExporterFieldFlag2:
-					value = [NSNumber numberWithUnsignedChar:dd->flags[2]];
+					value = @(dd->flags[2]);
 					break;
 				case EWExporterFieldFlag3:
-					value = [NSNumber numberWithUnsignedChar:dd->flags[3]];
+					value = @(dd->flags[3]);
 					break;
 				case EWExporterFieldNote:
 					value = dd->note;

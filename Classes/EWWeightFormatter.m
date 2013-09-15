@@ -18,7 +18,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 
 @implementation NSFormatter (EWAdditions)
 - (NSString *)stringForFloat:(float)value {
-	return [self stringForObjectValue:[NSNumber numberWithFloat:value]];
+	return [self stringForObjectValue:@(value)];
 }
 @end
 
@@ -76,12 +76,12 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 + (NSNumber *)multiplierForUnit:(EWWeightUnit)unit {
 	switch (unit) {
 		case EWWeightUnitKilograms:
-			return [NSNumber numberWithFloat:kKilogramsPerPound];
+			return @(kKilogramsPerPound);
 		case EWWeightUnitGrams:
-			return [NSNumber numberWithFloat:kKilogramsPerPound * 1000];
+			return @(kKilogramsPerPound * 1000);
 		case EWWeightUnitPounds:
 		case EWWeightUnitStones:
-			return [NSNumber numberWithInt:1];
+			return @1;
 		default:
 			return nil;
 	}
@@ -109,7 +109,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 		NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 		[nf setMinimumFractionDigits:1];
 		[nf setMaximumFractionDigits:1];
-		[nf setMultiplier:[NSNumber numberWithFloat:(kKilogramsPerPound / (height * height))]];
+		[nf setMultiplier:@(kKilogramsPerPound / (height * height))];
 		if (style == EWWeightFormatterStyleBMILabeled) {
 			[nf setPositivePrefix:@"BMI "];
 		}

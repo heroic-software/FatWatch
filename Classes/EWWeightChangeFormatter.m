@@ -46,11 +46,11 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
 		case EWEnergyUnitCalories:
 			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"cal/day", @"calories per day")]];
-			[self setMultiplier:[NSNumber numberWithFloat:kCaloriesPerPound]];
+			[self setMultiplier:@(kCaloriesPerPound)];
 			break;
 		case EWEnergyUnitKilojoules:
 			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ/day", @"kilojoules per day")]];
-			[self setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerPound]];
+			[self setMultiplier:@(kKilojoulesPerPound)];
 			break;
 	}
 	[self setNegativeSuffix:[self positiveSuffix]];
@@ -62,12 +62,12 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	switch ([[NSUserDefaults standardUserDefaults] weightUnit]) {
 		case EWWeightUnitKilograms:
 			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kgs/week", @"kilograms per week")]];
-			[self setMultiplier:[NSNumber numberWithFloat:7.0f * kKilogramsPerPound]];
+			[self setMultiplier:@(7.0f * kKilogramsPerPound)];
 			break;
 		case EWWeightUnitPounds:
 		case EWWeightUnitStones:
 			[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"lbs/week", @"pounds per week")]];
-			[self setMultiplier:[NSNumber numberWithFloat:7.0f]];
+			[self setMultiplier:@7.0f];
 			break;
 		default:
 			NSAssert(NO, @"unexpected weight unit");

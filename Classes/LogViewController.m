@@ -120,7 +120,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
 	if ([indexPathArray count] > 0) {
 		NSUInteger middleIndex = [indexPathArray count] / 2;
-		return [indexPathArray objectAtIndex:middleIndex];
+		return indexPathArray[middleIndex];
 	} else {
 		return nil;
 	}

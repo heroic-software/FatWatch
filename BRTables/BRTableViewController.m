@@ -65,7 +65,7 @@
 	}
 	NSUInteger i = [indexSet lastIndex];
 	while (i != NSNotFound) {
-		BRTableSection *section = [sections objectAtIndex:i];
+		BRTableSection *section = sections[i];
 		[section willRemoveFromController];
 		[[section retain] autorelease];
 		[sections removeObjectAtIndex:i];
@@ -81,7 +81,7 @@
 
 
 - (BRTableSection *)sectionAtIndex:(NSUInteger)i {
-	return [sections objectAtIndex:i];
+	return sections[i];
 }
 
 
@@ -120,12 +120,12 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [[sections objectAtIndex:section] numberOfRows];
+	return [sections[section] numberOfRows];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	BRTableSection *section = [sections	objectAtIndex:indexPath.section];
+	BRTableSection *section = sections[indexPath.section];
 	BRTableRow* row = [section rowAtIndex:indexPath.row];
 	
 	UITableViewCell *cell = nil;
@@ -147,7 +147,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	BRTableSection* section = [sections	objectAtIndex:indexPath.section];
+	BRTableSection* section = sections[indexPath.section];
 	[section retain];
 	[section didSelectRowAtIndex:indexPath.row];
 	[section release];
@@ -155,13 +155,13 @@
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionIndex {
-	BRTableSection *section = [sections	objectAtIndex:sectionIndex];
+	BRTableSection *section = sections[sectionIndex];
 	return section.headerTitle;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)sectionIndex {
-	BRTableSection *section = [sections	objectAtIndex:sectionIndex];
+	BRTableSection *section = sections[sectionIndex];
 	return section.footerTitle;
 }
 

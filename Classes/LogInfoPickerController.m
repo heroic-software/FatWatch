@@ -29,7 +29,7 @@
 	[infoTypeArray release];
 	infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
-	int row = [infoTypeArray indexOfObject:[NSNumber numberWithInt:auxInfoType]];
+	int row = [infoTypeArray indexOfObject:@(auxInfoType)];
 	[infoTypePicker reloadComponent:0];
 	[infoTypePicker selectRow:row inComponent:0 animated:NO];
 	[self updateButton];
@@ -62,9 +62,9 @@
 	if (toggleTimerDidFire) return;
 	[LogInfoPickerController cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggle:) object:sender];
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
-	int row = [infoTypeArray indexOfObject:[NSNumber numberWithInt:auxInfoType]];
+	int row = [infoTypeArray indexOfObject:@(auxInfoType)];
 	row = (row + 1) % [infoTypeArray count];
-	auxInfoType = [[infoTypeArray objectAtIndex:row] intValue];
+	auxInfoType = [infoTypeArray[row] intValue];
 	[LogTableViewCell setAuxiliaryInfoType:auxInfoType];
 	[infoTypePicker selectRow:row inComponent:0 animated:self.visible];
 	[self updateButton];
@@ -105,7 +105,7 @@
         label.font = [UIFont boldSystemFontOfSize:20];
     }
 
-    int auxInfoType = [[infoTypeArray objectAtIndex:row] intValue];
+    int auxInfoType = [infoTypeArray[row] intValue];
     label.text = [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
     [label sizeToFit];
     
@@ -114,7 +114,7 @@
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	int auxInfoType = [[infoTypeArray objectAtIndex:row] intValue];
+	int auxInfoType = [infoTypeArray[row] intValue];
 	[LogTableViewCell setAuxiliaryInfoType:auxInfoType];
 	[self updateButton];
 }

@@ -36,7 +36,7 @@
 - (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error {
 	NSDate *date = nil;
 	if ([realFormatter getObjectValue:&date forString:string errorDescription:error]) {
-		*obj = [NSNumber numberWithInt:EWMonthDayFromDate(date)];
+		*obj = @(EWMonthDayFromDate(date));
 		return YES;
 	}
 	return NO;
@@ -78,7 +78,7 @@
 	
 	if (success) {
 		EWMonth m = ((year - 2001) * 12) + (month - 1);
-		*obj = [NSNumber numberWithInt:EWMonthDayMake(m, day)];
+		*obj = @(EWMonthDayMake(m, day));
 	} else {
 		*error = [NSError errorWithDomain:@"EWDate" code:1 userInfo:nil];
 	}

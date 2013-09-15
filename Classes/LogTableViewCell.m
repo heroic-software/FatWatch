@@ -86,7 +86,7 @@ static NSInteger gAuxiliaryInfoType;
 	NSMutableArray *array = [NSMutableArray array];
 	for (NSInteger t = 0; t < kNumberOfAuxiliaryInfoTypes; t++) {
 		if ([self isAuxiliaryInfoTypeEnabled:t]) {
-			[array addObject:[NSNumber numberWithInt:t]];
+			[array addObject:@(t)];
 		}
 	}
 	return array;
@@ -138,7 +138,7 @@ static NSInteger gAuxiliaryInfoType;
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
 	[df setDateFormat:@"EEE"];
 	
-	logContentView.day = [[NSNumber numberWithInt:day] description];
+	logContentView.day = [@(day) description];
 	logContentView.weekday = [df stringFromDate:EWDateFromMonthAndDay(monthData.month, day)];
 	logContentView.highlightDate = (highlightWeekends && 
 									EWMonthAndDayIsWeekend(monthData.month, day));

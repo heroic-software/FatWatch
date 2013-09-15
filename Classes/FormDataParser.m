@@ -96,12 +96,12 @@
 
 
 - (BOOL)hasKey:(NSString *)key {
-	return [dictionary objectForKey:key] != nil;
+	return dictionary[key] != nil;
 }
 
 
 - (NSData *)dataForKey:(NSString *)key {
-	id object = [dictionary objectForKey:key];
+	id object = dictionary[key];
 	if ([object isKindOfClass:[NSString class]]) {
 		return [object dataUsingEncoding:NSUTF8StringEncoding];
 	}
@@ -110,7 +110,7 @@
 
 
 - (NSString *)stringForKey:(NSString *)key {
-	id object = [dictionary objectForKey:key];
+	id object = dictionary[key];
 	if ([object isKindOfClass:[NSData class]]) {
 		return [[[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding] autorelease];
 	}
@@ -170,11 +170,11 @@
 		else if ([bodyScan scanString:@"&" intoString:nil] || [bodyScan isAtEnd]) {
 			NSString *value = [accum copy];
 			if (key) {
-				[dictionary setObject:value forKey:key];
+				dictionary[key] = value;
 				[key release];
 				key	= nil;
 			} else {
-				[dictionary setObject:@"" forKey:value];
+				dictionary[value] = @"";
 			}
 			[value release];
 			[accum setString:@""];
@@ -203,7 +203,7 @@
 		   [scanner scanUpToString:@"\r\n" intoString:&value] &&
 		   [scanner scanString:@"\r\n" intoString:nil])
 	{
-		[headers setObject:value forKey:name];
+		headers[name] = value;
 	}
 	
 	[scanner release];
@@ -220,7 +220,7 @@
 	NSData *headersData = [partData subdataWithRange:NSMakeRange(0, crlfcrlfIndex + 2)];
 	NSDictionary *headers = [self parseHeadersFromData:headersData];
 	
-	NSString *contentDisposition = [headers objectForKey:@"Content-Disposition"];
+	NSString *contentDisposition = headers[@"Content-Disposition"];
 	if (contentDisposition == nil) {
 		NSLog(@"Part has no Content-Disposition header!");
 		return;
@@ -237,7 +237,7 @@
 	if ([scanner scanString:@"form-data; name=\"" intoString:nil] &&
 		[scanner scanUpToString:@"\"" intoString:&name] && 
 		[scanner scanString:@"\"" intoString:nil]) {
-		[dictionary setObject:bodyData forKey:name];
+		dictionary[name] = bodyData;
 	}
 	[scanner release];
 }

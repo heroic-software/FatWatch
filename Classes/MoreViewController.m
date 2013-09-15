@@ -216,12 +216,10 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	BRTableButtonRow *twitterRow = [[BRTableButtonRow alloc] init];
 	twitterRow.title = NSLocalizedString(@"Follow @FatWatch on Twitter", @"Support Twitter button");
 	twitterRow.titleAlignment = UITextAlignmentCenter;
-	twitterRow.object = [NSArray arrayWithObjects:
-						 [NSURL URLWithString:@"tweetie://user?screen_name=FatWatch"],
+	twitterRow.object = @[[NSURL URLWithString:@"tweetie://user?screen_name=FatWatch"],
 						 [NSURL URLWithString:@"echofon:///user_timeline?FatWatch"],
 						 [NSURL URLWithString:@"x-birdfeed://user?screen_name=FatWatch"],
-						 [NSURL URLWithString:@"http://twitter.com/FatWatch"],
-						 nil];
+						 [NSURL URLWithString:@"http://twitter.com/FatWatch"]];
 	[supportSection addRow:twitterRow animated:NO];
 	[twitterRow release];
 	
@@ -246,12 +244,10 @@ static NSString * const kBadgeValueUnregistered = @"!";
 		[self initSupportSection];
 		[self.tableView reloadData];
 	} else {
-		NSArray *rows = [NSArray arrayWithObjects:
-						 [NSIndexPath indexPathForRow:kRowPasscode
+		NSArray *rows = @[[NSIndexPath indexPathForRow:kRowPasscode
 											inSection:kSectionOptions],
 						 [NSIndexPath indexPathForRow:kRowBMI
-											inSection:kSectionOptions],
-						 nil];
+											inSection:kSectionOptions]];
 		[self.tableView reloadRowsAtIndexPaths:rows 
 							  withRowAnimation:UITableViewRowAnimationNone];
 	}
@@ -345,11 +341,9 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[exporter addBackupFields];
 	NSData *data = [exporter dataExportedFromDatabase:database];
 	[self performSelectorOnMainThread:@selector(mailExport:)
-						   withObject:[NSArray arrayWithObjects:
-									   [exporter contentType],
+						   withObject:@[[exporter contentType],
 									   [exporter fileExtension],
-									   data,
-									   nil]
+									   data]
 						waitUntilDone:NO];
 	[exporter release];
 	[pool release];
@@ -357,9 +351,9 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 - (void)mailExport:(NSArray *)args {
-	NSString *contentType = [args objectAtIndex:0];
-	NSString *fileExtension = [args objectAtIndex:1];
-	NSData *data = [args objectAtIndex:2];
+	NSString *contentType = args[0];
+	NSString *fileExtension = args[1];
+	NSData *data = args[2];
 	
 	[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 	BRTableRow *row = [[self sectionAtIndex:kSectionData] rowAtIndex:kRowExportEmail];
@@ -372,12 +366,12 @@ static NSString * const kBadgeValueUnregistered = @"!";
 					  [[UIDevice currentDevice] name]];
 
 	NSDictionary *info = [[NSUserDefaults standardUserDefaults] registration];
-	NSString *toRecipient = [info objectForKey:@"email"];
+	NSString *toRecipient = info[@"email"];
 	
 	MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
 	[mail setMailComposeDelegate:self];
 	if (toRecipient) {
-		[mail setToRecipients:[NSArray arrayWithObject:toRecipient]];
+		[mail setToRecipients:@[toRecipient]];
 	}
 	[mail setSubject:@"FatWatch Export"];
 	[mail setMessageBody:body isHTML:YES];

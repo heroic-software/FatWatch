@@ -21,7 +21,7 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 		switch ([[NSUserDefaults standardUserDefaults] energyUnit]) {
 			case EWEnergyUnitKilojoules:
 				[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"kJ", @"kilojoule suffix")]];
-				[self setMultiplier:[NSNumber numberWithFloat:kKilojoulesPerCalorie]];
+				[self setMultiplier:@(kKilojoulesPerCalorie)];
 				break;
 			case EWEnergyUnitCalories:
 				[self setPositiveSuffix:[kShortSpace stringByAppendingString:NSLocalizedString(@"cal", @"calorie suffix")]];
@@ -36,7 +36,7 @@ static NSString * const kShortSpace = @"\xe2\x80\x88";
 
 
 - (NSString *)stringFromFloat:(float)value {
-	return [self stringFromNumber:[NSNumber numberWithFloat:value]];
+	return [self stringFromNumber:@(value)];
 }
 
 

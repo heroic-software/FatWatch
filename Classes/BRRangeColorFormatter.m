@@ -26,7 +26,7 @@
 	
 	int n = [colors count] - 1;
 	for (int i = 0; i < n; i++) {
-		if (v < values[i]) return [colors objectAtIndex:i];
+		if (v < values[i]) return colors[i];
 	}
 	
 	return [colors lastObject];

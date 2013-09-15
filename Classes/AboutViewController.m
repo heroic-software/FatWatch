@@ -33,14 +33,14 @@
 		BRTableSection *section = [self sectionAtIndex:1];
 		BRTableButtonRow *row = (id)[section rowAtIndex:0];
 		row.cellStyle = UITableViewCellStyleSubtitle;
-		row.title = [info objectForKey:@"name"];
+		row.title = info[@"name"];
 		row.titleColor = [UIColor blackColor];
-		row.detail = [info objectForKey:@"email"];
+		row.detail = info[@"email"];
 		row.object = nil;
 		row.accessoryType = UITableViewCellAccessoryNone;
 
 		isShowingRegistrationInfo = YES;
-		[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[row indexPath]]
+		[self.tableView reloadRowsAtIndexPaths:@[[row indexPath]]
 							  withRowAnimation:UITableViewRowAnimationNone];
    }
 }
@@ -52,15 +52,15 @@
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 
 	BRTableSection *verSection = [self addNewSection];
-	verSection.footerTitle = [infoDictionary objectForKey:@"NSHumanReadableCopyright"];
+	verSection.footerTitle = infoDictionary[@"NSHumanReadableCopyright"];
 	
 	BRTableRow *versionRow = [[BRTableRow alloc] init];
 	versionRow.cellStyle = UITableViewCellStyleValue1;
 	versionRow.selectionStyle = UITableViewCellSelectionStyleNone;
-	versionRow.title = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+	versionRow.title = infoDictionary[@"CFBundleDisplayName"];
 	versionRow.detail = [NSString stringWithFormat:@"%@ (%@)",
-						 [infoDictionary objectForKey:@"CFBundleShortVersionString"],
-						 [infoDictionary objectForKey:@"CFBundleVersion"],
+						 infoDictionary[@"CFBundleShortVersionString"],
+						 infoDictionary[@"CFBundleVersion"],
 						 nil];
 	[verSection addRow:versionRow animated:NO];
 	[versionRow release];

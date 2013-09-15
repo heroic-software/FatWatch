@@ -119,7 +119,7 @@ static const float kDefaultHeight = 1.70f;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
 	
-	NSNumber *number = [NSNumber numberWithFloat:[self valueForPickerRow:pickerRow]];
+	NSNumber *number = @([self valueForPickerRow:pickerRow]);
 	label.text = [formatter stringForObjectValue:number];
 
 	return label;

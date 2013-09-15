@@ -67,8 +67,8 @@
 
 
 - (void)updateCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-	NSArray *sectionDataArray = [dataArray objectAtIndex:indexPath.section];
-	id <EWEnergyEquivalent> equiv = [sectionDataArray objectAtIndex:indexPath.row];
+	NSArray *sectionDataArray = dataArray[indexPath.section];
+	id <EWEnergyEquivalent> equiv = sectionDataArray[indexPath.row];
 	cell.textLabel.text = equiv.name;
 	if (self.editing) {
 		cell.detailTextLabel.text = [equiv description];
@@ -116,11 +116,11 @@
 	id equiv = newEquivalentController.newEquivalent;
 	if (equiv) {
 		int sec = [equiv isKindOfClass:[EWActivityEquivalent class]] ? 0 : 1;
-		NSMutableArray *array = [dataArray objectAtIndex:sec];
+		NSMutableArray *array = dataArray[sec];
 		int row = [array count];
 		[array addObject:equiv];
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:sec];
-		[self.tableView	insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+		[self.tableView	insertRowsAtIndexPaths:@[indexPath]
 							  withRowAnimation:UITableViewRowAnimationTop];
 		[self.tableView scrollToRowAtIndexPath:indexPath 
 							  atScrollPosition:UITableViewScrollPositionNone
@@ -163,12 +163,12 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[dataArray objectAtIndex:section] count];
+    return [dataArray[section] count];
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return [titleArray objectAtIndex:section];
+	return titleArray[section];
 }
 
 
@@ -199,9 +199,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-		NSMutableArray *array = [dataArray objectAtIndex:indexPath.section];
+		NSMutableArray *array = dataArray[indexPath.section];
 		[array removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+        [tableView deleteRowsAtIndexPaths:@[indexPath] 
 						 withRowAnimation:UITableViewRowAnimationFade];
 		dirty = YES;
     }
@@ -209,12 +209,12 @@
 
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row < (NSInteger)[[dataArray objectAtIndex:indexPath.section] count];
+    return indexPath.row < (NSInteger)[dataArray[indexPath.section] count];
 }
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-	NSArray *array = [dataArray objectAtIndex:sourceIndexPath.section];
+	NSArray *array = dataArray[sourceIndexPath.section];
 	if (sourceIndexPath.section < proposedDestinationIndexPath.section) {
 		// return last row in source section
 		return [NSIndexPath indexPathForRow:([array count] - 1)
@@ -235,11 +235,11 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-	NSMutableArray *fromSection = [dataArray objectAtIndex:fromIndexPath.section];
-	id thing = [fromSection objectAtIndex:fromIndexPath.row];
+	NSMutableArray *fromSection = dataArray[fromIndexPath.section];
+	id thing = fromSection[fromIndexPath.row];
 	[thing retain];
 	[fromSection removeObjectAtIndex:fromIndexPath.row];
-	NSMutableArray *toSection = [dataArray objectAtIndex:toIndexPath.section];
+	NSMutableArray *toSection = dataArray[toIndexPath.section];
 	[toSection insertObject:thing atIndex:toIndexPath.row];
 	[thing release];
 	dirty = YES;

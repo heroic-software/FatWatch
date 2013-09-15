@@ -49,7 +49,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 			for (NSUInteger c = 0; c < [columnNames count]; c++) {
 				NSString *value = [reader readString];
 				if ([value length] > 0) {
-					[[samples objectAtIndex:c] addObject:value];
+					[samples[c] addObject:value];
 				}
 			}
 			[reader nextRow];
@@ -64,10 +64,10 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 		
 		NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
 		for (NSUInteger c = 0; c < [columnNames count]; c++) {
-			NSString *name = [[columnNames objectAtIndex:c] lowercaseString];
-			NSString *field = [map objectForKey:name];
+			NSString *name = [columnNames[c] lowercaseString];
+			NSString *field = map[name];
 			if (field) {
-				[defaults setObject:[NSNumber numberWithInt:(c+1)] forKey:field];
+				defaults[field] = [NSNumber numberWithInt:(c+1)];
 			}
 		}
 		
@@ -83,7 +83,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 - (void)autodetectFields {
     NSNumber *idx;
     
-    idx = [importDefaults objectForKey:@"importDate"];
+    idx = importDefaults[@"importDate"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldDate];
         NSFormatter *df = [[EWISODateFormatter alloc] init];
@@ -91,18 +91,18 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
         [df release];
     }
     
-    idx = [importDefaults objectForKey:@"importWeight"];
+    idx = importDefaults[@"importWeight"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldWeight];
         NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport];
         [self setFormatter:wf forField:EWImporterFieldWeight];
     }
     
-    idx = [importDefaults objectForKey:@"importFat"];
+    idx = importDefaults[@"importFat"];
     if (idx) {
         NSUInteger i = [idx unsignedIntegerValue];
         [self setColumn:i forField:EWImporterFieldFatRatio];
-        float v = [[[sampleValues objectAtIndex:i] lastObject] floatValue];
+        float v = [[sampleValues[i] lastObject] floatValue];
         NSFormatter *ff;
         if (v == 0 || v > 1) {
             ff = EWFatFormatterAtIndex(0); // percentage (0%-100%)
@@ -112,27 +112,27 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
         [self setFormatter:ff forField:EWImporterFieldFatRatio];
     }
     
-    idx = [importDefaults objectForKey:@"importFlag0"];
+    idx = importDefaults[@"importFlag0"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldFlag0];
     }
     
-    idx = [importDefaults objectForKey:@"importFlag1"];
+    idx = importDefaults[@"importFlag1"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldFlag1];
     }
 
-    idx = [importDefaults objectForKey:@"importFlag2"];
+    idx = importDefaults[@"importFlag2"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldFlag2];
     }
 
-    idx = [importDefaults objectForKey:@"importFlag3"];
+    idx = importDefaults[@"importFlag3"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldFlag3];
     }
 
-    idx = [importDefaults objectForKey:@"importNote"];
+    idx = importDefaults[@"importNote"];
     if (idx) {
         [self setColumn:[idx integerValue] forField:EWImporterFieldNote];
     }
@@ -140,11 +140,9 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 
 
 - (NSDictionary *)infoForJavaScript {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			columnNames, @"columns",
-			sampleValues, @"samples",
-			importDefaults, @"importDefaults",
-			nil];
+	return @{@"columns": columnNames,
+			@"samples": sampleValues,
+			@"importDefaults": importDefaults};
 }
 
 
@@ -177,7 +175,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 - (id)valueForField:(EWImporterField)field inArray:(NSArray *)rowArray {
 	NSUInteger i = columnForField[field] - 1;
 	if (i >= [rowArray count]) return nil; // not enough data in row
-	id value = [rowArray objectAtIndex:i];
+	id value = rowArray[i];
 	if ([value length] == 0) return nil; // no value
 	NSFormatter *formatter = formatterForField[field];
 	if (formatter) {

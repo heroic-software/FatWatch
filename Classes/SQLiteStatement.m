@@ -85,7 +85,7 @@
 - (NSString *)stringValueOfColumn:(int)column {
 	const unsigned char *text = sqlite3_column_text(statement, column);
 	if (text == NULL) return nil;
-	return [NSString stringWithUTF8String:(const char *)text];
+	return @((const char *)text);
 }
 
 

@@ -379,18 +379,18 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 - (void)prepareAnimationsWithUserInfo:(NSDictionary *)userInfo {
 	NSNumber *value;
 	
-	value = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+	value = userInfo[UIKeyboardAnimationCurveUserInfoKey];
 	[UIView setAnimationCurve:[value intValue]];
 	
-	value = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+	value = userInfo[UIKeyboardAnimationDurationUserInfoKey];
 	[UIView setAnimationDuration:[value doubleValue]];
 }
 
 
 - (void)animateWithKeyboardInfo:(NSDictionary *)info
                      animations:(void (^)(void))animations {
-    NSTimeInterval duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    UIViewAnimationCurve curve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    NSTimeInterval duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [info[UIKeyboardAnimationCurveUserInfoKey] intValue];
     UIViewAnimationOptions options = BRViewAnimationOptionForCurve(curve);
     [UIView animateWithDuration:duration
                           delay:0
@@ -403,7 +403,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 - (void)keyboardWillShow:(NSNotification *)notice {
 	NSDictionary *info = [notice userInfo];
 
-	CGRect kbFrameScreen = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+	CGRect kbFrameScreen = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 	CGRect kbFrameWindow = [self.view.window convertRect:kbFrameScreen fromWindow:nil];
 	CGRect kbFrame = [self.view convertRect:kbFrameWindow fromView:nil];
 

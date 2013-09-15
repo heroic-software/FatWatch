@@ -131,7 +131,7 @@ static const int kBRPickerViewTag = 411;
 - (NSNumber *)valueForPickerRow:(NSInteger)pickerRow {
 	BRTableNumberPickerRow *row = [self tableRow];
 	float value = (pickerRow * row.increment) + row.minimumValue;
-	return [NSNumber numberWithFloat:value];
+	return @(value);
 }
 
 #pragma mark UIViewController

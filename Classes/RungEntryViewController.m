@@ -174,13 +174,13 @@ static unsigned short EWLadder[48][5] = {
 
 
 - (IBAction)clearRungAndDismiss {
-	[target setValue:[NSNumber numberWithInt:0] forKey:key];
+	[target setValue:@0 forKey:key];
 	[self dismiss];
 }
 
 
 - (IBAction)saveRungAndDismiss {
-	[target setValue:[NSNumber numberWithInt:rung] forKey:key];
+	[target setValue:@(rung) forKey:key];
 	[[NSUserDefaults standardUserDefaults] setInteger:rung forKey:@"LastSavedRung"];
 	[self dismiss];
 }

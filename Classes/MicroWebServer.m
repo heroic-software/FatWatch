@@ -411,7 +411,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		[atime release];
 		[locale release];
 	}
-	return [httpDateFormatterArray objectAtIndex:0];
+	return httpDateFormatterArray[0];
 }
 
 

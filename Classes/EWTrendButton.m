@@ -46,7 +46,7 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 
 - (NSMutableDictionary *)infoForPart:(NSUInteger)part {
 	if (part < [partArray count]) {
-		return [partArray objectAtIndex:part];
+		return partArray[part];
 	}
 	NSMutableDictionary *info = nil;
 	UIColor *color = [UIColor blackColor];
@@ -56,8 +56,8 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 	}
 	while (part >= [partArray count]) {
 		info = [[NSMutableDictionary alloc] init];
-		[info setObject:font forKey:@"font"];
-		[info setObject:color forKey:@"color"];
+		info[@"font"] = font;
+		info[@"color"] = color;
 		[partArray addObject:info];
 		[info release];
 	}
@@ -69,19 +69,19 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 
 
 - (void)setText:(NSString *)text forPart:(int)part {
-	[[self infoForPart:part] setObject:text forKey:@"text"];
+	[self infoForPart:part][@"text"] = text;
 	[self setNeedsDisplay];
 }
 
 
 - (void)setTextColor:(UIColor *)color forPart:(int)part {
-	[[self infoForPart:part] setObject:color forKey:@"color"];
+	[self infoForPart:part][@"color"] = color;
 	[self setNeedsDisplay];
 }
 
 
 - (void)setFont:(UIFont *)font forPart:(int)part {
-	[[self infoForPart:part] setObject:font forKey:@"font"];
+	[self infoForPart:part][@"font"] = font;
 	[self setNeedsDisplay];
 }
 
@@ -134,15 +134,15 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 	
 	CGPoint p = CGPointMake(marginSize.width, marginSize.height);
 	for (NSDictionary *info in partArray) {
-		NSString *text = [info objectForKey:@"text"];
+		NSString *text = info[@"text"];
 		
 		if (text == nil) continue;
 
 		if (! self.highlighted) {
-			[[info objectForKey:@"color"] setFill];
+			[info[@"color"] setFill];
 		}
 
-		UIFont *font = [info objectForKey:@"font"];
+		UIFont *font = info[@"font"];
 		CGFloat usedFontSize;
 		CGSize size = [text sizeWithFont:font
 							 minFontSize:minFontSize

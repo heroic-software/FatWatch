@@ -59,7 +59,7 @@
 
 - (void)addFloat:(float)value {
 	if (floatFormatter) {
-		[self addString:[floatFormatter stringFromNumber:[NSNumber numberWithFloat:value]]];
+		[self addString:[floatFormatter stringFromNumber:@(value)]];
 	} else {
 		[self addString:[NSString stringWithFormat:@"%f", value]];
 	}

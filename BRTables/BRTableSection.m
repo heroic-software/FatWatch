@@ -51,7 +51,7 @@
 
 
 - (BRTableRow *)rowAtIndex:(NSUInteger)rowIndex {
-	return [rows objectAtIndex:rowIndex];
+	return rows[rowIndex];
 }
 
 
@@ -66,17 +66,17 @@
 	[tableRow didAddToSection:self];
 	if (animated) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([rows count] - 1) inSection:[controller indexOfSection:self]];
-		[controller.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[controller.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
 
 - (void)removeRowAtIndex:(NSUInteger)rowIndex animated:(BOOL)animated {
-	[[rows objectAtIndex:rowIndex] willRemoveFromSection];
+	[rows[rowIndex] willRemoveFromSection];
 	[rows removeObjectAtIndex:rowIndex];
 	if (animated) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:[controller indexOfSection:self]];
-		[controller.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[controller.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 

@@ -133,7 +133,7 @@
 
 
 - (IBAction)iconButtonAction:(UIButton *)sender {
-	NSString *name = [iconNames objectAtIndex:sender.tag];
+	NSString *name = iconNames[sender.tag];
 	[EWFlagButton updateIconName:name forFlagIndex:flagIndex];
 }
 

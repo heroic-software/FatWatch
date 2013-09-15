@@ -22,7 +22,7 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 	[nf setPositiveSuffix:[kShortSpace stringByAppendingString:unitName]];
 	[nf setPositiveInfinitySymbol:
 	 [[nf positiveInfinitySymbol] stringByAppendingString:[nf positiveSuffix]]];
-	NSString *string = [nf stringFromNumber:[NSNumber numberWithFloat:n]];
+	NSString *string = [nf stringFromNumber:@(n)];
 	[nf release];
 	return string;
 }

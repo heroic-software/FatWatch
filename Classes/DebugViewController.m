@@ -60,7 +60,7 @@
 			NSLog(@"Loading user defaults from: %@", srcPath);
 			NSDictionary *srcDict = [[NSDictionary alloc] initWithContentsOfFile:srcPath];
 			for (NSString *key in srcDict) {
-				id value = [srcDict objectForKey:key];
+				id value = srcDict[key];
 				[ud setObject:value forKey:key];
 			}
 			[srcDict release];
@@ -84,7 +84,7 @@
 
 
 - (void)doReset:(id)sender {
-	NSString *name = [profileNames objectAtIndex:[sender tag]];
+	NSString *name = profileNames[[sender tag]];
 	[self resetDatabaseNamed:name];
 	[self resetDefaultsNamed:name];
 	[self dismissView];

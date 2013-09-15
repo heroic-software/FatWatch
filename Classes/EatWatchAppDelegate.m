@@ -51,7 +51,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 - (NSString *)databasePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSAssert([paths count], @"Failed to find Documents directory.");
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
 	return [documentsDirectory stringByAppendingPathComponent:kWeightDatabaseName];
 }
 
@@ -121,8 +121,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)launchStageComplete {
-	NSDictionary *externals = [NSDictionary dictionaryWithObject:db forKey:@"Database"];
-	NSDictionary *options = [NSDictionary dictionaryWithObject:externals forKey:UINibExternalObjects];
+	NSDictionary *externals = @{@"Database": db};
+	NSDictionary *options = @{UINibExternalObjects: externals};
 	[[NSBundle mainBundle] loadNibNamed:@"RootView" owner:self options:options];
 	
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];

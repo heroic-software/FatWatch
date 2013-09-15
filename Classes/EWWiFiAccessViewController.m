@@ -200,51 +200,45 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 					   [df stringFromDate:[NSDate date]],
 					   name];
 	[df autorelease];
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			format, @"value",
-			label, @"label",
-			nil];
+	return @{@"value": format,
+			@"label": label};
 }
 
 
 - (void)sendValuesJavaScriptToConnection:(MicroWebConnection *)connection {
 	UIDevice *device = [UIDevice currentDevice];
 	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-	NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
-	NSString *copyright = [info objectForKey:@"NSHumanReadableCopyright"];
+	NSString *version = info[@"CFBundleShortVersionString"];
+	NSString *copyright = info[@"NSHumanReadableCopyright"];
 	
 	NSMutableDictionary *root = [[NSMutableDictionary alloc] init];
 
-	[root setObject:[device name] forKey:@"deviceName"];
-	[root setObject:[device localizedModel] forKey:@"deviceModel"];
-	[root setObject:version forKey:@"version"];
-	[root setObject:copyright forKey:@"copyright"];
+	root[@"deviceName"] = [device name];
+	root[@"deviceModel"] = [device localizedModel];
+	root[@"version"] = version;
+	root[@"copyright"] = copyright;
 	
 	// Formats
 	NSMutableArray *array = [[NSMutableArray alloc] init];
 	
 	[array addObject:DateFormatDictionary(@"y-MM-dd", @"ISO")];
 	[array addObject:DateFormatDictionary(nil, @"Local")];
-	[root setObject:[[array copy] autorelease] forKey:@"dateFormats"];
+	root[@"dateFormats"] = [[array copy] autorelease];
 	[array removeAllObjects];
 
 	for (id weightUnit in [NSUserDefaults weightUnitsForExport]) {
-		[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						  weightUnit, @"value",
-						  [NSUserDefaults nameForWeightUnit:weightUnit], @"label",
-						  nil]];
+		[array addObject:@{@"value": weightUnit,
+						  @"label": [NSUserDefaults nameForWeightUnit:weightUnit]}];
 	}
-	[root setObject:[[array copy] autorelease] forKey:@"weightFormats"];
+	root[@"weightFormats"] = [[array copy] autorelease];
 	[array removeAllObjects];
 	
 	int i = 0;
 	for (NSString *name in EWFatFormatterNames()) {
-		[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						  [NSString stringWithFormat:@"%d", i++], @"value",
-						  name, @"label",
-						  nil]];
+		[array addObject:@{@"value": [NSString stringWithFormat:@"%d", i++],
+						  @"label": name}];
 	}
-	[root setObject:array forKey:@"fatFormats"];
+	root[@"fatFormats"] = array;
 	[array release];
 	
 	// Export Defaults
@@ -253,7 +247,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		NSAssert(exportDefaults, @"Can't find ExportDefaults in defaults db");
 	}
 	
-	[root setObject:exportDefaults forKey:@"exportDefaults"];
+	root[@"exportDefaults"] = exportDefaults;
 
 	NSMutableData *json = [[NSMutableData alloc] init];
 	[json appendBytes:"var FatWatch=" length:13];
@@ -288,19 +282,18 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSLog(@"Export Parameters: %@", form);
 #endif
 	
-	NSArray *fieldArray = [NSArray arrayWithObjects:
-						   @"date",@"weight",@"trendWeight",@"fat",
-						   @"flag0",@"flag1",@"flag2",@"flag3",@"note",nil];
+	NSArray *fieldArray = @[@"date",@"weight",@"trendWeight",@"fat",
+						   @"flag0",@"flag1",@"flag2",@"flag3",@"note"];
 
 	NSArray *allExportKeys = [[exportDefaults allKeys] copy];
 	for (NSString *exportKey in allExportKeys) {
 		// exportFooBar => fooBar
 		NSString *key = [exportKey stringByReplacingCharactersInRange:NSMakeRange(0, 7) withString:[[exportKey substringWithRange:NSMakeRange(6,1)] lowercaseString]];
 		if ([form hasKey:key]) {
-			[exportDefaults setObject:[form stringForKey:key] forKey:exportKey];
+			exportDefaults[exportKey] = [form stringForKey:key];
 		}
 		else if (![key hasSuffix:@"Name"] && ![key hasSuffix:@"Format"]) {
-			[exportDefaults setObject:(id)kCFBooleanFalse forKey:exportKey];
+			exportDefaults[exportKey] = (id)kCFBooleanFalse;
 		}
 	}
 	[allExportKeys release];
@@ -310,15 +303,15 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSMutableDictionary *formatterDictionary = [NSMutableDictionary dictionary];
 	
 	NSFormatter *df = [EWDateFormatter formatterWithDateFormat:[form stringForKey:@"dateFormat"]];
-	[formatterDictionary setObject:df forKey:@"date"];
+	formatterDictionary[@"date"] = df;
 	
 	EWWeightUnit weightUnit = [[form stringForKey:@"weightFormat"] intValue];
 	NSFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleExport unit:weightUnit];
-	[formatterDictionary setObject:wf forKey:@"weight"];
-	[formatterDictionary setObject:wf forKey:@"trendWeight"];
+	formatterDictionary[@"weight"] = wf;
+	formatterDictionary[@"trendWeight"] = wf;
 	
 	NSFormatter *ff = EWFatFormatterAtIndex([[form stringForKey:@"fatFormat"] intValue]);
-	[formatterDictionary setObject:ff forKey:@"fat"];
+	formatterDictionary[@"fat"] = ff;
 		
 	NSArray *order;
 	
@@ -337,7 +330,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			if (name == nil) name = key;
 			[exporter addField:[fieldArray indexOfObject:key]
 						  name:name
-					 formatter:[formatterDictionary objectForKey:key]];
+					 formatter:formatterDictionary[key]];
 		}
 	}
 	
@@ -517,18 +510,18 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	}
 	
 	NSString *requestPath = [[connection requestURL] path];
-	NSDictionary *rsrc = [webResources objectForKey:requestPath];
+	NSDictionary *rsrc = webResources[requestPath];
 	
 	if (rsrc) {
-		NSString *action = [rsrc objectForKey:@"Action"];
+		NSString *action = rsrc[@"Action"];
 		if (action) {
 			[self performSelector:NSSelectorFromString(action) 
 					   withObject:connection];
 		} else {
 			NSString *path = [[NSBundle mainBundle] 
-                              pathForResource:[rsrc objectForKey:@"Name"]
-                              ofType:[rsrc objectForKey:@"Type"]];
-            [connection sendFileAtPath:path contentType:[rsrc objectForKey:@"Content-Type"]];
+                              pathForResource:rsrc[@"Name"]
+                              ofType:rsrc[@"Type"]];
+            [connection sendFileAtPath:path contentType:rsrc[@"Content-Type"]];
 		}
 	} else {
         [connection sendNotFoundError];

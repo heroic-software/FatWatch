@@ -272,7 +272,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 - (NSNumber *)endWeightNumber {
 	float w = self.endWeight;
 	if (w > 0) {
-		return [NSNumber numberWithFloat:w];
+		return @(w);
 	} else {
 		return nil;
 	}

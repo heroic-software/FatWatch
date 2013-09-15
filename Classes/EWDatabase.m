@@ -178,15 +178,15 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 // Used all over the place.
 - (EWDBMonth *)getDBMonth:(EWMonth)month {
-	id key = [NSNumber numberWithInt:month];
+	id key = @(month);
 	EWDBMonth *dbm = nil;
 	
 	[monthCacheLock lock];
 	{
-		dbm = [monthCache objectForKey:key];
+		dbm = monthCache[key];
 		if (dbm == nil) {
 			dbm = [[EWDBMonth alloc] initWithMonth:month database:self];
-			[monthCache setObject:dbm forKey:key];
+			monthCache[key] = dbm;
 			[dbm release];
 		}
 		if (month < earliestMonth) earliestMonth = month;
@@ -427,7 +427,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		return [self loadEnergyEquivalents];
 	}
 	
-	return [NSArray arrayWithObjects:array0, array1, nil];
+	return @[array0, array1];
 }
 
 
@@ -442,13 +442,13 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	NSMutableSet *deletionCandidateIDSet = [[NSMutableSet alloc] init];
 	while ([selectStmt step]) {
 		int dbID = [selectStmt intValueOfColumn:0];
-		[deletionCandidateIDSet addObject:[NSNumber numberWithInt:dbID]];
+		[deletionCandidateIDSet addObject:@(dbID)];
 	}
 
 	for (NSUInteger section = 0; section < [dataArray count]; section++) {
-		NSArray *sectionArray = [dataArray objectAtIndex:section];
+		NSArray *sectionArray = dataArray[section];
 		for (NSUInteger row = 0; row < [sectionArray count]; row++) {
-			id <EWEnergyEquivalent> equiv = [sectionArray objectAtIndex:row];
+			id <EWEnergyEquivalent> equiv = sectionArray[row];
 			if (equiv.dbID > 0) {
 				[updateStmt bindInt:row toParameter:1];
 				[updateStmt bindInt64:equiv.dbID toParameter:2];
@@ -464,7 +464,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 				[insertStmt reset];
 				equiv.dbID = [db lastInsertRowID];
 			}
-			[deletionCandidateIDSet removeObject:[NSNumber numberWithLongLong:equiv.dbID]];
+			[deletionCandidateIDSet removeObject:@(equiv.dbID)];
 		}
 	}
 	

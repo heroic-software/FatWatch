@@ -311,7 +311,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 
 - (void)updateGraph {
-	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
+	TrendSpan *span = spanArray[spanIndex];
 	
 	GraphViewParameters *gp;
 	GraphDrawingOperation *op;
@@ -365,7 +365,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
 	if ([operation isCancelled]) return;
-	TrendSpan *span = [spanArray objectAtIndex:operation.index];
+	TrendSpan *span = spanArray[operation.index];
 	BOOL isFat = operation.p->showFatWeight;
 
 	// Display now, if needed
@@ -480,7 +480,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		} else {
 			part0Text = @"losing ";
 		}
-		NSNumber *change = [NSNumber numberWithFloat:fabsf(weightPerDay)];
+		NSNumber *change = @(fabsf(weightPerDay));
 		NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
 		[wf setPositivePrefix:@""];
 		part1Text = [wf stringForObjectValue:change];
@@ -502,7 +502,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		[energyChangeButton setText:@"burning " forPart:0];
 		[energyChangeButton setText:@" more than you eat" forPart:2];
 	}
-	NSNumber *change = [NSNumber numberWithFloat:fabsf(weightPerDay)];
+	NSNumber *change = @(fabsf(weightPerDay));
 	NSNumberFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
 	[ef setPositivePrefix:@""];
 	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
@@ -582,7 +582,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 - (void)updateControls {
 	if (spanIndex < [spanArray count]) {
-		[self updateControlsWithSpan:[spanArray objectAtIndex:spanIndex]];
+		[self updateControlsWithSpan:spanArray[spanIndex]];
 		messageGroupView.hidden = YES;
 	} else {
 		UINavigationItem *navItem = self.navigationItem;
@@ -620,7 +620,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 
 - (IBAction)showEnergyEquivalents:(id)sender {
-	TrendSpan *span = [spanArray objectAtIndex:spanIndex];
+	TrendSpan *span = spanArray[spanIndex];
 	float rate = showFat ? span.fatWeightPerDay : span.totalWeightPerDay;
 	
 	if (sender == relativeEnergyButton) {

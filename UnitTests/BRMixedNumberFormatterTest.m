@@ -17,7 +17,7 @@
 
 @implementation NSFormatter (BRMixedNumberFormatterTest)
 - (NSString *)stringForFloat:(float)value {
-	return [self stringForObjectValue:[NSNumber numberWithFloat:value]];
+	return [self stringForObjectValue:@(value)];
 }
 @end
 

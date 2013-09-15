@@ -36,7 +36,7 @@
 	NSCharacterSet *skipSet = [[NSCharacterSet characterSetWithCharactersInString:@"123456789.0"] invertedSet];
 
 	for (NSString *name in info) {
-		NSString *value = [info objectForKey:name];
+		NSString *value = info[name];
 		NSScanner *scanner = [[NSScanner alloc] initWithString:value];
 		[scanner setCharactersToBeSkipped:skipSet];
 		CGFloat red, green, blue;
@@ -48,7 +48,7 @@
 													green:green
 													 blue:blue
 													alpha:1];
-			[palette setObject:color forKey:name];
+			palette[name] = color;
 			[color release];
 		} else {
 			NSLog(@"Warning: can't parse color \"%@\"", value);
@@ -75,7 +75,7 @@
 
 
 - (UIColor *)colorNamed:(NSString *)colorName {
-	UIColor *color = [colorDictionary objectForKey:colorName];
+	UIColor *color = colorDictionary[colorName];
 	if (color == nil) NSLog(@"Warning: no color named \"%@\"", colorName);
 	return color;
 }

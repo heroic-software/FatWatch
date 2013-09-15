@@ -37,7 +37,7 @@
 		if (comma) [json appendBytes:"," length:1]; else comma = YES;
 		[key appendJSONRepresentationToData:json];
 		[json appendBytes:":" length:1];
-		[[self objectForKey:key] appendJSONRepresentationToData:json];
+		[self[key] appendJSONRepresentationToData:json];
 	}
 	[json appendBytes:"}" length:1];
 }

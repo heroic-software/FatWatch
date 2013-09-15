@@ -40,7 +40,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 	}
 	
 	NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
-	NSArray *sortDescriptors = [NSArray arrayWithObject:desc];
+	NSArray *sortDescriptors = @[desc];
 	[desc release];
 	
 	if ([set respondsToSelector:@selector(sortedArrayUsingDescriptors:)]) {
@@ -86,7 +86,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 		NSString *key = [NSString stringWithFormat:@"Flag%dImage", flagIndex];
 		[[NSUserDefaults standardUserDefaults] setObject:name forKey:key];
 	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:EWFlagButtonIconDidChangeNotification object:[NSNumber numberWithInt:flagIndex]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:EWFlagButtonIconDidChangeNotification object:@(flagIndex)];
 }
 
 
@@ -103,7 +103,7 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 	if (self.tag > 0) {
 		int flagIndex = self.tag % 10;
 		[self configureForFlagIndex:flagIndex];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flagIconDidChange:) name:EWFlagButtonIconDidChangeNotification object:[NSNumber numberWithInt:flagIndex]];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flagIconDidChange:) name:EWFlagButtonIconDidChangeNotification object:@(flagIndex)];
 		self.backgroundColor = [UIColor whiteColor];
 	}
 }

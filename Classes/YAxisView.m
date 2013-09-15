@@ -32,7 +32,7 @@ static const CGFloat gMinorTickWidth = 3.5f;
 - (CGSize)sizeThatFits:(CGSize)size {
 	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	// 993 lbs | 451 kg | 70 st 13 lb
-	NSNumber *number = [NSNumber numberWithFloat:993];
+	NSNumber *number = @993.0f;
 	NSString *label = [formatter stringForObjectValue:number];
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	CGSize labelSize = [label sizeWithFont:labelFont];
@@ -44,7 +44,7 @@ static const CGFloat gMinorTickWidth = 3.5f;
 {
 	const CGRect bounds = self.bounds;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
-	NSString *label = [formatter stringForObjectValue:[NSNumber numberWithFloat:w]];
+	NSString *label = [formatter stringForObjectValue:@(w)];
 	CGSize labelSize = [label sizeWithFont:labelFont];
 	CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
 	CGRect labelRect = CGRectMake(viewWidth - labelSize.width - gTickWidth, 

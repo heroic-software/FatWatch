@@ -105,7 +105,7 @@
 
 	float weight = [database latestWeight];
 	if (weight == 0) weight = 150;
-	weightRow.defaultValue = [NSNumber numberWithFloat:weight];
+	weightRow.defaultValue = @(weight);
 	
 	[section addRow:weightRow animated:NO];
 	[weightRow release];
@@ -114,12 +114,10 @@
 		float w[3];
 		[EWWeightFormatter getBMIWeights:w];
 		BRColorPalette *palette = [BRColorPalette sharedPalette];
-		NSArray *colorArray = [NSArray arrayWithObjects:
-							   [[palette colorNamed:@"BMIUnderweight"] colorWithAlphaComponent:0.4f],
+		NSArray *colorArray = @[[[palette colorNamed:@"BMIUnderweight"] colorWithAlphaComponent:0.4f],
 							   [[palette colorNamed:@"BMINormal"] colorWithAlphaComponent:0.4f],
 							   [[palette colorNamed:@"BMIOverweight"] colorWithAlphaComponent:0.4f],
-							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4f],
-							   nil];
+							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4f]];
 		BRRangeColorFormatter *colorFormatter = [[BRRangeColorFormatter alloc] initWithColors:colorArray forValues:w];
 		weightRow.backgroundColorFormatter = colorFormatter;
 		[colorFormatter release];

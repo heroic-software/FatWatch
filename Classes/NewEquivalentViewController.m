@@ -108,7 +108,7 @@
 	[nf setMinimumFractionDigits:1];
 	[nf setMaximumFractionDigits:1];
 	[nf setPositiveSuffix:@" MET"];
-	metLabel.text = [nf stringFromNumber:[NSNumber numberWithFloat:metSlider.value]];
+	metLabel.text = [nf stringFromNumber:@(metSlider.value)];
 	[nf release];
 }
 

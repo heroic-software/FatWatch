@@ -41,20 +41,16 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 
 + (NSArray *)weightUnitsForDisplay {
-	return [NSArray arrayWithObjects:
-			[NSNumber numberWithInt:EWWeightUnitPounds],
-			[NSNumber numberWithInt:EWWeightUnitKilograms],
-			[NSNumber numberWithInt:EWWeightUnitStones],
-			nil];
+	return @[@(EWWeightUnitPounds),
+			@(EWWeightUnitKilograms),
+			@(EWWeightUnitStones)];
 }
 
 
 + (NSArray *)weightUnitsForExport {
-	return [NSArray arrayWithObjects:
-			[NSNumber numberWithInt:EWWeightUnitPounds],
-			[NSNumber numberWithInt:EWWeightUnitKilograms],
-			[NSNumber numberWithInt:EWWeightUnitGrams],
-			nil];
+	return @[@(EWWeightUnitPounds),
+			@(EWWeightUnitKilograms),
+			@(EWWeightUnitGrams)];
 }
 
 
@@ -88,10 +84,8 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 
 + (NSArray *)energyUnits {
-	return [NSArray arrayWithObjects:
-			[NSNumber numberWithInt:EWEnergyUnitCalories],
-			[NSNumber numberWithInt:EWEnergyUnitKilojoules],
-			nil];
+	return @[@(EWEnergyUnitCalories),
+			@(EWEnergyUnitKilojoules)];
 }
 
 
@@ -121,7 +115,7 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 
 
 + (NSArray *)scaleIncrements {
-	return [NSArray arrayWithObjects:@"1.00", @"0.50", @"0.20", @"0.10", @"0.05", nil];
+	return @[@"1.00", @"0.50", @"0.20", @"0.10", @"0.05"];
 }
 
 
@@ -129,7 +123,7 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimumFractionDigits:1];
-	NSString *name = [formatter stringFromNumber:[NSNumber numberWithFloat:[number floatValue]]];
+	NSString *name = [formatter stringFromNumber:@([number floatValue])];
 	[formatter release];
 	return name;
 }

@@ -122,7 +122,7 @@ NSString *kPasscodeKey = @"Passcode";
 		BOOL dismissView = [self shouldDismissEnteredCode:code];
 		[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 		[self performSelector:@selector(messageDelayDidEnd:) 
-				   withObject:[NSNumber numberWithBool:dismissView]
+				   withObject:@(dismissView)
 				   afterDelay:0.8];
 	}
 }

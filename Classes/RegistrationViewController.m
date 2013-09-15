@@ -103,7 +103,7 @@ static RegistrationViewController *gSharedController = nil;
 
 
 void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
-	if (object) [dict setObject:object forKey:key];
+	if (object) dict[key] = object;
 }
 
 
@@ -121,7 +121,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			NSMutableDictionary *fields = [[NSMutableDictionary alloc] init];
 			
 			NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-			EWSafeDictionarySet(fields, @"bundle_version", [infoDictionary objectForKey:@"CFBundleVersion"]);
+			EWSafeDictionarySet(fields, @"bundle_version", infoDictionary[@"CFBundleVersion"]);
 
 			UIDevice *device = [UIDevice currentDevice];
 			EWSafeDictionarySet(fields, @"system_name", [device systemName]);
@@ -135,7 +135,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			for (NSString *key in fields) {
 				NSString *js = [NSString stringWithFormat:
 								@"document.forms[0].elements[\"rg[%@]\"].value=\"%@\";",
-								key, [fields objectForKey:key]];
+								key, fields[key]];
 				[webView stringByEvaluatingJavaScriptFromString:js];
 			}
 			
@@ -153,7 +153,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			for (NSString *key in [keyString componentsSeparatedByString:@"\0"]) {
 				NSString *keyPath = [@"registration." stringByAppendingString:key];
 				NSString *eval = [webView stringByEvaluatingJavaScriptFromString:keyPath];
-				[info setObject:eval forKey:key];
+				info[key] = eval;
 			}
 			[defs setRegistration:info];
 			// Clear the reminder here too in case we are reusing a registration

@@ -99,9 +99,9 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	NSDate *now = EWDateFromMonthDay(EWMonthDayToday());
 	for (NSDictionary *info in infoArray) {
 		TrendSpan *span = [[TrendSpan alloc] init];
-		span.title = [info objectForKey:@"Title"];
-		[dc setMonth:-[[info objectForKey:@"Months"] intValue]];
-		[dc setDay:-[[info objectForKey:@"Days"] intValue]];
+		span.title = info[@"Title"];
+		[dc setMonth:-[info[@"Months"] intValue]];
+		[dc setDay:-[info[@"Days"] intValue]];
 		NSDate *beginDate = [calendar dateByAddingComponents:dc toDate:now options:0];
 		span.beginMonthDay = EWMonthDayFromDate(beginDate);
 		span.endMonthDay = EWMonthDayToday();

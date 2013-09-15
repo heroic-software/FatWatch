@@ -64,7 +64,7 @@
         }];
         NSMutableArray *names = [NSMutableArray array];
         [idxs enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            [names addObject:[importer.columnNames objectAtIndex:(idx - 1)]];
+            [names addObject:(importer.columnNames)[(idx - 1)]];
         }];
         [msg appendString:@"Found columns "];
         [msg appendString:[names componentsJoinedByString:@", "]];
