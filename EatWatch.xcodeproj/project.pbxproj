@@ -21,9 +21,6 @@
 		BC04131210DB7AD9008FCB11 /* WebResources.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC04131110DB7AD9008FCB11 /* WebResources.plist */; };
 		BC04131710DB8024008FCB11 /* CSVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04131610DB8024008FCB11 /* CSVExporter.m */; };
 		BC04131A10DB804B008FCB11 /* EWExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04131910DB804B008FCB11 /* EWExporter.m */; };
-		BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
-		BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */; };
-		BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0CE4620DDC0F6300AB8899 /* DataSearch.m */; };
 		BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */; };
 		BC04159A10DE1656008FCB11 /* NSUserDefaults+EWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */; };
 		BC0415B110DE20D7008FCB11 /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
@@ -31,7 +28,6 @@
 		BC069AEB1153F3BE00377DC1 /* BRInvocationTrap.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEA1153F3BE00377DC1 /* BRInvocationTrap.m */; };
 		BC069AEF1153F94600377DC1 /* BRConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = BC069AEE1153F94600377DC1 /* BRConfirmationAlert.m */; };
 		BC08CA3112444822006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
-		BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC08CA3012444822006208A9 /* EWDBIterator.m */; };
 		BC08CD0E12481DAF006208A9 /* v1.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0B12481DAF006208A9 /* v1.test.db */; };
 		BC08CD0F12481DAF006208A9 /* v2.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0C12481DAF006208A9 /* v2.test.db */; };
 		BC08CD1012481DAF006208A9 /* v3.test.db in Resources */ = {isa = PBXBuildFile; fileRef = BC08CD0D12481DAF006208A9 /* v3.test.db */; };
@@ -42,7 +38,6 @@
 		BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC112F911101981F00EAC8DA /* FlagIconView.xib */; };
 		BC112F9611019BED00EAC8DA /* FlagIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9511019BED00EAC8DA /* FlagIconViewController.m */; };
 		BC112F9911019D9100EAC8DA /* FlagTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC112F9811019D9100EAC8DA /* FlagTabView.m */; };
-		BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02492810F4159E00BED779 /* EWEnergyFormatter.m */; };
 		BC1132201102F0DC00EAC8DA /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC11321F1102F0DC00EAC8DA /* AboutViewController.m */; };
 		BC1133361103AE5300EAC8DA /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1133351103AE5300EAC8DA /* RegistrationViewController.m */; };
 		BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC14F3C91118C6F300FB9A50 /* Settings.bundle */; };
@@ -75,6 +70,17 @@
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
+		BC67027217E6382E00B272F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC67027017E6382E00B272F5 /* InfoPlist.strings */; };
+		BC67027B17E6389700B272F5 /* BRMixedNumberFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */; };
+		BC67027C17E6389700B272F5 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
+		BC67027D17E6389700B272F5 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
+		BC67027E17E6389700B272F5 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
+		BC67027F17E6389700B272F5 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */; };
+		BC67028017E6389700B272F5 /* EWGoalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF67C2C1111749700C923BF /* EWGoalTest.m */; };
+		BC67028117E6389700B272F5 /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
+		BC67028217E63A4100B272F5 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
+		BC67028317E63A4100B272F5 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
+		BC67028417E63ABA00B272F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC6A8E790FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */; };
 		BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */; };
@@ -107,7 +113,6 @@
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
-		BCAEE75317E55D7800433283 /* Scratch.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCAEE75217E55D7800433283 /* Scratch.txt */; };
 		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
@@ -132,9 +137,6 @@
 		BCC0D3EE147879EC0080D403 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
 		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
 		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
-		BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
-		BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
-		BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */; };
 		BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */; };
 		BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */; };
@@ -149,8 +151,6 @@
 		BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
 		BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */; };
 		BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBCFC10F813D000FA0C93 /* UpgradeView.xib */; };
-		BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC02496210F419F600BED779 /* EWEnergyEquivalent.m */; };
-		BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */; };
 		BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBE9E10F90F0200FA0C93 /* DBEquivDefaults.sql */; };
 		BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDFBF0C10F9393000FA0C93 /* NewEquivalentView.xib */; };
 		BCDFBF1110F93B9800FA0C93 /* NewEquivalentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBF1010F93B9800FA0C93 /* NewEquivalentViewController.m */; };
@@ -159,38 +159,16 @@
 		BCE6075610E0227000819E77 /* RungEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6075510E0227000819E77 /* RungEntryViewController.m */; };
 		BCE6082510E03E7F00819E77 /* EWImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6082410E03E7F00819E77 /* EWImporter.m */; };
 		BCEADADC0DE2A3BE0017495E /* FormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADADB0DE2A3BE0017495E /* FormDataParser.m */; };
-		BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
-		BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0415B010DE20D7008FCB11 /* EWWeightFormatter.m */; };
-		BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04162D10DE46E4008FCB11 /* EWWeightChangeFormatter.m */; };
-		BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
-		BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E99910D6207B00E4C1A3 /* BRColorPalette.m */; };
-		BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E99010D61FE600E4C1A3 /* ColorPalette.plist */; };
 		BCF329750EFF629500D31E49 /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCF329740EFF629500D31E49 /* GraphView.xib */; };
-		BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
-		BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
-		BCF52AD910D066790017C3A1 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
-		BCF52ADA10D066790017C3A1 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
-		BCF52AE110D066E30017C3A1 /* EWDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1F83B80DB150B800DA88E6 /* EWDate.m */; };
-		BCF52AE210D066ED0017C3A1 /* CSVReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B86130DDF9D5A00045F01 /* CSVReader.m */; };
-		BCF52B4110D068C40017C3A1 /* BRMixedNumberFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */; };
-		BCF52B6410D06AAC0017C3A1 /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */; };
 		BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */; };
 		BCF52C7510D0AE680017C3A1 /* SQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */; };
 		BCF52C7610D0AE680017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
 		BCF52C7910D0AEA20017C3A1 /* EWDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */; };
 		BCF52C7C10D0AEB70017C3A1 /* EWDBMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */; };
-		BCF52CAA10D0D0420017C3A1 /* EWDBMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */; };
-		BCF52CAB10D0D0430017C3A1 /* EWDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */; };
-		BCF52CAE10D0D04F0017C3A1 /* SQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7210D0AE680017C3A1 /* SQLiteDatabase.m */; };
-		BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
-		BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */; };
-		BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */; };
 		BCF67900110D670800C923BF /* TriangleLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FE110D670800C923BF /* TriangleLeft.png */; };
 		BCF67901110D670800C923BF /* TriangleRight.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FF110D670800C923BF /* TriangleRight.png */; };
 		BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF67AFE1110CA6100C923BF /* DangerBar.png */; };
-		BCF67C2D1111749700C923BF /* EWGoalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF67C2C1111749700C923BF /* EWGoalTest.m */; };
-		BCF67C30111175FB00C923BF /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -228,6 +206,17 @@
 			);
 			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF";
 		};
+		BCCD7E5F17E64E7B00621F41 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.sql";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
+			);
+			script = "source ${PROJECT_DIR}/Tools/build_rule_sql_sql0.sh";
+		};
 		BCF67C9F1112144A00C923BF /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
@@ -237,28 +226,17 @@
 			outputFiles = (
 				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
 			);
-			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.sql0\n(egrep -v \"(^-- )|(^ *$)\" $INPUT_FILE_PATH; perl -e \"print chr(0);\") >> $SOF";
-		};
-		BCF67CB21112194700C923BF /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.sql";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
-			);
-			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_BASE}.sql0\n(egrep -v \"(^-- )|(^ *$)\" $INPUT_FILE_PATH; perl -e \"print chr(0);\") >> $SOF";
+			script = "source ${PROJECT_DIR}/Tools/build_rule_sql_sql0.sh";
 		};
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		BC08CBCC12453DAF006208A9 /* PBXContainerItemProxy */ = {
+		BC67027617E6382E00B272F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BCF52ACE10D066540017C3A1;
-			remoteInfo = UnitTests;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
+			remoteInfo = FatWatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -267,7 +245,7 @@
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatWatchAppDelegate.m; sourceTree = "<group>"; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FatWatch-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* FatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* EatWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatch_Prefix.pch; sourceTree = "<group>"; };
@@ -374,6 +352,10 @@
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
 		BC65EBB10DEBA5F90008E677 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/TrendSpans.plist; sourceTree = "<group>"; };
+		BC67026617E6382E00B272F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC67026F17E6382E00B272F5 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		BC67027117E6382E00B272F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BC67027517E6382E00B272F5 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
 		BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWWiFiAccessViewController.h; path = Classes/EWWiFiAccessViewController.h; sourceTree = "<group>"; };
@@ -502,8 +484,6 @@
 		BCEBD472136F7FA0005C1D05 /* browser-detect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "browser-detect.js"; sourceTree = "<group>"; };
 		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
-		BCF52ACF10D066540017C3A1 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCF52AD010D066540017C3A1 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatterTest.m; sourceTree = "<group>"; };
 		BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DBUpgrade2.sql; sourceTree = "<group>"; };
 		BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DBUpgrade3.sql; sourceTree = "<group>"; };
@@ -539,11 +519,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCF52ACC10D066540017C3A1 /* Frameworks */ = {
+		BC67026317E6382E00B272F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCF52AD510D066610017C3A1 /* libsqlite3.0.dylib in Frameworks */,
+				BC67028417E63ABA00B272F5 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,34 +551,11 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BCD2D23610EAADD700C1117F /* MessageUI.framework */,
-				BCC860660DD6C6360034EE2D /* QuartzCore.framework */,
-				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
-				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
-				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */,
-				BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BCEAD9E70DE219710017495E /* SenTestingKit.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */,
-				BCF52ACF10D066540017C3A1 /* UnitTests.octest */,
+				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
+				BC67026617E6382E00B272F5 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -611,6 +568,7 @@
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BC08CC0B124549D6006208A9 /* Testing */,
 				BC8DB52F1236C6840043B43A /* DerivedSources */,
+				BC67026D17E6382E00B272F5 /* UnitTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				BCC0D3C4147869E80080D403 /* Tools */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -670,8 +628,15 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */,
+				BCD2D23610EAADD700C1117F /* MessageUI.framework */,
+				BCC860660DD6C6360034EE2D /* QuartzCore.framework */,
+				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				BC0CE2F80DDB732000AB8899 /* CFNetwork.framework */,
+				BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				BCEAD9E70DE219710017495E /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -701,7 +666,6 @@
 			children = (
 				BC08CC2F124581E3006208A9 /* Utilities */,
 				BC8DB3661235512D0043B43A /* UIAutomation */,
-				BC7B54E00DDE2C8800B316A1 /* UnitTests */,
 				BC0410F010D9D532008FCB11 /* FakeValues.js */,
 				BC04126E10DA12DB008FCB11 /* FakeImport.js */,
 			);
@@ -756,10 +720,9 @@
 			path = BRTables;
 			sourceTree = "<group>";
 		};
-		BC7B54E00DDE2C8800B316A1 /* UnitTests */ = {
+		BC67026D17E6382E00B272F5 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				BCF52AD010D066540017C3A1 /* UnitTests-Info.plist */,
 				BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */,
 				BCEADA030DE219E70017495E /* CSVReaderTest.m */,
 				BC3384010DE78303001F1052 /* DatabaseTest.m */,
@@ -767,8 +730,19 @@
 				BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */,
 				BCF67C2C1111749700C923BF /* EWGoalTest.m */,
 				BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */,
+				BC67026E17E6382E00B272F5 /* Supporting Files */,
 			);
 			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		BC67026E17E6382E00B272F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC67026F17E6382E00B272F5 /* UnitTests-Info.plist */,
+				BC67027017E6382E00B272F5 /* InfoPlist.strings */,
+				BC67027517E6382E00B272F5 /* UnitTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		BC82AEA70E6FC7F900E2A693 /* Chart */ = {
@@ -1065,31 +1039,29 @@
 				BC200C6110F7D42800352A32 /* PBXBuildRule */,
 			);
 			dependencies = (
-				BC08CBCD12453DAF006208A9 /* PBXTargetDependency */,
 			);
 			name = FatWatch;
 			productName = EatWatch;
-			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch-Debug.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BCF52ACE10D066540017C3A1 /* UnitTests */ = {
+		BC67026517E6382E00B272F5 /* UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCF52AD410D066550017C3A1 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildConfigurationList = BC67027817E6382E00B272F5 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
-				BC200C3210F7250200352A32 /* Warn about TODOs */,
-				BCF52ACA10D066540017C3A1 /* Resources */,
-				BCF52ACB10D066540017C3A1 /* Sources */,
-				BCF52ACC10D066540017C3A1 /* Frameworks */,
-				BCF52ACD10D066540017C3A1 /* Run Tests */,
+				BC67026217E6382E00B272F5 /* Sources */,
+				BC67026317E6382E00B272F5 /* Frameworks */,
+				BC67026417E6382E00B272F5 /* Resources */,
 			);
 			buildRules = (
-				BCF67CB21112194700C923BF /* PBXBuildRule */,
+				BCCD7E5F17E64E7B00621F41 /* PBXBuildRule */,
 			);
 			dependencies = (
+				BC67027717E6382E00B272F5 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
 			productName = UnitTests;
-			productReference = BCF52ACF10D066540017C3A1 /* UnitTests.octest */;
+			productReference = BC67026617E6382E00B272F5 /* UnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1102,6 +1074,9 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = NHH27293HZ;
+					};
+					BC67026517E6382E00B272F5 = {
+						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
 				};
 			};
@@ -1121,7 +1096,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* FatWatch */,
-				BCF52ACE10D066540017C3A1 /* UnitTests */,
+				BC67026517E6382E00B272F5 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1204,16 +1179,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCF52ACA10D066540017C3A1 /* Resources */ = {
+		BC67026417E6382E00B272F5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCF52CDC10D0D6F70017C3A1 /* DBUpgrade2.sql in Resources */,
-				BCF52CDD10D0D6F70017C3A1 /* DBUpgrade3.sql in Resources */,
-				BCC4E51D10D4CC6D00E4C1A3 /* DBCreate3.sql in Resources */,
-				BCC4E52F10D4CE0700E4C1A3 /* DBCreate2.sql in Resources */,
-				BCC4E54310D4D07E00E4C1A3 /* DBCreate1.sql in Resources */,
-				BCEF59D8116B071E007CFCEB /* ColorPalette.plist in Resources */,
+				BC67027217E6382E00B272F5 /* InfoPlist.strings in Resources */,
+				BC67028317E63A4100B272F5 /* DBCreate3.sql in Resources */,
+				BC67028217E63A4100B272F5 /* DBCreate2.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1237,21 +1209,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd ${SRCROOT}/Utilities\n\nfunction make_it {\n\tlocal FORMAT=$1\n\tlocal DBFILE=${DERIVED_FILE_DIR}/$2\n\n\tif [ -e $DBFILE ]; then rm $DBFILE; fi\n\t./make-history.rb --format=$FORMAT | sqlite3 $DBFILE\n}\n\nmake_it sql1 v1.test.db\nmake_it sql2 v2.test.db\nmake_it sql3 v3.test.db\n";
-			showEnvVarsInLog = 0;
-		};
-		BC200C3210F7250200352A32 /* Warn about TODOs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Warn about TODOs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "KEYWORDS=\"TODO:|\\?\\?\\?:\"\nfind ${SRCROOT} \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | \\\n    xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\n    perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n\nKEYWORDS=\"FIXME:|\\!\\!\\!:\"\nfind ${SRCROOT} \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | \\\n    xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\n    perl -p -e \"s/($KEYWORDS)/ error: \\$1/\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC8DB5081236C3840043B43A /* Run Script (Defaults.plist) */ = {
@@ -1307,20 +1264,6 @@
 			shellPath = /bin/sh;
 			shellScript = "function doBuild {\n\tlocal SIF=$1\n\tlocal SOF=$2\n\tif [ ${SOF:(-3)} == \".gz\" ]; then\n\t\tgzip -c -9 $SIF > $SOF\n\t\techo \"$SIF -> $SOF\"\n\telse\n\t\tcp -v $SIF $SOF\n\tfi\n}\n\nfor (( i = 0; i < $SCRIPT_INPUT_FILE_COUNT; i++ )); do\n\tSIF_NAME=\"SCRIPT_INPUT_FILE_$i\"\n\tSOF_NAME=\"SCRIPT_OUTPUT_FILE_$i\"\n\tSIF=${!SIF_NAME}\n\tSOF=${!SOF_NAME}\n\tcase \"$ACTION\" in\n\t\tbuild)\n\t\t\tdoBuild $SIF $SOF\n\t\t\t;;\n\t\tclean)\n\t\t\trm -v $SOF\n\t\t\t;;\n\tesac\ndone\n";
 			showEnvVarsInLog = 0;
-		};
-		BCF52ACD10D066540017C3A1 /* Run Tests */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Tests";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1406,45 +1349,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BCF52ACB10D066540017C3A1 /* Sources */ = {
+		BC67026217E6382E00B272F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCF52AD810D066790017C3A1 /* CSVReaderTest.m in Sources */,
-				BCF52AD910D066790017C3A1 /* DatabaseTest.m in Sources */,
-				BCF52ADA10D066790017C3A1 /* EWDateTest.m in Sources */,
-				BCF52AE110D066E30017C3A1 /* EWDate.m in Sources */,
-				BCF52AE210D066ED0017C3A1 /* CSVReader.m in Sources */,
-				BCF52B4110D068C40017C3A1 /* BRMixedNumberFormatterTest.m in Sources */,
-				BCF52B6410D06AAC0017C3A1 /* BRMixedNumberFormatter.m in Sources */,
-				BCF52CAA10D0D0420017C3A1 /* EWDBMonth.m in Sources */,
-				BCF52CAB10D0D0430017C3A1 /* EWDatabase.m in Sources */,
-				BCF52CAE10D0D04F0017C3A1 /* SQLiteDatabase.m in Sources */,
-				BCF52CAF10D0D0500017C3A1 /* SQLiteStatement.m in Sources */,
-				BC0413B910DC50E6008FCB11 /* FormDataParser.m in Sources */,
-				BC0413BA10DC50F0008FCB11 /* FormDataParserTest.m in Sources */,
-				BC0413D610DC51AC008FCB11 /* DataSearch.m in Sources */,
-				BCDFBE7F10F90C9B00FA0C93 /* EWEnergyEquivalent.m in Sources */,
-				BCDFBE8B10F90DC500FA0C93 /* NSUserDefaults+EWAdditions.m in Sources */,
-				BC11308F1101BB7F00EAC8DA /* EWEnergyFormatter.m in Sources */,
-				BCF67C2D1111749700C923BF /* EWGoalTest.m in Sources */,
-				BCF67C30111175FB00C923BF /* EWGoal.m in Sources */,
-				BCEF594D116AEDF0007CFCEB /* EWWeightFormatterTest.m in Sources */,
-				BCEF596B116AF24C007CFCEB /* EWWeightFormatter.m in Sources */,
-				BCEF596C116AF251007CFCEB /* EWWeightChangeFormatter.m in Sources */,
-				BCEF596D116AF257007CFCEB /* EWDateFormatter.m in Sources */,
-				BCEF5973116AF27D007CFCEB /* BRColorPalette.m in Sources */,
-				BC08CA3C12444CBE006208A9 /* EWDBIterator.m in Sources */,
+				BC67027D17E6389700B272F5 /* DatabaseTest.m in Sources */,
+				BC67027E17E6389700B272F5 /* EWDateTest.m in Sources */,
+				BC67027F17E6389700B272F5 /* FormDataParserTest.m in Sources */,
+				BC67027B17E6389700B272F5 /* BRMixedNumberFormatterTest.m in Sources */,
+				BC67028017E6389700B272F5 /* EWGoalTest.m in Sources */,
+				BC67028117E6389700B272F5 /* EWWeightFormatterTest.m in Sources */,
+				BC67027C17E6389700B272F5 /* CSVReaderTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BC08CBCD12453DAF006208A9 /* PBXTargetDependency */ = {
+		BC67027717E6382E00B272F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BCF52ACE10D066540017C3A1 /* UnitTests */;
-			targetProxy = BC08CBCC12453DAF006208A9 /* PBXContainerItemProxy */;
+			target = 1D6058900D05DD3D006BFB54 /* FatWatch */;
+			targetProxy = BC67027617E6382E00B272F5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1513,6 +1438,14 @@
 			name = TrendSpans.plist;
 			sourceTree = "<group>";
 		};
+		BC67027017E6382E00B272F5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC67027117E6382E00B272F5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		BCE6075110E01C0100819E77 /* RungEntryView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1530,7 +1463,6 @@
 				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"*.test.db",
@@ -1540,15 +1472,97 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INCLUDED_SOURCE_FILE_NAMES = (
 					"*.test.db",
 					"*.test.plist",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "FatWatch-Debug";
+				PRODUCT_NAME = FatWatch;
 			};
 			name = Debug;
+		};
+		BC67027917E6382E00B272F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FatWatch.app/FatWatch";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		BC67027A17E6382E00B272F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FatWatch.app/FatWatch";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
 		};
 		BCDCEB7F0E28150A00185857 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1571,6 +1585,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -1581,7 +1596,6 @@
 				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = FatWatch;
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"*.test.db",
@@ -1591,59 +1605,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = FatWatch;
-			};
-			name = Release;
-		};
-		BCF52AD110D066550017C3A1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_NAME = UnitTests;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		BCF52AD310D066550017C3A1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_NAME = UnitTests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -1668,6 +1630,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1685,11 +1648,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCF52AD410D066550017C3A1 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+		BC67027817E6382E00B272F5 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BCF52AD110D066550017C3A1 /* Debug */,
-				BCF52AD310D066550017C3A1 /* Release */,
+				BC67027917E6382E00B272F5 /* Debug */,
+				BC67027A17E6382E00B272F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

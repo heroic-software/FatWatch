@@ -6,13 +6,10 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-
-#import <SenTestingKit/SenTestingKit.h>
 #import "EWDate.h"
 
 
-@interface EWDateTest : SenTestCase {
-}
+@interface EWDateTest : SenTestCase
 @end
 
 

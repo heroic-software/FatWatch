@@ -6,7 +6,6 @@
 //  Copyright 2008 Benjamin Ragheb. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 
@@ -76,7 +75,7 @@
 
 
 - (void)openDatabase {
-	testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate2"];
+	testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate2" bundle:[NSBundle bundleForClass:[self class]]];
 	
 	if ([testdb needsUpgrade]) [testdb upgrade];
 	

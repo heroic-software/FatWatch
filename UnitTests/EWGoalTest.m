@@ -6,24 +6,19 @@
 //  Copyright 2010 Benjamin Ragheb. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "EWGoal.h"
 #import "EWDatabase.h"
 #import "EWDBMonth.h"
 
 
 @interface EWGoalTest : SenTestCase 
-{
-}
 @end
-
-
 
 @implementation EWGoalTest
 
 
 - (void)testUpgrade {
-	EWDatabase *testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate3"];
+	EWDatabase *testdb = [[EWDatabase alloc] initWithSQLNamed:@"DBCreate3" bundle:[NSBundle bundleForClass:[self class]]];
 	
 	EWDBDay dbd;
 	dbd.scaleWeight = 100;

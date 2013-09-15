@@ -6,14 +6,10 @@
 //  Copyright 2009 Benjamin Ragheb. All rights reserved.
 //
 
-
-#import <SenTestingKit/SenTestingKit.h>
 #import "FormDataParser.h"
 
 
 @interface FormDataParserTest : SenTestCase
-{
-}
 @end
 
 

@@ -6,8 +6,6 @@
 //  Copyright 2009 Benjamin Ragheb. All rights reserved.
 //
 
-
-#import <SenTestingKit/SenTestingKit.h>
 #import "BRMixedNumberFormatter.h"
 
 
@@ -23,8 +21,6 @@
 
 
 @interface BRMixedNumberFormatterTest : SenTestCase
-{
-}
 @end
 
 @implementation BRMixedNumberFormatterTest

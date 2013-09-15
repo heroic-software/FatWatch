@@ -6,7 +6,6 @@
 //  Copyright 2010 Benjamin Ragheb. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "EWWeightFormatter.h"
 #import "BRColorPalette.h"
 
@@ -15,8 +14,8 @@
 #define MINUS_SIGN @"\xe2\x88\x92"
 
 
-@interface EWWeightFormatterTest : SenTestCase {} @end
-
+@interface EWWeightFormatterTest : SenTestCase
+@end
 
 @implementation EWWeightFormatterTest
 

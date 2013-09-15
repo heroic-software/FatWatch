@@ -23,6 +23,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 - (void)didOpen;
 - (void)updateTrendValues;
 - (void)flushCache;
+- (void)executeSQLNamed:(NSString *)name bundle:(NSBundle *)bundle;
 - (void)executeSQLNamed:(NSString *)name;
 - (int)intValueForMetaName:(NSString *)name;
 @end
@@ -55,10 +56,10 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
-- (id)initWithSQLNamed:(NSString *)sqlName {
+- (id)initWithSQLNamed:(NSString *)sqlName bundle:(NSBundle *)bundle {
 	if ((self = [self init])) {
 		db = [[SQLiteDatabase alloc] initInMemory];
-		[self executeSQLNamed:sqlName];
+		[self executeSQLNamed:sqlName bundle:bundle];
 		[self didOpen];
 	}
 	return self;
@@ -528,9 +529,8 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
-- (void)executeSQLNamed:(NSString *)name {
+- (void)executeSQLNamed:(NSString *)name bundle:(NSBundle *)bundle {
 	NSLog(@"Executing SQL %@", name);
-	NSBundle *bundle = [NSBundle bundleForClass:[self class]]; // needed for unit testing
 	NSString *path = [bundle pathForResource:name ofType:@"sql0"];
 	NSAssert1(path != nil, @"Cannot find SQL named %@", name);
 	NSData *sql0 = [[NSData alloc] initWithContentsOfFile:path];
@@ -541,6 +541,12 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 #endif
 	[db executeSQL:[sql0 bytes]];
 	[sql0 release];
+}
+
+
+- (void)executeSQLNamed:(NSString *)name {
+	NSBundle *bundle = [NSBundle bundleForClass:[self class]]; // needed for unit testing
+    [self executeSQLNamed:name bundle:bundle];
 }
 
 

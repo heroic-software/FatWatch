@@ -40,7 +40,7 @@ typedef enum {
 @property (nonatomic,readonly,getter=isEmpty) BOOL empty;
 // Setup
 - (id)initWithFile:(NSString *)path;
-- (id)initWithSQLNamed:(NSString *)sqlName;
+- (id)initWithSQLNamed:(NSString *)sqlName bundle:(NSBundle *)bundle;
 - (void)close;
 - (void)reopen;
 - (BOOL)needsUpgrade;
