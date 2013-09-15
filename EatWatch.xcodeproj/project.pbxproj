@@ -107,6 +107,7 @@
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
 		BCABE0410DD932A100DE580A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCABE0400DD932A100DE580A /* RootViewController.m */; };
+		BCAEE75317E55D7800433283 /* Scratch.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCAEE75217E55D7800433283 /* Scratch.txt */; };
 		BCB18CB10E5A9DD70055F91E /* EWGoal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB18CB00E5A9DD70055F91E /* EWGoal.m */; };
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
@@ -432,6 +433,7 @@
 		BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendViewController.m; path = Classes/TrendViewController.m; sourceTree = "<group>"; };
 		BCABE03F0DD932A100DE580A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Classes/RootViewController.h; sourceTree = "<group>"; };
 		BCABE0400DD932A100DE580A /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
+		BCAEE75217E55D7800433283 /* Scratch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Scratch.txt; sourceTree = "<group>"; };
 		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWGoal.h; path = Classes/EWGoal.h; sourceTree = "<group>"; };
 		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWGoal.m; path = Classes/EWGoal.m; sourceTree = "<group>"; };
 		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BCAEE75217E55D7800433283 /* Scratch.txt */,
 				BC08CC0A12454985006208A9 /* Code */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BC08CC0B124549D6006208A9 /* Testing */,
