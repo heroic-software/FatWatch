@@ -1098,7 +1098,12 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = NHH27293HZ;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EatWatch" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1525,6 +1530,7 @@
 				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"*.test.db",
@@ -1539,7 +1545,7 @@
 					"*.test.plist",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "FatWatch-Debug";
 			};
 			name = Debug;
@@ -1547,7 +1553,6 @@
 		BCDCEB7F0E28150A00185857 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 31;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1566,7 +1571,6 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -1577,6 +1581,7 @@
 				APPLY_RULES_IN_COPY_FILES = YES;
 				BUNDLE_DISPLAY_NAME = FatWatch;
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					"*.test.db",
@@ -1586,7 +1591,7 @@
 				GCC_PREFIX_HEADER = EatWatch_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "XCODE_CONFIGURATION_$(CONFIGURATION)=1";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = FatWatch;
 			};
 			name = Release;
@@ -1646,10 +1651,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 31;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
