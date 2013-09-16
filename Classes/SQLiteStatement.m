@@ -15,7 +15,7 @@
 
 - (id)initWithDatabase:(SQLiteDatabase *)db stmt:(sqlite3_stmt *)stmt {
 	if ((self = [super init])) {
-		database = [db retain];
+		database = db;
 		statement = stmt;
 	}
 	return self;
@@ -122,8 +122,6 @@
 - (void)dealloc {
 	sqlite3_finalize(statement);
 	statement = NULL;
-	[database release];
-	[super dealloc];
 }
 
 

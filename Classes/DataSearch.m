@@ -17,8 +17,8 @@
 	if ((self = [super init])) {
 		NSAssert([needleData length], @"pattern must be at least one byte");
 		
-		haystack = [haystackData retain];
-		needle = [needleData retain];
+		haystack = haystackData;
+		needle = needleData;
 
 		const unsigned char *needleBytes = [needle bytes];
 		const NSUInteger needleLength = [needle length];
@@ -38,11 +38,6 @@
 }
 
 
-- (void)dealloc {
-	[needle release];
-	[haystack release];
-	[super dealloc];
-}
 
 
 - (NSUInteger)nextIndex {

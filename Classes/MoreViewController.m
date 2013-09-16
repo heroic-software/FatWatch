@@ -64,10 +64,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 }
 
 
-- (void)dealloc {
-	[database release];
-	[super dealloc];
-}
 
 
 #pragma mark Table Row Setup
@@ -78,10 +74,9 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	
 	BRTableButtonRow *aboutRow = [[BRTableButtonRow alloc] init];
 	aboutRow.title = NSLocalizedString(@"About FatWatch", nil);
-	aboutRow.object = [[[AboutViewController alloc] init] autorelease];
+	aboutRow.object = [[AboutViewController alloc] init];
 	aboutRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[aboutSection addRow:aboutRow animated:NO];
-	[aboutRow release];
 
 	if ([[NSUserDefaults standardUserDefaults] registration] == nil) {
 		BRTableButtonRow *registerRow = [[BRTableButtonRow alloc] init];
@@ -90,7 +85,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 		registerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		registerRow.object = [RegistrationViewController sharedController];
 		[aboutSection addRow:registerRow animated:NO];
-		[registerRow release];
 	}
 }
 
@@ -145,21 +139,18 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	chartRow.target = self;
 	chartRow.action = @selector(showWeightChart:);
 	[moreSection addRow:chartRow animated:NO];
-	[chartRow release];
 	
 	BRTableSwitchRow *passcodeRow = [[BRTableSwitchRow alloc] init];
 	passcodeRow.title = NSLocalizedString(@"Require Passcode", @"Passcode switch");
 	passcodeRow.object = self;
 	passcodeRow.key = @"passcodeEnabled";
 	[moreSection addRow:passcodeRow animated:NO];
-	[passcodeRow release];
 	
 	BRTableSwitchRow *bmiRow = [[BRTableSwitchRow alloc] init];
 	bmiRow.title = NSLocalizedString(@"Compute BMI", @"BMI switch");
 	bmiRow.object = self;
 	bmiRow.key = @"displayBMI";
 	[moreSection addRow:bmiRow animated:NO];
-	[bmiRow release];
 	
 	BRTableButtonRow *markRow = [[BRTableButtonRow alloc] init];
 	markRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -168,10 +159,8 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	UIViewController *controller = [[FlagIconViewController alloc] init];
 	markRow.title = controller.title;
 	markRow.object = controller;
-	[controller release];
 
 	[moreSection addRow:markRow animated:NO];
-	[markRow release];
 }
 
 
@@ -188,18 +177,15 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	webServerRow.object = wifi;
 	[dataSection addRow:webServerRow animated:NO];
-	[webServerRow release];
 	
-	[wifi release];
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"Export via Email", @"Export as email attachment button");
 	emailRow.disabled = ![MFMailComposeViewController canSendMail];
 	emailRow.target = self;
 	emailRow.action = @selector(emailExport:);
-	emailRow.accessoryView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
+	emailRow.accessoryView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	[dataSection addRow:emailRow animated:NO];
-	[emailRow release];
 }
 
 
@@ -212,7 +198,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	webRow.titleAlignment = UITextAlignmentCenter;
 	webRow.object = [NSURL URLWithString:NSLocalizedString(@"http://www.fatwatchapp.com/support/", @"Support website URL")];
 	[supportSection addRow:webRow animated:NO];
-	[webRow release];
 	
 	BRTableButtonRow *twitterRow = [[BRTableButtonRow alloc] init];
 	twitterRow.title = NSLocalizedString(@"Follow @FatWatch on Twitter", @"Support Twitter button");
@@ -222,14 +207,12 @@ static NSString * const kBadgeValueUnregistered = @"!";
 						 [NSURL URLWithString:@"x-birdfeed://user?screen_name=FatWatch"],
 						 [NSURL URLWithString:@"http://twitter.com/FatWatch"]];
 	[supportSection addRow:twitterRow animated:NO];
-	[twitterRow release];
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"Email help@fatwatchapp.com", @"Support email button");
 	emailRow.titleAlignment = UITextAlignmentCenter;
 	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch", @"Support email URL")];
 	[supportSection addRow:emailRow animated:NO];
-	[emailRow release];
 }
 
 
@@ -313,7 +296,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	alert.cancelButtonIndex = 
 	[alert addButtonWithTitle:NSLocalizedString(@"Dismiss", nil)];
 	[alert show];
-	[alert release];
 }
 
 
@@ -334,20 +316,19 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 - (void)doExport:(id)arg {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 #if TARGET_IPHONE_SIMULATOR
-	[NSThread sleepForTimeInterval:3];
+		[NSThread sleepForTimeInterval:3];
 #endif
-	EWExporter *exporter = [[CSVExporter alloc] init];
-	[exporter addBackupFields];
-	NSData *data = [exporter dataExportedFromDatabase:database];
-	[self performSelectorOnMainThread:@selector(mailExport:)
-						   withObject:@[[exporter contentType],
-									   [exporter fileExtension],
-									   data]
-						waitUntilDone:NO];
-	[exporter release];
-	[pool release];
+		EWExporter *exporter = [[CSVExporter alloc] init];
+		[exporter addBackupFields];
+		NSData *data = [exporter dataExportedFromDatabase:database];
+		[self performSelectorOnMainThread:@selector(mailExport:)
+							   withObject:@[[exporter contentType],
+										   [exporter fileExtension],
+										   data]
+							waitUntilDone:NO];
+	}
 }
 
 
@@ -378,7 +359,6 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[mail setMessageBody:body isHTML:YES];
 	[mail addAttachmentData:data mimeType:contentType fileName:fileName];
 	[self presentModalViewController:mail animated:YES];
-	[mail release];
 }
 
 

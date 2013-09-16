@@ -108,7 +108,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (CFSocketRef)newSocketForPort:(in_port_t)port {
 	CFSocketContext context;
 	context.version = 0;
-	context.info = self;
+	context.info = (__bridge void *)(self);
 	context.retain = NULL;
 	context.release = NULL;
 	context.copyDescription = NULL;
@@ -227,7 +227,6 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (void)stop {
 	if (!running) return; // ignore if already stopped
 	[netService stop];
-	[netService release];
 	netService = nil;
 	if (listenSocket != NULL) {
 		CFSocketInvalidate(listenSocket);
@@ -261,8 +260,6 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 - (void)dealloc {
 	[self stop];
-	[name release];
-	[super dealloc];
 }
 
 
@@ -284,13 +281,11 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (void)dealloc {
-	[httpDateFormatterArray release];
 	if (responseData) CFRelease(responseData);
 	if (responseMessage) CFRelease(responseMessage);
 	CFRelease(requestMessage);
 	CFRelease(writeStream);
 	CFRelease(readStream);
-	[super dealloc];
 }
 
 
@@ -406,36 +401,32 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		
 		httpDateFormatterArray = [[NSArray alloc] initWithObjects:rfc1123, rfc850, atime, nil];
 		
-		[rfc1123 release];
-		[rfc850 release];
-		[atime release];
-		[locale release];
 	}
 	return httpDateFormatterArray[0];
 }
 
 
 - (NSString *)requestMethod {
-	NSString *method = (NSString *)CFHTTPMessageCopyRequestMethod(requestMessage);
-	return [method autorelease];
+	NSString *method = (NSString *)CFBridgingRelease(CFHTTPMessageCopyRequestMethod(requestMessage));
+	return method;
 }
 
 
 - (NSURL *)requestURL {
-	NSURL *url = (NSURL *)CFHTTPMessageCopyRequestURL(requestMessage);
-	return [url autorelease];
+	NSURL *url = (NSURL *)CFBridgingRelease(CFHTTPMessageCopyRequestURL(requestMessage));
+	return url;
 }
 
 
 - (NSDictionary *)requestHeaders {
-	NSDictionary *headers = (NSDictionary *)CFHTTPMessageCopyAllHeaderFields(requestMessage);
-	return [headers autorelease];
+	NSDictionary *headers = (NSDictionary *)CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(requestMessage));
+	return headers;
 }
 
 
 - (NSString *)stringForRequestHeader:(NSString *)headerName {
-	NSString *headerValue = (NSString *)CFHTTPMessageCopyHeaderFieldValue(requestMessage, (__bridge CFStringRef)headerName);
-	return [headerValue autorelease];
+	NSString *headerValue = (NSString *)CFBridgingRelease(CFHTTPMessageCopyHeaderFieldValue(requestMessage, (__bridge CFStringRef)headerName));
+	return headerValue;
 }
 
 
@@ -452,8 +443,8 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (NSData *)requestBodyData {
-	NSData *data = (NSData *)CFHTTPMessageCopyBody(requestMessage);
-	return [data autorelease];
+	NSData *data = (NSData *)CFBridgingRelease(CFHTTPMessageCopyBody(requestMessage));
+	return data;
 }
 
 

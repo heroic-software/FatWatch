@@ -23,7 +23,7 @@ static const float kDefaultHeight = 1.70f;
 + (UIViewController *)controller {
 	UIViewController *c = [[HeightEntryViewController alloc] init];
 	[c view];
-	return [c autorelease];
+	return c;
 }
 
 
@@ -33,7 +33,7 @@ static const float kDefaultHeight = 1.70f;
 		case EWWeightUnitGrams: {
 			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
 			[nf setPositiveFormat:@"0.00 m"];
-			return [nf autorelease];
+			return nf;
 		}
 		default:
 			return [BRMixedNumberFormatter metersAsFeetFormatter];
@@ -43,18 +43,13 @@ static const float kDefaultHeight = 1.70f;
 
 - (id)init {
 	if ((self = [super initWithNibName:@"HeightEntryView" bundle:nil])) {
-		formatter = [[self heightFormatter] retain];
+		formatter = [self heightFormatter];
 		increment = [[NSUserDefaults standardUserDefaults] heightIncrement];
 	}
 	return self;
 }
 
 
-- (void)dealloc {
-	[pickerView release];
-	[formatter release];
-    [super dealloc];
-}
 
 
 - (NSInteger)pickerRowForValue:(float)value {
@@ -111,7 +106,7 @@ static const float kDefaultHeight = 1.70f;
 	} else {
         CGRect frame = CGRectZero;
         frame.size = [pickerView rowSizeForComponent:component];
-		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+		label = [[UILabel alloc] initWithFrame:frame];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = nil;

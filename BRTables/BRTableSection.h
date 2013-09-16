@@ -15,13 +15,13 @@
 
 @interface BRTableSection : NSObject {
 	NSMutableArray *rows;
-	BRTableViewController *controller;
+	BRTableViewController *__weak controller;
 	NSString *headerTitle, *footerTitle;
 }
 + (BRTableSection *)section;
-@property (nonatomic,retain) NSString *headerTitle;
-@property (nonatomic,retain) NSString *footerTitle;
-@property (nonatomic,readonly) BRTableViewController *controller;
+@property (nonatomic,strong) NSString *headerTitle;
+@property (nonatomic,strong) NSString *footerTitle;
+@property (weak, nonatomic,readonly) BRTableViewController *controller;
 - (void)didAddToController:(BRTableViewController *)aController;
 - (void)willRemoveFromController;
 - (NSUInteger)numberOfRows;
@@ -39,5 +39,5 @@
 	NSInteger selectedIndex;
 }
 @property (nonatomic) NSInteger selectedIndex;
-@property (nonatomic,readonly) BRTableRow *selectedRow;
+@property (weak, nonatomic,readonly) BRTableRow *selectedRow;
 @end

@@ -101,7 +101,6 @@ static NSInteger gAuxiliaryInfoType;
 	if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kLogCellReuseIdentifier])) {
 		logContentView = [[LogTableViewCellContentView alloc] initWithFrame:self.contentView.bounds];
 		[self.contentView addSubview:logContentView];
-		[logContentView release];
 		
 		logContentView.cell = self;
 		logContentView.opaque = YES;
@@ -144,7 +143,6 @@ static NSInteger gAuxiliaryInfoType;
 									EWMonthAndDayIsWeekend(monthData.month, day));
 	logContentView.dd = [monthData getDBDayOnDay:day];
 	
-	[df release];
 
 	[logContentView setNeedsDisplay];
 }
@@ -152,7 +150,6 @@ static NSInteger gAuxiliaryInfoType;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 
@@ -171,8 +168,8 @@ static NSInteger gAuxiliaryInfoType;
 
 - (id)initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
-		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
-		varianceFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance] retain];
+		weightFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
+		varianceFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleVariance];
 		[self bmiStatusDidChange:nil];
 		NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 		[center addObserver:self selector:@selector(bmiStatusDidChange:) name:EWBMIStatusDidChangeNotification object:nil];
@@ -183,9 +180,8 @@ static NSInteger gAuxiliaryInfoType;
 
 
 - (void)bmiStatusDidChange:(NSNotification *)notification {
-	[bmiFormatter release];
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
-		bmiFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMI] retain];
+		bmiFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMI];
 	} else {
 		bmiFormatter = nil;
 	}
@@ -199,10 +195,6 @@ static NSInteger gAuxiliaryInfoType;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[weightFormatter release];
-	[varianceFormatter release];
-	[bmiFormatter release];
-	[super dealloc];
 }
 
 
@@ -319,7 +311,6 @@ static NSInteger gAuxiliaryInfoType;
 					[nf setMaximumFractionDigits:1];
 					[nf setMinimumFractionDigits:1];
 					auxInfoString = [nf stringForFloat:(dd->scaleFatWeight / dd->scaleWeight)];
-					[nf release];
 				} else {
 					auxInfoString = kEmDashString;
 				}

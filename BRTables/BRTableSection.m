@@ -15,7 +15,7 @@
 
 
 + (BRTableSection *)section {
-	return [[[BRTableSection alloc] init] autorelease];
+	return [[BRTableSection alloc] init];
 }
 
 
@@ -27,12 +27,6 @@
 }
 
 
-- (void)dealloc {
-	[rows release];
-	[headerTitle release];
-	[footerTitle release];
-	[super dealloc];
-}
 
 
 - (void)didAddToController:(BRTableViewController *)aController {
@@ -100,9 +94,8 @@
 
 - (void)didSelectRowAtIndex:(NSUInteger)rowIndex {
 	// retain the row because it might be removing itself from the table
-	BRTableRow *row = [[self rowAtIndex:rowIndex] retain];
+	BRTableRow *row = [self rowAtIndex:rowIndex];
 	[row didSelect];
-	[row release];
 }
 
 

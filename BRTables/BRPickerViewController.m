@@ -28,7 +28,7 @@ static const int kBRPickerViewTag = 411;
 
 - (id)initWithRow:(BRTableValueRow *)aRow {
     if ((self = [super initWithNibName:nil bundle:nil])) {
-		tableRow = [aRow retain];
+		tableRow = aRow;
 		self.title = tableRow.title;
         self.hidesBottomBarWhenPushed = YES;
     }
@@ -73,11 +73,9 @@ static const int kBRPickerViewTag = 411;
 	
 	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
 	self.navigationItem.leftBarButtonItem = cancelItem;
-	[cancelItem release];
 	
 	UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(doneAction:)];
 	self.navigationItem.rightBarButtonItem = doneItem;
-	[doneItem release];
 	
 	CGFloat pickerY;
 	
@@ -88,7 +86,6 @@ static const int kBRPickerViewTag = 411;
 		[bar pushNavigationItem:self.navigationItem animated:NO];
 		[view addSubview:bar];
 		pickerY = CGRectGetMaxY(bar.frame);
-		[bar release];
 	}
 	
 	UIView *pickerView = [self loadPickerView];
@@ -108,18 +105,12 @@ static const int kBRPickerViewTag = 411;
 		helpLabel.numberOfLines = 0;
 		helpLabel.text = tableRow.valueDescription;
 		[view addSubview:helpLabel];
-		[helpLabel release];
 	}
 	
 	self.view = view;
-	[view release];
 }
 
 
-- (void)dealloc {
-	[tableRow release];
-    [super dealloc];
-}
 
 
 @end
@@ -161,7 +152,7 @@ static const int kBRPickerViewTag = 411;
 	picker.delegate = self;
 	picker.dataSource = self;
 	picker.showsSelectionIndicator = YES;
-	return [picker autorelease];
+	return picker;
 }
 
 - (id)pickerValue {
@@ -189,7 +180,7 @@ static const int kBRPickerViewTag = 411;
 	} else {
         CGRect frame = CGRectZero;
         frame.size = [pickerView rowSizeForComponent:component];
-		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+		label = [[UILabel alloc] initWithFrame:frame];
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = nil;
@@ -239,7 +230,7 @@ static const int kBRPickerViewTag = 411;
 	BRTableDatePickerRow *row = [self tableRow];
 	UIDatePicker *datePicker = [[UIDatePicker alloc] init];
 	datePicker.datePickerMode = row.datePickerMode;
-	return [datePicker autorelease];
+	return datePicker;
 }
 
 - (id)pickerValue {

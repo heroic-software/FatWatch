@@ -17,6 +17,6 @@
 	EWDatabase *database;
 	GraphViewParameters *p;
 }
-@property (nonatomic,retain) EWDatabase *database;
+@property (nonatomic,strong) EWDatabase *database;
 - (void)useParameters:(GraphViewParameters *)parameters;
 @end

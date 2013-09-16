@@ -59,7 +59,6 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 		info[@"font"] = font;
 		info[@"color"] = color;
 		[partArray addObject:info];
-		[info release];
 	}
 	return info;
 }
@@ -160,15 +159,6 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 		remainingWidth -= size.width;
 		p.x += size.width;
 	}
-}
-
-
-#pragma mark Cleanup
-
-
-- (void)dealloc {
-	[partArray release];
-    [super dealloc];
 }
 
 

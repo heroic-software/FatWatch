@@ -27,7 +27,7 @@
 
 
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle {
-	BRTableRow *row = [[[BRTableRow alloc] init] autorelease];
+	BRTableRow *row = [[BRTableRow alloc] init];
 	row.title = aTitle;
 	return row;
 }
@@ -50,12 +50,6 @@
 }
 
 
-- (void)dealloc {
-	[titleColor release];
-	[title release];
-	[object release];
-	[super dealloc];
-}
 
 
 - (NSString *)reuseableCellIdentifier {
@@ -65,7 +59,7 @@
 
 
 - (UITableViewCell *)createCell {
-	return [[[UITableViewCell alloc] initWithStyle:self.cellStyle reuseIdentifier:[self reuseableCellIdentifier]] autorelease];
+	return [[UITableViewCell alloc] initWithStyle:self.cellStyle reuseIdentifier:[self reuseableCellIdentifier]];
 }
 
 

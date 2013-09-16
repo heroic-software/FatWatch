@@ -26,7 +26,6 @@
 
 
 - (void)bmiStatusDidChange:(NSNotification *)notification {
-	[infoTypeArray release];
 	infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
 	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
 	int row = [infoTypeArray indexOfObject:@(auxInfoType)];
@@ -99,7 +98,7 @@
     if ([rowView isKindOfClass:[UILabel class]]) {
         label = (UILabel *)rowView;
     } else {
-        label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.backgroundColor = nil;
         label.opaque = NO;
         label.font = [UIFont boldSystemFontOfSize:20];
@@ -125,10 +124,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[infoTypeButton release];
-	[infoTypePicker release];
-	[infoTypeArray release];
-	[super dealloc];
 }
 
 

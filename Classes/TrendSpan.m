@@ -106,9 +106,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 		span.beginMonthDay = EWMonthDayFromDate(beginDate);
 		span.endMonthDay = EWMonthDayToday();
 		[spanArray addObject:span];
-		[span release];
 	}
-	[dc release];
 
 	return spanArray;
 }
@@ -204,8 +202,6 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 			previousCount = totalComputer.count;
 		}
 	}
-	[totalComputer release];
-	[fatComputer release];
 	
 #if TARGET_IPHONE_SIMULATOR
 	for (TrendSpan *span in computedSpans) {
@@ -213,7 +209,6 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	}
 #endif
 	
-	[goal release];
 	return computedSpans;
 }
 
@@ -249,16 +244,8 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 
 - (void)dealloc {
-	[title release];
-	[totalEndDate release];
-	[fatEndDate release];
 	CGImageRelease(totalGraphImageRef);
 	CGImageRelease(fatGraphImageRef);
-	[totalGraphOperation release];
-	[fatGraphOperation release];
-	[_totalGraphParameters release];
-	[_fatGraphParameters release];
-	[super dealloc];
 }
 
 

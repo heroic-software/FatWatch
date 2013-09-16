@@ -18,18 +18,12 @@
 - (id)init {
 	if ((self = [super init])) {
 		data = [[NSMutableData alloc] init];
-		quotedCharSet = [[NSCharacterSet characterSetWithCharactersInString:@",\r\n\""] retain];
+		quotedCharSet = [NSCharacterSet characterSetWithCharactersInString:@",\r\n\""];
 	}
 	return self;
 }
 
 
-- (void)dealloc {
-	[floatFormatter release];
-	[quotedCharSet release];
-	[data release];
-	[super dealloc];
-}
 
 
 - (void)addString:(NSString *)value {
@@ -50,7 +44,6 @@
 		[quotedValue insertString:@"\"" atIndex:0];
 		[quotedValue appendString:@"\""];
 		[data appendData:[quotedValue dataUsingEncoding:NSUTF8StringEncoding]];
-		[quotedValue release];
 	}
 	
 	columnIndex++;

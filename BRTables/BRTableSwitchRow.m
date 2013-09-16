@@ -29,7 +29,6 @@
 					action:@selector(toggleSwitch:) 
 		  forControlEvents:UIControlEventValueChanged];
 		self.accessoryView = control;
-		[control release];
 	}
 	return self;
 }

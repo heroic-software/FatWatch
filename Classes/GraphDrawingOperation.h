@@ -45,7 +45,7 @@ typedef struct {
 
 
 @interface GraphDrawingOperation : NSOperation {
-	id delegate;
+	id __weak delegate;
 	unsigned int index;
 	EWDatabase *database;
 	EWMonthDay beginMonthDay;
@@ -64,10 +64,10 @@ typedef struct {
 	BOOL showFatWeight;
 }
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays database:(EWDatabase *)db;
-@property (nonatomic,retain) EWDatabase *database;
+@property (nonatomic,strong) EWDatabase *database;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
-@property (nonatomic,assign) id delegate;
+@property (nonatomic,weak) id delegate;
 @property (nonatomic) unsigned int index;
 @property (nonatomic,strong) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;

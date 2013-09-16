@@ -14,13 +14,13 @@
 
 
 @interface BRTableButtonRow : BRTableRow {
-	id target;
+	id __weak target;
 	SEL action;
 	BOOL disabled;
 	BOOL followURLRedirects;
 }
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction;
-@property (nonatomic,assign) id target;
+@property (nonatomic,weak) id target;
 @property (nonatomic) SEL action;
 @property (nonatomic) BOOL disabled;
 @property (nonatomic) BOOL followURLRedirects;

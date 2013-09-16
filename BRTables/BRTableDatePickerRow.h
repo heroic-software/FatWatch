@@ -15,7 +15,7 @@
 	NSDate *maximumDate;
 	UIDatePickerMode datePickerMode;
 }
-@property (nonatomic,retain) NSDate *minimumDate;
-@property (nonatomic,retain) NSDate *maximumDate;
+@property (nonatomic,strong) NSDate *minimumDate;
+@property (nonatomic,strong) NSDate *maximumDate;
 @property (nonatomic) UIDatePickerMode datePickerMode;
 @end

@@ -30,7 +30,7 @@ static RegistrationViewController *gSharedController = nil;
 
 + (RegistrationViewController *)sharedController {
 	if (gSharedController == nil) {
-		gSharedController = [[[RegistrationViewController alloc] init] autorelease];
+		gSharedController = [[RegistrationViewController alloc] init];
 	}
 	return gSharedController;
 }
@@ -51,12 +51,10 @@ static RegistrationViewController *gSharedController = nil;
 		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		item = [[UIBarButtonItem alloc] initWithCustomView:activityView];
 		[activityView startAnimating];
-		[activityView release];
 	} else {
 		item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction:)];
 	}
 	self.navigationItem.rightBarButtonItem = item;
-	[item release];
 }
 
 
@@ -83,7 +81,6 @@ static RegistrationViewController *gSharedController = nil;
 
 	[view addSubview:webView];
 	[self setView:view];
-	[view release];
 }
 
 
@@ -112,7 +109,6 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 	if (errorToDisplay) {
 		NSString *script = [NSString stringWithFormat:@"setError(\"%@\");", [[errorToDisplay localizedDescription] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];
 		[webView stringByEvaluatingJavaScriptFromString:script];
-		[errorToDisplay release];
 		errorToDisplay = nil;
 	} else {
 		NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
@@ -139,7 +135,6 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 				[webView stringByEvaluatingJavaScriptFromString:js];
 			}
 			
-			[fields release];
 
 			[defs setShowRegistrationReminder:NO];
 		}
@@ -159,19 +154,16 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			// Clear the reminder here too in case we are reusing a registration
 			// and never see the form.
 			[defs setShowRegistrationReminder:NO];
-			[info release];
 		}
 	}
 }
 
 
 - (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {
-	[errorToDisplay release];
-	errorToDisplay = [error retain];
+	errorToDisplay = error;
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"RegistrationError" ofType:@"htm"];
 	NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
 	[webView loadRequest:[NSURLRequest requestWithURL:url]];
-	[url release];
 }
 
 
@@ -180,7 +172,6 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 
 - (void)releaseWebView {
 	webView.delegate = nil;
-	[webView release];
 	webView = nil;
 }
 
@@ -193,7 +184,6 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 - (void)dealloc {
 	if (gSharedController == self) gSharedController = nil;
 	[self releaseWebView];
-    [super dealloc];
 }
 
 

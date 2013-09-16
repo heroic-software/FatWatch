@@ -31,7 +31,7 @@ typedef enum {
 	EWLaunchSequenceStage launchStage;
     NSData *dataToImport;
 }
-@property (nonatomic,retain) IBOutlet RootViewController *rootViewController;
+@property (nonatomic,strong) IBOutlet RootViewController *rootViewController;
 - (NSString *)databasePath;
 - (void)continueLaunchSequence;
 @end

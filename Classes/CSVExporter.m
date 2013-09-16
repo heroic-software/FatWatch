@@ -45,12 +45,11 @@
 	
 	[self performExportOfDatabase:db];
 		
-	NSData *data = [[writer data] retain];
+	NSData *data = [writer data];
 	
-	[writer release];
 	writer = nil;
 
-	return [data autorelease];
+	return data;
 }
 
 

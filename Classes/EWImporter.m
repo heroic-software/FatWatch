@@ -55,7 +55,6 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 			[reader nextRow];
 		}
 		sampleValues = [samples copy];
-		[samples release];
 		
 		[reader reset];
 		
@@ -71,10 +70,8 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 			}
 		}
 		
-		[map release];
 		
 		importDefaults = [defaults copy];
-		[defaults release];
 	}
 	return self;
 }
@@ -88,7 +85,6 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
         [self setColumn:[idx integerValue] forField:EWImporterFieldDate];
         NSFormatter *df = [[EWISODateFormatter alloc] init];
         [self setFormatter:df forField:EWImporterFieldDate];
-        [df release];
     }
     
     idx = importDefaults[@"importWeight"];
@@ -157,7 +153,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 	NSAssert([formatter isKindOfClass:[NSFormatter class]], @"not a formatter!");
 	NSAssert(field >= 0 && field < EWImporterFieldCount, @"field out of range");
 	NSAssert(formatterForField[field] == nil, @"double set formatter!");
-	formatterForField[field] = [formatter retain];
+	formatterForField[field] = formatter;
 }
 
 
@@ -262,18 +258,6 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
         importing = NO;
         [delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
     });
-}
-
-
-- (void)dealloc {
-	[reader release];
-	[columnNames release];
-	[sampleValues release];
-	[importDefaults release];
-	for (int f = 0; f < EWImporterFieldCount; f++) {
-		[formatterForField[f] release];
-	}
-	[super dealloc];
 }
 
 

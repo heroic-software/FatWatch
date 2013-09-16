@@ -55,7 +55,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 - (id)initWithMonth:(EWMonth)m database:(EWDatabase *)ewdb {
 	if ((self = [self init])) {
-		database = [ewdb retain];
+		database = ewdb;
 		month = m;
         valid = YES;
 		
@@ -73,7 +73,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			d->flags[1] = [stmt intValueOfColumn:kFlag1Column];
 			d->flags[2] = [stmt intValueOfColumn:kFlag2Column];
 			d->flags[3] = [stmt intValueOfColumn:kFlag3Column];
-			d->note = (CFStringRef)[[stmt stringValueOfColumn:kNoteColumn] copy];
+			d->note = (CFStringRef)CFBridgingRetain([[stmt stringValueOfColumn:kNoteColumn] copy]);
 		}
 
 		[self updateTrendsSaveOutput:NO];

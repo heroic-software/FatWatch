@@ -20,7 +20,7 @@
 + (BRMixedNumberFormatter *)metersAsFeetFormatter; // input values are inches
 @property (nonatomic) float multiple;
 @property (nonatomic) float divisor;
-@property (nonatomic,retain) NSNumberFormatter *quotientFormatter;
-@property (nonatomic,retain) NSNumberFormatter *remainderFormatter;
-@property (nonatomic,retain) NSString *formatString;
+@property (nonatomic,strong) NSNumberFormatter *quotientFormatter;
+@property (nonatomic,strong) NSNumberFormatter *remainderFormatter;
+@property (nonatomic,strong) NSString *formatString;
 @end

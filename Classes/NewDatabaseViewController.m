@@ -34,13 +34,11 @@
 			row.title = [NSUserDefaults nameForWeightUnit:weightUnit];
 			row.object = weightUnit;
 			[section addRow:row animated:NO];
-			[row release];
 			if ([weightUnit unsignedIntValue] == selectedWeightUnit) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
 		[self addSection:section animated:NO];
-		[section release];
 		
 		EWEnergyUnit selectedEnergyUnit = [ud energyUnit];
 		section = [[BRTableRadioSection alloc] init];
@@ -50,13 +48,11 @@
 			row.title = [NSUserDefaults nameForEnergyUnit:energyUnit];
 			row.object = energyUnit;
 			[section addRow:row animated:NO];
-			[row release];
 			if ([energyUnit unsignedIntValue] == selectedEnergyUnit) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
 		[self addSection:section animated:NO];
-		[section release];
 		
 		float selectedIncrement = [ud scaleIncrement];
 		section = [[BRTableRadioSection alloc] init];
@@ -66,13 +62,11 @@
 			row.title = [NSUserDefaults nameForScaleIncrement:increment];
 			row.object = increment;
 			[section addRow:row animated:NO];
-			[row release];
 			if (fabsf([increment floatValue] - selectedIncrement) < 0.01f) {
 				section.selectedIndex = [section numberOfRows] - 1;
 			}
 		}
 		[self addSection:section animated:NO];
-		[section release];
 		
 		BRTableSection *buttonSection = [[BRTableSection alloc] init];
 		buttonSection.footerTitle = NSLocalizedString(@"You can change units at any time using the Settings app.", @"New Database view footer");
@@ -83,10 +77,8 @@
 		dismissRow.action = @selector(dismissView:);
 		dismissRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		[buttonSection addRow:dismissRow animated:NO];
-		[dismissRow release];
 		
 		[self addSection:buttonSection animated:NO];
-		[buttonSection release];
 	}
 	return self;
 }

@@ -23,7 +23,6 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 	[nf setPositiveInfinitySymbol:
 	 [[nf positiveInfinitySymbol] stringByAppendingString:[nf positiveSuffix]]];
 	NSString *string = [nf stringFromNumber:@(n)];
-	[nf release];
 	return string;
 }
 
@@ -66,10 +65,6 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 	return [NSString stringWithFormat:@"%.1f MET", mets];
 }
 
-- (void)dealloc {
-	[name release];
-	[super dealloc];
-}
 
 @end
 
@@ -86,14 +81,9 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 }
 
 - (NSString *)description {
-	EWEnergyFormatter *ef = [[[EWEnergyFormatter alloc] init] autorelease];
+	EWEnergyFormatter *ef = [[EWEnergyFormatter alloc] init];
 	return [NSString stringWithFormat:@"%@/%@", [ef stringFromFloat:energyPerUnit], unitName];
 }
 
-- (void)dealloc {
-	[name release];
-	[unitName release];
-	[super dealloc];
-}
 
 @end

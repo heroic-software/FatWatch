@@ -16,9 +16,9 @@
 	UIButton *dismissButton;
 	UILabel *titleLabel;
 }
-@property (nonatomic,retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;
-@property (nonatomic,retain) IBOutlet UIButton *dismissButton;
+@property (nonatomic,strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic,strong) IBOutlet UIActivityIndicatorView *activityView;
+@property (nonatomic,strong) IBOutlet UIButton *dismissButton;
 - (id)initWithDatabase:(EWDatabase *)db;
 - (IBAction)dismissView;
 @end

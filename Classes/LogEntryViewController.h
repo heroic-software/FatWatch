@@ -35,17 +35,17 @@
 	NSFormatter *weightFormatter;
 }
 + (LogEntryViewController *)sharedController;
-@property (nonatomic,retain) IBOutlet UISegmentedControl *weightControl;
-@property (nonatomic,retain) IBOutlet UIView *weightContainerView;
-@property (nonatomic,retain) IBOutlet UIPickerView *weightPickerView;
-@property (nonatomic,retain) IBOutlet UIView *noWeightView;
-@property (nonatomic,retain) IBOutlet BRTextView *noteView;
-@property (nonatomic,retain) IBOutlet UIView *annotationContainerView;
-@property (nonatomic,retain) IBOutlet UINavigationBar *navigationBar;
-@property (nonatomic,retain) IBOutlet UIButton *flag0Button;
-@property (nonatomic,retain) IBOutlet UIButton *flag1Button;
-@property (nonatomic,retain) IBOutlet UIButton *flag2Button;
-@property (nonatomic,retain) IBOutlet UIButton *flag3Button;
+@property (nonatomic,strong) IBOutlet UISegmentedControl *weightControl;
+@property (nonatomic,strong) IBOutlet UIView *weightContainerView;
+@property (nonatomic,strong) IBOutlet UIPickerView *weightPickerView;
+@property (nonatomic,strong) IBOutlet UIView *noWeightView;
+@property (nonatomic,strong) IBOutlet BRTextView *noteView;
+@property (nonatomic,strong) IBOutlet UIView *annotationContainerView;
+@property (nonatomic,strong) IBOutlet UINavigationBar *navigationBar;
+@property (nonatomic,strong) IBOutlet UIButton *flag0Button;
+@property (nonatomic,strong) IBOutlet UIButton *flag1Button;
+@property (nonatomic,strong) IBOutlet UIButton *flag2Button;
+@property (nonatomic,strong) IBOutlet UIButton *flag3Button;
 - (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth;
 - (IBAction)toggleWeightAction:(id)sender;
 - (IBAction)toggleFlagButton:(UIButton *)sender;

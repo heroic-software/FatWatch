@@ -82,7 +82,7 @@
 - (void)showAnimated:(BOOL)animated {
 	if (self.visible) return;
     if (screenButton == nil) {
-        screenButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        screenButton = [UIButton buttonWithType:UIButtonTypeCustom];
         screenButton.backgroundColor = [UIColor blackColor];
         [screenButton addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -112,11 +112,6 @@
 }
 
 
-- (void)dealloc
-{
-    [screenButton release];
-    [super dealloc];
-}
 
 
 @end

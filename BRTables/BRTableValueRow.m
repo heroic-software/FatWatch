@@ -22,9 +22,6 @@
 
 - (void)dealloc {
 	self.object = nil;
-	[key release];
-	[formatter release];
-	[super dealloc];
 }
 
 
@@ -50,7 +47,6 @@
 		[self.object removeObserver:self forKeyPath:oldKey];
 	}
 	key = [newKey copy];
-	[oldKey release];
 	if (newKey != nil && self.object != nil) {
 		[self.object addObserver:self forKeyPath:self.key options:NSKeyValueObservingOptionNew context:NULL];
 	}

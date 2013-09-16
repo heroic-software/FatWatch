@@ -22,7 +22,6 @@
 	FormDataParser *form = [[FormDataParser alloc] initWithData:data];
 	STAssertEqualObjects([form stringForKey:@"a"], @"1", @"a");
 	STAssertFalse([form hasKey:@"b"], @"no b");
-	[form release];
 }
 
 
@@ -32,7 +31,6 @@
 	FormDataParser *form = [[FormDataParser alloc] initWithData:data];
 	STAssertEqualObjects([form stringForKey:@"a"], @"1", @"a");
 	STAssertEqualObjects([form stringForKey:@"b"], @"2", @"b");
-	[form release];
 }
 
 
@@ -42,7 +40,6 @@
 	FormDataParser *form = [[FormDataParser alloc] initWithData:data];
 	STAssertEqualObjects([form stringForKey:@"a"], @"1 2 3", @"a");
 	STAssertEqualObjects([form stringForKey:@"b"], @"1 2 3", @"b");
-	[form release];
 }
 
 
@@ -53,7 +50,6 @@
 	STAssertEqualObjects([form stringForKey:@"a"], @"1", @"a");
 	STAssertEqualObjects([form stringForKey:@"b"], @"", @"b");
 	STAssertEqualObjects([form stringForKey:@"c"], @"2", @"c");
-	[form release];
 }
 
 
@@ -63,7 +59,6 @@
 	FormDataParser *form = [[FormDataParser alloc] initWithData:data];
 	STAssertEqualObjects([form stringForKey:@"a"], @"1", @"a");
 	STAssertEqualObjects([form stringForKey:@"b"], @"2", @"b");
-	[form release];
 }
 
 @end

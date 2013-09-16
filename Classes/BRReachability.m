@@ -43,7 +43,7 @@ void BRReachabilityCallback(SCNetworkReachabilityRef target,
 		SCNetworkReachabilityContext context;
 		bzero(&context, sizeof(SCNetworkReachabilityContext));
 		context.version = 0;
-		context.info = self;
+		context.info = (__bridge void *)(self);
 		SCNetworkReachabilitySetCallback(reachabilityRef, BRReachabilityCallback, &context);
 	}
 	return self;
@@ -53,7 +53,6 @@ void BRReachabilityCallback(SCNetworkReachabilityRef target,
 - (void)dealloc {
 	[self stopMonitoring];
 	CFRelease(reachabilityRef);
-	[super dealloc];
 }
 
 
@@ -62,7 +61,7 @@ void BRReachabilityCallback(SCNetworkReachabilityRef target,
 	SCNetworkReachabilityFlags flags;
 	
 	SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
-	BRReachabilityCallback(reachabilityRef, flags, self);
+	BRReachabilityCallback(reachabilityRef, flags, (__bridge void *)(self));
 	
 	monitoring = SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef,
 														  CFRunLoopGetCurrent(), 

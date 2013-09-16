@@ -25,7 +25,7 @@
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,strong) GraphViewParameters *p;
-@property (nonatomic,retain) UIView *yAxisView;
+@property (nonatomic,strong) UIView *yAxisView;
 @property (nonatomic) BOOL drawBorder;
 - (void)exportImageToSavedPhotos;
 - (void)exportImageToPasteboard;

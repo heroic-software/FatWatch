@@ -29,8 +29,7 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 	}
 	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	[formatter setLocale:locale];
-	[locale release];
-	return [formatter autorelease];
+	return formatter;
 }
 
 
@@ -55,7 +54,7 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 	fieldCount += 1;
 	
 	fieldNames[field] = [name copy];
-	fieldFormatters[field] = [formatter retain];
+	fieldFormatters[field] = formatter;
 }
 
 
@@ -64,7 +63,7 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 	
 	[self addField:EWExporterFieldDate 
 			  name:@"Date"
-		 formatter:[[[EWISODateFormatter alloc] init] autorelease]];
+		 formatter:[[EWISODateFormatter alloc] init]];
 	[self addField:EWExporterFieldWeight 
 			  name:@"Weight" 
 		 formatter:weightFormatter];
@@ -223,20 +222,6 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 - (NSData *)dataExportedFromDatabase:(EWDatabase *)db {
 	NSAssert(NO, @"must override");
 	return nil;
-}
-
-
-#pragma mark Cleanup
-
-
-- (void)dealloc {
-	for (int i = 0; i < EWExporterFieldCount; i++) {
-		[fieldNames[i] release];
-		[fieldFormatters[i] release];
-	}
-	[beginDate release];
-	[endDate release];
-	[super dealloc];
 }
 
 @end

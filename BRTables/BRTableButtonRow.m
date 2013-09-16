@@ -30,7 +30,7 @@ static BRActivityView *gLoadingView = nil;
 	row.title = aTitle;
 	row.target = aTarget;
 	row.action = anAction;
-	return [row autorelease];
+	return row;
 }
 
 
@@ -45,7 +45,6 @@ static BRActivityView *gLoadingView = nil;
 - (void)hideActivityView {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showActivityView) object:nil];
 	[gLoadingView dismiss];
-	[gLoadingView release];
 	gLoadingView = nil;
 }
 
@@ -78,7 +77,7 @@ static BRActivityView *gLoadingView = nil;
 		alert.message = @"Would you like to open this link?";
 		alert.buttonTitle = @"Open";
 	}
-	return [alert autorelease];
+	return alert;
 }
 
 
@@ -156,7 +155,6 @@ static BRActivityView *gLoadingView = nil;
 					 [error localizedDescription]];
 	[alert addButtonWithTitle:@"Dismiss"];
 	[alert show];
-	[alert release];
 }
 
 

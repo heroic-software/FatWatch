@@ -34,7 +34,6 @@
 	[nf setMinimumIntegerDigits:2];
 	fmtr.quotientFormatter = nf;
 	fmtr.remainderFormatter = nf;
-	[nf release];
 	fmtr.formatString = @"%@:%@";
 	
 	STAssertEqualObjects([fmtr stringForFloat:0], @"00:00", @"time test");
@@ -43,7 +42,6 @@
 	STAssertEqualObjects([fmtr stringForFloat:60.4f], @"00:01", @"time test");
 	STAssertEqualObjects([fmtr stringForFloat:3600], @"01:00", @"time test");
 	
-	[fmtr release];
 }
 
 

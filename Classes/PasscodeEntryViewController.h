@@ -21,15 +21,15 @@
 	UITextField *codeField;
 	UIImageView *digitViews[4];
 }
-@property (nonatomic,retain) IBOutlet UINavigationBar *navBar;
-@property (nonatomic,retain) IBOutlet UIView *digitGroupView;
-@property (nonatomic,retain) IBOutlet UILabel *promptLabel;
-@property (nonatomic,retain) IBOutlet UILabel *smallLabel;
-@property (nonatomic,retain) IBOutlet UIImageView *digit0View;
-@property (nonatomic,retain) IBOutlet UIImageView *digit1View;
-@property (nonatomic,retain) IBOutlet UIImageView *digit2View;
-@property (nonatomic,retain) IBOutlet UIImageView *digit3View;
-@property (nonatomic,retain) IBOutlet UITextField *codeField;
+@property (nonatomic,strong) IBOutlet UINavigationBar *navBar;
+@property (nonatomic,strong) IBOutlet UIView *digitGroupView;
+@property (nonatomic,strong) IBOutlet UILabel *promptLabel;
+@property (nonatomic,strong) IBOutlet UILabel *smallLabel;
+@property (nonatomic,strong) IBOutlet UIImageView *digit0View;
+@property (nonatomic,strong) IBOutlet UIImageView *digit1View;
+@property (nonatomic,strong) IBOutlet UIImageView *digit2View;
+@property (nonatomic,strong) IBOutlet UIImageView *digit3View;
+@property (nonatomic,strong) IBOutlet UITextField *codeField;
 + (BOOL)authorizationRequired;
 + (void)removePasscode;
 + (PasscodeEntryViewController *)controllerForSettingCode;

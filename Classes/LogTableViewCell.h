@@ -15,11 +15,11 @@
 extern NSString * const kLogCellReuseIdentifier;
 
 @interface LogTableViewCell : UITableViewCell {
-	UITableView *tableView;
+	UITableView *__weak tableView;
 	LogTableViewCellContentView *logContentView;
 	BOOL highlightWeekends;
 }
-@property (nonatomic,assign) UITableView *tableView;
+@property (nonatomic,weak) UITableView *tableView;
 @property (nonatomic,readonly) LogTableViewCellContentView *logContentView;
 + (NSInteger)auxiliaryInfoType;
 + (void)setAuxiliaryInfoType:(NSInteger)infoType;
@@ -31,7 +31,7 @@ extern NSString * const kLogCellReuseIdentifier;
 
 
 @interface LogTableViewCellContentView : UIView {
-	LogTableViewCell *cell;
+	LogTableViewCell *__weak cell;
 	NSString *day;
 	NSString *weekday;
 	const EWDBDay *dd;
@@ -40,9 +40,9 @@ extern NSString * const kLogCellReuseIdentifier;
 	NSFormatter *varianceFormatter;
 	NSFormatter *bmiFormatter;
 }
-@property (nonatomic,assign) LogTableViewCell *cell;
-@property (nonatomic,retain) NSString *day;
-@property (nonatomic,retain) NSString *weekday;
+@property (nonatomic,weak) LogTableViewCell *cell;
+@property (nonatomic,strong) NSString *day;
+@property (nonatomic,strong) NSString *weekday;
 @property (nonatomic) const EWDBDay *dd;
 @property (nonatomic) BOOL highlightDate;
 - (void)bmiStatusDidChange:(NSNotification *)notification;

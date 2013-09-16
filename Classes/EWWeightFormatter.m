@@ -113,7 +113,7 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 		if (style == EWWeightFormatterStyleBMILabeled) {
 			[nf setPositivePrefix:@"BMI "];
 		}
-		return [nf autorelease];
+		return nf;
 	}
 	
 	NSUInteger fd = [self fractionDigitsForStyle:style];
@@ -149,10 +149,9 @@ static NSString * const kMinusSign = @"\xe2\x88\x92";
 	if (style == EWWeightFormatterStyleExport) {
 		NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 		[nf setLocale:locale];
-		[locale release];
 	}
 	
-	return [nf autorelease];
+	return nf;
 }
 
 

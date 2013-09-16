@@ -55,8 +55,7 @@
 
 
 - (void)showAlertForInvocation:(NSInvocation *)anInvocation {
-	[self retain];
-	invocation = [anInvocation retain];
+	invocation = anInvocation;
 	[invocation retainArguments];
 	alertView.cancelButtonIndex = [alertView addButtonWithTitle:@"Cancel"];
 	[alertView addButtonWithTitle:self.buttonTitle];
@@ -71,10 +70,5 @@
 }
 
 
-- (void)dealloc {
-	[alertView release];
-	[invocation release];
-	[super dealloc];
-}
 
 @end

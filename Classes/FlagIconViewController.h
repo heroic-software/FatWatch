@@ -20,10 +20,10 @@
 	UIView *iconView;
 	CGPoint contentOffsets[4];
 }
-@property (nonatomic,retain) IBOutlet FlagTabView *flagTabView;
-@property (nonatomic,retain) IBOutlet UIScrollView *iconArea;
-@property (nonatomic,retain) IBOutlet UIView *enableLadderView;
-@property (nonatomic,retain) IBOutlet UIView *disableLadderView;
+@property (nonatomic,strong) IBOutlet FlagTabView *flagTabView;
+@property (nonatomic,strong) IBOutlet UIScrollView *iconArea;
+@property (nonatomic,strong) IBOutlet UIView *enableLadderView;
+@property (nonatomic,strong) IBOutlet UIView *disableLadderView;
 - (IBAction)flagButtonAction:(UIButton *)sender;
 - (IBAction)useLastFlagForLadder:(UIButton *)sender;
 - (IBAction)useLastFlagForIcon:(UIButton *)sender;

@@ -19,6 +19,6 @@
 	BOOL isSetupForGoal, isSetupForBMI;
 	BOOL needsReload;
 }
-@property (nonatomic,retain) IBOutlet EWDatabase *database;
+@property (nonatomic,strong) IBOutlet EWDatabase *database;
 - (IBAction)clearGoal:(id)sender;
 @end

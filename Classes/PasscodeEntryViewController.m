@@ -67,12 +67,12 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 + (PasscodeEntryViewController *)controllerForSettingCode {
-	return [[[SettingCodeController alloc] init] autorelease];
+	return [[SettingCodeController alloc] init];
 }
 
 
 + (PasscodeEntryViewController *)controllerForAuthorization {
-	return [[[AuthorizationController alloc] init] autorelease];
+	return [[AuthorizationController alloc] init];
 }
 
 
@@ -81,18 +81,6 @@ NSString *kPasscodeKey = @"Passcode";
 }
 
 
-- (void)dealloc {
-	[navBar release];
-	[digitGroupView release];
-	[promptLabel release];
-	[smallLabel release];
-	[digit0View release];
-	[digit1View release];
-	[digit2View release];
-	[digit3View release];
-	[codeField release];
-	[super dealloc];
-}
 
 
 - (void)viewDidLoad {
@@ -162,10 +150,6 @@ NSString *kPasscodeKey = @"Passcode";
 @implementation SettingCodeController
 
 
-- (void)dealloc {
-	[newCode release];
-	[super dealloc];
-}
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -184,7 +168,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	if (newCode == nil) {
-		newCode = [userCode retain];
+		newCode = userCode;
 		promptLabel.text = NSLocalizedString(@"Re-enter your passcode", @"Passcode re-entry");
 		smallLabel.hidden = YES;
 		return NO;
@@ -200,7 +184,6 @@ NSString *kPasscodeKey = @"Passcode";
 	promptLabel.text = NSLocalizedString(@"Enter a passcode", @"Enter a passcode");
 	smallLabel.hidden = NO;
 	smallLabel.text = NSLocalizedString(@"Passcodes did not match. Try again.", @"Passcode mismatch");
-	[newCode release];
 	newCode = nil;
 	return NO;
 }

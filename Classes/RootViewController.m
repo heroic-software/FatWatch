@@ -34,7 +34,7 @@ static BOOL autorotationDisabled = NO;
 	
 	[rootView addSubview:currentViewController.view];
 	
-	self.view = [rootView autorelease];
+	self.view = rootView;
 }
 
 
@@ -120,11 +120,6 @@ static BOOL autorotationDisabled = NO;
 }	
 
 
-- (void)dealloc {
-	[portraitViewController release];
-	[landscapeViewController release];
-	[super dealloc];
-}
 
 
 @end

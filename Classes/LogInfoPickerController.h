@@ -15,8 +15,8 @@
 	NSArray *infoTypeArray;
 	BOOL toggleTimerDidFire;
 }
-@property (nonatomic,retain) IBOutlet UIButton *infoTypeButton;
-@property (nonatomic,retain) IBOutlet UIPickerView *infoTypePicker;
+@property (nonatomic,strong) IBOutlet UIButton *infoTypeButton;
+@property (nonatomic,strong) IBOutlet UIPickerView *infoTypePicker;
 - (IBAction)toggleDown:(UIButton *)sender;
 - (IBAction)toggleUp:(UIButton *)sender;
 - (IBAction)toggleCancel:(UIButton *)sender;

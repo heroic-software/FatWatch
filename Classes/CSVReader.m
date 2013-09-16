@@ -30,18 +30,13 @@
 
 - (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding {
 	if ((self = [super init])) {
-		data = [csvData retain];
+		data = csvData;
 		dataEncoding = encoding;
 	}
 	return self;
 }
 
 
-- (void)dealloc {
-	[floatFormatter release];
-	[data release];
-	[super dealloc];
-}
 
 
 - (void)reset {
@@ -137,7 +132,7 @@
 		NSLog(@"WARNING: Unable to encode data %@", subdata);
 		return @"";
 	}
-	return [text autorelease];
+	return text;
 }
 
 
@@ -164,7 +159,7 @@
 	char endByte = [self skipToBytes:",\r\n"];
 	if (endByte == ',') dataIndex += 1;
 	
-	return [value autorelease];
+	return value;
 }
 
 
@@ -235,7 +230,7 @@
 	while ((string = [self readString])) {
 		[rowArray addObject:string];
 	}
-	return [rowArray autorelease];
+	return rowArray;
 }
 
 

@@ -24,17 +24,17 @@
 	id <EWEnergyEquivalent> newEquivalent;
 	BOOL validationPending;
 }
-@property (nonatomic,retain,getter=equivalent,setter=setEquivalent:) id <EWEnergyEquivalent> newEquivalent;
-@property (nonatomic,retain) IBOutlet UITextField *nameField;
-@property (nonatomic,retain) IBOutlet UITextField *energyField;
-@property (nonatomic,retain) IBOutlet UITextField *unitField;
-@property (nonatomic,retain) IBOutlet UISlider *metSlider;
-@property (nonatomic,retain) IBOutlet UILabel *metLabel;
-@property (nonatomic,retain) IBOutlet UILabel *energyPerLabel;
-@property (nonatomic,retain) IBOutlet UIView *groupHostView;
-@property (nonatomic,retain) IBOutlet UIView *activityGroupView;
-@property (nonatomic,retain) IBOutlet UIView *foodGroupView;
-@property (nonatomic,retain) IBOutlet UISegmentedControl *typeControl;
+@property (nonatomic,strong,getter=equivalent,setter=setEquivalent:) id <EWEnergyEquivalent> newEquivalent;
+@property (nonatomic,strong) IBOutlet UITextField *nameField;
+@property (nonatomic,strong) IBOutlet UITextField *energyField;
+@property (nonatomic,strong) IBOutlet UITextField *unitField;
+@property (nonatomic,strong) IBOutlet UISlider *metSlider;
+@property (nonatomic,strong) IBOutlet UILabel *metLabel;
+@property (nonatomic,strong) IBOutlet UILabel *energyPerLabel;
+@property (nonatomic,strong) IBOutlet UIView *groupHostView;
+@property (nonatomic,strong) IBOutlet UIView *activityGroupView;
+@property (nonatomic,strong) IBOutlet UIView *foodGroupView;
+@property (nonatomic,strong) IBOutlet UISegmentedControl *typeControl;
 - (IBAction)changeType:(id)sender;
 - (IBAction)changeMetValue:(id)sender;
 @end

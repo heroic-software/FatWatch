@@ -33,7 +33,6 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	NSAssert1(path != nil, @"registration domain defaults plist '%@' is missing", name);
 	NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
 	[self registerDefaults:dict];
-	[dict release];
 }
 
 
@@ -123,9 +122,7 @@ static NSString * const kBMIHeightKey = @"BMIHeight";
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimumFractionDigits:1];
-	NSString *name = [formatter stringFromNumber:@([number floatValue])];
-	[formatter release];
-	return name;
+	return [formatter stringFromNumber:@([number floatValue])];
 }
 
 

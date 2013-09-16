@@ -20,10 +20,10 @@
     EWDatabase *database;
     BOOL promptBeforeImport;
 }
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, retain) IBOutlet UIProgressView *importProgressView;
-@property (nonatomic, retain) IBOutlet UILabel *detailLabel;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UIProgressView *importProgressView;
+@property (nonatomic, strong) IBOutlet UILabel *detailLabel;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 @property (nonatomic) BOOL promptBeforeImport;
 - (id)initWithImporter:(EWImporter *)theImporter database:(EWDatabase *)db;
 - (IBAction)okAction;

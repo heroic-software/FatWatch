@@ -14,7 +14,7 @@
 	NSFormatter *formatter;
 	float increment;
 }
-@property (nonatomic,retain) IBOutlet UIPickerView *pickerView;
+@property (nonatomic,strong) IBOutlet UIPickerView *pickerView;
 + (UIViewController *)controller;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;

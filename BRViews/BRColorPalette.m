@@ -49,27 +49,21 @@
 													 blue:blue
 													alpha:1];
 			palette[name] = color;
-			[color release];
 		} else {
 			NSLog(@"Warning: can't parse color \"%@\"", value);
 		}
-		[scanner release];
 	}
 	
 	if (colorDictionary) {
 		[palette addEntriesFromDictionary:colorDictionary];
-		[colorDictionary release];
 	}
 	
 	colorDictionary = [palette copy];
 	
-	[palette release];
-	[info release];
 }
 
 
 - (void)removeAllColors {
-	[colorDictionary release];
 	colorDictionary = nil;
 }
 
@@ -81,10 +75,6 @@
 }
 
 
-- (void)dealloc {
-	[colorDictionary release];
-	[super dealloc];
-}
 
 
 @end

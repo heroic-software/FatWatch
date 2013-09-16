@@ -36,12 +36,12 @@
 	// Import State
 	EWImporter *importer;
 }
-@property (nonatomic,retain) EWDatabase *database;
-@property (nonatomic,retain) IBOutlet UILabel *statusLabel;
-@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityView;
-@property (nonatomic,retain) IBOutlet UIView *detailView;
-@property (nonatomic,retain) IBOutlet UIView *inactiveDetailView;
-@property (nonatomic,retain) IBOutlet UIView *activeDetailView;
-@property (nonatomic,retain) IBOutlet UILabel *lastImportLabel;
-@property (nonatomic,retain) IBOutlet UILabel *lastExportLabel;
+@property (nonatomic,strong) EWDatabase *database;
+@property (nonatomic,strong) IBOutlet UILabel *statusLabel;
+@property (nonatomic,strong) IBOutlet UIActivityIndicatorView *activityView;
+@property (nonatomic,strong) IBOutlet UIView *detailView;
+@property (nonatomic,strong) IBOutlet UIView *inactiveDetailView;
+@property (nonatomic,strong) IBOutlet UIView *activeDetailView;
+@property (nonatomic,strong) IBOutlet UILabel *lastImportLabel;
+@property (nonatomic,strong) IBOutlet UILabel *lastExportLabel;
 @end

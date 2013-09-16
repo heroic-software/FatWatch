@@ -16,7 +16,7 @@
 
 - (CSVReader *)readerWithBytes:(const char *)text {
 	NSData *data = [NSData dataWithBytes:text length:strlen(text)];
-	return [[[CSVReader alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	return [[CSVReader alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 

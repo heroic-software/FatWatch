@@ -63,14 +63,12 @@
 						 infoDictionary[@"CFBundleVersion"],
 						 nil];
 	[verSection addRow:versionRow animated:NO];
-	[versionRow release];
 	
 	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
 	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
 	reviewRow.titleAlignment = UITextAlignmentCenter;
 	reviewRow.object = [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=285580720"];
 	[verSection addRow:reviewRow animated:NO];
-	[reviewRow release];
 
 	BRTableSection *section;
 	BRTableButtonRow *row;
@@ -84,7 +82,6 @@
 	row.object = [RegistrationViewController sharedController];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
-	[row release];
 	
 	section = [self addNewSection];
 	section.headerTitle = @"Brought to you by";
@@ -96,7 +93,6 @@
 	row.object = [NSURL URLWithString:@"http://www.benzado.com/"];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
-	[row release];
 	
 	section = [self addNewSection];
 	section.headerTitle = @"Also by";
@@ -108,7 +104,6 @@
 	row.object = [NSURL URLWithString:@"http://stevedressler.wordpress.com/"];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
-	[row release];
 		
 	section = [self addNewSection];
 	section.headerTitle = @"Thanks to";
@@ -120,7 +115,6 @@
 	row.object = [NSURL URLWithString:@"http://glyphish.com/"];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
-	[row release];
 
 	row = [[BRTableButtonRow alloc] init];
 	row.cellStyle = UITableViewCellStyleSubtitle;
@@ -129,7 +123,6 @@
 	row.object = [NSURL URLWithString:BOOK_WELCOME_URL];
 	row.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[section addRow:row animated:NO];
-	[row release];
 }
 
 
@@ -144,9 +137,6 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

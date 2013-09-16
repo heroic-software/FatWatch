@@ -88,8 +88,6 @@ NSDate *EWDateFromMonthAndDay(EWMonth m, EWDay d) {
 	
 	NSDate *theDate = [calendar dateFromComponents:components];
 	
-	[components release];
-	[calendar release];
 	return theDate;
 }
 
@@ -102,7 +100,6 @@ EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
 	NSDateComponents *dc = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:theDate];
 	EWMonth month = ((dc.year - kReferenceYear) * 12) + (dc.month - 1);
 	
-	[calendar release];
 	return EWMonthDayMake(month, dc.day);
 }
 
@@ -130,6 +127,5 @@ NSUInteger EWWeekdayFromMonthAndDay(EWMonth m, EWDay d) {
 	NSDate *date = EWDateFromMonthAndDay(m, d);
 	NSDateComponents *comps = [calendar components:NSWeekdayCalendarUnit fromDate:date];
 	
-	[calendar release];
 	return comps.weekday;
 }

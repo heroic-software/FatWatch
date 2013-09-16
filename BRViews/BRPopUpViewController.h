@@ -15,8 +15,8 @@
     UIButton *screenButton;
 }
 @property (nonatomic,readonly,getter=isVisible) BOOL visible;
-@property (nonatomic,retain) IBOutlet UIView *view;
-@property (nonatomic,retain) IBOutlet UIView *superview;
+@property (nonatomic,strong) IBOutlet UIView *view;
+@property (nonatomic,strong) IBOutlet UIView *superview;
 - (IBAction)show:(id)sender;
 - (IBAction)hide:(id)sender;
 - (IBAction)toggle:(id)sender;

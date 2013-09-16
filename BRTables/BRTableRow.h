@@ -13,7 +13,7 @@
 
 
 @interface BRTableRow : NSObject {
-	BRTableSection *section;
+	BRTableSection *__weak section;
 	id object;
 	UITableViewCellStyle cellStyle;
 	NSString *title;
@@ -28,16 +28,16 @@
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
 @property (nonatomic) UITableViewCellStyle cellStyle;
-@property (nonatomic,retain) NSString *title;
-@property (nonatomic,retain) NSString *detail;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *detail;
 @property (nonatomic) UITextAlignment titleAlignment;
-@property (nonatomic,retain) UIColor *titleColor;
+@property (nonatomic,strong) UIColor *titleColor;
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
-@property (nonatomic,retain) UIView *accessoryView;
+@property (nonatomic,strong) UIView *accessoryView;
 @property (nonatomic) UITableViewCellSelectionStyle selectionStyle;
-@property (nonatomic,retain) UIImage *image;
-@property (nonatomic,retain) id object;
-@property (nonatomic,readonly) BRTableSection *section;
+@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) id object;
+@property (weak, nonatomic,readonly) BRTableSection *section;
 - (NSString *)reuseableCellIdentifier;
 - (UITableViewCell *)createCell;
 - (void)configureCell:(UITableViewCell *)cell;

@@ -108,7 +108,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 - (void)close {
 	[self commitChanges];
 	[self flushCache];
-	[db release];
 	db = nil;
 }
 
@@ -121,12 +120,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 }
 
 
-- (void)dealloc {
-	[db release];
-	[monthCache release];
-	[monthCacheLock release];
-	[super dealloc];
-}
 
 
 #pragma mark Reading
@@ -188,7 +181,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		if (dbm == nil) {
 			dbm = [[EWDBMonth alloc] initWithMonth:month database:self];
 			monthCache[key] = dbm;
-			[dbm release];
 		}
 		if (month < earliestMonth) earliestMonth = month;
 		if (month > latestMonth) latestMonth = month;
@@ -327,7 +319,7 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 - (EWDBIterator *)iterator
 {
-	return [[[EWDBIterator alloc] initWithDatabase:self] autorelease];
+	return [[EWDBIterator alloc] initWithDatabase:self];
 }
 
 
@@ -419,7 +411,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		equiv.unitName = [stmt stringValueOfColumn:4];
 		equiv.value = [stmt floatValueOfColumn:5];
 		
-		[equiv release];
 	}
 	
 	if ([array0 count] == 0 && [array1 count] == 0) {
@@ -474,7 +465,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		[deleteStmt step];
 		[deleteStmt reset];
 	}
-	[deletionCandidateIDSet release];
 	
 	[db commitTransaction];
 }
@@ -540,7 +530,6 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 	NSAssert1(zero == 0, @"SQL resource %@ not null terminated!", name);
 #endif
 	[db executeSQL:[sql0 bytes]];
-	[sql0 release];
 }
 
 

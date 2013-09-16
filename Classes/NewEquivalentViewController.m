@@ -35,8 +35,8 @@
 - (id)init {
     if ((self = [super initWithNibName:@"NewEquivalentView" bundle:nil])) {
 		self.title = NSLocalizedString(@"Add Equivalent", @"new equivalent view title");
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)] autorelease];
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)] autorelease];
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)];
     }
     return self;
 }
@@ -109,7 +109,6 @@
 	[nf setMaximumFractionDigits:1];
 	[nf setPositiveSuffix:@" MET"];
 	metLabel.text = [nf stringFromNumber:@(metSlider.value)];
-	[nf release];
 }
 
 
@@ -127,7 +126,6 @@
 	}
 	equiv.name = nameField.text;
 	self.newEquivalent = equiv;
-	[equiv release];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -165,24 +163,6 @@
 	}
 	[self validateForm];
 	return NO;
-}
-
-
-#pragma mark Cleanup
-
-
-- (void)dealloc {
-	[nameField release];
-	[energyField release];
-	[unitField release];
-	[metSlider release];
-	[metLabel release];
-	[energyPerLabel release];
-	[groupHostView release];
-	[activityGroupView release];
-	[foodGroupView release];
-	[typeControl release];
-    [super dealloc];
 }
 
 

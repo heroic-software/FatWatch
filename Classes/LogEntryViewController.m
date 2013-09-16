@@ -77,7 +77,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 - (id)init {
 	if ((self = [super initWithNibName:@"LogEntryView" bundle:nil])) {
 		scaleIncrement = [[NSUserDefaults standardUserDefaults] weightIncrement];
-		weightFormatter = [[EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay] retain];
+		weightFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
@@ -96,21 +96,6 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 }
 
 
-- (void)dealloc {
-	[weightControl release];
-	[weightContainerView release];
-	[weightPickerView release];
-	[noWeightView release];
-	[flag0Button release];
-	[flag1Button release];
-	[flag2Button release];
-	[flag3Button release];
-	[noteView release];
-	[annotationContainerView release];
-	[navigationBar release];
-	[weightFormatter release];
-	[super dealloc];
-}
 
 
 - (NSInteger)pickerRowForWeight:(float)weight {
@@ -201,7 +186,6 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 				controller.target = self;
 				controller.key = @"rung";
 				[self presentModalViewController:controller animated:YES];
-				[controller release];
 			} else {
 				sender.selected = !sender.selected;
 			}
@@ -308,8 +292,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
 - (void)configureForDay:(EWDay)aDay dbMonth:(EWDBMonth *)aDBMonth {
 	day = aDay;
-	[monthData release];
-	monthData = [aDBMonth retain];
+	monthData = aDBMonth;
 	
 	[self view]; // force the view to load
 	
@@ -318,7 +301,6 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	[titleFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[titleFormatter setTimeStyle:NSDateFormatterNoStyle];
 	navigationBar.topItem.title = [titleFormatter stringFromDate:date];
-	[titleFormatter release];
     
     BOOL isEmpty = ![monthData hasDataOnDay:day];
     BOOL isToday = (EWMonthDayToday() == EWMonthDayMake(monthData.month, day));
@@ -490,7 +472,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	} else {
         CGRect frame = CGRectZero;
         frame.size = [pickerView rowSizeForComponent:component];
-		label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+		label = [[UILabel alloc] initWithFrame:frame];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.textAlignment = UITextAlignmentCenter;
 		label.textColor = [UIColor blackColor];

@@ -63,22 +63,6 @@
 }
 
 
-- (void)dealloc {
-	[database release];
-	[activeDetailView release];
-	[activityView release];
-	[detailView release];
-	[exportDefaults release];
-	[inactiveDetailView release];
-	[lastExportLabel release];
-	[lastImportLabel release];
-	[reachability release];
-	[statusLabel release];
-	[webResources release];
-	[webServer release];
-	[importer release];
-    [super dealloc];
-}
 
 
 - (void)updateLastImportExportLabels {
@@ -97,7 +81,6 @@
 	date = [uds objectForKey:kEWLastExportKey];
 	if (date) lastExportLabel.text = [df stringFromDate:date];
 
-	[df release];
 }
 
 
@@ -127,7 +110,6 @@
         [reachability startMonitoring];
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     } else {
-        [importer release];
         importer = nil;
     }
 }
@@ -150,9 +132,7 @@
 
 
 - (void)viewDidUnload {
-	[reachability release];
 	reachability = nil;
-	[webServer release];
 	webServer = nil;
 	self.statusLabel = nil;
 	self.activityView = nil;
@@ -180,7 +160,6 @@
         for (UIView *subview in viewArray) {
             if (subview.alpha == 0) [subview removeFromSuperview];
         }
-        [viewArray release];
     }];
 }
 
@@ -200,7 +179,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSString *label = [NSString stringWithFormat:@"%@ (%@)",
 					   [df stringFromDate:[NSDate date]],
 					   name];
-    [df release];
 	return @{@"value": format, @"label": label};
 }
 
@@ -223,14 +201,14 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	[array addObject:DateFormatDictionary(@"y-MM-dd", @"ISO")];
 	[array addObject:DateFormatDictionary(nil, @"Local")];
-	root[@"dateFormats"] = [[array copy] autorelease];
+	root[@"dateFormats"] = [array copy];
 	[array removeAllObjects];
 
 	for (id weightUnit in [NSUserDefaults weightUnitsForExport]) {
 		[array addObject:@{@"value": weightUnit,
 						  @"label": [NSUserDefaults nameForWeightUnit:weightUnit]}];
 	}
-	root[@"weightFormats"] = [[array copy] autorelease];
+	root[@"weightFormats"] = [array copy];
 	[array removeAllObjects];
 	
 	int i = 0;
@@ -239,7 +217,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 						  @"label": name}];
 	}
 	root[@"fatFormats"] = array;
-	[array release];
 	
 	// Export Defaults
 	if (exportDefaults == nil) {
@@ -254,14 +231,12 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[root appendJSONRepresentationToData:json];
 	[json appendBytes:";" length:1];
 	
-	[root release];
 	
 	[connection beginResponseWithStatus:HTTP_STATUS_OK];
 	[connection setValue:@"text/javascript; charset=utf-8" forResponseHeader:@"Content-Type"];
 	[connection setValue:@"no-cache" forResponseHeader:@"Cache-Control"];
 	[connection endResponseWithBodyData:json];
 
-	[json release];
 }
 
 
@@ -296,7 +271,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			exportDefaults[exportKey] = (id)kCFBooleanFalse;
 		}
 	}
-	[allExportKeys release];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:exportDefaults forKey:@"ExportDefaults"];
 	
@@ -334,7 +308,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		}
 	}
 	
-	[form release];
 	
 	NSData *data = [exporter dataExportedFromDatabase:database];
 	
@@ -368,7 +341,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[connection respondWithErrorMessage:@"Unable to export data."];
 	}
 
-	[exporter release];
 }
 
 
@@ -378,7 +350,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 			[connection sendHTMLResourceNamed:@"importPending"];
 			return;
 		} else {
-			[importer release];
 			importer = nil;
 		}
 	}
@@ -386,7 +357,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
 	NSData *data = [form dataForKey:@"filedata"];
 	NSStringEncoding encoding = [[form stringForKey:@"encoding"] intValue];
-	[form release];
 	
 	if (data == nil) {
 		[connection sendHTMLResourceNamed:@"importNoData"];
@@ -412,7 +382,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	[connection setValue:@"no-cache" forResponseHeader:@"Cache-Control"];
 	[connection endResponseWithBodyData:json];
 	
-	[json release];
 }
 
 
@@ -425,8 +394,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	FormDataParser *form = [[FormDataParser alloc] initWithConnection:connection];
 	
 	if (! [form hasKey:@"doImport"]) {
-		[form release];
-		[importer release];
 		importer = nil;
 		[connection respondWithRedirectToPath:@"/#import"];
 		return;
@@ -468,11 +435,9 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	importer.deleteFirst = [[form stringForKey:@"prep"] isEqualToString:@"replace"];
 	
-	[form release];
     
     ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:database];
     [self presentModalViewController:importView animated:YES];
-    [importView release];
     
     [connection sendHTMLResourceNamed:@"importAccepted"];
 }
@@ -603,14 +568,12 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
 	if ([contentType isEqualToString:@"image/png"]) {
 		UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-		contentData = [UIImagePNGRepresentation(image) retain];
-		[image release];
+		contentData = UIImagePNGRepresentation(image);
 	} else {
 		contentData = [[NSData alloc] initWithContentsOfFile:path];
 	}
 	
 	[self endResponseWithBodyData:contentData];
-	[contentData release];
 }
 
 - (void)sendHTMLResourceNamed:(NSString *)name

@@ -23,7 +23,7 @@
 		energyFormatter = [[EWEnergyFormatter alloc] init];
 		weight = aWeight;
 		energy = kCaloriesPerPound * rate;
-		database = [db retain];
+		database = db;
 		
 		EWWeightFormatter *wf = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
 		NSString *activitiesTitle = [NSString stringWithFormat:@"%@ (%@)",
@@ -54,7 +54,7 @@
 		equiv.value = 1.0f / kKilojoulesPerCalorie;
 		equiv.unitName = @"kJ";
 	}
-	return [equiv autorelease];
+	return equiv;
 }
 
 
@@ -85,7 +85,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	[dataArray release];
 	dataArray = [[database loadEnergyEquivalents] copy];
 	
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
@@ -100,14 +99,11 @@
 	label.textAlignment = UITextAlignmentCenter;
 	[header addSubview:label];
 	self.tableView.tableHeaderView = header;
-	[label release];
-	[header release];
 }
 
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	[dataArray release];
 	dataArray = nil;
 }
 
@@ -145,7 +141,6 @@
 		newLeftItem = nil;
 	}
 	[self.navigationItem setLeftBarButtonItem:newLeftItem animated:YES];
-	[newLeftItem release];
 	
 	for (NSIndexPath *indexPath in [self.tableView indexPathsForVisibleRows]) {
 		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -187,7 +182,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 	
@@ -237,22 +232,13 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	NSMutableArray *fromSection = dataArray[fromIndexPath.section];
 	id thing = fromSection[fromIndexPath.row];
-	[thing retain];
 	[fromSection removeObjectAtIndex:fromIndexPath.row];
 	NSMutableArray *toSection = dataArray[toIndexPath.section];
 	[toSection insertObject:thing atIndex:toIndexPath.row];
-	[thing release];
 	dirty = YES;
 }
 
 
-- (void)dealloc {
-	[database release];
-	[titleArray release];
-	[dataArray release];
-	[newEquivalentController release];
-    [super dealloc];
-}
 
 
 @end

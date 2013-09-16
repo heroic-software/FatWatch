@@ -147,16 +147,12 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 	}
 	
 	if ((self = [super init])) {
-		database = [db retain];
+		database = db;
 	}
 	return self;
 }
 
 
-- (void)dealloc {
-	[database release];
-	[super dealloc];
-}
 
 
 #pragma mark Helper Methods

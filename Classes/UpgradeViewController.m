@@ -28,7 +28,7 @@
 
 - (id)initWithDatabase:(EWDatabase *)db {
     if ((self = [super initWithNibName:@"UpgradeView" bundle:nil])) {
-        database = [db retain];
+        database = db;
     }
     return self;
 }
@@ -47,13 +47,13 @@
 
 
 - (void)doUpgrade:(id)nothing {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[database upgrade];
+	@autoreleasepool {
+		[database upgrade];
 #if TARGET_IPHONE_SIMULATOR
-	[NSThread sleepForTimeInterval:5];
+		[NSThread sleepForTimeInterval:5];
 #endif
-	[self performSelectorOnMainThread:@selector(didUpgrade) withObject:nil waitUntilDone:NO];
-	[pool release];
+		[self performSelectorOnMainThread:@selector(didUpgrade) withObject:nil waitUntilDone:NO];
+	}
 }
 
 
@@ -69,10 +69,6 @@
 }
 
 
-- (void)dealloc {
-	[database release];
-    [super dealloc];
-}
 
 
 @end

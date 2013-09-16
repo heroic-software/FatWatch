@@ -13,11 +13,11 @@
 
 
 @interface LogDatePickerController : BRPopUpViewController {
-	LogViewController *logViewController;
+	LogViewController *__weak logViewController;
 	UIDatePicker *datePicker;
 }
-@property (nonatomic,assign) IBOutlet LogViewController *logViewController;
-@property (nonatomic,retain) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic,weak) IBOutlet LogViewController *logViewController;
+@property (nonatomic,strong) IBOutlet UIDatePicker *datePicker;
 - (IBAction)pickToday;
 - (IBAction)goToPickedDate;
 @end

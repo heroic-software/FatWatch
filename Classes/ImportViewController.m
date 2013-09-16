@@ -21,24 +21,14 @@
 - (id)initWithImporter:(EWImporter *)theImporter database:(EWDatabase *)db
 {
     if ((self = [super initWithNibName:@"ImportView" bundle:nil])) {
-        importer = [theImporter retain];
+        importer = theImporter;
         importer.delegate = self;
-        database = [db retain];
+        database = db;
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [titleLabel release];
-    [importProgressView release];
-    [detailLabel release];
-    [okButton release];
-    [importer release];
-    [database release];
-    [super dealloc];
-}
 
 - (void)viewDidUnload
 {
@@ -78,7 +68,6 @@
     self.importProgressView.progress = 0;
     self.detailLabel.text = msg;
     self.okButton.hidden = YES;
-    [msg release];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -91,7 +80,6 @@
         sheet.cancelButtonIndex = [sheet addButtonWithTitle:@"Cancel"];
         sheet.delegate = self;
         [sheet showInView:self.view];
-        [sheet release];
     } else {
         [importer performImportToDatabase:database];
     }

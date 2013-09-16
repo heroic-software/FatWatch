@@ -98,7 +98,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 - (void)launchStageAuthorize {
 	if ([PasscodeEntryViewController authorizationRequired]) {
-		launchViewController = [[PasscodeEntryViewController controllerForAuthorization] retain];
+		launchViewController = [PasscodeEntryViewController controllerForAuthorization];
 	}
 }
 
@@ -130,7 +130,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
 	tabBarController.selectedIndex = lastTapTabIndex;
 	
-	launchViewController = [rootViewController retain];
+	launchViewController = rootViewController;
     
     if (dataToImport) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -139,9 +139,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
             ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:db];
             importView.promptBeforeImport = YES;
             [window.rootViewController presentModalViewController:importView animated:YES];
-            [importView release];
-            [importer release];
-            [dataToImport release];
             dataToImport = nil;
         });
     }
@@ -154,7 +151,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	if (launchViewController != nil) {
 		[launchViewController.view removeFromSuperview];
-		[launchViewController release];
 		launchViewController = nil;
 		switch (launchStage) {
 			case EWLaunchSequenceStageDebug:
@@ -253,18 +249,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 		}
 		lastTapTime = thisTapTime;
 	}
-}
-
-
-#pragma mark Cleanup
-
-
-- (void)dealloc {
-	[db release];
-    [window release];
-    [rootViewController release];
-	[launchViewController release];
-    [super dealloc];
 }
 
 

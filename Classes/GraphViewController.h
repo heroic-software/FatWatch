@@ -33,12 +33,12 @@
 	CGFloat scrollingSpanSavedOffsetX;
 	NSInteger saveButtonIndex, copyButtonIndex;
 }
-@property (nonatomic,retain) IBOutlet EWDatabase *database;
-@property (nonatomic,retain) IBOutlet YAxisView *axisView;
-@property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
-@property (nonatomic,retain) IBOutlet UISegmentedControl *spanControl;
-@property (nonatomic,retain) IBOutlet UISegmentedControl *typeControl;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *actionButtonItem;
+@property (nonatomic,strong) IBOutlet EWDatabase *database;
+@property (nonatomic,strong) IBOutlet YAxisView *axisView;
+@property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic,strong) IBOutlet UISegmentedControl *spanControl;
+@property (nonatomic,strong) IBOutlet UISegmentedControl *typeControl;
+@property (nonatomic,strong) IBOutlet UIBarButtonItem *actionButtonItem;
 - (void)clearGraphSegments;
 - (IBAction)spanSelected:(UISegmentedControl *)sender;
 - (IBAction)typeSelected:(UISegmentedControl *)sender;

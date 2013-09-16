@@ -120,7 +120,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		x += width;
 	}
 	
-	[formatter release];
 }
 
 
@@ -161,7 +160,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		x += width;
 	}
 	
-	[formatter release];
 }
 
 
@@ -279,8 +277,6 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 - (void)dealloc {
 	CGImageRelease(image);
-	[yAxisView release];
-	[super dealloc];
 }
 
 

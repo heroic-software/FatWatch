@@ -84,7 +84,7 @@
 - (NSNumberFormatter *)makeBMIFormatter {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setPositiveFormat:NSLocalizedString(@"BMI 0.0", @"BMI format")];
-	return [formatter autorelease];
+	return formatter;
 }
 
 
@@ -108,7 +108,6 @@
 	weightRow.defaultValue = @(weight);
 	
 	[section addRow:weightRow animated:NO];
-	[weightRow release];
 	
 	if ([[NSUserDefaults standardUserDefaults] isBMIEnabled]) {
 		float w[3];
@@ -120,7 +119,6 @@
 							   [[palette colorNamed:@"BMIObese"] colorWithAlphaComponent:0.4f]];
 		BRRangeColorFormatter *colorFormatter = [[BRRangeColorFormatter alloc] initWithColors:colorArray forValues:w];
 		weightRow.backgroundColorFormatter = colorFormatter;
-		[colorFormatter release];
 
 		NSNumberFormatter *bmiFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleBMILabeled];
 		const float bmiMultiplier = [[bmiFormatter multiplier] floatValue];
@@ -138,7 +136,6 @@
 		bmiRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		bmiRow.defaultValue = weightRow.defaultValue;
 		[section addRow:bmiRow animated:NO];
-		[bmiRow release];
 	}
 }
 
@@ -156,33 +153,30 @@
 	dateRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	dateRow.minimumDate = EWDateFromMonthDay(EWMonthDayNext(EWMonthDayToday()));
 	[planSection addRow:dateRow animated:NO];
-	[dateRow release];
 
 	BRTableNumberPickerRow *energyRow = [[EWRatePickerRow alloc] init];
 	energyRow.title = NSLocalizedString(@"Energy Plan", @"Goal plan energy");
 	energyRow.valueDescription = NSLocalizedString(@"Select the daily energy deficit or surplus you plan to keep.\n\nThe goal date and weight rate will be updated to match.", @"Goal plan energy description");
 	energyRow.object = goal;
 	energyRow.key = @"weightChangePerDay";
-	energyRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay] autorelease];
+	energyRow.formatter = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
 	energyRow.increment = [EWWeightChangeFormatter energyChangePerDayIncrement];
 	energyRow.minimumValue = -1000 * energyRow.increment;
 	energyRow.maximumValue = 1000 * energyRow.increment;
 	energyRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:energyRow animated:NO];
-	[energyRow release];
 	
 	BRTableNumberPickerRow *weightRow = [[EWRatePickerRow alloc] init];
 	weightRow.title = NSLocalizedString(@"Weight Plan", @"Goal plan weight");
 	weightRow.valueDescription = NSLocalizedString(@"Select the weekly weight loss or gain you want to keep.\n\nThe goal date and energy rate will be updated to match.", @"Goal plan weight description");
 	weightRow.object = goal;
 	weightRow.key = @"weightChangePerDay";
-	weightRow.formatter = [[[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek] autorelease];
+	weightRow.formatter = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
 	weightRow.increment = [EWWeightChangeFormatter weightChangePerWeekIncrement];
 	weightRow.minimumValue = -1000 * weightRow.increment;
 	weightRow.maximumValue = 1000 * weightRow.increment;
 	weightRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[planSection addRow:weightRow animated:NO];
-	[weightRow release];
 }
 
 
@@ -289,7 +283,6 @@
 	[sheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button")];
 
 	[sheet showInView:self.view.window];
-	[sheet release];
 }
 
 
@@ -298,15 +291,6 @@
 		[EWGoal deleteGoal];
 		[self updateTableSections];
 	}
-}
-
-
-#pragma mark Cleanup
-
-
-- (void)dealloc {
-	[database release];
-	[super dealloc];
 }
 
 

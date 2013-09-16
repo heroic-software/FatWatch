@@ -25,8 +25,6 @@ void SQLiteUpdateHandler(void *user, int op, char const *dbname, char const *tbl
 	NSString *dbNameString = [[NSString alloc] initWithFormat:@"%s", dbname];
 	NSString *tblNameString = [[NSString alloc] initWithFormat:@"%s", tblname];
 	[db.delegate didUpdateSQLiteDatabase:db name:dbNameString table:tblNameString row:rowid operation:op];
-	[dbNameString release];
-	[tblNameString release];
 }
 
 
@@ -74,25 +72,25 @@ int SQLiteProgressHandler(void *user) {
 	delegate = del;
 	
 	if ([delegate respondsToSelector:@selector(didUpdateSQLiteDatabase:name:table:row:operation:)]) {
-		sqlite3_update_hook(database, SQLiteUpdateHandler, self);
+		sqlite3_update_hook(database, SQLiteUpdateHandler, (__bridge void *)(self));
 	} else {
 		sqlite3_update_hook(database, NULL, NULL);
 	}
 	
 	if ([delegate respondsToSelector:@selector(shouldContinueQuerySQLiteDatabase:)]) {
-		sqlite3_progress_handler(database, 20, SQLiteProgressHandler, self);
+		sqlite3_progress_handler(database, 20, SQLiteProgressHandler, (__bridge void *)(self));
 	} else {
 		sqlite3_progress_handler(database, 0, NULL, NULL);
 	}
 	
 	if ([delegate respondsToSelector:@selector(shouldCommitQuerySQLiteDatabase:)]) {
-		sqlite3_commit_hook(database, SQLiteCommitHandler, self);
+		sqlite3_commit_hook(database, SQLiteCommitHandler, (__bridge void *)(self));
 	} else {
 		sqlite3_commit_hook(database, NULL, NULL);
 	}
 	
 	if ([delegate respondsToSelector:@selector(didRollbackQuerySQLiteDatabase:)]) {
-		sqlite3_rollback_hook(database, SQLiteRollbackHandler, self);
+		sqlite3_rollback_hook(database, SQLiteRollbackHandler, (__bridge void *)(self));
 	} else {
 		sqlite3_rollback_hook(database, NULL, NULL);
 	}
@@ -108,7 +106,7 @@ int SQLiteProgressHandler(void *user) {
 			  sqlite3_errmsg(database), 
 			  sql);
 
-	return [[[SQLiteStatement alloc] initWithDatabase:self stmt:stmt] autorelease];
+	return [[SQLiteStatement alloc] initWithDatabase:self stmt:stmt];
 }
 
 
@@ -162,7 +160,6 @@ int SQLiteProgressHandler(void *user) {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	int r = sqlite3_close(database);
 	NSAssert1(r == SQLITE_OK, @"Failed to close database: %s", sqlite3_errmsg(database));
-	[super dealloc];
 }
 
 

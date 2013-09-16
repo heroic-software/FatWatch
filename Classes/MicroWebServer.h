@@ -17,14 +17,14 @@
 	NSString *name;
 	CFSocketRef listenSocket;
 	NSNetService *netService;
-	id <MicroWebServerDelegate> delegate;
+	id <MicroWebServerDelegate> __weak delegate;
 	BOOL running;
 }
-@property (nonatomic,retain) NSString *name;
-@property (nonatomic,assign) id <MicroWebServerDelegate> delegate;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,weak) id <MicroWebServerDelegate> delegate;
 @property (nonatomic,readonly,getter=isRunning) BOOL running;
 @property (nonatomic,readonly) UInt16 port;
-@property (nonatomic,readonly) NSURL *rootURL;
+@property (weak, nonatomic,readonly) NSURL *rootURL;
 - (void)start;
 - (void)stop;
 @end

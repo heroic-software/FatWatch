@@ -23,7 +23,7 @@
 - (id)initWithDatabase:(EWDatabase *)db
 {
 	if ((self = [super init])) {
-		database = [db retain];
+		database = db;
 		earliestMonthDay = EWMonthDayMake(database.earliestMonth, 1);
 		latestMonthDay = EWMonthDayMake(database.latestMonth, 31);
 	}
@@ -31,20 +31,13 @@
 }
 
 
-- (void)dealloc
-{
-	[database release];
-	[dbm release];
-	[super dealloc];
-}
 
 
 - (const EWDBDay *)currentDBDay
 {
 	EWMonth month = EWMonthDayGetMonth(currentMonthDay);
 	if (dbm == nil || dbm.month != month) {
-		[dbm release];
-		dbm = [[database getDBMonth:month] retain];
+		dbm = [database getDBMonth:month];
 	}
 	return [dbm getDBDayOnDay:EWMonthDayGetDay(currentMonthDay)];
 }

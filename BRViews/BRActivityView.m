@@ -31,7 +31,6 @@
 		messageLabel.backgroundColor = nil;
 		messageLabel.opaque = NO;
 		[self addSubview:messageLabel];
-		[messageLabel release];
 		
 		UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		activityIndicator.tag = kActivityIndicatorTag;
@@ -41,15 +40,11 @@
 											  UIViewAutoresizingFlexibleLeftMargin);
 		activityIndicator.center = self.center;
 		[self addSubview:activityIndicator];
-		[activityIndicator release];
     }
     return self;
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 - (NSString *)message {

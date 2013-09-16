@@ -54,15 +54,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 @implementation GraphViewParameters
-
 @synthesize regions = _regions;
-
-- (void)dealloc
-{
-    [_regions release];
-    [super dealloc];
-}
-
 @end
 
 
@@ -498,11 +490,9 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 - (CGPathRef)newGoalBandPath {
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (! goal.defined) {
-		[goal release];
 		return NULL;
 	}
 	float goalWeight = goal.endWeight;
-	[goal release];
 	const CGFloat width = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
     const CGAffineTransform t = p.t;
 	CGMutablePathRef path = CGPathCreateMutable();
@@ -520,7 +510,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	if (! goal.defined) {
-		[goal release];
 		return NULL;
 	}
 
@@ -545,7 +534,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CGPathAddLineToPoint(path, &t, xMax, goalWeight);
 	}
 	
-	[goal release];
 	return path;
 }
 
@@ -565,7 +553,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	const CGFloat xMax = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
 	const CGFloat y = lastGP->trend.y + sc.slope * (xMax - lastGP->trend.x);
 	
-	[sc release];
 	
     const CGAffineTransform t = p.t;
 	CGMutablePathRef path = CGPathCreateMutable();
@@ -832,10 +819,6 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (void)dealloc {
 	CGImageRelease(imageRef);
-	[pointData release];
-	[flagData release];
-	[database release];
-	[super dealloc];
 }
 
 

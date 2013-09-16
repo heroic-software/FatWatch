@@ -44,11 +44,11 @@ typedef enum {
 	NSDictionary *importDefaults;
 	NSUInteger columnForField[EWImporterFieldCount];
 	NSFormatter *formatterForField[EWImporterFieldCount];
-	id <EWImporterDelegate> delegate;
+	id <EWImporterDelegate> __weak delegate;
 	BOOL deleteFirst;
 	BOOL importing;
 }
-@property (nonatomic,assign) id <EWImporterDelegate> delegate;
+@property (nonatomic,weak) id <EWImporterDelegate> delegate;
 @property (nonatomic) BOOL deleteFirst;
 @property (nonatomic,readonly,getter=isImporting) BOOL importing;
 @property (nonatomic,readonly) NSArray *columnNames;

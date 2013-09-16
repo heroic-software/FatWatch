@@ -56,7 +56,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 
 - (void)databaseDidChange:(NSNotification *)notice {
-	[spanArray release];
 	spanArray = nil;
 }
 
@@ -143,7 +142,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 								   @" to lose")
 						  forPart:1];
 	[relativeWeightButton setTextColor:[UIColor blackColor] forPart:0];
-	[goal release];
 }
 
 
@@ -176,7 +174,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 			[formatter setTimeStyle:NSDateFormatterNoStyle];
 			[dateButton setText:@"goal weight on " forPart:0];
 			[dateButton setText:[formatter stringFromDate:date] forPart:1];
-			[formatter release];
 			dateButton.enabled = YES;
 			dateButton.selected = showAbsoluteDate;
 		} else {
@@ -206,7 +203,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	if (date == nil) return;
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	NSTimeInterval t = [date timeIntervalSinceDate:[goal endDate]];
-	[goal release];
 	int dayCount = (int)floor(t / kSecondsPerDay);
 	if (dayCount > 0) {
 		[planButton setText:[self stringFromDayCount:dayCount] forPart:0];
@@ -227,7 +223,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 - (void)updateRelativeEnergyButtonWithRate:(float)rate {
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 	float plan = [goal weightChangePerDay];
-	[goal release];
 /*
  plan		rate	R-P
  ***		***		 ~0		following plan						G
@@ -305,7 +300,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	[wf setPositivePrefix:@""];
 	[relativeEnergyButton setText:[wf stringForFloat:fabsf(gap)] forPart:1];
 	[relativeEnergyButton setTextColor:energyColor forPart:1];
-	[wf release];
 	relativeEnergyButton.enabled = YES;
 }
 
@@ -358,7 +352,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 			span.totalGraphOperation = op;
 		}
 		[op enqueue];
-		[op release];
 	}
 }
 
@@ -405,13 +398,11 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 	if (! goal.defined) {
 		goalState = TrendGoalStateUndefined;
-		[goal release];
 		return;
 	}
 	
 	float goalWeight = goal.endWeight;
 	
-	[goal release];
 	
 	// Scan backwards, see what happens first.
 	
@@ -484,7 +475,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		NSNumberFormatter *wf = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleWeightPerWeek];
 		[wf setPositivePrefix:@""];
 		part1Text = [wf stringForObjectValue:change];
-		[wf release];
 	}
 	[weightChangeButton setText:part0Text forPart:0];
 	[weightChangeButton setText:part1Text forPart:1];
@@ -506,7 +496,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	NSNumberFormatter *ef = [[EWWeightChangeFormatter alloc] initWithStyle:EWWeightChangeFormatterStyleEnergyPerDay];
 	[ef setPositivePrefix:@""];
 	[energyChangeButton setText:[ef stringForObjectValue:change] forPart:1];
-	[ef release];
 	
 }
 
@@ -576,7 +565,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	flag1Label.text = [pf stringForFloat:span.flagFrequencies[1]];
 	flag2Label.text = [pf stringForFloat:span.flagFrequencies[2]];
 	flag3Label.text = [pf stringForFloat:span.flagFrequencies[3]];
-	[pf release];
 }
 
 
@@ -627,7 +615,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
 		float plan = [goal weightChangePerDay];
 		rate = fabsf(rate - plan);
-		[goal release];
 	} else {
 		rate = fabsf(rate);
 	}
@@ -635,7 +622,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	float weight = [database latestWeight];
 	EnergyViewController *ctrlr = [[EnergyViewController alloc] initWithWeight:weight andChangePerDay:rate database:database];
 	[self.navigationController pushViewController:ctrlr animated:YES];
-	[ctrlr release];
 }
 
 
@@ -658,23 +644,6 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 #pragma mark Cleanup
 
 
-- (void)dealloc {
-	[database release];
-	[weightChangeButton release];
-	[energyChangeButton release];
-	[goalGroupView release];
-	[relativeEnergyButton release];
-	[relativeWeightButton release];
-	[dateButton release];
-	[planButton release];
-	[flag0Label release];
-	[flag1Label release];
-	[flag2Label release];
-	[flag3Label release];
-	[messageGroupView release];
-	[goalAttainedView release];
-	[super dealloc];
-}
 
 
 @end

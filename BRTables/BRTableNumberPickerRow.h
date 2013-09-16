@@ -19,5 +19,5 @@
 @property (nonatomic) float minimumValue;
 @property (nonatomic) float maximumValue;
 @property (nonatomic) float increment;
-@property (nonatomic,retain) NSNumber *defaultValue;
+@property (nonatomic,strong) NSNumber *defaultValue;
 @end

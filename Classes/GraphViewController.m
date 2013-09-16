@@ -56,13 +56,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 - (void)dealloc {
-	[database release];
-	[axisView release];
-	[scrollView release];
-	[spanControl release];
-	[cachedGraphViews release];
 	[self clearGraphSegments];
-	[super dealloc];
 }
 
 
@@ -78,7 +72,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		scrollingSpanSavedOffsetX = offsetX - segment.offsetX;
 	}
 
-    [graphSegments release];
     graphSegments = nil;
 	
 	parameters.regions = nil;
@@ -154,7 +147,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 				minWeight = MIN(minWeight, goal.endWeight);
 				maxWeight = MAX(maxWeight, goal.endWeight);
 			}
-			[goal release];
 		}
 	}
 	
@@ -185,12 +177,10 @@ static NSString * const kShowFatKey = @"ChartShowFat";
                 segment.operation = nil;
             }
             [info addObject:segment];
-            [segment release];
 			m += 1;
 			x += w;
 		}
         graphSegments = [info copy];
-        [info release];
 		
 		CGFloat offsetX;
 		if (scrollingSpanSavedOffsetX < 0) {
@@ -211,8 +201,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		segment.view = nil;
 		segment.imageRef = NULL;
 		segment.operation = nil;
-        graphSegments = [@[ segment ] retain];
-        [segment release];
+        graphSegments = @[ segment ];
 		
 		scrollView.contentSize = scrollView.bounds.size;
 		[scrollView setContentOffset:CGPointZero animated:NO];
@@ -422,7 +411,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	copyButtonIndex = [menu addButtonWithTitle:@"Copy"];
 	menu.cancelButtonIndex = [menu addButtonWithTitle:@"Cancel"];
 	[menu showInView:self.view];
-	[menu release];
 }
 
 
@@ -478,7 +466,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 				segment.view = view;
 				[cachedGraphViews removeLastObject];
 			} else {
-				segment.view = [[[GraphView alloc] init] autorelease];
+				segment.view = [[GraphView alloc] init];
 				segment.view.yAxisView = axisView;
 				// insert subview at the back, so it doesn't overlap the scroll indicator
 				[scrollView insertSubview:segment.view atIndex:0];

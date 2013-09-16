@@ -13,10 +13,10 @@
 @interface BRReachability : NSObject {
 	SCNetworkReachabilityRef reachabilityRef;
 	BOOL monitoring;
-	id delegate;
+	id __weak delegate;
 }
 @property (nonatomic,readonly,getter=isMonitoring) BOOL monitoring;
-@property (nonatomic,assign) id delegate;
+@property (nonatomic,weak) id delegate;
 - (void)startMonitoring;
 - (void)stopMonitoring;
 @end

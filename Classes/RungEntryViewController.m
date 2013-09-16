@@ -204,20 +204,6 @@ static unsigned short EWLadder[48][5] = {
 }
 
 
-- (void)dealloc {
-	[key release];
-	[rungControl release];
-	[rungLabel release];
-	[ladderLabel release];
-	[bendLabel release];
-	[sitUpLabel release];
-	[legLiftLabel release];
-	[pushUpLabel release];
-	[stepsLabel release];
-	[setsLabel release];
-	[extraStepsLabel release];
-    [super dealloc];
-}
 
 
 @end

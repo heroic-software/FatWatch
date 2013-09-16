@@ -58,12 +58,6 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[database release];
-	[tableView release];
-	[infoPickerController release];
-	[lastIndexPath release];
-	[sectionTitleFormatter release];
-	[super dealloc];
 }
 
 
@@ -88,8 +82,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 		} else {
 			row = EWDaysInMonth(latestMonth) - 1;
 		}
-		[lastIndexPath release];
-		lastIndexPath = [[NSIndexPath indexPathForRow:row inSection:section] retain];
+		lastIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
 		
 		[tableView reloadData];
 	}
@@ -273,7 +266,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	if (availableCell != nil) {
 		cell = (LogTableViewCell *)availableCell;
 	} else {
-		cell = [[[LogTableViewCell alloc] init] autorelease];
+		cell = [[LogTableViewCell alloc] init];
 		cell.tableView = self.tableView;
 	}
 	

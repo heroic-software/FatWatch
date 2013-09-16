@@ -18,7 +18,7 @@
 
 
 + (id)trapInvocationsForTarget:(id)aTarget forwardingTo:(id)anObject selector:(SEL)aSelector {
-	return [[[BRInvocationTrap alloc] initWithTarget:aTarget delegate:anObject selector:aSelector] autorelease];
+	return [[BRInvocationTrap alloc] initWithTarget:aTarget delegate:anObject selector:aSelector];
 }
 
 
@@ -26,7 +26,7 @@
 	NSParameterAssert(aTarget);
 	NSParameterAssert(aDelegate);
 	NSParameterAssert(aSelector);
-	target = [aTarget retain];
+	target = aTarget;
 	delegate = aDelegate;
 	action = aSelector;
 	return self;
@@ -44,10 +44,6 @@
 }
 
 
-- (void)dealloc {
-	[target release];
-	[super dealloc];
-}
 
 
 @end

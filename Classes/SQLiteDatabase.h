@@ -21,9 +21,9 @@
 
 @interface SQLiteDatabase : NSObject {
 	sqlite3 *database;
-	id <SQLiteDatabaseDelegate> delegate;
+	id <SQLiteDatabaseDelegate> __weak delegate;
 }
-@property (nonatomic,assign) id <SQLiteDatabaseDelegate> delegate;
+@property (nonatomic,weak) id <SQLiteDatabaseDelegate> delegate;
 - (id)initWithFile:(NSString *)path;
 - (id)initInMemory;
 - (SQLiteStatement *)statementFromSQL:(const char *)sql;

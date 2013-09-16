@@ -28,10 +28,10 @@
 	LogInfoPickerController *infoPickerController;
 	LogDatePickerController *datePickerController;
 }
-@property (nonatomic,retain) IBOutlet EWDatabase *database;
-@property (nonatomic,retain) IBOutlet UITableView *tableView;
-@property (nonatomic,retain) IBOutlet LogInfoPickerController *infoPickerController;
-@property (nonatomic,retain) IBOutlet LogDatePickerController *datePickerController;
-@property (nonatomic,readonly) NSDate *currentDate;
+@property (nonatomic,strong) IBOutlet EWDatabase *database;
+@property (nonatomic,strong) IBOutlet UITableView *tableView;
+@property (nonatomic,strong) IBOutlet LogInfoPickerController *infoPickerController;
+@property (nonatomic,strong) IBOutlet LogDatePickerController *datePickerController;
+@property (weak, nonatomic,readonly) NSDate *currentDate;
 - (void)scrollToDate:(NSDate *)date;
 @end

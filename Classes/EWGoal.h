@@ -38,9 +38,9 @@ typedef enum {
 @property (readonly) float currentWeight;
 
 @property float endWeight;
-@property (retain) NSNumber *endWeightNumber;
+@property (strong) NSNumber *endWeightNumber;
 
-@property (retain) NSDate *endDate;
+@property (strong) NSDate *endDate;
 @property float weightChangePerDay;
 
 - (id)initWithDatabase:(EWDatabase *)db;

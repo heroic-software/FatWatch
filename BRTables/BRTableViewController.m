@@ -30,10 +30,6 @@
 }
 
 
-- (void)dealloc {
-	[sections release];
-	[super dealloc];
-}
 
 
 - (NSUInteger)numberOfSections {
@@ -54,7 +50,6 @@
 - (BRTableSection *)addNewSection {
 	BRTableSection *section = [[BRTableSection alloc] init];
 	[self addSection:section animated:NO];
-	[section release];
 	return section;
 }
 
@@ -96,7 +91,6 @@
 		// Could replace this with a simple nav bar
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
 		[self presentModalViewController:nav animated:YES];
-		[nav release];
 	}
 }
 
@@ -147,9 +141,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	BRTableSection* section = sections[indexPath.section];
-	[section retain];
 	[section didSelectRowAtIndex:indexPath.row];
-	[section release];
 }
 
 

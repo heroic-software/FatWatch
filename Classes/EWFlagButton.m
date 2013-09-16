@@ -41,14 +41,13 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 	
 	NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
 	NSArray *sortDescriptors = @[desc];
-	[desc release];
 	
 	if ([set respondsToSelector:@selector(sortedArrayUsingDescriptors:)]) {
 		return [set sortedArrayUsingDescriptors:sortDescriptors];
 	} else {
 		NSMutableArray *allNames = [[set allObjects] mutableCopy];
 		[allNames sortUsingDescriptors:sortDescriptors];
-		return [allNames autorelease];
+		return allNames;
 	}
 }
 
@@ -212,7 +211,6 @@ static inline CGRect BRRectOfSizeCenteredInRect(CGSize size, CGRect rect) {
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 

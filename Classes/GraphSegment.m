@@ -20,11 +20,8 @@
 - (void)dealloc
 {
     [_view removeFromSuperview];
-    [_view release];
     CGImageRelease(_imageRef);
     [_operation cancel];
-    [_operation release];
-    [super dealloc];
 }
 
 - (void)setImageRef:(CGImageRef)imageRef

@@ -58,8 +58,6 @@
 		}
 	}
 	NSLog(@"DATABASE\n\n%@\n", output);
-	[df release];
-	[output release];
 }
 
 
@@ -98,7 +96,6 @@
 
 - (void)closeDatabase {
 	[testdb close];
-	[testdb release];
 	testdb = nil;
 }
 

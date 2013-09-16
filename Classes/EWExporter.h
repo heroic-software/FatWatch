@@ -38,8 +38,8 @@ NSFormatter *EWFatFormatterAtIndex(int index);
 	NSDate *beginDate;
 	NSDate *endDate;
 }
-@property (nonatomic,retain) NSDate *beginDate;
-@property (nonatomic,retain) NSDate *endDate;
+@property (nonatomic,strong) NSDate *beginDate;
+@property (nonatomic,strong) NSDate *endDate;
 // Public API
 - (void)addField:(EWExporterField)field name:(NSString *)name formatter:(NSFormatter *)formatter;
 - (void)addBackupFields;

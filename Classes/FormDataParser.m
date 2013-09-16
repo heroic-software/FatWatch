@@ -61,7 +61,7 @@
 
 - (id)initWithConnection:(MicroWebConnection *)theConnection {
 	if ((self = [self init])) {
-		connection = [theConnection retain];
+		connection = theConnection;
 		if ([[connection requestMethod] isEqualToString:@"POST"]) {
 			NSString *contentType = [connection stringForRequestHeader:@"Content-Type"];
 			if ([contentType hasPrefix:@"multipart/form-data"]) {
@@ -75,11 +75,6 @@
 }
 
 
-- (void)dealloc {
-	[dictionary release];
-	[connection release];
-	[super dealloc];
-}
 
 
 - (NSString *)description {
@@ -112,7 +107,7 @@
 - (NSString *)stringForKey:(NSString *)key {
 	id object = dictionary[key];
 	if ([object isKindOfClass:[NSData class]]) {
-		return [[[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding] autorelease];
+		return [[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding];
 	}
 	return object;
 }
@@ -127,7 +122,6 @@
 	
 	bodyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	bodyScan = [[NSScanner alloc] initWithString:bodyString];
-	[bodyString release];
 	
 	NSMutableString *accum = [[NSMutableString alloc] init];
 	NSString *key = nil;
@@ -150,7 +144,6 @@
 				} else {
 					NSLog(@"Warning: expected hex number, got '%@'", digits);
 				}
-				[digitScan release];
 			} else {
 				NSLog(@"Warning: %% escape without two digits following");
 				[accum appendString:@"%"];
@@ -162,7 +155,6 @@
 		else if ([bodyScan scanString:@"=" intoString:nil]) {
 			if (key) {
 				NSLog(@"Warning: discarding key '%@'", key);
-				[key release];
 			}
 			key = [accum copy];
 			[accum setString:@""];
@@ -171,19 +163,14 @@
 			NSString *value = [accum copy];
 			if (key) {
 				dictionary[key] = value;
-				[key release];
 				key	= nil;
 			} else {
 				dictionary[value] = @"";
 			}
-			[value release];
 			[accum setString:@""];
 		}
 	}
 	
-	[key release];
-	[accum release];
-	[bodyScan release];
 }
 
 
@@ -206,16 +193,13 @@
 		headers[name] = value;
 	}
 	
-	[scanner release];
-	[headersString release];
-	return [headers autorelease];
+	return headers;
 }
 
 
 - (void)parsePartData:(NSData *)partData {
 	DataSearch *crlfcrlf = [[DataSearch alloc] initWithData:partData patternData:[NSData dataWithBytes:"\r\n\r\n" length:4]];
 	NSUInteger crlfcrlfIndex = [crlfcrlf nextIndex];
-	[crlfcrlf release];
 	
 	NSData *headersData = [partData subdataWithRange:NSMakeRange(0, crlfcrlfIndex + 2)];
 	NSDictionary *headers = [self parseHeadersFromData:headersData];
@@ -239,7 +223,6 @@
 		[scanner scanString:@"\"" intoString:nil]) {
 		dictionary[name] = bodyData;
 	}
-	[scanner release];
 }
 
 
@@ -271,7 +254,6 @@
 		partRange.location = partEndIndex + [boundaryData length] + 2;
 	}
 	
-	[boundary release];
 }
 
 @end

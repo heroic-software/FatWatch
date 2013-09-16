@@ -145,7 +145,6 @@
 	alert.message = @"Do you want to open this website?";
 	alert.buttonTitle = @"Website";
 	[[alert confirmBeforeSendingMessageTo:[UIApplication sharedApplication]] openURL:bookURL];
-	[alert release];
 }
 
 
@@ -162,14 +161,6 @@
 }
 
 
-- (void)dealloc {
-	[flagTabView release];
-	[iconArea release];
-	[enableLadderView release];
-	[disableLadderView release];
-	[iconNames release];
-    [super dealloc];
-}
 
 
 @end

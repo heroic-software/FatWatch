@@ -14,9 +14,9 @@
 
 + (NSFormatter *)formatterWithDateFormat:(NSString *)format {
 	if ([format isEqualToString:@"y-MM-dd"]) {
-		return [[[EWISODateFormatter alloc] init] autorelease];
+		return [[EWISODateFormatter alloc] init];
 	} else {
-		return [[[EWDateFormatter alloc] initWithDateFormat:format] autorelease];
+		return [[EWDateFormatter alloc] initWithDateFormat:format];
 	}
 }
 
@@ -42,10 +42,6 @@
 	return NO;
 }
 
-- (void)dealloc {
-	[realFormatter release];
-	[super dealloc];
-}
 
 @end
 
@@ -74,7 +70,6 @@
 					[scanner scanUpToCharactersFromSet:digitSet intoString:nil] &&
 					[scanner scanInteger:&day]);
 	
-	[scanner release];
 	
 	if (success) {
 		EWMonth m = ((year - 2001) * 12) + (month - 1);

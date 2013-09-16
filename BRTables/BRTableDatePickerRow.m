@@ -65,25 +65,18 @@
 			[df setTimeStyle:NSDateFormatterShortStyle];
 		}
 		self.formatter = df;
-		[df release];
 		return df;
 	}
 	return f;
 }
 
 
-- (void)dealloc {
-	[minimumDate release];
-	[maximumDate release];
-	[super dealloc];
-}
 
 
 - (void)didSelect {
 	[super didSelect];
 	BRDatePickerViewController *controller = [[BRDatePickerViewController alloc] initWithRow:self];
 	[self.section.controller presentViewController:controller forRow:self];
-	[controller release];
 }
 
 

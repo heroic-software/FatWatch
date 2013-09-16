@@ -48,8 +48,6 @@
 	STAssertEquals(goal.currentWeight, 100.0f, @"current weight");
 	STAssertEquals(goal.endWeight, 90.0f, @"goal weight");
 
-	[goal release];
-	[testdb release];
 }
 
 

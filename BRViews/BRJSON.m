@@ -24,7 +24,6 @@
 	[json appendBytes:&quote length:1];
 	[json appendData:[s dataUsingEncoding:NSUTF8StringEncoding]];
 	[json appendBytes:&quote length:1];
-	[s release];
 }
 @end
 

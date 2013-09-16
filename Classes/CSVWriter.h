@@ -15,7 +15,7 @@
 	NSCharacterSet *quotedCharSet;
 	NSNumberFormatter *floatFormatter;
 }
-@property (nonatomic,retain) NSNumberFormatter *floatFormatter;
+@property (nonatomic,strong) NSNumberFormatter *floatFormatter;
 - (void)addString:(NSString *)value;
 - (void)addFloat:(float)value;
 - (void)addBoolean:(BOOL)value;

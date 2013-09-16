@@ -63,7 +63,6 @@
 				id value = srcDict[key];
 				[ud setObject:value forKey:key];
 			}
-			[srcDict release];
 		} else {
 			NSLog(@"No defaults to load for '%@'", name);
 		}
@@ -73,7 +72,6 @@
 		for (NSString *key in keys) {
 			[ud removeObjectForKey:key];
 		}
-		[keys release];
 	}		
 }
 
@@ -121,7 +119,6 @@
 	message.shadowColor = [UIColor brownColor];
 	message.autoresizingMask = mask;
 	[baseView addSubview:message];
-	[message release];
 	
 	UIButton *button;
 	
@@ -163,13 +160,9 @@
 	[baseView addSubview:button];
 	
 	self.view = baseView;
-	[baseView release];
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

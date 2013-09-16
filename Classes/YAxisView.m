@@ -150,14 +150,9 @@ static const CGFloat gMinorTickWidth = 3.5f;
 		}
 		CGContextRestoreGState(ctxt);
 	}
-	[goal release];
 }
 
 
-- (void)dealloc {
-	[database release];
-	[super dealloc];
-}
 
 
 @end

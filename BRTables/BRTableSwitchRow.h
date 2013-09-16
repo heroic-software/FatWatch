@@ -13,5 +13,5 @@
 @interface BRTableSwitchRow : BRTableRow {
 	NSString *key;
 }
-@property (nonatomic,retain) NSString *key;
+@property (nonatomic,strong) NSString *key;
 @end

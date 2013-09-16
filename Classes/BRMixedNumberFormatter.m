@@ -17,7 +17,7 @@
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMinimumFractionDigits:digits];
 	[formatter setMaximumFractionDigits:digits];
-	return [formatter autorelease];
+	return formatter;
 }
 
 
@@ -29,7 +29,7 @@
 	formatter.quotientFormatter = [self numberFormatterWithFractionDigits:0];
 	formatter.remainderFormatter = [self numberFormatterWithFractionDigits:digits];
 	formatter.formatString = NSLocalizedString(@"%@\xe2\x80\x88st %@\xe2\x80\x88lb", @"Stone Format");
-	return [formatter autorelease];
+	return formatter;
 }
 
 
@@ -41,7 +41,7 @@
 	formatter.quotientFormatter = nf;
 	formatter.remainderFormatter = nf;
 	formatter.formatString = NSLocalizedString(@"%@\'\xe2\x80\x88%@\"", @"Feet Format");
-	return [formatter autorelease];
+	return formatter;
 }
 
 
