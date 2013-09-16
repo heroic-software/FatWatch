@@ -106,7 +106,6 @@
     // we set up shop. Otherwise, we an ImportViewController has just been
     // dismissed, and there is nothing to do but clean up.
     if (importer == nil) {
-        [RootViewController setAutorotationEnabled:NO];
         [reachability startMonitoring];
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     } else {
@@ -126,7 +125,6 @@
         [webServer stop];
         statusLabel.text = @"Off";
         [self displayDetailView:nil];
-        [RootViewController setAutorotationEnabled:YES];
     }
 }
 
@@ -329,8 +327,6 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 		[NSString stringWithFormat:@"attachment; filename=\"FatWatch-Export-%@.%@\"", 
 		 [isoDF stringFromDate:[NSDate date]],
 		 [exporter fileExtension]];
-		
-		[isoDF release];
 		
 		[connection setValue:[exporter contentType] forResponseHeader:@"Content-Type"];
 		[connection setValue:contentDisposition forResponseHeader:@"Content-Disposition"];

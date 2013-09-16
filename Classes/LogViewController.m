@@ -30,7 +30,6 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 @synthesize database;
-@synthesize tableView;
 @synthesize infoPickerController;
 @synthesize datePickerController;
 
@@ -84,7 +83,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 		}
 		lastIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
 		
-		[tableView reloadData];
+		[self.tableView reloadData];
 	}
 }
 
@@ -97,8 +96,8 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 - (NSIndexPath *)indexPathForMonthDay:(EWMonthDay)monthday {
 	EWMonth month = EWMonthDayGetMonth(monthday);
 	EWDay day = EWMonthDayGetDay(monthday);
-	NSUInteger section = MIN((month - earliestMonth), [self numberOfSectionsInTableView:tableView] - 1);
-	NSUInteger row = MIN(day, [self tableView:tableView numberOfRowsInSection:section]) - 1;
+	NSUInteger section = MIN((month - earliestMonth), [self numberOfSectionsInTableView:self.tableView] - 1);
+	NSUInteger row = MIN(day, [self tableView:self.tableView numberOfRowsInSection:section]) - 1;
 	return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
@@ -110,7 +109,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (NSIndexPath *)indexPathForMiddle {
-	NSArray *indexPathArray = [tableView indexPathsForVisibleRows];
+	NSArray *indexPathArray = [self.tableView indexPathsForVisibleRows];
 	if ([indexPathArray count] > 0) {
 		NSUInteger middleIndex = [indexPathArray count] / 2;
 		return indexPathArray[middleIndex];
@@ -128,9 +127,9 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (void)deselectSelectedRow {
-	NSIndexPath *tableSelection = [tableView indexPathForSelectedRow];
+	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
 	if (tableSelection) {
-		[tableView deselectRowAtIndexPath:tableSelection animated:YES];
+		[self.tableView deselectRowAtIndexPath:tableSelection animated:YES];
 	}
 }
 
@@ -156,16 +155,16 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	NSIndexPath *targetPath = [self indexPathForMonthDay:md];
 	
 	if ([targetPath isEqual:middlePath]) {
-		UITableViewCell *cell = [tableView cellForRowAtIndexPath:targetPath];
+		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:targetPath];
         [UIView animateWithDuration:0.2 animations:^(void) {
             [cell setHighlighted:YES];
         } completion:^(BOOL finished) {
             [cell setHighlighted:NO animated:YES];
         }];
 	} else {
-		[tableView selectRowAtIndexPath:targetPath 
-							   animated:YES
-						 scrollPosition:UITableViewScrollPositionMiddle];
+		[self.tableView selectRowAtIndexPath:targetPath
+                                    animated:YES
+                              scrollPosition:UITableViewScrollPositionMiddle];
 	}
 }
 													  
@@ -185,7 +184,15 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    [[UINib nibWithNibName:@"LogViewController" bundle:nil] instantiateWithOwner:self options:nil];
 
+    self.tableView.rowHeight = 51;
+    self.tableView.tableHeaderView = self.tableHeaderView;
+    self.tableView.tableFooterView = self.tableFooterView;
+    self.navigationItem.rightBarButtonItem = self.goToBarButtonItem;
+    self.navigationItem.titleView = self.auxDisplayButton;
+    
 	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 								  UIViewAutoresizingFlexibleHeight);
 	
@@ -207,11 +214,11 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	if (scrollDestination != 0) {
 		// If we do this in viewWillAppear:, we are sometimes off by 20px,
 		// because the view is resized between 'WillAppear and 'DidAppear:.
-		[tableView reloadData];
+		[self.tableView reloadData];
 		NSIndexPath *path = [self indexPathForMonthDay:scrollDestination];
-		[tableView scrollToRowAtIndexPath:path
-						 atScrollPosition:UITableViewScrollPositionBottom
-								 animated:NO];
+		[self.tableView scrollToRowAtIndexPath:path
+                              atScrollPosition:UITableViewScrollPositionBottom
+                                      animated:NO];
 		scrollDestination = 0;
 	}
 	[self deselectSelectedRow];
@@ -222,9 +229,9 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (void)tabBarItemDoubleTapped {
-	[tableView scrollToRowAtIndexPath:lastIndexPath 
-					 atScrollPosition:UITableViewScrollPositionBottom
-							 animated:YES];
+	[self.tableView scrollToRowAtIndexPath:lastIndexPath
+                          atScrollPosition:UITableViewScrollPositionBottom
+                                  animated:YES];
 }
 
 
@@ -259,7 +266,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 #pragma mark UITableViewDelegate (Required)
 
 
-- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	LogTableViewCell *cell = nil;
 	
 	id availableCell = [tableView dequeueReusableCellWithIdentifier:kLogCellReuseIdentifier];
@@ -267,7 +274,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 		cell = (LogTableViewCell *)availableCell;
 	} else {
 		cell = [[LogTableViewCell alloc] init];
-		cell.tableView = self.tableView;
+		cell.tableView = tableView;
 	}
 	
 	EWDBMonth *monthData = [database getDBMonth:[self monthForSection:indexPath.section]];

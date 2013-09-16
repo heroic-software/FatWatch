@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface RootViewController : UIViewController {
-	UIViewController *portraitViewController;
-	UIViewController *landscapeViewController;
-	UIViewController *currentViewController;
-}
-+ (void)setAutorotationEnabled:(BOOL)flag;
-@property (nonatomic,strong) IBOutlet UIViewController *portraitViewController;
-@property (nonatomic,strong) IBOutlet UIViewController *landscapeViewController;
+@interface RootViewController : UITabBarController
+@property (nonatomic, strong) IBOutlet UIViewController *landscapeViewController;
 @end

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class RootViewController;
 @class EWDatabase;
 
 
@@ -23,7 +22,6 @@ typedef enum {
 
 @interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
-	RootViewController *rootViewController;
 	UIViewController *launchViewController;
 	NSUInteger lastTapTabIndex;
 	NSTimeInterval lastTapTime;
@@ -31,7 +29,7 @@ typedef enum {
 	EWLaunchSequenceStage launchStage;
     NSData *dataToImport;
 }
-@property (nonatomic,strong) IBOutlet RootViewController *rootViewController;
+@property (nonatomic,strong) IBOutlet UITabBarController *rootTabBarController;
 - (NSString *)databasePath;
 - (void)continueLaunchSequence;
 @end

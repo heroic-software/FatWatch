@@ -35,9 +35,6 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 @implementation EatWatchAppDelegate
 
 
-@synthesize rootViewController;
-
-
 - (void)registerDefaults {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	if ([defs firstLaunchDate] == nil) [defs setFirstLaunchDate];
@@ -84,7 +81,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	if (![dbm hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
 		[controller configureForDay:day dbMonth:dbm];
-		[rootViewController.portraitViewController presentViewController:controller animated:NO completion:nil];
+		[_rootTabBarController presentViewController:controller animated:NO completion:nil];
 	}
 }
 
@@ -127,10 +124,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	lastTapTabIndex = [defs integerForKey:kSelectedTabIndex];
-	UITabBarController *tabBarController = (id)rootViewController.portraitViewController;
-	tabBarController.selectedIndex = lastTapTabIndex;
+    _rootTabBarController.selectedIndex = lastTapTabIndex;
 	
-	launchViewController = rootViewController;
+	launchViewController = _rootTabBarController;
     
     if (dataToImport) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -146,9 +142,8 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 - (void)continueLaunchSequence {
-	NSString *transitionType = nil;
-	NSString *transitionSubtype = nil;
-	
+	CATransition *animation = [CATransition animation];
+
 	if (launchViewController != nil) {
 		[launchViewController.view removeFromSuperview];
 		launchViewController = nil;
@@ -156,38 +151,36 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 			case EWLaunchSequenceStageDebug:
 			case EWLaunchSequenceStageAuthorize:
 			case EWLaunchSequenceStageUpgrade:
-				transitionType = kCATransitionReveal;
-				transitionSubtype = kCATransitionFromTop;
+                [animation setType:kCATransitionReveal];
+                [animation setSubtype:kCATransitionFromTop];
 				break;
 			case EWLaunchSequenceStageNewDatabase:
-				transitionType = kCATransitionPush;
-				transitionSubtype = kCATransitionFromRight;
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromRight];
 				break;
 			case EWLaunchSequenceStageComplete:
 				break;
 		}
 	}
 	
-	do {
-		launchStage += 1;
+    while (launchViewController == nil) {
+        launchStage += 1;
 		switch (launchStage) {
-			case EWLaunchSequenceStageDebug: [self launchStageDebug]; break;
-			case EWLaunchSequenceStageAuthorize: [self launchStageAuthorize]; break;
-			case EWLaunchSequenceStageUpgrade: [self launchStageUpgrade]; break;
+			case EWLaunchSequenceStageDebug:       [self launchStageDebug];       break;
+			case EWLaunchSequenceStageAuthorize:   [self launchStageAuthorize];   break;
+			case EWLaunchSequenceStageUpgrade:     [self launchStageUpgrade];     break;
 			case EWLaunchSequenceStageNewDatabase: [self launchStageNewDatabase]; break;
-			case EWLaunchSequenceStageComplete: [self launchStageComplete]; break;
+			case EWLaunchSequenceStageComplete:    [self launchStageComplete];    break;
 		}
-	} while (launchViewController == nil);
-	
-    window.rootViewController = launchViewController;
-	
-	if (launchStage == EWLaunchSequenceStageComplete) [self autoWeighInIfEnabled];
+	}
 
-	CATransition *animation = [CATransition animation];
-	[animation setType:transitionType];
-	[animation setSubtype:transitionSubtype];
-	[animation setDuration:0.250];
-	[[window layer] addAnimation:animation forKey:nil];
+    window.rootViewController = launchViewController;
+    if (launchStage == EWLaunchSequenceStageComplete) {
+        [self autoWeighInIfEnabled];
+    }
+
+    [animation setDuration:0.3];
+    [[window layer] addAnimation:animation forKey:nil];
 }
 
 
@@ -198,6 +191,9 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 {
 	[self registerDefaults];
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    if ([window respondsToSelector:@selector(setTintColor:)]) {
+//        [window setTintColor:[UIColor colorWithRed:0.88 green:0 blue:0 alpha:1]];
+    }
 	[self continueLaunchSequence];
     [window makeKeyAndVisible];
 	return YES;

@@ -78,6 +78,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 	if ((self = [super initWithNibName:@"LogEntryView" bundle:nil])) {
 		scaleIncrement = [[NSUserDefaults standardUserDefaults] weightIncrement];
 		weightFormatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleDisplay];
+        self.wantsFullScreenLayout = YES;
 		NSAssert(scaleIncrement > 0, @"scale increment must be greater than 0");
 	}
 	return self;
