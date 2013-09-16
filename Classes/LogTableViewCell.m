@@ -363,7 +363,7 @@ static NSInteger gAuxiliaryInfoType;
 	
 	if (dd->note) {
 		[(inverse ? [UIColor lightGrayColor] : [UIColor darkGrayColor]) set];
-        NSString *note = (NSString *)dd->note;
+        NSString *note = (__bridge NSString *)dd->note;
 		[note drawInRect:CGRectMake(noteX, noteY, noteWidth, noteHeight)
                 withFont:[UIFont systemFontOfSize:12]
            lineBreakMode:UILineBreakModeMiddleTruncation

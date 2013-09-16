@@ -232,7 +232,7 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 			[insertStmt bindInt:d->flags[1] toParameter:kFlag1Column+1];
 			[insertStmt bindInt:d->flags[2] toParameter:kFlag2Column+1];
 			[insertStmt bindInt:d->flags[3] toParameter:kFlag3Column+1];
-			[insertStmt bindString:(NSString *)d->note toParameter:kNoteColumn+1];
+			[insertStmt bindString:(__bridge NSString *)d->note toParameter:kNoteColumn+1];
 			[insertStmt step];
 			[insertStmt reset];
 		} else {

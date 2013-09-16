@@ -122,67 +122,58 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 	it.skipEmptyRecords = YES;
 	const EWDBDay *dd;
 
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	int poolLaps = 0;
-	
 	while ((dd = [it nextDBDay])) {
-		[self beginRecord];
-		for (int i = 0; i < fieldCount; i++) {
-			EWExporterField f = fieldOrder[i];
-			id value;
-			
-			switch (f) {
-				case EWExporterFieldDate:
-					value = @(it.currentMonthDay);
-					break;
-				case EWExporterFieldWeight:
-					value = @(dd->scaleWeight);
-					break;
-				case EWExporterFieldTrendWeight:
-					value = @(dd->trendWeight);
-					break;
-				case EWExporterFieldFat: {
-					float ratio;
-					if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
-						ratio = dd->scaleFatWeight / dd->scaleWeight;
-					} else {
-						ratio = 0;
-					}
-					value = @(ratio);
-					break;
-				}
-				case EWExporterFieldFlag0:
-					value = @(dd->flags[0]);
-					break;
-				case EWExporterFieldFlag1:
-					value = @(dd->flags[1]);
-					break;
-				case EWExporterFieldFlag2:
-					value = @(dd->flags[2]);
-					break;
-				case EWExporterFieldFlag3:
-					value = @(dd->flags[3]);
-					break;
-				case EWExporterFieldNote:
-					value = (NSString *)dd->note;
-					break;
-				default:
-					value = nil;
-					break;
-			}
-
-			[self exportField:f value:value];
-		}
-		[self endRecord];
-		// TODO: test to figure out best lap count
-		if (poolLaps < 64) {
-			poolLaps += 1;
-		} else {
-			[pool drain];
-			pool = [[NSAutoreleasePool alloc] init];
-		}
+        @autoreleasepool {
+            [self beginRecord];
+            for (int i = 0; i < fieldCount; i++) {
+                EWExporterField f = fieldOrder[i];
+                id value;
+                
+                switch (f) {
+                    case EWExporterFieldDate:
+                        value = @(it.currentMonthDay);
+                        break;
+                    case EWExporterFieldWeight:
+                        value = @(dd->scaleWeight);
+                        break;
+                    case EWExporterFieldTrendWeight:
+                        value = @(dd->trendWeight);
+                        break;
+                    case EWExporterFieldFat: {
+                        float ratio;
+                        if (dd->scaleFatWeight > 0 && dd->scaleWeight > 0) {
+                            ratio = dd->scaleFatWeight / dd->scaleWeight;
+                        } else {
+                            ratio = 0;
+                        }
+                        value = @(ratio);
+                        break;
+                    }
+                    case EWExporterFieldFlag0:
+                        value = @(dd->flags[0]);
+                        break;
+                    case EWExporterFieldFlag1:
+                        value = @(dd->flags[1]);
+                        break;
+                    case EWExporterFieldFlag2:
+                        value = @(dd->flags[2]);
+                        break;
+                    case EWExporterFieldFlag3:
+                        value = @(dd->flags[3]);
+                        break;
+                    case EWExporterFieldNote:
+                        value = (__bridge NSString *)dd->note;
+                        break;
+                    default:
+                        value = nil;
+                        break;
+                }
+                
+                [self exportField:f value:value];
+            }
+            [self endRecord];
+        }
 	}
-	[pool release];
 }
 
 

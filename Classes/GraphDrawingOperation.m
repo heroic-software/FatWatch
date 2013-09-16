@@ -53,6 +53,19 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 #define GraphRegionGetColor(rgn) [rgn objectAtIndex:1]
 
 
+@implementation GraphViewParameters
+
+@synthesize regions = _regions;
+
+- (void)dealloc
+{
+    [_regions release];
+    [super dealloc];
+}
+
+@end
+
+
 @implementation GraphDrawingOperation
 
 
@@ -116,17 +129,17 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	CGRect rect;
 	UIColor *color;
-	CGFloat bandWeight = ((kBandHeight * 4) / gp->scaleY);
+	CGFloat bandWeight = ((kBandHeight * 4) / gp.scaleY);
 	CGRect wholeRect = CGRectMake(0,
-								  gp->minWeight + bandWeight,
+								  gp.minWeight + bandWeight,
 								  width,
-								  gp->maxWeight - gp->minWeight - bandWeight);
+								  gp.maxWeight - gp.minWeight - bandWeight);
 	
-	if (w[0] > gp->minWeight) {
-		rect = CGRectMake(0, gp->minWeight, width, w[0] - gp->minWeight);
+	if (w[0] > gp.minWeight) {
+		rect = CGRectMake(0, gp.minWeight, width, w[0] - gp.minWeight);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [EWWeightFormatter colorForWeight:gp->minWeight alpha:0.2f];
+			color = [EWWeightFormatter colorForWeight:gp.minWeight alpha:0.2f];
 			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
@@ -145,16 +158,16 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		[regions addObject:GraphRegionMake(rect, color)];
 	}
 	
-	if (w[2] < gp->maxWeight) {
-		rect = CGRectMake(0, w[2], width, gp->maxWeight - w[2]);
+	if (w[2] < gp.maxWeight) {
+		rect = CGRectMake(0, w[2], width, gp.maxWeight - w[2]);
 		rect = CGRectIntersection(wholeRect, rect);
 		if (!CGRectIsEmpty(rect)) {
-			color = [EWWeightFormatter colorForWeight:gp->maxWeight alpha:0.2f];
+			color = [EWWeightFormatter colorForWeight:gp.maxWeight alpha:0.2f];
 			[regions addObject:GraphRegionMake(rect, color)];
 		}
 	}
 	
-	gp->regions = [regions copy];
+	gp.regions = regions;
 }
 
 
@@ -174,39 +187,42 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 				break;
 		}
 	}
-	if ((gp->maxWeight - gp->minWeight) < minRange) {
-		float centerWeight = 0.5f * (gp->minWeight + gp->maxWeight);
-		gp->minWeight = centerWeight - (0.5f * minRange);
-		gp->maxWeight = centerWeight + (0.5f * minRange);
+	if ((gp.maxWeight - gp.minWeight) < minRange) {
+		float centerWeight = 0.5f * (gp.minWeight + gp.maxWeight);
+		gp.minWeight = centerWeight - (0.5f * minRange);
+		gp.maxWeight = centerWeight + (0.5f * minRange);
 	}
 
 	if (numberOfDays > 0) {
-		gp->scaleX = (size.width - kGraphMarginRight) / numberOfDays;
+		gp.scaleX = (size.width - kGraphMarginRight) / numberOfDays;
 	}
 	
-	gp->scaleY = (size.height - (kGraphMarginTop + kGraphMarginBottom)) / (gp->maxWeight - gp->minWeight);
-	gp->minWeight -= (kGraphMarginBottom / gp->scaleY);
-	gp->maxWeight += (kGraphMarginTop / gp->scaleY);
+	gp.scaleY = (size.height - (kGraphMarginTop + kGraphMarginBottom)) / (gp.maxWeight - gp.minWeight);
+	gp.minWeight -= (kGraphMarginBottom / gp.scaleY);
+	gp.maxWeight += (kGraphMarginTop / gp.scaleY);
 		
 	float increment = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
-	float minIncrement = [UIFont systemFontSize] / gp->scaleY;
+	float minIncrement = [UIFont systemFontSize] / gp.scaleY;
 	while (increment < minIncrement) {
 		increment = EWChartWeightIncrementAfterIncrement(increment);
 	}
-	CGFloat adjustment = ((kBandHeight * 4 + kGraphMarginBottom) / gp->scaleY);
-	gp->gridIncrement = increment;
-	gp->gridMinWeight = floorf((gp->minWeight + adjustment) / increment) * increment;
+	CGFloat adjustment = ((kBandHeight * 4 + kGraphMarginBottom) / gp.scaleY);
+	gp.gridIncrement = increment;
+	gp.gridMinWeight = floorf((gp.minWeight + adjustment) / increment) * increment;
 	
 	CGAffineTransform t = CGAffineTransformMakeTranslation(0, size.height);
-	t = CGAffineTransformScale(t, gp->scaleX, -gp->scaleY);
-	t = CGAffineTransformTranslate(t, -0.5f, -gp->minWeight);
-	gp->t = t;
+	t = CGAffineTransformScale(t, gp.scaleX, -gp.scaleY);
+	t = CGAffineTransformTranslate(t, -0.5f, -gp.minWeight);
+	gp.t = t;
 	
-	if (!gp->showFatWeight) {
+	if (!gp.showFatWeight) {
 		[self prepareBMIRegionsForGraphViewParameters:gp];
 	}
-	
-	[db getEarliestMonthDay:&gp->mdEarliest latestMonthDay:&gp->mdLatest filter:EWDatabaseFilterNone];
+
+	EWMonthDay earliest, latest;
+	[db getEarliestMonthDay:&earliest latestMonthDay:&latest filter:EWDatabaseFilterNone];
+    gp.mdEarliest = earliest;
+    gp.mdLatest = latest;
 }
 
 
@@ -214,7 +230,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 	dayCount = 1 + EWDaysBetweenMonthDays(beginMonthDay, endMonthDay);
 	
-	if (p->mdEarliest == 0 || p->mdLatest == 0) {
+	if (p.mdEarliest == 0 || p.mdLatest == 0) {
 		return; // no data, nothing to draw!
 	}
 	
@@ -223,36 +239,36 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	CGFloat x;
 		
 	// Is the requested start after actual data starts?
-	if (p->mdEarliest < beginMonthDay) {
+	if (p.mdEarliest < beginMonthDay) {
 		// If so, comply with request.
 		x = 1;
 		mdStart = beginMonthDay;
 		// Compute head point, because there is earlier data.
 		EWMonthDay mdHead;
-		const EWDBDay *dbd = [database getMonthDay:&mdHead withWeightBefore:mdStart onlyFat:p->showFatWeight];
+		const EWDBDay *dbd = [database getMonthDay:&mdHead withWeightBefore:mdStart onlyFat:p.showFatWeight];
 		if (dbd) {
 			headPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdHead);
-			headPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
+			headPoint.y = (p.showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
 		}
 	} else {
 		// Otherwise, bump X to compensate.
-		mdStart = p->mdEarliest;
+		mdStart = p.mdEarliest;
 		x = 1 + EWDaysBetweenMonthDays(beginMonthDay, mdStart);
 		// don't need to compute headPoint because there is no earlier data
 	}
 	
-	if (endMonthDay < p->mdLatest) {
+	if (endMonthDay < p.mdLatest) {
 		// If we requested an end before data ends, stop there.
 		mdStop = endMonthDay;
 		// Compute tail point, because there is later data.
 		EWMonthDay mdTail;
-		const EWDBDay *dbd = [database getMonthDay:&mdTail withWeightAfter:mdStop onlyFat:p->showFatWeight];
+		const EWDBDay *dbd = [database getMonthDay:&mdTail withWeightAfter:mdStop onlyFat:p.showFatWeight];
 		if (dbd) {
 			tailPoint.x = x + EWDaysBetweenMonthDays(mdStart, mdTail);
-			tailPoint.y = (p->showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
+			tailPoint.y = (p.showFatWeight ? dbd->trendFatWeight : dbd->trendWeight);
 		}
 	} else {
-		mdStop = p->mdLatest;
+		mdStop = p.mdLatest;
 	}
 
 	pointData = [[NSMutableData alloc] initWithCapacity:31 * sizeof(GraphPoint)];
@@ -264,12 +280,12 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	it.skipEmptyRecords = NO;
 	const EWDBDay *dd;
 	while ((dd = [it nextDBDay])) {
-		if (p->showFatWeight && (dd->scaleFatWeight > 0)) {
+		if (p.showFatWeight && (dd->scaleFatWeight > 0)) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleFatWeight);
 			gp.trend = CGPointMake(x, dd->trendFatWeight);
 			[pointData appendBytes:&gp length:sizeof(GraphPoint)];
-		} else if (!p->showFatWeight && (dd->scaleWeight > 0)) {
+		} else if (!p.showFatWeight && (dd->scaleWeight > 0)) {
 			GraphPoint gp;
 			gp.scale = CGPointMake(x, dd->scaleWeight);
 			gp.trend = CGPointMake(x, dd->trendWeight);
@@ -303,25 +319,26 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newWeekendsBackgroundPath {
 	// If a single day is less than two pixels wide, don't bother.
-	if (p->scaleX < 2) return NULL;
+	if (p.scaleX < 2) return NULL;
 	
 	// If weekend shading has been disabled, don't do anything.
 	if (! [[NSUserDefaults standardUserDefaults] highlightWeekends]) return NULL;
 
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGFloat bandWeight = ((kBandHeight * 4) / p->scaleY);
-	CGFloat h = p->maxWeight - p->minWeight - bandWeight;
+	CGFloat bandWeight = ((kBandHeight * 4) / p.scaleY);
+	CGFloat h = p.maxWeight - p.minWeight - bandWeight;
 	
 	NSUInteger wd = EWWeekdayFromMonthAndDay(EWMonthDayGetMonth(beginMonthDay), 
 											 EWMonthDayGetDay(beginMonthDay));
+    CGAffineTransform t = p.t;
 
 	if (wd == 1) {
-		CGPathAddRect(path, &p->t, CGRectMake(0.5f, p->minWeight, 1, h));
+		CGPathAddRect(path, &t, CGRectMake(0.5f, p.minWeight, 1, h));
 	}
 	
-	CGRect dayRect = CGRectMake(7.5f - wd, p->minWeight + bandWeight, 2, h);
+	CGRect dayRect = CGRectMake(7.5f - wd, p.minWeight + bandWeight, 2, h);
 	while (dayRect.origin.x < dayCount) {
-		CGPathAddRect(path, &p->t, dayRect);
+		CGPathAddRect(path, &t, dayRect);
 		dayRect.origin.x += 7;
 	}
 	
@@ -331,9 +348,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newGridPath {
 	CGMutablePathRef gridPath = CGPathCreateMutable();
-	const CGFloat bandWeight = ((kBandHeight * 4) / p->scaleY);
-	const CGFloat minY = p->minWeight + bandWeight;
-	const CGFloat maxY = p->maxWeight;
+	const CGFloat bandWeight = ((kBandHeight * 4) / p.scaleY);
+	const CGFloat minY = p.minWeight + bandWeight;
+	const CGFloat maxY = p.maxWeight;
+    const CGAffineTransform t = p.t;
 	
 	// vertical lines
 	CGFloat x = 0.5f;
@@ -342,8 +360,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		EWMonth month = EWMonthDayGetMonth(md);
 		EWDay day = EWMonthDayGetDay(md);
 		if (day == 1) {
-			CGPathMoveToPoint(gridPath, &p->t, x, minY);
-			CGPathAddLineToPoint(gridPath, &p->t, x, maxY);
+			CGPathMoveToPoint(gridPath, &t, x, minY);
+			CGPathAddLineToPoint(gridPath, &t, x, maxY);
 			x += EWDaysInMonth(month);
 		} else {
 			x += EWDaysInMonth(month) - day + 1;
@@ -352,10 +370,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 	
 	// horizontal lines:
-	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
-	for (float w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
-		CGPathMoveToPoint(gridPath, &p->t, -0.5f, w);
-		CGPathAddLineToPoint(gridPath, &p->t, xMax, w);
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
+	for (float w = p.gridMinWeight; w < p.maxWeight; w += p.gridIncrement) {
+		CGPathMoveToPoint(gridPath, &t, -0.5f, w);
+		CGPathAddLineToPoint(gridPath, &t, xMax, w);
 	}
 	return gridPath;
 }
@@ -388,29 +406,30 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newTrendPath {
 	CGMutablePathRef path = CGPathCreateMutable();
+    const CGAffineTransform t = p.t;
 	
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
 		
 		if (headPoint.y > 0) {
-			CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
-			CGPathAddLineToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+			CGPathMoveToPoint(path, &t, headPoint.x, headPoint.y);
+			CGPathAddLineToPoint(path, &t, gp[0].trend.x, gp[0].trend.y);
 		} else {
-			CGPathMoveToPoint(path, &p->t, gp[0].trend.x, gp[0].trend.y);
+			CGPathMoveToPoint(path, &t, gp[0].trend.x, gp[0].trend.y);
 		}
 		
 		for (NSUInteger k = 1; k < gpCount; k++) {
-			CGPathAddLineToPoint(path, &p->t, gp[k].trend.x, gp[k].trend.y);
+			CGPathAddLineToPoint(path, &t, gp[k].trend.x, gp[k].trend.y);
 		}
 
 		if (tailPoint.y > 0) {
-			CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
+			CGPathAddLineToPoint(path, &t, tailPoint.x, tailPoint.y);
 		}
 	} else {
 		if (headPoint.y > 0 && tailPoint.y > 0) {
-			CGPathMoveToPoint(path, &p->t, headPoint.x, headPoint.y);
-			CGPathAddLineToPoint(path, &p->t, tailPoint.x, tailPoint.y);
+			CGPathMoveToPoint(path, &t, headPoint.x, headPoint.y);
+			CGPathAddLineToPoint(path, &t, tailPoint.x, tailPoint.y);
 		}
 	}
 	
@@ -420,14 +439,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 - (CGPathRef)newMarksPath {
 	CGMutablePathRef path = CGPathCreateMutable();
-	
-	const CGFloat markRadius = 0.5f * MIN(kDayWidth, p->scaleX);
+
+    const CGFloat markRadius = 0.5f * MIN(kDayWidth, p.scaleX);
 	
 	NSUInteger gpCount = [pointData length] / sizeof(GraphPoint);
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
 		for (NSUInteger k = 0; k < gpCount; k++) {
-			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
+			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p.t);
 			scalePoint.x = roundf(scalePoint.x);
 			scalePoint.y = roundf(scalePoint.y);
 
@@ -453,8 +472,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	if (gpCount > 0) {
 		const GraphPoint *gp = [pointData bytes];
 		for (NSUInteger k = 0; k < gpCount; k++) {
-			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p->t);
-			CGPoint trendPoint = CGPointApplyAffineTransform(gp[k].trend, p->t);
+			CGPoint scalePoint = CGPointApplyAffineTransform(gp[k].scale, p.t);
+			CGPoint trendPoint = CGPointApplyAffineTransform(gp[k].trend, p.t);
 			
 			CGFloat y = 0;
 			
@@ -484,12 +503,13 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 	float goalWeight = goal.endWeight;
 	[goal release];
-	const CGFloat width = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
+	const CGFloat width = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
+    const CGAffineTransform t = p.t;
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathMoveToPoint(path, &p->t, 0, goalWeight - gGoalBandHalfHeight);
-	CGPathAddLineToPoint(path, &p->t, width, goalWeight - gGoalBandHalfHeight);
-	CGPathMoveToPoint(path, &p->t, 0, goalWeight + gGoalBandHalfHeight);
-	CGPathAddLineToPoint(path, &p->t, width, goalWeight + gGoalBandHalfHeight);
+	CGPathMoveToPoint(path, &t, 0, goalWeight - gGoalBandHalfHeight);
+	CGPathAddLineToPoint(path, &t, width, goalWeight - gGoalBandHalfHeight);
+	CGPathMoveToPoint(path, &t, 0, goalWeight + gGoalBandHalfHeight);
+	CGPathAddLineToPoint(path, &t, width, goalWeight + gGoalBandHalfHeight);
 	return path;
 }
 
@@ -508,20 +528,21 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	const GraphPoint *lastGP = [pointData bytes] + [pointData length] - sizeof(GraphPoint);
 
-	if (p->showFatWeight) {
+	if (p.showFatWeight) {
 		float currentLeanWeight = goal.currentWeight - lastGP->scale.y;
 		goalWeight -= currentLeanWeight;
 	}
 	
 	const CGFloat m = [goal weightChangePerDay];	
 	const CGFloat x = lastGP->trend.x + fabsf((lastGP->trend.y - goalWeight) / m);
+    const CGAffineTransform t = p.t;
 
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
-	CGPathAddLineToPoint(path, &p->t, x, goalWeight);
-	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
+	CGPathMoveToPoint(path, &t, lastGP->trend.x, lastGP->trend.y);
+	CGPathAddLineToPoint(path, &t, x, goalWeight);
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
 	if (x < xMax) {
-		CGPathAddLineToPoint(path, &p->t, xMax, goalWeight);
+		CGPathAddLineToPoint(path, &t, xMax, goalWeight);
 	}
 	
 	[goal release];
@@ -541,14 +562,15 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	}
 
 	const GraphPoint *lastGP = &gp[gpCount-1];
-	const CGFloat xMax = (CGRectGetWidth(bounds) / p->scaleX) + 0.5f;
+	const CGFloat xMax = (CGRectGetWidth(bounds) / p.scaleX) + 0.5f;
 	const CGFloat y = lastGP->trend.y + sc.slope * (xMax - lastGP->trend.x);
 	
 	[sc release];
 	
+    const CGAffineTransform t = p.t;
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathMoveToPoint(path, &p->t, lastGP->trend.x, lastGP->trend.y);
-	CGPathAddLineToPoint(path, &p->t, xMax, y);
+	CGPathMoveToPoint(path, &t, lastGP->trend.x, lastGP->trend.y);
+	CGPathAddLineToPoint(path, &t, xMax, y);
 	
 	return path;
 }
@@ -560,10 +582,10 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	for (int f = 0; f < 4; f++) {
 		unsigned char mask = (1 << f);
 		CGMutablePathRef flagPath = CGPathCreateMutable();
-		CGRect rect = CGRectMake(0, CGRectGetMaxY(bounds) - (kBandHeight*(4-f)), p->scaleX, kBandHeight);
+		CGRect rect = CGRectMake(0, CGRectGetMaxY(bounds) - (kBandHeight*(4-f)), p.scaleX, kBandHeight);
 		for (NSUInteger k = 0; k < fpCount; k++) {
 			if (fp[k].bits & mask) {
-				rect.origin.x = ((fp[k].x - 1) * p->scaleX);
+				rect.origin.x = ((fp[k].x - 1) * p.scaleX);
 				CGPathAddRect(flagPath, NULL, rect);
 			}
 		}
@@ -665,7 +687,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 	// Background: Colored BMI Zones
 	
-	if ([p->regions count] > 0) {
+	if ([p.regions count] > 0) {
 		static const CGFloat clearColorComponents[] = { 0, 0, 0, 0 };
 		static const CGFloat gradientLocations[] = { 0, 1 };
 
@@ -675,7 +697,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		CFArraySetValueAtIndex(colorArray, 0, clearColor);
 		CGColorRelease(clearColor);
 		
-		for (NSArray *region in p->regions) {
+		for (NSArray *region in p.regions) {
 			CGRect rect = GraphRegionGetRect(region);
 			UIColor *color = GraphRegionGetColor(region);
 			
@@ -683,8 +705,8 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 			CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, colorArray, gradientLocations);
 			
-			CGPoint startPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMinY(rect)), p->t);
-			CGPoint endPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMaxY(rect)), p->t);
+			CGPoint startPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMinY(rect)), p.t);
+			CGPoint endPoint = CGPointApplyAffineTransform(CGPointMake(0, CGRectGetMaxY(rect)), p.t);
 			CGContextDrawLinearGradient(ctxt, gradient, startPoint, endPoint, 0);
 			
 			CGGradientRelease(gradient);
@@ -696,18 +718,18 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 	
 	// Foreground
 	
-	const CGFloat kZoomScale = MIN(p->scaleX / kDayWidth, 1.0f);
+	const CGFloat kZoomScale = MIN(p.scaleX / kDayWidth, 1.0f);
 	const CGFloat kTrendLineWidth = MAX(2.0f, 3.0f * kZoomScale);
 	const CGFloat kMarkLineWidth = MAX(1.0f, 1.5f * kZoomScale);
 	const CGFloat kErrorLineWidth = MAX(0.5f, 2.0f * kZoomScale);
 	
-	if (p->shouldDrawNoDataWarning && [pointData length] == 0) {
+	if (p.shouldDrawNoDataWarning && [pointData length] == 0) {
 		// Message: nothing to display
 		[self drawNoDataWarningInContext:ctxt];
 	} else {
 		CGContextSaveGState(ctxt);
 
-		BOOL drawMarks = (p->scaleX > 3) && ([pointData length] > 0);
+		BOOL drawMarks = (p.scaleX > 3) && ([pointData length] > 0);
 
 		// Foreground: Draw Floater/Sinker Lines
 		
@@ -724,7 +746,7 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 		
 		CGContextSetLineCap(ctxt, kCGLineCapRound);
 
-		if (p->showFatWeight) {
+		if (p.showFatWeight) {
 			CGContextSetRGBStrokeColor(ctxt, 0.1f,0.1f,0.8f, 1);
 		} else {
 			CGContextSetRGBStrokeColor(ctxt, 0.8f,0.1f,0.1f, 1);

@@ -20,6 +20,7 @@
 #import "EWFlagButton.h"
 #import "EWDateFormatter.h"
 #import "ImportViewController.h"
+#import "EWDatabase.h"
 
 
 #define HTTP_STATUS_OK 200
@@ -199,9 +200,8 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	NSString *label = [NSString stringWithFormat:@"%@ (%@)",
 					   [df stringFromDate:[NSDate date]],
 					   name];
-	[df autorelease];
-	return @{@"value": format,
-			@"label": label};
+    [df release];
+	return @{@"value": format, @"label": label};
 }
 
 

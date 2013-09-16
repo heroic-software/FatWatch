@@ -46,7 +46,7 @@ static const CGFloat gMinorTickWidth = 3.5f;
 	const CGFloat viewWidth = CGRectGetWidth(bounds);
 	NSString *label = [formatter stringForObjectValue:@(w)];
 	CGSize labelSize = [label sizeWithFont:labelFont];
-	CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+	CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p.t);
 	CGRect labelRect = CGRectMake(viewWidth - labelSize.width - gTickWidth, 
 								  point.y - (labelSize.height / 2),
 								  labelSize.width,
@@ -75,19 +75,19 @@ static const CGFloat gMinorTickWidth = 3.5f;
 	UIFont *labelFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];	
 	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWWeightFormatterStyleGraph];
 	[[UIColor blackColor] setFill];
-	for (float w = p->gridMinWeight; w < p->maxWeight; w += p->gridIncrement) {
+	for (float w = p.gridMinWeight; w < p.maxWeight; w += p.gridIncrement) {
 		// draw tick label
 		[self drawLabelForWeight:w formatter:formatter font:labelFont];
 		// add tick line to path
-		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p.t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
 	
 	// minor ticks
 	float incr = [[NSUserDefaults standardUserDefaults] weightWholeIncrement];
-	for (float w = p->gridMinWeight; w < p->maxWeight; w += incr) {
-		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p->t);
+	for (float w = p.gridMinWeight; w < p.maxWeight; w += incr) {
+		CGPoint point = CGPointApplyAffineTransform(CGPointMake(0, w), p.t);
 		CGPathMoveToPoint(tickPath, NULL, viewWidth - gMinorTickWidth, point.y);
 		CGPathAddLineToPoint(tickPath, NULL, viewWidth, point.y);
 	}
@@ -100,13 +100,13 @@ static const CGFloat gMinorTickWidth = 3.5f;
 
 	// Goal Indicator
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:database];
-	if (goal.defined && !p->showFatWeight) {
+	if (goal.defined && !p.showFatWeight) {
 		static const CGFloat dashLengths[] = { 4, 4 };
 		
 		float goalWeight = goal.endWeight;
 		CGRect band = CGRectApplyAffineTransform(CGRectMake(0, goalWeight - gGoalBandHalfHeight, 
 															1, gGoalBandHeight),
-												 p->t);
+												 p.t);
 		band.origin.x = 0;
 		band.size.width = viewWidth;
 		

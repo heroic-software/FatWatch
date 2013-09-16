@@ -18,7 +18,7 @@
 void BRReachabilityCallback(SCNetworkReachabilityRef target,
 							SCNetworkReachabilityFlags flags,
 							void *info) {
-	BRReachability *reachability = (BRReachability *)info;
+	BRReachability *reachability = (__bridge BRReachability *)info;
 	[reachability.delegate reachability:reachability didUpdateFlags:flags];
 }
 

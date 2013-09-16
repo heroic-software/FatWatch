@@ -28,7 +28,7 @@
 
 
 void MicroReadStreamCallback(CFReadStreamRef stream, CFStreamEventType eventType, void *info) {
-	MicroWebConnection *connection = (MicroWebConnection *)info;
+	MicroWebConnection *connection = (__bridge MicroWebConnection *)info;
 	switch (eventType) {
 		case kCFStreamEventHasBytesAvailable:
 			[connection readStreamHasBytesAvailable];
@@ -41,7 +41,7 @@ void MicroReadStreamCallback(CFReadStreamRef stream, CFStreamEventType eventType
 
 
 void MicroWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType eventType, void *info) {
-	MicroWebConnection *connection = (MicroWebConnection *)info;
+	MicroWebConnection *connection = (__bridge MicroWebConnection *)info;
 	switch (eventType) {
 		case kCFStreamEventCanAcceptBytes:
 			[connection writeStreamCanAcceptBytes];
@@ -63,7 +63,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 	CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 
-	MicroWebServer *webServer = (MicroWebServer *)info;
+	MicroWebServer *webServer = (__bridge MicroWebServer *)info;
 	MicroWebConnection *webConnection;
 	
 	webConnection = [[MicroWebConnection alloc] initWithServer:webServer
@@ -75,7 +75,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	
 	CFStreamClientContext context;
 	context.version = 0;
-	context.info = webConnection;
+	context.info = (__bridge void *)(webConnection);
 	context.retain = NULL;
 	context.release = NULL;
 	context.copyDescription = NULL;
@@ -434,7 +434,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 - (NSString *)stringForRequestHeader:(NSString *)headerName {
-	NSString *headerValue = (NSString *)CFHTTPMessageCopyHeaderFieldValue(requestMessage, (CFStringRef)headerName);
+	NSString *headerValue = (NSString *)CFHTTPMessageCopyHeaderFieldValue(requestMessage, (__bridge CFStringRef)headerName);
 	return [headerValue autorelease];
 }
 
@@ -473,7 +473,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 		string = [value description];
 	}
 	
-	CFHTTPMessageSetHeaderFieldValue(responseMessage, (CFStringRef)header, (CFStringRef)string);
+	CFHTTPMessageSetHeaderFieldValue(responseMessage, (__bridge CFStringRef)header, (__bridge CFStringRef)string);
 }
 
 
@@ -485,10 +485,10 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 - (void)endResponseWithBodyData:(NSData *)data {
 	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
-	CFHTTPMessageSetBody(responseMessage, (CFDataRef)data);
+	CFHTTPMessageSetBody(responseMessage, (__bridge CFDataRef)data);
 
 	NSString *lenstr = [NSString stringWithFormat:@"%d", [data length]];
-	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Content-Length"), (CFStringRef)lenstr);
+	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Content-Length"), (__bridge CFStringRef)lenstr);
 	
 	// Sorry, we don't support Keep Alive.
 	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));

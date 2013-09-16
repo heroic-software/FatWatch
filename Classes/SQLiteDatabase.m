@@ -21,7 +21,7 @@
 
 
 void SQLiteUpdateHandler(void *user, int op, char const *dbname, char const *tblname,sqlite3_int64 rowid) {
-	SQLiteDatabase *db = user;
+	SQLiteDatabase *db = (__bridge SQLiteDatabase *)(user);
 	NSString *dbNameString = [[NSString alloc] initWithFormat:@"%s", dbname];
 	NSString *tblNameString = [[NSString alloc] initWithFormat:@"%s", tblname];
 	[db.delegate didUpdateSQLiteDatabase:db name:dbNameString table:tblNameString row:rowid operation:op];
@@ -31,19 +31,19 @@ void SQLiteUpdateHandler(void *user, int op, char const *dbname, char const *tbl
 
 
 int SQLiteCommitHandler(void *user) {
-	SQLiteDatabase *db = user;
+	SQLiteDatabase *db = (__bridge SQLiteDatabase *)(user);
 	return [db.delegate shouldCommitQuerySQLiteDatabase:db] ? 0 : 1;
 }
 
 
 void SQLiteRollbackHandler(void *user) {
-	SQLiteDatabase *db = user;
+	SQLiteDatabase *db = (__bridge SQLiteDatabase *)(user);
 	[db.delegate didRollbackQuerySQLiteDatabase:db];
 }
 
 
 int SQLiteProgressHandler(void *user) {
-	SQLiteDatabase *db = user;
+	SQLiteDatabase *db = (__bridge SQLiteDatabase *)(user);
 	return [db.delegate shouldContinueQuerySQLiteDatabase:db] ? 0 : 1;
 }
 

@@ -193,7 +193,6 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 
 
 - (void)continueImportToDatabase:(EWDatabase *)db {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSDate *updateDate = [NSDate date];
 	NSUInteger rowCount = 0;
 	NSUInteger importedCount = 0;
@@ -205,55 +204,55 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 	
 	NSArray *rowArray;
 	while ((rowArray = [reader readRow])) {
-		rowCount += 1;
-				
-		NSNumber *monthDay = [self valueForField:EWImporterFieldDate inArray:rowArray];
-		if (monthDay == nil) continue;
-
-		EWMonthDay md = [monthDay intValue];
-		EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
-		EWDay day = EWMonthDayGetDay(md);
-		EWDBDay dd;
-
-		bcopy([dbm getDBDayOnDay:day], &dd, sizeof(EWDBDay));
-		
-		id value;
-		
-		value = [self valueForField:EWImporterFieldWeight inArray:rowArray];
-		if (value) dd.scaleWeight = [value floatValue];
-		
-		value = [self valueForField:EWImporterFieldFatRatio inArray:rowArray];
-		if (value && dd.scaleWeight > 0) {
-			dd.scaleFatWeight = [value floatValue] * dd.scaleWeight;
-		}
-
-		value = [self valueForField:EWImporterFieldFlag0 inArray:rowArray];
-		if (value) dd.flags[0] = [value intValue];
-		value = [self valueForField:EWImporterFieldFlag1 inArray:rowArray];
-		if (value) dd.flags[1] = [value intValue];
-		value = [self valueForField:EWImporterFieldFlag2 inArray:rowArray];
-		if (value) dd.flags[2] = [value intValue];
-		value = [self valueForField:EWImporterFieldFlag3 inArray:rowArray];
-		if (value) dd.flags[3] = [value intValue];
-
-		value = [self valueForField:EWImporterFieldNote inArray:rowArray];
-		if (value) dd.note = (CFStringRef)value;
-		
-		[dbm setDBDay:&dd onDay:day];
-
-		importedCount += 1;
-
-		if ([updateDate timeIntervalSinceNow] < 0) {
-            float progress = reader.progress;
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [delegate importer:self importProgress:progress];
-            });
+        @autoreleasepool {
+            rowCount += 1;
+            
+            NSNumber *monthDay = [self valueForField:EWImporterFieldDate inArray:rowArray];
+            if (monthDay == nil) continue;
+            
+            EWMonthDay md = [monthDay intValue];
+            EWDBMonth *dbm = [db getDBMonth:EWMonthDayGetMonth(md)];
+            EWDay day = EWMonthDayGetDay(md);
+            EWDBDay dd;
+            
+            bcopy([dbm getDBDayOnDay:day], &dd, sizeof(EWDBDay));
+            
+            id value;
+            
+            value = [self valueForField:EWImporterFieldWeight inArray:rowArray];
+            if (value) dd.scaleWeight = [value floatValue];
+            
+            value = [self valueForField:EWImporterFieldFatRatio inArray:rowArray];
+            if (value && dd.scaleWeight > 0) {
+                dd.scaleFatWeight = [value floatValue] * dd.scaleWeight;
+            }
+            
+            value = [self valueForField:EWImporterFieldFlag0 inArray:rowArray];
+            if (value) dd.flags[0] = [value intValue];
+            value = [self valueForField:EWImporterFieldFlag1 inArray:rowArray];
+            if (value) dd.flags[1] = [value intValue];
+            value = [self valueForField:EWImporterFieldFlag2 inArray:rowArray];
+            if (value) dd.flags[2] = [value intValue];
+            value = [self valueForField:EWImporterFieldFlag3 inArray:rowArray];
+            if (value) dd.flags[3] = [value intValue];
+            
+            value = [self valueForField:EWImporterFieldNote inArray:rowArray];
+            if (value) dd.note = (__bridge CFStringRef)value;
+            
+            [dbm setDBDay:&dd onDay:day];
+            
+            importedCount += 1;
+            
+            if ([updateDate timeIntervalSinceNow] < 0) {
+                float progress = reader.progress;
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [delegate importer:self importProgress:progress];
+                });
 #if TARGET_IPHONE_SIMULATOR
-            [NSThread sleepForTimeInterval:0.1];
+                [NSThread sleepForTimeInterval:0.1];
 #endif
-            [pool drain];
-            pool = [[NSAutoreleasePool alloc] init];
-            updateDate = [NSDate dateWithTimeIntervalSinceNow:0.05];
+                updateDate = [NSDate dateWithTimeIntervalSinceNow:0.05];
+            }
         }
 	}
 
@@ -263,8 +262,6 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
         importing = NO;
         [delegate importer:self didImportNumberOfMeasurements:importedCount outOfNumberOfRows:rowCount];
     });
-    
-    [pool release];
 }
 
 

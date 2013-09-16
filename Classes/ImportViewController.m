@@ -8,6 +8,7 @@
 
 #import "ImportViewController.h"
 #import "EWImporter.h"
+#import "EWDatabase.h"
 
 @implementation ImportViewController
 

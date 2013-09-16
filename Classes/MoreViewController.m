@@ -21,6 +21,7 @@
 #import "AboutViewController.h"
 #import "RegistrationViewController.h"
 #import "BRColorPalette.h"
+#import "EWDatabase.h"
 
 
 enum {

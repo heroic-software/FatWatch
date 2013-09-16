@@ -24,7 +24,7 @@
 @property (nonatomic) CGImageRef image;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
-@property (nonatomic) GraphViewParameters *p;
+@property (nonatomic,strong) GraphViewParameters *p;
 @property (nonatomic,retain) UIView *yAxisView;
 @property (nonatomic) BOOL drawBorder;
 - (void)exportImageToSavedPhotos;

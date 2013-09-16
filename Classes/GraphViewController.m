@@ -51,6 +51,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 - (void)awakeFromNib {
 	cachedGraphViews = [[NSMutableArray alloc] initWithCapacity:5];
+    parameters = [[GraphViewParameters alloc] init];
 }
 
 
@@ -80,7 +81,6 @@ static NSString * const kShowFatKey = @"ChartShowFat";
     [graphSegments release];
     graphSegments = nil;
 	
-	[parameters.regions release];
 	parameters.regions = nil;
 }
 
@@ -161,7 +161,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	parameters.minWeight = minWeight;
 	parameters.maxWeight = maxWeight;
 		
-	[GraphDrawingOperation prepareGraphViewInfo:&parameters 
+	[GraphDrawingOperation prepareGraphViewInfo:parameters
 										forSize:size
 								   numberOfDays:numberOfDays
 									   database:database];
@@ -226,7 +226,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 - (void)viewDidLoad {
 	isLoading = YES; // prevents segmented controls from calling databaseDidChange:
 	axisView.database = database;
-	[axisView useParameters:&parameters];
+	[axisView useParameters:parameters];
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
 	spanControl.selectedSegmentIndex = [defs integerForKey:kSelectedSpanIndexKey];
 	parameters.showFatWeight = [defs boolForKey:kShowFatKey];
@@ -338,7 +338,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 	segment.view.beginMonthDay = segment.beginMonthDay;
 	segment.view.endMonthDay = segment.endMonthDay;
-	segment.view.p = &parameters;
+	segment.view.p = parameters;
 	segment.view.image = segment.imageRef;
 	[segment.view setNeedsDisplay];
 	
@@ -347,7 +347,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		operation.database = database;
 		operation.delegate = self;
 		operation.index = i;
-		operation.p = &parameters;
+		operation.p = parameters;
 		operation.bounds = segment.view.bounds;
 		operation.beginMonthDay = segment.beginMonthDay;
 		operation.endMonthDay = segment.endMonthDay;

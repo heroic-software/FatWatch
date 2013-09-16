@@ -7,8 +7,15 @@
 //
 
 #import "GraphSegment.h"
+#import "GraphView.h"
+#import "GraphDrawingOperation.h"
+
 
 @implementation GraphSegment
+
+@synthesize view = _view;
+@synthesize operation = _operation;
+@synthesize imageRef = _imageRef;
 
 - (void)dealloc
 {

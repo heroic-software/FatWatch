@@ -327,8 +327,8 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 		imgRef = span.totalGraphImageRef;
 	}
 		
-	if (!gp->shouldDrawNoDataWarning) {
-		gp->shouldDrawNoDataWarning = YES;
+	if (!gp.shouldDrawNoDataWarning) {
+		gp.shouldDrawNoDataWarning = YES;
 		[GraphDrawingOperation prepareGraphViewInfo:gp 
 											forSize:graphView.bounds.size
 									   numberOfDays:span.length
@@ -366,7 +366,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 - (void)drawingOperationComplete:(GraphDrawingOperation *)operation {
 	if ([operation isCancelled]) return;
 	TrendSpan *span = spanArray[operation.index];
-	BOOL isFat = operation.p->showFatWeight;
+	BOOL isFat = operation.p.showFatWeight;
 
 	// Display now, if needed
 	if (operation.index == spanIndex && isFat == showFat) {

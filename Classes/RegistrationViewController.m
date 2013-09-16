@@ -61,7 +61,7 @@ static RegistrationViewController *gSharedController = nil;
 
 
 - (void)refreshAction:(id)sender {
-	NSString *udid = [[UIDevice currentDevice] uniqueIdentifier];
+	NSString *udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 	NSString *urlStr = [REGISTRATION_URL_PREFIX stringByAppendingString:udid];
 	NSURL *url = [NSURL URLWithString:urlStr];
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -127,7 +127,7 @@ void EWSafeDictionarySet(NSMutableDictionary *dict, id key, id object) {
 			EWSafeDictionarySet(fields, @"system_name", [device systemName]);
 			EWSafeDictionarySet(fields, @"system_version", [device systemVersion]);
 			EWSafeDictionarySet(fields, @"device_model", [device model]);
-			EWSafeDictionarySet(fields, @"device_udid", [device uniqueIdentifier]);
+			EWSafeDictionarySet(fields, @"device_udid", [[device identifierForVendor] UUIDString]);
 			
 			EWSafeDictionarySet(fields, @"first_launch", [defs firstLaunchDate]);
 			EWSafeDictionarySet(fields, @"system_languages", [[defs arrayForKey:@"AppleLanguages"] componentsJoinedByString:@","]);

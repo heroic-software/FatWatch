@@ -28,7 +28,7 @@
     NSArray *graphSegments;
 	NSMutableArray *cachedGraphViews;
 	NSInteger lastMinIndex, lastMaxIndex;
-	GraphViewParameters parameters;
+	GraphViewParameters *parameters;
 	EWMonth scrollingSpanSavedMonth;
 	CGFloat scrollingSpanSavedOffsetX;
 	NSInteger saveButtonIndex, copyButtonIndex;

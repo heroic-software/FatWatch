@@ -39,14 +39,24 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 @dynamic flagFrequencies;
 @synthesize totalWeightPerDay;
 @synthesize totalEndDate;
-@dynamic totalGraphParameters;
 @synthesize totalGraphOperation;
 @synthesize totalGraphImageRef;
 @synthesize fatWeightPerDay;
 @synthesize fatEndDate;
-@dynamic fatGraphParameters;
 @synthesize fatGraphOperation;
 @synthesize fatGraphImageRef;
+@synthesize totalGraphParameters = _totalGraphParameters;
+@synthesize fatGraphParameters = _fatGraphParameters;
+
+
+- (id)init
+{
+    if ((self = [super init])) {
+        _totalGraphParameters = [[GraphViewParameters alloc] init];
+        _fatGraphParameters = [[GraphViewParameters alloc] init];
+    }
+    return self;
+}
 
 
 - (NSInteger)length {
@@ -56,16 +66,6 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 - (float *)flagFrequencies {
 	return flagFrequencies;
-}
-
-
-- (GraphViewParameters *)totalGraphParameters {
-	return &totalGraphParameters;
-}
-
-
-- (GraphViewParameters *)fatGraphParameters {
-	return &fatGraphParameters;
 }
 
 
@@ -164,15 +164,15 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 			GraphViewParameters *gp;
 			
 			gp = span.totalGraphParameters;
-			gp->showFatWeight = NO;
-			gp->minWeight = minWeight;
-			gp->maxWeight = maxWeight;
+			gp.showFatWeight = NO;
+			gp.minWeight = minWeight;
+			gp.maxWeight = maxWeight;
 			span.totalWeightPerDay = -totalComputer.slope;
 
 			gp = span.fatGraphParameters;
-			gp->showFatWeight = YES;
-			gp->minWeight = minFatWeight;
-			gp->maxWeight = maxFatWeight;
+			gp.showFatWeight = YES;
+			gp.minWeight = minFatWeight;
+			gp.maxWeight = maxFatWeight;
 			span.fatWeightPerDay = -fatComputer.slope;
 			
 			// Because of this, spans will have to be regenerated if goal changes.
@@ -256,8 +256,8 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 	CGImageRelease(fatGraphImageRef);
 	[totalGraphOperation release];
 	[fatGraphOperation release];
-	[totalGraphParameters.regions release];
-	[fatGraphParameters.regions release];
+	[_totalGraphParameters release];
+	[_fatGraphParameters release];
 	[super dealloc];
 }
 

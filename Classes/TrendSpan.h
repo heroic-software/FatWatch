@@ -22,7 +22,6 @@
 	// Dependent
 	float totalWeightPerDay, fatWeightPerDay;
 	NSDate *totalEndDate, *fatEndDate;
-	GraphViewParameters totalGraphParameters, fatGraphParameters;
 	NSOperation *totalGraphOperation, *fatGraphOperation;
 	CGImageRef totalGraphImageRef, fatGraphImageRef;
 }

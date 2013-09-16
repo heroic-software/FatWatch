@@ -154,7 +154,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	
 	if (launchViewController != nil) {
 		[launchViewController.view removeFromSuperview];
-		[launchViewController autorelease];
+		[launchViewController release];
 		launchViewController = nil;
 		switch (launchStage) {
 			case EWLaunchSequenceStageDebug:

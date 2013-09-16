@@ -68,7 +68,6 @@
 	if (buttonIndex != anAlertView.cancelButtonIndex) {
 		[invocation invoke];
 	}
-	[self autorelease];
 }
 
 

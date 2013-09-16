@@ -79,7 +79,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 - (void)drawYearLabels {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	if (p->scaleX * 365 < 45) {
+	if (p.scaleX * 365 < 45) {
 		formatter.dateFormat = @"’yy";
 	} else {
 		formatter.dateFormat = @"y";
@@ -100,9 +100,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		NSDate *date = EWDateFromMonthAndDay(month, 1);
 		NSString *text = [formatter stringFromDate:date];
 		
-		CGRect clipRect = CGRectMake(x * p->scaleX, 0, width * p->scaleX, 100);
+		CGRect clipRect = CGRectMake(x * p.scaleX, 0, width * p.scaleX, 100);
 		CGSize textSize = [text sizeWithFont:font];
-		CGPoint textPoint = CGPointMake(x * p->scaleX + kLabelOffsetX, kLabelOffsetY);
+		CGPoint textPoint = CGPointMake(x * p.scaleX + kLabelOffsetX, kLabelOffsetY);
 		
 		if (textSize.width > clipRect.size.width) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
@@ -141,9 +141,9 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 		NSDate *date = EWDateFromMonthAndDay(month, 1);
 		NSString *text = [formatter stringFromDate:date];
 
-		CGRect clipRect = CGRectMake(x * p->scaleX, 0, width * p->scaleX, 100);
+		CGRect clipRect = CGRectMake(x * p.scaleX, 0, width * p.scaleX, 100);
 		CGSize textSize = [text sizeWithFont:font];
-		CGPoint textPoint = CGPointMake(x * p->scaleX + kLabelOffsetX, kLabelOffsetY);
+		CGPoint textPoint = CGPointMake(x * p.scaleX + kLabelOffsetX, kLabelOffsetY);
 		
 		if (textSize.width > clipRect.size.width) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
@@ -195,7 +195,7 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 	}
 
 	if (p) {
-		if (p->scaleX * 30 < 28) {
+		if (p.scaleX * 30 < 28) {
 			[self drawYearLabels];
 		} else {
 			[self drawMonthLabels];

@@ -28,7 +28,6 @@ typedef enum {
 	NSUInteger spanIndex;
 	BOOL showFat;
 	BOOL showAbsoluteDate;
-	GraphViewParameters graphParams;
 	GraphView *graphView;
 	UIView *changeGroupView;
 	EWTrendButton *weightChangeButton;

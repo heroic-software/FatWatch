@@ -13,20 +13,20 @@
 @class EWDatabase;
 
 
-typedef struct {
-	float minWeight;
-	float maxWeight;
-	float scaleX;
-	float scaleY;
-	float gridMinWeight;
-	float gridIncrement;
-	CGAffineTransform t;
-	NSArray *regions;
-	EWMonthDay mdEarliest;
-	EWMonthDay mdLatest;
-	BOOL shouldDrawNoDataWarning;
-	BOOL showFatWeight;
-} GraphViewParameters;
+@interface GraphViewParameters : NSObject
+@property (nonatomic) float minWeight;
+@property (nonatomic) float maxWeight;
+@property (nonatomic) float scaleX;
+@property (nonatomic) float scaleY;
+@property (nonatomic) float gridMinWeight;
+@property (nonatomic) float gridIncrement;
+@property (nonatomic) CGAffineTransform t;
+@property (nonatomic, strong) NSArray *regions;
+@property (nonatomic) EWMonthDay mdEarliest;
+@property (nonatomic) EWMonthDay mdLatest;
+@property (nonatomic) BOOL shouldDrawNoDataWarning;
+@property (nonatomic) BOOL showFatWeight;
+@end
 
 
 typedef struct {
@@ -69,7 +69,7 @@ typedef struct {
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,assign) id delegate;
 @property (nonatomic) unsigned int index;
-@property (nonatomic) GraphViewParameters *p;
+@property (nonatomic,strong) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
 @property (nonatomic) BOOL showGoalLine;
 @property (nonatomic) BOOL showTrajectoryLine;

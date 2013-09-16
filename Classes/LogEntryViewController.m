@@ -367,7 +367,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
     // 5/5: Set Note
     
-    noteView.text = (NSString *)dd->note;
+    noteView.text = (__bridge NSString *)dd->note;
 
     // Update views
 

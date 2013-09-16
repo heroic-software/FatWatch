@@ -67,7 +67,6 @@
 	while (i != NSNotFound) {
 		BRTableSection *section = sections[i];
 		[section willRemoveFromController];
-		[[section retain] autorelease];
 		[sections removeObjectAtIndex:i];
 		i = [indexSet indexLessThanIndex:i];
 	}
