@@ -185,7 +185,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 				RungEntryViewController *controller = [[RungEntryViewController alloc] init];
 				controller.target = self;
 				controller.key = @"rung";
-				[self presentModalViewController:controller animated:YES];
+				[self presentViewController:controller animated:YES completion:nil];
 			} else {
 				sender.selected = !sender.selected;
 			}
@@ -196,7 +196,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
 
 - (IBAction)cancelAction:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -228,7 +228,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
 	[monthData.database commitChanges];
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -474,7 +474,7 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
         frame.size = [pickerView rowSizeForComponent:component];
 		label = [[UILabel alloc] initWithFrame:frame];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.textAlignment = UITextAlignmentCenter;
+		label.textAlignment = NSTextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
         label.opaque = NO;
 		label.font = [UIFont boldSystemFontOfSize:20];

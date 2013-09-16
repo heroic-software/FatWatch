@@ -66,7 +66,7 @@
 	
 	BRTableButtonRow *reviewRow = [[BRTableButtonRow alloc] init];
 	reviewRow.title = NSLocalizedString(@"Write an App Store Review", @"App Store review button");
-	reviewRow.titleAlignment = UITextAlignmentCenter;
+	reviewRow.titleAlignment = NSTextAlignmentCenter;
 	reviewRow.object = [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=285580720"];
 	[verSection addRow:reviewRow animated:NO];
 

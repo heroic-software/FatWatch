@@ -96,7 +96,7 @@
 	label.textColor = [UIColor colorWithRed:0.24f green:0.269f blue:0.344f alpha:1];
 	label.font = [UIFont boldSystemFontOfSize:20];
 	label.text = [self.navigationItem.title stringByAppendingString:@" is equivalent to..."];
-	label.textAlignment = UITextAlignmentCenter;
+	label.textAlignment = NSTextAlignmentCenter;
 	[header addSubview:label];
 	self.tableView.tableHeaderView = header;
 }

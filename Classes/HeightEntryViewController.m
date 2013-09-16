@@ -75,13 +75,13 @@ static const float kDefaultHeight = 1.70f;
 	float height = [self valueForPickerRow:row];
 	[[NSUserDefaults standardUserDefaults] setHeight:height];
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:YES];
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)cancelAction:(id)sender {
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -107,7 +107,7 @@ static const float kDefaultHeight = 1.70f;
         CGRect frame = CGRectZero;
         frame.size = [pickerView rowSizeForComponent:component];
 		label = [[UILabel alloc] initWithFrame:frame];
-		label.textAlignment = UITextAlignmentCenter;
+		label.textAlignment = NSTextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = nil;
         label.opaque = NO;

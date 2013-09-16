@@ -15,11 +15,6 @@
 #include <ifaddrs.h>
 
 
-@interface MicroWebServer ()
-- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object;
-@end
-
-
 @interface MicroWebConnection ()
 - (id)initWithServer:(MicroWebServer *)server readStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream;
 - (void)readStreamHasBytesAvailable;
@@ -70,8 +65,9 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 													readStream:readStream 
 												   writeStream:writeStream];
 	
-	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillReceiveRequest:) 
-								withObject:webConnection];
+    if ([webServer.delegate respondsToSelector:@selector(webConnectionWillReceiveRequest:)]) {
+        [webServer.delegate webConnectionWillReceiveRequest:webConnection];
+    }
 	
 	CFStreamClientContext context;
 	context.version = 0;
@@ -245,16 +241,6 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 }
 
 
-#pragma mark Private Methods
-
-
-- (void)sendOptionalDelegateMessage:(SEL)msg withObject:(id)object {
-	if ([delegate respondsToSelector:msg]) {
-		[delegate performSelector:msg withObject:object];
-	}
-}
-
-
 #pragma mark Cleanup
 
 
@@ -291,7 +277,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 - (NSString *)description {
 	if (responseData) {
-		return [NSString stringWithFormat:@"MicroWebConnection<%p> (%d/%d response bytes remain)", self, responseBytesRemaining, CFDataGetLength(responseData)];
+		return [NSString stringWithFormat:@"MicroWebConnection<%p> (%ld/%ld response bytes remain)", self, responseBytesRemaining, CFDataGetLength(responseData)];
 	} else {
 		return [NSString stringWithFormat:@"MicroWebConnection<%p>: reading", self];
 	}
@@ -347,7 +333,9 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	BOOL shouldClose = [self readAvailableBytes];
 
 	if ([self isRequestComplete]) {
-		[webServer sendOptionalDelegateMessage:@selector(webConnectionDidReceiveRequest:) withObject:self];
+        if ([webServer.delegate respondsToSelector:@selector(webConnectionDidReceiveRequest:)]) {
+            [webServer.delegate webConnectionDidReceiveRequest:self];
+        }
 		[(id)webServer.delegate performSelector:@selector(handleWebConnection:) withObject:self afterDelay:0];
 		shouldClose = YES;
 	}
@@ -361,7 +349,9 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 - (void)writeStreamCanAcceptBytes {
 	if (responseBytesRemaining == 0) {
 		CFWriteStreamClose(writeStream);
-		[webServer sendOptionalDelegateMessage:@selector(webConnectionDidSendResponse:) withObject:self];
+        if ([webServer.delegate respondsToSelector:@selector(webConnectionDidSendResponse:)]) {
+            [webServer.delegate webConnectionDidSendResponse:self];
+        }
 		return;
 	}
 	
@@ -484,7 +474,9 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	// Sorry, we don't support Keep Alive.
 	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Connection"), CFSTR("close"));
 	
-	[webServer sendOptionalDelegateMessage:@selector(webConnectionWillSendResponse:) withObject:self];
+    if ([webServer.delegate respondsToSelector:@selector(webConnectionWillSendResponse:)]) {
+        [webServer.delegate webConnectionWillSendResponse:self];
+    }
 
 	responseData = CFHTTPMessageCopySerializedMessage(responseMessage);
 	CFRelease(responseMessage); responseMessage = NULL;

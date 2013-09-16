@@ -114,7 +114,7 @@
 	
 	UILabel *message = [[UILabel alloc] initWithFrame:messageFrame];
 	message.text = @"Reset everything?";
-	message.textAlignment = UITextAlignmentCenter;
+	message.textAlignment = NSTextAlignmentCenter;
 	message.backgroundColor = baseView.backgroundColor;
 	message.shadowColor = [UIColor brownColor];
 	message.autoresizingMask = mask;

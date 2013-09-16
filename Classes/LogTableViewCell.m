@@ -237,12 +237,12 @@ static NSInteger gAuxiliaryInfoType;
 		}
 		[weekday drawInRect:CGRectMake(0, 5, dateWidth, 15)
 				   withFont:[UIFont systemFontOfSize:12]
-			  lineBreakMode:UILineBreakModeClip
-				  alignment:UITextAlignmentCenter];
+			  lineBreakMode:NSLineBreakByClipping
+				  alignment:NSTextAlignmentCenter];
 		[day drawInRect:CGRectMake(0, 21, dateWidth, 24)
 			   withFont:[UIFont systemFontOfSize:20]
-		  lineBreakMode:UILineBreakModeClip 
-			  alignment:UITextAlignmentCenter];
+		  lineBreakMode:NSLineBreakByClipping 
+			  alignment:NSTextAlignmentCenter];
 	}
 	
 	if (dd->scaleWeight > 0) {
@@ -342,14 +342,14 @@ static NSInteger gAuxiliaryInfoType;
 		[mainInfoString drawInRect:CGRectMake(weightX, numberRowY, 
 											  weightWidth, numberRowHeight)
 						  withFont:[UIFont boldSystemFontOfSize:20]
-					 lineBreakMode:UILineBreakModeClip
-						 alignment:UITextAlignmentRight];
+					 lineBreakMode:NSLineBreakByClipping
+						 alignment:NSTextAlignmentRight];
 		[auxInfoColor set];
 		[auxInfoString drawInRect:CGRectMake(auxiliaryX, numberRowY, 
 											 auxiliaryWidth, numberRowHeight)
 						 withFont:[UIFont systemFontOfSize:20]
-					lineBreakMode:UILineBreakModeClip
-						alignment:UITextAlignmentLeft];
+					lineBreakMode:NSLineBreakByClipping
+						alignment:NSTextAlignmentLeft];
 	}
 	
 	if (dd->note) {
@@ -357,8 +357,8 @@ static NSInteger gAuxiliaryInfoType;
         NSString *note = (__bridge NSString *)dd->note;
 		[note drawInRect:CGRectMake(noteX, noteY, noteWidth, noteHeight)
                 withFont:[UIFont systemFontOfSize:12]
-           lineBreakMode:UILineBreakModeMiddleTruncation
-               alignment:UITextAlignmentCenter];
+           lineBreakMode:NSLineBreakByTruncatingMiddle
+               alignment:NSTextAlignmentCenter];
 	}
 	
 	{
@@ -401,8 +401,8 @@ static NSInteger gAuxiliaryInfoType;
 				}
 				[string drawInRect:flagRect 
 						  withFont:[UIFont boldSystemFontOfSize:12]
-					 lineBreakMode:UILineBreakModeClip
-						 alignment:UITextAlignmentCenter];
+					 lineBreakMode:NSLineBreakByClipping
+						 alignment:NSTextAlignmentCenter];
 			}
 			else {
 				CGContextSaveGState(ctxt);

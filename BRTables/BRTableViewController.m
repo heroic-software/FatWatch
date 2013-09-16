@@ -90,7 +90,7 @@
 	} else {
 		// Could replace this with a simple nav bar
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
-		[self presentModalViewController:nav animated:YES];
+		[self presentViewController:nav animated:YES completion:nil];
 	}
 }
 
@@ -99,7 +99,7 @@
 	if (self.navigationController) {
 		[self.navigationController popViewControllerAnimated:YES];
 	} else {
-		[controller dismissModalViewControllerAnimated:YES];
+		[controller dismissViewControllerAnimated:YES completion:nil];
 	}
 }
 

@@ -99,7 +99,7 @@ static const int kBRPickerViewTag = 411;
 		UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, helpY, 280, helpHeight)];
 		helpLabel.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 									  UIViewAutoresizingFlexibleHeight);
-		helpLabel.textAlignment = UITextAlignmentCenter;
+		helpLabel.textAlignment = NSTextAlignmentCenter;
 		helpLabel.textColor = [UIColor whiteColor];
 		helpLabel.backgroundColor = view.backgroundColor;
 		helpLabel.numberOfLines = 0;
@@ -181,7 +181,7 @@ static const int kBRPickerViewTag = 411;
         CGRect frame = CGRectZero;
         frame.size = [pickerView rowSizeForComponent:component];
 		label = [[UILabel alloc] initWithFrame:frame];
-		label.textAlignment = UITextAlignmentCenter;
+		label.textAlignment = NSTextAlignmentCenter;
 		label.textColor = [UIColor blackColor];
 		label.backgroundColor = nil;
         label.opaque = NO;

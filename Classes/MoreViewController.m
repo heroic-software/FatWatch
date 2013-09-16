@@ -173,7 +173,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	
 	BRTableButtonRow *webServerRow = [[BRTableButtonRow alloc] init];
 	webServerRow.title = NSLocalizedString(@"Import/Export via Wi-Fi", @"Wi-Fi button");
-	webServerRow.titleAlignment = UITextAlignmentLeft;
+	webServerRow.titleAlignment = NSTextAlignmentLeft;
 	webServerRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	webServerRow.object = wifi;
 	[dataSection addRow:webServerRow animated:NO];
@@ -195,13 +195,13 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	
 	BRTableButtonRow *webRow = [[BRTableButtonRow alloc] init];
 	webRow.title = NSLocalizedString(@"Visit www.fatwatchapp.com", @"Support website button");
-	webRow.titleAlignment = UITextAlignmentCenter;
+	webRow.titleAlignment = NSTextAlignmentCenter;
 	webRow.object = [NSURL URLWithString:NSLocalizedString(@"http://www.fatwatchapp.com/support/", @"Support website URL")];
 	[supportSection addRow:webRow animated:NO];
 	
 	BRTableButtonRow *twitterRow = [[BRTableButtonRow alloc] init];
 	twitterRow.title = NSLocalizedString(@"Follow @FatWatch on Twitter", @"Support Twitter button");
-	twitterRow.titleAlignment = UITextAlignmentCenter;
+	twitterRow.titleAlignment = NSTextAlignmentCenter;
 	twitterRow.object = @[[NSURL URLWithString:@"tweetie://user?screen_name=FatWatch"],
 						 [NSURL URLWithString:@"echofon:///user_timeline?FatWatch"],
 						 [NSURL URLWithString:@"x-birdfeed://user?screen_name=FatWatch"],
@@ -210,7 +210,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	
 	BRTableButtonRow *emailRow = [[BRTableButtonRow alloc] init];
 	emailRow.title = NSLocalizedString(@"Email help@fatwatchapp.com", @"Support email button");
-	emailRow.titleAlignment = UITextAlignmentCenter;
+	emailRow.titleAlignment = NSTextAlignmentCenter;
 	emailRow.object = [NSURL URLWithString:NSLocalizedString(@"mailto:help@fatwatchapp.com?subject=FatWatch", @"Support email URL")];
 	[supportSection addRow:emailRow animated:NO];
 }
@@ -264,7 +264,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 - (void)setPasscodeEnabled:(BOOL)flag {
 	if (flag) {
 		UIViewController *controller = [PasscodeEntryViewController controllerForSettingCode];
-		[self presentModalViewController:controller animated:YES];
+		[self presentViewController:controller animated:YES completion:nil];
 	} else {
 		[PasscodeEntryViewController removePasscode];
 	}	
@@ -279,7 +279,7 @@ static NSString * const kBadgeValueUnregistered = @"!";
 - (void)setDisplayBMI:(BOOL)flag {
 	if (flag) {
 		UIViewController *controller = [HeightEntryViewController controller];
-		[self presentModalViewController:controller animated:YES];
+		[self presentViewController:controller animated:YES completion:nil];
 	} else {
 		[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
 	}
@@ -358,12 +358,12 @@ static NSString * const kBadgeValueUnregistered = @"!";
 	[mail setSubject:@"FatWatch Export"];
 	[mail setMessageBody:body isHTML:YES];
 	[mail addAttachmentData:data mimeType:contentType fileName:fileName];
-	[self presentModalViewController:mail animated:YES];
+	[self presentViewController:mail animated:YES completion:nil];
 }
 
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[controller dismissModalViewControllerAnimated:YES];
+	[controller dismissViewControllerAnimated:YES completion:nil];
 	if (result == MFMailComposeResultFailed) {
 		[self showAlertWithTitle:NSLocalizedString(@"Mail Error", nil)
 						 message:[error localizedDescription]];

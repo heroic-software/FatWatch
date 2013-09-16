@@ -190,7 +190,7 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 - (void)dismissView {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

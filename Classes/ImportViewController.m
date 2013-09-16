@@ -89,7 +89,7 @@
 
 - (IBAction)okAction
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark UIActionSheetDelegate
@@ -97,7 +97,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet.cancelButtonIndex == buttonIndex) {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
     importer.deleteFirst = (actionSheet.destructiveButtonIndex == buttonIndex);

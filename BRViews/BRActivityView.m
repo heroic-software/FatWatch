@@ -27,7 +27,7 @@
 		messageLabel.autoresizingMask = (UIViewAutoresizingFlexibleWidth | 
 										 UIViewAutoresizingFlexibleBottomMargin);
 		messageLabel.font = [UIFont boldSystemFontOfSize:20];
-		messageLabel.textAlignment = UITextAlignmentCenter;
+		messageLabel.textAlignment = NSTextAlignmentCenter;
 		messageLabel.backgroundColor = nil;
 		messageLabel.opaque = NO;
 		[self addSubview:messageLabel];

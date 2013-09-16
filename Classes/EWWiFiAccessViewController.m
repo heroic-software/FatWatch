@@ -437,7 +437,7 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	
     
     ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:database];
-    [self presentModalViewController:importView animated:YES];
+    [self presentViewController:importView animated:YES completion:nil];
     
     [connection sendHTMLResourceNamed:@"importAccepted"];
 }
@@ -480,8 +480,10 @@ NSDictionary *DateFormatDictionary(NSString *format, NSString *name) {
 	if (rsrc) {
 		NSString *action = rsrc[@"Action"];
 		if (action) {
-			[self performSelector:NSSelectorFromString(action) 
-					   withObject:connection];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self performSelector:NSSelectorFromString(action) withObject:connection];
+#pragma clang diagnostic pop
 		} else {
 			NSString *path = [[NSBundle mainBundle] 
                               pathForResource:rsrc[@"Name"]

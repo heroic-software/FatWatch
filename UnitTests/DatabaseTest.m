@@ -53,7 +53,7 @@
 			 day,
 			 d->scaleWeight, d->trendWeight,
 			 d->scaleFatWeight, d->trendFatWeight,
-			 d->flags,
+			 *(unsigned int *)&d->flags,
 			 d->note];
 		}
 	}

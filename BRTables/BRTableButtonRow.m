@@ -115,7 +115,10 @@ static BRActivityView *gLoadingView = nil;
 	[self deselectAnimated:YES];
 	if (disabled) return;
 	if (self.target) {
-		[self.target performSelector:self.action withObject:self];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.target performSelector:self.action withObject:self];
+#pragma clang diagnostic pop
 	} else {
 		if (! [self openThing:self.object]) {
 			NSLog(@"Warning: nothing on device to open row object %@",

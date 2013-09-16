@@ -87,6 +87,7 @@
 		BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */; };
 		BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */; };
 		BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
+		BC73D57917E6A78B0011844B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC73D57817E6A78B0011844B /* Default-568h@2x.png */; };
 		BC749EC110E31425001E8030 /* TrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC010E31425001E8030 /* TrendView.xib */; };
 		BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC610E31E9D001E8030 /* TriangleDown.png */; };
 		BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC710E31E9D001E8030 /* TriangleUp.png */; };
@@ -244,7 +245,7 @@
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* EatWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatWatchAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatWatchAppDelegate.m; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* EatWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EatWatchAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* FatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -334,7 +335,7 @@
 		BC51B88E0E3ACACC00D3B4C1 /* BRTableSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSection.h; sourceTree = "<group>"; };
 		BC51B88F0E3ACACC00D3B4C1 /* BRTableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableSection.m; sourceTree = "<group>"; };
 		BC51B8900E3ACACC00D3B4C1 /* BRTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableViewController.h; sourceTree = "<group>"; };
-		BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableViewController.m; sourceTree = "<group>"; };
+		BC51B8910E3ACACC00D3B4C1 /* BRTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BRTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC51B8980E3ACB9A00D3B4C1 /* BRTableButtonRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableButtonRow.h; sourceTree = "<group>"; };
 		BC51B8990E3ACB9A00D3B4C1 /* BRTableButtonRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableButtonRow.m; sourceTree = "<group>"; };
 		BC51B8E20E3AD5B300D3B4C1 /* BRTableSwitchRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTableSwitchRow.h; sourceTree = "<group>"; };
@@ -350,7 +351,7 @@
 		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconLog.png; sourceTree = "<group>"; };
 		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
-		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; };
+		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC65EBB10DEBA5F90008E677 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/TrendSpans.plist; sourceTree = "<group>"; };
 		BC67026617E6382E00B272F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,13 +361,14 @@
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
 		BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWWiFiAccessViewController.h; path = Classes/EWWiFiAccessViewController.h; sourceTree = "<group>"; };
-		BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWWiFiAccessViewController.m; path = Classes/EWWiFiAccessViewController.m; sourceTree = "<group>"; };
+		BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = EWWiFiAccessViewController.m; path = Classes/EWWiFiAccessViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EWWiFiAccessView.xib; path = Interfaces/EWWiFiAccessView.xib; sourceTree = "<group>"; };
 		BC6A8E9E0FEECB5B002F6BE9 /* BRReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRReachability.h; path = Classes/BRReachability.h; sourceTree = "<group>"; };
 		BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRReachability.m; path = Classes/BRReachability.m; sourceTree = "<group>"; };
 		BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
 		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
+		BC73D57817E6A78B0011844B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BC749EC010E31425001E8030 /* TrendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrendView.xib; path = Interfaces/TrendView.xib; sourceTree = "<group>"; };
 		BC749EC610E31E9D001E8030 /* TriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleDown.png; sourceTree = "<group>"; };
 		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
@@ -375,7 +377,7 @@
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
 		BC78DA2D0E51533D0094ECBD /* YAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YAxisView.m; path = Classes/YAxisView.m; sourceTree = "<group>"; };
 		BC7D4A8E136E38BD005DC3CA /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportViewController.h; path = Classes/ImportViewController.h; sourceTree = "<group>"; };
-		BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportViewController.m; path = Classes/ImportViewController.m; sourceTree = "<group>"; };
+		BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ImportViewController.m; path = Classes/ImportViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC7D4A92136E3931005DC3CA /* ImportView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImportView.xib; path = Interfaces/ImportView.xib; sourceTree = "<group>"; };
 		BC8272DB0D9EAF8900A24663 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogTableViewCell.h; path = Classes/LogTableViewCell.h; sourceTree = "<group>"; };
 		BC8272DC0D9EAF8900A24663 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogTableViewCell.m; path = Classes/LogTableViewCell.m; sourceTree = "<group>"; };
@@ -402,14 +404,14 @@
 		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
-		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; };
+		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
 		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRoundRectView.h; sourceTree = "<group>"; };
 		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRoundRectView.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate2.sql; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
-		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; };
+		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/GraphViewController.h; sourceTree = "<group>"; };
 		BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphViewController.m; path = Classes/GraphViewController.m; sourceTree = "<group>"; };
 		BCA7D0BB0D9DF90C00C6B7D9 /* TrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendViewController.h; path = Classes/TrendViewController.h; sourceTree = "<group>"; };
@@ -420,7 +422,7 @@
 		BCB18CAF0E5A9DD70055F91E /* EWGoal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWGoal.h; path = Classes/EWGoal.h; sourceTree = "<group>"; };
 		BCB18CB00E5A9DD70055F91E /* EWGoal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWGoal.m; path = Classes/EWGoal.m; sourceTree = "<group>"; };
 		BCB36DF90ECEDF3F00AAB7DF /* HeightEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightEntryViewController.h; path = Classes/HeightEntryViewController.h; sourceTree = "<group>"; };
-		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; };
+		BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = HeightEntryViewController.m; path = Classes/HeightEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
 		BCBEE7C811E9267B00CE86A5 /* BRPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewController.h; sourceTree = "<group>"; };
 		BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPickerViewController.m; sourceTree = "<group>"; };
@@ -477,7 +479,7 @@
 		BCE21B1F0E3BAFCE00E94F6C /* BRTableNumberPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableNumberPickerRow.m; sourceTree = "<group>"; };
 		BCE6074F10E01BFC00819E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RungEntryView.xib; sourceTree = "<group>"; };
 		BCE6075410E0227000819E77 /* RungEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RungEntryViewController.h; path = Classes/RungEntryViewController.h; sourceTree = "<group>"; };
-		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; };
+		BCE6075510E0227000819E77 /* RungEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = RungEntryViewController.m; path = Classes/RungEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BCE6082310E03E7F00819E77 /* EWImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWImporter.h; path = Classes/EWImporter.h; sourceTree = "<group>"; };
 		BCE6082410E03E7F00819E77 /* EWImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWImporter.m; path = Classes/EWImporter.m; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -503,7 +505,7 @@
 		BCF67AFE1110CA6100C923BF /* DangerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DangerBar.png; sourceTree = "<group>"; };
 		BCF67C2C1111749700C923BF /* EWGoalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoalTest.m; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
-		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; };
+		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,6 +568,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BC73D57817E6A78B0011844B /* Default-568h@2x.png */,
 				BCAEE75217E55D7800433283 /* Scratch.txt */,
 				BC08CC0A12454985006208A9 /* Code */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
@@ -1120,6 +1123,7 @@
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
 				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
+				BC73D57917E6A78B0011844B /* Default-568h@2x.png in Resources */,
 				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
 				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,

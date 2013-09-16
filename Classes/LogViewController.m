@@ -287,7 +287,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	EWDay day = 1 + indexPath.row;
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
 	[controller configureForDay:day dbMonth:monthData];
-	[self presentModalViewController:controller animated:YES];
+	[self presentViewController:controller animated:YES completion:nil];
 }
 
 

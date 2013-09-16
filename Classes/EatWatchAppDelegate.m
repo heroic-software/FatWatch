@@ -84,7 +84,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 	if (![dbm hasDataOnDay:day]) {
 		LogEntryViewController *controller = [LogEntryViewController sharedController];
 		[controller configureForDay:day dbMonth:dbm];
-		[rootViewController.portraitViewController presentModalViewController:controller animated:NO];
+		[rootViewController.portraitViewController presentViewController:controller animated:NO completion:nil];
 	}
 }
 
@@ -138,7 +138,7 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
             [importer autodetectFields];
             ImportViewController *importView = [[ImportViewController alloc] initWithImporter:importer database:db];
             importView.promptBeforeImport = YES;
-            [window.rootViewController presentModalViewController:importView animated:YES];
+            [window.rootViewController presentViewController:importView animated:YES completion:nil];
             dataToImport = nil;
         });
     }

@@ -147,13 +147,13 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 							 minFontSize:minFontSize
 						  actualFontSize:&usedFontSize
 								forWidth:remainingWidth
-						   lineBreakMode:UILineBreakModeClip];
+						   lineBreakMode:NSLineBreakByClipping];
 		
 		[text drawAtPoint:p
 				 forWidth:size.width
 				 withFont:font
 				 fontSize:usedFontSize
-			lineBreakMode:UILineBreakModeClip
+			lineBreakMode:NSLineBreakByClipping
 	   baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
 		
 		remainingWidth -= size.width;

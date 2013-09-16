@@ -169,7 +169,7 @@ static unsigned short EWLadder[48][5] = {
 
 
 - (IBAction)dismiss {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
