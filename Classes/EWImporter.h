@@ -33,21 +33,11 @@ typedef enum {
 
 @protocol EWImporterDelegate
 - (void)importer:(EWImporter *)importer importProgress:(float)progress;
-- (void)importer:(EWImporter *)importer didImportNumberOfMeasurements:(int)importedCount outOfNumberOfRows:(int)rowCount;
+- (void)importer:(EWImporter *)importer didImportNumberOfMeasurements:(unsigned int)importedCount outOfNumberOfRows:(unsigned int)rowCount;
 @end
 
 
-@interface EWImporter : NSObject {
-	CSVReader *reader;
-	NSArray *columnNames;
-	NSArray *sampleValues;
-	NSDictionary *importDefaults;
-	NSUInteger columnForField[EWImporterFieldCount];
-	NSFormatter *formatterForField[EWImporterFieldCount];
-	id <EWImporterDelegate> __weak delegate;
-	BOOL deleteFirst;
-	BOOL importing;
-}
+@interface EWImporter : NSObject
 @property (nonatomic,weak) id <EWImporterDelegate> delegate;
 @property (nonatomic) BOOL deleteFirst;
 @property (nonatomic,readonly,getter=isImporting) BOOL importing;
@@ -56,7 +46,7 @@ typedef enum {
 - (id)initWithData:(NSData *)aData encoding:(NSStringEncoding)anEncoding;
 - (void)autodetectFields;
 - (NSDictionary *)infoForJavaScript;
-- (void)setColumn:(int)column forField:(EWImporterField)field;
+- (void)setColumn:(NSUInteger)column forField:(EWImporterField)field;
 - (void)setFormatter:(NSFormatter *)formatter forField:(EWImporterField)field;
 - (BOOL)performImportToDatabase:(EWDatabase *)db;
 @end

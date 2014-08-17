@@ -11,7 +11,10 @@
 
 
 @implementation SQLiteStatement
-
+{
+	SQLiteDatabase *database;
+	sqlite3_stmt *statement;
+}
 
 - (id)initWithDatabase:(SQLiteDatabase *)db stmt:(sqlite3_stmt *)stmt {
 	if ((self = [super init])) {
@@ -44,7 +47,7 @@
 	int r;
 	if ([value length] > 0) {
 		NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
-		r = sqlite3_bind_text(statement, param, [data bytes], [data length], SQLITE_STATIC);
+		r = sqlite3_bind_text(statement, param, [data bytes], (int)[data length], SQLITE_STATIC);
 	} else {
 		r = sqlite3_bind_null(statement, param);
 	}

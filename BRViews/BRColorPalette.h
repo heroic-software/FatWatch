@@ -8,9 +8,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface BRColorPalette : NSObject {
-	NSDictionary *colorDictionary;
-}
+@interface BRColorPalette : NSObject
 + (UIColor *)colorNamed:(NSString *)colorName;
 + (BRColorPalette *)sharedPalette;
 - (void)addColorsFromFile:(NSString *)path;

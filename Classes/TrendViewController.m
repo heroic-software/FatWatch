@@ -34,7 +34,30 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 
 
 @implementation TrendViewController
-
+{
+	EWDatabase *database;
+	NSArray *spanArray;
+	NSUInteger spanIndex;
+	BOOL showFat;
+	BOOL showAbsoluteDate;
+	GraphView *graphView;
+	UIView *changeGroupView;
+	EWTrendButton *weightChangeButton;
+	EWTrendButton *energyChangeButton;
+	UIView *goalGroupView;
+	EWTrendButton *relativeEnergyButton;
+	EWTrendButton *relativeWeightButton;
+	EWTrendButton *dateButton;
+	EWTrendButton *planButton;
+	UIView *flagGroupView;
+	UILabel *flag0Label;
+	UILabel *flag1Label;
+	UILabel *flag2Label;
+	UILabel *flag3Label;
+	UIView *messageGroupView;
+	UIView *goalAttainedView;
+	TrendGoalState goalState;
+}
 
 @synthesize database;
 @synthesize graphView;
@@ -110,7 +133,7 @@ static NSString * const kTrendShowAbsoluteDateKey = @"TrendViewControllerShowAbs
 	showAbsoluteDate = [userDefaults boolForKey:kTrendShowAbsoluteDateKey];
 	if (spanArray == nil) {
 		spanArray = [[TrendSpan computeTrendSpansFromDatabase:database] copy];
-		int length = [userDefaults integerForKey:kTrendSpanLengthKey];
+		NSInteger length = [userDefaults integerForKey:kTrendSpanLengthKey];
 		if (length > 0) {
 			for (NSUInteger i = 0; i < [spanArray count]; i++) {
 				// Allow length to be off by a few days

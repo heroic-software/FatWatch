@@ -10,16 +10,15 @@
 #import "EWDBMonth.h"
 
 
-@interface DatabaseTest : SenTestCase
-{
-	EWDatabase *testdb;
-	NSUInteger changeCount;
-}
+@interface DatabaseTest : XCTestCase
 @end
 
 
 @implementation DatabaseTest
-
+{
+	EWDatabase *testdb;
+	NSUInteger changeCount;
+}
 
 - (void)setWeight:(float)weight onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
@@ -67,7 +66,7 @@
 	NSUInteger oldChangeCount = changeCount;
 	[testdb commitChanges];
 	[center removeObserver:self];
-	STAssertTrue(oldChangeCount != changeCount, @"change count must change");
+	XCTAssertTrue(oldChangeCount != changeCount, @"change count must change");
 	[self printDatabase];
 }
 
@@ -77,7 +76,7 @@
 	
 	if ([testdb needsUpgrade]) [testdb upgrade];
 	
-	STAssertTrue([testdb isEmpty], @"should be empty");
+	XCTAssertTrue([testdb isEmpty], @"should be empty");
 
 	// set up 10 weights
 	[self setWeight:100 onDay:15 inMonth:0];
@@ -103,17 +102,16 @@
 - (void)assertWeight:(float)weight andTrend:(float)trend onDay:(EWDay)day inMonth:(EWMonth)month {
 	EWDBMonth *dbm = [testdb getDBMonth:month];
 	const EWDBDay *d = [dbm getDBDayOnDay:day];
-	NSString *note = [NSString stringWithFormat:@"mismatch on %@", EWDateFromMonthAndDay(month, day)];
-	STAssertEquals(weight, d->scaleWeight, note);
-	STAssertEqualsWithAccuracy(trend, d->trendWeight, 0.0001f, note);
+	XCTAssertEqual(weight, d->scaleWeight, @"mismatch on %@", EWDateFromMonthAndDay(month, day));
+	XCTAssertEqualWithAccuracy(trend, d->trendWeight, 0.0001f, @"mismatch on %@", EWDateFromMonthAndDay(month, day));
 }
 
 
 - (void)testDatabase {
 	[self openDatabase];
 	// verify trends
-	STAssertEquals(0.0f, [[testdb getDBMonth:0] inputTrendOnDay:14], @"before first trend");
-	STAssertEquals(100.0f, [[testdb getDBMonth:0] inputTrendOnDay:15], @"first trend");
+	XCTAssertEqual(0.0f, [[testdb getDBMonth:0] inputTrendOnDay:14], @"before first trend");
+	XCTAssertEqual(100.0f, [[testdb getDBMonth:0] inputTrendOnDay:15], @"first trend");
 	[self assertWeight:100 andTrend:100.0000f onDay:15 inMonth:0];
 	[self assertWeight:200 andTrend:110.0000f onDay:18 inMonth:0];
 	[self assertWeight:100 andTrend:109.0000f onDay: 6 inMonth:3];

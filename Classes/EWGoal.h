@@ -26,9 +26,7 @@ typedef enum {
 @class EWDatabase;
 
 
-@interface EWGoal : NSObject {
-	EWDatabase *database;
-}
+@interface EWGoal : NSObject
 
 + (void)deleteGoal;
 

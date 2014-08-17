@@ -10,7 +10,10 @@
 
 
 @implementation SlopeComputer
-
+{
+	double sumX, sumY, sumXsquared, sumXY;
+	NSUInteger count;
+}
 
 @synthesize count;
 

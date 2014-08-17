@@ -10,8 +10,5 @@
 #import "BRTableViewController.h"
 
 
-@interface AboutViewController : BRTableViewController {
-	BOOL isShowingRegistrationInfo;
-}
-
+@interface AboutViewController : BRTableViewController
 @end

@@ -15,16 +15,6 @@
 #import "EWFlagButton.h"
 
 
-enum {
-	kAuxiliaryInfoTypeVariance,
-	kAuxiliaryInfoTypeBMI,
-	kAuxiliaryInfoTypeFatPercent,
-	kAuxiliaryInfoTypeFatWeight,
-	kAuxiliaryInfoTypeTrend,
-	kNumberOfAuxiliaryInfoTypes
-};
-
-
 NSString * const kLogCellReuseIdentifier = @"LogCell";
 
 static NSString * const AuxiliaryInfoTypeKey = @"AuxiliaryInfoType";
@@ -33,12 +23,15 @@ static NSString * const AuxiliaryInfoTypeChangedNotification = @"AuxiliaryInfoTy
 static NSString * const kLozengeString = @"\xe2\x97\x86"; // LOZENGE
 static NSString * const kEmDashString = @"\xe2\x80\x95"; // HORIZONTAL BAR
 
-static NSInteger gAuxiliaryInfoType;
-
+static AuxiliaryInfoType gAuxiliaryInfoType;
 
 
 @implementation LogTableViewCell
-
+{
+	UITableView *__weak tableView;
+	LogTableViewCellContentView *logContentView;
+	BOOL highlightWeekends;
+}
 
 + (void)initialize {
 	gAuxiliaryInfoType = [[NSUserDefaults standardUserDefaults] integerForKey:AuxiliaryInfoTypeKey];
@@ -55,7 +48,7 @@ static NSInteger gAuxiliaryInfoType;
 }
 
 
-+ (NSInteger)auxiliaryInfoType {
++ (AuxiliaryInfoType)auxiliaryInfoType {
 	if (![self isAuxiliaryInfoTypeEnabled:gAuxiliaryInfoType]) {
 		[self setAuxiliaryInfoType:kAuxiliaryInfoTypeVariance];
 	}
@@ -63,14 +56,14 @@ static NSInteger gAuxiliaryInfoType;
 }
 
 
-+ (void)setAuxiliaryInfoType:(NSInteger)infoType {
++ (void)setAuxiliaryInfoType:(AuxiliaryInfoType)infoType {
 	gAuxiliaryInfoType = infoType;
 	[[NSUserDefaults standardUserDefaults] setInteger:gAuxiliaryInfoType forKey:AuxiliaryInfoTypeKey];
 	[[NSNotificationCenter defaultCenter] postNotificationName:AuxiliaryInfoTypeChangedNotification object:nil];
 }
 
 
-+ (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType {
++ (NSString *)nameForAuxiliaryInfoType:(AuxiliaryInfoType)infoType {
 	switch (infoType) {
 		case kAuxiliaryInfoTypeVariance: return @"Weight & Variance";
 		case kAuxiliaryInfoTypeBMI: return @"Weight & BMI";
@@ -157,7 +150,16 @@ static NSInteger gAuxiliaryInfoType;
 
 
 @implementation LogTableViewCellContentView
-
+{
+	LogTableViewCell *__weak cell;
+	NSString *day;
+	NSString *weekday;
+	const EWDBDay *dd;
+	BOOL highlightDate;
+	NSFormatter *weightFormatter;
+	NSFormatter *varianceFormatter;
+	NSFormatter *bmiFormatter;
+}
 
 @synthesize cell;
 @synthesize day;
@@ -333,7 +335,7 @@ static NSInteger gAuxiliaryInfoType;
 			default:
 			{
 				auxInfoColor = [UIColor blackColor];
-				auxInfoString = [NSString stringWithFormat:@"¿%d?", gAuxiliaryInfoType];
+				auxInfoString = [NSString stringWithFormat:@"¿%ld?", (long)gAuxiliaryInfoType];
 				break;
 			}
 		}

@@ -27,7 +27,15 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 @implementation LogViewController
-
+{
+	EWDatabase *database;
+	NSDateFormatter *sectionTitleFormatter;
+	EWMonth earliestMonth, latestMonth;
+	NSIndexPath *lastIndexPath;
+	EWMonthDay scrollDestination;
+	LogInfoPickerController *infoPickerController;
+	LogDatePickerController *datePickerController;
+}
 
 @synthesize database;
 @synthesize infoPickerController;
@@ -89,7 +97,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (EWMonth)monthForSection:(NSInteger)section {
-	return earliestMonth + section;
+	return earliestMonth + (EWMonth)section;
 }
 
 
@@ -103,8 +111,8 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 
 
 - (EWMonthDay)monthDayForIndexPath:(NSIndexPath *)indexPath {
-	return EWMonthDayMake([self monthForSection:indexPath.section], 
-						  indexPath.row + 1);
+	return EWMonthDayMake([self monthForSection:indexPath.section],
+						  (EWDay)(indexPath.row + 1));
 }
 
 
@@ -122,7 +130,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 - (NSDate *)currentDate {
 	NSIndexPath	*indexPath = [self indexPathForMiddle];
 	return EWDateFromMonthAndDay([self monthForSection:indexPath.section], 
-								 indexPath.row + 1);
+								 (EWDay)(indexPath.row + 1));
 }
 
 
@@ -278,7 +286,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 	}
 	
 	EWDBMonth *monthData = [database getDBMonth:[self monthForSection:indexPath.section]];
-	EWDay day = 1 + indexPath.row;
+	EWDay day = (EWDay)(1 + indexPath.row);
 	[cell updateWithMonthData:monthData day:day];
 	
 	return cell;
@@ -291,7 +299,7 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	EWMonth month = [self monthForSection:indexPath.section];
 	EWDBMonth *monthData = [database getDBMonth:month];
-	EWDay day = 1 + indexPath.row;
+	EWDay day = (EWDay)(1 + indexPath.row);
 	LogEntryViewController *controller = [LogEntryViewController sharedController];
 	[controller configureForDay:day dbMonth:monthData];
 	[self presentViewController:controller animated:YES completion:nil];

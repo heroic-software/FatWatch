@@ -15,14 +15,7 @@
 @end
 
 
-@interface BRTableValueRow : BRTableRow {
-	NSString *key;
-	NSFormatter	*formatter;
-	id <BRColorFormatter> textColorFormatter;
-	id <BRColorFormatter> backgroundColorFormatter;
-	BOOL disabled;
-	NSString *valueDescription;
-}
+@interface BRTableValueRow : BRTableRow
 @property (nonatomic,strong) NSString *key;
 @property (nonatomic,strong) NSFormatter *formatter;
 @property (nonatomic,strong) id <BRColorFormatter> textColorFormatter;

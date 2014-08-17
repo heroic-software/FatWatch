@@ -27,6 +27,11 @@ void BRDrawDisclosureIndicator(CGContextRef ctxt, CGFloat x, CGFloat y) {
 
 
 @implementation EWTrendButton
+{
+	NSMutableArray *partArray;
+	CGSize marginSize;
+	EWTrendButtonAccessoryType accessoryType;
+}
 
 
 @synthesize accessoryType;

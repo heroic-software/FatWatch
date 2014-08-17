@@ -12,7 +12,14 @@
 
 
 @implementation EWDBIterator
-
+{
+	EWDatabase *database;
+	EWDBMonth *dbm;
+	EWMonthDay currentMonthDay;
+	EWMonthDay earliestMonthDay;
+	EWMonthDay latestMonthDay;
+	BOOL skipEmptyRecords;
+}
 
 @synthesize currentMonthDay;
 @synthesize earliestMonthDay;

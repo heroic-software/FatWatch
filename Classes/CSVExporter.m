@@ -11,7 +11,9 @@
 
 
 @implementation CSVExporter
-
+{
+	CSVWriter *writer;
+}
 
 - (NSString *)fileExtension {
 	return @"csv";

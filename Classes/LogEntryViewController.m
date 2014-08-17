@@ -16,12 +16,12 @@
 #import "EWFlagButton.h"
 
 
-static const CGFloat kWeightPickerComponentWidth = 320 - 88;
+// static const CGFloat kWeightPickerComponentWidth = 320 - 88;
 static const float kDefaultWeight = 200.0f;
 static const float kDefaultFatRatio = 0.25f;
 
 
-enum {
+typedef NS_ENUM(NSInteger, EntryMode) {
 	kModeWeightAndFat,
 	kModeWeight,
 	kModeNone
@@ -47,7 +47,26 @@ static UIViewAnimationOptions BRViewAnimationOptionForCurve(UIViewAnimationCurve
 
 
 @implementation LogEntryViewController
-
+{
+	EWDBMonth *monthData;
+	EWDay day;
+	UISegmentedControl *weightControl;
+	UIView *weightContainerView;
+	UIPickerView *weightPickerView;
+	UIView *noWeightView;
+	BRTextView *noteView;
+	UIView *annotationContainerView;
+	UINavigationBar *navigationBar;
+	EWFlagButton *flag0Button;
+	EWFlagButton *flag1Button;
+	EWFlagButton *flag2Button;
+	EWFlagButton *flag3Button;
+	EWFlagButton *flagButtons[4];
+	float scaleIncrement;
+	NSInteger weightRow, fatRow;
+	EntryMode weightMode;
+	NSFormatter *weightFormatter;
+}
 
 + (LogEntryViewController *)sharedController {
 	static LogEntryViewController *controller = nil;

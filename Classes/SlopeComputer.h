@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SlopeComputer : NSObject {
-	double sumX, sumY, sumXsquared, sumXY;
-	NSUInteger count;
-}
+@interface SlopeComputer : NSObject
 - (void)addPoint:(CGPoint)point;
 @property (nonatomic,readonly) NSUInteger count;
 @property (nonatomic,readonly) float slope;

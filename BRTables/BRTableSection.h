@@ -13,11 +13,7 @@
 @class BRTableRow;
 
 
-@interface BRTableSection : NSObject {
-	NSMutableArray *rows;
-	BRTableViewController *__weak controller;
-	NSString *headerTitle, *footerTitle;
-}
+@interface BRTableSection : NSObject
 + (BRTableSection *)section;
 @property (nonatomic,strong) NSString *headerTitle;
 @property (nonatomic,strong) NSString *footerTitle;
@@ -35,9 +31,7 @@
 @end
 
 
-@interface BRTableRadioSection : BRTableSection {
-	NSInteger selectedIndex;
-}
+@interface BRTableRadioSection : BRTableSection
 @property (nonatomic) NSInteger selectedIndex;
 @property (weak, nonatomic,readonly) BRTableRow *selectedRow;
 @end

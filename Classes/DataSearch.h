@@ -10,12 +10,6 @@
 
 
 @interface DataSearch : NSObject
-{
-	NSData *haystack;
-	NSData *needle;
-	NSUInteger skipTable[256];
-	NSUInteger haystackStartIndex;
-}
 - (id)initWithData:(NSData *)haystackData patternData:(NSData *)needleData;
 - (NSUInteger)nextIndex;
 @end

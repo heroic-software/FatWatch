@@ -12,15 +12,7 @@
 #import "GraphDrawingOperation.h"
 
 
-@interface GraphView : UIView {
-	EWMonthDay beginMonthDay;
-	EWMonthDay endMonthDay;
-	GraphViewParameters *p;
-	CGImageRef image;
-	UIView *yAxisView;
-	BOOL exporting;
-	BOOL drawBorder;
-}
+@interface GraphView : UIView
 @property (nonatomic) CGImageRef image;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;

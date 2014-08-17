@@ -35,13 +35,7 @@ EW_INLINE BOOL EWDBDayIsEmpty(const EWDBDay *d) {
 }
 
 
-@interface EWDBMonth : NSObject {
-	EWDatabase *database;
-	EWMonth month;
-	struct EWDBDay days[31];
-	UInt32 dirtyBits;
-    BOOL valid;
-}
+@interface EWDBMonth : NSObject
 @property (nonatomic,readonly) EWDatabase *database;
 @property (nonatomic,readonly) EWMonth month;
 @property (nonatomic,readonly,getter = isValid) BOOL valid;

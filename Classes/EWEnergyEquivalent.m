@@ -29,6 +29,11 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 
 
 @implementation EWActivityEquivalent
+{
+	sqlite_int64 dbID;
+	NSString *name;
+	float mets;
+}
 
 @synthesize dbID;
 @synthesize name;
@@ -70,6 +75,12 @@ NSString *EWEquivalentFormatNumber(float n, NSString *unitName, int digits) {
 
 
 @implementation EWFoodEquivalent
+{
+	sqlite_int64 dbID;
+	NSString *name;
+	float energyPerUnit;
+	NSString *unitName;
+}
 
 @synthesize dbID;
 @synthesize name;

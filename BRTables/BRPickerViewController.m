@@ -24,7 +24,9 @@ static const int kBRPickerViewTag = 411;
 
 
 @implementation BRPickerViewController
-
+{
+	BRTableValueRow *tableRow;
+}
 
 - (id)initWithRow:(BRTableValueRow *)aRow {
     if ((self = [super initWithNibName:nil bundle:nil])) {

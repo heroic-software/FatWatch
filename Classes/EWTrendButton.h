@@ -16,11 +16,7 @@ typedef enum {
 } EWTrendButtonAccessoryType;
 
 
-@interface EWTrendButton : UIControl {
-	NSMutableArray *partArray;
-	CGSize marginSize;
-	EWTrendButtonAccessoryType accessoryType;
-}
+@interface EWTrendButton : UIControl
 @property (nonatomic) EWTrendButtonAccessoryType accessoryType;
 - (void)setText:(NSString *)text forPart:(int)part;
 - (void)setTextColor:(UIColor *)color forPart:(int)part;

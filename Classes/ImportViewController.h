@@ -10,16 +10,6 @@
 #import "EWImporter.h"
 
 @interface ImportViewController : UIViewController <EWImporterDelegate, UIActionSheetDelegate>
-{
-    @private
-    UILabel *titleLabel;
-    UIProgressView *importProgressView;
-    UILabel *detailLabel;
-    UIButton *okButton;
-    EWImporter *importer;
-    EWDatabase *database;
-    BOOL promptBeforeImport;
-}
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UIProgressView *importProgressView;
 @property (nonatomic, strong) IBOutlet UILabel *detailLabel;

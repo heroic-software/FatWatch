@@ -44,31 +44,13 @@ typedef struct {
 #define kDayWidth 8.0f
 
 
-@interface GraphDrawingOperation : NSOperation {
-	id __weak delegate;
-	unsigned int index;
-	EWDatabase *database;
-	EWMonthDay beginMonthDay;
-	EWMonthDay endMonthDay;
-	GraphViewParameters *p;
-	CGRect bounds;
-	CGFloat scale;
-	CGImageRef imageRef;
-	NSMutableData *pointData;
-	NSMutableData *flagData;
-	NSUInteger dayCount;
-	CGPoint headPoint;
-	CGPoint tailPoint;
-	BOOL showGoalLine;
-	BOOL showTrajectoryLine;
-	BOOL showFatWeight;
-}
+@interface GraphDrawingOperation : NSOperation
 + (void)prepareGraphViewInfo:(GraphViewParameters *)gp forSize:(CGSize)size numberOfDays:(NSUInteger)numberOfDays database:(EWDatabase *)db;
 @property (nonatomic,strong) EWDatabase *database;
 @property (nonatomic) EWMonthDay beginMonthDay;
 @property (nonatomic) EWMonthDay endMonthDay;
 @property (nonatomic,weak) id delegate;
-@property (nonatomic) unsigned int index;
+@property (nonatomic) NSUInteger index;
 @property (nonatomic,strong) GraphViewParameters *p;
 @property (nonatomic) CGRect bounds;
 @property (nonatomic) BOOL showGoalLine;

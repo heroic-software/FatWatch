@@ -22,7 +22,15 @@ void GraphViewDrawPattern(void *info, CGContextRef context) {
 
 
 @implementation GraphView
-
+{
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
+	GraphViewParameters *p;
+	CGImageRef image;
+	UIView *yAxisView;
+	BOOL exporting;
+	BOOL drawBorder;
+}
 
 @synthesize image;
 @synthesize beginMonthDay;

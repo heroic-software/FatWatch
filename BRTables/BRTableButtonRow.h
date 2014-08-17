@@ -13,12 +13,7 @@
 /* For a button row that opens an URL, set target to nil and the object to an instance of NSURL. */
 
 
-@interface BRTableButtonRow : BRTableRow {
-	id __weak target;
-	SEL action;
-	BOOL disabled;
-	BOOL followURLRedirects;
-}
+@interface BRTableButtonRow : BRTableRow
 + (BRTableButtonRow *)rowWithTitle:(NSString *)aTitle target:(id)aTarget action:(SEL)anAction;
 @property (nonatomic,weak) id target;
 @property (nonatomic) SEL action;

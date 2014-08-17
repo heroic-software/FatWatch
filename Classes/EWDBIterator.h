@@ -24,14 +24,7 @@
  */
 
 
-@interface EWDBIterator : NSObject {
-	EWDatabase *database;
-	EWDBMonth *dbm;
-	EWMonthDay currentMonthDay;
-	EWMonthDay earliestMonthDay;
-	EWMonthDay latestMonthDay;
-	BOOL skipEmptyRecords;
-}
+@interface EWDBIterator : NSObject
 @property (nonatomic,readonly) EWMonthDay currentMonthDay;
 @property (nonatomic) EWMonthDay earliestMonthDay;
 @property (nonatomic) EWMonthDay latestMonthDay;

@@ -30,7 +30,18 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 
 
 @implementation TrendSpan
-
+{
+	// Independent (Total or Fat)
+	NSString *title;
+	EWMonthDay beginMonthDay;
+	EWMonthDay endMonthDay;
+	float flagFrequencies[4];
+	// Dependent
+	float totalWeightPerDay, fatWeightPerDay;
+	NSDate *totalEndDate, *fatEndDate;
+	NSOperation *totalGraphOperation, *fatGraphOperation;
+	CGImageRef totalGraphImageRef, fatGraphImageRef;
+}
 
 @synthesize title;
 @synthesize beginMonthDay;
@@ -225,7 +236,7 @@ void TrendUpdateMinMax(float a, float b, float *min, float *max) {
 			self.title,
 			EWDateFromMonthDay(self.beginMonthDay),
 			EWDateFromMonthDay(self.endMonthDay),
-			self.length,
+			(int)self.length,
 			self.totalWeightPerDay * 7.f,
 			self.fatWeightPerDay * 7.f
 			];

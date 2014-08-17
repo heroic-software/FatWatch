@@ -16,7 +16,9 @@
 
 
 @implementation BRTableSwitchRow
-
+{
+	NSString *key;
+}
 
 @synthesize key;
 

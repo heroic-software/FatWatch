@@ -10,19 +10,19 @@
 
 
 static const NSInteger kReferenceYear = 2001;
-static const NSInteger kReferenceMonth = 1;
-static const NSInteger kReferenceDay = 1;
+// static const NSInteger kReferenceMonth = 1;
+// static const NSInteger kReferenceDay = 1;
 
 
-NSInteger EWDaysInMonth(EWMonth m) {
-	static NSUInteger dayCount[12] = {
+int EWDaysInMonth(EWMonth m) {
+	static unsigned int dayCount[12] = {
 		31, 28, 31, // Jan Feb Mar
 		30, 31, 30, // Apr May Jun
 		31, 31, 30, // Jul Aug Sep
 		31, 30, 31  // Oct Nov Dec
 	};
 	
-	NSInteger m0 = (m % 12);
+	int m0 = (m % 12);
 
 	if (m0 < 0) m0 += 12;
 	
@@ -98,9 +98,9 @@ EWMonthDay EWMonthDayFromDate(NSDate *theDate) {
 	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 
 	NSDateComponents *dc = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:theDate];
-	EWMonth month = ((dc.year - kReferenceYear) * 12) + (dc.month - 1);
+	EWMonth month = (EWMonth)(((dc.year - kReferenceYear) * 12) + (dc.month - 1));
 	
-	return EWMonthDayMake(month, dc.day);
+	return EWMonthDayMake(month, (EWDay)dc.day);
 }
 
 

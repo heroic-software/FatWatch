@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-@interface EWDateFormatter : NSFormatter {
-	NSDateFormatter *realFormatter;
-}
+@interface EWDateFormatter : NSFormatter
 + (NSFormatter *)formatterWithDateFormat:(NSString *)format;
 - (id)initWithDateFormat:(NSString *)format;
 @end
 
 
-@interface EWISODateFormatter : NSFormatter {
-}
+@interface EWISODateFormatter : NSFormatter
 @end

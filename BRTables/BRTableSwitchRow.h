@@ -10,8 +10,6 @@
 #import "BRTableRow.h"
 
 
-@interface BRTableSwitchRow : BRTableRow {
-	NSString *key;
-}
+@interface BRTableSwitchRow : BRTableRow
 @property (nonatomic,strong) NSString *key;
 @end

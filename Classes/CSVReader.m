@@ -23,7 +23,12 @@
 
 
 @implementation CSVReader
-
+{
+	NSData *data;
+	NSUInteger dataIndex;
+	NSNumberFormatter *floatFormatter;
+	NSStringEncoding dataEncoding;
+}
 
 @synthesize floatFormatter;
 
@@ -47,8 +52,8 @@
 - (void)skipOverBytes:(const char *)charset {
 	const NSUInteger dataLength	 = [data length];
 	const char *dataBytes = [data bytes];
-	const int setLength = strlen(charset);
-	int setIndex = 0;
+	const size_t setLength = strlen(charset);
+	size_t setIndex = 0;
 	char b;
 	
 	while (dataIndex < dataLength) {
@@ -76,8 +81,8 @@
 - (char)skipToBytes:(const char *)charset {
 	const NSUInteger dataLength	 = [data length];
 	const char *dataBytes = [data bytes];
-	const int setLength = strlen(charset);
-	int setIndex = 0;
+	const size_t setLength = strlen(charset);
+	size_t setIndex = 0;
 	char b;
 	
 	while (dataIndex < dataLength) {

@@ -10,6 +10,10 @@
 
 
 @implementation BRRangeColorFormatter
+{
+	float *values;
+	NSArray *colors;
+}
 
 - (id)initWithColors:(NSArray *)colorArray forValues:(float *)valueArray {
 	if ((self = [super init])) {
@@ -24,7 +28,7 @@
 - (UIColor *)colorForObjectValue:(id)anObject {
 	float v = [anObject floatValue];
 	
-	int n = [colors count] - 1;
+	NSInteger n = [colors count] - 1;
 	for (int i = 0; i < n; i++) {
 		if (v < values[i]) return colors[i];
 	}

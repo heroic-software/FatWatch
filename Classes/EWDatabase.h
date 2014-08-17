@@ -26,15 +26,7 @@ typedef enum {
 } EWDatabaseFilter;
 
 
-@interface EWDatabase : NSObject {
-	NSString *dbPath;
-	SQLiteDatabase *db;
-	NSMutableDictionary *monthCache;
-	NSLock *monthCacheLock;
-	EWMonthDay earliestChangeMonthDay;
-	EWMonth earliestMonth;
-	EWMonth latestMonth;
-}
+@interface EWDatabase : NSObject 
 @property (nonatomic,readonly) EWMonth earliestMonth;
 @property (nonatomic,readonly) EWMonth latestMonth;
 @property (nonatomic,readonly,getter=isEmpty) BOOL empty;

@@ -26,7 +26,16 @@
 
 
 @implementation FlagIconViewController
-
+{
+	FlagTabView *flagTabView;
+	UIScrollView *iconArea;
+	UIView *enableLadderView;
+	UIView *disableLadderView;
+	NSArray *iconNames;
+	int flagIndex;
+	UIView *iconView;
+	CGPoint contentOffsets[4];
+}
 
 @synthesize flagTabView;
 @synthesize iconArea;

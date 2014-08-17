@@ -15,6 +15,11 @@
 
 
 @implementation BRInvocationTrap
+{
+	id target;
+	id delegate;
+	SEL action;
+}
 
 
 + (id)trapInvocationsForTarget:(id)aTarget forwardingTo:(id)anObject selector:(SEL)aSelector {

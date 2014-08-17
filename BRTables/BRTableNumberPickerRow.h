@@ -10,12 +10,7 @@
 #import "BRTableValueRow.h"
 
 
-@interface BRTableNumberPickerRow : BRTableValueRow {
-	float minimumValue;
-	float maximumValue;
-	float increment;
-	NSNumber *defaultValue;
-}
+@interface BRTableNumberPickerRow : BRTableValueRow
 @property (nonatomic) float minimumValue;
 @property (nonatomic) float maximumValue;
 @property (nonatomic) float increment;

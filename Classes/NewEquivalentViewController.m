@@ -17,7 +17,20 @@
 
 
 @implementation NewEquivalentViewController
-
+{
+	UITextField *nameField;
+	UITextField *energyField;
+	UITextField *unitField;
+	UISlider *metSlider;
+	UILabel *metLabel;
+	UILabel *energyPerLabel;
+	UIView *groupHostView;
+	UIView *activityGroupView;
+	UIView *foodGroupView;
+	UISegmentedControl *typeControl;
+	id <EWEnergyEquivalent> newEquivalent;
+	BOOL validationPending;
+}
 
 @synthesize newEquivalent;
 @synthesize nameField;

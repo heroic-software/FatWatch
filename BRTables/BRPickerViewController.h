@@ -14,9 +14,7 @@
 @class BRTableDatePickerRow;
 
 
-@interface BRPickerViewController : UIViewController {
-	BRTableValueRow *tableRow;
-}
+@interface BRPickerViewController : UIViewController
 - (id)initWithRow:(BRTableValueRow *)aRow;
 @end
 

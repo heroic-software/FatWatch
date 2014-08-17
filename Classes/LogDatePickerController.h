@@ -12,10 +12,7 @@
 @class LogViewController;
 
 
-@interface LogDatePickerController : BRPopUpViewController {
-	LogViewController *__weak logViewController;
-	UIDatePicker *datePicker;
-}
+@interface LogDatePickerController : BRPopUpViewController
 @property (nonatomic,weak) IBOutlet LogViewController *logViewController;
 @property (nonatomic,strong) IBOutlet UIDatePicker *datePicker;
 - (IBAction)pickToday;

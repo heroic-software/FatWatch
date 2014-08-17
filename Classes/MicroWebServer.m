@@ -94,7 +94,13 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 @implementation MicroWebServer
-
+{
+	NSString *name;
+	CFSocketRef listenSocket;
+	NSNetService *netService;
+	id <MicroWebServerDelegate> __weak delegate;
+	BOOL running;
+}
 
 @synthesize delegate;
 @synthesize name;
@@ -253,7 +259,16 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 
 
 @implementation MicroWebConnection
-
+{
+	MicroWebServer *webServer;
+	CFReadStreamRef readStream;
+	CFWriteStreamRef writeStream;
+	CFHTTPMessageRef requestMessage;
+	CFHTTPMessageRef responseMessage;
+	CFDataRef responseData;
+	CFIndex responseBytesRemaining;
+	NSArray *httpDateFormatterArray;
+}
 
 - (id)initWithServer:(MicroWebServer *)server readStream:(CFReadStreamRef)newReadStream writeStream:(CFWriteStreamRef)newWriteStream {
 	if ((self = [super init])) {
@@ -468,7 +483,7 @@ void MicroSocketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDat
 	NSAssert(responseMessage != nil, @"must call beginResponseWithStatus: first");
 	CFHTTPMessageSetBody(responseMessage, (__bridge CFDataRef)data);
 
-	NSString *lenstr = [NSString stringWithFormat:@"%d", [data length]];
+	NSString *lenstr = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
 	CFHTTPMessageSetHeaderFieldValue(responseMessage, CFSTR("Content-Length"), (__bridge CFStringRef)lenstr);
 	
 	// Sorry, we don't support Keep Alive.

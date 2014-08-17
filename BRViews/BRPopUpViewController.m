@@ -10,7 +10,11 @@
 
 
 @implementation BRPopUpViewController
-
+{
+	UIView *view;
+	UIView *superview;
+    UIButton *screenButton;
+}
 
 @synthesize view;
 @synthesize superview;

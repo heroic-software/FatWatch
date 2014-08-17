@@ -11,7 +11,7 @@
 #import "EWDBMonth.h"
 
 
-@interface EWGoalTest : SenTestCase 
+@interface EWGoalTest : XCTestCase 
 @end
 
 @implementation EWGoalTest
@@ -41,12 +41,12 @@
 	EWGoal *goal = [[EWGoal alloc] initWithDatabase:testdb];
 	NSLog(@"AFTER %@", [ud dictionaryRepresentation]);
 	
-	STAssertNil([ud objectForKey:@"GoalStartDate"], @"start date removed");
-	STAssertNil([ud objectForKey:@"GoalWeightChangePerDay"], @"change removed");
-	STAssertNotNil([ud objectForKey:@"GoalWeight"], @"goal weight set");
-	STAssertNotNil([ud objectForKey:@"GoalDate"], @"goal date set");
-	STAssertEquals(goal.currentWeight, 100.0f, @"current weight");
-	STAssertEquals(goal.endWeight, 90.0f, @"goal weight");
+	XCTAssertNil([ud objectForKey:@"GoalStartDate"], @"start date removed");
+	XCTAssertNil([ud objectForKey:@"GoalWeightChangePerDay"], @"change removed");
+	XCTAssertNotNil([ud objectForKey:@"GoalWeight"], @"goal weight set");
+	XCTAssertNotNil([ud objectForKey:@"GoalDate"], @"goal date set");
+	XCTAssertEqual(goal.currentWeight, 100.0f, @"current weight");
+	XCTAssertEqual(goal.endWeight, 90.0f, @"goal weight");
 
 }
 

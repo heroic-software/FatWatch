@@ -10,7 +10,14 @@
 
 
 @implementation BRTableValueRow
-
+{
+	NSString *key;
+	NSFormatter	*formatter;
+	id <BRColorFormatter> textColorFormatter;
+	id <BRColorFormatter> backgroundColorFormatter;
+	BOOL disabled;
+	NSString *valueDescription;
+}
 
 @synthesize key;
 @synthesize formatter;

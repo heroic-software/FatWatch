@@ -13,7 +13,12 @@
 
 
 @implementation BRTableNumberPickerRow
-
+{
+	float minimumValue;
+	float maximumValue;
+	float increment;
+	NSNumber *defaultValue;
+}
 
 @synthesize minimumValue, maximumValue, increment, defaultValue;
 

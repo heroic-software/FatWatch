@@ -16,9 +16,7 @@
 
 #if DEBUG_LAUNCH_STAGE_ENABLED
 
-@interface DebugViewController : UIViewController {
-	NSArray *profileNames;
-}
+@interface DebugViewController : UIViewController 
 @end
 
 #endif // DEBUG_LAUNCH_STAGE_ENABLED

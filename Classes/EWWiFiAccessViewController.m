@@ -42,7 +42,23 @@
 
 
 @implementation EWWiFiAccessViewController
-
+{
+	EWDatabase *database;
+	UILabel *statusLabel;
+	UIActivityIndicatorView *activityView;
+	UIView *detailView;
+	UIView *inactiveDetailView;
+	UIView *activeDetailView;
+	UILabel *lastImportLabel;
+	UILabel *lastExportLabel;
+	// Not NIB Stuff
+	BRReachability *reachability;
+	MicroWebServer *webServer;
+	NSDictionary *webResources;
+	NSMutableDictionary *exportDefaults;
+	// Import State
+	EWImporter *importer;
+}
 
 @synthesize database;
 @synthesize statusLabel;

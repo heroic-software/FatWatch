@@ -12,8 +12,5 @@
 @class CSVWriter;
 
 
-@interface CSVExporter : EWExporter {
-	CSVWriter *writer;
-}
-
+@interface CSVExporter : EWExporter
 @end

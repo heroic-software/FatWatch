@@ -51,7 +51,9 @@ static NSString * const kBadgeValueUnregistered = @"!";
 
 
 @implementation MoreViewController
-
+{
+	EWDatabase *database;
+}
 
 @synthesize database;
 

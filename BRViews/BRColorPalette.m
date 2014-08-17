@@ -9,7 +9,9 @@
 
 
 @implementation BRColorPalette
-
+{
+	NSDictionary *colorDictionary;
+}
 
 + (UIColor *)colorNamed:(NSString *)colorName {
 	return [[BRColorPalette sharedPalette] colorNamed:colorName];
@@ -26,6 +28,11 @@
 	return palette;
 }
 
+#if CGFLOAT_IS_DOUBLE
+#define scanCGFloat scanDouble
+#else
+#define scanCGFloat scanFloat
+#endif
 
 - (void)addColorsFromFile:(NSString *)path {
 	NSDictionary *info = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -40,9 +47,9 @@
 		NSScanner *scanner = [[NSScanner alloc] initWithString:value];
 		[scanner setCharactersToBeSkipped:skipSet];
 		CGFloat red, green, blue;
-		if ([scanner scanFloat:&red] &&
-			[scanner scanFloat:&green] &&
-			[scanner scanFloat:&blue])
+		if ([scanner scanCGFloat:&red] &&
+			[scanner scanCGFloat:&green] &&
+			[scanner scanCGFloat:&blue])
 		{
 			UIColor *color = [[UIColor alloc] initWithRed:red 
 													green:green

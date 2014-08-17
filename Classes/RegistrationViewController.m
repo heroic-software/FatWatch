@@ -26,7 +26,10 @@ static RegistrationViewController *gSharedController = nil;
 
 
 @implementation RegistrationViewController
-
+{
+	UIWebView *webView;
+	NSError *errorToDisplay;
+}
 
 + (RegistrationViewController *)sharedController {
 	if (gSharedController == nil) {

@@ -30,7 +30,15 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 
 
 @implementation EWDatabase
-
+{
+	NSString *dbPath;
+	SQLiteDatabase *db;
+	NSMutableDictionary *monthCache;
+	NSLock *monthCacheLock;
+	EWMonthDay earliestChangeMonthDay;
+	EWMonth earliestMonth;
+	EWMonth latestMonth;
+}
 
 @synthesize earliestMonth;
 @synthesize latestMonth;
@@ -437,9 +445,9 @@ NSString * const EWDatabaseDidChangeNotification = @"EWDatabaseDidChange";
 		[deletionCandidateIDSet addObject:@(dbID)];
 	}
 
-	for (NSUInteger section = 0; section < [dataArray count]; section++) {
+	for (int section = 0; section < (int)[dataArray count]; section++) {
 		NSArray *sectionArray = dataArray[section];
-		for (NSUInteger row = 0; row < [sectionArray count]; row++) {
+		for (int row = 0; row < (int)[sectionArray count]; row++) {
 			id <EWEnergyEquivalent> equiv = sectionArray[row];
 			if (equiv.dbID > 0) {
 				[updateStmt bindInt:row toParameter:1];

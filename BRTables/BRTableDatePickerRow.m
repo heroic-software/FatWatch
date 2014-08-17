@@ -13,7 +13,11 @@
 
 
 @implementation BRTableDatePickerRow
-
+{
+	NSDate *minimumDate;
+	NSDate *maximumDate;
+	UIDatePickerMode datePickerMode;
+}
 
 @synthesize minimumDate, maximumDate, datePickerMode;
 

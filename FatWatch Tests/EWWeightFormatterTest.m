@@ -14,7 +14,7 @@
 #define MINUS_SIGN @"\xe2\x88\x92"
 
 
-@interface EWWeightFormatterTest : SenTestCase
+@interface EWWeightFormatterTest : XCTestCase
 @end
 
 @implementation EWWeightFormatterTest
@@ -27,7 +27,7 @@
 	NSString *string; NSNumber *number; \
 	number = [NSNumber numberWithFloat:weightNumber]; \
 	string = [formatter stringForObjectValue:number]; \
-	STAssertEqualObjects(string, weightString, @"stringForObjectValue:"); \
+	XCTAssertEqualObjects(string, weightString, @"stringForObjectValue:"); \
 };
 
 
@@ -36,8 +36,8 @@
 	NSFormatter *formatter = [EWWeightFormatter weightFormatterWithStyle:EWStyle unit:EWUnit]; \
 	NSString *string, *error; NSNumber *number; BOOL didParse; \
 	didParse = [formatter getObjectValue:&number forString:string errorDescription:&error]; \
-	STAssertTrue(didParse, @"return getObjectValue:forString:errorDescription"); \
-	STAssertEqualObjects(number, weightNumber, @"value getObjectValue:forString:errorDescription:"); \
+	XCTAssertTrue(didParse, @"return getObjectValue:forString:errorDescription"); \
+	XCTAssertEqualObjects(number, weightNumber, @"value getObjectValue:forString:errorDescription:"); \
 }; \
 
 
@@ -253,9 +253,9 @@
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:NO];
 	
 	color = [EWWeightFormatter colorForWeight:100];
-	STAssertEqualObjects(color, [UIColor clearColor], @"foreground color when BMI disabled");
+	XCTAssertEqualObjects(color, [UIColor clearColor], @"foreground color when BMI disabled");
 	color = [EWWeightFormatter colorForWeight:100 alpha:0.2f];
-	STAssertEqualObjects(color, [UIColor clearColor], @"background color when BMI disabled");
+	XCTAssertEqualObjects(color, [UIColor clearColor], @"background color when BMI disabled");
 	
 	[[NSUserDefaults standardUserDefaults] setBMIEnabled:YES];
 	[[NSUserDefaults standardUserDefaults] setHeight:2];
@@ -263,13 +263,13 @@
 	// BMI * height^2 / kKilogramsPerPound = weight
 
 	color = [EWWeightFormatter colorForWeight:(16.0f * 4 / kKilogramsPerPound)];
-	STAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIUnderweight"], @"underweight");
+	XCTAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIUnderweight"], @"underweight");
 	color = [EWWeightFormatter colorForWeight:(20.0f * 4 / kKilogramsPerPound)];
-	STAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMINormal"], @"normal");
+	XCTAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMINormal"], @"normal");
 	color = [EWWeightFormatter colorForWeight:(27.0f * 4 / kKilogramsPerPound)];
-	STAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIOverweight"], @"overweight");
+	XCTAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIOverweight"], @"overweight");
 	color = [EWWeightFormatter colorForWeight:(32.0f * 4 / kKilogramsPerPound)];
-	STAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIObese"], @"obese");
+	XCTAssertEqualObjects(color, [BRColorPalette colorNamed:@"BMIObese"], @"obese");
 }
 
 @end

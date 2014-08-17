@@ -12,14 +12,19 @@
 
 
 @implementation LogInfoPickerController
-
+{
+	UIButton *infoTypeButton;
+	UIPickerView *infoTypePicker;
+	NSArray *infoTypeArray;
+	BOOL toggleTimerDidFire;
+}
 
 @synthesize infoTypeButton;
 @synthesize infoTypePicker;
 
 
 - (void)updateButton {
-	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
+	AuxiliaryInfoType auxInfoType = [LogTableViewCell auxiliaryInfoType];
 	NSString *title = [LogTableViewCell nameForAuxiliaryInfoType:auxInfoType];
 	[infoTypeButton setTitle:title forState:UIControlStateNormal];
 }
@@ -27,8 +32,8 @@
 
 - (void)bmiStatusDidChange:(NSNotification *)notification {
 	infoTypeArray = [[LogTableViewCell availableAuxiliaryInfoTypes] copy];
-	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
-	int row = [infoTypeArray indexOfObject:@(auxInfoType)];
+	AuxiliaryInfoType auxInfoType = [LogTableViewCell auxiliaryInfoType];
+	NSUInteger row = [infoTypeArray indexOfObject:@(auxInfoType)];
 	[infoTypePicker reloadComponent:0];
 	[infoTypePicker selectRow:row inComponent:0 animated:NO];
 	[self updateButton];
@@ -60,8 +65,8 @@
 - (IBAction)toggleUp:(UIButton *)sender {
 	if (toggleTimerDidFire) return;
 	[LogInfoPickerController cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggle:) object:sender];
-	int auxInfoType = [LogTableViewCell auxiliaryInfoType];
-	int row = [infoTypeArray indexOfObject:@(auxInfoType)];
+	AuxiliaryInfoType auxInfoType = [LogTableViewCell auxiliaryInfoType];
+	NSUInteger row = [infoTypeArray indexOfObject:@(auxInfoType)];
 	row = (row + 1) % [infoTypeArray count];
 	auxInfoType = [infoTypeArray[row] intValue];
 	[LogTableViewCell setAuxiliaryInfoType:auxInfoType];

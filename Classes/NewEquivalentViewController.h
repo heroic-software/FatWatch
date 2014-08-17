@@ -10,20 +10,7 @@
 #import "EWEnergyEquivalent.h"
 
 
-@interface NewEquivalentViewController : UIViewController {
-	UITextField *nameField;
-	UITextField *energyField;
-	UITextField *unitField;
-	UISlider *metSlider;
-	UILabel *metLabel;
-	UILabel *energyPerLabel;
-	UIView *groupHostView;
-	UIView *activityGroupView;
-	UIView *foodGroupView;
-	UISegmentedControl *typeControl;
-	id <EWEnergyEquivalent> newEquivalent;
-	BOOL validationPending;
-}
+@interface NewEquivalentViewController : UIViewController
 @property (nonatomic,strong,getter=equivalent,setter=setEquivalent:) id <EWEnergyEquivalent> newEquivalent;
 @property (nonatomic,strong) IBOutlet UITextField *nameField;
 @property (nonatomic,strong) IBOutlet UITextField *energyField;

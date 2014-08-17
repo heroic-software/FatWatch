@@ -29,7 +29,9 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 
 
 @implementation EWGoal
-
+{
+	EWDatabase *database;
+}
 
 #pragma mark Class Methods
 
@@ -287,7 +289,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 	NSUserDefaults *uds = [NSUserDefaults standardUserDefaults];
 	NSDate *date;
 	@synchronized (self) {
-		date = EWDateFromMonthDay([uds integerForKey:kGoalDateKey]);
+		date = EWDateFromMonthDay((EWMonthDay)[uds integerForKey:kGoalDateKey]);
 		if (date == nil) {
 			// Don't use self.weightChangePerDay, to avoid potential infinite mutual recursion.
 			float delta = [uds floatForKey:kGoalRateKey];
@@ -328,7 +330,7 @@ static NSString * const kGoalRateKey = @"GoalRate"; // stored as weight lbs/day
 			delta = [number floatValue];
 		} else {
 			// Don't use self.endDate, to avoid potential infinite mutual recursion.
-			NSDate *goalDate = EWDateFromMonthDay([uds integerForKey:kGoalDateKey]);
+			NSDate *goalDate = EWDateFromMonthDay((EWMonthDay)[uds integerForKey:kGoalDateKey]);
 			NSDate *todayDate = EWDateFromMonthDay(EWMonthDayToday());
 			NSTimeInterval seconds = [goalDate timeIntervalSinceDate:todayDate];
 			float weightChange = self.endWeight - [self currentWeight];

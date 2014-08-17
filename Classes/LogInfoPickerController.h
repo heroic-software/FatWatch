@@ -9,12 +9,7 @@
 #import "BRPopUpViewController.h"
 
 
-@interface LogInfoPickerController : BRPopUpViewController <UIPickerViewDelegate,UIPickerViewDataSource> {
-	UIButton *infoTypeButton;
-	UIPickerView *infoTypePicker;
-	NSArray *infoTypeArray;
-	BOOL toggleTimerDidFire;
-}
+@interface LogInfoPickerController : BRPopUpViewController <UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,strong) IBOutlet UIButton *infoTypeButton;
 @property (nonatomic,strong) IBOutlet UIPickerView *infoTypePicker;
 - (IBAction)toggleDown:(UIButton *)sender;

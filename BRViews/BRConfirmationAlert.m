@@ -16,6 +16,11 @@
 
 
 @implementation BRConfirmationAlert
+{
+	UIAlertView *alertView;
+	NSInvocation *invocation;
+	NSString *buttonTitle;
+}
 
 - (id)init {
 	if ((self = [super init])) {

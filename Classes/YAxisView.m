@@ -19,7 +19,10 @@ static const CGFloat gMinorTickWidth = 3.5f;
 
 
 @implementation YAxisView
-
+{
+	EWDatabase *database;
+	GraphViewParameters *p;
+}
 
 @synthesize database;
 

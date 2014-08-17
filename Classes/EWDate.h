@@ -11,15 +11,15 @@
 #define EW_INLINE static __inline__
 #define EW_EXTERN extern
 
-typedef NSInteger EWMonthDay;
-typedef NSInteger EWMonth;
-typedef NSInteger EWDay;
+typedef int EWMonthDay;
+typedef int EWMonth;
+typedef int EWDay;
 
 EW_INLINE EWMonthDay EWMonthDayMake(EWMonth m, EWDay d) { return (m << 5) | d; }
 EW_INLINE EWMonth EWMonthDayGetMonth(EWMonthDay md) { return md >> 5; }
 EW_INLINE EWDay EWMonthDayGetDay(EWMonthDay md) { return 0x1F & md; }
 
-EW_EXTERN NSInteger EWDaysInMonth(EWMonth m);
+EW_EXTERN int EWDaysInMonth(EWMonth m);
 EW_EXTERN NSInteger EWDaysBetweenMonthDays(EWMonthDay mdA, EWMonthDay mdB);
 EW_EXTERN EWMonthDay EWMonthDayNext(EWMonthDay md);
 EW_EXTERN EWMonthDay EWMonthDayPrevious(EWMonthDay md);

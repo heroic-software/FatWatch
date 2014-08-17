@@ -11,7 +11,10 @@
 
 
 @implementation LogDatePickerController
-
+{
+	LogViewController *__weak logViewController;
+	UIDatePicker *datePicker;
+}
 
 @synthesize logViewController;
 @synthesize datePicker;

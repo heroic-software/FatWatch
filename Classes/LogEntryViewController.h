@@ -14,26 +14,7 @@
 @class EWDBMonth;
 @class EWFlagButton;
 
-@interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
-	EWDBMonth *monthData;
-	EWDay day;
-	UISegmentedControl *weightControl;
-	UIView *weightContainerView;
-	UIPickerView *weightPickerView;
-	UIView *noWeightView;
-	BRTextView *noteView;
-	UIView *annotationContainerView;
-	UINavigationBar *navigationBar;
-	EWFlagButton *flag0Button;
-	EWFlagButton *flag1Button;
-	EWFlagButton *flag2Button;
-	EWFlagButton *flag3Button;
-	EWFlagButton *flagButtons[4];
-	float scaleIncrement;
-	NSInteger weightRow, fatRow;
-	int weightMode;
-	NSFormatter *weightFormatter;
-}
+@interface LogEntryViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 + (LogEntryViewController *)sharedController;
 @property (nonatomic,strong) IBOutlet UISegmentedControl *weightControl;
 @property (nonatomic,strong) IBOutlet UIView *weightContainerView;

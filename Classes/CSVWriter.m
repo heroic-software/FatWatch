@@ -10,7 +10,12 @@
 
 
 @implementation CSVWriter
-
+{
+	NSMutableData *data;
+	NSInteger columnIndex;
+	NSCharacterSet *quotedCharSet;
+	NSNumberFormatter *floatFormatter;
+}
 
 @synthesize floatFormatter;
 

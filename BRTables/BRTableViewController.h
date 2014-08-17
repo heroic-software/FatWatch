@@ -11,9 +11,7 @@
 #import "BRTableSection.h"
 #import "BRTableRow.h"
 
-@interface BRTableViewController : UITableViewController {
-	NSMutableArray *sections;
-}
+@interface BRTableViewController : UITableViewController
 - (NSUInteger)numberOfSections;
 - (void)addSection:(BRTableSection *)tableSection animated:(BOOL)animated;
 - (BRTableSection *)addNewSection;

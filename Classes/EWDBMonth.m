@@ -46,7 +46,13 @@ BOOL EWDBUpdateTrendValue(float value, float *trendValue, float *trendCarry) {
 
 
 @implementation EWDBMonth
-
+{
+	EWDatabase *database;
+	EWMonth month;
+	struct EWDBDay days[31];
+	UInt32 dirtyBits;
+    BOOL valid;
+}
 
 @synthesize database;
 @synthesize month;

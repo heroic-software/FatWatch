@@ -47,7 +47,10 @@ int SQLiteProgressHandler(void *user) {
 
 
 @implementation SQLiteDatabase
-
+{
+	sqlite3 *database;
+	id <SQLiteDatabaseDelegate> __weak delegate;
+}
 
 @synthesize delegate;
 

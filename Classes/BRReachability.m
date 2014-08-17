@@ -24,7 +24,11 @@ void BRReachabilityCallback(SCNetworkReachabilityRef target,
 
 
 @implementation BRReachability
-
+{
+	SCNetworkReachabilityRef reachabilityRef;
+	BOOL monitoring;
+	id __weak delegate;
+}
 
 @synthesize monitoring;
 @synthesize delegate;

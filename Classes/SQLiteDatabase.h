@@ -19,10 +19,7 @@
 @end
 
 
-@interface SQLiteDatabase : NSObject {
-	sqlite3 *database;
-	id <SQLiteDatabaseDelegate> __weak delegate;
-}
+@interface SQLiteDatabase : NSObject
 @property (nonatomic,weak) id <SQLiteDatabaseDelegate> delegate;
 - (id)initWithFile:(NSString *)path;
 - (id)initInMemory;

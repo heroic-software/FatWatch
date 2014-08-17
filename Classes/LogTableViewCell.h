@@ -12,34 +12,30 @@
 
 @class LogTableViewCellContentView;
 
+typedef NS_ENUM(NSInteger, AuxiliaryInfoType) {
+	kAuxiliaryInfoTypeVariance,
+	kAuxiliaryInfoTypeBMI,
+	kAuxiliaryInfoTypeFatPercent,
+	kAuxiliaryInfoTypeFatWeight,
+	kAuxiliaryInfoTypeTrend,
+	kNumberOfAuxiliaryInfoTypes
+};
+
 extern NSString * const kLogCellReuseIdentifier;
 
-@interface LogTableViewCell : UITableViewCell {
-	UITableView *__weak tableView;
-	LogTableViewCellContentView *logContentView;
-	BOOL highlightWeekends;
-}
+@interface LogTableViewCell : UITableViewCell
 @property (nonatomic,weak) UITableView *tableView;
 @property (nonatomic,readonly) LogTableViewCellContentView *logContentView;
-+ (NSInteger)auxiliaryInfoType;
-+ (void)setAuxiliaryInfoType:(NSInteger)infoType;
-+ (NSString *)nameForAuxiliaryInfoType:(NSInteger)infoType;
++ (AuxiliaryInfoType)auxiliaryInfoType;
++ (void)setAuxiliaryInfoType:(AuxiliaryInfoType)infoType;
++ (NSString *)nameForAuxiliaryInfoType:(AuxiliaryInfoType)infoType;
 + (NSArray *)availableAuxiliaryInfoTypes;
 - (void)updateWithMonthData:(EWDBMonth *)monthData day:(EWDay)day;
 - (void)auxiliaryInfoTypeChanged:(NSNotification *)notification;
 @end
 
 
-@interface LogTableViewCellContentView : UIView {
-	LogTableViewCell *__weak cell;
-	NSString *day;
-	NSString *weekday;
-	const EWDBDay *dd;
-	BOOL highlightDate;
-	NSFormatter *weightFormatter;
-	NSFormatter *varianceFormatter;
-	NSFormatter *bmiFormatter;
-}
+@interface LogTableViewCellContentView : UIView
 @property (nonatomic,weak) LogTableViewCell *cell;
 @property (nonatomic,strong) NSString *day;
 @property (nonatomic,strong) NSString *weekday;

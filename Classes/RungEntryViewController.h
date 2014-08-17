@@ -9,21 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RungEntryViewController : UIViewController {
-	UISegmentedControl *rungControl;
-	UILabel *rungLabel;
-	UILabel *ladderLabel;
-	UILabel *bendLabel;
-	UILabel *sitUpLabel;
-	UILabel *legLiftLabel;
-	UILabel *pushUpLabel;
-	UILabel *stepsLabel;
-	UILabel *setsLabel;
-	UILabel *extraStepsLabel;
-	int rung;
-	id __weak target;
-	NSString *key;
-}
+@interface RungEntryViewController : UIViewController
 @property (nonatomic,weak) id target;
 @property (nonatomic,copy) NSString *key;
 @property (nonatomic,strong) IBOutlet UISegmentedControl *rungControl;

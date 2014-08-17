@@ -12,6 +12,12 @@
 // <http://en.wikipedia.org/wiki/Boyer-Moore-Horspool_algorithm>
 
 @implementation DataSearch
+{
+	NSData *haystack;
+	NSData *needle;
+	NSUInteger skipTable[256];
+	NSUInteger haystackStartIndex;
+}
 
 - (id)initWithData:(NSData *)haystackData patternData:(NSData *)needleData {
 	if ((self = [super init])) {

@@ -13,12 +13,7 @@
 @class EWDatabase;
 @class EWGoal;
 
-@interface GoalViewController : BRTableViewController <UIActionSheetDelegate> {
-	EWDatabase *database;
-	EWGoal *goal;
-	BOOL isSetupForGoal, isSetupForBMI;
-	BOOL needsReload;
-}
+@interface GoalViewController : BRTableViewController <UIActionSheetDelegate>
 @property (nonatomic,strong) IBOutlet EWDatabase *database;
 - (IBAction)clearGoal:(id)sender;
 @end

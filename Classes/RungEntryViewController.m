@@ -73,7 +73,21 @@ static unsigned short EWLadder[48][5] = {
 
 
 @implementation RungEntryViewController
-
+{
+	UISegmentedControl *rungControl;
+	UILabel *rungLabel;
+	UILabel *ladderLabel;
+	UILabel *bendLabel;
+	UILabel *sitUpLabel;
+	UILabel *legLiftLabel;
+	UILabel *pushUpLabel;
+	UILabel *stepsLabel;
+	UILabel *setsLabel;
+	UILabel *extraStepsLabel;
+	NSInteger rung;
+	id __weak target;
+	NSString *key;
+}
 
 @synthesize target;
 @synthesize key;
@@ -102,7 +116,7 @@ static unsigned short EWLadder[48][5] = {
 - (void)updateRungControls {
 	BOOL isIntroductoryLadder = rung < 16;
 	
-	rungLabel.text = [NSString stringWithFormat:@"Rung %d", rung];
+	rungLabel.text = [NSString stringWithFormat:@"Rung %d", (int)rung];
 	[rungControl setEnabled:(rung > 1) forSegmentAtIndex:0];
 	[rungControl setEnabled:(rung < 48) forSegmentAtIndex:1];
 
@@ -130,7 +144,7 @@ static unsigned short EWLadder[48][5] = {
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	rung = [[target valueForKey:key] intValue];
+	rung = [[target valueForKey:key] integerValue];
 	if (rung == 0) {
 		rung = [[NSUserDefaults standardUserDefaults] integerForKey:@"LastSavedRung"];
 	}

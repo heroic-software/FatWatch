@@ -10,11 +10,7 @@
 #import "BRTableValueRow.h"
 
 
-@interface BRTableDatePickerRow : BRTableValueRow {
-	NSDate *minimumDate;
-	NSDate *maximumDate;
-	UIDatePickerMode datePickerMode;
-}
+@interface BRTableDatePickerRow : BRTableValueRow
 @property (nonatomic,strong) NSDate *minimumDate;
 @property (nonatomic,strong) NSDate *maximumDate;
 @property (nonatomic) UIDatePickerMode datePickerMode;

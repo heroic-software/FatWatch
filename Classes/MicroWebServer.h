@@ -7,19 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
-#import <CFNetwork/CFNetwork.h>
-#endif
-
 @protocol MicroWebServerDelegate;
 
-@interface MicroWebServer : NSObject <NSNetServiceDelegate> {
-	NSString *name;
-	CFSocketRef listenSocket;
-	NSNetService *netService;
-	id <MicroWebServerDelegate> __weak delegate;
-	BOOL running;
-}
+@interface MicroWebServer : NSObject <NSNetServiceDelegate>
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,weak) id <MicroWebServerDelegate> delegate;
 @property (nonatomic,readonly,getter=isRunning) BOOL running;
@@ -30,16 +20,7 @@
 @end
 
 
-@interface MicroWebConnection : NSObject {
-	MicroWebServer *webServer;
-	CFReadStreamRef readStream;
-	CFWriteStreamRef writeStream;
-	CFHTTPMessageRef requestMessage;
-	CFHTTPMessageRef responseMessage;
-	CFDataRef responseData;
-	CFIndex responseBytesRemaining;
-	NSArray *httpDateFormatterArray;
-}
+@interface MicroWebConnection : NSObject
 - (NSDateFormatter *)httpDateFormatter;
 - (NSString *)requestMethod;
 - (NSURL *)requestURL;

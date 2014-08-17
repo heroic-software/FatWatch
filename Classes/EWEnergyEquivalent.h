@@ -19,19 +19,10 @@
 @end
 
 
-@interface EWActivityEquivalent : NSObject <EWEnergyEquivalent> {
-	sqlite_int64 dbID;
-	NSString *name;
-	float mets;
-}
+@interface EWActivityEquivalent : NSObject <EWEnergyEquivalent>
 + (void)setCurrentWeight:(float)weight;
 @end
 
 
-@interface EWFoodEquivalent : NSObject <EWEnergyEquivalent> {
-	sqlite_int64 dbID;
-	NSString *name;
-	float energyPerUnit;
-	NSString *unitName;
-}
+@interface EWFoodEquivalent : NSObject <EWEnergyEquivalent>
 @end

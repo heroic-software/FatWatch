@@ -10,16 +10,7 @@
 
 @class FlagTabView;
 
-@interface FlagIconViewController : UIViewController {
-	FlagTabView *flagTabView;
-	UIScrollView *iconArea;
-	UIView *enableLadderView;
-	UIView *disableLadderView;
-	NSArray *iconNames;
-	int flagIndex;
-	UIView *iconView;
-	CGPoint contentOffsets[4];
-}
+@interface FlagIconViewController : UIViewController
 @property (nonatomic,strong) IBOutlet FlagTabView *flagTabView;
 @property (nonatomic,strong) IBOutlet UIScrollView *iconArea;
 @property (nonatomic,strong) IBOutlet UIView *enableLadderView;

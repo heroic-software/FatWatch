@@ -9,27 +9,16 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PasscodeEntryViewController : UIViewController {
-	UINavigationBar *navBar;
-	UIView *digitGroupView;
-	UILabel *promptLabel;
-	UILabel *smallLabel;
-	UIImageView *digit0View;
-	UIImageView *digit1View;
-	UIImageView *digit2View;
-	UIImageView *digit3View;
-	UITextField *codeField;
-	UIImageView *digitViews[4];
-}
-@property (nonatomic,strong) IBOutlet UINavigationBar *navBar;
-@property (nonatomic,strong) IBOutlet UIView *digitGroupView;
-@property (nonatomic,strong) IBOutlet UILabel *promptLabel;
-@property (nonatomic,strong) IBOutlet UILabel *smallLabel;
-@property (nonatomic,strong) IBOutlet UIImageView *digit0View;
-@property (nonatomic,strong) IBOutlet UIImageView *digit1View;
-@property (nonatomic,strong) IBOutlet UIImageView *digit2View;
-@property (nonatomic,strong) IBOutlet UIImageView *digit3View;
-@property (nonatomic,strong) IBOutlet UITextField *codeField;
+@interface PasscodeEntryViewController : UIViewController
+@property (nonatomic, weak) IBOutlet UINavigationBar *navBar;
+@property (nonatomic, weak) IBOutlet UIView *digitGroupView;
+@property (nonatomic, weak) IBOutlet UILabel *promptLabel;
+@property (nonatomic, weak) IBOutlet UILabel *smallLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *digit0View;
+@property (nonatomic, weak) IBOutlet UIImageView *digit1View;
+@property (nonatomic, weak) IBOutlet UIImageView *digit2View;
+@property (nonatomic, weak) IBOutlet UIImageView *digit3View;
+@property (nonatomic, weak) IBOutlet UITextField *codeField;
 + (BOOL)authorizationRequired;
 + (void)removePasscode;
 + (PasscodeEntryViewController *)controllerForSettingCode;

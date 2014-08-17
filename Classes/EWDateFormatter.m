@@ -11,6 +11,9 @@
 
 
 @implementation EWDateFormatter
+{
+	NSDateFormatter *realFormatter;
+}
 
 + (NSFormatter *)formatterWithDateFormat:(NSString *)format {
 	if ([format isEqualToString:@"y-MM-dd"]) {
@@ -52,25 +55,24 @@
 	EWMonthDay md = [obj intValue];
 	EWMonth m = EWMonthDayGetMonth(md);
 	EWDay d = EWMonthDayGetDay(md);
-	NSInteger year = (24012 + m) / 12; 	// 0 = 2001-01
-	NSInteger m0 = (m % 12) + 1;
+	int year = (24012 + m) / 12; 	// 0 = 2001-01
+	int m0 = (m % 12) + 1;
 	if (m0 < 1) m0 += 12;
 	return [NSString stringWithFormat:@"%04d-%02d-%02d", year, m0, d];
 }
 
 - (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error {
 	NSScanner *scanner = [[NSScanner alloc] initWithString:string];
-	NSInteger year, month, day;
+	int year, month, day;
 	
 	NSCharacterSet *digitSet = [NSCharacterSet decimalDigitCharacterSet];
 	
-	BOOL success = ([scanner scanInteger:&year] &&
+	BOOL success = ([scanner scanInt:&year] &&
 					[scanner scanUpToCharactersFromSet:digitSet intoString:nil] &&
-					[scanner scanInteger:&month] &&
+					[scanner scanInt:&month] &&
 					[scanner scanUpToCharactersFromSet:digitSet intoString:nil] &&
-					[scanner scanInteger:&day]);
-	
-	
+					[scanner scanInt:&day]);
+
 	if (success) {
 		EWMonth m = ((year - 2001) * 12) + (month - 1);
 		*obj = @(EWMonthDayMake(m, day));

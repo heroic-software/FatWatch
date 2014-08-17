@@ -1,9 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MicroWebServer.h"
 
-@interface WebServerTestDelegate : NSObject
-{
-}
+@interface WebServerTestDelegate : NSObject <MicroWebServerDelegate>
 - (void)handleWebConnection:(MicroWebConnection *)connection;
 @end
 
@@ -16,9 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-	MicroWebServer *server = [MicroWebServer sharedServer];
+	MicroWebServer *server = [[MicroWebServer alloc] init];
 	[server setName:@"WebServerTest"];
 	[server setDelegate:[[WebServerTestDelegate alloc] init]];
 
@@ -50,9 +46,6 @@ int main(int argc, char *argv[])
 		[fakeConnection writeStreamCanAcceptBytes];
 	} while (CFWriteStreamGetStatus(writeStream) < kCFStreamStatusClosed);
 
-	[fakeConnection release];
-	
-    [pool release];
     return 0;
 }
 
@@ -60,11 +53,10 @@ int main(int argc, char *argv[])
 @implementation WebServerTestDelegate
 
 - (void)handleWebConnection:(MicroWebConnection *)connection {
-	[connection setResponseStatus:200];
+	[connection beginResponseWithStatus:200];
 	[connection setValue:@"text/plain" forResponseHeader:@"Content-Type"];
-	[connection setResponseBodyString:@"Hello, world."];
+	[connection endResponseWithBodyString:@"Hello, world."];
 	NSLog(@"Got a request for <%@>", [connection requestURL]);
-	NSLog(@"Request: %@", [connection parseRequest]);
 }
 
 @end

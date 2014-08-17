@@ -23,16 +23,11 @@ enum {
 NSString *kPasscodeKey = @"Passcode";
 
 
-@interface SettingCodeController : PasscodeEntryViewController {
-	NSString *newCode;
-}
+@interface SettingCodeController : PasscodeEntryViewController
 @end
 
 
-@interface AuthorizationController : PasscodeEntryViewController {
-	NSUInteger attemptsRemaining;
-	BOOL isAuthorized;
-}
+@interface AuthorizationController : PasscodeEntryViewController
 @end
 
 
@@ -41,8 +36,10 @@ NSString *kPasscodeKey = @"Passcode";
 @end
 
 
-
 @implementation PasscodeEntryViewController
+{
+	UIImageView *digitViews[4];
+}
 
 
 @synthesize navBar;
@@ -79,8 +76,6 @@ NSString *kPasscodeKey = @"Passcode";
 - (id)init {
 	return [super initWithNibName:@"PasscodeView" bundle:nil];
 }
-
-
 
 
 - (void)viewDidLoad {
@@ -148,43 +143,44 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 @implementation SettingCodeController
-
-
+{
+	NSString *_newCode;
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	navBar.hidden = NO;
-	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
-	[codeField becomeFirstResponder];
+	self.navBar.hidden = NO;
+	self.digitGroupView.frame = CGRectMake(0, 88, 320, 79);
+	[self.codeField becomeFirstResponder];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	[codeField becomeFirstResponder];
+	[self.codeField becomeFirstResponder];
 }
 
 
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
-	if (newCode == nil) {
-		newCode = userCode;
-		promptLabel.text = NSLocalizedString(@"Re-enter your passcode", @"Passcode re-entry");
-		smallLabel.hidden = YES;
+	if (_newCode == nil) {
+		_newCode = userCode;
+		self.promptLabel.text = NSLocalizedString(@"Re-enter your passcode", @"Passcode re-entry");
+		self.smallLabel.hidden = YES;
 		return NO;
 	}
 	
-	if ([newCode isEqualToString:userCode]) {
-		[[NSUserDefaults standardUserDefaults] setObject:newCode forKey:kPasscodeKey];
-		promptLabel.text = NSLocalizedString(@"Passcode set", @"Passcode set");
-		smallLabel.hidden = YES;
+	if ([_newCode isEqualToString:userCode]) {
+		[[NSUserDefaults standardUserDefaults] setObject:_newCode forKey:kPasscodeKey];
+		self.promptLabel.text = NSLocalizedString(@"Passcode set", @"Passcode set");
+		self.smallLabel.hidden = YES;
 		return YES;
 	}
 	
-	promptLabel.text = NSLocalizedString(@"Enter a passcode", @"Enter a passcode");
-	smallLabel.hidden = NO;
-	smallLabel.text = NSLocalizedString(@"Passcodes did not match. Try again.", @"Passcode mismatch");
-	newCode = nil;
+	self.promptLabel.text = NSLocalizedString(@"Enter a passcode", @"Enter a passcode");
+	self.smallLabel.hidden = NO;
+	self.smallLabel.text = NSLocalizedString(@"Passcodes did not match. Try again.", @"Passcode mismatch");
+	_newCode = nil;
 	return NO;
 }
 
@@ -203,11 +199,14 @@ NSString *kPasscodeKey = @"Passcode";
 
 
 @implementation AuthorizationController
-
+{
+	NSUInteger _remainingAttemptCount;
+	BOOL _isAuthorized;
+}
 
 - (id)init {
 	if ((self = [super init])) {
-		attemptsRemaining = 4;
+		_remainingAttemptCount = 4;
 	}
 	return self;
 }
@@ -215,38 +214,38 @@ NSString *kPasscodeKey = @"Passcode";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	navBar.hidden = NO;
-	UINavigationItem *item = [navBar topItem];
+	self.navBar.hidden = NO;
+	UINavigationItem *item = [self.navBar topItem];
 	item.leftBarButtonItem = nil;
 	item.title = @"FatWatch";
-	navBar.tintColor = [UIColor colorWithRed:0.894f green:0 blue:0.02f alpha:1];
-	digitGroupView.frame = CGRectMake(0, 88, 320, 79);
-	[codeField becomeFirstResponder];
+	self.navBar.tintColor = [UIColor colorWithRed:0.894f green:0 blue:0.02f alpha:1];
+	self.digitGroupView.frame = CGRectMake(0, 88, 320, 79);
+	[self.codeField becomeFirstResponder];
 }
 
 
 - (BOOL)shouldDismissEnteredCode:(NSString *)userCode {
 	NSString *secretCode = [[NSUserDefaults standardUserDefaults] stringForKey:kPasscodeKey];
 	if ([secretCode isEqualToString:userCode]) {
-		promptLabel.text = NSLocalizedString(@"Authorized", @"Passcode authorized");
-		smallLabel.hidden = YES;
-		isAuthorized = YES;
+		self.promptLabel.text = NSLocalizedString(@"Authorized", @"Passcode authorized");
+		self.smallLabel.hidden = YES;
+		_isAuthorized = YES;
 		return YES;
 	} else {
-		attemptsRemaining -= 1;
-		smallLabel.hidden = NO;
+		_remainingAttemptCount -= 1;
+		self.smallLabel.hidden = NO;
 		NSString *format = NSLocalizedString(@"Incorrect. %d attempts remaining.", @"Passcode wrong, count remaining attempts");
-		smallLabel.text = [NSString stringWithFormat:format, attemptsRemaining];
-		return (attemptsRemaining == 0);
+		self.smallLabel.text = [NSString stringWithFormat:format, _remainingAttemptCount];
+		return (_remainingAttemptCount == 0);
 	}
 }
 
 
 - (void)dismissView {
-	if (! isAuthorized) {
-		[codeField resignFirstResponder];
-		promptLabel.text = NSLocalizedString(@"Authorization failed", @"Passcode failed");
-		smallLabel.hidden = YES;
+	if (! _isAuthorized) {
+		[self.codeField resignFirstResponder];
+		self.promptLabel.text = NSLocalizedString(@"Authorization failed", @"Passcode failed");
+		self.smallLabel.hidden = YES;
 		return;
 	}
 	[(id)[[UIApplication sharedApplication] delegate] continueLaunchSequence];

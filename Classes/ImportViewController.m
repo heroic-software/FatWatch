@@ -11,6 +11,15 @@
 #import "EWDatabase.h"
 
 @implementation ImportViewController
+{
+    UILabel *titleLabel;
+    UIProgressView *importProgressView;
+    UILabel *detailLabel;
+    UIButton *okButton;
+    EWImporter *importer;
+    EWDatabase *database;
+    BOOL promptBeforeImport;
+}
 
 @synthesize titleLabel;
 @synthesize importProgressView;
@@ -110,7 +119,7 @@
     self.importProgressView.progress = progress;
 }
 
-- (void)importer:(EWImporter *)anImporter didImportNumberOfMeasurements:(int)importedCount outOfNumberOfRows:(int)rowCount {
+- (void)importer:(EWImporter *)anImporter didImportNumberOfMeasurements:(unsigned int)importedCount outOfNumberOfRows:(unsigned int)rowCount {
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kEWLastImportKey];
 	

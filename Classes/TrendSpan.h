@@ -13,18 +13,7 @@
 @class EWDatabase;
 
 
-@interface TrendSpan : NSObject {
-	// Independent (Total or Fat)
-	NSString *title;
-	EWMonthDay beginMonthDay;
-	EWMonthDay endMonthDay;
-	float flagFrequencies[4];
-	// Dependent
-	float totalWeightPerDay, fatWeightPerDay;
-	NSDate *totalEndDate, *fatEndDate;
-	NSOperation *totalGraphOperation, *fatGraphOperation;
-	CGImageRef totalGraphImageRef, fatGraphImageRef;
-}
+@interface TrendSpan : NSObject
 + (NSArray *)computeTrendSpansFromDatabase:(EWDatabase *)db;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic) EWMonthDay beginMonthDay;

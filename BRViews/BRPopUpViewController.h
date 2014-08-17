@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface BRPopUpViewController : NSObject {
-	UIView *view;
-	UIView *superview;
-    UIButton *screenButton;
-}
+@interface BRPopUpViewController : NSObject
 @property (nonatomic,readonly,getter=isVisible) BOOL visible;
 @property (nonatomic,strong) IBOutlet UIView *view;
 @property (nonatomic,strong) IBOutlet UIView *superview;

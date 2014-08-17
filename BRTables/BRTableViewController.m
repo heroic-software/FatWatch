@@ -12,7 +12,9 @@
 
 
 @implementation BRTableViewController
-
+{
+	NSMutableArray *sections;
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder	{
 	if ((self = [super initWithCoder:aDecoder])) {

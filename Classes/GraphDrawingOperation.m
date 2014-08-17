@@ -59,7 +59,14 @@ static float EWChartWeightIncrementAfterIncrement(float previousIncrement) {
 
 
 @implementation GraphDrawingOperation
-
+{
+	CGFloat scale;
+	NSMutableData *pointData;
+	NSMutableData *flagData;
+	NSUInteger dayCount;
+	CGPoint headPoint;
+	CGPoint tailPoint;
+}
 
 @synthesize database;
 @synthesize delegate;

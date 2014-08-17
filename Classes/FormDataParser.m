@@ -41,7 +41,10 @@
 
 
 @implementation FormDataParser
-
+{
+	MicroWebConnection *connection;
+	NSMutableDictionary *dictionary;
+}
 
 - (id)init {
 	if ((self = [super init])) {

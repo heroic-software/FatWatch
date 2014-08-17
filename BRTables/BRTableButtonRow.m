@@ -17,7 +17,12 @@ static BRActivityView *gLoadingView = nil;
 
 
 @implementation BRTableButtonRow
-
+{
+	id __weak target;
+	SEL action;
+	BOOL disabled;
+	BOOL followURLRedirects;
+}
 
 @synthesize target;
 @synthesize action;

@@ -14,8 +14,6 @@
 @class EWDatabase;
 
 
-@interface MoreViewController : BRTableViewController <MFMailComposeViewControllerDelegate> {
-	EWDatabase *database;
-}
+@interface MoreViewController : BRTableViewController <MFMailComposeViewControllerDelegate>
 @property (nonatomic,strong) IBOutlet EWDatabase *database;
 @end

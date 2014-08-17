@@ -34,7 +34,14 @@ NSFormatter *EWFatFormatterAtIndex(int i) {
 
 
 @implementation EWExporter
-
+{
+	int fieldCount;
+	EWExporterField fieldOrder[EWExporterFieldCount];
+	NSString *fieldNames[EWExporterFieldCount];
+	NSFormatter *fieldFormatters[EWExporterFieldCount];
+	NSDate *beginDate;
+	NSDate *endDate;
+}
 
 @synthesize beginDate;
 @synthesize endDate;

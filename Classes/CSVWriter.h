@@ -9,12 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CSVWriter : NSObject {
-	NSMutableData *data;
-	NSInteger columnIndex;
-	NSCharacterSet *quotedCharSet;
-	NSNumberFormatter *floatFormatter;
-}
+@interface CSVWriter : NSObject
 @property (nonatomic,strong) NSNumberFormatter *floatFormatter;
 - (void)addString:(NSString *)value;
 - (void)addFloat:(float)value;

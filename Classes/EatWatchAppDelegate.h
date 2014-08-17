@@ -20,15 +20,7 @@ typedef enum {
 } EWLaunchSequenceStage;
 
 
-@interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
-    UIWindow *window;
-	UIViewController *launchViewController;
-	NSUInteger lastTapTabIndex;
-	NSTimeInterval lastTapTime;
-	EWDatabase *db;
-	EWLaunchSequenceStage launchStage;
-    NSData *dataToImport;
-}
+@interface EatWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
 @property (nonatomic,strong) IBOutlet UITabBarController *rootTabBarController;
 - (NSString *)databasePath;
 - (void)continueLaunchSequence;

@@ -12,7 +12,7 @@
 @class EWDatabase;
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, EWExporterField) {
 	EWExporterFieldDate,
 	EWExporterFieldWeight,
 	EWExporterFieldTrendWeight,
@@ -23,21 +23,14 @@ typedef enum {
 	EWExporterFieldFlag3,
 	EWExporterFieldNote,
 	EWExporterFieldCount
-} EWExporterField;
+};
 
 
 NSArray *EWFatFormatterNames();
 NSFormatter *EWFatFormatterAtIndex(int index);
 
 
-@interface EWExporter : NSObject {
-	int fieldCount;
-	EWExporterField fieldOrder[EWExporterFieldCount];
-	NSString *fieldNames[EWExporterFieldCount];
-	NSFormatter *fieldFormatters[EWExporterFieldCount];
-	NSDate *beginDate;
-	NSDate *endDate;
-}
+@interface EWExporter : NSObject
 @property (nonatomic,strong) NSDate *beginDate;
 @property (nonatomic,strong) NSDate *endDate;
 // Public API

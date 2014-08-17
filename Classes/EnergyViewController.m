@@ -16,7 +16,16 @@
 
 
 @implementation EnergyViewController
-
+{
+	EWDatabase *database;
+	float weight;
+	float energy;
+	NSArray *titleArray;
+	NSArray *dataArray;
+	EWEnergyFormatter *energyFormatter;
+	BOOL dirty;
+	NewEquivalentViewController *newEquivalentController;
+}
 
 - (id)initWithWeight:(float)aWeight andChangePerDay:(float)rate database:(EWDatabase *)db {
     if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
@@ -113,7 +122,7 @@
 	if (equiv) {
 		int sec = [equiv isKindOfClass:[EWActivityEquivalent class]] ? 0 : 1;
 		NSMutableArray *array = dataArray[sec];
-		int row = [array count];
+		NSUInteger row = [array count];
 		[array addObject:equiv];
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:sec];
 		[self.tableView	insertRowsAtIndexPaths:@[indexPath]

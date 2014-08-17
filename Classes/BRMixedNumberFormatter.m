@@ -10,7 +10,13 @@
 
 
 @implementation BRMixedNumberFormatter
-
+{
+	float multiple;
+	float divisor;
+	NSNumberFormatter *quotientFormatter;
+	NSNumberFormatter *remainderFormatter;
+	NSString *formatString;
+}
 
 + (NSNumberFormatter *)numberFormatterWithFractionDigits:(NSUInteger)digits {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];

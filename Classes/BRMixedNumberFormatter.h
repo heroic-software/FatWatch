@@ -9,13 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BRMixedNumberFormatter : NSFormatter {
-	float multiple;
-	float divisor;
-	NSNumberFormatter *quotientFormatter;
-	NSNumberFormatter *remainderFormatter;
-	NSString *formatString;
-}
+@interface BRMixedNumberFormatter : NSFormatter
 + (BRMixedNumberFormatter *)poundsAsStonesFormatterWithFractionDigits:(NSUInteger)digits;
 + (BRMixedNumberFormatter *)metersAsFeetFormatter; // input values are inches
 @property (nonatomic) float multiple;

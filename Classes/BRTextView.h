@@ -9,8 +9,5 @@
 #import <UIKit/UIKit.h>
 
 
-@interface BRTextView : UITextView {
-	CALayer *placeholderLayer;
-}
-
+@interface BRTextView : UITextView
 @end

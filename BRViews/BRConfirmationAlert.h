@@ -9,11 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BRConfirmationAlert : NSObject <UIAlertViewDelegate> {
-	UIAlertView *alertView;
-	NSInvocation *invocation;
-	NSString *buttonTitle;
-}
+@interface BRConfirmationAlert : NSObject <UIAlertViewDelegate>
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *message;
 @property (nonatomic,copy) NSString *buttonTitle;

@@ -17,22 +17,7 @@
 @class EWDatabase;
 
 
-@interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate> {
-	BOOL isLoading;
-	EWDatabase *database;
-	YAxisView *axisView;
-	UIScrollView *scrollView;
-	UISegmentedControl *spanControl;
-	UISegmentedControl *typeControl;
-	UIBarButtonItem *actionButtonItem;
-    NSArray *graphSegments;
-	NSMutableArray *cachedGraphViews;
-	NSInteger lastMinIndex, lastMaxIndex;
-	GraphViewParameters *parameters;
-	EWMonth scrollingSpanSavedMonth;
-	CGFloat scrollingSpanSavedOffsetX;
-	NSInteger saveButtonIndex, copyButtonIndex;
-}
+@interface GraphViewController : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 @property (nonatomic,strong) IBOutlet EWDatabase *database;
 @property (nonatomic,strong) IBOutlet YAxisView *axisView;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;

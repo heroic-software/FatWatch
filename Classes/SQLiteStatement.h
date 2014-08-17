@@ -13,10 +13,7 @@
 @class SQLiteDatabase;
 
 
-@interface SQLiteStatement : NSObject {
-	SQLiteDatabase *database;
-	sqlite3_stmt *statement;
-}
+@interface SQLiteStatement : NSObject
 // Parameters are 1-based indexes
 - (void)bindInt:(int)value toParameter:(int)param;
 - (void)bindInt64:(sqlite_int64)value toParameter:(int)param;

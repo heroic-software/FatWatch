@@ -10,6 +10,11 @@
 
 
 @implementation BRTableSection
+{
+	NSMutableArray *rows;
+	BRTableViewController *__weak controller;
+	NSString *headerTitle, *footerTitle;
+}
 
 @synthesize headerTitle, footerTitle, controller;
 
@@ -103,7 +108,9 @@
 
 
 @implementation  BRTableRadioSection
-
+{
+	NSInteger selectedIndex;
+}
 
 @synthesize selectedIndex;
 

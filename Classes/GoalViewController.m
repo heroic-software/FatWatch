@@ -76,7 +76,12 @@
 
 
 @implementation GoalViewController
-
+{
+	EWDatabase *database;
+	EWGoal *goal;
+	BOOL isSetupForGoal, isSetupForBMI;
+	BOOL needsReload;
+}
 
 @synthesize database;
 

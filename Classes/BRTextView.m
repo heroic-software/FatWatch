@@ -10,6 +10,9 @@
 
 
 @implementation BRTextView
+{
+	CALayer *placeholderLayer;
+}
 
 - (void)updatePlaceholderLayer {
 	if (placeholderLayer == nil) {

@@ -18,15 +18,7 @@
 @class EWDatabase;
 
 
-@interface LogViewController : UITableViewController {
-	EWDatabase *database;
-	NSDateFormatter *sectionTitleFormatter;
-	EWMonth earliestMonth, latestMonth;
-	NSIndexPath *lastIndexPath;
-	EWMonthDay scrollDestination;
-	LogInfoPickerController *infoPickerController;
-	LogDatePickerController *datePickerController;
-}
+@interface LogViewController : UITableViewController
 @property (nonatomic,strong) IBOutlet EWDatabase *database;
 @property (nonatomic,strong) IBOutlet LogInfoPickerController *infoPickerController;
 @property (nonatomic,strong) IBOutlet LogDatePickerController *datePickerController;

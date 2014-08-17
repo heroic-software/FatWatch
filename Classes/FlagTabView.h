@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface FlagTabView : UIView {
-	CGRect tabRect;
-}
+@interface FlagTabView : UIView
 - (void)selectTabAroundRect:(CGRect)rect;
 @end

@@ -33,7 +33,15 @@ static NSString *kSelectedTabIndex = @"SelectedTabIndex";
 
 
 @implementation EatWatchAppDelegate
-
+{
+    UIWindow *window;
+	UIViewController *launchViewController;
+	NSUInteger lastTapTabIndex;
+	NSTimeInterval lastTapTime;
+	EWDatabase *db;
+	EWLaunchSequenceStage launchStage;
+    NSData *dataToImport;
+}
 
 - (void)registerDefaults {
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];

@@ -10,7 +10,9 @@
 
 
 @implementation FlagTabView
-
+{
+	CGRect tabRect;
+}
 
 - (void)awakeFromNib {
 	UIView *view = (self.subviews)[0];

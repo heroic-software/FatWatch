@@ -18,18 +18,18 @@ extern const float kKilojoulesPerCalorie;
 extern NSString * const EWBMIStatusDidChangeNotification;
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, EWWeightUnit) {
 	EWWeightUnitPounds = 1,
 	EWWeightUnitKilograms = 2,
 	EWWeightUnitStones = 3,
 	EWWeightUnitGrams = 4,
-} EWWeightUnit;
+};
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, EWEnergyUnit) {
 	EWEnergyUnitCalories = 1,
 	EWEnergyUnitKilojoules = 2
-} EWEnergyUnit;
+};
 
 
 @interface NSUserDefaults (EWAdditions)

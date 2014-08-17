@@ -11,7 +11,19 @@
 
 
 @implementation BRTableRow
-
+{
+	BRTableSection *__weak section;
+	id object;
+	UITableViewCellStyle cellStyle;
+	NSString *title;
+	NSString *detail;
+	UITextAlignment titleAlignment;
+	UIColor *titleColor;
+	UITableViewCellAccessoryType accessoryType;
+	UIView *accessoryView;
+	UITableViewCellSelectionStyle selectionStyle;
+	UIImage *image;
+}
 
 @synthesize title;
 @synthesize detail;
@@ -54,7 +66,7 @@
 
 - (NSString *)reuseableCellIdentifier {
     const char *name = class_getName([self class]);
-	return [NSString stringWithFormat:@"%s:%d", name, cellStyle];
+	return [NSString stringWithFormat:@"%s:%d", name, (int)cellStyle];
 }
 
 

@@ -10,10 +10,7 @@
 
 @class MicroWebConnection;
 
-@interface FormDataParser : NSObject {
-	MicroWebConnection *connection;
-	NSMutableDictionary *dictionary;
-}
+@interface FormDataParser : NSObject
 - (id)initWithData:(NSData *)data;
 - (id)initWithConnection:(MicroWebConnection *)connection;
 - (NSArray *)allKeys;

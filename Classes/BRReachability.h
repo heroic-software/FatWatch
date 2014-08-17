@@ -10,11 +10,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 
-@interface BRReachability : NSObject {
-	SCNetworkReachabilityRef reachabilityRef;
-	BOOL monitoring;
-	id __weak delegate;
-}
+@interface BRReachability : NSObject
 @property (nonatomic,readonly,getter=isMonitoring) BOOL monitoring;
 @property (nonatomic,weak) id delegate;
 - (void)startMonitoring;

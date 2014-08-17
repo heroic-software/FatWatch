@@ -32,14 +32,29 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 
 
 @interface GraphViewController ()
-- (NSInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x;
-- (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month;
+- (NSUInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x;
+- (NSUInteger)indexOfGraphViewInfoForMonth:(EWMonth)month;
 @end
 
 
 
 @implementation GraphViewController
-
+{
+	BOOL isLoading;
+	EWDatabase *database;
+	YAxisView *axisView;
+	UIScrollView *scrollView;
+	UISegmentedControl *spanControl;
+	UISegmentedControl *typeControl;
+	UIBarButtonItem *actionButtonItem;
+    NSArray *graphSegments;
+	NSMutableArray *cachedGraphViews;
+	NSInteger lastMinIndex, lastMaxIndex;
+	GraphViewParameters *parameters;
+	EWMonth scrollingSpanSavedMonth;
+	CGFloat scrollingSpanSavedOffsetX;
+	NSInteger saveButtonIndex, copyButtonIndex;
+}
 
 @synthesize database;
 @synthesize axisView;
@@ -98,12 +113,12 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 	
 	CGSize size = scrollView.bounds.size;
 	NSInteger numberOfDays;
-    NSUInteger infoCount;
+    unsigned int infoCount;
 
 	NSInteger spanIndex = spanControl.selectedSegmentIndex;
 	if (spanIndex == kSpanScrolling) {
 		infoCount = EWMonthDayGetMonth(endMonthDay) - EWMonthDayGetMonth(beginMonthDay) + 1;
-		NSAssert1(infoCount > 0, @"infoCount (%d) must be at least 1", infoCount);
+		NSAssert1(infoCount > 0, @"infoCount (%u) must be at least 1", infoCount);
 		if (infoCount == 1) {
 			parameters.scaleX = size.width / EWDaysInMonth(EWMonthDayGetMonth(beginMonthDay));
 		} else {
@@ -163,7 +178,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 		CGFloat x = 0;
         NSMutableArray *info = [[NSMutableArray alloc] initWithCapacity:infoCount];
 		for (NSUInteger i = 0; i < infoCount; i++) {
-			NSInteger days = EWDaysInMonth(m);
+			EWDay days = EWDaysInMonth(m);
 			CGFloat w = parameters.scaleX * days;
 
 			GraphSegment *segment = [[GraphSegment alloc] init];
@@ -272,11 +287,11 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (NSInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
-	int leftIndex = 0;
-	int rightIndex = [graphSegments count];
+- (NSUInteger)indexOfGraphViewInfoAtOffsetX:(CGFloat)x {
+	NSUInteger leftIndex = 0;
+	NSUInteger rightIndex = [graphSegments count];
 	while (leftIndex < rightIndex) {
-		unsigned int i = (leftIndex + rightIndex) / 2;
+		NSUInteger i = (leftIndex + rightIndex) / 2;
 		CGFloat leftX = ((GraphSegment *)graphSegments[i]).offsetX;
 		if (x >= leftX) {
 			if (i + 1 == [graphSegments count]) {
@@ -300,14 +315,14 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (NSInteger)indexOfGraphViewInfoForMonth:(EWMonth)month {
+- (NSUInteger)indexOfGraphViewInfoForMonth:(EWMonth)month {
     GraphSegment *segment0 = graphSegments[0];
 	NSInteger i = (month - EWMonthDayGetMonth(segment0.beginMonthDay));
     return MINMAX(0, i, (NSInteger)[graphSegments count] - 1);
 }
 
 
-- (void)cacheViewAtIndex:(unsigned int)i {
+- (void)cacheViewAtIndex:(NSUInteger)i {
 	if (i >= [graphSegments count]) return;
     GraphSegment *segment = graphSegments[i];
 	if (segment.view != nil) {
@@ -322,7 +337,7 @@ static NSString * const kShowFatKey = @"ChartShowFat";
 }
 
 
-- (void)updateViewAtIndex:(unsigned int)i {
+- (void)updateViewAtIndex:(NSUInteger)i {
     GraphSegment *segment = graphSegments[i];
 
 	segment.view.beginMonthDay = segment.beginMonthDay;

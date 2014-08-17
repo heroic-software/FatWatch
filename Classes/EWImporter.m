@@ -26,7 +26,17 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 
 
 @implementation EWImporter
-
+{
+	CSVReader *reader;
+	NSArray *columnNames;
+	NSArray *sampleValues;
+	NSDictionary *importDefaults;
+	NSUInteger columnForField[EWImporterFieldCount];
+	NSFormatter *formatterForField[EWImporterFieldCount];
+	id <EWImporterDelegate> __weak delegate;
+	BOOL deleteFirst;
+	BOOL importing;
+}
 
 @synthesize delegate;
 @synthesize deleteFirst;
@@ -66,7 +76,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 			NSString *name = [columnNames[c] lowercaseString];
 			NSString *field = map[name];
 			if (field) {
-				defaults[field] = [NSNumber numberWithInt:(c+1)];
+				defaults[field] = @(c + 1);
 			}
 		}
 		
@@ -142,7 +152,7 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 }
 
 
-- (void)setColumn:(int)column forField:(EWImporterField)field {
+- (void)setColumn:(NSUInteger)column forField:(EWImporterField)field {
 	NSAssert(field >= 0 && field < EWImporterFieldCount, @"field out of range");
 	NSAssert(columnForField[field] == 0, @"double set column!");
 	columnForField[field] = column;
@@ -190,8 +200,8 @@ NSString * const kEWLastExportKey = @"EWLastExportDate";
 
 - (void)continueImportToDatabase:(EWDatabase *)db {
     NSDate *updateDate = [NSDate date];
-	NSUInteger rowCount = 0;
-	NSUInteger importedCount = 0;
+	unsigned int rowCount = 0;
+	unsigned int importedCount = 0;
 	
 	if (self.deleteFirst) {
 		[EWGoal deleteGoal];

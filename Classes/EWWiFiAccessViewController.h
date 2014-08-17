@@ -19,23 +19,7 @@
 #define kEWReadyAddressTag 101
 #define kEWReadyNameTag 102
 
-@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate> {
-	EWDatabase *database;
-	UILabel *statusLabel;
-	UIActivityIndicatorView *activityView;
-	UIView *detailView;
-	UIView *inactiveDetailView;
-	UIView *activeDetailView;
-	UILabel *lastImportLabel;
-	UILabel *lastExportLabel;
-	// Not NIB Stuff
-	BRReachability *reachability;
-	MicroWebServer *webServer;
-	NSDictionary *webResources;
-	NSMutableDictionary *exportDefaults;
-	// Import State
-	EWImporter *importer;
-}
+@interface EWWiFiAccessViewController : UIViewController <MicroWebServerDelegate>
 @property (nonatomic,strong) EWDatabase *database;
 @property (nonatomic,strong) IBOutlet UILabel *statusLabel;
 @property (nonatomic,strong) IBOutlet UIActivityIndicatorView *activityView;

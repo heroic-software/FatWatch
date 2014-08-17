@@ -16,7 +16,9 @@
 
 
 @implementation AboutViewController
-
+{
+	BOOL isShowingRegistrationInfo;
+}
 
 - (id)init {
 	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {

@@ -22,30 +22,7 @@ typedef enum {
 } TrendGoalState;
 
 
-@interface TrendViewController : UIViewController {
-	EWDatabase *database;
-	NSArray *spanArray;
-	NSUInteger spanIndex;
-	BOOL showFat;
-	BOOL showAbsoluteDate;
-	GraphView *graphView;
-	UIView *changeGroupView;
-	EWTrendButton *weightChangeButton;
-	EWTrendButton *energyChangeButton;
-	UIView *goalGroupView;
-	EWTrendButton *relativeEnergyButton;
-	EWTrendButton *relativeWeightButton;
-	EWTrendButton *dateButton;
-	EWTrendButton *planButton;
-	UIView *flagGroupView;
-	UILabel *flag0Label;
-	UILabel *flag1Label;
-	UILabel *flag2Label;
-	UILabel *flag3Label;
-	UIView *messageGroupView;
-	UIView *goalAttainedView;
-	TrendGoalState goalState;
-}
+@interface TrendViewController : UIViewController
 @property (nonatomic,strong) IBOutlet EWDatabase *database;
 @property (nonatomic,strong) IBOutlet GraphView	*graphView;
 @property (nonatomic,strong) IBOutlet UIView *changeGroupView;

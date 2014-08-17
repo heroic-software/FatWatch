@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BRInvocationTrap : NSProxy {
-	id target;
-	id delegate;
-	SEL action;
-}
+@interface BRInvocationTrap : NSProxy
 + (id)trapInvocationsForTarget:(id)aTarget forwardingTo:(id)anObject selector:(SEL)aSelector;
 @end

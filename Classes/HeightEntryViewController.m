@@ -15,7 +15,11 @@ static const float kMaximumHeight = 3.00f;
 static const float kDefaultHeight = 1.70f;
 
 @implementation HeightEntryViewController
-
+{
+	UIPickerView *pickerView;
+	NSFormatter *formatter;
+	float increment;
+}
 
 @synthesize pickerView;
 

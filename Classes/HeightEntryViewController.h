@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HeightEntryViewController : UIViewController {
-	UIPickerView *pickerView;
-	NSFormatter *formatter;
-	float increment;
-}
+@interface HeightEntryViewController : UIViewController
 @property (nonatomic,strong) IBOutlet UIPickerView *pickerView;
 + (UIViewController *)controller;
 - (IBAction)saveAction:(id)sender;

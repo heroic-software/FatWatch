@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "BRTableValueRow.h"
 
-@interface BRRangeColorFormatter : NSObject <BRColorFormatter> {
-	float *values;
-	NSArray *colors;
-}
+@interface BRRangeColorFormatter : NSObject <BRColorFormatter>
 - (id)initWithColors:(NSArray *)colorArray forValues:(float *)valueArray;
 @end

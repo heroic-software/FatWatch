@@ -12,19 +12,7 @@
 @class BRTableSection;
 
 
-@interface BRTableRow : NSObject {
-	BRTableSection *__weak section;
-	id object;
-	UITableViewCellStyle cellStyle;
-	NSString *title;
-	NSString *detail;
-	UITextAlignment titleAlignment;
-	UIColor *titleColor;
-	UITableViewCellAccessoryType accessoryType;
-	UIView *accessoryView;
-	UITableViewCellSelectionStyle selectionStyle;
-	UIImage *image;
-}
+@interface BRTableRow : NSObject
 + (BRTableRow *)rowWithTitle:(NSString *)aTitle;
 + (BRTableRow *)rowWithObject:(id)anObject;
 @property (nonatomic) UITableViewCellStyle cellStyle;

@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CSVReader : NSObject {
-	NSData *data;
-	NSUInteger dataIndex;
-	NSNumberFormatter *floatFormatter;
-	NSStringEncoding dataEncoding;
-}
+@interface CSVReader : NSObject
 @property (nonatomic,strong) NSNumberFormatter *floatFormatter;
 @property (nonatomic,readonly) float progress;
 - (id)initWithData:(NSData *)csvData encoding:(NSStringEncoding)encoding;

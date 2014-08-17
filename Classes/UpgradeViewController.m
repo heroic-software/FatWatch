@@ -19,7 +19,12 @@
 
 
 @implementation UpgradeViewController
-
+{
+	EWDatabase *database;
+	UIActivityIndicatorView *activityView;
+	UIButton *dismissButton;
+	UILabel *titleLabel;
+}
 
 @synthesize titleLabel;
 @synthesize activityView;

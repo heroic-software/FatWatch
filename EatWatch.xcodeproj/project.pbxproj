@@ -70,17 +70,6 @@
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
-		BC67027217E6382E00B272F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC67027017E6382E00B272F5 /* InfoPlist.strings */; };
-		BC67027B17E6389700B272F5 /* BRMixedNumberFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */; };
-		BC67027C17E6389700B272F5 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEADA030DE219E70017495E /* CSVReaderTest.m */; };
-		BC67027D17E6389700B272F5 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3384010DE78303001F1052 /* DatabaseTest.m */; };
-		BC67027E17E6389700B272F5 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC910BC90E385C0F007B7941 /* EWDateTest.m */; };
-		BC67027F17E6389700B272F5 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */; };
-		BC67028017E6389700B272F5 /* EWGoalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF67C2C1111749700C923BF /* EWGoalTest.m */; };
-		BC67028117E6389700B272F5 /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */; };
-		BC67028217E63A4100B272F5 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
-		BC67028317E63A4100B272F5 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
-		BC67028417E63ABA00B272F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCEAD9E70DE219710017495E /* SenTestingKit.framework */; };
 		BC69B48B0DB86D1300E4A333 /* SlopeComputer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */; };
 		BC6A8E790FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E780FEEAAE8002F6BE9 /* EWWiFiAccessViewController.m */; };
 		BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6A8E7A0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib */; };
@@ -110,6 +99,21 @@
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
 		BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */; };
 		BC9BDF350DA9E3190004E70C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */; };
+		BCA490C419A12AAB00A52AC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA490C319A12AAB00A52AC4 /* XCTest.framework */; };
+		BCA490C519A12AAB00A52AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		BCA490C619A12AAB00A52AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		BCA490CC19A12AAB00A52AC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCA490CA19A12AAB00A52AC4 /* InfoPlist.strings */; };
+		BCA490DD19A12BDD00A52AC4 /* BRMixedNumberFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490D519A12BDD00A52AC4 /* BRMixedNumberFormatterTest.m */; };
+		BCA490DE19A12BDD00A52AC4 /* CSVReaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490D619A12BDD00A52AC4 /* CSVReaderTest.m */; };
+		BCA490DF19A12BDD00A52AC4 /* DatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490D719A12BDD00A52AC4 /* DatabaseTest.m */; };
+		BCA490E019A12BDD00A52AC4 /* EWDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490D819A12BDD00A52AC4 /* EWDateTest.m */; };
+		BCA490E119A12BDD00A52AC4 /* EWGoalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490D919A12BDD00A52AC4 /* EWGoalTest.m */; };
+		BCA490E219A12BDD00A52AC4 /* EWWeightFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490DA19A12BDD00A52AC4 /* EWWeightFormatterTest.m */; };
+		BCA490E319A12BDD00A52AC4 /* FormDataParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490DB19A12BDD00A52AC4 /* FormDataParserTest.m */; };
+		BCA490E419A12BDD00A52AC4 /* MicroWebServerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA490DC19A12BDD00A52AC4 /* MicroWebServerTest.m */; };
+		BCA490E519A12FC800A52AC4 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
+		BCA490E619A12FC800A52AC4 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
+		BCA490E719A12FC800A52AC4 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
@@ -208,14 +212,14 @@
 			);
 			script = "SOF=${DERIVED_FILES_DIR}/${INPUT_FILE_REGION_PATH_COMPONENT}${INPUT_FILE_NAME}.gz\ngzip -c -9 $INPUT_FILE_PATH > $SOF";
 		};
-		BCCD7E5F17E64E7B00621F41 /* PBXBuildRule */ = {
+		BCA490E819A1303A00A52AC4 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.sql";
 			fileType = pattern.proxy;
 			isEditable = 1;
 			outputFiles = (
-				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_REGION_PATH_COMPONENT)$(INPUT_FILE_BASE).sql0",
 			);
 			script = "source ${PROJECT_DIR}/Tools/build_rule_sql_sql0.sh";
 		};
@@ -233,7 +237,7 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		BC67027617E6382E00B272F5 /* PBXContainerItemProxy */ = {
+		BCA490D019A12AAB00A52AC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -273,7 +277,6 @@
 		BC04131610DB8024008FCB11 /* CSVExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSVExporter.m; path = Classes/CSVExporter.m; sourceTree = "<group>"; };
 		BC04131810DB804B008FCB11 /* EWExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWExporter.h; path = Classes/EWExporter.h; sourceTree = "<group>"; };
 		BC04131910DB804B008FCB11 /* EWExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWExporter.m; path = Classes/EWExporter.m; sourceTree = "<group>"; };
-		BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormDataParserTest.m; sourceTree = "<group>"; };
 		BC04150910DD8AE3008FCB11 /* MoreDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MoreDefaults.plist; sourceTree = "<group>"; };
 		BC04159810DE1656008FCB11 /* NSUserDefaults+EWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+EWAdditions.h"; sourceTree = "<group>"; };
 		BC04159910DE1656008FCB11 /* NSUserDefaults+EWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+EWAdditions.m"; sourceTree = "<group>"; };
@@ -322,7 +325,6 @@
 		BC2CBA860EC989DA002087B7 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = ../Entitlements.plist; sourceTree = "<group>"; };
 		BC2DAFCA116F83C300FC43C5 /* Lock0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock0.png; sourceTree = "<group>"; };
 		BC2DAFCB116F83C300FC43C5 /* Lock1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock1.png; sourceTree = "<group>"; };
-		BC3384010DE78303001F1052 /* DatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseTest.m; sourceTree = "<group>"; };
 		BC4722230DE368C80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importNoData.html; sourceTree = "<group>"; };
@@ -354,10 +356,6 @@
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC65EBB10DEBA5F90008E677 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC65EBBA0DEBA8FE0008E677 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/TrendSpans.plist; sourceTree = "<group>"; };
-		BC67026617E6382E00B272F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC67026F17E6382E00B272F5 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		BC67027117E6382E00B272F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC67027517E6382E00B272F5 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC69B4890DB86D1300E4A333 /* SlopeComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlopeComputer.h; path = Classes/SlopeComputer.h; sourceTree = "<group>"; };
 		BC69B48A0DB86D1300E4A333 /* SlopeComputer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlopeComputer.m; path = Classes/SlopeComputer.m; sourceTree = "<group>"; };
 		BC6A8E770FEEAAE8002F6BE9 /* EWWiFiAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWWiFiAccessViewController.h; path = Classes/EWWiFiAccessViewController.h; sourceTree = "<group>"; };
@@ -405,11 +403,23 @@
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		BC910BC90E385C0F007B7941 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
 		BC9A2E830F15B43E00A284E7 /* BRRoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRoundRectView.h; sourceTree = "<group>"; };
 		BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRoundRectView.m; sourceTree = "<group>"; };
 		BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate2.sql; sourceTree = "<group>"; };
 		BC9BDF340DA9E3190004E70C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		BCA490C219A12AAB00A52AC4 /* FatWatch Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FatWatch Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA490C319A12AAB00A52AC4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		BCA490C919A12AAB00A52AC4 /* FatWatch Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FatWatch Tests-Info.plist"; sourceTree = "<group>"; };
+		BCA490CB19A12AAB00A52AC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BCA490CF19A12AAB00A52AC4 /* FatWatch Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FatWatch Tests-Prefix.pch"; sourceTree = "<group>"; };
+		BCA490D519A12BDD00A52AC4 /* BRMixedNumberFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatterTest.m; sourceTree = "<group>"; };
+		BCA490D619A12BDD00A52AC4 /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
+		BCA490D719A12BDD00A52AC4 /* DatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseTest.m; sourceTree = "<group>"; };
+		BCA490D819A12BDD00A52AC4 /* EWDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateTest.m; sourceTree = "<group>"; };
+		BCA490D919A12BDD00A52AC4 /* EWGoalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoalTest.m; sourceTree = "<group>"; };
+		BCA490DA19A12BDD00A52AC4 /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
+		BCA490DB19A12BDD00A52AC4 /* FormDataParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormDataParserTest.m; sourceTree = "<group>"; };
+		BCA490DC19A12BDD00A52AC4 /* MicroWebServerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroWebServerTest.m; sourceTree = "<group>"; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
 		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/GraphViewController.h; sourceTree = "<group>"; };
@@ -483,13 +493,10 @@
 		BCE6082310E03E7F00819E77 /* EWImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWImporter.h; path = Classes/EWImporter.h; sourceTree = "<group>"; };
 		BCE6082410E03E7F00819E77 /* EWImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWImporter.m; path = Classes/EWImporter.m; sourceTree = "<group>"; };
 		BCEAD9E70DE219710017495E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		BCEADA030DE219E70017495E /* CSVReaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVReaderTest.m; sourceTree = "<group>"; };
 		BCEADADA0DE2A3BE0017495E /* FormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormDataParser.h; path = Classes/FormDataParser.h; sourceTree = "<group>"; };
 		BCEADADB0DE2A3BE0017495E /* FormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormDataParser.m; path = Classes/FormDataParser.m; sourceTree = "<group>"; };
 		BCEBD472136F7FA0005C1D05 /* browser-detect.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "browser-detect.js"; sourceTree = "<group>"; };
-		BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCF329740EFF629500D31E49 /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GraphView.xib; path = Interfaces/GraphView.xib; sourceTree = "<group>"; };
-		BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatterTest.m; sourceTree = "<group>"; };
 		BCF52BD510D0762E0017C3A1 /* DBUpgrade2.sql */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DBUpgrade2.sql; sourceTree = "<group>"; };
 		BCF52C0F10D0A1000017C3A1 /* DBUpgrade3.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DBUpgrade3.sql; sourceTree = "<group>"; };
 		BCF52C7110D0AE680017C3A1 /* SQLiteDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteDatabase.h; sourceTree = "<group>"; };
@@ -503,7 +510,6 @@
 		BCF678FE110D670800C923BF /* TriangleLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleLeft.png; sourceTree = "<group>"; };
 		BCF678FF110D670800C923BF /* TriangleRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleRight.png; sourceTree = "<group>"; };
 		BCF67AFE1110CA6100C923BF /* DangerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DangerBar.png; sourceTree = "<group>"; };
-		BCF67C2C1111749700C923BF /* EWGoalTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWGoalTest.m; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -524,11 +530,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC67026317E6382E00B272F5 /* Frameworks */ = {
+		BCA490BF19A12AAB00A52AC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC67028417E63ABA00B272F5 /* SenTestingKit.framework in Frameworks */,
+				BCA490C419A12AAB00A52AC4 /* XCTest.framework in Frameworks */,
+				BCA490C619A12AAB00A52AC4 /* UIKit.framework in Frameworks */,
+				BCA490C519A12AAB00A52AC4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +568,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* FatWatch.app */,
-				BC67026617E6382E00B272F5 /* UnitTests.octest */,
+				BCA490C219A12AAB00A52AC4 /* FatWatch Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -574,7 +582,7 @@
 				BCF52BD110D075BC0017C3A1 /* Resources */,
 				BC08CC0B124549D6006208A9 /* Testing */,
 				BC8DB52F1236C6840043B43A /* DerivedSources */,
-				BC67026D17E6382E00B272F5 /* UnitTests */,
+				BCA490C719A12AAB00A52AC4 /* FatWatch Tests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				BCC0D3C4147869E80080D403 /* Tools */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -643,6 +651,7 @@
 				BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				BCEAD9E70DE219710017495E /* SenTestingKit.framework */,
+				BCA490C319A12AAB00A52AC4 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -726,31 +735,6 @@
 			path = BRTables;
 			sourceTree = "<group>";
 		};
-		BC67026D17E6382E00B272F5 /* UnitTests */ = {
-			isa = PBXGroup;
-			children = (
-				BCF52B4010D068C40017C3A1 /* BRMixedNumberFormatterTest.m */,
-				BCEADA030DE219E70017495E /* CSVReaderTest.m */,
-				BC3384010DE78303001F1052 /* DatabaseTest.m */,
-				BC910BC90E385C0F007B7941 /* EWDateTest.m */,
-				BC0413B710DC4D52008FCB11 /* FormDataParserTest.m */,
-				BCF67C2C1111749700C923BF /* EWGoalTest.m */,
-				BCEF594C116AEDF0007CFCEB /* EWWeightFormatterTest.m */,
-				BC67026E17E6382E00B272F5 /* Supporting Files */,
-			);
-			path = UnitTests;
-			sourceTree = "<group>";
-		};
-		BC67026E17E6382E00B272F5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BC67026F17E6382E00B272F5 /* UnitTests-Info.plist */,
-				BC67027017E6382E00B272F5 /* InfoPlist.strings */,
-				BC67027517E6382E00B272F5 /* UnitTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		BC82AEA70E6FC7F900E2A693 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,6 +799,32 @@
 				BC0052B61159AD8A00DEE9AD /* BRActivityView.m */,
 			);
 			path = BRViews;
+			sourceTree = "<group>";
+		};
+		BCA490C719A12AAB00A52AC4 /* FatWatch Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BCA490D519A12BDD00A52AC4 /* BRMixedNumberFormatterTest.m */,
+				BCA490D619A12BDD00A52AC4 /* CSVReaderTest.m */,
+				BCA490D719A12BDD00A52AC4 /* DatabaseTest.m */,
+				BCA490D819A12BDD00A52AC4 /* EWDateTest.m */,
+				BCA490D919A12BDD00A52AC4 /* EWGoalTest.m */,
+				BCA490DA19A12BDD00A52AC4 /* EWWeightFormatterTest.m */,
+				BCA490DB19A12BDD00A52AC4 /* FormDataParserTest.m */,
+				BCA490DC19A12BDD00A52AC4 /* MicroWebServerTest.m */,
+				BCA490C819A12AAB00A52AC4 /* Supporting Files */,
+			);
+			path = "FatWatch Tests";
+			sourceTree = "<group>";
+		};
+		BCA490C819A12AAB00A52AC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BCA490C919A12AAB00A52AC4 /* FatWatch Tests-Info.plist */,
+				BCA490CA19A12AAB00A52AC4 /* InfoPlist.strings */,
+				BCA490CF19A12AAB00A52AC4 /* FatWatch Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		BCABE0470DD9372000DE580A /* Log */ = {
@@ -1053,24 +1063,24 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* FatWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BC67026517E6382E00B272F5 /* UnitTests */ = {
+		BCA490C119A12AAB00A52AC4 /* FatWatch Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC67027817E6382E00B272F5 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildConfigurationList = BCA490D219A12AAB00A52AC4 /* Build configuration list for PBXNativeTarget "FatWatch Tests" */;
 			buildPhases = (
-				BC67026217E6382E00B272F5 /* Sources */,
-				BC67026317E6382E00B272F5 /* Frameworks */,
-				BC67026417E6382E00B272F5 /* Resources */,
+				BCA490BE19A12AAB00A52AC4 /* Sources */,
+				BCA490BF19A12AAB00A52AC4 /* Frameworks */,
+				BCA490C019A12AAB00A52AC4 /* Resources */,
 			);
 			buildRules = (
-				BCCD7E5F17E64E7B00621F41 /* PBXBuildRule */,
+				BCA490E819A1303A00A52AC4 /* PBXBuildRule */,
 			);
 			dependencies = (
-				BC67027717E6382E00B272F5 /* PBXTargetDependency */,
+				BCA490D119A12AAB00A52AC4 /* PBXTargetDependency */,
 			);
-			name = UnitTests;
-			productName = UnitTests;
-			productReference = BC67026617E6382E00B272F5 /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			name = "FatWatch Tests";
+			productName = "FatWatch Tests";
+			productReference = BCA490C219A12AAB00A52AC4 /* FatWatch Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1084,7 +1094,7 @@
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = NHH27293HZ;
 					};
-					BC67026517E6382E00B272F5 = {
+					BCA490C119A12AAB00A52AC4 = {
 						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
 				};
@@ -1105,7 +1115,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* FatWatch */,
-				BC67026517E6382E00B272F5 /* UnitTests */,
+				BCA490C119A12AAB00A52AC4 /* FatWatch Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1189,13 +1199,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC67026417E6382E00B272F5 /* Resources */ = {
+		BCA490C019A12AAB00A52AC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC67027217E6382E00B272F5 /* InfoPlist.strings in Resources */,
-				BC67028317E63A4100B272F5 /* DBCreate3.sql in Resources */,
-				BC67028217E63A4100B272F5 /* DBCreate2.sql in Resources */,
+				BCA490E519A12FC800A52AC4 /* DBCreate1.sql in Resources */,
+				BCA490E619A12FC800A52AC4 /* DBCreate2.sql in Resources */,
+				BCA490E719A12FC800A52AC4 /* DBCreate3.sql in Resources */,
+				BCA490CC19A12AAB00A52AC4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,27 +1371,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC67026217E6382E00B272F5 /* Sources */ = {
+		BCA490BE19A12AAB00A52AC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC67027D17E6389700B272F5 /* DatabaseTest.m in Sources */,
-				BC67027E17E6389700B272F5 /* EWDateTest.m in Sources */,
-				BC67027F17E6389700B272F5 /* FormDataParserTest.m in Sources */,
-				BC67027B17E6389700B272F5 /* BRMixedNumberFormatterTest.m in Sources */,
-				BC67028017E6389700B272F5 /* EWGoalTest.m in Sources */,
-				BC67028117E6389700B272F5 /* EWWeightFormatterTest.m in Sources */,
-				BC67027C17E6389700B272F5 /* CSVReaderTest.m in Sources */,
+				BCA490DD19A12BDD00A52AC4 /* BRMixedNumberFormatterTest.m in Sources */,
+				BCA490E319A12BDD00A52AC4 /* FormDataParserTest.m in Sources */,
+				BCA490DF19A12BDD00A52AC4 /* DatabaseTest.m in Sources */,
+				BCA490E019A12BDD00A52AC4 /* EWDateTest.m in Sources */,
+				BCA490E419A12BDD00A52AC4 /* MicroWebServerTest.m in Sources */,
+				BCA490E119A12BDD00A52AC4 /* EWGoalTest.m in Sources */,
+				BCA490E219A12BDD00A52AC4 /* EWWeightFormatterTest.m in Sources */,
+				BCA490DE19A12BDD00A52AC4 /* CSVReaderTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BC67027717E6382E00B272F5 /* PBXTargetDependency */ = {
+		BCA490D119A12AAB00A52AC4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1D6058900D05DD3D006BFB54 /* FatWatch */;
-			targetProxy = BC67027617E6382E00B272F5 /* PBXContainerItemProxy */;
+			targetProxy = BCA490D019A12AAB00A52AC4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1449,10 +1461,10 @@
 			name = TrendSpans.plist;
 			sourceTree = "<group>";
 		};
-		BC67027017E6382E00B272F5 /* InfoPlist.strings */ = {
+		BCA490CA19A12AAB00A52AC4 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BC67027117E6382E00B272F5 /* en */,
+				BCA490CB19A12AAB00A52AC4 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1493,32 +1505,83 @@
 			};
 			name = Debug;
 		};
-		BC67027917E6382E00B272F5 /* Debug */ = {
+		BCA490D319A12AAB00A52AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FatWatch.app/FatWatch";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
-				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				GCC_PREFIX_HEADER = "FatWatch Tests/FatWatch Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "FatWatch Tests/FatWatch Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		BC67027A17E6382E00B272F5 /* Release */ = {
+		BCA490D419A12AAB00A52AC4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FatWatch.app/FatWatch";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
-				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				GCC_PREFIX_HEADER = "FatWatch Tests/FatWatch Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "FatWatch Tests/FatWatch Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1598,11 +1661,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC67027817E6382E00B272F5 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+		BCA490D219A12AAB00A52AC4 /* Build configuration list for PBXNativeTarget "FatWatch Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BC67027917E6382E00B272F5 /* Debug */,
-				BC67027A17E6382E00B272F5 /* Release */,
+				BCA490D319A12AAB00A52AC4 /* Debug */,
+				BCA490D419A12AAB00A52AC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

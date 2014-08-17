@@ -13,10 +13,7 @@
 @class EWDatabase;
 
 
-@interface YAxisView : UIView {
-	EWDatabase *database;
-	GraphViewParameters *p;
-}
+@interface YAxisView : UIView
 @property (nonatomic,strong) EWDatabase *database;
 - (void)useParameters:(GraphViewParameters *)parameters;
 @end

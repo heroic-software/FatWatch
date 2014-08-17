@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RegistrationViewController : UIViewController <UIWebViewDelegate> {
-	UIWebView *webView;
-	NSError *errorToDisplay;
-}
+@interface RegistrationViewController : UIViewController <UIWebViewDelegate>
 + (RegistrationViewController *)sharedController;
 @end
