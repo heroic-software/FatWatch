@@ -199,17 +199,25 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.tableView.tableFooterView = self.tableFooterView;
     self.navigationItem.rightBarButtonItem = self.goToBarButtonItem;
-    self.navigationItem.titleView = self.auxDisplayButton;
-    
+
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        UIButton *button = self.auxDisplayButton6;
+        self.navigationItem.titleView = button;
+        self.infoPickerController.infoTypeButton = button;
+        [self setButton:button backgroundImageNamed:@"NavButton0"
+               forState:UIControlStateNormal];
+        [self setButton:button backgroundImageNamed:@"NavButton1"
+               forState:UIControlStateHighlighted];
+    } else {
+        self.navigationItem.titleView = self.auxDisplayButton7;
+        self.infoPickerController.infoTypeButton = self.auxDisplayButton7;
+    }
+    self.auxDisplayButton6 = nil;
+    self.auxDisplayButton7 = nil;
+
 	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 								  UIViewAutoresizingFlexibleHeight);
-	
-	UIButton *button = infoPickerController.infoTypeButton;
-	[self setButton:button backgroundImageNamed:@"NavButton0"
-		   forState:UIControlStateNormal];
-	[self setButton:button backgroundImageNamed:@"NavButton1"
-		   forState:UIControlStateHighlighted];
-	
+
 	[infoPickerController setSuperview:self.tabBarController.view];
 	[datePickerController setSuperview:self.tabBarController.view];
 

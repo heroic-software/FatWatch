@@ -19,13 +19,14 @@
 
 
 @interface LogViewController : UITableViewController
-@property (nonatomic,strong) IBOutlet EWDatabase *database;
-@property (nonatomic,strong) IBOutlet LogInfoPickerController *infoPickerController;
-@property (nonatomic,strong) IBOutlet LogDatePickerController *datePickerController;
-@property (nonatomic,strong) IBOutlet UIButton *auxDisplayButton;
-@property (nonatomic,strong) IBOutlet UIBarButtonItem *goToBarButtonItem;
-@property (nonatomic,strong) IBOutlet UIView *tableHeaderView;
-@property (nonatomic,strong) IBOutlet UIView *tableFooterView;
-@property (weak, nonatomic,readonly) NSDate *currentDate;
+@property (nonatomic, strong) IBOutlet EWDatabase *database;
+@property (nonatomic, strong) IBOutlet LogInfoPickerController *infoPickerController;
+@property (nonatomic, strong) IBOutlet LogDatePickerController *datePickerController;
+@property (nonatomic, strong) IBOutlet UIButton *auxDisplayButton6;
+@property (nonatomic, strong) IBOutlet UIButton *auxDisplayButton7;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *goToBarButtonItem;
+@property (nonatomic, strong) IBOutlet UIView *tableHeaderView;
+@property (nonatomic, strong) IBOutlet UIView *tableFooterView;
+@property (nonatomic, readonly) NSDate *currentDate;
 - (void)scrollToDate:(NSDate *)date;
 @end
