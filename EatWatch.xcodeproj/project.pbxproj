@@ -47,11 +47,7 @@
 		BC200C7410F7D6F900352A32 /* importPending.html in Resources */ = {isa = PBXBuildFile; fileRef = BC4722290DE3692C0081F576 /* importPending.html */; };
 		BC200C7510F7D6F900352A32 /* importNoData.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222B0DE3692C0081F576 /* importNoData.html */; };
 		BC200C7610F7D6F900352A32 /* importAccepted.html in Resources */ = {isa = PBXBuildFile; fileRef = BC47222D0DE3692C0081F576 /* importAccepted.html */; };
-		BC24A49A0E24879D0074FD4C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BC24A4990E24879D0074FD4C /* Icon.png */; };
 		BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC24A7530E25DEAB0074FD4C /* LogEntryView.xib */; };
-		BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2806C70E3CF72600986341 /* TabIconGoal.png */; };
-		BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCA116F83C300FC43C5 /* Lock0.png */; };
-		BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2DAFCB116F83C300FC43C5 /* Lock1.png */; };
 		BC4A0ED11218E08400459C52 /* RootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4A0ED01218E08400459C52 /* RootView.xib */; };
 		BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4F25FE0EDD333A0010B5BE /* LogViewController.xib */; };
 		BC4F267B0EDE67900010B5BE /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4F267A0EDE67900010B5BE /* BRTextView.m */; };
@@ -65,8 +61,6 @@
 		BC51B9D50E3B0C0200D3B4C1 /* BRTableDatePickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */; };
 		BC5590EB0DDA41B7001EEF98 /* MicroWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC871F1A0DC7BE5A009312BA /* MicroWebServer.m */; };
 		BC59BDC111232CE400203E22 /* EWDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC59BDC011232CE400203E22 /* EWDateFormatter.m */; };
-		BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */; };
-		BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */; };
 		BC5CCFCB0D9F850A00B88515 /* LogEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */; };
 		BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBB40DEBA6140008E677 /* Localizable.strings */; };
 		BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC65EBBC0DEBA9A20008E677 /* TrendSpans.plist */; };
@@ -76,10 +70,7 @@
 		BC6A8EA00FEECB5B002F6BE9 /* BRReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A8E9F0FEECB5B002F6BE9 /* BRReachability.m */; };
 		BC6A8EAE0FEECB6A002F6BE9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */; };
 		BC6FF1AF0E774B3C000BABED /* TrendSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FF1AD0E774B3B000BABED /* TrendSpan.m */; };
-		BC73D57917E6A78B0011844B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC73D57817E6A78B0011844B /* Default-568h@2x.png */; };
 		BC749EC110E31425001E8030 /* TrendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC010E31425001E8030 /* TrendView.xib */; };
-		BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC610E31E9D001E8030 /* TriangleDown.png */; };
-		BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */ = {isa = PBXBuildFile; fileRef = BC749EC710E31E9D001E8030 /* TriangleUp.png */; };
 		BC749EEC10E33EC8001E8030 /* EWTrendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BC749EEB10E33EC8001E8030 /* EWTrendButton.m */; };
 		BC78DA2E0E51533D0094ECBD /* YAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78DA2D0E51533D0094ECBD /* YAxisView.m */; };
 		BC7D4A90136E38BD005DC3CA /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7D4A8F136E38BD005DC3CA /* ImportViewController.m */; };
@@ -94,7 +85,6 @@
 		BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5171236C5090043B43A /* jquery.js.gz */; };
 		BC8DB5DC1237179A0043B43A /* RegistrationError.htm in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5181236C5090043B43A /* RegistrationError.htm */; };
 		BC8DB5DD1237179A0043B43A /* WeightData.db in Resources */ = {isa = PBXBuildFile; fileRef = BC8DB5191236C5090043B43A /* WeightData.db */; };
-		BC909D670F16F8CC0090472C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BC909D660F16F8CC0090472C /* Default.png */; };
 		BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9108E90E36901E007B7941 /* PasscodeView.xib */; };
 		BC9108EF0E36DDBA007B7941 /* PasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */; };
 		BC9A2E850F15B43E00A284E7 /* BRRoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9A2E840F15B43E00A284E7 /* BRRoundRectView.m */; };
@@ -114,6 +104,7 @@
 		BCA490E519A12FC800A52AC4 /* DBCreate1.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */; };
 		BCA490E619A12FC800A52AC4 /* DBCreate2.sql in Resources */ = {isa = PBXBuildFile; fileRef = BC9BDEAF0DA9D19D0004E70C /* DBCreate2.sql */; };
 		BCA490E719A12FC800A52AC4 /* DBCreate3.sql in Resources */ = {isa = PBXBuildFile; fileRef = BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */; };
+		BCA490EA19A1334B00A52AC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA490E919A1334B00A52AC4 /* Images.xcassets */; };
 		BCA7D0B60D9DF88200C6B7D9 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */; };
 		BCA7D0B90D9DF8D700C6B7D9 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0B80D9DF8D700C6B7D9 /* GraphViewController.m */; };
 		BCA7D0BD0D9DF90C00C6B7D9 /* TrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0BC0D9DF90C00C6B7D9 /* TrendViewController.m */; };
@@ -122,26 +113,10 @@
 		BCB36E410ECEE7AC00AAB7DF /* HeightEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB36DFA0ECEDF3F00AAB7DF /* HeightEntryViewController.m */; };
 		BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */; };
 		BCBEE7CA11E9267B00CE86A5 /* BRPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */; };
-		BCBEE94711E9A67800CE86A5 /* TabIconGoal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */; };
-		BCBEE94811E9A67800CE86A5 /* TabIconTrend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */; };
-		BCBEE95B11E9AA5200CE86A5 /* Passcode0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */; };
-		BCBEE95D11E9AA5800CE86A5 /* Passcode1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */; };
-		BCBEE95F11E9AA6000CE86A5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */; };
-		BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */; };
-		BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */; };
-		BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE97911E9B39500CE86A5 /* Default@2x.png */; };
-		BCBEE9E811EAE5B600CE86A5 /* TriangleUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */; };
-		BCBEE9EC11EAE5C500CE86A5 /* TriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */; };
-		BCBEE9ED11EAE5C500CE86A5 /* TriangleLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */; };
-		BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */; };
-		BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */; };
-		BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */; };
 		BCC054761252A6810094B607 /* v3.test.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCC054751252A6810094B607 /* v3.test.plist */; };
 		BCC0D3EC147879CE0080D403 /* browser-detect.js in Resources */ = {isa = PBXBuildFile; fileRef = BCEBD472136F7FA0005C1D05 /* browser-detect.js */; };
 		BCC0D3ED147879DF0080D403 /* fatwatch.js in Resources */ = {isa = PBXBuildFile; fileRef = BC04126910DA0DD3008FCB11 /* fatwatch.js */; };
 		BCC0D3EE147879EC0080D403 /* fatwatch.css in Resources */ = {isa = PBXBuildFile; fileRef = BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */; };
-		BCC485D610F2700300563776 /* NavButton0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D410F2700300563776 /* NavButton0.png */; };
-		BCC485D710F2700300563776 /* NavButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCC485D510F2700300563776 /* NavButton1.png */; };
 		BCC4E6CE10D58C9E00E4C1A3 /* BRPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6CD10D58C9E00E4C1A3 /* BRPopUpViewController.m */; };
 		BCC4E6DA10D5934800E4C1A3 /* LogInfoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6D910D5934800E4C1A3 /* LogInfoPickerController.m */; };
 		BCC4E6DD10D5935E00E4C1A3 /* LogDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4E6DC10D5935E00E4C1A3 /* LogDatePickerController.m */; };
@@ -151,8 +126,6 @@
 		BCCD7E6817E65E4300621F41 /* GraphSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCD7E6717E65E4300621F41 /* GraphSegment.m */; };
 		BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCD042A011097FCA008C735C /* ImportColumns.plist */; };
 		BCD2D23710EAADD700C1117F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2D23610EAADD700C1117F /* MessageUI.framework */; };
-		BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE410EF081EC005639DD /* Passcode0.png */; };
-		BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD8BE420EF081EC005639DD /* Passcode1.png */; };
 		BCD8BE890EF088C3005639DD /* BRMixedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */; };
 		BCD8BF9D0EF0B76A005639DD /* BRRangeColorFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD8BF9C0EF0B76A005639DD /* BRRangeColorFormatter.m */; };
 		BCDFBCF510F8049A00FA0C93 /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDFBCF410F8049A00FA0C93 /* UpgradeViewController.m */; };
@@ -172,9 +145,6 @@
 		BCF52C7610D0AE680017C3A1 /* SQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7410D0AE680017C3A1 /* SQLiteStatement.m */; };
 		BCF52C7910D0AEA20017C3A1 /* EWDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */; };
 		BCF52C7C10D0AEB70017C3A1 /* EWDBMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */; };
-		BCF67900110D670800C923BF /* TriangleLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FE110D670800C923BF /* TriangleLeft.png */; };
-		BCF67901110D670800C923BF /* TriangleRight.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF678FF110D670800C923BF /* TriangleRight.png */; };
-		BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */ = {isa = PBXBuildFile; fileRef = BCF67AFE1110CA6100C923BF /* DangerBar.png */; };
 		BCFB11000E26828D0059D732 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB10FF0E26828D0059D732 /* MoreViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -317,14 +287,10 @@
 		BC14F3D21118C71700FB9A50 /* ExtractDefaults.xsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExtractDefaults.xsl; sourceTree = "<group>"; };
 		BC1F83B70DB150B800DA88E6 /* EWDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWDate.h; path = Classes/EWDate.h; sourceTree = "<group>"; };
 		BC1F83B80DB150B800DA88E6 /* EWDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWDate.m; path = Classes/EWDate.m; sourceTree = "<group>"; };
-		BC24A4990E24879D0074FD4C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		BC24A7510E25DEA60074FD4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogEntryView.xib; sourceTree = "<group>"; };
 		BC263E810DB6665E007D03F4 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphView.h; path = Classes/GraphView.h; sourceTree = "<group>"; };
 		BC263E820DB6665E007D03F4 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphView.m; path = Classes/GraphView.m; sourceTree = "<group>"; };
-		BC2806C70E3CF72600986341 /* TabIconGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconGoal.png; sourceTree = "<group>"; };
 		BC2CBA860EC989DA002087B7 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = ../Entitlements.plist; sourceTree = "<group>"; };
-		BC2DAFCA116F83C300FC43C5 /* Lock0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock0.png; sourceTree = "<group>"; };
-		BC2DAFCB116F83C300FC43C5 /* Lock1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock1.png; sourceTree = "<group>"; };
 		BC4722230DE368C80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importAccepted.html; sourceTree = "<group>"; };
 		BC4722250DE368E80081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importPending.html; sourceTree = "<group>"; };
 		BC4722270DE369010081F576 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = en.lproj/importNoData.html; sourceTree = "<group>"; };
@@ -350,8 +316,6 @@
 		BC51B9D40E3B0C0200D3B4C1 /* BRTableDatePickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTableDatePickerRow.m; sourceTree = "<group>"; };
 		BC59BDBF11232CE400203E22 /* EWDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDateFormatter.h; sourceTree = "<group>"; };
 		BC59BDC011232CE400203E22 /* EWDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDateFormatter.m; sourceTree = "<group>"; };
-		BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconLog.png; sourceTree = "<group>"; };
-		BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabIconTrend.png; sourceTree = "<group>"; };
 		BC5CCFC90D9F850A00B88515 /* LogEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogEntryViewController.h; path = Classes/LogEntryViewController.h; sourceTree = "<group>"; };
 		BC5CCFCA0D9F850A00B88515 /* LogEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogEntryViewController.m; path = Classes/LogEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BC65EBB10DEBA5F90008E677 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -366,10 +330,7 @@
 		BC6A8EAD0FEECB6A002F6BE9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC6FF1AC0E774B3B000BABED /* TrendSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrendSpan.h; path = Classes/TrendSpan.h; sourceTree = "<group>"; };
 		BC6FF1AD0E774B3B000BABED /* TrendSpan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrendSpan.m; path = Classes/TrendSpan.m; sourceTree = "<group>"; };
-		BC73D57817E6A78B0011844B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BC749EC010E31425001E8030 /* TrendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrendView.xib; path = Interfaces/TrendView.xib; sourceTree = "<group>"; };
-		BC749EC610E31E9D001E8030 /* TriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleDown.png; sourceTree = "<group>"; };
-		BC749EC710E31E9D001E8030 /* TriangleUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleUp.png; sourceTree = "<group>"; };
 		BC749EEA10E33EC8001E8030 /* EWTrendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWTrendButton.h; path = Classes/EWTrendButton.h; sourceTree = "<group>"; };
 		BC749EEB10E33EC8001E8030 /* EWTrendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWTrendButton.m; path = Classes/EWTrendButton.m; sourceTree = "<group>"; };
 		BC78DA2C0E51533D0094ECBD /* YAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YAxisView.h; path = Classes/YAxisView.h; sourceTree = "<group>"; };
@@ -399,7 +360,6 @@
 		BC8DB5191236C5090043B43A /* WeightData.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeightData.db; sourceTree = "<group>"; };
 		BC8DB5691236EE480043B43A /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugViewController.h; path = Classes/DebugViewController.h; sourceTree = "<group>"; };
 		BC8DB56A1236EE480043B43A /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugViewController.m; path = Classes/DebugViewController.m; sourceTree = "<group>"; };
-		BC909D660F16F8CC0090472C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BC9108E90E36901E007B7941 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasscodeView.xib; path = Interfaces/PasscodeView.xib; sourceTree = "<group>"; };
 		BC9108ED0E36DDBA007B7941 /* PasscodeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasscodeEntryViewController.h; path = Classes/PasscodeEntryViewController.h; sourceTree = "<group>"; };
 		BC9108EE0E36DDBA007B7941 /* PasscodeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PasscodeEntryViewController.m; path = Classes/PasscodeEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -420,6 +380,7 @@
 		BCA490DA19A12BDD00A52AC4 /* EWWeightFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWWeightFormatterTest.m; sourceTree = "<group>"; };
 		BCA490DB19A12BDD00A52AC4 /* FormDataParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormDataParserTest.m; sourceTree = "<group>"; };
 		BCA490DC19A12BDD00A52AC4 /* MicroWebServerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicroWebServerTest.m; sourceTree = "<group>"; };
+		BCA490E919A1334B00A52AC4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BCA7D0B40D9DF88200C6B7D9 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = Classes/LogViewController.h; sourceTree = "<group>"; };
 		BCA7D0B50D9DF88200C6B7D9 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LogViewController.m; path = Classes/LogViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BCA7D0B70D9DF8D700C6B7D9 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/GraphViewController.h; sourceTree = "<group>"; };
@@ -436,25 +397,9 @@
 		BCB36E0A0ECEE00D00AAB7DF /* HeightEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeightEntryView.xib; path = Interfaces/HeightEntryView.xib; sourceTree = "<group>"; };
 		BCBEE7C811E9267B00CE86A5 /* BRPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewController.h; sourceTree = "<group>"; };
 		BCBEE7C911E9267B00CE86A5 /* BRPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPickerViewController.m; sourceTree = "<group>"; };
-		BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabIconGoal@2x.png"; sourceTree = "<group>"; };
-		BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabIconTrend@2x.png"; sourceTree = "<group>"; };
-		BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Passcode0@2x.png"; sourceTree = "<group>"; };
-		BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Passcode1@2x.png"; sourceTree = "<group>"; };
-		BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton0@2x.png"; sourceTree = "<group>"; };
-		BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButton1@2x.png"; sourceTree = "<group>"; };
-		BCBEE97911E9B39500CE86A5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleUp@2x.png"; sourceTree = "<group>"; };
-		BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleDown@2x.png"; sourceTree = "<group>"; };
-		BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleLeft@2x.png"; sourceTree = "<group>"; };
-		BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TriangleRight@2x.png"; sourceTree = "<group>"; };
-		BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lock1@2x.png"; sourceTree = "<group>"; };
-		BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DangerBar@2x.png"; sourceTree = "<group>"; };
 		BCC054751252A6810094B607 /* v3.test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = v3.test.plist; sourceTree = "<group>"; };
 		BCC0D3C5147869E80080D403 /* build_rule_js_jsgz.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build_rule_js_jsgz.sh; sourceTree = "<group>"; };
 		BCC0D3C6147869E80080D403 /* jshint-driver.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jshint-driver.js"; sourceTree = "<group>"; };
-		BCC485D410F2700300563776 /* NavButton0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton0.png; sourceTree = "<group>"; };
-		BCC485D510F2700300563776 /* NavButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButton1.png; sourceTree = "<group>"; };
 		BCC4E51B10D4CC6D00E4C1A3 /* DBCreate3.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate3.sql; sourceTree = "<group>"; };
 		BCC4E54110D4D07E00E4C1A3 /* DBCreate1.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DBCreate1.sql; sourceTree = "<group>"; };
 		BCC4E6CC10D58C9E00E4C1A3 /* BRPopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPopUpViewController.h; sourceTree = "<group>"; };
@@ -472,8 +417,6 @@
 		BCD042A011097FCA008C735C /* ImportColumns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImportColumns.plist; sourceTree = "<group>"; };
 		BCD2D23610EAADD700C1117F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = fatwatch.css; sourceTree = "<group>"; };
-		BCD8BE410EF081EC005639DD /* Passcode0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Passcode0.png; sourceTree = "<group>"; };
-		BCD8BE420EF081EC005639DD /* Passcode1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Passcode1.png; sourceTree = "<group>"; };
 		BCD8BE870EF088C3005639DD /* BRMixedNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMixedNumberFormatter.h; sourceTree = "<group>"; };
 		BCD8BE880EF088C3005639DD /* BRMixedNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMixedNumberFormatter.m; sourceTree = "<group>"; };
 		BCD8BF9B0EF0B76A005639DD /* BRRangeColorFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRRangeColorFormatter.h; path = Classes/BRRangeColorFormatter.h; sourceTree = SOURCE_ROOT; };
@@ -507,9 +450,6 @@
 		BCF52C7810D0AEA20017C3A1 /* EWDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDatabase.m; sourceTree = "<group>"; };
 		BCF52C7A10D0AEB70017C3A1 /* EWDBMonth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWDBMonth.h; sourceTree = "<group>"; };
 		BCF52C7B10D0AEB70017C3A1 /* EWDBMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDBMonth.m; sourceTree = "<group>"; };
-		BCF678FE110D670800C923BF /* TriangleLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleLeft.png; sourceTree = "<group>"; };
-		BCF678FF110D670800C923BF /* TriangleRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TriangleRight.png; sourceTree = "<group>"; };
-		BCF67AFE1110CA6100C923BF /* DangerBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DangerBar.png; sourceTree = "<group>"; };
 		BCFB10FE0E26828D0059D732 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreViewController.h; path = Classes/MoreViewController.h; sourceTree = "<group>"; };
 		BCFB10FF0E26828D0059D732 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MoreViewController.m; path = Classes/MoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -576,7 +516,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				BC73D57817E6A78B0011844B /* Default-568h@2x.png */,
 				BCAEE75217E55D7800433283 /* Scratch.txt */,
 				BC08CC0A12454985006208A9 /* Code */,
 				BCF52BD110D075BC0017C3A1 /* Resources */,
@@ -599,44 +538,6 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		29B97317FDCFA39411CA2CEA /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				BCC485D410F2700300563776 /* NavButton0.png */,
-				BCBEE97111E9AF3E00CE86A5 /* NavButton0@2x.png */,
-				BCC485D510F2700300563776 /* NavButton1.png */,
-				BCBEE97311E9AF4400CE86A5 /* NavButton1@2x.png */,
-				BCD8BE410EF081EC005639DD /* Passcode0.png */,
-				BCBEE95A11E9AA5200CE86A5 /* Passcode0@2x.png */,
-				BCD8BE420EF081EC005639DD /* Passcode1.png */,
-				BCBEE95C11E9AA5800CE86A5 /* Passcode1@2x.png */,
-				BC5CB3790E27E5DA00A3B11C /* TabIconLog.png */,
-				BC5CB37B0E27E5DA00A3B11C /* TabIconTrend.png */,
-				BCBEE94611E9A67800CE86A5 /* TabIconTrend@2x.png */,
-				BC2806C70E3CF72600986341 /* TabIconGoal.png */,
-				BCBEE94511E9A67800CE86A5 /* TabIconGoal@2x.png */,
-				BC909D660F16F8CC0090472C /* Default.png */,
-				BCBEE97911E9B39500CE86A5 /* Default@2x.png */,
-				BC24A4990E24879D0074FD4C /* Icon.png */,
-				BCBEE95E11E9AA6000CE86A5 /* Icon@2x.png */,
-				BC2DAFCA116F83C300FC43C5 /* Lock0.png */,
-				BC2DAFCB116F83C300FC43C5 /* Lock1.png */,
-				BCBEE9FE11EAE7B600CE86A5 /* Lock1@2x.png */,
-				BCF67AFE1110CA6100C923BF /* DangerBar.png */,
-				BCBEEA0811EAEF3F00CE86A5 /* DangerBar@2x.png */,
-				BC749EC710E31E9D001E8030 /* TriangleUp.png */,
-				BCBEE9E711EAE5B600CE86A5 /* TriangleUp@2x.png */,
-				BC749EC610E31E9D001E8030 /* TriangleDown.png */,
-				BCBEE9E911EAE5C500CE86A5 /* TriangleDown@2x.png */,
-				BCF678FE110D670800C923BF /* TriangleLeft.png */,
-				BCBEE9EA11EAE5C500CE86A5 /* TriangleLeft@2x.png */,
-				BCF678FF110D670800C923BF /* TriangleRight.png */,
-				BCBEE9EB11EAE5C500CE86A5 /* TriangleRight@2x.png */,
-			);
-			name = Images;
-			path = ../Images;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -991,10 +892,10 @@
 		BCF52BD110D075BC0017C3A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCA490E919A1334B00A52AC4 /* Images.xcassets */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC2CBA860EC989DA002087B7 /* Entitlements.plist */,
 				BCF52BCF10D075930017C3A1 /* Localizable Resources */,
-				29B97317FDCFA39411CA2CEA /* Images */,
 				BC14F3D51118C72400FB9A50 /* Settings */,
 				BCD4C0A00FEFFF9F00E770B7 /* fatwatch.css */,
 				BC04126910DA0DD3008FCB11 /* fatwatch.js */,
@@ -1132,19 +1033,12 @@
 				BC200C6410F7D66F00352A32 /* import.html in Resources */,
 				BC65EBB50DEBA6140008E677 /* Localizable.strings in Resources */,
 				BC65EBBD0DEBA9A20008E677 /* TrendSpans.plist in Resources */,
-				BC24A49A0E24879D0074FD4C /* Icon.png in Resources */,
 				BC24A7540E25DEAB0074FD4C /* LogEntryView.xib in Resources */,
-				BC73D57917E6A78B0011844B /* Default-568h@2x.png in Resources */,
-				BC5CB37C0E27E5DA00A3B11C /* TabIconLog.png in Resources */,
-				BC5CB37E0E27E5DA00A3B11C /* TabIconTrend.png in Resources */,
+				BCA490EA19A1334B00A52AC4 /* Images.xcassets in Resources */,
 				BC9108EA0E36901E007B7941 /* PasscodeView.xib in Resources */,
-				BC2806C80E3CF72600986341 /* TabIconGoal.png in Resources */,
 				BCB36E420ECEE7AC00AAB7DF /* HeightEntryView.xib in Resources */,
 				BC4F25FF0EDD333A0010B5BE /* LogViewController.xib in Resources */,
-				BCD8BE430EF081EC005639DD /* Passcode0.png in Resources */,
-				BCD8BE440EF081EC005639DD /* Passcode1.png in Resources */,
 				BCF329750EFF629500D31E49 /* GraphView.xib in Resources */,
-				BC909D670F16F8CC0090472C /* Default.png in Resources */,
 				BC6A8E7B0FEEAAFE002F6BE9 /* EWWiFiAccessView.xib in Resources */,
 				BCF52BD610D0762E0017C3A1 /* DBUpgrade2.sql in Resources */,
 				BCF52C1010D0A1000017C3A1 /* DBUpgrade3.sql in Resources */,
@@ -1153,36 +1047,13 @@
 				BC04150A10DD8AE3008FCB11 /* MoreDefaults.plist in Resources */,
 				BCE6075210E01C0100819E77 /* RungEntryView.xib in Resources */,
 				BC749EC110E31425001E8030 /* TrendView.xib in Resources */,
-				BC749EC810E31E9D001E8030 /* TriangleDown.png in Resources */,
-				BC749EC910E31E9D001E8030 /* TriangleUp.png in Resources */,
-				BCC485D610F2700300563776 /* NavButton0.png in Resources */,
-				BCC485D710F2700300563776 /* NavButton1.png in Resources */,
 				BCDFBCFD10F813D000FA0C93 /* UpgradeView.xib in Resources */,
 				BCDFBE9F10F90F0200FA0C93 /* DBEquivDefaults.sql in Resources */,
 				BCDFBF0D10F9393000FA0C93 /* NewEquivalentView.xib in Resources */,
 				BC112E8F1101453200EAC8DA /* FlagIcons in Resources */,
 				BC112F921101981F00EAC8DA /* FlagIconView.xib in Resources */,
 				BCD042A111097FCA008C735C /* ImportColumns.plist in Resources */,
-				BCF67900110D670800C923BF /* TriangleLeft.png in Resources */,
-				BCF67901110D670800C923BF /* TriangleRight.png in Resources */,
-				BCF67AFF1110CA6200C923BF /* DangerBar.png in Resources */,
 				BC14F3CA1118C6F300FB9A50 /* Settings.bundle in Resources */,
-				BC2DAFCC116F83C300FC43C5 /* Lock0.png in Resources */,
-				BC2DAFCD116F83C300FC43C5 /* Lock1.png in Resources */,
-				BCBEE94711E9A67800CE86A5 /* TabIconGoal@2x.png in Resources */,
-				BCBEE94811E9A67800CE86A5 /* TabIconTrend@2x.png in Resources */,
-				BCBEE95B11E9AA5200CE86A5 /* Passcode0@2x.png in Resources */,
-				BCBEE95D11E9AA5800CE86A5 /* Passcode1@2x.png in Resources */,
-				BCBEE95F11E9AA6000CE86A5 /* Icon@2x.png in Resources */,
-				BCBEE97211E9AF3E00CE86A5 /* NavButton0@2x.png in Resources */,
-				BCBEE97411E9AF4400CE86A5 /* NavButton1@2x.png in Resources */,
-				BCBEE97A11E9B39500CE86A5 /* Default@2x.png in Resources */,
-				BCBEE9E811EAE5B600CE86A5 /* TriangleUp@2x.png in Resources */,
-				BCBEE9EC11EAE5C500CE86A5 /* TriangleDown@2x.png in Resources */,
-				BCBEE9ED11EAE5C500CE86A5 /* TriangleLeft@2x.png in Resources */,
-				BCBEE9EE11EAE5C500CE86A5 /* TriangleRight@2x.png in Resources */,
-				BCBEE9FF11EAE7B600CE86A5 /* Lock1@2x.png in Resources */,
-				BCBEEA0911EAEF3F00CE86A5 /* DangerBar@2x.png in Resources */,
 				BC4A0ED11218E08400459C52 /* RootView.xib in Resources */,
 				BC8DB5DA1237179A0043B43A /* Defaults.plist in Resources */,
 				BC8DB5DB1237179A0043B43A /* jquery.js.gz in Resources */,
@@ -1484,6 +1355,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = "FatWatch ∂";
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch.debug;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1611,6 +1484,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = FatWatch;
 				BUNDLE_IDENTIFIER = com.benzado.FatWatch;
 				CLANG_ENABLE_OBJC_ARC = YES;

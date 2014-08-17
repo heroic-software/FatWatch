@@ -205,9 +205,9 @@ static NSString * const kHideBadgeKey = @"LogViewControllerHideBadge";
 								  UIViewAutoresizingFlexibleHeight);
 	
 	UIButton *button = infoPickerController.infoTypeButton;
-	[self setButton:button backgroundImageNamed:@"NavButton0.png" 
+	[self setButton:button backgroundImageNamed:@"NavButton0"
 		   forState:UIControlStateNormal];
-	[self setButton:button backgroundImageNamed:@"NavButton1.png" 
+	[self setButton:button backgroundImageNamed:@"NavButton1"
 		   forState:UIControlStateHighlighted];
 	
 	[infoPickerController setSuperview:self.tabBarController.view];

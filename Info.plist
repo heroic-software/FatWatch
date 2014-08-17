@@ -36,7 +36,7 @@
 	<key>CFBundleVersion</key>
 	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>©2013 Heroic Software Inc</string>
+	<string>©2014 Heroic Software Inc</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 </dict>
