@@ -1,0 +1,25 @@
+# How to Contribute
+
+It is sadly ironic that, for so many years, FatWatch was distributed as
+proprietary software when the main audience for the software were readers
+of The Hacker's Diet. Hackers, please accept my apology.
+
+If you have made improvements to FatWatch and would like to see them made
+available in the App Store, please use GitHub to open a Pull Request. I'll
+do my best to review it promptly and, if appropriate, merge it into the
+master branch.
+
+# Copyright Assignment
+
+Because the GPL is incompatible with the Apple App Store Terms of Service,
+the only way to make FatWatch available on the App Store is by offering to
+Apple under terms separate from the GPL. As copyright holder, Heroic Software
+is able to do this.
+
+However, this situation makes it necessary for all contributors to assign
+copyright for their contributions to Heroic Software Inc.
+
+This is a less-than-ideal situation, but one that makes FatWatch available
+to as many people as possible while keeping it free. If you would rather not
+assign copyright for your changes, the GPL protects your right to distribute
+your modified version by other means.

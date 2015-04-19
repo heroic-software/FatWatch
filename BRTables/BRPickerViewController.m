@@ -1,10 +1,23 @@
-    //
-//  BRPickerViewController.m
-//  EatWatch
-//
-//  Created by Benjamin Ragheb on 7/10/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
-//
+/*
+ * BRPickerViewController.m
+ * Created by Benjamin Ragheb on 7/10/10.
+ * Copyright 2015 Heroic Software Inc
+ *
+ * This file is part of FatWatch.
+ *
+ * FatWatch is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FatWatch is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FatWatch.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #import "BRPickerViewController.h"
 #import "BRTableValueRow.h"
@@ -64,7 +77,7 @@ static const int kBRPickerViewTag = 411;
 
 - (void)loadView {
 	static const CGFloat viewHeight = 400;
-	
+
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, viewHeight)];
 	view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
 							 UIViewAutoresizingFlexibleHeight);
@@ -72,15 +85,15 @@ static const int kBRPickerViewTag = 411;
 										   green:0.165285725185f
 											blue:0.220828564889f
 										   alpha:1];
-	
+
 	UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
 	self.navigationItem.leftBarButtonItem = cancelItem;
-	
+
 	UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(doneAction:)];
 	self.navigationItem.rightBarButtonItem = doneItem;
-	
+
 	CGFloat pickerY;
-	
+
 	if (self.navigationController) {
 		pickerY = 0;
 	} else {
@@ -89,7 +102,7 @@ static const int kBRPickerViewTag = 411;
 		[view addSubview:bar];
 		pickerY = CGRectGetMaxY(bar.frame);
 	}
-	
+
 	UIView *pickerView = [self loadPickerView];
 	pickerView.tag = kBRPickerViewTag;
 	pickerView.frame = CGRectMake(0, pickerY, 320, 216);
@@ -108,7 +121,7 @@ static const int kBRPickerViewTag = 411;
 		helpLabel.text = tableRow.valueDescription;
 		[view addSubview:helpLabel];
 	}
-	
+
 	self.view = view;
 }
 
@@ -176,7 +189,7 @@ static const int kBRPickerViewTag = 411;
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)pickerRow forComponent:(NSInteger)component reusingView:(UIView *)view {
 	UILabel *label;
-	
+
 	if ([view isKindOfClass:[UILabel class]]) {
 		label = (UILabel *)view;
 	} else {
@@ -189,19 +202,19 @@ static const int kBRPickerViewTag = 411;
         label.opaque = NO;
 		label.font = [UIFont boldSystemFontOfSize:20];
 	}
-	
+
 	BRTableDatePickerRow *row = [self tableRow];
 	NSNumber *number = [self valueForPickerRow:pickerRow];
 	label.text = [row.formatter stringForObjectValue:number];
-	
+
 	if (row.textColorFormatter) {
 		label.textColor = [row.textColorFormatter colorForObjectValue:number];
     }
-	
+
 	if (row.backgroundColorFormatter) {
 		label.backgroundColor = [row.backgroundColorFormatter colorForObjectValue:number];
 	}
-	
+
 	return label;
 }
 

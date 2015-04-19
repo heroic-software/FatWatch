@@ -1,0 +1,24 @@
+Sunday, April 19, 2015
+
+Dear FatWatcher,
+
+It has been nearly five years since the last update to FatWatch. In all that time I have sincerely believed I would, eventually, get around to releasing an update. Initially, I just wanted to make improvements, such as integration with the Withings digital bathroom scale. Then, after the release of iPhone 5, any update would need to accomodate the new 4-inch display. Two years ago, Apple moved the goalposts even further by completely redesigning the iOS human interface, and doing so in a way that made it especially difficult to maintain compatibility with earlier versions of iOS.
+
+On several occasions I have sat down to work on the code, but I've never had enough time to get it fit for another App Store release. I initially developed FatWatch as an attempt to go into business for myself, but as many other independent software developers have learned, the App Store is a rough place to sell software. I took on contract work to pay my bills, leaving less time to work on FatWatch. One of those contract projects turned into a full-time job, and, especially as I get older, I find there's only so much programming I can do in a week.
+
+In all that time, I have felt incredibly guilty about neglecting all the people who are still using FatWatch and enduring all the weirdness of running an iOS 3.1-compatible app on their shiny new iOS 8 devices.
+
+A few days ago, it finally dawned on me how ironic it was that an application designed around The Hacker's Diet was not available for hackers to hack on.
+
+Therefore, I have decided to release FatWatch as free (as in freedom) software.
+
+Starting immediately, the source code to FatWatch is available to you under the terms of the GNU General Public License. If you have the time and motivation, you can download it and make all the changes I haven't. If you're willing to contribute those changes back, they can be made available in future App Store releases of FatWatch.
+
+FatWatch will continue to be sold on the App Store for $4.99 (or the equivalent in your local currency). The proceeds will be used to pay for the costs of the Apple Developer Program membership ($100/year) and the www.fatwatchapp.com website. In the (unlikely) event that it turns a profit, that money will be donated to the Free Software Foundation.
+
+What happens next is up to you. If there's enough interest, I'd like to set up a mailing list for volunteers, but only if somebody else is willing to help moderate it. If you think you might be that person, send me an email.
+
+I apologize for keeping this project to myself for so long. I hope that, as free software, it can become the useful tool it ought to be.
+
+Sincerely,
+Benjamin Ragheb <ben@benzado.com>
